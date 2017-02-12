@@ -24,5 +24,5 @@ Route::get('/input_data', function () {
     return view('admin.nonmaster.dashboard_user.index');
 });
 Route::get('/laporan', function () {
-    return view('admin.nonmaster.laporan.index');
+    return view('admin.nonmaster.laporan.ktt');
 });
