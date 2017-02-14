@@ -22,12 +22,19 @@ Route::get('/login', function () {
 Route::get('/profil', function () {
     return view('admin.nonmaster.dashboard_user.profile');
 });
+
 Route::get('/edit_profil', function () {
     return view('admin.nonmaster.dashboard_user.profile_edit');
 });
+
 Route::get('/input_data', function () {
     return view('admin.nonmaster.dashboard_user.index');
 });
+
 Route::get('/laporan', function () {
     return view('admin.nonmaster.laporan.ktt');
+});
+
+Route::get('/area', function () {
+    return view('admin.nonmaster.laporan.area');
 });
