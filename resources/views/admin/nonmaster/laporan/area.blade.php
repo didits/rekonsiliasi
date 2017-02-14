@@ -24,11 +24,11 @@
                                     <tbody>
                                         <tr>
                                         	<td>1</td>
-                                        	<td><a href="#">Rayon 112</a></td>
+                                        	<td><a href="{{url('/rayon')}}">Rayon 112</a></td>
                                         </tr>
                                         <tr>
                                         	<td>2</td>
-                                        	<td><a href="#">Rayon 113</a></td>
+                                        	<td><a href="{{url('/rayon')}}">Rayon 113</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -39,13 +39,13 @@
 
 
                     <div class="col-md-12">
-                        <div class="card card-plain">
+                        <div class="card">
                             <div class="header">
                                 <h4 class="title">Daftar GI</h4>
                                 <p class="category">Daftar GI Area XXX</p>
                             </div>
                             <div class="content table-responsive table-full-width">
-                                <table class="table table-hover">
+                                <table class="table table-hover table-striped">
                                     <thead>
                                         <th>ID</th>
                                     	<th>Nama GI</th>
@@ -61,8 +61,6 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>

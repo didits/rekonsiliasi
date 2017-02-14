@@ -38,3 +38,7 @@ Route::get('/laporan', function () {
 Route::get('/area', function () {
     return view('admin.nonmaster.laporan.area');
 });
+
+Route::get('/rayon', function () {
+    return view('admin.nonmaster.laporan.rayon');
+});
