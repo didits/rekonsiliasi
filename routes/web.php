@@ -27,6 +27,14 @@ Route::get('/edit_profil', function () {
     return view('admin.nonmaster.dashboard_user.profile_edit');
 });
 
+Route::get('/input_area', function () {
+    return view('admin.nonmaster.dashboard_user.area');
+});
+
+Route::get('/input_rayon', function () {
+    return view('admin.nonmaster.dashboard_user.rayon');
+});
+
 Route::get('/input_data', function () {
     return view('admin.nonmaster.dashboard_user.input_data');
 });
@@ -35,10 +43,14 @@ Route::get('/laporan', function () {
     return view('admin.nonmaster.laporan.ktt');
 });
 
-Route::get('/area', function () {
+Route::get('/laporan_area', function () {
     return view('admin.nonmaster.laporan.area');
 });
 
-Route::get('/rayon', function () {
+Route::get('/laporan_rayon', function () {
     return view('admin.nonmaster.laporan.rayon');
+});
+
+Route::get('/laporan_GI', function () {
+    return view('admin.nonmaster.laporan.gi');
 });

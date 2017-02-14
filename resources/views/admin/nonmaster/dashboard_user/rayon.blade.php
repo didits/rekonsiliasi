@@ -24,7 +24,7 @@
                                     <tbody>
                                         <tr>
                                         	<td>1</td>
-                                        	<td><a href="{{url('/laporan_GI')}}">GD 116</a></td>
+                                        	<td><a href="{{url('/input_data')}}">GD 116</a></td>
                                         </tr>
                                     </tbody>
                                 </table>

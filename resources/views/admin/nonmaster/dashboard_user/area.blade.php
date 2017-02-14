@@ -24,11 +24,11 @@
                                     <tbody>
                                         <tr>
                                         	<td>1</td>
-                                        	<td><a href="{{url('/laporan_rayon')}}">Rayon 112</a></td>
+                                        	<td><a href="{{url('/input_rayon')}}">Rayon 112</a></td>
                                         </tr>
                                         <tr>
                                         	<td>2</td>
-                                        	<td><a href="{{url('/laporan_rayon')}}">Rayon 113</a></td>
+                                        	<td><a href="{{url('/input_rayon')}}">Rayon 113</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -53,7 +53,7 @@
                                     <tbody>
                                         <tr>
                                         	<td>1</td>
-                                        	<td><a href="{{url('/laporan_GI')}}">GI 114</a></td>
+                                        	<td><a href="{{url('/input_data')}}">GI 114</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
