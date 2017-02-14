@@ -11,9 +11,14 @@
 |
 */
 
-Route::get('/login', function () {
+Route::get('/', function () {
     return view('admin.nonmaster.dashboard_user.index');
 });
+
+Route::get('/login', function () {
+    return view('admin.nonmaster.dashboard_user.login');
+});
+
 Route::get('/profil', function () {
     return view('admin.nonmaster.dashboard_user.profile');
 });
