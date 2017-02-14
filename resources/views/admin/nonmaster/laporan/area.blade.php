@@ -4,7 +4,7 @@
 @section('content')
 <div class="wrapper">
 @include('admin.master.navbar')
-        <div class="main-panel">
+    <div class="main-panel">
 @include('admin.master.top_navbar', ['navbartitle' => 'Area XXX'])
         <div class="content">
             <div class="container-fluid">
@@ -53,7 +53,7 @@
                                     <tbody>
                                         <tr>
                                         	<td>1</td>
-                                        	<td><a href="#">GI 114</a></td>
+                                        	<td><a href="{{url('/input_data')}}">GI 114</a></td>
                                         </tr>
                                     </tbody>
                                 </table>

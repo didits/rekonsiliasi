@@ -28,7 +28,7 @@ Route::get('/edit_profil', function () {
 });
 
 Route::get('/input_data', function () {
-    return view('admin.nonmaster.dashboard_user.index');
+    return view('admin.nonmaster.dashboard_user.input_data');
 });
 
 Route::get('/laporan', function () {
