@@ -158,8 +158,8 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4 col-xs-12" style="position: fixed;padding-right : 20px">
-                            <div class="row">
+                        <div class="col-md-4 col-xs-12">
+                            <div class="row" style="position: fixed;padding-right : 30px">
                                     <!-- Profil -->
                                 <div class="col-md-12">
                                     <div class="card card-user">
