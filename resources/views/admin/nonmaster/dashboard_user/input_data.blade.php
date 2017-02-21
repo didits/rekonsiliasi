@@ -158,7 +158,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-4 col-xs-12" style="position: fixed;padding-right : 20px">
                             <div class="row">
                                     <!-- Profil -->
                                 <div class="col-md-12">
