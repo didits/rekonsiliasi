@@ -4,8 +4,10 @@
 @section('content')
 <div class="wrapper">
 @include('admin.master.navbar')
+
     <div class="main-panel">
 @include('admin.master.top_navbar', ['navbartitle' => 'Dashboard'])
+
         <div class="content">
             <div class="container-fluid">
                             <div class="row">
