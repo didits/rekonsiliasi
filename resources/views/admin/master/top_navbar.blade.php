@@ -1,7 +1,7 @@
 @if (session('key'))
 <div class="{{ session('color') }}">{{ session('key') }}</div>
 @endif
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
