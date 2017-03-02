@@ -4,6 +4,11 @@
                 SI-ONENG
             </a>
         </div>
+        <div class="logo logo-mini">
+            <a href="{{url('/')}}" class="logo-text">
+                SO
+            </a>
+        </div>
         <div class="sidebar-wrapper">
             <ul class="nav">
                 <li>
