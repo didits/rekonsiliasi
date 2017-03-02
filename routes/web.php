@@ -54,3 +54,5 @@ Route::get('/laporan_rayon', function () {
 Route::get('/laporan_GI', function () {
     return view('admin.nonmaster.laporan.gi');
 });
+
+Route::resource('input_listrik', 'Input');

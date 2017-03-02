@@ -3,164 +3,85 @@
 
 @section('content')
 <div class="wrapper">
-@include('admin.master.navbar')
+    @include('admin.master.navbar')
     <div class="main-panel">
-@include('admin.master.top_navbar', ['navbartitle' => 'Input Data'])
+        @include('admin.master.top_navbar', ['navbartitle' => 'Input Data'])
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                        
-                    <form>
+
                         <div class="col-md-8">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="header">
-                                            <h4 class="title">LWBP1</h4>
-                                        </div>
-                                        <div class="content">
-                                            
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label>Stand Akhir</label>
-                                                        <input type="text" class="form-control" placeholder="LWBP1tandAkhir" value="">
-                                                    </div>
-                                                </div>
+                                    <form action="{{route('input_listrik.store')}}" method="post">
+                                        {{ csrf_field() }}
+                                        <div class="card">
+                                            <div class="header">
+                                                <h4 class="title">VISUAL</h4>
                                             </div>
+                                            <div class="content">
 
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label>Faktor Kali</label>
-                                                        <input type="text" class="form-control" placeholder="LWBP1StandAkhir" value="">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Stand Akhir LWBP1</label>
+                                                            <input type="text" name="lwbp1_visual" class="form-control" placeholder="" value="">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Stand Akhir LWBP2</label>
+                                                            <input type="text" name="lwbp2_visual" class="form-control" placeholder="" value="">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Stand Akhir WBP</label>
+                                                            <input type="text" name="wbp_visual" class="form-control" placeholder="" value="">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Stand Akhir KVARH</label>
+                                                            <input type="text" name="kvarh" class="form-control" placeholder="" value="">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        <div class="card">
+                                            <div class="header">
+                                                <h4 class="title">DOWNLOAD</h4>
+                                            </div>
+                                            <div class="content">
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Stand Akhir LWBP1</label>
+                                                            <input type="text" name="lwbp1_download" class="form-control" placeholder="" value="">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Stand Akhir LWBP2</label>
+                                                            <input type="text" name="lwbp2_download" class="form-control" placeholder="" value="">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Stand Akhir WBP</label>
+                                                            <input type="text" name="wbp_download" class="form-control" placeholder="" value="">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Stand Akhir KVARH</label>
+                                                            <input type="text" name="kvarh_download" class="form-control" placeholder="" value="">
+                                                        </div>
+                                                        <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-
-
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="header">
-                                            <h4 class="title">LWBP2</h4>
-                                        </div>
-                                        <div class="content">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label>Stand Akhir</label>
-                                                        <input type="text" class="form-control" placeholder="LWBP2StandAkhir" value="">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label>Faktor Kali</label>
-                                                        <input type="text" class="form-control" placeholder="LWBP2StandAkhir" value="">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="header">
-                                            <h4 class="title">WBP</h4>
-                                        </div>
-                                        <div class="content">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label>Stand Akhir</label>
-                                                        <input type="text" class="form-control" placeholder="WBPStandAkhir" value="">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label>Faktor Kali</label>
-                                                        <input type="text" class="form-control" placeholder="WBPStandAkhir" value="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="header">
-                                            <h4 class="title">KVARH</h4>
-                                        </div>
-                                        <div class="content">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label>Stand Akhir</label>
-                                                        <input type="text" class="form-control" placeholder="KVARHStandAkhir" value="">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label>Faktor Kali</label>
-                                                        <input type="text" class="form-control" placeholder="KVARHStandAkhir" value="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="header">
-                                            <h4 class="title">KW</h4>
-                                        </div>
-                                        <div class="content">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label>Stand Akhir</label>
-                                                        <input type="text" class="form-control" placeholder="KWStandAkhir" value="">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label>Faktor Kali</label>
-                                                        <input type="text" class="form-control" placeholder="KWStandAkhir" value="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                             </div>
                         </div>
 
                         <div class="col-md-4 col-xs-12">
                             <div class="row" style="position: fixed;padding-right : 30px">
-                                    <!-- Profil -->
+                                <!-- Profil -->
                                 <div class="col-md-12">
                                     <div class="card card-user">
                                         <div class="image">
@@ -203,11 +124,10 @@
                             </div>
                         </div>
                     </div>
-                </form>
             </div>
         </div>
 
-@include('admin.master.footer')
+        @include('admin.master.footer')
     </div>
 </div>
 @endsection
