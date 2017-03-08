@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Listrik extends Migration
+class OrgLis extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class Listrik extends Migration
      */
     public function up()
     {
-        Schema::create('listrik', function (Blueprint $table) {
-            $table->string('id_listrik')->unique();
-            $table->date('periode');
-            $table->string('data')->text();
-            $table->tinyInteger('tipe_listrik');
+        //org_list
+        Schema::create('org_lis', function (Blueprint $table){
+            $table->string('id_organisasi');
+            $table->string('id_listrik');
         });
     }
 
@@ -28,6 +27,6 @@ class Listrik extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('listrik');
+        Schema::dropIfExists('org_lis');
     }
 }

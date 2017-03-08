@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Listrik extends Migration
+class DataMaster extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class Listrik extends Migration
      */
     public function up()
     {
-        Schema::create('listrik', function (Blueprint $table) {
-            $table->string('id_listrik')->unique();
-            $table->date('periode');
-            $table->string('data')->text();
-            $table->tinyInteger('tipe_listrik');
+        //data master
+        Schema::create('data_master', function (Blueprint $table){
+            $table->float('faktor_kali');
+            $table->string('nomor_seri');
+            $table->string('merk');
         });
     }
 
@@ -28,6 +28,6 @@ class Listrik extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('listrik');
+        Schema::dropIfExists('data_master');
     }
 }
