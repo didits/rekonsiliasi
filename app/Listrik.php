@@ -3,11 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes; // <-- This is required
 
 class Listrik extends Model
 {
-    use SoftDeletes;
     protected $table = 'listrik';
 
     protected $fillable = [

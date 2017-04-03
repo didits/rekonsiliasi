@@ -14,7 +14,7 @@
 Route::get('/', function () {
     return view('admin.nonmaster.dashboard_user.index');
 });
-
+ 
 Route::get('/login', function () {
     return view('admin.nonmaster.dashboard_user.login');
 });
@@ -56,3 +56,8 @@ Route::get('/laporan_GI', function () {
 });
 
 Route::resource('input_listrik', 'Input');
+
+Route::match(['get'],'/listrik/list_data', [
+    'as'        => 'listrik.list_data',
+    'uses'      => 'Input@list_data'
+]);

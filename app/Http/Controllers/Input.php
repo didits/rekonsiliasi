@@ -50,7 +50,7 @@ class Input extends Controller
         $listrik->tahun_bulan = "201702";
         $listrik->tipe_listrik = "penyulang";
         $listrik->data = $data;
-        if($listrik->save)
+        if($listrik->save())
         	echo "berhasil";
         else
         	echo "gagal";
@@ -98,5 +98,12 @@ class Input extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function list_data(){
+        $data = Listrik::all();
+        return view('admin.nonmaster.listrik.list_data', [
+            'data'            => $data
+        ]); 
     }
 }

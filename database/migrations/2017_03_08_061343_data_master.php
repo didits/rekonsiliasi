@@ -18,6 +18,7 @@ class DataMaster extends Migration
             $table->float('faktor_kali');
             $table->string('nomor_seri');
             $table->string('merk');
+            $table->timestamps();
         });
     }
 

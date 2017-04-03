@@ -14,10 +14,13 @@ class Listrik extends Migration
     public function up()
     {
         Schema::create('listrik', function (Blueprint $table) {
-            $table->string('id_listrik')->unique();
-            $table->date('periode');
-            $table->string('data')->text();
-            $table->tinyInteger('tipe_listrik');
+            $table->increments('id');
+            $table->string('periode')->nullable();;
+            $table->string('id_organisasi')->nullable();;
+            $table->string('tahun_bulan')->nullable();;
+            $table->text('data');
+            $table->string('tipe_listrik')->nullable();;
+            $table->timestamps();
         });
     }
 
