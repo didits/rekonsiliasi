@@ -40,6 +40,18 @@ Route::get('/input_data/{tipe}', [
     'uses'      => 'Input@create'
 ]);
 
+Route::get('/datamaster', function () {
+    return view('admin.nonmaster.dashboard_user.datamaster');
+});
+
+Route::get('/list_datamaster', function () {
+    return view('admin.nonmaster.dashboard_user.list_datamaster');
+});
+
+Route::get('/list_datamaster_rayon', function () {
+    return view('admin.nonmaster.dashboard_user.list_datamaster_rayon');
+});
+
 Route::get('/laporan', function () {
     return view('admin.nonmaster.laporan.ktt');
 });

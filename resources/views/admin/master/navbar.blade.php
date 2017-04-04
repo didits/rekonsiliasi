@@ -13,7 +13,7 @@
             <ul class="nav">
                 <li>
                     <a data-toggle="collapse" href="#inputarea">
-                        <i class="pe-7s-user"></i>
+                        <i class="pe-7s-server"></i>
                         <p>Input Data
                             <b class="caret"></b>
                         </p>
@@ -26,14 +26,14 @@
                     </div>
                 </li>
                 <li>
-                    <a href="{{url('/input_area')}}">
-                        <i class="pe-7s-user"></i>
-                        <p>Input Data</p>
+                    <a href="{{url('/list_datamaster')}}">
+                        <i class="pe-7s-gleam"></i>
+                        <p>Data Master</p>
                     </a>
                 </li>
                 <li>
                     <a href="{{url('/laporan_area')}}">
-                        <i class="pe-7s-user"></i>
+                        <i class="pe-7s-home"></i>
                         <p>Laporan</p>
                     </a>
                 </li>

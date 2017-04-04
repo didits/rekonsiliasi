@@ -19,23 +19,23 @@
             <a class="navbar-brand" href="#">{{ isset($navbartitle) ? $navbartitle : '' }}</a>
         </div>
         <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            @if (Auth::guest())
-                            Account
-                            @else
-                            {{ Auth::user()->name }}
-                            @endif
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{url('account/profile')}}">Profile</a></li>
-                            <li class="divider"></li>
-                            <li><a href="{{url('logout')}}">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown dropdown-with-icons">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    @if (Auth::guest())
+                    Account
+                    @else
+                    {{ Auth::user()->name }}
+                    @endif
+                    <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{url('account/profile')}}">Profile</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{url('logout')}}">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
