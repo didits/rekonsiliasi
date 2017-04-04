@@ -73,7 +73,9 @@
                 </div>
             </div>
         </div>
-@include('admin.master.footer')
+
+        @include('admin.master.footer')
+
     </div>
 </div>
 @endsection

@@ -21,8 +21,8 @@
 
 
         <!--  CSS for Demo Purpose, don't include it in your project     -->
-        <link href="{{ URL::asset('dashboard/css/demo.css') }}" rel="stylesheet" />
-        <link href="{{ URL::asset('css/universal.css') }}" rel="stylesheet" />
+        {{--<link href="{{ URL::asset('dashboard/css/demo.css') }}" rel="stylesheet" />--}}
+        {{--<link href="{{ URL::asset('css/universal.css') }}" rel="stylesheet" />--}}
 
         <!--     Fonts and icons     -->
         <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -30,12 +30,14 @@
         <link href="{{ URL::asset('dashboard/css/pe-icon-7-stroke.css') }}" rel="stylesheet" />
         </head>
     <body>
-        <script src="{{ URL::asset('dashboard/js/jquery.min.js') }}" type="text/javascript"></script>
-        <script src="{{ URL::asset('dashboard/js/jquery-ui.min.js') }}" type="text/javascript"></script>
-        <script src="{{ URL::asset('dashboard/js/bootstrap.min.js') }}" type="text/javascript"></script>
+
+
         @yield('content')
+
     </body>
-        <!--   Core JS Files   -->
+
+    <script src="{{ URL::asset('dashboard/js/jquery.min.js') }}" type="text/javascript"></script>
+    <script src="{{ URL::asset('dashboard/js/jquery-ui.min.js') }}" type="text/javascript"></script>
     <script src="{{ URL::asset('dashboard/js/bootstrap.min.js') }}" type="text/javascript"></script>
 
     <!--  Checkbox, Radio & Switch Plugins -->
@@ -48,18 +50,18 @@
     <script src="{{ URL::asset('dashboard/js/bootstrap-notify.js') }}"></script>
 
     <!--  Google Maps Plugin    -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    {{--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>--}}
 
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
     <script src="{{ URL::asset('dashboard/js/light-bootstrap-dashboard.js') }}"></script>
 
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
-    <script src="{{ URL::asset('dashboard/js/demo.js') }}"></script>
+{{--    <script src="{{ URL::asset('dashboard/js/demo.js') }}"></script>--}}
 
     <script type="text/javascript">
         $(document).ready(function(){
 
-            demo.initChartist();
+//            demo.initChartist();
 
             @if (session('notification'))
                 $.notify({
