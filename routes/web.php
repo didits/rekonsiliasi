@@ -19,7 +19,7 @@ Route::get('/login', function () {
     return view('admin.nonmaster.dashboard_user.login');
 });
 
-Route::get('/profil', function () {
+Route::get('/profil', function () { 
     return view('admin.nonmaster.dashboard_user.profile');
 });
 
@@ -35,9 +35,10 @@ Route::get('/input_rayon', function () {
     return view('admin.nonmaster.dashboard_user.rayon');
 });
 
-Route::get('/input_data', function () {
-    return view('admin.nonmaster.dashboard_user.input_data');
-});
+Route::get('/input_data/{tipe}', [
+    'as'        => 'input_listrik.tambah',
+    'uses'      => 'Input@create'
+]);
 
 Route::get('/laporan', function () {
     return view('admin.nonmaster.laporan.ktt');
@@ -60,4 +61,9 @@ Route::resource('input_listrik', 'Input');
 Route::match(['get'],'/listrik/list_data', [
     'as'        => 'listrik.list_data',
     'uses'      => 'Input@list_data'
+]);
+
+Route::match(['get'],'/listrik/{id}', [
+    'as'        => 'listrik.update',
+    'uses'      => 'Input@update'
 ]);
