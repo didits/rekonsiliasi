@@ -5,7 +5,7 @@
 	<link rel="icon" type="image/png" href="http://demos.creative-tim.com/light-bootstrap-dashboard-pro/assets/img/favicon.ico">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>Light Bootstrap Dashboard PRO by Creative Tim</title>
+	<title>SI - ONENG | Dashboard - Login</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 	<meta name="viewport" content="width=device-width" />
@@ -99,7 +99,7 @@
 	<script src="{{ URL::asset('dashboard/js/jquery-jvectormap.js') }}"></script>
 
 	<!--  Google Maps Plugin    -->
-	<script src="https://maps.googleapis.com/maps/api/js"></script>
+	{{--<script src="https://maps.googleapis.com/maps/api/js"></script>--}}
 
 	<!-- Wizard Plugin    -->
 	<script src="{{ URL::asset('dashboard/js/jquery.bootstrap.wizard.min.js') }}"></script>

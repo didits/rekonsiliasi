@@ -26,7 +26,7 @@
                     </div>
                 </li>
                 <li>
-                    <a href="{{url('/input_area')}}">
+                    <a href="{{url('/list_datamaster')}}">
                         <i class="pe-7s-gleam"></i>
                         <p>Data Master</p>
                     </a>
