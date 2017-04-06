@@ -35,19 +35,20 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
-							<form method="#" action="#">
+							<form method="post" action="{{route('')}}"  >
+								{{ csrf_field() }}
 
 								<!--   if you want to have the card without animation please remove the ".card-hidden" class   -->
 								<div class="card card-hidden">
 									<div class="header text-center">Login</div>
 									<div class="content">
 										<div class="form-group">
-											<label>Email address</label>
-											<input type="username" placeholder="Username" class="form-control">
+											<label>Username</label>
+											<input type="username" placeholder="Username" name="username" class="form-control">
 										</div>
 										<div class="form-group">
 											<label>Password</label>
-											<input type="password" placeholder="Password" class="form-control">
+											<input type="password" placeholder="Password" name="password" class="form-control">
 										</div>
 									</div>
 									<div class="footer text-center">

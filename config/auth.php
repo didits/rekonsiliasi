@@ -45,6 +45,15 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
+        'organisasi' => [
+            'driver' => 'session',
+            'provider' => 'organisasi',
+        ],
+
+        'organisasi-api' => [
+            'driver' => 'token',
+            'provider' => 'organisasi',
+        ],
     ],
 
     /*
@@ -68,6 +77,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
+        ],
+
+        'organisasi' => [
+            'driver' => 'eloquent',
+            'model' => App\Organisasi::class,
         ],
 
         // 'users' => [
@@ -94,6 +108,11 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'organisasi' => [
+            'provider' => 'organisasi',
             'table' => 'password_resets',
             'expire' => 60,
         ],

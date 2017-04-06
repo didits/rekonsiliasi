@@ -11,13 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('admin.nonmaster.dashboard_user.index');
-});
- 
-Route::get('/login', function () {
-    return view('admin.nonmaster.dashboard_user.login');
-});
 
 Route::get('/profil', function () { 
     return view('admin.nonmaster.dashboard_user.profile');
@@ -79,3 +72,9 @@ Route::match(['get'],'/listrik/{id}', [
     'as'        => 'listrik.update',
     'uses'      => 'Input@update'
 ]);
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
+Route::get('/', 'HomeController@index');
+Route::get('/admin', 'HomeController@index');
+Route::get('/logout', 'HomeController@logout');

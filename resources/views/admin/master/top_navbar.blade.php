@@ -32,7 +32,10 @@
                     <ul class="dropdown-menu">
                         <li><a href="{{url('account/profile')}}">Profile</a></li>
                         <li class="divider"></li>
-                        <li><a href="{{url('logout')}}">Logout</a></li>
+                        <li>  <a href="{{ route('logout') }}">
+                                Logout
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>
