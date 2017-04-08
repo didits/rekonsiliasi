@@ -15,9 +15,10 @@ class DataMaster extends Migration
     {
         //data master
         Schema::create('data_master', function (Blueprint $table){
-            $table->float('faktor_kali');
-            $table->string('nomor_seri');
-            $table->string('merk');
+            $table->increments('id');
+            $table->string('id_organisasi');
+            $table->text('alatpengukuran');
+            $table->text('pembacaanmeter');
             $table->timestamps();
         });
     }
