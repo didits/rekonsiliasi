@@ -32,6 +32,10 @@ Route::get('/datamaster', function () {
     return view('admin.nonmaster.dashboard_user.datamaster');
 });
 
+Route::get('/pemakaiansendiri', function () {
+    return view('admin.nonmaster.dashboard_user.pemakaiansendiri');
+});
+
 Route::get('/list_datamaster', function () {
     return view('admin.nonmaster.dashboard_user.list_datamaster');
 });
