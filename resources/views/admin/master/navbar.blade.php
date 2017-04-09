@@ -11,6 +11,7 @@
         </div>
         <div class="sidebar-wrapper">
             <ul class="nav">
+            @if(Auth::user()->tipe_organisasi==3)
                 <li>
                     <a data-toggle="collapse" href="#inputarea">
                         <i class="pe-7s-server"></i>
@@ -20,23 +21,31 @@
                     </a>
                     <div class="collapse" id="inputarea">
                         <ul class="nav">
-                            <li><a href="{{url('/input_area')}}">Jual</a></li>
-                            <li><a href="{{url('/input_area')}}">Beli</a></li>
+                            <li><a href="{{route('input_listrik.tambah','jual')}}">Jual</a></li>
+                            <li><a href="{{route('input_listrik.tambah','beli')}}">Beli</a></li>
                         </ul>
                     </div>
                 </li>
+                @endif
+
+                @if(Auth::user()->tipe_organisasi==2)
                 <li>
                     <a href="{{url('/list_datamaster')}}">
                         <i class="pe-7s-gleam"></i>
                         <p>Data Master</p>
                     </a>
                 </li>
+                @endif
+
+                @if(Auth::user()->tipe_organisasi==3)
                 <li>
-                    <a href="{{url('/laporan_area')}}">
+                    <a href="{{route('listrik.list_data')}}">
                         <i class="pe-7s-home"></i>
                         <p>Laporan</p>
                     </a>
                 </li>
+                @endif
+
                 <li>
                     <a href="{{url('/profil')}}">
                         <i class="pe-7s-user"></i>

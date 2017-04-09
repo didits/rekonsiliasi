@@ -25,7 +25,7 @@
                     @if (Auth::guest())
                     Account
                     @else
-                    {{ Auth::user()->name }}
+                    {{ Auth::user()->nama_organisasi }}
                     @endif
                     <b class="caret"></b>
                     </a>

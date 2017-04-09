@@ -13,8 +13,8 @@
                         <div class="col-md-8">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form action="{{route('input_listrik.store')}}" method="post">
-                                    <input type="hidden" name="_method" value="POST">
+                                    <form action="{{route('input_listrik.update', 1)}}" method="post">
+                                    <input type="hidden" name="_method" value="PATCH">
                                     <input type="hidden" name="tipe" value="{{$tipe}}">
                                         {{ csrf_field() }}
                                         <div class="card">

@@ -28,11 +28,6 @@ Route::get('/input_rayon', function () {
     return view('admin.nonmaster.dashboard_user.rayon');
 });
 
-Route::get('/input_data/{tipe}', [
-    'as'        => 'input_listrik.tambah',
-    'uses'      => 'Input@create'
-]);
-
 Route::get('/datamaster', function () {
     return view('admin.nonmaster.dashboard_user.datamaster');
 });
@@ -63,18 +58,56 @@ Route::get('/laporan_GI', function () {
 
 Route::resource('input_listrik', 'Input');
 
-Route::match(['get'],'/listrik/list_data', [
-    'as'        => 'listrik.list_data',
-    'uses'      => 'Input@list_data'
-]);
-
-Route::match(['get'],'/listrik/{id}', [
-    'as'        => 'listrik.update',
-    'uses'      => 'Input@update'
-]);
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 Route::get('/', 'HomeController@index');
 Route::get('/admin', 'HomeController@index');
-Route::get('/logout', 'HomeController@logout');
+Route::get('/logout', 'AuthController@logout');
+
+//rayon
+Route::group(['middleware' => 'auth', 'prefix' => 'rayon'], function () {
+    Route::get('/', [
+        'as'        => 'rayon.index',
+        'uses'      => 'RayonController@index'
+    ]);
+
+    Route::get('/input_data/{tipe}', [
+        'as'        => 'input_listrik.tambah',
+        'uses'      => 'Input@create'
+    ]);
+
+    Route::match(['get'],'/listrik/list_data', [
+        'as'        => 'listrik.list_data',
+        'uses'      => 'Input@list_data'
+    ]);
+
+    Route::match(['get'],'/listrik/{id}', [
+        'as'        => 'listrik.update',
+        'uses'      => 'Input@update'
+    ]);
+});
+
+//area
+Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
+    Route::get('/', [
+        'as'        => 'area.index',
+        'uses'      => 'AreaController@index'
+    ]);
+});
+
+//distribusi
+Route::group(['middleware' => 'auth', 'prefix' => 'distribusi'], function () {
+    Route::get('/', [
+        'as'        => 'distribusi.index',
+        'uses'      => 'DistribusiController@index'
+    ]);
+});
+
+//admin
+Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
+    Route::get('/', [
+        'as'        => 'admin.index',
+        'uses'      => 'AdminController@index'
+    ]);
+});
