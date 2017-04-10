@@ -61,6 +61,7 @@ Route::get('/laporan_GI', function () {
 });
 
 Route::resource('input_listrik', 'Input');
+Route::resource('input_datamaster', 'AreaController');
 
 Auth::routes();
 
