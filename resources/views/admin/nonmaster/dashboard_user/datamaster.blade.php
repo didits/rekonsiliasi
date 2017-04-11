@@ -54,7 +54,11 @@
                                                         {{--<p class="category">Data KWH Meter</p>--}}
                                                     </div>
                                                     <div class="content">
-                                                        <form>
+                                                        <form action="{{route('input_datamaster.store')}}" method="post">
+                                                            <input type="hidden" name="_method" value="POST">
+                                                            <input type="hidden" name="tipe" value="KWH">
+                                                            {{ csrf_field() }}
+
                                                             <div class="row">
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
@@ -133,7 +137,11 @@
                                                         {{--<p class="category">Data KWH Meter</p>--}}
                                                     </div>
                                                     <div class="content">
-                                                        <form>
+                                                        <form action="{{route('input_datamaster.store')}}" method="post">
+                                                            <input type="hidden" name="_method" value="POST">
+                                                            <input type="hidden" name="tipe" value="TA">
+                                                            {{ csrf_field() }}
+
                                                             <div class="row">
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">

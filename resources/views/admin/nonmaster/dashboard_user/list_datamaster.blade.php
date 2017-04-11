@@ -49,11 +49,20 @@
                                         <thead>
                                         <th>ID</th>
                                         <th>Nama GI</th>
+                                        <th>Tindakan</th>
                                         </thead>
                                         <tbody>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="{{url('/datamaster')}}">GI 114</a></td>
+                                            <td>GI 114</td>
+                                            <td class="td-actions">
+                                                <a href="{{url('/datamaster')}}" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="Edit Data Master">
+                                                    <i class="fa fa-bolt"></i>
+                                                </a>
+                                                <a href="{{url('/pemakaiansendiri')}}" rel="tooltip" title="" class="btn btn-success btn-simple btn-xs" data-original-title="Edit Pemakaian Sendiri">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
