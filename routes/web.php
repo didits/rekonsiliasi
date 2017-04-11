@@ -110,4 +110,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
         'as'        => 'admin.index',
         'uses'      => 'AdminController@index'
     ]);
+
+    Route::get('/management_rayon', [
+        'as'        => 'admin.management_rayon',
+        'uses'      => 'AdminController@managementRayon'
+    ]);
 });
