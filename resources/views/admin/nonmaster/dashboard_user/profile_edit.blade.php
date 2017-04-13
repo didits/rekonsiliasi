@@ -1,11 +1,11 @@
 @extends('admin.master.app')
-@section('title', 'Page Title')
+@section('title', 'Edit Profil')
 
 @section('content')
 <div class="wrapper">
 @include('admin.master.navbar')
-        <div class="main-panel">
-@include('admin.master.top_navbar')
+    <div class="main-panel">
+        @include('admin.master.top_navbar', ['navbartitle' => 'Edit Profil'])
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -16,28 +16,31 @@
                                 <hr>
                             </div>
                             <div class="content">
-                                <form role="form" method="POST" action="{{ url('/account/profile_edit') }}">
+                                <form id="registerFormValidation" novalidate="" role="form" method="POST" action="{{ url('/profil') }}">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="id_user" value="{{Auth::id()}}">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Kode Organisasi</label>
-                                                <input name="name" type="text" class="form-control" value="1000" disabled="">
+                                                <input name="kode" type="text" class="form-control" value="@if (Auth::guest())kode
+                                                @else{{ Auth::user()->id_organisasi }}@endif" disabled="">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Tipe Tingkatan</label>
-                                                <input name="email" type="email" disabled class="form-control" value="Kantor Distribusi">
+                                                <label>Tipe Tingkatan</label>
+                                                <input name="tipe" type="text" disabled class="form-control" value="@if (Auth::guest())tipe
+                                                @else{{ Auth::user()->tipe_organisasi }}@endif">
                                             </div>
                                         </div>
                                     </div> 
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Daerah</label>
-                                                <input name="phone" type="text" class="form-control" value="Jawa Timur" disabled="">
+                                                <label>Daerah</label>
+                                                <input name="nama" type="text" class="form-control" value="@if (Auth::guest())nama
+                                                @else{{ Auth::user()->nama_organisasi }}@endif" disabled="">
                                             </div>
                                         </div>                                       
                                     </div>
@@ -45,21 +48,36 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Alamat</label>
-                                                <textarea name="address" rows="3" class="form-control" placeholder="" >Jalan Menur Pumpungan No. 68, Menur Pumpungan, Sukolilo, Menur Pumpungan, Sukolilo, Kota SBY, Jawa Timur 60132</textarea>
+                                                <textarea name="alamat" rows="3" class="form-control" placeholder="" >@if (Auth::guest())alamat
+                                                    @else{{ Auth::user()->alamat }}@endif</textarea>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Password</label>
-                                                <input name="name" type="password" class="form-control" value="1000">
+                                                <label class="control-label">Password</label>
+                                                <input class="form-control"
+                                                       name="password"
+                                                       id="registerPassword"
+                                                       type="password"
+                                                       required="true"
+                                                       minLength="4"
+                                                       value="1234"
+                                                />
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Konfirmasi Password</label>
-                                                <input name="email" type="password"  class="form-control" value="1000">
+                                                <label class="control-label">Konfirmasi Password</label>
+                                                <input class="form-control"
+                                                       name="password_confirmation"
+                                                       id="registerPasswordConfirmation"
+                                                       type="password"
+                                                       required="true"
+                                                       value="1234"
+                                                       equalTo="#registerPassword"
+                                                />
                                             </div>
                                         </div>
                                     </div> 
