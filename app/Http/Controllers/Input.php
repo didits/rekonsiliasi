@@ -53,7 +53,6 @@ class Input extends Controller
     }
 
     public function store(Request $request){
-
         echo $request->tipe;
         $dt = array(
                 'jual' => null,
@@ -114,6 +113,7 @@ class Input extends Controller
             else
                 echo "gagal";
 
+            $this->olah_data();
             return redirect(route('listrik.list_data'))->with('status', [
             'enabled'       => true,
             'type'          => 'success',
@@ -250,6 +250,60 @@ class Input extends Controller
     public function list_data(){
         $data = Listrik::where('id_organisasi', Auth::user()->id_organisasi)->get();
         return view('admin.nonmaster.listrik.list_data', [
+            'data'            => $data
+        ]); 
+    }
+
+    public function olah_data(){
+        $faktor_kali = 1000;
+        $awal = Listrik::select('id', 'tahun_bulan', 'data')->orderBy('id', 'desc')->limit(1)->offset(1)->where('id_organisasi',Auth::user()->id_organisasi)->first();
+        $akhir = Listrik::select('id', 'tahun_bulan', 'data')->orderBy('id', 'desc')->limit(1)->where('id_organisasi',Auth::user()->id_organisasi)->first();
+        $data_awal = json_decode($awal->data, true);
+        $data_akhir = json_decode($akhir->data, true);
+
+        $lwbp1_visual = ($data_akhir['jual']['visual']['lwbp1_visual'] - $data_awal['jual']['visual']['lwbp1_visual'])*$faktor_kali;
+        $lwbp2_visual = ($data_akhir['jual']['visual']['lwbp2_visual'] - $data_awal['jual']['visual']['lwbp2_visual'])*$faktor_kali;
+        $wbp_visual = ($data_akhir['jual']['visual']['wbp_visual'] - $data_awal['jual']['visual']['wbp_visual'])*$faktor_kali;
+        $kvarh_visual = ($data_akhir['jual']['visual']['kvarh_visual'] - $data_awal['jual']['visual']['kvarh_visual'])*$faktor_kali;
+
+        $data_visual = array(
+            'lwbp1_visual' => $lwbp1_visual,
+            'lwbp2_visual' => $lwbp2_visual,
+            'wbp_visual' => $wbp_visual,
+            'kvarh_visual' => $kvarh_visual,
+            'total_pemakaian_kwh_visual' => $lwbp1_visual + $lwbp2_visual + $wbp_visual
+        );
+
+        $lwbp1_download = ($data_akhir['jual']['download']['lwbp1_download'] - $data_awal['jual']['download']['lwbp1_download'])*$faktor_kali;
+        $lwbp2_download = ($data_akhir['jual']['download']['lwbp2_download'] - $data_awal['jual']['download']['lwbp2_download'])*$faktor_kali;
+        $wbp_download =  ($data_akhir['jual']['download']['wbp_download'] - $data_awal['jual']['download']['wbp_download'])*$faktor_kali;
+        $kvarh_download = ($data_akhir['jual']['download']['kvarh_download'] - $data_awal['jual']['download']['kvarh_download'])*$faktor_kali;
+
+        $data_download = array(
+            'lwbp1_download' => $lwbp1_download,
+            'lwbp2_download' => $lwbp2_download,
+            'wbp_download' => $wbp_download,
+            'kvarh_download' => $kvarh_download,
+            'total_pemakaian_kwh_visual' => $lwbp1_download + $lwbp2_download + $wbp_download
+
+        );
+
+        $data = array(
+                'visual' => $data_visual,
+                'download' => $data_download );
+
+        $dt = array(
+                'jual' => $data,
+                'beli' => null );
+
+        $hasil = Listrik::where('id',$akhir->id.'')->first();
+        $hasil->hasil = json_encode($dt);
+        $hasil->save();
+    }
+
+    public function hasil_pengolahan(){
+        $data = Listrik::where('id_organisasi', Auth::user()->id_organisasi)->get();
+        return view('admin.nonmaster.listrik.hasil_pengolahan', [
             'data'            => $data
         ]); 
     }

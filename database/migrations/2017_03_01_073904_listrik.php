@@ -19,6 +19,7 @@ class Listrik extends Migration
             $table->string('id_organisasi')->nullable();;
             $table->string('tahun_bulan')->nullable();;
             $table->text('data');
+            $table->text('hasil');
             $table->string('tipe_listrik')->nullable();;
             $table->timestamps();
         });

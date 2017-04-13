@@ -77,6 +77,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'rayon'], function () {
         'uses'      => 'RayonController@index'
     ]);
 
+    Route::get('/listrik/olah_data', [
+        'as'        => 'listrik.olah_data',
+        'uses'      => 'Input@olah_data'
+    ]);
+
     Route::get('/input_data/{tipe}', [
         'as'        => 'input_listrik.tambah',
         'uses'      => 'Input@create'
@@ -87,10 +92,16 @@ Route::group(['middleware' => 'auth', 'prefix' => 'rayon'], function () {
         'uses'      => 'Input@list_data'
     ]);
 
+    Route::match(['get'],'/listrik/hasil_pengolahan', [
+        'as'        => 'listrik.hasil_pengolahan',
+        'uses'      => 'Input@hasil_pengolahan'
+    ]);
+
     Route::match(['get'],'/listrik/{id}', [
         'as'        => 'listrik.update',
         'uses'      => 'Input@update'
     ]);
+
 });
 
 //area
@@ -98,6 +109,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
     Route::get('/', [
         'as'        => 'area.index',
         'uses'      => 'AreaController@index'
+    ]);
+
+    Route::get('/list_rayon', [
+        'as'        => 'area.list_rayon',
+        'uses'      => 'AreaController@list_rayon'
     ]);
 });
 

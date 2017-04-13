@@ -26,6 +26,18 @@
                         </ul>
                     </div>
                 </li>
+                <li>
+                    <a href="{{route('listrik.list_data')}}">
+                        <i class="pe-7s-home"></i>
+                        <p>Laporan</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('listrik.hasil_pengolahan')}}">
+                        <i class="pe-7s-home"></i>
+                        <p>Hasil Pengolahan</p>
+                    </a>
+                </li>
                 @endif
 
                 @if(Auth::user()->tipe_organisasi==2)
@@ -35,13 +47,10 @@
                         <p>Data Master</p>
                     </a>
                 </li>
-                @endif
-
-                @if(Auth::user()->tipe_organisasi==3)
                 <li>
-                    <a href="{{route('listrik.list_data')}}">
-                        <i class="pe-7s-home"></i>
-                        <p>Laporan</p>
+                    <a href="{{route('area.list_rayon')}}">
+                        <i class="pe-7s-gleam"></i>
+                        <p>List Rayon</p>
                     </a>
                 </li>
                 @endif

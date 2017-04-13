@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\DataMaster;
+use App\Organisasi;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -243,6 +244,12 @@ class AreaController extends Controller
 
         return view('admin.nonmaster.dashboard_user.datamaster');
 
+    }
+
+    public function list_rayon(){
+        $data = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get();
+        return view('admin.nonmaster.area.list_rayon',[
+            'data' => $data]);
     }
 
 }

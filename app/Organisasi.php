@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Organisasi extends Authenticatable
 {
     use Notifiable;
+    protected $table = 'organisasi';
     protected $guard = 'organisasi';
     /**
      * The attributes that are mass assignable.

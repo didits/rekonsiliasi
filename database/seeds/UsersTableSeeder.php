@@ -28,7 +28,7 @@ class UsersTableSeeder extends Seeder
             'tipe_organisasi' => '3',
             'nama_organisasi' => 'RAYON TAMAN',
             'nama_daerah' => 'TAMAN',
-            'alamat' => 'taman',
+            'alamat' => 'taman 1',
             'remember_token' => str_random(10),
         ]);
 
@@ -36,9 +36,39 @@ class UsersTableSeeder extends Seeder
             'id_organisasi' => '10102',
             'password' => bcrypt('1234'),
             'tipe_organisasi' => '3',
+            'nama_organisasi' => 'RAYON TAMAN',
+            'nama_daerah' => 'TAMAN',
+            'alamat' => 'taman 2',
+            'remember_token' => str_random(10),
+        ]);
+
+        DB::table('organisasi')->insert([
+            'id_organisasi' => '10103',
+            'password' => bcrypt('1234'),
+            'tipe_organisasi' => '3',
+            'nama_organisasi' => 'RAYON TAMAN',
+            'nama_daerah' => 'TAMAN',
+            'alamat' => 'taman 3',
+            'remember_token' => str_random(10),
+        ]);
+
+        DB::table('organisasi')->insert([
+            'id_organisasi' => '10104',
+            'password' => bcrypt('1234'),
+            'tipe_organisasi' => '3',
+            'nama_organisasi' => 'RAYON TAMAN',
+            'nama_daerah' => 'TAMAN',
+            'alamat' => 'taman 4',
+            'remember_token' => str_random(10),
+        ]);
+
+        DB::table('organisasi')->insert([
+            'id_organisasi' => '10105',
+            'password' => bcrypt('1234'),
+            'tipe_organisasi' => '3',
             'nama_organisasi' => 'RAYON KARANG PILANG',
             'nama_daerah' => 'KARANG PILANG',
-            'alamat' => 'taman',
+            'alamat' => 'taman 5',
             'remember_token' => str_random(10),
         ]);
 
