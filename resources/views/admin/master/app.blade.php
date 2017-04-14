@@ -40,6 +40,9 @@
     <script src="{{ URL::asset('dashboard/js/jquery-ui.min.js') }}" type="text/javascript"></script>
     <script src="{{ URL::asset('dashboard/js/bootstrap.min.js') }}" type="text/javascript"></script>
 
+    <!--  Forms Validations Plugin -->
+    <script src="{{ URL::asset('dashboard/js/jquery.validate.min.js') }}"></script>
+
     <!--  Checkbox, Radio & Switch Plugins -->
     <script src="{{ URL::asset('dashboard/js/bootstrap-checkbox-radio-switch.js') }}"></script>
 
@@ -54,6 +57,14 @@
 
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
     <script src="{{ URL::asset('dashboard/js/light-bootstrap-dashboard.js') }}"></script>
+
+    <script type="text/javascript">
+        $().ready(function(){
+
+            $('#registerFormValidation').validate();
+
+        });
+    </script>
 
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 {{--    <script src="{{ URL::asset('dashboard/js/demo.js') }}"></script>--}}
