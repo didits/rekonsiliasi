@@ -22,7 +22,7 @@ Route::get('/edit_profil', function () {
 
 Route::get('/input_area', function () {
     return view('admin.nonmaster.dashboard_user.area');
-});
+}); 
 
 Route::get('/input_rayon', function () {
     return view('admin.nonmaster.dashboard_user.rayon');
@@ -74,7 +74,7 @@ Route::get('/logout', 'AuthController@logout');
 Route::group(['middleware' => 'auth', 'prefix' => 'rayon'], function () {
     Route::get('/', [
         'as'        => 'rayon.index',
-        'uses'      => 'RayonController@index'
+        'uses'      => 'Input@list_data'
     ]);
 
     Route::get('/listrik/olah_data', [
@@ -108,7 +108,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'rayon'], function () {
 Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
     Route::get('/', [
         'as'        => 'area.index',
-        'uses'      => 'AreaController@index'
+        'uses'      => 'AreaController@list_rayon'
     ]);
 
     Route::get('/list_rayon', [

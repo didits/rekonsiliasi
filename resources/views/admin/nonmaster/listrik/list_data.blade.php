@@ -5,20 +5,19 @@
 <div class="wrapper">
     @include('admin.master.navbar')
     <div class="main-panel">
-        @include('admin.master.top_navbar', ['navbartitle' => 'Area XXX'])
+        @include('admin.master.top_navbar', ['navbartitle' => ''])
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card">
+                        <div class="card" style="overflow-x: auto;">
                             <div class="header">
-                                <h4 class="title">Daftar Rayon</h4>
-                                <p class="category">Rayon Area XXX</p>
+                                <h4 class="title">Laporan Bulanan</h4>
                             </div>
-                            <div class="content table-responsive table-full-width">
+                            <div class="content table-responsive table-full-width" >
                                 <table class="table table-hover table-striped">
                                     <thead>
-                                        <tr>
+                                        <tr> 
                                             <th rowspan="3">No</th>
                                             <th rowspan="3">Tahun</th>
                                             <th rowspan="3">Bulan</th>
@@ -51,9 +50,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($data as $list)
+                                        @foreach($data as $m => $list )
                                         <tr>
-                                        	<td>{{$list->id}}</td>
+                                        	<td>{{$m+1}}</td>
                                             <td>{{substr($list->tahun_bulan, 0,4)}}</td>
                                             <td>{{substr($list->tahun_bulan, 4,6)}}</td>
                                             <?php $m = json_decode($list->data, true) ?>

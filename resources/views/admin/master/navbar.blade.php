@@ -28,13 +28,13 @@
                 </li>
                 <li>
                     <a href="{{route('listrik.list_data')}}">
-                        <i class="pe-7s-home"></i>
+                        <i class="pe-7s-notebook"></i>
                         <p>Laporan</p>
                     </a>
                 </li>
                 <li>
                     <a href="{{route('listrik.hasil_pengolahan')}}">
-                        <i class="pe-7s-home"></i>
+                        <i class="pe-7s-notebook"></i>
                         <p>Hasil Pengolahan</p>
                     </a>
                 </li>
