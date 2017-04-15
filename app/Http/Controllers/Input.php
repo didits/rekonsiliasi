@@ -25,9 +25,13 @@ class Input extends Controller
      */
     public function create($tipe)
     {
+        $data_listrik = Listrik::where('tahun_bulan', date('Ym'))->where('id_organisasi', Auth::user()->id_organisasi)->first();
+        $data = json_decode($data_listrik->data, true);
+                
         return view('admin.nonmaster.dashboard_user.input_data', [
-            'tipe' => $tipe
-            ]);
+            'tipe' => $tipe] , [
+            'data' => $data
+            ] );
     }
 
     /**
