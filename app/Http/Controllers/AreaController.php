@@ -241,9 +241,11 @@ class AreaController extends Controller
 
             if($data_master->save());
         }
-
-        return view('admin.nonmaster.dashboard_user.datamaster');
-
+        $data = DataMaster::where('id_organisasi', Auth::user()->id_organisasi)->first();
+        $decoded = json_decode($data->alatpengukuran, true);
+//        return redirect('admin.nonmaster.dashboard_user.datamaster');
+        return view('admin.nonmaster.dashboard_user.datamaster',[
+            'data' => $decoded]);
     }
 
     public function list_rayon(){
@@ -251,10 +253,21 @@ class AreaController extends Controller
         return view('admin.nonmaster.area.list_rayon',[
             'data' => $data]);
     }
-    
+
     public function profil()
     {
         return view('admin.nonmaster.dashboard_user.profile');
     }
 
+    public function pemakaiansendiri()
+    {
+        return view('admin.nonmaster.dashboard_user.pemakaiansendiri');
+    }
+    public function datamaster()
+    {
+        $data = DataMaster::where('id_organisasi', Auth::user()->id_organisasi)->first();
+        $decoded = json_decode($data->alatpengukuran, true);
+        return view('admin.nonmaster.dashboard_user.datamaster',[
+            'data' => $decoded]);
+    }
 }

@@ -79,12 +79,11 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-
                                                             <div class="row">
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Merk</label>
-                                                                        <input type="text" name="merk" class="form-control" placeholder="Merk" value="Merk XXX">
+                                                                        <input type="text" name="merk" class="form-control" placeholder="Merk" value="{{$data['KWH']['merk']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -93,7 +92,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Nomor Seri</label>
-                                                                        <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="000">
+                                                                        <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="{{$data['KWH']['nomorseri']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -102,7 +101,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Konstanta</label>
-                                                                        <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="000">
+                                                                        <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="{{$data['KWH']['konstanta']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -111,7 +110,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Tegangan Arus</label>
-                                                                        <input type="number" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="000">
+                                                                        <input type="number" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{$data['KWH']['teganganarus']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -167,7 +166,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Ratio</label>
-                                                                        <input type="number" name="ratioct" class="form-control" placeholder="Ratio" value="Merk XXX">
+                                                                        <input type="number" name="ratioct" class="form-control" placeholder="Ratio" value="{{$data['TA']['ratioct']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -176,7 +175,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Burden (VA)</label>
-                                                                        <input type="number" name="burdenct" class="form-control" placeholder="Burden (VA)" value="000">
+                                                                        <input type="number" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{$data['TA']['burdenct']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -202,7 +201,10 @@
                                                         {{--<p class="category">Data KWH Meter</p>--}}
                                                     </div>
                                                     <div class="content">
-                                                        <form>
+                                                        <form action="{{route('input_datamaster.store')}}" method="post">
+                                                            <input type="hidden" name="_method" value="POST">
+                                                            <input type="hidden" name="tipe" value="TT">
+                                                            {{ csrf_field() }}
                                                             <div class="row">
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
@@ -228,7 +230,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Ratio</label>
-                                                                        <input type="number" name="ratiopt" class="form-control" placeholder="Ratio" value="000">
+                                                                        <input type="number" name="ratiopt" class="form-control" placeholder="Ratio" value="{{$data['TT']['ratiopt']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -237,7 +239,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Burden (VA)</label>
-                                                                        <input type="number" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="000">
+                                                                        <input type="number" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{$data['TT']['burdenpt']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -262,7 +264,10 @@
                                                         {{--<p class="category">Data KWH Meter</p>--}}
                                                     </div>
                                                     <div class="content">
-                                                        <form>
+                                                        <form action="{{route('input_datamaster.store')}}" method="post">
+                                                            <input type="hidden" name="_method" value="POST">
+                                                            <input type="hidden" name="tipe" value="FK">
+                                                            {{ csrf_field() }}
                                                             <div class="row">
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
@@ -288,7 +293,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Faktor Kali Meter</label>
-                                                                        <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="000">
+                                                                        <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{$data['FK']['faktorkali']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>

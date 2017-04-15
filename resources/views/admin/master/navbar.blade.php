@@ -38,19 +38,41 @@
                         <p>Hasil Pengolahan</p>
                     </a>
                 </li>
+                <li>
+                    <a href="{{route('rayon.profil')}}">
+                        <i class="pe-7s-user"></i>
+                        <p>Profile</p>
+                    </a>
+                </li>
                 @endif
 
                 @if(Auth::user()->tipe_organisasi==2)
                 <li>
-                    <a href="{{url('/list_datamaster')}}">
+                    <a data-toggle="collapse" href="#datamaster">
                         <i class="pe-7s-gleam"></i>
-                        <p>Data Master</p>
+                        <p>Data Master
+                            <b class="caret"></b>
+                        </p>
                     </a>
+                    <div class="collapse" id="datamaster">
+                        <ul class="nav">
+                            <li><a href="{{route('area.datamaster')}}">Alat Pengukuran</a></li>
+                            <li><a href="{{route('area.datamaster')}}">Pembacaan Meter</a></li>
+                        </ul>
+                    </div>
                 </li>
+
+
                 <li>
                     <a href="{{route('area.list_rayon')}}">
                         <i class="pe-7s-gleam"></i>
                         <p>List Rayon</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('area.profil')}}">
+                        <i class="pe-7s-user"></i>
+                        <p>Profile</p>
                     </a>
                 </li>
                 @endif
@@ -63,23 +85,7 @@
                     </a>
                 </li>
                 @endif
-                @if(Auth::user()->tipe_organisasi==3)
-                    <li>
-                        <a href="{{url('/rayon/profil')}}">
-                            <i class="pe-7s-user"></i>
-                            <p>Profile</p>
-                        </a>
-                    </li>
-                @endif
 
-                @if(Auth::user()->tipe_organisasi==2)
-                    <li>
-                        <a href="{{url('/area/profil')}}">
-                            <i class="pe-7s-user"></i>
-                            <p>Profile</p>
-                        </a>
-                    </li>
-                @endif
 
             </ul>
         </div>

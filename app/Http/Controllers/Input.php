@@ -52,60 +52,122 @@ class Input extends Controller
         //
     }
 
-    public function store(Request $request){
-        echo $request->tipe;
-        $dt = array(
-                'jual' => null,
-                'beli' => null );
-        $data_visual = array(
+    public function store(Request $request)
+    {
+//        echo $request->tipe;
+        $data_listrik = Listrik::where('tahun_bulan', date('Ym'))->where('id_organisasi', Auth::user()->id_organisasi)->first();
+
+        $input_visual = array(
             'lwbp1_visual' => $request->lwbp1_visual,
             'lwbp2_visual' => $request->lwbp2_visual,
             'wbp_visual' => $request->wbp_visual,
             'kvarh_visual' => $request->kvarh_visual
         );
 
-        $data_download = array(
+        $input_download = array(
             'lwbp1_download' => $request->lwbp1_download,
             'lwbp2_download' => $request->lwbp2_download,
             'wbp_download' => $request->wbp_download,
             'kvarh_download' => $request->kvarh_download
         );
-//            $data_visual = array(
-//                'lwbp1_visual' => null,
-//                'lwbp2_visual' => null,
-//                'wbp_visual' => null,
-//                'kvarh_visual' => null
-//             );
-//
-//            $data_download = array(
-//                'lwbp1_download' => null,
-//                'lwbp2_download' => null,
-//                'wbp_download' => null,
-//                'kvarh_download' => null
-//            );
 
-            $data = array(
-                'visual' => $data_visual,
-                'download' => $data_download );
+        if ($data_listrik) {
+            if ($request->tipe == 'jual') {
+                $data = json_decode($data_listrik->data, true);
+
+                $data_visual = array(
+                    'lwbp1_visual' => $data['beli']['visual']['lwbp1_visual'],
+                    'lwbp2_visual' => $data['beli']['visual']['lwbp2_visual'],
+                    'wbp_visual' => $data['beli']['visual']['wbp_visual'],
+                    'kvarh_visual' => $data['beli']['visual']['kvarh_visual']
+                );
+
+                $data_download = array(
+                    'lwbp1_download' => $data['beli']['download']['lwbp1_download'],
+                    'lwbp2_download' => $data['beli']['download']['lwbp2_download'],
+                    'wbp_download' => $data['beli']['download']['wbp_download'],
+                    'kvarh_download' => $data['beli']['download']['kvarh_download']
+                );
+                $data_beli = array(
+                    'visual' => $data_visual,
+                    'download' => $data_download);
+
+                $data_jual = array(
+                    'visual' => $input_visual,
+                    'download' => $input_download);
+
+            }
+            elseif ($request->tipe == 'beli') {
+
+                $data = json_decode($data_listrik->data, true);
+                $data_visual = array(
+                    'lwbp1_visual' => $data['jual']['visual']['wbp1_visual'],
+                    'lwbp2_visual' => $data['jual']['visual']['lwbp2_visual'],
+                    'wbp_visual' => $data['jual']['visual']['wbp_visual'],
+                    'kvarh_visual' => $data['jual']['visual']['kvarh_visual']
+                );
+
+                $data_download = array(
+                    'lwbp1_download' => $data['jual']['download']['wbp1_download'],
+                    'lwbp2_download' => $data['jual']['download']['lwbp2_download'],
+                    'wbp_download' => $data['jual']['download']['wbp_download'],
+                    'kvarh_download' => $data['jual']['download']['kvarh_download']
+                );
+                $data_jual = array(
+                    'visual' => $data_visual,
+                    'download' => $data_download);
+                $data_beli = array(
+                    'visual' => $input_visual,
+                    'download' => $input_download);
+
+            }
 
             $dt = array(
-                'jual' => $data,
-                'beli' => $data );
+                'jual' => $data_jual,
+                'beli' => $data_beli);
 
+            $data_listrik->data = json_encode($dt);
+            if ($data_listrik->save()) ;
+        }
+        else {
+            $data_visual = array(
+                'lwbp1_visual' => null,
+                'lwbp2_visual' => null,
+                'wbp_visual' => null,
+                'kvarh_visual' => null
+            );
 
-//            $data = array(
-//                'visual' => $data_visual,
-//                'download' => $data_download );
+            $data_download = array(
+                'lwbp1_download' => null,
+                'lwbp2_download' => null,
+                'wbp_download' => null,
+                'kvarh_download' => null
+            );
+            if ($request->tipe == 'jual') {
+                $data_beli = array(
+                    'visual' => $data_visual,
+                    'download' => $data_download);
 
-            if($request->tipe == 'jual'){
-                $dt['jual'] = $data;
-            }else if($request->tipe == 'beli'){
-                $dt['beli'] = $data;
+                $data_jual = array(
+                    'visual' => $input_visual,
+                    'download' => $input_download);
             }
+            else {
+                $data_jual = array(
+                    'visual' => $data_visual,
+                    'download' => $data_download);
+
+                $data_beli = array(
+                    'visual' => $input_visual,
+                    'download' => $input_download);
+            }
+            $dt = array(
+                'jual' => $data_jual,
+                'beli' => $data_beli);
 
             $listrik = new Listrik;
             $listrik->id_organisasi = Auth::user()->id_organisasi;
-            $listrik->tahun_bulan = "201702";
+            $listrik->tahun_bulan = date('Ym');
             $listrik->tipe_listrik = Auth::user()->tipe_organisasi;
             $listrik->data = json_encode($dt);
             if($listrik->save())
@@ -114,11 +176,13 @@ class Input extends Controller
                 echo "gagal";
 
             $this->olah_data();
-            return redirect(route('listrik.list_data'))->with('status', [
+        }
+        return redirect(route('listrik.list_data'))->with('status', [
             'enabled'       => true,
             'type'          => 'success',
             'content'       => 'Berhasil login!'
-            ]);
+        ]);
+
     }
 
     /**
@@ -184,7 +248,7 @@ class Input extends Controller
 //
 //            $listrik = new Listrik;
 //            $listrik->id_organisasi = Auth::user()->id_organisasi;
-//            $listrik->tahun_bulan = "201702";
+//            $listrik->tahun_bulan = date('Ym');
 //            $listrik->tipe_listrik = Auth::user()->tipe_organisasi;
 //            $listrik->data = json_encode($dt);
 //            if($listrik->save())
@@ -234,6 +298,11 @@ class Input extends Controller
 //            'type'          => 'success',
 //            'content'       => 'Berhasil login!'
 //            ]);
+        $data = Listrik::where('id_organisasi', Auth::user()->id_organisasi)->get();
+        return view('admin.nonmaster.listrik.hasil_pengolahan', [
+            'data'            => $data
+        ]);
+
     }
 
     /**

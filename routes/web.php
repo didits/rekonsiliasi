@@ -28,17 +28,17 @@ Route::get('/input_rayon', function () {
     return view('admin.nonmaster.dashboard_user.rayon');
 });
 
-Route::get('/datamaster', function () {
-    return view('admin.nonmaster.dashboard_user.datamaster');
-});
+//Route::get('/datamaster', function () {
+//    return view('admin.nonmaster.dashboard_user.datamaster');
+//});
 
 Route::get('/pemakaiansendiri', function () {
     return view('admin.nonmaster.dashboard_user.pemakaiansendiri');
 });
 
-Route::get('/list_datamaster', function () {
-    return view('admin.nonmaster.dashboard_user.list_datamaster');
-});
+//Route::get('/list_datamaster', function () {
+//    return view('admin.nonmaster.dashboard_user.list_datamaster');
+//});
 
 Route::get('/list_datamaster_rayon', function () {
     return view('admin.nonmaster.dashboard_user.list_datamaster_rayon');
@@ -121,6 +121,16 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
     Route::get('/profil', [
         'as'        => 'area.profil',
         'uses'      => 'AreaController@profil'
+    ]);
+
+    Route::get('/datamaster', [
+        'as'        => 'area.datamaster',
+        'uses'      => 'AreaController@datamaster'
+    ]);
+
+    Route::get('/pemakaiansendiri', [
+        'as'        => 'area.pemakaiansendiri',
+        'uses'      => 'AreaController@pemakaiansendiri'
     ]);
 
     Route::get('/list_rayon', [
