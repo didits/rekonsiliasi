@@ -63,13 +63,24 @@
                     </a>
                 </li>
                 @endif
+                @if(Auth::user()->tipe_organisasi==3)
+                    <li>
+                        <a href="{{url('/rayon/profil')}}">
+                            <i class="pe-7s-user"></i>
+                            <p>Profile</p>
+                        </a>
+                    </li>
+                @endif
 
-                <li>
-                    <a href="{{url('/profil')}}">
-                        <i class="pe-7s-user"></i>
-                        <p>Profile</p>
-                    </a>
-                </li>
+                @if(Auth::user()->tipe_organisasi==2)
+                    <li>
+                        <a href="{{url('/area/profil')}}">
+                            <i class="pe-7s-user"></i>
+                            <p>Profile</p>
+                        </a>
+                    </li>
+                @endif
+
             </ul>
         </div>
     </div>

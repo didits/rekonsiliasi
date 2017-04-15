@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Organisasi;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -23,6 +24,11 @@ class RayonController extends Controller
 
     public function index()
     {
-         return view('admin.nonmaster.dashboard_user.index');
+        return view('admin.nonmaster.dashboard_user.index');
+    }
+
+    public function profil()
+    {
+        return view('admin.nonmaster.dashboard_user.profile');
     }
 }

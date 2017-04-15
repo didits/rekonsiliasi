@@ -72,9 +72,15 @@ Route::get('/logout', 'AuthController@logout');
 
 //rayon
 Route::group(['middleware' => 'auth', 'prefix' => 'rayon'], function () {
+
     Route::get('/', [
         'as'        => 'rayon.index',
         'uses'      => 'Input@list_data'
+    ]);
+
+    Route::get('/profil', [
+        'as'        => 'rayon.profil',
+        'uses'      => 'RayonController@profil'
     ]);
 
     Route::get('/listrik/olah_data', [
@@ -106,9 +112,15 @@ Route::group(['middleware' => 'auth', 'prefix' => 'rayon'], function () {
 
 //area
 Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
+
     Route::get('/', [
         'as'        => 'area.index',
         'uses'      => 'AreaController@list_rayon'
+    ]);
+
+    Route::get('/profil', [
+        'as'        => 'area.profil',
+        'uses'      => 'AreaController@profil'
     ]);
 
     Route::get('/list_rayon', [

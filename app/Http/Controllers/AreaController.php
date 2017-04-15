@@ -251,5 +251,10 @@ class AreaController extends Controller
         return view('admin.nonmaster.area.list_rayon',[
             'data' => $data]);
     }
+    
+    public function profil()
+    {
+        return view('admin.nonmaster.dashboard_user.profile');
+    }
 
 }
