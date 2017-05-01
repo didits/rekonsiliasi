@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Listrik extends Migration
+class CreatePenyimpananPenyulangsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class Listrik extends Migration
      */
     public function up()
     {
-        Schema::create('listrik', function (Blueprint $table) {
+        Schema::create('penyimpanan_penyulang', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('periode')->nullable();;
-            $table->string('id_organisasi')->nullable();;
-            $table->string('tahun_bulan')->nullable();;
+            $table->string('periode');
+            $table->integer('id_penyulang')->unsigned();
             $table->text('data');
-            $table->text('hasil');
-            $table->string('tipe_listrik')->nullable();;
             $table->timestamps();
+            $table->foreign('id_penyulang')
+              ->references('id')->on('penyulang');
         });
     }
 
@@ -32,6 +31,6 @@ class Listrik extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('listrik');
+        Schema::dropIfExists('penyimpanan_penyulang');
     }
 }
