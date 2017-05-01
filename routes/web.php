@@ -75,7 +75,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'rayon'], function () {
 
     Route::get('/', [
         'as'        => 'rayon.index',
-        'uses'      => 'Input@list_data'
+//        'uses'      => 'Input@list_data'
+        'uses'      => 'AreaController@index'
     ]);
 
     Route::get('/profil', [
