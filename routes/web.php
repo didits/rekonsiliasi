@@ -28,17 +28,17 @@ Route::get('/input_rayon', function () {
     return view('admin.nonmaster.dashboard_user.rayon');
 });
 
-//Route::get('/datamaster', function () {
-//    return view('admin.nonmaster.dashboard_user.datamaster');
-//});
+Route::get('/datamaster', function () {
+    return view('admin.nonmaster.dashboard_user.datamaster_dummy');
+});
 
 Route::get('/pemakaiansendiri', function () {
     return view('admin.nonmaster.dashboard_user.pemakaiansendiri');
 });
 
-//Route::get('/list_datamaster', function () {
-//    return view('admin.nonmaster.dashboard_user.list_datamaster');
-//});
+Route::get('/list_datamaster', function () {
+    return view('admin.nonmaster.dashboard_user.list_datamaster');
+});
 
 Route::get('/list_datamaster_rayon', function () {
     return view('admin.nonmaster.dashboard_user.list_datamaster_rayon');
