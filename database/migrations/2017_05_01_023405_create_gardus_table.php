@@ -17,6 +17,7 @@ class CreateGardusTable extends Migration
             $table->increments('id');
             $table->string('id_organisasi');
             $table->text('data_master');
+            $table->string('nama_gardu');
             $table->timestamps();
             });
     }

@@ -20,32 +20,14 @@
                                         <thead>
                                         <th>ID RAYON</th>
                                         <th>RAYON</th>
-                                        <th>DAERAH</th>
-                                        <th>#HILANG#</th>
                                         </thead>
                                         <tbody>
-                                        {{--@foreach($data as $list)--}}
-                                            {{--<tr>--}}
-                                                {{--<td>{{$list->id_organisasi}}</td>--}}
-                                                {{--<td><a href="{{url('/laporan_rayon')}}">{{$list->nama_organisasi}}</a></td>--}}
-                                                {{--<td>{{$list->nama_daerah}}</td>--}}
-                                                {{--<td>--}}
-                                                    {{--<a href="{{route('area.datamaster')}}" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="Edit Data Master">--}}
-                                                        {{--<i class="fa fa-bolt"></i>--}}
-                                                    {{--</a>--}}
-                                                    {{--<a href="{{route('area.pemakaiansendiri')}}" rel="tooltip" title="" class="btn btn-success btn-simple btn-xs" data-original-title="Edit Pemakaian Sendiri">--}}
-                                                        {{--<i class="fa fa-edit"></i>--}}
-                                                    {{--</a>--}}
-                                                {{--</td>--}}
-                                            {{--</tr>--}}
-                                        {{--@endforeach--}}
+                                        @foreach($data as $list)
                                         <tr>
-                                            <td>10100</td>
-                                            <td>
-                                                <a href="{{url('/list_datamaster_rayon')}}">Sukolilo</a>
-                                            </td>
-                                            <td>Sukolilo</td>
+                                            <td>{{$list->id_organisasi}}</td>
+                                            <td><a href="{{route('area.list_gardu', $list->id_organisasi)}}">{{$list->nama_organisasi}}</a></td>
                                         </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
 

@@ -5,9 +5,10 @@ use App\DataMaster;
 use App\Organisasi;
 use Auth;
 use Illuminate\Http\Request;
+use App\Gardu;
 
 class AreaController extends Controller
-{
+{ 
     protected $id_role;
     public function __construct()
     {
@@ -268,8 +269,15 @@ class AreaController extends Controller
 
     public function list_rayon(){
         $data = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get();
-        return view('admin.nonmaster.area.list_rayon',[
+        return view('admin.nonmaster.dashboard_user.list_datamaster',[
             'data' => $data]);
+    }
+
+    public function list_gardu($id_rayon){
+        $data = Gardu::where('id_organisasi', $id_rayon)->get();
+        return view('admin.nonmaster.dashboard_user.list_datamaster_rayon',[
+            'data' =>$data
+            ]);
     }
 
     public function profil()

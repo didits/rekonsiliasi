@@ -61,21 +61,13 @@
                 @endif
 
                 @if(Auth::user()->tipe_organisasi==2)
-                <li>
-                    <a data-toggle="collapse" href="#datamaster">
-                        <i class="pe-7s-gleam"></i>
-                        <p>Data Master
-                            <b class="caret"></b>
-                        </p>
-                    </a>
-                    <div class="collapse" id="datamaster">
-                        <ul class="nav">
-                            <li><a href="{{route('area.datamaster')}}">Alat Pengukuran</a></li>
-                            <li><a href="{{route('area.pemakaiansendiri')}}">Pembacaan Meter</a></li>
-                        </ul>
-                    </div>
-                </li>
 
+                <li>
+                    <a href="{{ url('/') }}">
+                        <i class="pe-7s-gleam"></i>
+                        <p>Data Master</p>
+                    </a>
+                </li>
 
                 <li>
                     <a href="{{route('area.list_rayon')}}">
@@ -84,12 +76,6 @@
                     </a>
                 </li>
 
-                <li>
-                    <a href="{{ url('/list_datamaster') }}">
-                        <i class="pe-7s-gleam"></i>
-                        <p>Data Master</p>
-                    </a>
-                </li>
 
                 <li>
                     <a href="{{route('area.profil')}}">

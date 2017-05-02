@@ -36,13 +36,6 @@ Route::get('/pemakaiansendiri', function () {
     return view('admin.nonmaster.dashboard_user.pemakaiansendiri');
 });
 
-Route::get('/list_datamaster', function () {
-    return view('admin.nonmaster.dashboard_user.list_datamaster');
-});
-
-Route::get('/list_datamaster_rayon', function () {
-    return view('admin.nonmaster.dashboard_user.list_datamaster_rayon');
-});
 
 Route::get('/laporan', function () {
     return view('admin.nonmaster.laporan.ktt');
@@ -127,7 +120,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
         'as'        => 'area.profil',
         'uses'      => 'AreaController@profil'
     ]);
-
+ 
     Route::get('/datamaster', [
         'as'        => 'area.datamaster',
         'uses'      => 'AreaController@datamaster'
@@ -142,6 +135,12 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
         'as'        => 'area.list_rayon',
         'uses'      => 'AreaController@list_rayon'
     ]);
+
+
+    Route::get('/list_datamaster_rayon/{id_organisasi}', [
+        'as'        => 'area.list_gardu',
+        'uses'      => 'AreaController@list_gardu'
+        ]);
 });
 
 //distribusi
