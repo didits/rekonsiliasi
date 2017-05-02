@@ -19,17 +19,15 @@
                                 <table class="table table-hover table-striped">
                                     <thead>
                                         <th>ID</th>
-                                    	<th>Nama GI</th>
+                                    	<th>Nama Gardu</th>
                                     </thead>
                                     <tbody>
+                                    @foreach($data as $list)
                                         <tr>
-                                        	<td>1</td>
-                                        	<td><a href="{{url('/gardu')}}">GD 116</a></td>
+                                            <td>{{$list->id_organisasi}}</td>
+                                            <td><a href="{{route('input.list_penyulang', $list->id)}}">{{$list->nama_gardu}}</a></td>
                                         </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td><a href="{{url('/gardu')}}">GD 117</a></td>
-                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
 

@@ -72,8 +72,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'rayon'], function () {
 
     Route::get('/', [
         'as'        => 'rayon.index',
-//        'uses'      => 'Input@list_data'
-        'uses'      => 'AreaController@index'
+        'uses'      => 'Input@list_data'
+//        'uses'      => 'AreaController@index'
     ]);
 
     Route::get('/profil', [
@@ -86,9 +86,29 @@ Route::group(['middleware' => 'auth', 'prefix' => 'rayon'], function () {
         'uses'      => 'Input@olah_data'
     ]);
 
-    Route::get('/input_data/{tipe}', [
-        'as'        => 'input_listrik.tambah',
-        'uses'      => 'Input@create'
+//    Route::get('/input_data/{tipe}', [
+//        'as'        => 'input_listrik.tambah',
+//        'uses'      => 'Input@create'
+//    ]);
+
+    Route::get('/list_gardu/{id_organisasi}', [
+        'as'        => 'input.list_gardu',
+        'uses'      => 'Input@list_gardu'
+    ]);
+
+    Route::get('/list_penyulang/{id}', [
+        'as'        => 'input.list_penyulang',
+        'uses'      => 'Input@list_penyulang'
+    ]);
+
+    Route::get('/input_data/{id_penyulang}', [
+        'as'        => 'input.input_data',
+        'uses'      => 'Input@input_data'
+    ]);
+
+    Route::get('/input_gardu/{id_gardu}', [
+        'as'        => 'input.input_gardu',
+        'uses'      => 'Input@input_gardu'
     ]);
 
     Route::match(['get'],'/listrik/list_data', [
