@@ -20,12 +20,12 @@ Route::get('/edit_profil', function () {
     return view('admin.nonmaster.dashboard_user.profile_edit');
 });
 
-Route::get('/input_area', function () {
-    return view('admin.nonmaster.dashboard_user.area');
+Route::get('/gardu', function () {
+    return view('admin.nonmaster.dashboard_user.gardu');
 }); 
 
 Route::get('/input_rayon', function () {
-    return view('admin.nonmaster.dashboard_user.rayon');
+    return view('admin.nonmaster.dashboard_user.list_gardu');
 });
 
 Route::get('/datamaster', function () {
@@ -58,6 +58,10 @@ Route::get('/laporan_rayon', function () {
 
 Route::get('/laporan_GI', function () {
     return view('admin.nonmaster.laporan.gi');
+});
+
+Route::get('/input_dummy', function () {
+    return view('admin.nonmaster.dashboard_user.input_data_dummy');
 });
 
 Route::resource('input_listrik', 'Input');

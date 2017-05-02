@@ -12,23 +12,19 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Daftar Rayon</h4>
+                                <h4 class="title">Gardu XXX</h4>
                                 <p class="category">Rayon Area XXX</p>
                             </div>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
                                     <thead>
-                                        <th>ID</th>
-                                    	<th>Daerah</th>
+                                    	<th>Input Gardu</th>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                        	<td>1</td>
-                                        	<td><a href="{{url('/input_rayon')}}">Rayon 112</a></td>
+                                        	<td><a href="{{url('/input_dummy')}}">Input Transaksi Beli Gardu</a></td>
                                         </tr>
                                         <tr>
-                                        	<td>2</td>
-                                        	<td><a href="{{url('/input_rayon')}}">Rayon 113</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -41,19 +37,25 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Daftar GI</h4>
-                                <p class="category">Daftar GI Area XXX</p>
+                                <h4 class="title">Trafo Gardu XXX</h4>
+                                <p class="category">Daftar Trafo Gardu XXX</p>
                             </div>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
                                     <thead>
                                         <th>ID</th>
-                                    	<th>Nama GI</th>
+                                    	<th>Nama Trafo</th>
                                     </thead>
                                     <tbody>
                                         <tr>
                                         	<td>1</td>
-                                        	<td><a href="{{url('/input_data')}}">GI 114</a></td>
+                                        	<td><a href="{{url('/input_dummy')}}">Penyulang 1</a></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td><a href="{{url('/input_dummy')}}">Penyulang 2</a></td>
+
                                         </tr>
                                     </tbody>
                                 </table>

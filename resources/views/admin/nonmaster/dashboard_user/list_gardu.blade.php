@@ -12,19 +12,23 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Daftar GD</h4>
-                                <p class="category">Daftar GD Rayon XXX</p>
+                                <h4 class="title">Daftar Gardu</h4>
+                                <p class="category">Daftar Gardu Rayon XXX</p>
                             </div>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
                                     <thead>
                                         <th>ID</th>
-                                    	<th>Nama GD</th>
+                                    	<th>Nama GI</th>
                                     </thead>
                                     <tbody>
                                         <tr>
                                         	<td>1</td>
-                                        	<td><a href="{{url('/input_data')}}">GD 116</a></td>
+                                        	<td><a href="{{url('/gardu')}}">GD 116</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td><a href="{{url('/gardu')}}">GD 117</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
