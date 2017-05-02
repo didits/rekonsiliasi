@@ -23,7 +23,7 @@
                                         <tbody> 
                                         @foreach($data as $list)
                                         <tr>
-                                            <td><a href="{{url('/laporan_rayon')}}">{{$list->nama_gardu}}</a></td>
+                                            <td><a href="{{url('/area/list_datamaster_trafo/'.$id_organisasi.'/'.$list->id)}}">{{$list->nama_gardu}}</a></td>
                                         </tr>
                                         @endforeach
                                         </tbody>

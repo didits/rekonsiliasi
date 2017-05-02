@@ -6,6 +6,7 @@ use App\Organisasi;
 use Auth;
 use Illuminate\Http\Request;
 use App\Gardu;
+use App\Penyulang;
 
 class AreaController extends Controller
 { 
@@ -276,7 +277,19 @@ class AreaController extends Controller
     public function list_gardu($id_rayon){
         $data = Gardu::where('id_organisasi', $id_rayon)->get();
         return view('admin.nonmaster.dashboard_user.list_datamaster_rayon',[
-            'data' =>$data
+            'data' =>$data,
+            'id_organisasi'=>$id_rayon
+            ]);
+    }
+
+    public function list_trafo($id_organisasi, $id_gardu){
+        $rayon = Organisasi::where('id_organisasi', $id_organisasi)->first();
+        $gardu = Gardu::where('id_organisasi', $id_organisasi)->first();
+        $data = Penyulang::where('id_gardu', $id_gardu)->get();
+        return view('admin.nonmaster.dashboard_user.datamaster_dummy',[
+            'data' =>$data,
+            'gardu'=>$gardu,
+            'rayon'=>$rayon,
             ]);
     }
 
