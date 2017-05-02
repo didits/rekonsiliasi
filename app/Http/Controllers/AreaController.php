@@ -32,6 +32,24 @@ class AreaController extends Controller
 
     }
 
+    public function create(Request $request){
+//        $input_visual = array(
+//            'lwbp1_visual' => $request->lwbp1_visual,
+//            'lwbp2_visual' => $request->lwbp2_visual,
+//            'wbp_visual' => $request->wbp_visual,
+//            'kvarh_visual' => $request->kvarh_visual
+//        );
+//
+//        $input_download = array(
+//            'lwbp1_download' => $request->lwbp1_download,
+//            'lwbp2_download' => $request->lwbp2_download,
+//            'wbp_download' => $request->wbp_download,
+//            'kvarh_download' => $request->kvarh_download
+//        );
+        echo "slam";
+    }
+
+
     public function store(Request $request){
 
         $data = DataMaster::where('id_organisasi', Auth::user()->id_organisasi)->first();

@@ -57,7 +57,7 @@
                     <div class="collapse" id="datamaster">
                         <ul class="nav">
                             <li><a href="{{route('area.datamaster')}}">Alat Pengukuran</a></li>
-                            <li><a href="{{route('area.datamaster')}}">Pembacaan Meter</a></li>
+                            <li><a href="{{route('area.pemakaiansendiri')}}">Pembacaan Meter</a></li>
                         </ul>
                     </div>
                 </li>

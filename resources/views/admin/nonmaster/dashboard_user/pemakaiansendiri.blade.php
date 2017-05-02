@@ -17,15 +17,21 @@
                             <div class="nav-container">
                                 <ul class="nav nav-icons" role="tablist">
                                     <li class="active">
-                                        <a href="#sisi-jual" role="tab" data-toggle="tab" aria-expanded="true">
+                                        <a href="#KWH_utama" role="tab" data-toggle="tab" aria-expanded="true">
                                             <i class="fa fa-info-circle"></i><br>
-                                            Sisi Jual
+                                            KWH Meter Utama
                                         </a>
                                     </li>
                                     <li class="">
-                                        <a href="#sisi-beli" role="tab" data-toggle="tab" aria-expanded="false">
+                                        <a href="#KWH_pembanding" role="tab" data-toggle="tab" aria-expanded="false">
                                             <i class="fa fa-map-marker"></i><br>
-                                            Sisi Beli
+                                            KWH Pembanding
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#sisi-jual" role="tab" data-toggle="tab" aria-expanded="true">
+                                            <i class="fa fa-info-circle"></i><br>
+                                            Pemakaian Sendiri
                                         </a>
                                     </li>
                                 </ul>
@@ -36,9 +42,9 @@
                                     <div class="content">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <h4 class="title text-center">Edit Pemakaian Sendiri Sisi Jual</h4>
-                                                <br>
-                                                <form action="{{route('input_listrik.store')}}" method="post">
+                                                {{--<h4 class="title text-center">Edit Pemakaian Sendir</h4>--}}
+                                                {{--<br>--}}
+                                                <form action="{{route('input_datamaster.create')}}" method="post">
                                                     <input type="hidden" name="_method" value="POST">
                                                     <input type="hidden" name="tipe" value="{{--{{$tipe}}--}}">
                                                     {{ csrf_field() }}
