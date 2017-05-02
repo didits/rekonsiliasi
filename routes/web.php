@@ -28,9 +28,6 @@ Route::get('/input_rayon', function () {
     return view('admin.nonmaster.dashboard_user.list_gardu');
 });
 
-Route::get('/datamaster', function () {
-    return view('admin.nonmaster.dashboard_user.datamaster_dummy');
-});
 
 Route::get('/pemakaiansendiri', function () {
     return view('admin.nonmaster.dashboard_user.pemakaiansendiri');
@@ -140,6 +137,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
     Route::get('/list_datamaster_rayon/{id_organisasi}', [
         'as'        => 'area.list_gardu',
         'uses'      => 'AreaController@list_gardu'
+        ]);
+
+    Route::get('/list_datamaster_trafo/{id_organisasi}/{id_gardu}', [
+        'as'        => 'area.list_trafo',
+        'uses'      => 'AreaController@list_trafo'
         ]);
 });
 

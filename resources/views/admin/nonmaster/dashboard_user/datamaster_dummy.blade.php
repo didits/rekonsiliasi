@@ -23,18 +23,14 @@
                                             Trafo
                                         </a>
                                     </li>
+                                    @foreach($data as $list => $key)
                                     <li class="">
-                                        <a href="#map-logo" role="tab" data-toggle="tab" aria-expanded="false">
+                                        <a href="#map-logo{{$list+1}}" role="tab" data-toggle="tab" aria-expanded="false">
                                             <i class="fa fa-map-marker"></i><br>
-                                            Penyulang 01
+                                            Penyulang {{$list+1}}
                                         </a>
                                     </li>
-                                    <li class="">
-                                        <a href="#map-logo" role="tab" data-toggle="tab" aria-expanded="false">
-                                            <i class="fa fa-map-marker"></i><br>
-                                            Penyulang 02
-                                        </a>
-                                    </li>
+                                    @endforeach
                                     <li class="">
                                         <a href="#legal-logo" role="tab" data-toggle="tab" aria-expanded="false">
                                             <i class="fa fa-legal"></i><br>
@@ -51,7 +47,7 @@
                                             <div class="col-md-12">
                                                 <div class="card">
                                                     <div class="header">
-                                                        <h4 class="title">TRAFO 1010101</h4>
+                                                        <h4 class="title">GARDU {{$gardu->nama_gardu}}</h4>
                                                         {{--<p class="category">Data KWH Meter</p>--}}
                                                     </div>
                                                     <div class="content">
@@ -61,22 +57,16 @@
                                                             {{ csrf_field() }}
 
                                                             <div class="row">
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <label>Penyulang</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="Penyulang XXX">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-4">
+                                                                <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label>Area</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Area" value="Area XXX">
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Area" value="{{Auth::user()->nama_organisasi}}">
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-4">
+                                                                <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label>Rayon</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Rayon" value="Rayon XXX">
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$rayon->nama_organisasi}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -257,14 +247,14 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="tab-pane" id="map-logo">
+                                @foreach($data as $list => $key)
+                                <div class="tab-pane" id="map-logo{{$list+1}}">
                                     <div class="content" id="trafoheader">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="card">
                                                     <div class="header">
-                                                        <h4 class="title">PENYULANG 101010101</h4>
+                                                        <h4 class="title">PENYULANG {{$list+1}}</h4>
                                                         {{--<p class="category">Data KWH Meter</p>--}}
                                                     </div>
                                                     <div class="content">
@@ -274,22 +264,16 @@
                                                             {{ csrf_field() }}
 
                                                             <div class="row">
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <label>Penyulang</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="Penyulang XXX">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-4">
+                                                                <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label>Area</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Area" value="Area XXX">
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Area" value="{{Auth::user()->nama_organisasi}}">
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-4">
+                                                                <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label>Rayon</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Rayon" value="Rayon XXX">
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$rayon->nama_organisasi}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -470,6 +454,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                @endforeach
 
                                 <div class="tab-pane" id="legal-logo">
                                     <div class="content" id="trafoheader">
@@ -477,7 +462,7 @@
                                             <div class="col-md-12">
                                                 <div class="card">
                                                     <div class="header">
-                                                        <h4 class="title">TRAFO 1010101</h4>
+                                                        <h4 class="title">GARDU {{$gardu->nama_gardu}}</h4>
                                                         {{--<p class="category">Data KWH Meter</p>--}}
                                                     </div>
                                                     <div class="content">
@@ -487,22 +472,16 @@
                                                             {{ csrf_field() }}
 
                                                             <div class="row">
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <label>Penyulang</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="Penyulang XXX">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-4">
+                                                                <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label>Area</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Area" value="Area XXX">
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Area" value="{{Auth::user()->nama_organisasi}}">
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-4">
+                                                                <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label>Rayon</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Rayon" value="Rayon XXX">
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$rayon->nama_organisasi}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -518,7 +497,7 @@
                                             <div class="col-md-12">
                                                 <div class="card">
                                                     <div class="header">
-                                                        <h4 class="title">TRAFO 1010101</h4>
+                                                        <h4 class="title">GARDU {{$gardu->nama_gardu}}</h4>
                                                         <p class="category">Daftar Penyulang</p>
                                                     </div>
                                                     <div class="content table-responsive table-full-width">
@@ -532,10 +511,11 @@
                                                             </tr>
                                                             </thead>
                                                             <tbody>
+                                                            @foreach($data as $list => $key)
                                                             <tr>
-                                                                <td class="text-center">1</td>
-                                                                <td>Penyulang 01</td>
-                                                                <td>Sukolilo</td>
+                                                                <td class="text-center">{{$list+1}}</td>
+                                                                <td>Penyulang {{$list+1}}</td>
+                                                                <td>{{$rayon->nama_organisasi}}</td>
                                                                 <td class="td-actions text-right">
                                                                     <a href="#" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="View Profile">
                                                                         <i class="fa fa-user"></i>
@@ -548,23 +528,7 @@
                                                                     </a>
                                                                 </td>
                                                             </tr>
-                                                            <tr>
-
-                                                                <td class="text-center">2</td>
-                                                                <td>Penyulang 02</td>
-                                                                <td>Gubeng</td>
-                                                                <td class="td-actions text-right">
-                                                                    <a href="#" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="View Profile">
-                                                                        <i class="fa fa-user"></i>
-                                                                    </a>
-                                                                    <a href="#" rel="tooltip" title="" class="btn btn-success btn-simple btn-xs" data-original-title="Edit Profile">
-                                                                        <i class="fa fa-edit"></i>
-                                                                    </a>
-                                                                    <a href="#" rel="tooltip" title="" class="btn btn-danger btn-simple btn-xs" data-original-title="Remove">
-                                                                        <i class="fa fa-times"></i>
-                                                                    </a>
-                                                                </td>
-                                                            </tr>
+                                                            @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
