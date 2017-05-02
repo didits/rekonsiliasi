@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DataMaster extends Migration
+class CreatePenyimpananGardusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class DataMaster extends Migration
      */
     public function up()
     {
-        //data master
-        Schema::create('data_master', function (Blueprint $table){
+        Schema::create('penyimpanan_gardu', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('id_organisasi')->unique();
-            $table->text('alatpengukuran');
-            $table->text('pembacaanmeter');
+            $table->integer('id_gardu')->unsigned();
+            $table->string('periode');
+            $table->text('data');
             $table->timestamps();
+            $table->foreign('id_gardu')
+              ->references('id')->on('gardu');
         });
     }
 
@@ -30,6 +31,6 @@ class DataMaster extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('data_master');
+        Schema::dropIfExists('penyimpanan_gardu');
     }
 }

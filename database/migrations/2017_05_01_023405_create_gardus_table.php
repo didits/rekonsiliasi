@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class OrgLis extends Migration
+class CreateGardusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class OrgLis extends Migration
      */
     public function up()
     {
-        //org_list
-        Schema::create('org_lis', function (Blueprint $table){
+        Schema::create('gardu', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('id_organisasi');
-            $table->string('id_listrik');
-        });
+            $table->text('data_master');
+            $table->timestamps();
+            });
     }
 
     /**
@@ -27,6 +28,6 @@ class OrgLis extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('org_lis');
+        Schema::dropIfExists('gardu');
     }
 }

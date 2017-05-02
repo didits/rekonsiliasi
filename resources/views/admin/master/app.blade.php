@@ -52,6 +52,9 @@
     <!--  Notifications Plugin    -->
     <script src="{{ URL::asset('dashboard/js/bootstrap-notify.js') }}"></script>
 
+    <!--  Select Picker Plugin -->
+    <script src="{{ URL::asset('dashboard/js/bootstrap-selectpicker.js') }}"></script>
+
     <!--  Google Maps Plugin    -->
     {{--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>--}}
 

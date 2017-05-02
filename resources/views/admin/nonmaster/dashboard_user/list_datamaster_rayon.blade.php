@@ -20,20 +20,32 @@
                                         <thead>
                                         <th>ID</th>
                                         <th>Nama GI</th>
-                                        <th>Tindakan</th>
+                                        <th>#HILANG#</th>
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td>1</td>
-                                            <td>GI 114</td>
-                                            <td class="td-actions">
-                                                <a href="{{url('/datamaster')}}" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="Edit Data Master">
-                                                    <i class="fa fa-bolt"></i>
-                                                </a>
-                                                <a href="{{url('/pemakaiansendiri')}}" rel="tooltip" title="" class="btn btn-success btn-simple btn-xs" data-original-title="Edit Pemakaian Sendiri">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                            </td>
+                                            <td>1010101</td>
+                                            <td><a href="{{url('/datamaster')}}">GI 01</a></td>
+                                            {{--<td class="td-actions">--}}
+                                                {{--<a href="{{url('/datamaster')}}" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="Edit Data Master">--}}
+                                                    {{--<i class="fa fa-bolt"></i>--}}
+                                                {{--</a>--}}
+                                                {{--<a href="{{url('/pemakaiansendiri')}}" rel="tooltip" title="" class="btn btn-success btn-simple btn-xs" data-original-title="Edit Pemakaian Sendiri">--}}
+                                                    {{--<i class="fa fa-edit"></i>--}}
+                                                {{--</a>--}}
+                                            {{--</td>--}}
+                                        </tr>
+                                        <tr>
+                                            <td>1010102</td>
+                                            <td><a href="{{url('/datamaster')}}">GI 02</a></td>
+                                            {{--<td class="td-actions">--}}
+                                            {{--<a href="{{url('/datamaster')}}" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="Edit Data Master">--}}
+                                            {{--<i class="fa fa-bolt"></i>--}}
+                                            {{--</a>--}}
+                                            {{--<a href="{{url('/pemakaiansendiri')}}" rel="tooltip" title="" class="btn btn-success btn-simple btn-xs" data-original-title="Edit Pemakaian Sendiri">--}}
+                                            {{--<i class="fa fa-edit"></i>--}}
+                                            {{--</a>--}}
+                                            {{--</td>--}}
                                         </tr>
                                         </tbody>
                                     </table>
