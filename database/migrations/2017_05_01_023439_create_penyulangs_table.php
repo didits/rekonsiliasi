@@ -16,6 +16,7 @@ class CreatePenyulangsTable extends Migration
         Schema::create('penyulang', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_gardu')->unsigned();
+            $table->string('nama_penyulang');
             $table->text('data_master');
             $table->timestamps();
             $table->foreign('id_gardu')
