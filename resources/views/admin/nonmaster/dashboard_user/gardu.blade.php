@@ -22,7 +22,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                        	<td><a href="{{route('input.input_gardu', $data[0]->id)}}">Input Transaksi Beli Gardu</a></td>
+                                        	<td><a href="{{route('input.input_gardu', $gardu)}}">Input Transaksi Beli Gardu</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -44,11 +44,14 @@
                                         <th>Nama Trafo</th>
                                     </thead>
                                     <tbody>
-                                    @foreach($data as $list)
-                                        <tr>
-                                            <td><a href="{{route('input.input_data', $list->id)}}"> {{$list->nama_penyulang}}</a></td>
-                                        </tr>
-                                    @endforeach
+                                    {{--{{dd($data)}}--}}
+                                    @if($data)
+                                        @foreach($data as $list)
+                                            <tr>
+                                                <td><a href="{{route('input.input_data', $list->id)}}"> {{$list->nama_penyulang}}</a></td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
                                     </tbody>
                                 </table>
 

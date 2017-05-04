@@ -48,7 +48,8 @@ class Input extends Controller
     public function list_penyulang($id_gardu){
         $data = Penyulang::where('id_gardu', $id_gardu)->get();
         return view('admin.nonmaster.dashboard_user.gardu',[
-            'data' =>$data
+            'data' =>$data,
+            'gardu' =>$id_gardu
         ]);
     }
 
@@ -79,22 +80,46 @@ class Input extends Controller
 
     public function store(Request $request)
     {
-//        echo $request->tipe;
-//        $data_listrik = Listrik::where('tahun_bulan', date('Ym'))->where('id_organisasi', Auth::user()->id_organisasi)->first();
+        $data_listrik = PenyimpananGardu::where('periode', date('Ym'))->where('id_gardu', $request->id_gardu)->first();
 //
-//        $input_visual = array(
-//            'lwbp1_visual' => $request->lwbp1_visual,
-//            'lwbp2_visual' => $request->lwbp2_visual,
-//            'wbp_visual' => $request->wbp_visual,
-//            'kvarh_visual' => $request->kvarh_visual
-//        );
-//
-//        $input_download = array(
-//            'lwbp1_download' => $request->lwbp1_download,
-//            'lwbp2_download' => $request->lwbp2_download,
-//            'wbp_download' => $request->wbp_download,
-//            'kvarh_download' => $request->kvarh_download
-//        );
+        $input_visual = array(
+            'lwbp1_visual' => $request->lwbp1_visual,
+            'lwbp2_visual' => $request->lwbp2_visual,
+            'wbp_visual' => $request->wbp_visual,
+            'kvarh_visual' => $request->kvarh_visual
+        );
+
+        $input_download = array(
+            'lwbp1_download' => $request->lwbp1_download,
+            'lwbp2_download' => $request->lwbp2_download,
+            'wbp_download' => $request->wbp_download,
+            'kvarh_download' => $request->kvarh_download
+        );
+
+        if($data_listrik){
+            $this->olah_data($input_visual,$input_download,$request->id_gardu);
+        }
+        else{
+            $data = array(
+                'visual' => $input_visual,
+                'download' => $input_download
+            );
+
+            $PGardu = new PenyimpananGardu();
+            $PGardu->id_gardu = $request->id_gardu;
+            $PGardu->periode = date('Ym');
+            $PGardu->data = json_encode($data);
+            if($PGardu->save()){
+                $data = PenyimpananGardu::where('id_gardu', $request->id_gardu)->get();
+                return view('admin.nonmaster.listrik.hasil_pengolahan', [
+                    'data'            => $data
+                ]);
+                echo "berhasil";
+            }
+            else
+                echo "gagal";
+        }
+
 //
 //        if ($data_listrik) {
 //            if ($request->tipe == 'jual') {
@@ -358,63 +383,70 @@ class Input extends Controller
 
     public function input_gardu($id_gardu){
 
-        $data = PenyimpananGardu::where('id_gardu', Auth::user()->id_gardu)->get();
+        $data = PenyimpananGardu::where('id_gardu', $id_gardu)->first();
+        $gardu = Gardu::where('id',$id_gardu)->first();
         return view('admin.nonmaster.dashboard_user.input_data_dummy', [
-            'data'            => $id_gardu
+            'data'            => $data,
+            'gardu'            => $gardu
         ]);
     }
 
-    public function olah_data(){
-//        $faktor_kali = 1000;
-//        $awal = Listrik::select('id', 'tahun_bulan', 'data')->orderBy('id', 'desc')->limit(1)->offset(1)->where('id_organisasi',Auth::user()->id_organisasi)->first();
+    public function olah_data($visual,$download,$id_gardu){
+        $faktor_kali = 1000;
+        $date = date('Ym')- "1";
+        $awal = PenyimpananGardu::where('periode', $date)->where('id_gardu', $id_gardu)->first();
+
+//        $awal = PenyimpananGardu::select('id', 'periode', 'data')->orderBy('id', 'desc')->limit(1)->offset(1)->where('id_organisasi',Auth::user()->id_organisasi)->first();
 //        $akhir = Listrik::select('id', 'tahun_bulan', 'data')->orderBy('id', 'desc')->limit(1)->where('id_organisasi',Auth::user()->id_organisasi)->first();
-//        $data_awal = json_decode($awal->data, true);
+        $data_awal = json_decode($awal->data, true);
 //        $data_akhir = json_decode($akhir->data, true);
-//
-//        $lwbp1_visual = ($data_akhir['jual']['visual']['lwbp1_visual'] - $data_awal['jual']['visual']['lwbp1_visual'])*$faktor_kali;
-//        $lwbp2_visual = ($data_akhir['jual']['visual']['lwbp2_visual'] - $data_awal['jual']['visual']['lwbp2_visual'])*$faktor_kali;
-//        $wbp_visual = ($data_akhir['jual']['visual']['wbp_visual'] - $data_awal['jual']['visual']['wbp_visual'])*$faktor_kali;
-//        $kvarh_visual = ($data_akhir['jual']['visual']['kvarh_visual'] - $data_awal['jual']['visual']['kvarh_visual'])*$faktor_kali;
-//
-//        $data_visual = array(
-//            'lwbp1_visual' => $lwbp1_visual,
-//            'lwbp2_visual' => $lwbp2_visual,
-//            'wbp_visual' => $wbp_visual,
-//            'kvarh_visual' => $kvarh_visual,
-//            'total_pemakaian_kwh_visual' => $lwbp1_visual + $lwbp2_visual + $wbp_visual
-//        );
-//
-//        $lwbp1_download = ($data_akhir['jual']['download']['lwbp1_download'] - $data_awal['jual']['download']['lwbp1_download'])*$faktor_kali;
-//        $lwbp2_download = ($data_akhir['jual']['download']['lwbp2_download'] - $data_awal['jual']['download']['lwbp2_download'])*$faktor_kali;
-//        $wbp_download =  ($data_akhir['jual']['download']['wbp_download'] - $data_awal['jual']['download']['wbp_download'])*$faktor_kali;
-//        $kvarh_download = ($data_akhir['jual']['download']['kvarh_download'] - $data_awal['jual']['download']['kvarh_download'])*$faktor_kali;
-//
-//        $data_download = array(
-//            'lwbp1_download' => $lwbp1_download,
-//            'lwbp2_download' => $lwbp2_download,
-//            'wbp_download' => $wbp_download,
-//            'kvarh_download' => $kvarh_download,
-//            'total_pemakaian_kwh_visual' => $lwbp1_download + $lwbp2_download + $wbp_download
-//
-//        );
-//
-//        $data = array(
-//                'visual' => $data_visual,
-//                'download' => $data_download );
-//
+
+        $lwbp1_visual = ($visual['lwbp1_visual'] - $data_awal['visual']['lwbp1_visual'])*$faktor_kali;
+        $lwbp2_visual = ($visual['lwbp2_visual'] - $data_awal['visual']['lwbp2_visual'])*$faktor_kali;
+        $wbp_visual = ($visual['wbp_visual'] - $data_awal['visual']['wbp_visual'])*$faktor_kali;
+        $kvarh_visual = ($visual['kvarh_visual'] - $data_awal['visual']['kvarh_visual'])*$faktor_kali;
+
+        $data_visual = array(
+            'lwbp1_visual' => $lwbp1_visual,
+            'lwbp2_visual' => $lwbp2_visual,
+            'wbp_visual' => $wbp_visual,
+            'kvarh_visual' => $kvarh_visual,
+            'total_pemakaian_kwh_visual' => $lwbp1_visual + $lwbp2_visual + $wbp_visual
+        );
+
+        $lwbp1_download = ($download['lwbp1_download'] - $data_awal['download']['lwbp1_download'])*$faktor_kali;
+        $lwbp2_download = ($download['lwbp2_download'] - $data_awal['download']['lwbp2_download'])*$faktor_kali;
+        $wbp_download =  ($download['wbp_download'] - $data_awal['download']['wbp_download'])*$faktor_kali;
+        $kvarh_download = ($download['kvarh_download'] - $data_awal['download']['kvarh_download'])*$faktor_kali;
+
+        $data_download = array(
+            'lwbp1_download' => $lwbp1_download,
+            'lwbp2_download' => $lwbp2_download,
+            'wbp_download' => $wbp_download,
+            'kvarh_download' => $kvarh_download,
+            'total_pemakaian_kwh_visual' => $lwbp1_download + $lwbp2_download + $wbp_download
+
+        );
+
+        $data = array(
+                'visual' => $data_visual,
+                'download' => $data_download );
+
 //        $dt = array(
 //                'jual' => $data,
 //                'beli' => null );
 //
-//        $hasil = Listrik::where('id',$akhir->id.'')->first();
-//        $hasil->hasil = json_encode($dt);
-//        $hasil->save();
-//    }
-//
-//    public function hasil_pengolahan(){
-//        $data = Listrik::where('id_organisasi', Auth::user()->id_organisasi)->get();
-//        return view('admin.nonmaster.listrik.hasil_pengolahan', [
-//            'data'            => $data
-//        ]);
+        $hasil = PenyimpananGardu::where('id_gardu',$id_gardu)->first();
+        $hasil->data = json_encode($data);
+        if($hasil->save()){
+            $dt = PenyimpananGardu::where('id_gardu', $id_gardu )->get();
+            echo $dt;
+            return view('admin.nonmaster.listrik.hasil_pengolahan', [
+                'data'            => $dt
+            ]);
+        }
+
     }
+
+
 }

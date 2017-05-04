@@ -22,12 +22,14 @@
                                     	<th>Nama Gardu</th>
                                     </thead>
                                     <tbody>
-                                    @foreach($data as $list)
-                                        <tr>
-                                            <td>{{$list->id_organisasi}}</td>
-                                            <td><a href="{{route('input.list_penyulang', $list->id)}}">{{$list->nama_gardu}}</a></td>
-                                        </tr>
-                                    @endforeach
+                                    @if($data)
+                                        @foreach($data as $list)
+                                            <tr>
+                                                <td>{{$list->id_organisasi}}</td>
+                                                <td><a href="{{route('input.list_penyulang', $list->id)}}">{{$list->nama_gardu}}</a></td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
                                     </tbody>
                                 </table>
 

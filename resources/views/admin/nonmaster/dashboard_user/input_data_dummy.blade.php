@@ -15,7 +15,7 @@
                                 <div class="col-md-12">
                                     <form action="{{route('input_listrik.store')}}" method="post">
                                     <input type="hidden" name="_method" value="POST">
-                                    <input type="hidden" name="tipe" value="{{--{{$tipe}}--}}">
+                                    <input type="hidden" name="id_gardu" value="{{$gardu->id}}">
                                         {{ csrf_field() }}
                                         <div class="card">
                                             <div class="header">
@@ -94,7 +94,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label>Nama GI / GD</label>
-                                                        <input type="text" class="form-control" disabled placeholder="Company" value="GI 147">
+                                                        <input type="text" class="form-control" disabled placeholder="Company" value="{{$gardu->nama_gardu}}">
                                                     </div>
                                                 </div>
                                             </div>
