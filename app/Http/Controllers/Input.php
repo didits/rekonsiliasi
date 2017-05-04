@@ -19,7 +19,10 @@ class Input extends Controller
 
      public function index()
     {
-        //
+        $data = Gardu::where('id_organisasi', Auth::user()->id_organisasi)->get();
+        return view('admin.nonmaster.dashboard_user.list_gardu',[
+            'data' =>$data
+        ]);
     }
 
     /**

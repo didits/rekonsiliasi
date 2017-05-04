@@ -276,9 +276,12 @@ class AreaController extends Controller
 
     public function list_gardu($id_rayon){
         $data = Gardu::where('id_organisasi', $id_rayon)->get();
+        $nama_rayon = Organisasi::where('id_organisasi', $id_rayon)->get();
+        $nama_rayon = $nama_rayon[0]->nama_organisasi;
         return view('admin.nonmaster.dashboard_user.list_datamaster_rayon',[
             'data' =>$data,
-            'id_organisasi'=>$id_rayon
+            'id_organisasi'=>$id_rayon,
+            'nama_rayon' =>$nama_rayon
             ]);
     }
 
