@@ -5,20 +5,20 @@
     <div class="wrapper">
         @include('admin.master.navbar')
         <div class="main-panel">
-            @include('admin.master.top_navbar', ['navbartitle' => 'Rayon XXX'])
+            @include('admin.master.top_navbar', ['navbartitle' => Auth::user()->nama_organisasi])
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="header">
-                                    <h4 class="title">Daftar GI</h4>
-                                    <p class="category">Daftar GI Area XXX</p>
+                                    <h4 class="title">Daftar Gardu</h4>
+                                    <p class="category">Daftar Gardu {{$nama_rayon}} </p>
                                 </div>
                                 <div class="content table-responsive table-full-width">
                                     <table class="table table-hover table-striped">
                                         <thead>
-                                        <th>Nama GI</th>
+                                        <th>Nama Gardu</th>
                                         </thead>
                                         <tbody> 
                                         @foreach($data as $list)
