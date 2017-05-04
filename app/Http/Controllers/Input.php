@@ -100,7 +100,10 @@ class Input extends Controller
         );
 
         if($data_listrik){
-            $this->olah_data($input_visual,$input_download,$request->id_gardu);
+            $data=$this->olah_data($input_visual,$input_download,$request->id_gardu);
+            return view('admin.nonmaster.listrik.hasil_pengolahan', [
+                'data'            => $data
+            ]);
         }
         else{
             $data = array(
@@ -386,16 +389,18 @@ class Input extends Controller
 
     public function input_gardu($id_gardu){
 
-        $data = PenyimpananGardu::where('id_gardu', $id_gardu)->first();
+        $data = PenyimpananGardu::where('periode',date('Ym'))->where('id_gardu', $id_gardu)->first();
         $gardu = Gardu::where('id',$id_gardu)->first();
+        $data_awal = json_decode($data->data, true);
+
         return view('admin.nonmaster.dashboard_user.input_data_dummy', [
-            'data'            => $data,
+            'data'            => $data_awal,
             'gardu'            => $gardu
         ]);
     }
 
     public function olah_data($visual,$download,$id_gardu){
-        $faktor_kali = 1000;
+        $faktor_kali = 1;
         $date = date('Ym')- "1";
         $awal = PenyimpananGardu::where('periode', $date)->where('id_gardu', $id_gardu)->first();
 
@@ -439,14 +444,11 @@ class Input extends Controller
 //                'jual' => $data,
 //                'beli' => null );
 //
-        $hasil = PenyimpananGardu::where('id_gardu',$id_gardu)->first();
+        $hasil = PenyimpananGardu::where('periode', date('Ym'))->where('id_gardu',$id_gardu)->first();
         $hasil->data = json_encode($data);
         if($hasil->save()){
             $dt = PenyimpananGardu::where('id_gardu', $id_gardu )->get();
-            echo $dt;
-            return view('admin.nonmaster.listrik.hasil_pengolahan', [
-                'data'            => $dt
-            ]);
+            return $dt;
         }
 
     }
