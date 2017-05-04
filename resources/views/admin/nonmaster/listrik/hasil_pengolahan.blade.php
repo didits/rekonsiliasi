@@ -21,24 +21,13 @@
                                             <th rowspan="3">No</th>
                                             <th rowspan="3">Tahun</th>
                                             <th rowspan="3">Bulan</th>
-                                            <th colspan="8">Jual</th>
                                             <th colspan="8">Beli</th>
                                         </tr>
                                         <tr>
                                             <th colspan="4">Visual</th>
                                             <th colspan="4">Download</th>
-                                            <th colspan="4">Visual</th>
-                                            <th colspan="4">Download</th>
                                         </tr>
                                         <tr>
-                                            <th>LWBP1</th>
-                                            <th>LWBP2</th>
-                                            <th>WBP</th>
-                                            <th>KVARH</th>
-                                            <th>LWBP1</th>
-                                            <th>LWBP2</th>
-                                            <th>WBP</th>
-                                            <th>KVARH</th>
                                             <th>LWBP1</th>
                                             <th>LWBP2</th>
                                             <th>WBP</th>
@@ -52,27 +41,19 @@
                                     <tbody>
                                         @foreach($data as $m=>$list)
                                         <tr>
-                                        	<td>$m+1</td>
+                                        	<td>{{$m+1}}</td>
                                             <td>{{substr($list->periode, 0,4)}}</td>
                                             <td>{{substr($list->periode, 4,6)}}</td>
                                             <?php $m = json_decode($list->data, true) ?>
-                                            <td>{{ $m['visual']['lwbp1_visual'] }}</td>
-                                            <td>{{ $m['visual']['lwbp2_visual'] }}</td>
-                                            <td>{{ $m['visual']['wbp_visual'] }}</td>
-                                            <td>{{ $m['visual']['kvarh_visual'] }}</td>
-                                            <td>{{ $m['download']['lwbp1_download'] }}</td>
-                                            <td>{{ $m['download']['lwbp2_download'] }}</td>
-                                            <td>{{ $m['download']['wbp_download'] }}</td>
-                                            <td>{{ $m['download']['kvarh_download'] }}</td>
-                                            {{--<td>{{ $m['beli']['visual']['lwbp1_visual'] }}</td>--}}
-                                            {{--<td>{{ $m['beli']['visual']['lwbp2_visual'] }}</td>--}}
-                                            {{--<td>{{ $m['beli']['visual']['wbp_visual'] }}</td>--}}
-                                            {{--<td>{{ $m['beli']['visual']['kvarh_visual'] }}</td>--}}
-                                            {{--<td>{{ $m['beli']['download']['lwbp1_download'] }}</td>--}}
-                                            {{--<td>{{ $m['beli']['download']['lwbp2_download'] }}</td>--}}
-                                            {{--<td>{{ $m['beli']['download']['wbp_download'] }}</td>--}}
-                                            {{--<td>{{ $m['beli']['download']['kvarh_download'] }}</td>--}}
-                                        </tr>
+                                            <td>{{ $m['beli']['visual']['lwbp1_visual'] }}</td>
+                                            <td>{{ $m['beli']['visual']['lwbp2_visual'] }}</td>
+                                            <td>{{ $m['beli']['visual']['wbp_visual'] }}</td>
+                                            <td>{{ $m['beli']['visual']['kvarh_visual'] }}</td>
+                                            <td>{{ $m['beli']['download']['lwbp1_download'] }}</td>
+                                            <td>{{ $m['beli']['download']['lwbp2_download'] }}</td>
+                                            <td>{{ $m['beli']['download']['wbp_download'] }}</td>
+                                            <td>{{ $m['beli']['download']['kvarh_download'] }}</td>
+                                         </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
