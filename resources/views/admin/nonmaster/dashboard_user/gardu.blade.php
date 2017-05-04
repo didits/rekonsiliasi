@@ -12,8 +12,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Gardu XXX</h4>
-                                <p class="category">Rayon Area XXX</p>
+                                <h4 class="title">Gardu {{$gardu->nama_gardu}}</h4>
                             </div>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
@@ -35,8 +34,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Trafo Gardu XXX</h4>
-                                <p class="category">Daftar Trafo Gardu XXX</p>
+                                <h4 class="title">Trafo Gardu {{$gardu->nama_gardu}}</h4>
                             </div>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">

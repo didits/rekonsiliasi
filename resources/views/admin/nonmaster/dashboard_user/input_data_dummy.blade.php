@@ -96,28 +96,16 @@
                                                         <label>Nama GI / GD</label>
                                                         <input type="text" class="form-control" disabled placeholder="Company" value="{{$gardu->nama_gardu}}">
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label>Area</label>
-                                                        <input type="text" class="form-control" disabled placeholder="Company" value="Surabaya">
-                                                    </div>
-                                                </div>
+                                                </div> 
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label>Rayon</label>
-                                                        <input type="text" class="form-control" disabled placeholder="Company" value="Sukolilo">
+                                                        <input type="text" class="form-control" disabled placeholder="Company" value="{{Auth::user()->nama_organisasi}}">
                                                     </div>
                                                 </div>
                                             </div>
-
-
-                                            <button type="submit" class="btn btn-info btn-fill pull-right">Input Listrik</button>
-                                            <div class="clearfix"></div>
                                         </div>
                                         <hr>
 
