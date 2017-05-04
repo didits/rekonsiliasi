@@ -13,20 +13,6 @@
             <ul class="nav">
             @if(Auth::user()->tipe_organisasi==3)
                 <li>
-                    <a data-toggle="collapse" href="#">
-                        <i class="pe-7s-server"></i>
-                        <p>Input Data
-                            <b class="caret"></b>
-                        </p>
-                    </a>
-                    <div {{--class="collapse"--}} id="inputarea">
-                        <ul class="nav">
-                            {{--<li><a href="{{route('input_listrik.tambah','jual')}}">Jual</a></li>--}}
-                            {{--<li><a href="{{route('input_listrik.tambah','beli')}}">Beli</a></li>--}}
-                        </ul>
-                    </div>
-                </li>
-                <li>
                     <a href="{{route('listrik.list_data')}}">
                         <i class="pe-7s-notebook"></i>
                         <p>Laporan</p>

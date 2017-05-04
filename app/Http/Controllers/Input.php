@@ -49,10 +49,11 @@ class Input extends Controller
     }
 
     public function list_penyulang($id_gardu){
+        $gardu = Gardu::where('id', $id_gardu)->first();
         $data = Penyulang::where('id_gardu', $id_gardu)->get();
         return view('admin.nonmaster.dashboard_user.gardu',[
             'data' =>$data,
-            'gardu' =>$id_gardu
+            'gardu' =>$gardu
         ]);
     }
 
@@ -393,7 +394,6 @@ class Input extends Controller
     }
 
     public function input_gardu($id_gardu){
-
         $data = PenyimpananGardu::where('periode',date('Ym'))->where('id_gardu', $id_gardu)->first();
         $gardu = Gardu::where('id',$id_gardu)->first();
         if($data)
