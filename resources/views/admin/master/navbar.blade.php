@@ -32,9 +32,7 @@
                             </p>
                         </a>
                         <div {{--class="collapse"--}} id="inputarea">
-                            <ul class="nav">
-{{--                                <li><a href="{{route('input_listrik.tambah','jual')}}">Jual</a></li>--}}
-                                <li><a href="{{route('input.list_gardu',Auth::user()->id_organisasi)}}">Beli</a></li>
+                            <ul class="nav">                                <li><a href="{{route('input.list_gardu',Auth::user()->id_organisasi)}}">Beli</a></li>
                             </ul>
                         </div>
                     </li>

@@ -12,7 +12,7 @@
                     <div class="col-md-12">
                         <div class="card" style="overflow-x: auto;">
                             <div class="header">
-                                <h4 class="title">Hasil Pengolahan</h4>
+                                <h4 class="title">Laporan</h4>
                             </div>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">

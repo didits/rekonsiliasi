@@ -379,8 +379,15 @@ class Input extends Controller
     }
 
     public function list_data(){
-        $data = Listrik::where('id_organisasi', Auth::user()->id_organisasi)->get();
-        return view('admin.nonmaster.listrik.list_data', [
+        $data = Gardu::where('id_organisasi', Auth::user()->id_organisasi)->get();
+        return view('admin.nonmaster.dashboard_user.list_gardu_laporan',[
+            'data' =>$data
+        ]);
+    }
+
+    public function list_laporan_gardu($id_gardu){
+        $data = PenyimpananGardu::where('id_gardu', $id_gardu)->get();
+        return view('admin.nonmaster.listrik.hasil_pengolahan', [
             'data'            => $data
         ]);
     }
