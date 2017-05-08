@@ -108,6 +108,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'rayon'], function () {
         'uses'      => 'Input@input_gardu'
     ]);
 
+    Route::get('/list_laporan_gardu/{id_gardu}', [
+        'as'        => 'input.list_laporan_gardu',
+        'uses'      => 'Input@list_laporan_gardu'
+    ]);
+
     Route::match(['get'],'/listrik/list_data', [
         'as'        => 'listrik.list_data',
         'uses'      => 'Input@list_data'
