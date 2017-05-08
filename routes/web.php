@@ -98,7 +98,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'rayon'], function () {
         'uses'      => 'Input@list_penyulang'
     ]);
 
-    Route::get('/input_data/{id_penyulang}', [
+    Route::get('/input_data/{id}/{nama}', [
         'as'        => 'input.input_data',
         'uses'      => 'Input@input_data'
     ]);

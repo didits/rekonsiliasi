@@ -21,7 +21,8 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                        	<td><a href="{{route('input.input_gardu', $gardu,"gardu")}}">Input Transaksi Beli Gardu</a></td>
+                                            {{--{{dd(json_encode($gardu))}}--}}
+                                        	<td><a href="{{url("/rayon/input_data/$gardu->id/gardu")}}">Input Transaksi Beli Gardu</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -46,7 +47,7 @@
                                     @if($data)
                                         @foreach($data as $list)
                                             <tr>
-                                                <td><a href="{{route('input.input_data', $list->id,"penyulang")}}"> {{$list->nama_penyulang}}</a></td>
+                                                <td><a href="{{url("/rayon/input_data/$list->id/penyulang")}}"> {{$list->nama_penyulang}}</a></td>
                                             </tr>
                                         @endforeach
                                     @endif
