@@ -91,7 +91,9 @@ class AreaController extends Controller
             ]);
         }
         else{
-            $data = Gardu::where('id',$request->idgardu)->first();
+            if($request->formpenyulang)
+                $data = Penyulang::where('id',$request->formpenyulang)->first();
+            else $data = Gardu::where('id',$request->idgardu)->first();
             if( $data ){
                 $decoded = json_decode($data->data_master, true);
 //            dd($decoded);
@@ -187,11 +189,6 @@ class AreaController extends Controller
                     'TA' => $data_TA,
                     'TT' => $data_TT,
                     'FK' => $data_FK );
-
-
-                $data_master = Gardu::where('id', $request->idgardu)->first();
-                $data_master->data_master=json_encode($data);
-                if($data_master->save());
 
             }
             else {
@@ -289,22 +286,19 @@ class AreaController extends Controller
                     'TA' => $data_TA,
                     'TT' => $data_TT,
                     'FK' => $data_FK );
-                $data_master = Gardu::where('id', $request->idgardu)->first();
-//            dd($data_master);
-                $data_master->data_master=json_encode($data);
-                if($data_master->save());
 
-//            $data_master = new Gardu;
-//            $data_master->id_organisasi = Auth::user()->id_organisasi;
-//            $data_master->data_master = json_encode($data);
-//            $data_master->nama_gardu
-
-//            $data_master->pembacaanmeter = json_encode(null);
-
-//            if($data_master->save());
             }
 
-            $data = Gardu::where('id', $request->idgardu)->first();
+            if($request->formpenyulang)
+                $data_master = Penyulang::where('id', $request->formpenyulang)->first();
+            else $data_master = Gardu::where('id', $request->idgardu)->first();
+
+            $data_master->data_master=json_encode($data);
+            if($data_master->save());
+
+            if($request->formpenyulang)
+                $data = Penyulang::where('id', $request->formpenyulang)->first();
+            else $data = Gardu::where('id', $request->idgardu)->first();
             $decoded = json_decode($data->data_master, true);
             return view('admin.nonmaster.dashboard_user.datamaster',[
                 'data' => $decoded]);
