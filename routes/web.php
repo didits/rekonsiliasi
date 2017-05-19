@@ -194,4 +194,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
         'as'        => 'admin.management_rayon',
         'uses'      => 'AdminController@managementRayon'
     ]);
+
+    Route::post('/import_organisasi', 'AdminController@importOrganisasi');
 });
