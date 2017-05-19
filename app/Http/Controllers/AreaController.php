@@ -70,9 +70,28 @@ class AreaController extends Controller
             ]);
 
 
-        }else{
+        }
+        elseif($request->penyulang){
+            $inputPenyulang = new Penyulang;
+            $inputPenyulang->nama_penyulang = $request->tambahnamapenyulang;
+            $inputPenyulang->id_gardu = $request->penyulang;
+            $inputPenyulang->data_master="";
+            if($inputPenyulang->save());
+
+            $rayon = Organisasi::where('id_organisasi', $request->idrayon)->first();
+            $gardu = Gardu::where('id', $request->idgardu)->first();
+            $data = Penyulang::where('id_gardu', $gardu->id)->get();
+            $decoded = json_decode($gardu->data_master, true);
+            return view('admin.nonmaster.dashboard_user.datamaster_dummy',[
+                'data' =>$data,
+                'decoded' =>$decoded,
+                'gardu'=>$gardu,
+                'idgardu'=>$request->idgardu,
+                'rayon'=>$rayon,
+            ]);
+        }
+        else{
             $data = Gardu::where('id',$request->idgardu)->first();
-//        dd($data);
             if( $data ){
                 $decoded = json_decode($data->data_master, true);
 //            dd($decoded);
@@ -313,8 +332,6 @@ class AreaController extends Controller
     }
 
     public function list_trafo($id_organisasi, $id_gardu){
-//        dd
-//($id_gardu);
         $rayon = Organisasi::where('id_organisasi', $id_organisasi)->first();
         $gardu = Gardu::where('id', $id_gardu)->first();
         $data = Penyulang::where('id_gardu', $id_gardu)->get();
@@ -323,6 +340,7 @@ class AreaController extends Controller
             'data' =>$data,
             'decoded' =>$decoded,
             'gardu'=>$gardu,
+            'idgardu'=>$id_gardu,
             'rayon'=>$rayon,
             ]);
     }

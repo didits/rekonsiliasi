@@ -27,7 +27,7 @@
                                     <li class="">
                                         <a href="#map-logo{{$list+1}}" role="tab" data-toggle="tab" aria-expanded="false">
                                             <i class="fa fa-map-marker"></i><br>
-                                            Penyulang {{$list+1}}
+                                            {{$key->nama_penyulang}}
                                         </a>
                                     </li>
                                     @endforeach
@@ -90,6 +90,7 @@
                                                             <input type="hidden" name="_method" value="POST">
                                                             <input type="hidden" name="tipe" value="KWH">
                                                             <input type="hidden" name="idgardu" value={{$gardu->id}}>
+                                                            {{--{{dd($gardu)}}--}}
                                                             {{ csrf_field() }}
 
                                                             <div class="row">
@@ -520,7 +521,7 @@
                                                             @foreach($data as $list => $key)
                                                             <tr>
                                                                 <td class="text-center">{{$list+1}}</td>
-                                                                <td>Penyulang {{$list+1}}</td>
+                                                                <td>{{$key->nama_penyulang}}</td>
                                                                 <td>{{$rayon->nama_organisasi}}</td>
                                                                 <td class="td-actions text-right">
                                                                     <a href="#" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="View Profile">
@@ -546,7 +547,12 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="card">
-                                                    <form id="registerFormValidation" action="" method="" novalidate="novalidate">
+                                                    <form action="{{route('input_datamaster.store')}}" method="post">
+                                                        <input type="hidden" name="_method" value="POST">
+                                                        <input type="hidden" name="penyulang" value="{{$idgardu}}">
+                                                        <input type="hidden" name="idgardu" value={{$gardu->id}}>
+                                                        <input type="hidden" name="idrayon" value={{$rayon->id_organisasi}}>
+                                                        {{ csrf_field() }}
                                                         <div class="header">Tambah Penyulang</div>
                                                         <div class="content">
 
