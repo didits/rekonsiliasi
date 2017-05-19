@@ -521,7 +521,7 @@
                     '',
                 '<div class="fixed-table-container">',
                 '<div class="fixed-table-header"><table></table></div>',
-                '<div class="fixed-table-body">',
+                '<div class="table-body">',
                     '<div class="fixed-table-loading">',
                         this.options.formatLoadingMessage(),
                     '</div>',
@@ -537,7 +537,7 @@
         this.$container.insertAfter(this.$el);
         this.$tableContainer = this.$container.find('.fixed-table-container');
         this.$tableHeader = this.$container.find('.fixed-table-header');
-        this.$tableBody = this.$container.find('.fixed-table-body');
+        this.$tableBody = this.$container.find('.table-body');
         this.$tableLoading = this.$container.find('.fixed-table-loading');
         this.$tableFooter = this.$container.find('.fixed-table-footer');
         this.$toolbar = this.$container.find('.fixed-table-toolbar');

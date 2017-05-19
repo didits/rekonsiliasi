@@ -11,31 +11,33 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="header"> 
+                            <div class="header">
                                 <h4 class="title">Daftar Organisasi</h4>
                                 <hr>
                                 <form method="POST" action="{{url('admin/import_organisasi')}}" enctype="multipart/form-data">
-                                        {{csrf_field()}}
-                                        <div id="form-soal" class="form-group label-floating">
-                                            <div>
+                                    {{csrf_field()}}
+                                    <div id="form-soal" class="form-group label-floating">
+                                        <div>
                                                 <span class="btn btn-info btn-round btn-file">
-                                                    <input type="file" name="excel" required />
+                                                    <input type="file" name="excel" required/>
                                                 </span>
-                                                <button type="submit" class="btn btn-fill btn-primary">Submit</button>
-                                            </div>
+                                            <button type="submit" class="btn btn-fill btn-primary">Submit</button>
                                         </div>
-
-                                        
-                                    </form>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="toolbar">
+                                <!--        Here you can write extra buttons/actions for the toolbar              -->
                             </div>
                             <div class="content table-responsive table-full-width">
-                                <table class="table table-hover table-striped">
+                                <table id="bootstrap-table" class="table table-hover table-striped">
                                     <thead>
-                                        <th>No</th>
-                                        <th>ID ORGANISASI</th>
-                                        <th>NAMA ORGANISASI</th>
-                                        <th>TIPE ORGANISASI</th>
-                                        <th>ALAMAT</th>
+                                        <th data-field="no" data-sortable="true" class="text-center">No</th>
+                                        <th data-field="idorg" data-sortable="true">ID ORGANISASI</th>
+                                        <th data-field="namaorg" data-sortable="true">NAMA ORGANISASI</th>
+                                        <th data-field="tipeorg" data-sortable="true">TIPE ORGANISASI</th>
+                                        <th data-field="alamat">ALAMAT</th>
+
                                     </thead>
                                     <tbody>
                                     @foreach($data as $key => $list)
@@ -59,7 +61,6 @@
                                     @endforeach
                                     </tbody>
                                 </table>
-
                             </div>
                         </div>
                     </div>
