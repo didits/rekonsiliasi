@@ -72,8 +72,8 @@
                 @if(Auth::user()->tipe_organisasi==0)
                 <li>
                     <a href="{{route('admin.management_rayon')}}">
-                        <i class="pe-7s-home"></i>
-                        <p>Management Rayon</p>
+                        <i class="pe-7s-user"></i>
+                        <p>Management Organisasi</p>
                     </a>
                 </li>
                 @endif

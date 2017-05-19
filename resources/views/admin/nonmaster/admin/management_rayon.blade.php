@@ -3,55 +3,67 @@
 
 @section('content')
 <div class="wrapper">
-    @include('admin.master.navbar')
+@include('admin.master.navbar')
     <div class="main-panel">
-        @include('admin.master.top_navbar', ['navbartitle' => 'Input Data'])
+@include('admin.master.top_navbar', ['navbartitle' => Auth::user()->nama_organisasi])
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-
-                        <div class="col-md-8">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <form action="{{route('input_listrik.store')}}" method="post">
-                                    <input type="hidden" name="_method" value="POST">
-                                        {{ csrf_field() }}
-                                        <div class="card">
-                                            <div class="header">
-                                                <h4 class="title">VISUAL</h4>
-                                            </div>
-                                            <div class="content">
-
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label>Stand Akhir LWBP1</label>
-                                                            <input type="text" name="lwbp1_visual" class="form-control" placeholder="" value="">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Stand Akhir LWBP2</label>
-                                                            <input type="text" name="lwbp2_visual" class="form-control" placeholder="" value="">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Stand Akhir WBP</label>
-                                                            <input type="text" name="wbp_visual" class="form-control" placeholder="" value="">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Stand Akhir KVARH</label>
-                                                            <input type="text" name="kvarh_visual" class="form-control" placeholder="" value="">
-                                                        </div>
-                                                        <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
-                                                        <div class="clearfix"></div>
-                                                    </div>
-                                                </div>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header"> 
+                                <h4 class="title">Daftar Organisasi</h4>
+                                <hr>
+                                <form method="POST" action="{{url('admin/import_organisasi')}}" enctype="multipart/form-data">
+                                        {{csrf_field()}}
+                                        <div id="form-soal" class="form-group label-floating">
+                                            <div>
+                                                <span class="btn btn-info btn-round btn-file">
+                                                    <input type="file" name="excel" required />
+                                                </span>
+                                                <button type="submit" class="btn btn-fill btn-primary">Submit</button>
                                             </div>
                                         </div>
+
+                                        
                                     </form>
-                                </div>
-                                
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <th>No</th>
+                                        <th>ID ORGANISASI</th>
+                                        <th>NAMA ORGANISASI</th>
+                                        <th>TIPE ORGANISASI</th>
+                                        <th>ALAMAT</th>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($data as $key => $list)
+                                        <tr>
+                                            <td>{{$key+1}}</td>
+                                            <td>{{$list->id_organisasi}}</td>
+                                            <td>{{$list->nama_organisasi}}</td>
+                                            <td>
+                                            @if ( $list->tipe_organisasi == 0)
+                                                Admin
+                                            @elseif ($list->tipe_organisasi == 1)
+                                                Kantor Distribusi
+                                            @elseif ($list->tipe_organisasi == 2)
+                                                Area
+                                            @elseif ($list->tipe_organisasi == 3)
+                                                Rayon
+                                            @endif
+                                            </td>
+                                            <td>{{$list->alamat}}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
 
