@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\DataMaster;
+use App\Gardu;
 use App\Organisasi;
 use Auth;
 use Illuminate\Http\Request;
-use App\Gardu;
 use App\Penyulang;
 
 class AreaController extends Controller
@@ -27,7 +26,7 @@ class AreaController extends Controller
 
     public function index()
     {
-//        $data = DataMaster::where('id_organisasi', Auth::user()->id_organisasi)->first();
+//        $data = Gardu::where('id_organisasi', Auth::user()->id_organisasi)->first();
 //        if(!empty ( $data )){
             return view('admin.nonmaster.dashboard_user.index');
 //        }
@@ -54,11 +53,12 @@ class AreaController extends Controller
 
     public function store(Request $request){
 
-        $data = DataMaster::where('id_organisasi', Auth::user()->id_organisasi)->first();
-
-        if(!empty ( $data )){
-            $decoded = json_decode($data->alatpengukuran, true);
-            if($request->tipe == 'KWH'){
+        $data = Gardu::where('id',$request->idgardu)->first();
+//        dd($data);
+        if( $data ){
+            $decoded = json_decode($data->data_master, true);
+//            dd($decoded);
+            if($request->tipe ==    'KWH'){
                 $data_KWH = array(
                     'merk' => $request->merk,
                     'nomorseri' => $request->noseri,
@@ -152,8 +152,8 @@ class AreaController extends Controller
                 'FK' => $data_FK );
 
 
-            $data_master = DataMaster::where('id_organisasi', Auth::user()->id_organisasi)->first();
-            $data_master->alatpengukuran=json_encode($data);
+            $data_master = Gardu::where('id', $request->idgardu)->first();
+            $data_master->data_master=json_encode($data);
             if($data_master->save());
 
         }
@@ -252,18 +252,23 @@ class AreaController extends Controller
                 'TA' => $data_TA,
                 'TT' => $data_TT,
                 'FK' => $data_FK );
-
-
-            $data_master = new DataMaster;
-            $data_master->id_organisasi = Auth::user()->id_organisasi;
-            $data_master->alatpengukuran = json_encode($data);
-            $data_master->pembacaanmeter = json_encode(null);
-
+            $data_master = Gardu::where('id', $request->idgardu)->first();
+//            dd($data_master);
+            $data_master->data_master=json_encode($data);
             if($data_master->save());
+
+//            $data_master = new Gardu;
+//            $data_master->id_organisasi = Auth::user()->id_organisasi;
+//            $data_master->data_master = json_encode($data);
+//            $data_master->nama_gardu
+
+//            $data_master->pembacaanmeter = json_encode(null);
+
+//            if($data_master->save());
         }
-        $data = DataMaster::where('id_organisasi', Auth::user()->id_organisasi)->first();
-        $decoded = json_decode($data->alatpengukuran, true);
-//        return redirect('admin.nonmaster.dashboard_user.datamaster');
+
+        $data = Gardu::where('id', $request->idgardu)->first();
+        $decoded = json_decode($data->data_master, true);
         return view('admin.nonmaster.dashboard_user.datamaster',[
             'data' => $decoded]);
     }
@@ -286,11 +291,14 @@ class AreaController extends Controller
     }
 
     public function list_trafo($id_organisasi, $id_gardu){
+//        dd($id_gardu);
         $rayon = Organisasi::where('id_organisasi', $id_organisasi)->first();
-        $gardu = Gardu::where('id_organisasi', $id_organisasi)->first();
+        $gardu = Gardu::where('id', $id_gardu)->first();
         $data = Penyulang::where('id_gardu', $id_gardu)->get();
+        $decoded = json_decode($gardu->data_master, true);
         return view('admin.nonmaster.dashboard_user.datamaster_dummy',[
             'data' =>$data,
+            'decoded' =>$decoded,
             'gardu'=>$gardu,
             'rayon'=>$rayon,
             ]);
@@ -307,8 +315,8 @@ class AreaController extends Controller
     }
     public function datamaster()
     {
-        $data = DataMaster::where('id_organisasi', Auth::user()->id_organisasi)->first();
-        $decoded = json_decode($data->alatpengukuran, true);
+        $data = Gardu::where('id_organisasi', Auth::user()->id_organisasi)->first();
+        $decoded = json_decode($data->data_master, true);
         return view('admin.nonmaster.dashboard_user.datamaster',[
             'data' => $decoded]);
     }
