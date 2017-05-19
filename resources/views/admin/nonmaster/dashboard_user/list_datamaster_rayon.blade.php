@@ -21,9 +21,10 @@
                                         <th>Nama Gardu</th>
                                         </thead>
                                         <tbody> 
+
                                         @foreach($data as $list)
                                         <tr>
-                                            <td><a href="{{url('/area/list_datamaster_trafo/'.$id_organisasi.'/'.$list->id)}}">{{$list->nama_gardu}}</a></td>
+                                            <td><a href="{{url('/area/list_datamaster_trafo/'.$id_organisasi.'/'.$list->id)}}"> {{$list->nama_gardu}} </a></td>
                                         </tr>
                                         @endforeach
                                         </tbody>
@@ -36,46 +37,49 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
-                                <form id="registerFormValidation" action="" method="" novalidate="novalidate">
+                                <form action="{{route('input_datamaster.store')}}" method="post">
+                                    <input type="hidden" name="_method" value="POST">
+                                    <input type="hidden" name="id_organisasi" value="{{$id_organisasi}}">
+                                    {{ csrf_field() }}
+                                    {{--<form id="registerFormValidation" action="{{route('input_datamaster.create')}}" method="post" method="" novalidate="novalidate">--}}
+                                    {{--{{ csrf_field() }}--}}
                                     <div class="header">Tambah Gardu</div>
                                     <div class="content">
-
-
                                         <div class="form-group">
                                             <label class="control-label">Nama Gardu <star>*</star></label>
-                                            <input class="form-control" name="tambahnamapenyulang" type="text" required="required" aria-required="true">
+                                            <input class="form-control" name="tambahnamagardu" type="text" required="required" aria-required="true">
                                         </div>
 
                                         <div class="form-group">
                                             <label class="control-label">Rayon <star>*</star></label>
-                                            <input class="form-control" name="tambahnamarayon" type="text" required="required" aria-required="true">
+                                            <input class="form-control" name="tambahnamarayon" type="text" disabled="" value="{{$nama_rayon}}" required="required" aria-required="true">
                                         </div>
 
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="btn-group bootstrap-select">
-                                                        <div class="btn-group bootstrap-select">
-                                                            <select name="selectrayonsingle" class="selectpicker" data-title="Single Select" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">
-                                                                <option class="bs-title-option" value="">Single Select</option>
-                                                                <option value="010101">Rayon Sukolilo</option>
-                                                                <option value="010102">Rayon Gubeng</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="btn-group bootstrap-select show-tick">
-                                                        <div class="btn-group bootstrap-select show-tick">
-                                                            <select multiple="" data-title="Multiple Select" name="selectrayonmultiple" class="selectpicker" data-style="btn-info btn-fill btn-block" data-menu-style="dropdown-blue" tabindex="-98">
-                                                                <option value="010101">Rayon Sukolilo</option>
-                                                                <option value="010102">Rayon Gubeng</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        {{--<div class="form-group">--}}
+                                            {{--<div class="row">--}}
+                                                {{--<div class="col-md-6">--}}
+                                                    {{--<div class="btn-group bootstrap-select">--}}
+                                                        {{--<div class="btn-group bootstrap-select">--}}
+                                                            {{--<select name="selectrayonsingle" class="selectpicker" data-title="Single Select" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">--}}
+                                                                {{--<option class="bs-title-option" value="">Single Select</option>--}}
+                                                                {{--<option value="010101">Rayon Sukolilo</option>--}}
+                                                                {{--<option value="010102">Rayon Gubeng</option>--}}
+                                                            {{--</select>--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
+                                                {{--<div class="col-md-6">--}}
+                                                    {{--<div class="btn-group bootstrap-select show-tick">--}}
+                                                        {{--<div class="btn-group bootstrap-select show-tick">--}}
+                                                            {{--<select multiple="" data-title="Multiple Select" name="selectrayonmultiple" class="selectpicker" data-style="btn-info btn-fill btn-block" data-menu-style="dropdown-blue" tabindex="-98">--}}
+                                                                {{--<option value="010101">Rayon Sukolilo</option>--}}
+                                                                {{--<option value="010102">Rayon Gubeng</option>--}}
+                                                            {{--</select>--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
 
                                         <div class="form-group">
                                             <label class="control-label">Jenis Penyulang</label>
