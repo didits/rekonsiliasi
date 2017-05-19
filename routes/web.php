@@ -158,6 +158,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
         'uses'      => 'AreaController@list_rayon'
     ]);
 
+    Route::post('/input_gardu', [
+        'as'        => 'area.create',
+        'uses'      => 'AreaController@create'
+    ]);
+
 
     Route::get('/list_datamaster_rayon/{id_organisasi}', [
         'as'        => 'area.list_gardu',
