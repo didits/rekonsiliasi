@@ -56,19 +56,19 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label>Stand Akhir LWBP1</label>
+                                                            <label>Pemakaian KWH LWBP1</label>
                                                             <input type="text" name="lwbp1_download" class="form-control" placeholder="" value="{{$data['beli']['download']['lwbp1_download']}}">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label>Stand Akhir LWBP2</label>
+                                                            <label>Pemakaian KWH LWBP2</label>
                                                             <input type="text" name="lwbp2_download" class="form-control" placeholder="" value="{{$data['beli']['download']['lwbp2_download']}}">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label>Stand Akhir WBP</label>
+                                                            <label>Pemakaian KWH WBP</label>
                                                             <input type="text" name="wbp_download" class="form-control" placeholder="" value="{{$data['beli']['download']['wbp_download']}}">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label>Stand Akhir KVARH</label>
+                                                            <label>Pemakaian KWH KVARH</label>
                                                             <input type="text" name="kvarh_download" class="form-control" placeholder="" value="{{$data['beli']['download']['kvarh_download']}}">
                                                         </div>
                                                         <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
