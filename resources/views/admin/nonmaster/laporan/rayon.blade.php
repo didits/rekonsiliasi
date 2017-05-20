@@ -5,7 +5,7 @@
 <div class="wrapper">
 @include('admin.master.navbar')
     <div class="main-panel">
-@include('admin.master.top_navbar', ['navbartitle' => 'Rayon XXX'])
+        @include('admin.master.top_navbar', ['navbartitle' => "RAYON " .    Auth::user()->nama_organisasi])
         <div class="content">
             <div class="container-fluid">
                 <div class="row">

@@ -341,7 +341,14 @@ class AreaController extends Controller
 
     public function profil()
     {
-        return view('admin.nonmaster.dashboard_user.profile');
+        if (Auth::user()->tipe_organisasi == 2)
+            $tipe = "AREA ";
+        elseif (Auth::user()->tipe_organisasi == 3)
+            $tipe = "RAYON ";
+        $navhead = "PROFIL " . $tipe . Auth::user()->nama_organisasi;
+        return view('admin.nonmaster.dashboard_user.profile', [
+            'judul' => $navhead
+        ]);
     }
 
     public function pemakaiansendiri()

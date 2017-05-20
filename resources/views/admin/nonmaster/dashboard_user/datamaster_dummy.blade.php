@@ -5,7 +5,7 @@
     <div class="wrapper">
         @include('admin.master.navbar')
         <div class="main-panel">
-            @include('admin.master.top_navbar', ['navbartitle' => 'Data Master'])
+            @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER GARDU: " . $gardu->nama_gardu])
             <div class="content">
                 <div class="container-fluid">
 
