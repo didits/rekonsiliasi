@@ -73,7 +73,7 @@
                 <li>
                     <a href="{{route('admin.management_rayon')}}">
                         <i class="pe-7s-user"></i>
-                        <p>Management Organisasi</p>
+                        <p>Manajemen Organisasi</p>
                     </a>
                 </li>
                 @endif

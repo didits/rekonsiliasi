@@ -1,5 +1,5 @@
 @extends('admin.master.app')
-@section('title', 'Profil')
+@section('title', 'Si-Oneng, Rekonsiliasi Energi')
 
 @section('content')
 <div class="wrapper">
