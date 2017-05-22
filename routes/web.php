@@ -177,9 +177,15 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
 
 //distribusi
 Route::group(['middleware' => 'auth', 'prefix' => 'distribusi'], function () {
+
     Route::get('/', [
         'as'        => 'distribusi.index',
-        'uses'      => 'DistribusiController@index'
+        'uses'      => 'DistribusiController@list_area'
+    ]);
+
+    Route::get('/list_rayon/{id_organisasi}', [
+        'as'        => 'distribusi.list_rayon',
+        'uses'      => 'DistribusiController@list_rayon'
     ]);
 });
 

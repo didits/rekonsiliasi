@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Organisasi;
 
 class DistribusiController extends Controller
 {
@@ -25,5 +26,24 @@ class DistribusiController extends Controller
     public function index()
     {
          return view('admin.nonmaster.dashboard_user.index');
+    }
+
+    public function list_area(){
+        $data = Organisasi::where('tipe_organisasi', '2')->get();
+//        dd($data);
+        return view('admin.nonmaster.dashboard_user.list_area',[
+            'data' => $data]);
+//            'id' => $data->id_organisasi]);
+    }
+
+    public function list_rayon($id_organisasi){
+        $data = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get();
+//        dd($data);
+        $org = Organisasi::where('id_organisasi', $id_organisasi)->get();
+        return view('admin.nonmaster.dashboard_user.list_rayon',[
+            'data' => $data,
+            'org' => $org[0]
+        ]);
+//            'id' => $data->id_organisasi]);
     }
 }
