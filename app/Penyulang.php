@@ -11,6 +11,8 @@ class Penyulang extends Model
     protected $fillable = [
         'id',
         'id_gardu',
+        'nama_penyulang',
+        'alamat_penyulang',
         'data_master'
     ];
 

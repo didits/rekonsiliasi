@@ -11,8 +11,9 @@ class Gardu extends Model
     protected $fillable = [
         'id',
         'id_organisasi',
-        'data_master',
-        'nama_gardu'
+        'nama_gardu',
+        'alamat_gardu',
+        'data_master'
     ];
 
     public function organisasi() {

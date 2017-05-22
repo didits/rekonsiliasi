@@ -57,6 +57,7 @@ class AreaController extends Controller
         if($request->id_organisasi){
             $inputGardu = new Gardu;
             $inputGardu->nama_gardu = $request->tambahnamagardu;
+            $inputGardu->alamat_gardu = $request->tambahalamatgardu;
             $inputGardu->id_organisasi = $request->id_organisasi;
             $inputGardu->data_master="";
             if($inputGardu->save());
@@ -74,6 +75,7 @@ class AreaController extends Controller
         elseif($request->penyulang){
             $inputPenyulang = new Penyulang;
             $inputPenyulang->nama_penyulang = $request->tambahnamapenyulang;
+            $inputPenyulang->alamat_penyulang = $request->tambahalamatpenyulang;
             $inputPenyulang->id_gardu = $request->penyulang;
             $inputPenyulang->data_master="";
             if($inputPenyulang->save());

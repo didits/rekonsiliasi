@@ -57,16 +57,22 @@
                                                             {{ csrf_field() }}
 
                                                             <div class="row">
-                                                                <div class="col-md-6">
+                                                                <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label>Area</label>
                                                                         <input type="text" class="form-control" disabled="" placeholder="Area" value="{{Auth::user()->nama_organisasi}}">
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-6">
+                                                                <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label>Rayon</label>
                                                                         <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$rayon->nama_organisasi}}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label>Kapasitas</label>
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Kapasitas" value="{{$decoded['TT']['ratiopt']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -124,7 +130,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Tegangan Arus</label>
-                                                                        <input type="number" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{$decoded['KWH']['teganganarus']}}">
+                                                                        <input type="text" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{$decoded['KWH']['teganganarus']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -157,7 +163,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Ratio</label>
-                                                                        <input type="number" name="ratioct" class="form-control" placeholder="Ratio" value="{{$decoded['TA']['ratioct']}}">
+                                                                        <input type="text" name="ratioct" class="form-control" placeholder="Ratio" value="{{$decoded['TA']['ratioct']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -166,7 +172,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Burden (VA)</label>
-                                                                        <input type="number" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{$decoded['TA']['burdenct']}}">
+                                                                        <input type="text" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{$decoded['TA']['burdenct']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -198,7 +204,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Ratio</label>
-                                                                        <input type="number" name="ratiopt" class="form-control" placeholder="Ratio" value="{{$decoded['TT']['ratiopt']}}">
+                                                                        <input type="text" name="ratiopt" class="form-control" placeholder="Ratio" value="{{$decoded['TT']['ratiopt']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -207,7 +213,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Burden (VA)</label>
-                                                                        <input type="number" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{$decoded['TT']['burdenpt']}}">
+                                                                        <input type="text" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{$decoded['TT']['burdenpt']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -271,16 +277,22 @@
                                                             {{ csrf_field() }}
 
                                                             <div class="row">
-                                                                <div class="col-md-6">
+                                                                <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label>Area</label>
                                                                         <input type="text" class="form-control" disabled="" placeholder="Area" value="{{Auth::user()->nama_organisasi}}">
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-6">
+                                                                <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label>Rayon</label>
                                                                         <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$rayon->nama_organisasi}}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label>Kapasitas</label>
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Kapasitas" value="{{$decoded['TT']['ratiopt']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -337,7 +349,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Tegangan Arus</label>
-                                                                        <input type="number" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{$decoded['KWH']['teganganarus']}}">
+                                                                        <input type="text" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{$decoded['KWH']['teganganarus']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -369,7 +381,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Ratio</label>
-                                                                        <input type="number" name="ratioct" class="form-control" placeholder="Ratio" value="{{$decoded['TA']['ratioct']}}">
+                                                                        <input type="text" name="ratioct" class="form-control" placeholder="Ratio" value="{{$decoded['TA']['ratioct']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -378,7 +390,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Burden (VA)</label>
-                                                                        <input type="number" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{$decoded['TA']['burdenct']}}">
+                                                                        <input type="text" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{$decoded['TA']['burdenct']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -410,7 +422,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Ratio</label>
-                                                                        <input type="number" name="ratiopt" class="form-control" placeholder="Ratio" value="{{$decoded['TT']['ratiopt']}}">
+                                                                        <input type="text" name="ratiopt" class="form-control" placeholder="Ratio" value="{{$decoded['TT']['ratiopt']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -419,7 +431,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Burden (VA)</label>
-                                                                        <input type="number" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{$decoded['TT']['burdenpt']}}">
+                                                                        <input type="text" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{$decoded['TT']['burdenpt']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -445,7 +457,7 @@
                                                             <input type="hidden" name="_method" value="POST">
                                                             <input type="hidden" name="tipe" value="FK">
                                                             <input type="hidden" name="formpenyulang" value="{{$key->id}}">
-                                                            form
+                                                            {{--form--}}
                                                             {{ csrf_field() }}
 
                                                             <div class="row">
@@ -484,16 +496,22 @@
                                                             {{ csrf_field() }}
 
                                                             <div class="row">
-                                                                <div class="col-md-6">
+                                                                <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label>Area</label>
                                                                         <input type="text" class="form-control" disabled="" placeholder="Area" value="{{Auth::user()->nama_organisasi}}">
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-6">
+                                                                <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label>Rayon</label>
                                                                         <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$rayon->nama_organisasi}}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label>Kapasitas</label>
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Kapasitas" value="{{$decoded['TT']['ratiopt']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -565,6 +583,11 @@
                                                             <div class="form-group">
                                                                 <label class="control-label">Nama Penyulang <star>*</star></label>
                                                                 <input class="form-control" name="tambahnamapenyulang" type="text" required="required" aria-required="true">
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label class="control-label">Alamat Penyulang <star>*</star></label>
+                                                                <input class="form-control" name="tambahalamatpenyulang" type="text" required="required" aria-required="true">
                                                             </div>
 
                                                             <div class="form-group">

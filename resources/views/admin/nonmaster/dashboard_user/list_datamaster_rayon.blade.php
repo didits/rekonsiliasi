@@ -19,12 +19,14 @@
                                     <table class="table table-hover table-striped">
                                         <thead>
                                         <th>Nama Gardu</th>
+                                        <th>Alamat Gardu</th>
                                         </thead>
                                         <tbody> 
 
                                         @foreach($data as $list)
                                         <tr>
                                             <td><a href="{{url('/area/list_datamaster_trafo/'.$id_organisasi.'/'.$list->id)}}"> {{$list->nama_gardu}} </a></td>
+                                            <td> {{$list->alamat_gardu}} </td>
                                         </tr>
                                         @endforeach
                                         </tbody>
@@ -48,6 +50,11 @@
                                         <div class="form-group">
                                             <label class="control-label">Nama Gardu <star>*</star></label>
                                             <input class="form-control" name="tambahnamagardu" type="text" required="required" aria-required="true">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">Alamat Gardu <star>*</star></label>
+                                            <input class="form-control" name="tambahalamatgardu" type="text" required="required" aria-required="true">
                                         </div>
 
                                         <div class="form-group">
