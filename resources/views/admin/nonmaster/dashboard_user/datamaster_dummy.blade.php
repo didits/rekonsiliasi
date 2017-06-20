@@ -286,7 +286,7 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label>Rayon</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$rayon->nama_organisasi}}">
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Rayon" value="Rayon XXX">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-4">

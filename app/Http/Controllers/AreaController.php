@@ -294,7 +294,7 @@ class AreaController extends Controller
             if($request->formpenyulang)
                 $data_master = Penyulang::where('id', $request->formpenyulang)->first();
             else $data_master = Gardu::where('id', $request->idgardu)->first();
-
+//            dd($request);
             $data_master->data_master=json_encode($data);
             if($data_master->save());
 
@@ -303,7 +303,10 @@ class AreaController extends Controller
             else $data = Gardu::where('id', $request->idgardu)->first();
             $decoded = json_decode($data->data_master, true);
             return view('admin.nonmaster.dashboard_user.datamaster',[
-                'data' => $decoded]);
+                'data' => $decoded,
+                'idgardu'=>$request->idgardu,
+                'idpenyulang'=>$request->formpenyulang
+            ]);
         }
 
     }

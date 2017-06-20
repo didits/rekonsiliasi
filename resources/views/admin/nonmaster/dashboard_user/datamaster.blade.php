@@ -69,7 +69,7 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label>Area</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Area" value="Area XXX">
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Area" value="{{Auth::user()->nama_organisasi}}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-4">
@@ -83,7 +83,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Merk</label>
-                                                                        <input type="text" name="merk" class="form-control" placeholder="Merk" value="{{$data['KWH']['merk']}}">
+                                                                        <input type="text" name="merk" class="form-control"disabled="" placeholder="Merk" value="{{$data['KWH']['merk']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -92,7 +92,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Nomor Seri</label>
-                                                                        <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="{{$data['KWH']['nomorseri']}}">
+                                                                        <input type="text" name="noseri" class="form-control"disabled="" placeholder="Nomor Seri" value="{{$data['KWH']['nomorseri']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -101,7 +101,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Konstanta</label>
-                                                                        <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="{{$data['KWH']['konstanta']}}">
+                                                                        <input type="text" name="konstanta" class="form-control"disabled="" placeholder="Konstanta" value="{{$data['KWH']['konstanta']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -110,12 +110,12 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Tegangan Arus</label>
-                                                                        <input type="number" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{$data['KWH']['teganganarus']}}">
+                                                                        <input type="number" name="teganganarus" class="form-control"disabled="" placeholder="Tegangan Arus" value="{{$data['KWH']['teganganarus']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
 
-                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
+                                                            {{--<button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>--}}
                                                             <div class="clearfix"></div>
                                                         </form>
                                                     </div>
@@ -151,7 +151,7 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label>Area</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Area" value="Area XXX">
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Area" value="{{Auth::user()->nama_organisasi}}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-4">
@@ -166,7 +166,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Ratio</label>
-                                                                        <input type="number" name="ratioct" class="form-control" placeholder="Ratio" value="{{$data['TA']['ratioct']}}">
+                                                                        <input type="number" name="ratioct" class="form-control"disabled="" placeholder="Ratio" value="{{$data['TA']['ratioct']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -175,12 +175,12 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Burden (VA)</label>
-                                                                        <input type="number" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{$data['TA']['burdenct']}}">
+                                                                        <input type="number" name="burdenct" class="form-control"disabled="" placeholder="Burden (VA)" value="{{$data['TA']['burdenct']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
 
-                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
+                                                            {{--<button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>--}}
                                                             <div class="clearfix"></div>
                                                         </form>
                                                     </div>
@@ -215,7 +215,7 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label>Area</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Area" value="Area XXX">
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Area" value="{{Auth::user()->nama_organisasi}}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-4">
@@ -230,7 +230,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Ratio</label>
-                                                                        <input type="number" name="ratiopt" class="form-control" placeholder="Ratio" value="{{$data['TT']['ratiopt']}}">
+                                                                        <input type="number" name="ratiopt" class="form-control"disabled="" placeholder="Ratio" value="{{$data['TT']['ratiopt']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -239,12 +239,12 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Burden (VA)</label>
-                                                                        <input type="number" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{$data['TT']['burdenpt']}}">
+                                                                        <input type="number" name="burdenpt" class="form-control"disabled="" placeholder="Burden (VA)" value="{{$data['TT']['burdenpt']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
 
-                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
+                                                            {{--<button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>--}}
                                                             <div class="clearfix"></div>
                                                         </form>
                                                     </div>
@@ -278,13 +278,13 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label>Area</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Area" value="Area XXX">
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Area" value="{{Auth::user()->nama_organisasi}}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label>Rayon</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Rayon" value="Rayon XXX">
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Rayon" value="">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -293,12 +293,12 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Faktor Kali Meter</label>
-                                                                        <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{$data['FK']['faktorkali']}}">
+                                                                        <input type="number" name="faktorkali" class="form-control"disabled="" placeholder="Faktor Kali" value="{{$data['FK']['faktorkali']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
 
-                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
+                                                            {{--<button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>--}}
                                                             <div class="clearfix"></div>
                                                         </form>
                                                     </div>
