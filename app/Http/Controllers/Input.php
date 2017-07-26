@@ -351,16 +351,23 @@ class Input extends Controller
     }
 
     public function olah_data($visual,$download,$id,$tipe){
-        $faktor_kali = 1;
         $date = date('Ym')- "1";
+        $boolean_ada_data_awal = true; 
+        $data_master = Gardu::where('id_organisasi', Auth::user()->id_organisasi)->first();
+        $data_master = json_decode($data_master->data_master, true);
 
+        $faktor_kali = (int)$data_master['FK']['faktorkali'];
+        
         if($tipe=="gardu")
             $awal = PenyimpananGardu::where('periode', $date)->where('id_gardu', $id)->first();
         else
             $awal = PenyimpananPenyulang::where('periode', $date)->where('id_penyulang', $id)->first();
-        if($awal)
+        if($awal){
+            $boolean_ada_data_awal = true;
             $data_awal = json_decode($awal->data, true);
-        else echo "data visual/download bulan sebelumnya tidak tersedia";
+        }else {
+            $boolean_ada_data_awal = false;
+        }
         $lwbp1_visual = $visual['lwbp1_visual'];
         $lwbp2_visual = $visual['lwbp2_visual'];
         $wbp_visual = $visual['wbp_visual'];
@@ -373,11 +380,18 @@ class Input extends Controller
             'kvarh_visual' => $kvarh_visual,
         );
 
-        $lwbp1_visual = ($data_visual['lwbp1_visual'] - $data_awal['beli']['visual']['lwbp1_visual'])*$faktor_kali;
-        $lwbp2_visual = ($data_visual['lwbp2_visual'] - $data_awal['beli']['visual']['lwbp2_visual'])*$faktor_kali;
-        $wbp_visual = ($data_visual['wbp_visual'] - $data_awal['beli']['visual']['wbp_visual'])*$faktor_kali;
-        $kvarh_visual = ($data_visual['kvarh_visual'] - $data_awal['beli']['visual']['kvarh_visual'])*$faktor_kali;
-
+        if($boolean_ada_data_awal){
+            $lwbp1_visual = ($data_visual['lwbp1_visual'] - $data_awal['beli']['visual']['lwbp1_visual'])*$faktor_kali;
+            $lwbp2_visual = ($data_visual['lwbp2_visual'] - $data_awal['beli']['visual']['lwbp2_visual'])*$faktor_kali;
+            $wbp_visual = ($data_visual['wbp_visual'] - $data_awal['beli']['visual']['wbp_visual'])*$faktor_kali;
+            $kvarh_visual = ($data_visual['kvarh_visual'] - $data_awal['beli']['visual']['kvarh_visual'])*$faktor_kali;
+        }else{
+            $lwbp1_visual = ($data_visual['lwbp1_visual'])*$faktor_kali;
+            $lwbp2_visual = ($data_visual['lwbp2_visual'])*$faktor_kali;
+            $wbp_visual = ($data_visual['wbp_visual'])*$faktor_kali;
+            $kvarh_visual = ($data_visual['kvarh_visual'])*$faktor_kali;
+        }
+        
         $data_visual2 = array(
             'lwbp1_visual' => $lwbp1_visual,
             'lwbp2_visual' => $lwbp2_visual,
@@ -397,14 +411,20 @@ class Input extends Controller
             'wbp_download' => $wbp_download,
             'kvarh_download' => $kvarh_download,
             'total_pemakaian_kwh_visual' => $lwbp1_download + $lwbp2_download + $wbp_download
-
         );
 
+        if($boolean_ada_data_awal){
+            $lwbp1_download = ($download['lwbp1_download'] - $data_awal['beli']['download']['lwbp1_download'])*$faktor_kali;
+            $lwbp2_download = ($download['lwbp2_download'] - $data_awal['beli']['download']['lwbp2_download'])*$faktor_kali;
+            $wbp_download =  ($download['wbp_download'] - $data_awal['beli']['download']['wbp_download'])*$faktor_kali;
+            $kvarh_download = ($download['kvarh_download'] - $data_awal['beli']['download']['kvarh_download'])*$faktor_kali;
+        }else{
+            $lwbp1_download = ($download['lwbp1_download'] )*$faktor_kali;
+            $lwbp2_download = ($download['lwbp2_download'] )*$faktor_kali;
+            $wbp_download =  ($download['wbp_download'] )*$faktor_kali;
+            $kvarh_download = ($download['kvarh_download'] )*$faktor_kali;
+        }
 
-        $lwbp1_download = ($download['lwbp1_download'] - $data_awal['beli']['download']['lwbp1_download'])*$faktor_kali;
-        $lwbp2_download = ($download['lwbp2_download'] - $data_awal['beli']['download']['lwbp2_download'])*$faktor_kali;
-        $wbp_download =  ($download['wbp_download'] - $data_awal['beli']['download']['wbp_download'])*$faktor_kali;
-        $kvarh_download = ($download['kvarh_download'] - $data_awal['beli']['download']['kvarh_download'])*$faktor_kali;
 
         $data_download2 = array(
             'lwbp1_download' => $lwbp1_download,

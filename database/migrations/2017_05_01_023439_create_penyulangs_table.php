@@ -20,8 +20,6 @@ class CreatePenyulangsTable extends Migration
             $table->string('alamat_penyulang');
             $table->text('data_master');
             $table->timestamps();
-            $table->foreign('id_gardu')
-              ->references('id')->on('gardu');
         });
     }
 

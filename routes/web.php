@@ -128,6 +128,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'rayon'], function () {
         'uses'      => 'Input@update'
     ]);
 
+    Route::get('/list_hasil_laporan_semua_penyulang/{id_gardu}', [
+        'as'        => 'laporan.list_hasil_laporan_semua_penyulang',
+        'uses'      => 'Laporan@list_hasil_laporan_semua_penyulang'
+    ]);
+
 });
 
 //area

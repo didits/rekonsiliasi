@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePenyimpananGardusTable extends Migration
+class CreatePenyimpananTrafoGi extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreatePenyimpananGardusTable extends Migration
      */
     public function up()
     {
-        Schema::create('penyimpanan_gardu', function (Blueprint $table) {
+        Schema::create('penyimpanan_trafo_gi', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_gardu')->unsigned();
             $table->string('periode');
+            $table->integer('id_trafo_gi')->unsigned();
             $table->text('data');
             $table->text('data_keluar');
             $table->timestamps();
-            $table->foreign('id_gardu')
-              ->references('id')->on('gardu');
+            $table->foreign('id_trafo_gi')
+              ->references('id')->on('trafo_gi');
         });
     }
 
@@ -32,6 +32,6 @@ class CreatePenyimpananGardusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('penyimpanan_gardu');
+        Schema::dropIfExists('penyimpanan_trafo_gi');
     }
 }
