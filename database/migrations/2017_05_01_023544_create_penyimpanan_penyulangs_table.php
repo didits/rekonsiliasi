@@ -18,6 +18,7 @@ class CreatePenyimpananPenyulangsTable extends Migration
             $table->string('periode');
             $table->integer('id_penyulang')->unsigned();
             $table->text('data');
+            $table->text('data_keluar');
             $table->timestamps();
             $table->foreign('id_penyulang')
               ->references('id')->on('penyulang');

@@ -56,6 +56,66 @@
                     </a>
                 </li>
 
+                <li routerlinkactive="active">
+                    <a data-toggle="collapse" href="#formsExamples">
+                        <i class="pe-7s-note2"></i>
+                        <p>Forms
+                           <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse" id="formsExamples">
+                        <ul class="nav">
+                            <li routerlinkactive="active">
+                                <a data-toggle="collapse" href="#formsExampless">
+                                    <i class="pe-7s-note2"></i>
+                                    <p>Forms
+                                       <b class="caret"></b>
+                                    </p>
+                                </a>
+                                <div class="collapse" id="formsExampless">
+                        <ul class="nav" style="margin-left: 20px">
+                            <li routerlinkactive="active">
+                                <a href="#/forms/regular">
+                                    Regular Forms
+                                </a>
+                            </li>
+                            <li routerlinkactive="active">
+                                <a href="#/forms/extended">
+                                    Extended Forms
+                                </a>
+                            </li>
+                            <li routerlinkactive="active">
+                                <a href="#/forms/validation">
+                                    Validation Forms
+                                </a>
+                            </li>
+                            <li routerlinkactive="active">
+                                <a href="#/forms/wizard">
+                                    Wizard
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                            </li>
+                            <li routerlinkactive="active">
+                                <a href="#/forms/extended">
+                                    Extended Forms
+                                </a>
+                            </li>
+                            <li routerlinkactive="active">
+                                <a href="#/forms/validation">
+                                    Validation Forms
+                                </a>
+                            </li>
+                            <li routerlinkactive="active">
+                                <a href="#/forms/wizard">
+                                    Wizard
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
                 <li>
                     <a href="{{route('area.list_rayon')}}">
                         <i class="pe-7s-gleam"></i>

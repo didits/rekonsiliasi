@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Gardu extends Model
+class GI extends Model
 {
-    protected $table = 'gardu';
+    protected $table = 'gi';
 
     protected $fillable = [
         'id',
