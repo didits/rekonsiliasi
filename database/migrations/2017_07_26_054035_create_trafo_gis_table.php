@@ -15,13 +15,16 @@ class CreateTrafoGisTable extends Migration
     {
         Schema::create('trafo_gi', function (Blueprint $table) {
                 $table->increments('id');
-                $table->integer('id_trafo_gi')->unsigned();
+//                $table->integer('id_trafo_gi')->unsigned();
                 $table->string('nama_trafo_gi');
                 $table->string('alamat_trafo_gi');
                 $table->text('data_master');
                 $table->timestamps();
+                $table->foreign('id_organisasi')
+                    ->references('id_organisasi')->on('organisasi');
                 $table->foreign('id_trafo_gi')
                     ->references('id')->on('gi');});
+
     }
 
     /**

@@ -15,11 +15,15 @@ class CreateGardusTable extends Migration
     {
         Schema::create('gardu', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('id_organisasi');
+//            $table->string('id_organisasi');
             $table->string('nama_gardu');
             $table->string('alamat_gardu');
             $table->text('data_master');
             $table->timestamps();
+            $table->foreign('id_organisasi')
+                ->references('id_organisasi')->on('organisasi');
+            $table->foreign('id_penyulang')
+                ->references('id_trafo_gi')->on('penyulang');
             });
     }
 

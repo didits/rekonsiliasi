@@ -16,12 +16,11 @@ class CreateGisTable extends Migration
         Schema::create('gi', function (Blueprint $table) {
            $table->increments('id');
            $table->string('nama_gi');
-           $table->integer('id_organisasi')->unsigned();
            $table->string('alamat_gi');
            $table->text('data_master');
            $table->timestamps();
            $table->foreign('id_organisasi')
-           ->references('id')->on('organisasi');
+           ->references('id_organisasi')->on('organisasi');
        });
     }
 
