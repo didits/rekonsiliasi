@@ -13,6 +13,7 @@ class CreatePenyimpananGardusTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('penyimpanan_gardu');
         Schema::create('penyimpanan_gardu', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_gardu')->unsigned();
@@ -21,7 +22,8 @@ class CreatePenyimpananGardusTable extends Migration
             $table->text('data_keluar');
             $table->timestamps();
             $table->foreign('id_gardu')
-              ->references('id')->on('gardu');
+                  ->references('id')
+                  ->on('gardu');
         });
     }
 

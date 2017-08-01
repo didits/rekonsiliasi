@@ -13,10 +13,11 @@ class CreatePenyimpananTrafoGi extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('penyimpanan_trafo_gi');
         Schema::create('penyimpanan_trafo_gi', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('periode');
             $table->integer('id_trafo_gi')->unsigned();
+            $table->string('periode');
             $table->text('data');
             $table->text('data_keluar');
             $table->timestamps();

@@ -13,6 +13,7 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('organisasi');
         Schema::create('organisasi', function (Blueprint $table) {
             $table->increments('id');
             $table->string('id_organisasi')->unique();

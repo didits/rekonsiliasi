@@ -13,10 +13,11 @@ class CreatePenyimpananPenyulangsTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('penyimpanan_penyulang');
         Schema::create('penyimpanan_penyulang', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('periode');
             $table->integer('id_penyulang')->unsigned();
+            $table->string('periode');
             $table->text('data');
             $table->text('data_keluar');
             $table->timestamps();
