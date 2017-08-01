@@ -11,12 +11,12 @@ class GI extends Model
     protected $fillable = [
         'id',
         'id_organisasi',
-        'nama_gardu',
-        'alamat_gardu',
+        'nama_gi',
+        'alamat_gi',
         'data_master'
     ];
 
     public function organisasi() {
-        return $this->belongsTo('App\organisasi', 'id_organisasi');
+        return $this->belongsTo('App\Organisasi', 'id_organisasi');
     }
 }

@@ -12,10 +12,11 @@ class PenyimpananPenyulang extends Model
         'id',
         'id_penyulang',
         'periode',
-        'data_master'
+        'data',
+        'data_keluar'
     ];
 
     public function penyulang() {
-        return $this->belongsTo('App\organisasi', 'id_penyulang');
+        return $this->belongsTo('App\Penyulang', 'id_penyulang');
     }
 }

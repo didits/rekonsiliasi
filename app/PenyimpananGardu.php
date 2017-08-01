@@ -12,10 +12,11 @@ class PenyimpananGardu extends Model
         'id',
         'id_gardu',
         'periode',
-        'data'
+        'data',
+        'data_keluar'
     ];
 
     public function gardu() {
-        return $this->belongsTo('App\organisasi', 'id_gardu');
+        return $this->belongsTo('App\Gardu', 'id_gardu');
     }
 }

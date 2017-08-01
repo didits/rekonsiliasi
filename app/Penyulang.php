@@ -4,16 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TrafoGI extends Model
+class Penyulang extends Model
 {
-    protected $table = 'trafo_gi';
+    protected $table = 'penyulang';
 
     protected $fillable = [
         'id',
         'id_organisasi',
-        'id_gi',
-        'nama_trafo_gi',
-        'alamat_trafo_gi',
+        'id_trafo_gi',
+        'nama_penyulang',
+        'alamat_penyulang',
         'data_master'
     ];
 
@@ -21,7 +21,7 @@ class TrafoGI extends Model
         return $this->belongsTo('App\Organisasi', 'id_organisasi');
     }
 
-    public function gi() {
-        return $this->belongsTo('App\GI', 'id_gi');
+    public function trafo_gi() {
+        return $this->belongsTo('App\TrafoGI', 'id_trafo_gi');
     }
 }
