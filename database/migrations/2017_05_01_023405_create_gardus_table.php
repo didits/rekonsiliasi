@@ -20,7 +20,6 @@ class CreateGardusTable extends Migration
             $table->string('nama_gi');
             $table->string('alamat_gi');
             $table->text('data_master');
-            $table->integer('id_org');
             $table->timestamps();
             $table->foreign('id_organisasi')
                 ->references('id')
