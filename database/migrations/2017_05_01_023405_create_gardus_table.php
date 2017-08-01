@@ -87,5 +87,8 @@ class CreateGardusTable extends Migration
     public function down()
     {
         Schema::dropIfExists('gardu');
+        Schema::dropIfExists('penyulang');
+        Schema::dropIfExists('trafo_gi');
+        Schema::dropIfExists('gi');
     }
 }
