@@ -21,12 +21,12 @@
                                         <th>Nama Gardu</th>
                                         <th>Alamat Gardu</th>
                                         </thead>
-                                        <tbody> 
+                                        <tbody>
 
                                         @foreach($data as $list)
                                         <tr>
-                                            <td><a href="{{url('/area/list_datamaster_trafo/'.$id_organisasi.'/'.$list->id)}}"> {{$list->nama_gardu}} </a></td>
-                                            <td> {{$list->alamat_gardu}} </td>
+                                            <td><a href="{{url('/area/list_datamaster_trafo/'.$id_organisasi.'/'.$list->id)}}"> {{$list->nama_gi}} </a></td>
+                                            <td> {{$list->alamat_gi}} </td>
                                         </tr>
                                         @endforeach
                                         </tbody>

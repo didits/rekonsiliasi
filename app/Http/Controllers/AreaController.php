@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Gardu;
+use App\GI;
 use App\Organisasi;
 use Auth;
 use Illuminate\Http\Request;
@@ -55,15 +56,18 @@ class AreaController extends Controller
     public function store(Request $request){
 //        dd($request->id_organisasi);
         if($request->id_organisasi){
-            $inputGardu = new Gardu;
-            $inputGardu->nama_gardu = $request->tambahnamagardu;
-            $inputGardu->alamat_gardu = $request->tambahalamatgardu;
-            $inputGardu->id_organisasi = $request->id_organisasi;
+            $inputGardu = new GI;
+            $id_org = Organisasi::where('id_organisasi', $request->id_organisasi)->get();
+            $inputGardu->id_organisasi = $id_org[0]->id;
+            $inputGardu->nama_gi = $request->tambahnamagardu;
+            $inputGardu->alamat_gi = $request->tambahalamatgardu;
             $inputGardu->data_master="";
+
             if($inputGardu->save());
-            $data = Gardu::where('id_organisasi', $request->id_organisasi)->get();
+            $data = GI::where('id_organisasi', $id_org[0]->id)->get();
             $nama_rayon = Organisasi::where('id_organisasi', $request->id_organisasi)->get();
             $nama_rayon = $nama_rayon[0]->nama_organisasi;
+
             return view('admin.nonmaster.dashboard_user.list_datamaster_rayon',[
                 'data' =>$data,
                 'id_organisasi'=>$request->id_organisasi,
