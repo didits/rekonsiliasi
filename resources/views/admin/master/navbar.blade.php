@@ -111,19 +111,18 @@
                     LIST GI
                 </a>
             </div>
-            <ul class="nav">
+
+            <ul class="nav nav1">
                 <li>
                     <a data-toggle="collapse" href="#listGI1">
-                        <i class="pe-7s-server"></i>
                         <p>GI 1
                             <b class="caret"></b>
                         </p>
                     </a>
                     <div class="collapse" id="listGI1">
-                        <ul class="nav">
+                        <ul class="nav nav2">
                             <li>
                                 <a data-toggle="collapse" href="#listGI11">
-                                    <i class="pe-7s-server"></i>
                                     <p>Trafo GI 1
                                         <b class="caret"></b>
                                     </p>

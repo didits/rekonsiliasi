@@ -4306,7 +4306,7 @@ h1 .subtitle {
   background: rgba(255, 255, 255, 0.23);
 }
 .sidebar .nav [data-toggle="collapse"] ~ div > ul > li > a {
-  padding-left: 60px;
+  padding-left: 40px;
 }
 .sidebar .nav p {
   margin: 0;
@@ -4329,6 +4329,12 @@ h1 .subtitle {
   line-height: 30px;
   width: 30px;
   text-align: center;
+}
+.sidebar .nav .nav1 [data-toggle="collapse"] ~ div > ul > li > a {
+  padding-left: 40px;
+}
+.sidebar .nav .nav2 [data-toggle="collapse"] ~ div > ul > li > a {
+  padding-left: 80px;
 }
 .sidebar .logo-mini {
   display: none;
@@ -9503,4 +9509,12 @@ star {
 }
 .content-full-width .tab-pane {
   padding: 15px;
+}
+
+.level1 {
+  padding-left: 40px;
+}
+
+.level2 {
+  padding-left: 80px;
 }
