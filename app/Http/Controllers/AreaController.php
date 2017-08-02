@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Gardu;
 use App\GI;
 use App\Organisasi;
+use App\TrafoGI;
 use Auth;
 use Illuminate\Http\Request;
 use App\Penyulang;
@@ -77,7 +78,7 @@ class AreaController extends Controller
 
         }
         elseif($request->penyulang){
-            $inputPenyulang = new Penyulang;
+            $inputPenyulang = new TrafoGI;
             $inputPenyulang->nama_penyulang = $request->tambahnamapenyulang;
             $inputPenyulang->alamat_penyulang = $request->tambahalamatpenyulang;
             $inputPenyulang->id_gardu = $request->penyulang;
@@ -86,7 +87,7 @@ class AreaController extends Controller
 
             $rayon = Organisasi::where('id_organisasi', $request->idrayon)->first();
             $gardu = Gardu::where('id', $request->idgardu)->first();
-            $data = Penyulang::where('id_gardu', $gardu->id)->get();
+            $data = TrafoGI::where('id_gardu', $gardu->id)->get();
             $decoded = json_decode($gardu->data_master, true);
             return view('admin.nonmaster.dashboard_user.datamaster_dummy',[
                 'data' =>$data,
@@ -98,7 +99,7 @@ class AreaController extends Controller
         }
         else{
             if($request->formpenyulang)
-                $data = Penyulang::where('id',$request->formpenyulang)->first();
+                $data = TrafoGI::where('id',$request->formpenyulang)->first();
             else $data = Gardu::where('id',$request->idgardu)->first();
             if( $data ){
                 $decoded = json_decode($data->data_master, true);
@@ -296,14 +297,14 @@ class AreaController extends Controller
             }
 
             if($request->formpenyulang)
-                $data_master = Penyulang::where('id', $request->formpenyulang)->first();
+                $data_master = TrafoGI::where('id', $request->formpenyulang)->first();
             else $data_master = Gardu::where('id', $request->idgardu)->first();
 //            dd($request);
             $data_master->data_master=json_encode($data);
             if($data_master->save());
 
             if($request->formpenyulang)
-                $data = Penyulang::where('id', $request->formpenyulang)->first();
+                $data = TrafoGI::where('id', $request->formpenyulang)->first();
             else $data = Gardu::where('id', $request->idgardu)->first();
             $decoded = json_decode($data->data_master, true);
             return view('admin.nonmaster.dashboard_user.datamaster',[
@@ -336,8 +337,8 @@ class AreaController extends Controller
 
     public function list_trafo($id_organisasi, $id_gardu){
         $rayon = Organisasi::where('id_organisasi', $id_organisasi)->first();
-        $gardu = Gardu::where('id', $id_gardu)->first();
-        $data = Penyulang::where('id_gardu', $id_gardu)->get();
+        $gardu = GI::where('id', $id_gardu)->first();
+        $data = TrafoGI::where('id_gi', $id_gardu)->get();
         $decoded = json_decode($gardu->data_master, true);
         return view('admin.nonmaster.dashboard_user.datamaster_dummy',[
             'data' =>$data,
