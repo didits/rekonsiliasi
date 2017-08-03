@@ -88,14 +88,14 @@ Route::group(['middleware' => 'auth', 'prefix' => 'rayon'], function () {
 //        'uses'      => 'Input@create'
 //    ]);
 
-    Route::get('/list_gardu/{id_organisasi}', [
-        'as'        => 'input.list_gardu',
-        'uses'      => 'Input@list_gardu'
+    Route::get('/list_gardu_induk/{id_organisasi}', [
+        'as'        => 'input.list_gardu_induk',
+        'uses'      => 'Input@list_gardu_induk'
     ]);
 
-    Route::get('/list_penyulang/{id}', [
-        'as'        => 'input.list_penyulang',
-        'uses'      => 'Input@list_penyulang'
+    Route::get('/list_trafo_gi/{id}', [
+        'as'        => 'input.list_trafo_gi',
+        'uses'      => 'Input@list_trafo_gi'
     ]);
 
     Route::get('/input_data/{id}/{nama}', [

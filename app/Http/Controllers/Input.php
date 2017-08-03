@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Gardu;
+use App\GI;
+use App\Organisasi;
 use App\PenyimpananGI;
 use App\PenyimpananTrafoGI;
 use App\Penyulang;
+use App\TrafoGI;
 use Illuminate\Http\Request;
 //use App\Listrik;
 use Auth;
@@ -19,10 +22,13 @@ class Input extends Controller
 
      public function index()
     {
-        $data = Gardu::where('id_organisasi', Auth::user()->id_organisasi)->get();
-        return view('admin.nonmaster.dashboard_user.list_gardu',[
-            'data' =>$data
-        ]);
+//        $rayon = Organisasi::where('id_organisasi', Auth::user()->id_organisasi)->get();
+//        $id_org = $rayon[0]->id;
+//        $data = GI::where('id_organisasi', $id_org)->get();
+//        return view('admin.nonmaster.dashboard_user.list_gardu_induk',[
+//            'data' =>$data
+//        ]);
+         return $this->list_gardu_induk(Auth::user()->id_organisasi);
     }
 
     /**
@@ -41,19 +47,21 @@ class Input extends Controller
 //            ] );
     }
 
-    public function list_gardu($id_rayon){
-        $data = Gardu::where('id_organisasi', $id_rayon)->get();
-        return view('admin.nonmaster.dashboard_user.list_gardu',[
+    public function list_gardu_induk($id_rayon){
+        $rayon = Organisasi::where('id_organisasi', $id_rayon)->get();
+        $id_org = $rayon[0]->id;
+        $data = GI::where('id_organisasi', $id_org)->get();
+        return view('admin.nonmaster.dashboard_user.list_gardu_induk',[
             'data' =>$data
         ]);
     }
 
-    public function list_penyulang($id_gardu){
-        $gardu = Gardu::where('id', $id_gardu)->first();
-        $data = Penyulang::where('id_gardu', $id_gardu)->get();
-        return view('admin.nonmaster.dashboard_user.gardu',[
+    public function list_trafo_gi($id_gi){
+        $gi = GI::where('id', $id_gi)->first();
+        $data = TrafoGI::where('id_gi', $id_gi)->get();
+        return view('admin.nonmaster.dashboard_user.trafo_gi',[
             'data' =>$data,
-            'gardu' =>$gardu
+            'gardu' =>$gi
         ]);
     }
 
@@ -302,13 +310,13 @@ class Input extends Controller
 
     public function input_data($id,$tipe){
 
-        if($tipe==="gardu"){
-            $data = PenyimpananGI::where('periode',date('Ym'))->where('id_gardu', $id)->first();
-            $jenis = Gardu::where('id',$id)->first();
+        if($tipe==="gi"){
+            $data = PenyimpananGI::where('periode',date('Ym'))->where('id_gi', $id)->first();
+            $jenis = GI::where('id',$id)->first();
         }
         else{
             $data = PenyimpananTrafoGI::where('periode',date('Ym'))->where('id_trafo_gi', $id)->first();
-            $jenis = Penyulang::where('id',$id)->first();
+            $jenis = TrafoGI::where('id',$id)->first();
         }
 
         if($data){
