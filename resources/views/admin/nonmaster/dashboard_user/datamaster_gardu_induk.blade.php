@@ -234,6 +234,7 @@
                                                         <h4 class="title">Faktor Kali Meter</h4>
                                                         {{--<p class="category">Data KWH Meter</p>--}}
                                                     </div>
+
                                                     <div class="content">
                                                         <form action="{{route('input_datamaster.store')}}" method="post">
                                                             <input type="hidden" name="_method" value="POST">
@@ -575,6 +576,7 @@
                                                         <input type="hidden" name="penyulang" value="{{$idgardu}}">
                                                         <input type="hidden" name="idgardu" value={{$gardu->id}}>
                                                         <input type="hidden" name="idrayon" value={{$rayon->id_organisasi}}>
+                                                        <input type="hidden" name="id_org" value={{$id_org}}>
                                                         {{ csrf_field() }}
                                                         <div class="header">Tambah Trafo GI</div>
                                                         <div class="content">

@@ -21,7 +21,7 @@
                                             <th>Nama Gardu Induk</th>
                                             <th>Alamat Gardu Induk</th>
                                             <th></th>
-                                        </thead> 
+                                        </thead>
                                         <tbody>
 
                                             {{--<tr>--}}
