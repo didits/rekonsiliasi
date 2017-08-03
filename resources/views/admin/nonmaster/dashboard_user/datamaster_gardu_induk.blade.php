@@ -573,7 +573,7 @@
                                                 <div class="card">
                                                     <form action="{{route('input_datamaster.store')}}" method="post">
                                                         <input type="hidden" name="_method" value="POST">
-                                                        <input type="hidden" name="penyulang" value="{{$idgardu}}">
+                                                        <input type="hidden" name="trafogi" value="{{$idgardu}}">
                                                         <input type="hidden" name="idgardu" value={{$gardu->id}}>
                                                         <input type="hidden" name="idrayon" value={{$rayon->id_organisasi}}>
                                                         <input type="hidden" name="id_org" value={{$id_org}}>
@@ -584,12 +584,12 @@
 
                                                             <div class="form-group">
                                                                 <label class="control-label">Nama Trafo GI <star>*</star></label>
-                                                                <input class="form-control" name="tambahnamapenyulang" type="text" required="required" aria-required="true">
+                                                                <input class="form-control" name="tambahnamatrafogi" type="text" required="required" aria-required="true">
                                                             </div>
 
                                                             <div class="form-group">
                                                                 <label class="control-label">Alamat Trafo GI <star>*</star></label>
-                                                                <input class="form-control" name="tambahalamatpenyulang" type="text" required="required" aria-required="true">
+                                                                <input class="form-control" name="tambahalamattrafogi" type="text" required="required" aria-required="true">
                                                             </div>
 
                                                             <div class="form-group">

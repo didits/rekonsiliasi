@@ -53,8 +53,8 @@ class AreaController extends Controller
         echo "slam";
     }
 
-
     public function store(Request $request){
+
         if($request->id_organisasi){
             $inputGardu = new GI;
             $id_org = Organisasi::where('id_organisasi', $request->id_organisasi)->get();
@@ -76,16 +76,16 @@ class AreaController extends Controller
 
 
         }
-        elseif($request->penyulang){
+        elseif($request->trafogi){
 
-            $inputPenyulang = new TrafoGI;
+            $inputTrafoGI = new TrafoGI;
             $id_org = Organisasi::where('id_organisasi',$request->id_org)->first();
-            $inputPenyulang->id_organisasi = $id_org->id;
-            $inputPenyulang->id_gi = $request->penyulang;
-            $inputPenyulang->nama_trafo_gi = $request->tambahnamapenyulang;
-            $inputPenyulang->alamat_trafo_gi = $request->tambahalamatpenyulang;
-            $inputPenyulang->data_master="";
-            if($inputPenyulang->save());
+            $inputTrafoGI->id_organisasi = $id_org->id;
+            $inputTrafoGI->id_gi = $request->trafogi;
+            $inputTrafoGI->nama_trafo_gi = $request->tambahnamatrafogi;
+            $inputTrafoGI->alamat_trafo_gi = $request->tambahalamattrafogi;
+            $inputTrafoGI->data_master="";
+            if($inputTrafoGI->save());
 
             $rayon = Organisasi::where('id_organisasi', $request->idrayon)->first();
             $gardu = GI::where('id', $request->idgardu)->first();
@@ -100,34 +100,35 @@ class AreaController extends Controller
                 'id_org'=>$request->id_org,
             ]);
         }
-        elseif($request->penyulangtrafo){
+        elseif($request->penyulang){
 
-            $inputPenyulang = new TrafoGI;
+            $inputPenyulang = new Penyulang;
             $id_org = Organisasi::where('id_organisasi',$request->id_org)->first();
             $inputPenyulang->id_organisasi = $id_org->id;
-            $inputPenyulang->id_gi = $request->penyulang;
-            $inputPenyulang->nama_trafo_gi = $request->tambahnamapenyulang;
-            $inputPenyulang->alamat_trafo_gi = $request->tambahalamatpenyulang;
+            $inputPenyulang->id_trafo_gi = $request->penyulang;
+            $inputPenyulang->nama_penyulang = $request->tambahnamapenyulang;
+            $inputPenyulang->alamat_penyulang = $request->tambahalamatpenyulang;
             $inputPenyulang->data_master="";
+
             if($inputPenyulang->save());
 
             $rayon = Organisasi::where('id_organisasi', $request->idrayon)->first();
-            $gardu = GI::where('id', $request->idgardu)->first();
-            $data = TrafoGI::where('id_gi', $gardu->id)->get();
-            $decoded = json_decode($gardu->data_master, true);
-            return view('admin.nonmaster.dashboard_user.datamaster_gardu_induk',[
+            $trafogi = TrafoGI::where('id', $request->idtrafo_gi)->first();
+            $data = Penyulang::where('id_trafo_gi', $trafogi->id)->get();
+            $decoded = json_decode($trafogi->data_master, true);
+            return view('admin.nonmaster.dashboard_user.datamaster_trafo_gi',[
                 'data' =>$data,
                 'decoded' =>$decoded,
-                'gardu'=>$gardu,
-                'idgardu'=>$request->idgardu,
+                'trafo_gi'=>$trafogi,
+                'id_trafo_gi'=>$request->idtrafo_gi,
                 'rayon'=>$rayon,
                 'id_org'=>$request->id_org,
             ]);
         }
         else{
 
-            if($request->formpenyulang)
-                $data = TrafoGI::where('id',$request->formpenyulang)->first();
+            if($request->formtrafogi)
+                $data = TrafoGI::where('id',$request->formtrafogi)->first();
             else $data = GI::where('id',$request->idgardu)->first();
             if( $data ){
                 $decoded = json_decode($data->data_master, true);
@@ -324,20 +325,20 @@ class AreaController extends Controller
 
             }
 
-            if($request->formpenyulang)
-                $data_master = TrafoGI::where('id', $request->formpenyulang)->first();
+            if($request->formtrafogi)
+                $data_master = TrafoGI::where('id', $request->formtrafogi)->first();
             else $data_master = GI::where('id', $request->idgardu)->first();
             $data_master->data_master=json_encode($data);
             if($data_master->save());
 
-            if($request->formpenyulang)
-                $data = TrafoGI::where('id', $request->formpenyulang)->first();
+            if($request->formtrafogi)
+                $data = TrafoGI::where('id', $request->formtrafogi)->first();
             else $data = GI::where('id', $request->idgardu)->first();
             $decoded = json_decode($data->data_master, true);
             return view('admin.nonmaster.dashboard_user.datamaster',[
                 'data' => $decoded,
                 'idgardu'=>$request->idgardu,
-                'idpenyulang'=>$request->formpenyulang
+                'idpenyulang'=>$request->formtrafogi
             ]);
         }
 
