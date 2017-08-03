@@ -22,7 +22,7 @@
                                     <tbody>
                                         <tr>
                                             {{--{{dd(json_encode($gardu))}}--}}
-                                        	<td><a href="{{url("/rayon/input_data/$gardu->id/gardu")}}">Input Transaksi Beli Gardu</a></td>
+                                        	<td><a href="{{url("/rayon/input_data/$gardu->id/gi")}}">Input Transaksi Beli Gardu</a></td>
                                         </tr>
                                     </tbody>
                                 </table>

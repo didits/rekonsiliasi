@@ -23,7 +23,7 @@
                     <div class="collapse" id="inputarea">
                         <ul class="nav">
                             <li>
-                                <a href="{{route('input.list_gardu',Auth::user()->id_organisasi)}}">Beli</a>
+                                <a href="{{route('input.list_gardu_induk',Auth::user()->id_organisasi)}}">Beli</a>
                             </li>
                         </ul>
                     </div>
