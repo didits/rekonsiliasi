@@ -5,7 +5,7 @@
     <div class="wrapper">
         @include('admin.master.navbar')
         <div class="main-panel">
-            @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER GARDU INDUK: " . $gardu->nama_gardu])
+            @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER PENYULANG: " . $gardu->nama_gardu])
             <div class="content">
                 <div class="container-fluid">
 
@@ -20,7 +20,7 @@
                                     <li class="active">
                                         <a href="#description-logo" role="tab" data-toggle="tab" aria-expanded="true">
                                             <i class="fa fa-info-circle"></i><br>
-                                            Gardu Induk
+                                            Penyulang
                                         </a>
                                     </li>
                                     @foreach($data as $list => $key)
@@ -34,7 +34,7 @@
                                     <li class="">
                                         <a href="#legal-logo" role="tab" data-toggle="tab" aria-expanded="false">
                                             <i class="fa fa-legal"></i><br>
-                                            Edit Trafo GI
+                                            Edit GD
                                         </a>
                                     </li>
                                 </ul>
@@ -47,7 +47,7 @@
                                             <div class="col-md-12">
                                                 <div class="card">
                                                     <div class="header">
-                                                        <h4 class="title">GARDU INDUK {{$gardu->nama_gardu}}</h4>
+                                                        <h4 class="title">GARDU {{$gardu->nama_gardu}}</h4>
                                                         {{--<p class="category">Data KWH Meter</p>--}}
                                                     </div>
                                                     <div class="content">
@@ -486,7 +486,7 @@
                                             <div class="col-md-12">
                                                 <div class="card">
                                                     <div class="header">
-                                                        <h4 class="title">GARDU INDUK{{$gardu->nama_gardu}}</h4>
+                                                        <h4 class="title">PENYULANG {{$gardu->nama_gardu}}</h4>
                                                         {{--<p class="category">Data KWH Meter</p>--}}
                                                     </div>
                                                     <div class="content">
@@ -527,7 +527,7 @@
                                             <div class="col-md-12">
                                                 <div class="card">
                                                     <div class="header">
-                                                        <h4 class="title">GARDU INDUK{{$gardu->nama_gardu}}</h4>
+                                                        <h4 class="title">PENYULANG {{$gardu->nama_gardu}}</h4>
                                                         <p class="category">Daftar Penyulang</p>
                                                     </div>
                                                     <div class="content table-responsive table-full-width">
@@ -576,7 +576,7 @@
                                                         <input type="hidden" name="idgardu" value={{$gardu->id}}>
                                                         <input type="hidden" name="idrayon" value={{$rayon->id_organisasi}}>
                                                         {{ csrf_field() }}
-                                                        <div class="header">Tambah Trafo GI</div>
+                                                        <div class="header">Tambah GD</div>
                                                         <div class="content">
 
 
