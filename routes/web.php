@@ -183,6 +183,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
         'as'        => 'area.list_trafo_gi',
         'uses'      => 'AreaController@list_trafo_gi'
     ]);
+
+    Route::get('/list_datamaster_penyulang/{id_organisasi}/{id_trafo}', [
+        'as'        => 'area.lihat_penyulang',
+        'uses'      => 'AreaController@lihat_penyulang'
+        ]);
     
 });
 

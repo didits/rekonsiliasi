@@ -367,6 +367,21 @@ class AreaController extends Controller
             ]);
     }
 
+    public function lihat_penyulang($id_organisasi, $id_trafo_gi){
+        $rayon = Organisasi::where('id_organisasi', $id_organisasi)->first();
+        $gardu = TrafoGI::where('id', $id_trafo_gi)->first();
+        $data = Penyulang::where('id_trafo_gi', $id_trafo_gi)->get();
+        $decoded = json_decode($gardu->data_master, true);
+        return view('admin.nonmaster.dashboard_user.datamaster_penyulang',[
+            'data' =>$data,
+            'decoded' =>$decoded,
+            'gardu'=>$gardu,
+            'idgardu'=>$id_trafo_gi,
+            'rayon'=>$rayon,
+            'id_org'=>$id_organisasi,
+            ]);
+    }
+
     public function profil()
     {
         if (Auth::user()->tipe_organisasi == 2)
