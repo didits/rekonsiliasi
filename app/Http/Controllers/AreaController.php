@@ -336,6 +336,18 @@ class AreaController extends Controller
             ]);
     }
 
+    public function list_trafo_gi($id_rayon, $id_gardu_induk){
+        $rayon = Organisasi::where('id_organisasi', $id_rayon)->get();
+        $nama_rayon = $rayon[0]->nama_organisasi;
+        $id_org = $rayon[0]->id;
+        $data = TrafoGI::where('id', $id_gardu_induk)->get();
+        return view('admin.nonmaster.dashboard_user.list_datamaster_trafo_gi',[
+            'data' =>$data,
+            'id_organisasi'=>$id_rayon,
+            'nama_rayon' =>$nama_rayon
+            ]);
+    }
+
     public function lihat_gi($id_organisasi, $id_gardu_induk){
         $rayon = Organisasi::where('id_organisasi', $id_organisasi)->first();
         $gardu = GI::where('id', $id_gardu_induk)->first();

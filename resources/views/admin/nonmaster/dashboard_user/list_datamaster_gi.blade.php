@@ -21,7 +21,7 @@
                                             <th>Nama Gardu Induk</th>
                                             <th>Alamat Gardu Induk</th>
                                             <th></th>
-                                        </thead>
+                                        </thead> 
                                         <tbody>
 
                                             {{--<tr>--}}
@@ -35,7 +35,7 @@
                                             <tr>
                                                 <td><a href="{{url('/area/list_datamaster_trafo/'.$id_organisasi.'/'.$list->id)}}"> {{$list->nama_gi}} </a></td>
                                                 <td> {{$list->alamat_gi}} </td>
-                                                <td><a href="#">Liat List Trafo Gardu</a></td>
+                                                <td><a href="{{url('/area/list_datamaster_trafo_gi/'.$id_organisasi.'/'.$list->id)}}">Liat List Trafo Gardu</a></td>
                                             </tr>
 
                                         @endforeach

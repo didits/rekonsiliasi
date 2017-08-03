@@ -14,7 +14,7 @@
 
 Route::get('/profil', function () { 
     return view('admin.nonmaster.dashboard_user.profile');
-});
+}); 
 
 Route::get('/edit_profil', function () {
     return view('admin.nonmaster.dashboard_user.profile_edit');
@@ -178,6 +178,12 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
         'as'        => 'area.lihat_gi',
         'uses'      => 'AreaController@lihat_gi'
         ]);
+
+    Route::get('/list_datamaster_trafo_gi/{id_organisasi}/{id_gardu_induk}', [
+        'as'        => 'area.list_trafo_gi',
+        'uses'      => 'AreaController@list_trafo_gi'
+    ]);
+    
 });
 
 //distribusi

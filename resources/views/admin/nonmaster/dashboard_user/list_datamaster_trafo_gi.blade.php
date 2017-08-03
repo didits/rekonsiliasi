@@ -9,7 +9,7 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12"> 
                             <div class="card">
                                 <div class="header">
                                     <h4 class="title">Daftar Trafo Gardu Induk</h4>
@@ -23,12 +23,6 @@
                                             <th></th>
                                         </thead>
                                         <tbody>
-
-                                            <tr>
-                                                <td><a href="#">Trafo Gardu Induk 1</a></td>
-                                                <td>Sukolilo</td>
-                                                <td><a href="#">Liat List Trafo Trafo Gardu Induk</a></td>
-                                            </tr>
 
                                         @foreach($data as $list)
 
