@@ -170,13 +170,13 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
 
 
     Route::get('/list_datamaster_rayon/{id_organisasi}', [
-        'as'        => 'area.list_gardu',
-        'uses'      => 'AreaController@list_gardu'
+        'as'        => 'area.list_gardu_induk',
+        'uses'      => 'AreaController@list_gardu_induk'
         ]);
 
     Route::get('/list_datamaster_trafo/{id_organisasi}/{id_gardu}', [
-        'as'        => 'area.list_trafo',
-        'uses'      => 'AreaController@list_trafo'
+        'as'        => 'area.lihat_gi',
+        'uses'      => 'AreaController@lihat_gi'
         ]);
 });
 

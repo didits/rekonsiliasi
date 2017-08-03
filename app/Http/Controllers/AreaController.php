@@ -324,27 +324,28 @@ class AreaController extends Controller
 //            'id' => $data->id_organisasi]);
     }
 
-    public function list_gardu($id_rayon){
-        $data = Gardu::where('id_organisasi', $id_rayon)->get();
-        $nama_rayon = Organisasi::where('id_organisasi', $id_rayon)->get();
-        $nama_rayon = $nama_rayon[0]->nama_organisasi;
-        return view('admin.nonmaster.dashboard_user.list_datamaster_rayon',[
+    public function list_gardu_induk($id_rayon){
+        $rayon = Organisasi::where('id_organisasi', $id_rayon)->get();
+        $nama_rayon = $rayon[0]->nama_organisasi;
+        $id_org = $rayon[0]->id;
+        $data = GI::where('id_organisasi', $id_org)->get();
+        return view('admin.nonmaster.dashboard_user.list_datamaster_gi',[
             'data' =>$data,
             'id_organisasi'=>$id_rayon,
             'nama_rayon' =>$nama_rayon
             ]);
     }
 
-    public function list_trafo($id_organisasi, $id_gardu){
+    public function lihat_gi($id_organisasi, $id_gardu_induk){
         $rayon = Organisasi::where('id_organisasi', $id_organisasi)->first();
-        $gardu = GI::where('id', $id_gardu)->first();
-        $data = TrafoGI::where('id_gi', $id_gardu)->get();
+        $gardu = GI::where('id', $id_gardu_induk)->first();
+        $data = TrafoGI::where('id_gi', $id_gardu_induk)->get();
         $decoded = json_decode($gardu->data_master, true);
         return view('admin.nonmaster.dashboard_user.datamaster_dummy',[
             'data' =>$data,
             'decoded' =>$decoded,
             'gardu'=>$gardu,
-            'idgardu'=>$id_gardu,
+            'idgardu'=>$id_gardu_induk,
             'rayon'=>$rayon,
             ]);
     }

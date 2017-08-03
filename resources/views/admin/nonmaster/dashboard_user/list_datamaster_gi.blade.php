@@ -24,17 +24,17 @@
                                         </thead>
                                         <tbody>
 
-                                            <tr>
-                                                <td><a href="#">Gardu Induk 1</a></td>
-                                                <td>Sukolilo</td>
-                                                <td><a href="#">Liat List Trafo Gardu Induk</a></td>
-                                            </tr>
+                                            {{--<tr>--}}
+                                                {{--<td><a href="#">Gardu Induk 1</a></td>--}}
+                                                {{--<td>Sukolilo</td>--}}
+                                                {{--<td><a href="#">Liat List Trafo Gardu Induk</a></td>--}}
+                                            {{--</tr>--}}
 
                                         @foreach($data as $list)
 
                                             <tr>
-                                                <td><a href="{{url('/area/list_datamaster_trafo/'.$id_organisasi.'/'.$list->id)}}"> {{$list->nama_gardu}} </a></td>
-                                                <td> {{$list->alamat_gardu}} </td>
+                                                <td><a href="{{url('/area/list_datamaster_trafo/'.$id_organisasi.'/'.$list->id)}}"> {{$list->nama_gi}} </a></td>
+                                                <td> {{$list->alamat_gi}} </td>
                                                 <td><a href="#">Liat List Trafo Gardu</a></td>
                                             </tr>
 

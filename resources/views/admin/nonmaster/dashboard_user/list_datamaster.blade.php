@@ -25,7 +25,7 @@
                                         @foreach($data as $list)
                                         <tr>
                                             <td>{{$list->id_organisasi}}</td>
-                                            <td><a href="{{route('area.list_gardu', $list->id_organisasi)}}">{{$list->nama_organisasi}}</a></td>
+                                            <td><a href="{{route('area.list_gardu_induk', $list->id_organisasi)}}">{{$list->nama_organisasi}}</a></td>
                                         </tr>
                                         @endforeach
                                         </tbody>
