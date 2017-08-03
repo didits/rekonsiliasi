@@ -27,7 +27,7 @@
                                     <li class="">
                                         <a href="#map-logo{{$list+1}}" role="tab" data-toggle="tab" aria-expanded="false">
                                             <i class="fa fa-map-marker"></i><br>
-                                            {{$key->nama_penyulang}}
+                                            {{$key->nama_trafo_gi}}
                                         </a>
                                     </li>
                                     @endforeach
@@ -267,7 +267,7 @@
                                             <div class="col-md-12">
                                                 <div class="card">
                                                     <div class="header">
-                                                        <h4 class="title">PENYULANG {{$list+1}}</h4>
+                                                        <h4 class="title">TRAFO GI {{$list+1}}</h4>
                                                         {{--<p class="category">Data KWH Meter</p>--}}
                                                     </div>
                                                     <div class="content">
@@ -529,7 +529,7 @@
                                                 <div class="card">
                                                     <div class="header">
                                                         <h4 class="title">GARDU INDUK{{$gardu->nama_gardu}}</h4>
-                                                        <p class="category">Daftar Penyulang</p>
+                                                        <p class="category">Daftar Trafo GI</p>
                                                     </div>
                                                     <div class="content table-responsive table-full-width">
                                                         <table class="table">
@@ -545,7 +545,7 @@
                                                             @foreach($data as $list => $key)
                                                             <tr>
                                                                 <td class="text-center">{{$list+1}}</td>
-                                                                <td>{{$key->nama_penyulang}}</td>
+                                                                <td>{{$key->nama_trafo_gi}}</td>
                                                                 <td>{{$rayon->nama_organisasi}}</td>
                                                                 <td class="td-actions text-right">
                                                                     <a href="#" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="View Profile">
@@ -583,12 +583,12 @@
 
 
                                                             <div class="form-group">
-                                                                <label class="control-label">Nama Penyulang <star>*</star></label>
+                                                                <label class="control-label">Nama Trafo GI <star>*</star></label>
                                                                 <input class="form-control" name="tambahnamapenyulang" type="text" required="required" aria-required="true">
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <label class="control-label">Alamat Penyulang <star>*</star></label>
+                                                                <label class="control-label">Alamat Trafo GI <star>*</star></label>
                                                                 <input class="form-control" name="tambahalamatpenyulang" type="text" required="required" aria-required="true">
                                                             </div>
 
@@ -623,21 +623,21 @@
                                                                 {{--</div>--}}
                                                             {{--</div>--}}
 
-                                                            <div class="form-group">
-                                                                <label class="control-label">Jenis Penyulang</label>
-                                                                <label class="radio checked">
-                                                                    <span class="icons"><span class="first-icon fa fa-circle-o"></span>
-                                                                    <span class="second-icon fa fa-dot-circle-o"></span></span>
-                                                                    <input type="radio" data-toggle="radio" name="optionsRadios" value="option1">GD
-                                                                </label>
-                                                                <div class="clearfix"></div>
-                                                                <label class="radio">
-                                                                    <span class="icons"><span class="first-icon fa fa-circle-o"></span>
-                                                                    <span class="second-icon fa fa-dot-circle-o"></span></span>
-                                                                    <input type="radio" data-toggle="radio" name="optionsRadios" value="option2">PCT
-                                                                </label>
+                                                            {{--<div class="form-group">--}}
+                                                                {{--<label class="control-label">Jenis Penyulang</label>--}}
+                                                                {{--<label class="radio checked">--}}
+                                                                    {{--<span class="icons"><span class="first-icon fa fa-circle-o"></span>--}}
+                                                                    {{--<span class="second-icon fa fa-dot-circle-o"></span></span>--}}
+                                                                    {{--<input type="radio" data-toggle="radio" name="optionsRadios" value="option1">GD--}}
+                                                                {{--</label>--}}
+                                                                {{--<div class="clearfix"></div>--}}
+                                                                {{--<label class="radio">--}}
+                                                                    {{--<span class="icons"><span class="first-icon fa fa-circle-o"></span>--}}
+                                                                    {{--<span class="second-icon fa fa-dot-circle-o"></span></span>--}}
+                                                                    {{--<input type="radio" data-toggle="radio" name="optionsRadios" value="option2">PCT--}}
+                                                                {{--</label>--}}
 
-                                                            </div>
+                                                            {{--</div>--}}
 
 
                                                             <div class="category"><star>*</star> Required fields</div>

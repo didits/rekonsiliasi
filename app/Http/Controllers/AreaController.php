@@ -104,7 +104,7 @@ class AreaController extends Controller
 
             if($request->formpenyulang)
                 $data = TrafoGI::where('id',$request->formpenyulang)->first();
-            else $data = Gardu::where('id',$request->idgardu)->first();
+            else $data = GI::where('id',$request->idgardu)->first();
             if( $data ){
                 $decoded = json_decode($data->data_master, true);
 //            dd($decoded);
@@ -302,14 +302,13 @@ class AreaController extends Controller
 
             if($request->formpenyulang)
                 $data_master = TrafoGI::where('id', $request->formpenyulang)->first();
-            else $data_master = Gardu::where('id', $request->idgardu)->first();
-//            dd($request);
+            else $data_master = GI::where('id', $request->idgardu)->first();
             $data_master->data_master=json_encode($data);
             if($data_master->save());
 
             if($request->formpenyulang)
                 $data = TrafoGI::where('id', $request->formpenyulang)->first();
-            else $data = Gardu::where('id', $request->idgardu)->first();
+            else $data = GI::where('id', $request->idgardu)->first();
             $decoded = json_decode($data->data_master, true);
             return view('admin.nonmaster.dashboard_user.datamaster',[
                 'data' => $decoded,
