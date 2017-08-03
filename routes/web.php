@@ -180,15 +180,30 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
         ]);
 
     Route::get('/list_datamaster_trafo_gi/{id_organisasi}/{id_gardu_induk}', [
+        'as'        => 'area.lihat_trafo_gi',
+        'uses'      => 'AreaController@lihat_trafo_gi'
+    ]);
+
+    Route::get('/list_datamaster_list_trafo_gi/{id_organisasi}/{id_gardu_induk}', [
         'as'        => 'area.list_trafo_gi',
         'uses'      => 'AreaController@list_trafo_gi'
+    ]);
+
+    Route::get('/list_datamaster_list_penyulang/{id_organisasi}/{id_trafo_gi}', [
+        'as'        => 'area.list_penyulang',
+        'uses'      => 'AreaController@list_penyulang'
     ]);
 
     Route::get('/list_datamaster_penyulang/{id_organisasi}/{id_trafo}', [
         'as'        => 'area.lihat_penyulang',
         'uses'      => 'AreaController@lihat_penyulang'
-        ]);
-    
+    ]);
+
+    Route::get('/list_datamaster_gardu_distribusi/{id_organisasi}/{id_trafo}', [
+        'as'        => 'area.trafo_gi',
+        'uses'      => 'AreaController@lihat_trafo_gi'
+    ]);
+
 });
 
 //distribusi
