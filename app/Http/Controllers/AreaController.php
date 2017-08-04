@@ -125,6 +125,31 @@ class AreaController extends Controller
                 'id_org'=>$request->id_org,
             ]);
         }
+        elseif($request->GD){
+
+            $inputGardu = new Gardu;
+            $id_org = Organisasi::where('id_organisasi',$request->id_org)->first();
+            $inputGardu->id_organisasi = $id_org->id;
+            $inputGardu->id_penyulang = $request->GD;
+            $inputGardu->nama_gardu = $request->tambahnamagardu;
+            $inputGardu->alamat_gardu = $request->tambahalamatgardu;
+            $inputGardu->data_master="";
+
+            if($inputGardu->save());
+
+            $rayon = Organisasi::where('id_organisasi', $request->idrayon)->first();
+            $penyulang = Penyulang::where('id', $request->idpenyulang)->first();
+            $data = Gardu::where('id_penyulang', $penyulang->id)->get();
+            $decoded = json_decode($penyulang->data_master, true);
+            return view('admin.nonmaster.dashboard_user.datamaster_penyulang',[
+                'data' =>$data,
+                'decoded' =>$decoded,
+                'penyulang'=>$penyulang,
+                'id_penyulang'=>$request->idpenyulang,
+                'rayon'=>$rayon,
+                'id_org'=>$request->id_org,
+            ]);
+        }
         else{
 
             if($request->formtrafogi)
@@ -419,16 +444,17 @@ class AreaController extends Controller
         ]);
     }
 
-    public function lihat_penyulang($id_organisasi, $id_trafo_gi){
+    public function lihat_penyulang($id_organisasi, $id_penyulang){
         $rayon = Organisasi::where('id_organisasi', $id_organisasi)->first();
-        $gardu = TrafoGI::where('id', $id_trafo_gi)->first();
-        $data = Penyulang::where('id_trafo_gi', $id_trafo_gi)->get();
-        $decoded = json_decode($gardu->data_master, true);
+        $penyulang = Penyulang::where('id', $id_penyulang)->first();
+        $data = Gardu::where('id_penyulang', $id_penyulang)->get();
+//        dd($penyulang);
+        $decoded = json_decode($penyulang->data_master, true);
         return view('admin.nonmaster.dashboard_user.datamaster_penyulang',[
             'data' =>$data,
             'decoded' =>$decoded,
-            'gardu'=>$gardu,
-            'idgardu'=>$id_trafo_gi,
+            'penyulang'=>$penyulang,
+            'id_penyulang'=>$id_penyulang,
             'rayon'=>$rayon,
             'id_org'=>$id_organisasi,
             ]);

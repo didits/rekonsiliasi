@@ -33,9 +33,10 @@
                                         @foreach($data as $list)
 
                                             <tr>
-                                                <td><a href="{{url('/area/list_datamaster_trafo/'.$id_organisasi.'/'.$list->id)}}"> {{$list->nama_penyulang}} </a></td>
+                                                <td><a href="{{url('/area/list_datamaster_penyulang/'.$id_organisasi.'/'.$list->id)}}"> {{$list->nama_penyulang}} </a></td>
                                                 <td> {{$list->alamat_penyulang}} </td>
-                                                <td><a href="#">Lihat List Trafo Penyulang</a></td>
+                                                {{--{{url('/area/list_datamaster_list_GD/'.$id_organisasi.'/'.$list->id)}}--}}
+                                                <td><a href="">Lihat List GD</a></td>
                                             </tr>
 
                                         @endforeach

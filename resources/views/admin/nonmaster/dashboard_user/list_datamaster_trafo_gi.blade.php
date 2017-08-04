@@ -29,7 +29,7 @@
                                             <tr>
                                                 <td><a href="{{url('/area/list_datamaster_trafo_gi/'.$id_organisasi.'/'.$list->id)}}"> {{$list->nama_trafo_gi}} </a></td>
                                                 <td> {{$list->alamat_trafo_gi}} </td>
-                                                <td><a href="{{url('/area/list_datamaster_penyulang/'.$id_organisasi.'/'.$list->id)}}">Lihat List Penyulang</a></td>
+                                                <td><a href="{{url('/area/list_datamaster_list_penyulang/'.$id_organisasi.'/'.$list->id)}}">Lihat List Penyulang</a></td>
                                             </tr>
 
                                         @endforeach

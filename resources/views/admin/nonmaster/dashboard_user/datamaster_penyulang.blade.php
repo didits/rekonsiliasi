@@ -5,7 +5,7 @@
     <div class="wrapper">
         @include('admin.master.navbar')
         <div class="main-panel">
-            @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER PENYULANG: " . $gardu->nama_gardu])
+            @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER PENYULANG: " . $penyulang->nama_penyulang])
             <div class="content">
                 <div class="container-fluid">
 
@@ -27,7 +27,7 @@
                                     <li class="">
                                         <a href="#map-logo{{$list+1}}" role="tab" data-toggle="tab" aria-expanded="false">
                                             <i class="fa fa-map-marker"></i><br>
-                                            {{$key->nama_penyulang}}
+                                            {{$key->nama_gardu}}
                                         </a>
                                     </li>
                                     @endforeach
@@ -47,7 +47,7 @@
                                             <div class="col-md-12">
                                                 <div class="card">
                                                     <div class="header">
-                                                        <h4 class="title">GARDU {{$gardu->nama_gardu}}</h4>
+                                                        <h4 class="title">PENYULANG {{$penyulang->nama_penyulang}}</h4>
                                                         {{--<p class="category">Data KWH Meter</p>--}}
                                                     </div>
                                                     <div class="content">
@@ -95,8 +95,7 @@
                                                         <form action="{{route('input_datamaster.store')}}" method="post">
                                                             <input type="hidden" name="_method" value="POST">
                                                             <input type="hidden" name="tipe" value="KWH">
-                                                            <input type="hidden" name="idgardu" value={{$gardu->id}}>
-                                                            {{--{{dd($gardu)}}--}}
+                                                            <input type="hidden" name="idpenyulang" value={{$penyulang->id}}>
                                                             {{ csrf_field() }}
 
                                                             <div class="row">
@@ -156,7 +155,7 @@
                                                         <form action="{{route('input_datamaster.store')}}" method="post">
                                                             <input type="hidden" name="_method" value="POST">
                                                             <input type="hidden" name="tipe" value="TA">
-                                                            <input type="hidden" name="idgardu" value={{$gardu->id}}>
+                                                            <input type="hidden" name="idpenyulang" value={{$penyulang->id}}>
                                                             {{ csrf_field() }}
 
                                                             <div class="row">
@@ -197,7 +196,7 @@
                                                         <form action="{{route('input_datamaster.store')}}" method="post">
                                                             <input type="hidden" name="_method" value="POST">
                                                             <input type="hidden" name="tipe" value="TT">
-                                                            <input type="hidden" name="idgardu" value={{$gardu->id}}>
+                                                            <input type="hidden" name="idpenyulang" value={{$penyulang->id}}>
                                                             {{ csrf_field() }}
 
                                                             <div class="row">
@@ -238,7 +237,7 @@
                                                         <form action="{{route('input_datamaster.store')}}" method="post">
                                                             <input type="hidden" name="_method" value="POST">
                                                             <input type="hidden" name="tipe" value="FK">
-                                                            <input type="hidden" name="idgardu" value={{$gardu->id}}>
+                                                            <input type="hidden" name="idpenyulang" value={{$penyulang->id}}>
                                                             {{ csrf_field() }}
 
                                                             <div class="row">
@@ -486,7 +485,7 @@
                                             <div class="col-md-12">
                                                 <div class="card">
                                                     <div class="header">
-                                                        <h4 class="title">PENYULANG {{$gardu->nama_gardu}}</h4>
+                                                        <h4 class="title">PENYULANG {{$penyulang->nama_penyulang}}</h4>
                                                         {{--<p class="category">Data KWH Meter</p>--}}
                                                     </div>
                                                     <div class="content">
@@ -527,8 +526,8 @@
                                             <div class="col-md-12">
                                                 <div class="card">
                                                     <div class="header">
-                                                        <h4 class="title">PENYULANG {{$gardu->nama_gardu}}</h4>
-                                                        <p class="category">Daftar Penyulang</p>
+                                                        <h4 class="title">PENYULANG {{$penyulang->nama_penyulang}}</h4>
+                                                        <p class="category">Daftar GD</p>
                                                     </div>
                                                     <div class="content table-responsive table-full-width">
                                                         <table class="table">
@@ -544,7 +543,7 @@
                                                             @foreach($data as $list => $key)
                                                             <tr>
                                                                 <td class="text-center">{{$list+1}}</td>
-                                                                <td>{{$key->nama_penyulang}}</td>
+                                                                <td>{{$key->nama_gardu}}</td>
                                                                 <td>{{$rayon->nama_organisasi}}</td>
                                                                 <td class="td-actions text-right">
                                                                     <a href="#" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="View Profile">
@@ -572,22 +571,23 @@
                                                 <div class="card">
                                                     <form action="{{route('input_datamaster.store')}}" method="post">
                                                         <input type="hidden" name="_method" value="POST">
-                                                        <input type="hidden" name="penyulang" value="{{$idgardu}}">
-                                                        <input type="hidden" name="idgardu" value={{$gardu->id}}>
+                                                        <input type="hidden" name="GD" value="{{$id_penyulang}}">
+                                                        <input type="hidden" name="idpenyulang" value={{$penyulang->id}}>
                                                         <input type="hidden" name="idrayon" value={{$rayon->id_organisasi}}>
+                                                        <input type="hidden" name="id_org" value={{$id_org}}>
                                                         {{ csrf_field() }}
                                                         <div class="header">Tambah GD</div>
                                                         <div class="content">
 
 
                                                             <div class="form-group">
-                                                                <label class="control-label">Nama Penyulang <star>*</star></label>
-                                                                <input class="form-control" name="tambahnamapenyulang" type="text" required="required" aria-required="true">
+                                                                <label class="control-label">Nama GD <star>*</star></label>
+                                                                <input class="form-control" name="tambahnamagardu" type="text" required="required" aria-required="true">
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <label class="control-label">Alamat Penyulang <star>*</star></label>
-                                                                <input class="form-control" name="tambahalamatpenyulang" type="text" required="required" aria-required="true">
+                                                                <label class="control-label">Alamat GD <star>*</star></label>
+                                                                <input class="form-control" name="tambahalamatgardu" type="text" required="required" aria-required="true">
                                                             </div>
 
                                                             <div class="form-group">
