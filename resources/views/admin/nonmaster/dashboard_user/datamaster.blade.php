@@ -155,8 +155,19 @@
                                                             <div class="row">
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
-                                                                        <label>Penyulang</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="Penyulang XXX">
+                                                                        @if($type==0)
+                                                                            <label>Gardu Induk</label>
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Gardu Induk" value="{{$tipe->nama_gi}}">
+                                                                        @elseif($type==1)
+                                                                            <label>Trafo GI</label>
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Trafo GI" value="{{$tipe->nama_trago_gi}}">
+                                                                        @elseif($type==2)
+                                                                            <label>Penyulang</label>
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="{{$tipe->nama_penyulang}}">
+                                                                        @elseif($type==3)
+                                                                            <label>Gardu</label>
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Gardu" value="{{$tipe->nama_gardu}}">
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-4">
@@ -218,8 +229,19 @@
                                                             <div class="row">
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
-                                                                        <label>Penyulang</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="Penyulang XXX">
+                                                                        @if($type==0)
+                                                                            <label>Gardu Induk</label>
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Gardu Induk" value="{{$tipe->nama_gi}}">
+                                                                        @elseif($type==1)
+                                                                            <label>Trafo GI</label>
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Trafo GI" value="{{$tipe->nama_trago_gi}}">
+                                                                        @elseif($type==2)
+                                                                            <label>Penyulang</label>
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="{{$tipe->nama_penyulang}}">
+                                                                        @elseif($type==3)
+                                                                            <label>Gardu</label>
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Gardu" value="{{$tipe->nama_gardu}}">
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-4">
@@ -281,8 +303,19 @@
                                                             <div class="row">
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
-                                                                        <label>Penyulang</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="">
+                                                                        @if($type==0)
+                                                                            <label>Gardu Induk</label>
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Gardu Induk" value="{{$tipe->nama_gi}}">
+                                                                        @elseif($type==1)
+                                                                            <label>Trafo GI</label>
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Trafo GI" value="{{$tipe->nama_trago_gi}}">
+                                                                        @elseif($type==2)
+                                                                            <label>Penyulang</label>
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="{{$tipe->nama_penyulang}}">
+                                                                        @elseif($type==3)
+                                                                            <label>Gardu</label>
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Gardu" value="{{$tipe->nama_gardu}}">
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-4">
