@@ -513,16 +513,33 @@ class AreaController extends Controller
 
     public function list_distribusi()
     {
-        $area = Organisasi::select('id', 'id_organisasi')->where('id_organisasi', Auth::user()->id_organisasi)->first();
-        $subarea = substr($area->id_organisasi, 0, 3) . "%%";
-        $rayon = Organisasi::select('id', 'id_organisasi')->where([
-            ['id_organisasi', 'like', $subarea],
-            ['tipe_organisasi', '!=', 2]])->get();
-        $id_rayon = array();
+        $area       = Organisasi::select('id', 'id_organisasi')
+                        ->where('id_organisasi', Auth::user()->id_organisasi)
+                        ->first();
+        $subarea    = substr($area->id_organisasi, 0, 3) . "%%";
+        $rayon      = Organisasi::select('id', 'id_organisasi')->where([
+                        ['id_organisasi', 'like', $subarea],
+                        ['tipe_organisasi', '!=', 2]])->get();
+        $id_rayon   = array();
         foreach ($rayon as $arr) {
             array_push($id_rayon, $arr->id);
         }
-        $gi = GI::select('id', 'id_organisasi', 'nama_gi', 'alamat_gi')->whereIn('id_organisasi', $id_rayon)->get();
+        $gi         = GI::select('id', 'id_organisasi', 'nama_gi', 'alamat_gi')
+                        ->whereIn('id_organisasi', $id_rayon)->get();
+        $id_gi      = array();
+        foreach ($gi as $arr) {
+            array_push($id_gi, $arr->id);
+        }
+//        $trafo_gi   = TrafoGI::select('id', 'id_organisasi', 'id_gi', 'nama_trafo_gi', 'alamat_trafo_gi')
+//            ->whereIn('id_gi', $id_gi)->get();
+//        $list0      = array();
+//        $list1      = array();
+//        foreach ($gi as $arr) {
+//            foreach ($trafo_gi as $arrs) {
+//                array_push($id_gi, $arrs->id);
+//            }
+//            array_push($id_gi, $arr->id);
+//        }
         return $gi;
     }
 }
