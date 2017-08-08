@@ -399,7 +399,8 @@ class AreaController extends Controller
         $data = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get();
 //        dd($data);
         return view('admin.nonmaster.dashboard_user.list_datamaster',[
-            'data' => $data]);
+            'data' => $data,
+            'list' => $this->list_distribusi()]);
 //            'id' => $data->id_organisasi]);
     }
 
@@ -508,5 +509,20 @@ class AreaController extends Controller
         $decoded = json_decode($data->data_master, true);
         return view('admin.nonmaster.dashboard_user.datamaster',[
             'data' => $decoded]);
+    }
+
+    public function list_distribusi()
+    {
+        $area = Organisasi::select('id', 'id_organisasi')->where('id_organisasi', Auth::user()->id_organisasi)->first();
+        $subarea = substr($area->id_organisasi, 0, 3) . "%%";
+        $rayon = Organisasi::select('id', 'id_organisasi')->where([
+            ['id_organisasi', 'like', $subarea],
+            ['tipe_organisasi', '!=', 2]])->get();
+        $id_rayon = array();
+        foreach ($rayon as $arr) {
+            array_push($id_rayon, $arr->id);
+        }
+        $gi = GI::select('id', 'id_organisasi', 'nama_gi', 'alamat_gi')->whereIn('id_organisasi', $id_rayon)->get();
+        return $gi;
     }
 }
