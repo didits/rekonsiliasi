@@ -400,7 +400,7 @@ class AreaController extends Controller
 //        dd($data);
         return view('admin.nonmaster.dashboard_user.list_datamaster',[
             'data' => $data,
-            'list' => $this->list_distribusi()]);
+            'list_distribusi' => $this->list_distribusi()]);
 //            'id' => $data->id_organisasi]);
     }
 
@@ -522,24 +522,18 @@ class AreaController extends Controller
                         ['tipe_organisasi', '!=', 2]])->get();
         $id_rayon   = array();
         foreach ($rayon as $arr) {
-            array_push($id_rayon, $arr->id);
+            $id_rayon[] = $arr->id;
+//            array_push($id_rayon, $arr->id);
         }
         $gi         = GI::select('id', 'id_organisasi', 'nama_gi', 'alamat_gi')
                         ->whereIn('id_organisasi', $id_rayon)->get();
         $id_gi      = array();
         foreach ($gi as $arr) {
-            array_push($id_gi, $arr->id);
-        }
-//        $trafo_gi   = TrafoGI::select('id', 'id_organisasi', 'id_gi', 'nama_trafo_gi', 'alamat_trafo_gi')
-//            ->whereIn('id_gi', $id_gi)->get();
-//        $list0      = array();
-//        $list1      = array();
-//        foreach ($gi as $arr) {
-//            foreach ($trafo_gi as $arrs) {
-//                array_push($id_gi, $arrs->id);
-//            }
+            $id_gi[] = $arr->id;
 //            array_push($id_gi, $arr->id);
-//        }
+        }
+        $trafo_gi   = TrafoGI::select('id', 'id_organisasi', 'id_gi', 'nama_trafo_gi', 'alamat_trafo_gi')
+                        ->whereIn('id_gi', $id_gi)->get();
         return $gi;
     }
 }

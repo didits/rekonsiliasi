@@ -250,6 +250,8 @@
 
             @endif
 
+            @if(isset($list_distribusi))
+
             @if(Auth::user()->tipe_organisasi==2)
                 <div class="user">
                 </div>
@@ -266,41 +268,42 @@
 
                 <ul class="nav nav1">
 
-                    {{--@foreach($list as $key => $gi)--}}
+                    @foreach($list_distribusi as $key => $gi)
 
-                    {{--<li>--}}
-                        {{--<a data-toggle="collapse" href="#listGI{{ $key+1 }}">--}}
-                            {{--<p>{{ $gi->nama_gi }}--}}
-                                {{--<b class="caret"></b>--}}
-                            {{--</p>--}}
-                        {{--</a>--}}
-                        {{--<div class="collapse" id="listGI{{ $key+1 }}">--}}
-                            {{--<ul class="nav nav2">--}}
-                                {{--<li>--}}
-                                    {{--<a data-toggle="collapse" href="#listGI11">--}}
-                                        {{--<p>Trafo GI 1--}}
-                                            {{--<b class="caret"></b>--}}
-                                        {{--</p>--}}
-                                    {{--</a>--}}
-                                    {{--<div class="collapse" id="listGI11">--}}
-                                        {{--<ul class="nav">--}}
-                                            {{--<li>--}}
-                                                {{--<a href="#">--}}
-                                                    {{--<p>Penyulang</p>--}}
-                                                {{--</a>--}}
-                                            {{--</li>--}}
-                                        {{--</ul>--}}
-                                    {{--</div>--}}
-                                {{--</li>--}}
-                            {{--</ul>--}}
-                        {{--</div>--}}
-                    {{--</li>--}}
+                    <li>
+                        <a data-toggle="collapse" href="#listGI{{ $key+1 }}">
+                            <p>{{ $gi->nama_gi }}
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="listGI{{ $key+1 }}">
+                            <ul class="nav nav2">
+                                <li>
+                                    <a data-toggle="collapse" href="#listGI11">
+                                        <p>Trafo GI 1
+                                            <b class="caret"></b>
+                                        </p>
+                                    </a>
+                                    <div class="collapse" id="listGI11">
+                                        <ul class="nav">
+                                            <li>
+                                                <a href="#">
+                                                    <p>Penyulang</p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
 
-                    {{--@endforeach--}}
+                    @endforeach
 
                 </ul>
 
             @endif
 
+            @endif
         </div>
     </div>
