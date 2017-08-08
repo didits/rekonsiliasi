@@ -317,7 +317,7 @@
                                                         <form action="{{route('input_datamaster.store')}}" method="post">
                                                             <input type="hidden" name="_method" value="POST">
                                                             <input type="hidden" name="tipe" value="KWH">
-                                                            <input type="hidden" name="from_penyulang" value="{{$key->id}}">
+                                                            <input type="hidden" name="form_penyulang" value="{{$key->id}}">
                                                             {{ csrf_field() }}
 
                                                             <div class="row">
