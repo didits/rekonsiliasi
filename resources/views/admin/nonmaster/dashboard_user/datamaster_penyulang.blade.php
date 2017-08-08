@@ -53,7 +53,6 @@
                                                     <div class="content">
                                                         <form action="{{route('input_datamaster.store')}}" method="post">
                                                             <input type="hidden" name="_method" value="POST">
-                                                            <input type="hidden" name="tipe" value="KWH">
                                                             {{ csrf_field() }}
 
                                                             <div class="row">
@@ -96,6 +95,7 @@
                                                             <input type="hidden" name="_method" value="POST">
                                                             <input type="hidden" name="tipe" value="KWH">
                                                             <input type="hidden" name="idpenyulang" value={{$penyulang->id}}>
+                                                            <input type="hidden" name="form_penyulang" value="{{$penyulang->id}}">
                                                             {{ csrf_field() }}
 
                                                             <div class="row">

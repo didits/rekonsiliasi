@@ -151,13 +151,15 @@ class AreaController extends Controller
             ]);
         }
         else{
-
-            if($request->formtrafogi)
-                $data = TrafoGI::where('id',$request->formtrafogi)->first();
-            else $data = GI::where('id',$request->idgardu)->first();
-            if( $data ){
+            $data="";
+            if($request->form_trafogi)
+                $data = TrafoGI::where('id',$request->form_trafogi)->first();
+            elseif($request->form_gi)
+                $data = GI::where('id',$request->idgardu)->first();
+            elseif($request->form_penyulang)
+                $data = Penyulang::where('id',$request->form_penyulang)->first();
+            if($data ){
                 $decoded = json_decode($data->data_master, true);
-//            dd($decoded);
                 if($request->tipe ==    'KWH'){
                     $data_KWH = array(
                         'merk' => $request->merk,
@@ -349,21 +351,29 @@ class AreaController extends Controller
                     'FK' => $data_FK );
 
             }
-
-            if($request->formtrafogi)
-                $data_master = TrafoGI::where('id', $request->formtrafogi)->first();
-            else $data_master = GI::where('id', $request->idgardu)->first();
+//            dd($request->form_penyulang);
+            $data_master = "";
+            if($request->form_trafogi)
+                $data_master = TrafoGI::where('id', $request->form_trafogi)->first();
+            elseif($request->form_gi)
+                $data_master = GI::where('id', $request->idgardu)->first();
+            elseif($request->form_penyulang)
+                $data_master = Penyulang::where('id',$request->form_penyulang)->first();
             $data_master->data_master=json_encode($data);
             if($data_master->save());
 
-            if($request->formtrafogi)
-                $data = TrafoGI::where('id', $request->formtrafogi)->first();
-            else $data = GI::where('id', $request->idgardu)->first();
+            if($request->form_trafogi)
+                $data = TrafoGI::where('id', $request->form_trafogi)->first();
+            elseif($request->form_gi)
+                $data = GI::where('id', $request->idgardu)->first();
+            elseif($request->form_penyulang)
+                $data = Penyulang::where('id',$request->form_penyulang)->first();
+
             $decoded = json_decode($data->data_master, true);
             return view('admin.nonmaster.dashboard_user.datamaster',[
                 'data' => $decoded,
                 'idgardu'=>$request->idgardu,
-                'idpenyulang'=>$request->formtrafogi
+                'idpenyulang'=>$request->form_trafogi
             ]);
         }
 
