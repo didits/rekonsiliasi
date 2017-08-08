@@ -271,7 +271,7 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label>Penyulang</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="{{$tipe->nama_gardu}}">
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-4">
