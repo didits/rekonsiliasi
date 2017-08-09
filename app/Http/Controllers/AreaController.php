@@ -543,8 +543,14 @@ class AreaController extends Controller
                             ->where('id_organisasi', $idr)->get();
             $j          = 0;
                 foreach ($gi[$i] as $gis) {
-                    $gi[$i][$j]['trafo_gi']  = TrafoGI::select('id', 'id_organisasi', 'id_gi', 'nama_trafo_gi', 'alamat_trafo_gi')
+                    $gi[$i][$j]['trafo_gi'] = TrafoGI::select('id', 'id_organisasi', 'id_gi', 'nama_trafo_gi', 'alamat_trafo_gi')
                                                 ->where('id_gi', $gis->id)->get();
+                    $k                      = 0;
+                        foreach ($gi[$i][$j]['trafo_gi'] as $trafogi) {
+                            $gi[$i][$j]['trafo_gi'][$k]['penyulang']    = Penyulang::select('id', 'id_organisasi', 'id_trafo_gi', 'nama_penyulang', 'alamat_penyulang')
+                                                                            ->where('id_trafo_gi', $trafogi->id)->get();
+                            $k++;
+                        }
                     $j++;
                 }
             $i++;

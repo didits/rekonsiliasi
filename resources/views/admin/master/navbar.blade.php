@@ -290,13 +290,19 @@
                                         </p>
                                     </a>
                                     <div class="collapse" id="listGI{{ $keyr+1 }}{{ $key+1 }}{{ $key2+1 }}">
+
+                                        @foreach($trafo_gi['penyulang'] as $penyulang)
+
                                         <ul class="nav">
                                             <li>
                                                 <a href="#">
-                                                    <p>Penyulang</p>
+                                                    <p>{{ $penyulang->nama_penyulang }}</p>
                                                 </a>
                                             </li>
                                         </ul>
+
+                                        @endforeach
+
                                     </div>
                                 </li>
                             </ul>
