@@ -268,23 +268,28 @@
 
                 <ul class="nav nav1">
 
-                    @foreach($list_distribusi as $key => $gi)
+                    @foreach($list_distribusi as $keyr => $rayon)
+
+                    @foreach($rayon as $key => $gi)
 
                     <li>
-                        <a data-toggle="collapse" href="#listGI{{ $key+1 }}">
+                        <a data-toggle="collapse" href="#listGI{{ $keyr+1 }}{{ $key+1 }}">
                             <p>{{ $gi->nama_gi }}
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="listGI{{ $key+1 }}">
+                        <div class="collapse" id="listGI{{ $keyr+1 }}{{ $key+1 }}">
+
+                            @foreach($gi['trafo_gi'] as $key2 => $trafo_gi)
+
                             <ul class="nav nav2">
                                 <li>
-                                    <a data-toggle="collapse" href="#listGI11">
-                                        <p>Trafo GI 1
+                                    <a data-toggle="collapse" href="#listGI{{ $keyr+1 }}{{ $key+1 }}{{ $key2+1 }}">
+                                        <p>{{ $trafo_gi->nama_trafo_gi }}
                                             <b class="caret"></b>
                                         </p>
                                     </a>
-                                    <div class="collapse" id="listGI11">
+                                    <div class="collapse" id="listGI{{ $keyr+1 }}{{ $key+1 }}{{ $key2+1 }}">
                                         <ul class="nav">
                                             <li>
                                                 <a href="#">
@@ -295,8 +300,13 @@
                                     </div>
                                 </li>
                             </ul>
+
+                            @endforeach
+
                         </div>
                     </li>
+
+                    @endforeach
 
                     @endforeach
 

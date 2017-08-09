@@ -525,15 +525,33 @@ class AreaController extends Controller
             $id_rayon[] = $arr->id;
 //            array_push($id_rayon, $arr->id);
         }
-        $gi         = GI::select('id', 'id_organisasi', 'nama_gi', 'alamat_gi')
-                        ->whereIn('id_organisasi', $id_rayon)->get();
-        $id_gi      = array();
-        foreach ($gi as $arr) {
-            $id_gi[] = $arr->id;
-//            array_push($id_gi, $arr->id);
+//        $gi         = GI::select('id', 'id_organisasi', 'nama_gi', 'alamat_gi')
+//                        ->whereIn('id_organisasi', $id_rayon)->get();
+//        $id_gi      = array();
+//        foreach ($gi as $arr) {
+//            $id_gi[]    = $arr->id;
+////            array_push($id_gi, $arr->id);
+//        }
+//        $trafo_gi   = TrafoGI::select('id', 'id_organisasi', 'id_gi', 'nama_trafo_gi', 'alamat_trafo_gi')
+//                        ->whereIn('id_gi', $id_gi)->get();
+
+        $gi         = array();
+        $i          = 0;
+
+        foreach ($id_rayon as $idr) {
+            $gi[]       = GI::select('id', 'id_organisasi', 'nama_gi', 'alamat_gi')
+                            ->where('id_organisasi', $idr)->get();
+            $j          = 0;
+                foreach ($gi[$i] as $gis) {
+                    $gi[$i][$j]['trafo_gi']  = TrafoGI::select('id', 'id_organisasi', 'id_gi', 'nama_trafo_gi', 'alamat_trafo_gi')
+                                                ->where('id_gi', $gis->id)->get();
+                    $j++;
+                }
+            $i++;
+//            dd($gi);
         }
-        $trafo_gi   = TrafoGI::select('id', 'id_organisasi', 'id_gi', 'nama_trafo_gi', 'alamat_trafo_gi')
-                        ->whereIn('id_gi', $id_gi)->get();
+
+//        dd($gi);
         return $gi;
     }
 }
