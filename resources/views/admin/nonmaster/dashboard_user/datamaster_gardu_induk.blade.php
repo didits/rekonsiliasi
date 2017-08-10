@@ -95,7 +95,7 @@
                                                             <input type="hidden" name="_method" value="POST">
                                                             <input type="hidden" name="tipe" value="KWH">
                                                             <input type="hidden" name="idgardu" value={{$gardu->id}}>
-                                                            <input type="hidden" name="form_gi" value="{{$key->id}}">
+                                                            <input type="hidden" name="form_gi" value="{{$gardu->id}}">
                                                             {{--{{dd($gardu)}}--}}
                                                             {{ csrf_field() }}
 
@@ -157,7 +157,7 @@
                                                             <input type="hidden" name="_method" value="POST">
                                                             <input type="hidden" name="tipe" value="TA">
                                                             <input type="hidden" name="idgardu" value={{$gardu->id}}>
-                                                            <input type="hidden" name="form_gi" value="{{$key->id}}">
+                                                            <input type="hidden" name="form_gi" value="{{$gardu->id}}">
                                                             {{ csrf_field() }}
 
                                                             <div class="row">
@@ -199,7 +199,7 @@
                                                             <input type="hidden" name="_method" value="POST">
                                                             <input type="hidden" name="tipe" value="TT">
                                                             <input type="hidden" name="idgardu" value={{$gardu->id}}>
-                                                            <input type="hidden" name="form_gi" value="{{$key->id}}">
+                                                            <input type="hidden" name="form_gi" value="{{$gardu->id}}">
                                                             {{ csrf_field() }}
 
                                                             <div class="row">
@@ -242,7 +242,7 @@
                                                             <input type="hidden" name="_method" value="POST">
                                                             <input type="hidden" name="tipe" value="FK">
                                                             <input type="hidden" name="idgardu" value={{$gardu->id}}>
-                                                            <input type="hidden" name="form_gi" value="{{$key->id}}">
+                                                            <input type="hidden" name="form_gi" value="{{$gardu->id}}">
                                                             {{ csrf_field() }}
 
                                                             <div class="row">
@@ -277,7 +277,6 @@
                                                         <form action="{{route('input_datamaster.store')}}" method="post">
                                                             <input type="hidden" name="_method" value="POST">
                                                             <input type="hidden" name="tipe" value="KWH">
-                                                            <input type="hidden" name="formpenyulang" value="{{$key->id}}">
                                                             <input type="hidden" name="form_trafogi" value="{{$key->id}}">
                                                             {{ csrf_field() }}
 
@@ -291,7 +290,7 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label>Rayon</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Rayon" value="Rayon XXX">
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$rayon->nama_organisasi}}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-4">
@@ -320,7 +319,6 @@
                                                         <form action="{{route('input_datamaster.store')}}" method="post">
                                                             <input type="hidden" name="_method" value="POST">
                                                             <input type="hidden" name="tipe" value="KWH">
-                                                            <input type="hidden" name="formpenyulang" value="{{$key->id}}">
                                                             <input type="hidden" name="form_trafogi" value="{{$key->id}}">
                                                             {{ csrf_field() }}
 
@@ -380,7 +378,6 @@
                                                         <form action="{{route('input_datamaster.store')}}" method="post">
                                                             <input type="hidden" name="_method" value="POST">
                                                             <input type="hidden" name="tipe" value="TA">
-                                                            <input type="hidden" name="formpenyulang" value="{{$key->id}}">
                                                             <input type="hidden" name="form_trafogi" value="{{$key->id}}">
                                                             {{ csrf_field() }}
 
@@ -422,7 +419,6 @@
                                                         <form action="{{route('input_datamaster.store')}}" method="post">
                                                             <input type="hidden" name="_method" value="POST">
                                                             <input type="hidden" name="tipe" value="TT">
-                                                            <input type="hidden" name="formpenyulang" value="{{$key->id}}">
                                                             <input type="hidden" name="form_trafogi" value="{{$key->id}}">
                                                             {{ csrf_field() }}
 
@@ -464,7 +460,6 @@
                                                         <form action="{{route('input_datamaster.store')}}" method="post">
                                                             <input type="hidden" name="_method" value="POST">
                                                             <input type="hidden" name="tipe" value="FK">
-                                                            <input type="hidden" name="formpenyulang" value="{{$key->id}}">
                                                             <input type="hidden" name="form_trafogi" value="{{$key->id}}">
                                                             {{--form--}}
                                                             {{ csrf_field() }}
@@ -581,7 +576,7 @@
                                                     <form action="{{route('input_datamaster.store')}}" method="post">
                                                         <input type="hidden" name="_method" value="POST">
                                                         <input type="hidden" name="trafogi" value="{{$idgardu}}">
-                                                        <input type="hidden" name="idgardu" value={{$gardu->id}}>
+                                                        {{--<input type="hidden" name="idgardu" value={{$gardu->id}}>--}}
                                                         <input type="hidden" name="idrayon" value={{$rayon->id_organisasi}}>
                                                         <input type="hidden" name="id_org" value={{$id_org}}>
                                                         {{ csrf_field() }}
