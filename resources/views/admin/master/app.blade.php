@@ -171,4 +171,7 @@
             @endif
         });
     </script>
+
+    @yield('extra_script')
+
 </html> 

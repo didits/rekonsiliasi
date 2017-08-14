@@ -598,31 +598,7 @@
                                                                 <input class="form-control" name="tambahnamarayon" type="text" disabled="" value="{{Auth::user()->nama_organisasi}}" required="required" aria-required="true">
                                                             </div>
 
-                                                            {{--<div class="form-group">--}}
-                                                                {{--<div class="row">--}}
-                                                                    {{--<div class="col-md-6">--}}
-                                                                        {{--<div class="btn-group bootstrap-select">--}}
-                                                                            {{--<div class="btn-group bootstrap-select">--}}
-                                                                                {{--<select name="selectrayonsingle" class="selectpicker" data-title="Single Select" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">--}}
-                                                                                    {{--<option class="bs-title-option" value="">Single Select</option>--}}
-                                                                                    {{--<option value="010101">Rayon Sukolilo</option>--}}
-                                                                                    {{--<option value="010102">Rayon Gubeng</option>--}}
-                                                                                {{--</select>--}}
-                                                                            {{--</div>--}}
-                                                                        {{--</div>--}}
-                                                                    {{--</div>--}}
-                                                                    {{--<div class="col-md-6">--}}
-                                                                        {{--<div class="btn-group bootstrap-select show-tick">--}}
-                                                                            {{--<div class="btn-group bootstrap-select show-tick">--}}
-                                                                                {{--<select multiple="" data-title="Multiple Select" name="selectrayonmultiple" class="selectpicker" data-style="btn-info btn-fill btn-block" data-menu-style="dropdown-blue" tabindex="-98">--}}
-                                                                                    {{--<option value="010101">Rayon Sukolilo</option>--}}
-                                                                                    {{--<option value="010102">Rayon Gubeng</option>--}}
-                                                                                {{--</select>--}}
-                                                                            {{--</div>--}}
-                                                                        {{--</div>--}}
-                                                                    {{--</div>--}}
-                                                                {{--</div>--}}
-                                                            {{--</div>--}}
+                                                            @include('admin.nonmaster.ajax.dropdown_organisasi')
 
                                                             <div class="form-group">
                                                                 <label class="control-label">Jenis Penyulang</label>
@@ -666,4 +642,38 @@
 
         </div>
     </div>
+@endsection
+
+@section('extra_script')
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('select[name="selectareasingle"]').on('change', function() {
+                var id_area = $(this).val();
+                if(id_area) {
+                    $.ajax({
+                        url: '{{ url('populate/rayon/') }}'+'/'+id_area,
+                        type: "GET",
+                        dataType: "json",
+                        success:function(data) {
+                            console.log(data);
+
+
+                            $('select[name="selectrayonsingle"]').empty().append('<option class="bs-title-option" value="">Rayon</option>');;
+                            $.each(data, function(key, value) {
+                                $('select[name="selectrayonsingle"]').append('<option value="'+ key +'">'+ value +'</option>');
+                            });
+                            $('.selectpicker').selectpicker('refresh');
+
+                        }
+                    });
+                }else{
+                    $('select[name="selectrayonsingle"]').empty().append('<option class="bs-title-option" value="">Rayon</option>');;
+
+                }
+            });
+
+        });
+    </script>
+
 @endsection

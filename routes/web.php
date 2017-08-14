@@ -57,6 +57,9 @@ Route::get('/input_dummy', function () {
 Route::resource('input_listrik', 'Input');
 Route::resource('input_datamaster', 'AreaController');
 
+Route::get('populate/area',array('as'=>'populate.area','uses'=>'AjaxController@populateArea'));
+Route::get('populate/rayon/{id_area}',array('as'=>'populate.rayon','uses'=>'AjaxController@populateRayon'));
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');

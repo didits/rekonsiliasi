@@ -469,6 +469,7 @@ class AreaController extends Controller
             'id_trafo_gi'=>$id_trafo_gi,
             'rayon'=>$rayon,
             'id_org'=>$id_organisasi,
+            'dropdown_area'=>$this->populateArea()
         ]);
     }
 
@@ -560,5 +561,11 @@ class AreaController extends Controller
 
 //        dd($gi);
         return $gi;
+    }
+
+    public function populateArea()
+    {
+        $dropdown_area = Organisasi::select('id_organisasi', 'nama_organisasi')->where('tipe_organisasi', '=', 2)->get();
+        return $dropdown_area;
     }
 }
