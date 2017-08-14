@@ -422,10 +422,12 @@ class AreaController extends Controller
         $nama_rayon = $rayon[0]->nama_organisasi;
         $id_org = $rayon[0]->id;
         $data = TrafoGI::where('id_gi', $id_gardu_induk)->get();
+        $nama_gi = GI::select('nama_gi')->where('id', $id_gardu_induk)->first();
         return view('admin.nonmaster.dashboard_user.list_datamaster_trafo_gi',[
-            'data' =>$data,
-            'id_organisasi'=>$id_rayon,
-            'nama_rayon' =>$nama_rayon
+            'data'          => $data,
+            'id_organisasi' => $id_rayon,
+            'nama_rayon'    => $nama_rayon,
+            'nama_gi'       => $nama_gi->nama_gi
         ]);
     }
 
@@ -434,10 +436,12 @@ class AreaController extends Controller
         $nama_rayon = $rayon[0]->nama_organisasi;
         $id_org = $rayon[0]->id;
         $data = Penyulang::where('id_trafo_gi', $id_trafo_gi)->get();
+        $nama_tgi = TrafoGI::select('nama_trafo_gi')->where('id', $id_trafo_gi)->first();
         return view('admin.nonmaster.dashboard_user.list_datamaster_penyulang',[
-            'data' =>$data,
-            'id_organisasi'=>$id_rayon,
-            'nama_rayon' =>$nama_rayon
+            'data'          => $data,
+            'id_organisasi' => $id_rayon,
+            'nama_rayon'    => $nama_rayon,
+            'nama_tgi'      => $nama_tgi->nama_trafo_gi
         ]);
     }
 

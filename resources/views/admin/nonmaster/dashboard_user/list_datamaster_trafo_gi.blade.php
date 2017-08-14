@@ -5,7 +5,7 @@
     <div class="wrapper">
         @include('admin.master.navbar')
         <div class="main-panel">
-            @include('admin.master.top_navbar', ['navbartitle' => "LIST TRAFO GARDU INDUK, GARDU INDUK " . $nama_rayon])
+            @include('admin.master.top_navbar', ['navbartitle' => "LIST TRAFO GARDU INDUK, GARDU INDUK " . $nama_gi . ", RAYON " . $nama_rayon])
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
@@ -13,7 +13,7 @@
                             <div class="card">
                                 <div class="header">
                                     <h4 class="title">Daftar Trafo Gardu Induk</h4>
-                                    <p class="category">Daftar Trafo Gardu Induk {{$nama_rayon}} </p>
+                                    <p class="category">Daftar Trafo Gardu Induk, {{ $nama_gi }}, RAYON {{$nama_rayon}} </p>
                                 </div>
                                 <div class="content table-responsive table-full-width">
                                     <table class="table table-hover table-striped">
