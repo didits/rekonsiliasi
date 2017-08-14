@@ -63,20 +63,9 @@ class AreaController extends Controller
             $inputGardu->data_master="";
 
             if($inputGardu->save());
-            $data = GI::where('id_organisasi', $id_org[0]->id)->get();
-            $nama_rayon = Organisasi::where('id_organisasi', $request->id_organisasi)->get();
-            $nama_rayon = $nama_rayon[0]->nama_organisasi;
-
-            return view('admin.nonmaster.dashboard_user.list_datamaster_rayon',[
-                'data' =>$data,
-                'id_organisasi'=>$request->id_organisasi,
-                'nama_rayon' =>$nama_rayon
-            ]);
-
-
+            return back();
         }
         elseif($request->trafogi){
-
             $inputTrafoGI = new TrafoGI;
             $id_org = Organisasi::where('id_organisasi',$request->id_org)->first();
             $inputTrafoGI->id_organisasi = $id_org->id;
@@ -85,23 +74,9 @@ class AreaController extends Controller
             $inputTrafoGI->alamat_trafo_gi = $request->tambahalamattrafogi;
             $inputTrafoGI->data_master="";
             if($inputTrafoGI->save());
-
-            $rayon = Organisasi::where('id_organisasi', $request->idrayon)->first();
-            $gardu = GI::where('id', $request->idgardu)->first();
-//            dd($request->idgardu);
-            $data = TrafoGI::where('id_gi', $gardu->id)->get();
-            $decoded = json_decode($gardu->data_master, true);
-            return view('admin.nonmaster.dashboard_user.datamaster_gardu_induk',[
-                'data' =>$data,
-                'decoded' =>$decoded,
-                'gardu'=>$gardu,
-                'idgardu'=>$request->idgardu,
-                'rayon'=>$rayon,
-                'id_org'=>$request->id_org,
-            ]);
+            return back();
         }
         elseif($request->penyulang){
-
             $inputPenyulang = new Penyulang;
             $id_org = Organisasi::where('id_organisasi',$request->id_org)->first();
             $inputPenyulang->id_organisasi = $id_org->id;
@@ -111,19 +86,7 @@ class AreaController extends Controller
             $inputPenyulang->data_master="";
 
             if($inputPenyulang->save());
-
-            $rayon = Organisasi::where('id_organisasi', $request->idrayon)->first();
-            $trafogi = TrafoGI::where('id', $request->idtrafo_gi)->first();
-            $data = Penyulang::where('id_trafo_gi', $trafogi->id)->get();
-            $decoded = json_decode($trafogi->data_master, true);
-            return view('admin.nonmaster.dashboard_user.datamaster_trafo_gi',[
-                'data' =>$data,
-                'decoded' =>$decoded,
-                'trafo_gi'=>$trafogi,
-                'id_trafo_gi'=>$request->idtrafo_gi,
-                'rayon'=>$rayon,
-                'id_org'=>$request->id_org,
-            ]);
+            return back();
         }
         elseif($request->GD){
 
@@ -136,19 +99,7 @@ class AreaController extends Controller
             $inputGardu->data_master="";
 
             if($inputGardu->save());
-
-            $rayon = Organisasi::where('id_organisasi', $request->idrayon)->first();
-            $penyulang = Penyulang::where('id', $request->idpenyulang)->first();
-            $data = Gardu::where('id_penyulang', $penyulang->id)->get();
-            $decoded = json_decode($penyulang->data_master, true);
-            return view('admin.nonmaster.dashboard_user.datamaster_penyulang',[
-                'data' =>$data,
-                'decoded' =>$decoded,
-                'penyulang'=>$penyulang,
-                'id_penyulang'=>$request->idpenyulang,
-                'rayon'=>$rayon,
-                'id_org'=>$request->id_org,
-            ]);
+            return back();
         }
         else{
             $data="";
@@ -185,7 +136,6 @@ class AreaController extends Controller
 
                 }
                 else if($request->tipe == 'TA'){
-
                     $data_KWH = array(
                         'merk' => $decoded['KWH']['merk'],
                         'nomorseri' => $decoded['KWH']['nomorseri'],
@@ -280,7 +230,6 @@ class AreaController extends Controller
 
                 }
                 else if($request->tipe == 'TA'){
-
                     $data_KWH = array(
                         'merk' => null,
                         'nomorseri' => null,
@@ -363,37 +312,10 @@ class AreaController extends Controller
             elseif($request->form_gardu)
                 $data_master = Gardu::where('id',$request->form_gardu)->first();
             $data_master->data_master=json_encode($data);
+
             if($data_master->save());
-
-            $type = "";
-            if($request->form_gi){
-                $data = GI::where('id', $request->idgardu)->first();
-                $type=0;
-            }
-            elseif($request->form_trafogi){
-                $data = TrafoGI::where('id', $request->form_trafogi)->first();
-                $type=1;
-            }
-            elseif($request->form_penyulang){
-                $data = Penyulang::where('id',$request->form_penyulang)->first();
-                $type=2;
-            }
-            elseif($request->form_gardu){
-                $data = Gardu::where('id',$request->form_gardu)->first();
-                $type=3;
-            }
-            $rayon = Organisasi::where('id', $data->id_organisasi)->first();
-            $decoded = json_decode($data->data_master, true);
-            return view('admin.nonmaster.dashboard_user.datamaster',[
-                'data' => $decoded,
-                'type'=>$type,
-                'tipe'=>$data,
-                'idgardu'=>$request->idgardu,
-                'idpenyulang'=>$request->form_trafogi,
-                'rayon'=>$rayon
-            ]);
+            return back()->withInput();
         }
-
     }
 
     public function list_rayon(){
