@@ -6,12 +6,6 @@ use App\Organisasi;
 
 class AjaxController extends Controller
 {
-    public function populateArea()
-    {
-        $area = Organisasi::select('id_organisasi', 'nama_organisasi')->where('tipe_organisasi', '=', 2)->get();
-        return view('admin.nonmaster.ajax.dropdown_organisasi', ['areaa' => $area]);
-    }
-
     public function populateRayon($id_area)
     {
         $subarea    = substr($id_area, 0, 3) . "%%";

@@ -515,51 +515,41 @@ class AreaController extends Controller
 
     public function list_distribusi()
     {
-        $area       = Organisasi::select('id', 'id_organisasi')
-                        ->where('id_organisasi', Auth::user()->id_organisasi)
-                        ->first();
-        $subarea    = substr($area->id_organisasi, 0, 3) . "%%";
-        $rayon      = Organisasi::select('id', 'id_organisasi')->where([
-                        ['id_organisasi', 'like', $subarea],
-                        ['tipe_organisasi', '!=', 2]])->get();
-        $id_rayon   = array();
+        $area = Organisasi::select('id', 'id_organisasi')
+            ->where('id_organisasi', Auth::user()->id_organisasi)
+            ->first();
+        $subarea = substr($area->id_organisasi, 0, 3) . "%%";
+        $rayon = Organisasi::select('id', 'id_organisasi')
+            ->where([
+                ['id_organisasi', 'like', $subarea],
+                ['tipe_organisasi', '!=', 2]])
+            ->get();
+        $id_rayon = array();
         foreach ($rayon as $arr) {
             $id_rayon[] = $arr->id;
-//            array_push($id_rayon, $arr->id);
         }
-//        $gi         = GI::select('id', 'id_organisasi', 'nama_gi', 'alamat_gi')
-//                        ->whereIn('id_organisasi', $id_rayon)->get();
-//        $id_gi      = array();
-//        foreach ($gi as $arr) {
-//            $id_gi[]    = $arr->id;
-////            array_push($id_gi, $arr->id);
-//        }
-//        $trafo_gi   = TrafoGI::select('id', 'id_organisasi', 'id_gi', 'nama_trafo_gi', 'alamat_trafo_gi')
-//                        ->whereIn('id_gi', $id_gi)->get();
-
-        $gi         = array();
-        $i          = 0;
-
+        $gi = array();
+        $i = 0;
         foreach ($id_rayon as $idr) {
-            $gi[]       = GI::select('id', 'id_organisasi', 'nama_gi', 'alamat_gi')
-                            ->where('id_organisasi', $idr)->get();
-            $j          = 0;
-                foreach ($gi[$i] as $gis) {
-                    $gi[$i][$j]['trafo_gi'] = TrafoGI::select('id', 'id_organisasi', 'id_gi', 'nama_trafo_gi', 'alamat_trafo_gi')
-                                                ->where('id_gi', $gis->id)->get();
-                    $k                      = 0;
-                        foreach ($gi[$i][$j]['trafo_gi'] as $trafogi) {
-                            $gi[$i][$j]['trafo_gi'][$k]['penyulang']    = Penyulang::select('id', 'id_organisasi', 'id_trafo_gi', 'nama_penyulang', 'alamat_penyulang')
-                                                                            ->where('id_trafo_gi', $trafogi->id)->get();
-                            $k++;
-                        }
-                    $j++;
+            $gi[] = GI::select('id', 'id_organisasi', 'nama_gi', 'alamat_gi')
+                ->where('id_organisasi', $idr)
+                ->get();
+            $j = 0;
+            foreach ($gi[$i] as $gis) {
+                $gi[$i][$j]['trafo_gi'] = TrafoGI::select('id', 'id_organisasi', 'id_gi', 'nama_trafo_gi', 'alamat_trafo_gi')
+                    ->where('id_gi', $gis->id)
+                    ->get();
+                $k = 0;
+                foreach ($gi[$i][$j]['trafo_gi'] as $trafogi) {
+                    $gi[$i][$j]['trafo_gi'][$k]['penyulang'] = Penyulang::select('id', 'id_organisasi', 'id_trafo_gi', 'nama_penyulang', 'alamat_penyulang')
+                        ->where('id_trafo_gi', $trafogi->id)
+                        ->get();
+                    $k++;
                 }
+                $j++;
+            }
             $i++;
-//            dd($gi);
         }
-
-//        dd($gi);
         return $gi;
     }
 
