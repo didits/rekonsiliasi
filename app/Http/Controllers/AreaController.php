@@ -88,6 +88,7 @@ class AreaController extends Controller
 
             $rayon = Organisasi::where('id_organisasi', $request->idrayon)->first();
             $gardu = GI::where('id', $request->idgardu)->first();
+//            dd($request->idgardu);
             $data = TrafoGI::where('id_gi', $gardu->id)->get();
             $decoded = json_decode($gardu->data_master, true);
             return view('admin.nonmaster.dashboard_user.datamaster_gardu_induk',[

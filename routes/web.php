@@ -174,12 +174,12 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
         'uses'      => 'AreaController@list_gardu_induk'
         ]);
 
-    Route::get('/list_datamaster_trafo/{id_organisasi}/{id_gardu}', [
+    Route::get('/list_datamaster_trafo/{id_organisasi}/{id_gardu_induk}', [
         'as'        => 'area.lihat_gi',
         'uses'      => 'AreaController@lihat_gi'
         ]);
 
-    Route::get('/list_datamaster_trafo_gi/{id_organisasi}/{id_gardu_induk}', [
+    Route::get('/list_datamaster_trafo_gi/{id_organisasi}/{id_trafo_gi}', [
         'as'        => 'area.lihat_trafo_gi',
         'uses'      => 'AreaController@lihat_trafo_gi'
     ]);
