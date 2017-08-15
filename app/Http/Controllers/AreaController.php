@@ -5,6 +5,7 @@ use App\Gardu;
 use App\GI;
 use App\Organisasi;
 use App\TrafoGI;
+use App\Transfer;
 use Auth;
 use Illuminate\Http\Request;
 use App\Penyulang;
@@ -84,8 +85,22 @@ class AreaController extends Controller
             $inputPenyulang->nama_penyulang = $request->tambahnamapenyulang;
             $inputPenyulang->alamat_penyulang = $request->tambahalamatpenyulang;
             $inputPenyulang->data_master="";
-
             if($inputPenyulang->save());
+            $penyulang = Penyulang::where('id_organisasi',$id_org->id)->orderBy('updated_at', 'desc')->first();
+
+            if($id_org->id_organisasi == $request->selectrayonsingle);
+            else{
+                $id_gi = TrafoGI::where('id_organisasi',$id_org->id)->first();
+                $id_org_des = Organisasi::where('id_organisasi',$request->selectrayonsingle)->first();
+//                dd($id_org_des);
+                $transfer = new Transfer;
+                $transfer->id_organisasi = $id_org_des->id;
+                $transfer->id_gi = $id_gi->id_gi;
+                $transfer->id_trafo_gi = $penyulang->id_trafo_gi;
+                $transfer->id_penyulang = $penyulang->id;
+                if($transfer->save());
+            }
+
             return back();
         }
         elseif($request->GD){
@@ -332,19 +347,39 @@ class AreaController extends Controller
         $nama_rayon = $rayon[0]->nama_organisasi;
         $id_org = $rayon[0]->id;
         $data = GI::where('id_organisasi', $id_org)->get();
+//        dd($rayon);
+        $id_ryn = Organisasi::where('id_organisasi', $id_rayon)->first();
+        $data2 = Transfer::select('transfer.id_organisasi','transfer.id_gi', 'gi.nama_gi', 'gi.alamat_gi')
+            ->join('GI','GI.id','=','transfer.id_gi')->distinct('transfer.id_gi')
+            ->where('transfer.id_organisasi', $id_ryn->id)->get();
+//        dd($data2);
         return view('admin.nonmaster.dashboard_user.list_datamaster_gi',[
             'data' =>$data,
+            'data2' =>$data2,
             'id_organisasi'=>$id_rayon,
             'nama_rayon' =>$nama_rayon
-            ]);
+        ]);
     }
 
     public function list_trafo_gi($id_rayon, $id_gardu_induk){
         $rayon = Organisasi::where('id_organisasi', $id_rayon)->get();
         $nama_rayon = $rayon[0]->nama_organisasi;
-        $id_org = $rayon[0]->id;
         $data = TrafoGI::where('id_gi', $id_gardu_induk)->get();
         $nama_gi = GI::select('nama_gi')->where('id', $id_gardu_induk)->first();
+        return view('admin.nonmaster.dashboard_user.list_datamaster_trafo_gi',[
+            'data'          => $data,
+            'id_organisasi' => $id_rayon,
+            'nama_rayon'    => $nama_rayon,
+            'nama_gi'       => $nama_gi->nama_gi
+        ]);
+    }
+
+    public function list_trafo_gi_transfer($id_rayon, $id_gi){
+//        dd($id_rayon);
+        $rayon = Organisasi::where('id', $id_rayon)->get();
+        $nama_rayon = $rayon[0]->nama_organisasi;
+        $data = TrafoGI::select('id','nama_trafo_gi','alamat_trafo_gi')->where('id_gi', $id_gi)->get();
+        $nama_gi = GI::select('nama_gi')->where('id', $id_gi)->first();
         return view('admin.nonmaster.dashboard_user.list_datamaster_trafo_gi',[
             'data'          => $data,
             'id_organisasi' => $id_rayon,
@@ -356,11 +391,30 @@ class AreaController extends Controller
     public function list_penyulang($id_rayon, $id_trafo_gi){
         $rayon = Organisasi::where('id_organisasi', $id_rayon)->get();
         $nama_rayon = $rayon[0]->nama_organisasi;
-        $id_org = $rayon[0]->id;
         $data = Penyulang::where('id_trafo_gi', $id_trafo_gi)->get();
         $nama_tgi = TrafoGI::select('nama_trafo_gi')->where('id', $id_trafo_gi)->first();
         return view('admin.nonmaster.dashboard_user.list_datamaster_penyulang',[
             'data'          => $data,
+            'id_organisasi' => $id_rayon,
+            'nama_rayon'    => $nama_rayon,
+            'nama_tgi'      => $nama_tgi->nama_trafo_gi
+        ]);
+    }
+
+    public function list_penyulang_transfer($id_rayon, $id_trafo_gi){
+//        dd($id_trafo_gi);
+        $rayon = Organisasi::where('id', $id_rayon)->get();
+        $nama_rayon = $rayon[0]->nama_organisasi;
+        $data = Transfer::where([
+            ['id_trafo_gi', '==', $id_trafo_gi],
+            ['id_penyulang', '==', $id_rayon]])->get();
+        $data = Transfer::select('transfer.id_organisasi', 'penyulang.id','penyulang.nama_penyulang', 'penyulang.alamat_penyulang')
+            ->join('Penyulang','Penyulang.id','=','transfer.id_penyulang')->distinct('transfer.id_penyulang')
+            ->where('transfer.id_organisasi', $id_rayon)->get();
+//        dd($data2);
+        $nama_tgi = TrafoGI::select('nama_trafo_gi')->where('id', $id_trafo_gi)->first();
+        return view('admin.nonmaster.dashboard_user.list_datamaster_penyulang',[
+            'data'         => $data,
             'id_organisasi' => $id_rayon,
             'nama_rayon'    => $nama_rayon,
             'nama_tgi'      => $nama_tgi->nama_trafo_gi
@@ -386,7 +440,7 @@ class AreaController extends Controller
         $rayon = Organisasi::where('id_organisasi', $id_organisasi)->first();
         $trafo_gi = TrafoGI::where('id', $id_trafo_gi)->first();
         $data = Penyulang::where('id_trafo_gi', $id_trafo_gi)->get();
-//        dd($data);
+//        dd($this->populateArea());
         $decoded = json_decode($trafo_gi->data_master, true);
         return view('admin.nonmaster.dashboard_user.datamaster_trafo_gi',[
             'data' =>$data,
@@ -400,7 +454,11 @@ class AreaController extends Controller
     }
 
     public function lihat_penyulang($id_organisasi, $id_penyulang){
-        $rayon = Organisasi::where('id_organisasi', $id_organisasi)->first();
+        if($id_organisasi[0]=="t"){
+            $id_organisasi = explode('t', $id_organisasi);
+            $rayon = Organisasi::where('id', $id_organisasi[1])->first();
+        }
+        else $rayon = Organisasi::where('id_organisasi', $id_organisasi)->first();
         $penyulang = Penyulang::where('id', $id_penyulang)->first();
         $data = Gardu::where('id_penyulang', $id_penyulang)->get();
 //        dd($penyulang);
@@ -411,7 +469,7 @@ class AreaController extends Controller
             'penyulang'=>$penyulang,
             'id_penyulang'=>$id_penyulang,
             'rayon'=>$rayon,
-            'id_org'=>$id_organisasi,
+            'id_org'=>$rayon->id,
             ]);
     }
 

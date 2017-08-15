@@ -60,16 +60,17 @@
                                         <th></th>
                                         </thead>
                                         <tbody>
-                                        @foreach($data as $list)
+                                        @foreach($data2 as $list)
 
                                             <tr>
                                                 <td>
-                                                    <a href="{{url('/area/list_datamaster_trafo/'.$id_organisasi.'/'.$list->id)}}"> {{$list->nama_gi}} </a>
+                                                    {{$list->nama_gi}}
                                                 </td>
                                                 <td> {{$list->alamat_gi}} </td>
                                                 <td>
-                                                    <a href="{{url('/area/list_datamaster_list_trafo_gi/'.$id_organisasi.'/'.$list->id)}}">Lihat
-                                                        List Trafo Gardu</a></td>
+                                                    <a href="{{url('/area/list_datamaster_list_trafo_gi_transfer/'.$list->id_organisasi.'/'.$list->id_gi)}}">Lihat
+                                                        List Trafo Gardu</a>
+                                                </td>
                                             </tr>
                                         @endforeach
                                         </tbody>

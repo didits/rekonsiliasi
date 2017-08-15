@@ -25,11 +25,19 @@
                                         <tbody>
 
                                         @foreach($data as $list)
-
                                             <tr>
-                                                <td><a href="{{url('/area/list_datamaster_trafo_gi/'.$id_organisasi.'/'.$list->id)}}"> {{$list->nama_trafo_gi}} </a></td>
+                                                {{--{{dd($data)}}--}}
+                                                @if($list->id_gi)
+                                                    <td><a href="{{url('/area/list_datamaster_trafo_gi/'.$id_organisasi.'/'.$list->id)}}"> {{$list->nama_trafo_gi}} </a></td>
+                                                @else
+                                                    <td> {{$list->nama_trafo_gi}} </td>
+                                                @endif
                                                 <td> {{$list->alamat_trafo_gi}} </td>
-                                                <td><a href="{{url('/area/list_datamaster_list_penyulang/'.$id_organisasi.'/'.$list->id)}}">Lihat List Penyulang</a></td>
+                                                @if($list->id_gi)
+                                                    <td><a href="{{url('/area/list_datamaster_list_penyulang/'.$id_organisasi.'/'.$list->id)}}">Lihat List Penyulang</a></td>
+                                                @else
+                                                    <td><a href="{{url('/area/list_datamaster_list_penyulang_transfer/'.$id_organisasi.'/'.$list->id)}}">Lihat List Penyulang</a></td>
+                                                @endif
                                             </tr>
 
                                         @endforeach

@@ -172,11 +172,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
     ]);
 
 
-    Route::get('/list_datamaster_rayon/{id_organisasi}', [
-        'as'        => 'area.list_gardu_induk',
-        'uses'      => 'AreaController@list_gardu_induk'
-        ]);
-
     Route::get('/list_datamaster_trafo/{id_organisasi}/{id_gardu_induk}', [
         'as'        => 'area.lihat_gi',
         'uses'      => 'AreaController@lihat_gi'
@@ -185,16 +180,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
     Route::get('/list_datamaster_trafo_gi/{id_organisasi}/{id_trafo_gi}', [
         'as'        => 'area.lihat_trafo_gi',
         'uses'      => 'AreaController@lihat_trafo_gi'
-    ]);
-
-    Route::get('/list_datamaster_list_trafo_gi/{id_organisasi}/{id_gardu_induk}', [
-        'as'        => 'area.list_trafo_gi',
-        'uses'      => 'AreaController@list_trafo_gi'
-    ]);
-
-    Route::get('/list_datamaster_list_penyulang/{id_organisasi}/{id_trafo_gi}', [
-        'as'        => 'area.list_penyulang',
-        'uses'      => 'AreaController@list_penyulang'
     ]);
 
     Route::get('/list_datamaster_penyulang/{id_organisasi}/{id_trafo}', [
@@ -206,6 +191,33 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
         'as'        => 'area.trafo_gi',
         'uses'      => 'AreaController@lihat_trafo_gi'
     ]);
+
+
+    Route::get('/list_datamaster_rayon/{id_organisasi}', [
+        'as'        => 'area.list_gardu_induk',
+        'uses'      => 'AreaController@list_gardu_induk'
+    ]);
+
+    Route::get('/list_datamaster_list_trafo_gi/{id_organisasi}/{id_gardu_induk}', [
+        'as'        => 'area.list_trafo_gi',
+        'uses'      => 'AreaController@list_trafo_gi'
+    ]);
+
+    Route::get('/list_datamaster_list_trafo_gi_transfer/{id_organisasi}/{id_gi}', [
+        'as'        => 'area.list_trafo_gi_transfer',
+        'uses'      => 'AreaController@list_trafo_gi_transfer'
+    ]);
+
+    Route::get('/list_datamaster_list_penyulang/{id_organisasi}/{id_trafo_gi}', [
+        'as'        => 'area.list_penyulang',
+        'uses'      => 'AreaController@list_penyulang'
+    ]);
+
+    Route::get('/list_datamaster_list_penyulang_transfer/{id_organisasi}/{id_trafo_gi}', [
+        'as'        => 'area.list_penyulang_transfer',
+        'uses'      => 'AreaController@list_penyulang_transfer'
+    ]);
+
 
 });
 
