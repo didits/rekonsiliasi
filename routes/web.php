@@ -101,6 +101,16 @@ Route::group(['middleware' => 'auth', 'prefix' => 'rayon'], function () {
         'uses'      => 'Input@list_trafo_gi'
     ]);
 
+    Route::get('/list_penyulang/{id}', [
+        'as'        => 'input.list_penyulang',
+        'uses'      => 'Input@list_penyulang'
+    ]);
+
+    Route::get('/list_gd/{id}', [
+        'as'        => 'input.list_gd',
+        'uses'      => 'Input@list_gd'
+    ]);
+
     Route::get('/input_data/{id}/{nama}', [
         'as'        => 'input.input_data',
         'uses'      => 'Input@input_data'

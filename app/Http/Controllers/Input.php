@@ -51,7 +51,7 @@ class Input extends Controller
         $rayon = Organisasi::where('id_organisasi', $id_rayon)->get();
         $id_org = $rayon[0]->id;
         $data = GI::where('id_organisasi', $id_org)->get();
-        return view('admin.nonmaster.dashboard_user.list_gardu_induk',[
+        return view('admin.nonmaster.dashboard_user.list_input_gardu_induk',[
             'data' =>$data
         ]);
     }
@@ -59,9 +59,27 @@ class Input extends Controller
     public function list_trafo_gi($id_gi){
         $gi = GI::where('id', $id_gi)->first();
         $data = TrafoGI::where('id_gi', $id_gi)->get();
-        return view('admin.nonmaster.dashboard_user.trafo_gi',[
+        return view('admin.nonmaster.dashboard_user.list_input_trafo_gi',[
             'data' =>$data,
             'gardu' =>$gi
+        ]);
+    }
+
+    public function list_penyulang($id_trafo_gi){
+        $t_gi = TrafoGI::where('id', $id_trafo_gi)->first();
+        $data = Penyulang::where('id_trafo_gi', $id_trafo_gi)->get();
+        return view('admin.nonmaster.dashboard_user.list_input_penyulang',[
+            'data' =>$data,
+            't_gi' =>$t_gi
+        ]);
+    }
+
+    public function list_gd($id_gi){
+        $penyulang = Penyulang::where('id', $id_gi)->first();
+        $data = Gardu::where('id_penyulang', $id_gi)->get();
+        return view('admin.nonmaster.dashboard_user.list_input_gd',[
+            'data' =>$data,
+            'penyulang' =>$penyulang
         ]);
     }
 
