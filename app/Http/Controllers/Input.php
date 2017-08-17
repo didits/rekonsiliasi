@@ -376,6 +376,56 @@ class Input extends Controller
         ]);
     }
 
+    public function input_data_keluar($id,$tipe){
+
+        if($tipe=="gi"){
+            $data = PenyimpananGI::where('periode',date('Ym'))->where('id_gi', $id)->first();
+            $jenis = GI::where('id',$id)->first();
+        }
+        else{
+            $data = PenyimpananTrafoGI::where('periode',date('Ym'))->where('id_trafo_gi', $id)->first();
+            $jenis = TrafoGI::where('id',$id)->first();
+        }
+
+        if($data){
+            $data = json_decode($data->data, true);
+        }
+        else {
+            $data_visual = array(
+                'lwbp1_visual' => null,
+                'lwbp2_visual' => null,
+                'wbp_visual' => null,
+                'kvarh_visual' => null
+            );
+
+            $data_download = array(
+                'lwbp1_download' => null,
+                'lwbp2_download' => null,
+                'wbp_download' => null,
+                'kvarh_download' => null
+            );
+
+            $data_awal = array(
+                'visual' => $data_visual,
+                'download' => $data_download );
+
+            $data =array(
+                'beli'=>$data_awal,
+                'hasil pengolahan'=> null
+            );
+            $hasil = json_encode($data);
+
+            $data = json_decode($hasil, true);
+        }
+
+//        dd($data);
+        return view('admin.nonmaster.dashboard_user.input_data_dummy1', [
+            'data'            => $data,
+            'jenis'           => $jenis,
+            'tipe'            => $tipe
+        ]);
+    }
+
     public function olah_data($visual,$download,$id,$tipe){
         $date = date('Ym')- "1";
         $boolean_ada_data_awal = true; 

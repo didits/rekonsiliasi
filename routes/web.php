@@ -51,7 +51,7 @@ Route::get('/laporan_GI', function () {
 });
 
 Route::get('/input_dummy', function () {
-    return view('admin.nonmaster.dashboard_user.input_data_dummy');
+    return view('admin.nonmaster.dashboard_user.input_data_dummy1');
 });
 
 Route::resource('input_listrik', 'Input');
@@ -114,6 +114,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'rayon'], function () {
     Route::get('/input_data/{id}/{nama}', [
         'as'        => 'input.input_data',
         'uses'      => 'Input@input_data'
+    ]);
+
+    Route::get('/input_data_keluar/{id}/{nama}', [
+        'as'        => 'input.input_data_keluar',
+        'uses'      => 'Input@input_data_keluar'
     ]);
 
     Route::get('/input_gardu/{id_gardu}', [

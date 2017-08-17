@@ -35,7 +35,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">List Penyulang pada Trago GI {{$t_gi->nama_trafo__gi}}</h4>
+                                <h4 class="title">List Penyulang pada Trafo GI {{$t_gi->nama_trafo_gi}}</h4>
                             </div>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
@@ -49,9 +49,8 @@
                                     @if($data)
                                         @foreach($data as $list)
                                             <tr>
-                                                <td>{{ $list->id }}</td>
-                                                {{--<td><a href="{{url("/rayon/input_data/$list->id/trafo_gi")}}">{{$list->nama_trafo_gi}}</a></td>--}}
-                                                <td>{{$list->nama_penyulang}}</td>
+                                                <td>{{ $list->id }}</td><td>{{$list->nama_penyulang}}</td>
+                                                <td><a href="{{url("/rayon/input_data_keluar/$list->id/penyulang")}}">Input Transaksi</a></td>
                                                 <td><a href="{{route('input.list_gd', $list->id)}}">Lihat List GD</a></td>
                                             </tr>
                                         @endforeach
