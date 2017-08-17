@@ -294,7 +294,7 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label>Kapasitas</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Kapasitas" value="{{$decoded['TT']['ratiopt']}}">
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Kapasitas" value="{{json_decode($key->data_master, true)['TT']['ratiopt']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -324,7 +324,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Merk</label>
-                                                                        <input type="text" name="merk" class="form-control" placeholder="Merk" value="{{$decoded['KWH']['merk']}}">
+                                                                        <input type="text" name="merk" class="form-control" placeholder="Merk" value="{{json_decode($key->data_master, true)['KWH']['merk']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -333,7 +333,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Nomor Seri</label>
-                                                                        <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="{{$decoded['KWH']['nomorseri']}}">
+                                                                        <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="{{json_decode($key->data_master, true)['KWH']['nomorseri']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -342,7 +342,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Konstanta</label>
-                                                                        <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="{{$decoded['KWH']['konstanta']}}">
+                                                                        <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="{{json_decode($key->data_master, true)['KWH']['konstanta']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -351,7 +351,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Tegangan Arus</label>
-                                                                        <input type="text" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{$decoded['KWH']['teganganarus']}}">
+                                                                        <input type="text" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{json_decode($key->data_master, true)['KWH']['teganganarus']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -383,7 +383,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Ratio</label>
-                                                                        <input type="text" name="ratioct" class="form-control" placeholder="Ratio" value="{{$decoded['TA']['ratioct']}}">
+                                                                        <input type="text" name="ratioct" class="form-control" placeholder="Ratio" value="{{json_decode($key->data_master, true)['TA']['ratioct']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -392,7 +392,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Burden (VA)</label>
-                                                                        <input type="text" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{$decoded['TA']['burdenct']}}">
+                                                                        <input type="text" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{json_decode($key->data_master, true)['TA']['burdenct']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -424,7 +424,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Ratio</label>
-                                                                        <input type="text" name="ratiopt" class="form-control" placeholder="Ratio" value="{{$decoded['TT']['ratiopt']}}">
+                                                                        <input type="text" name="ratiopt" class="form-control" placeholder="Ratio" value="{{json_decode($key->data_master, true)['TT']['ratiopt']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -433,7 +433,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Burden (VA)</label>
-                                                                        <input type="text" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{$decoded['TT']['burdenpt']}}">
+                                                                        <input type="text" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{json_decode($key->data_master, true)['TT']['burdenpt']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -466,7 +466,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>Faktor Kali Meter</label>
-                                                                        <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{$decoded['FK']['faktorkali']}}">
+                                                                        <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{json_decode($key->data_master, true)['FK']['faktorkali']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>

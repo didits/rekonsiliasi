@@ -106,7 +106,7 @@ class AreaController extends Controller
         elseif($request->GD){
 
             $inputGardu = new Gardu;
-            $id_org = Organisasi::where('id_organisasi',$request->id_org)->first();
+            $id_org = Organisasi::where('id',$request->id_org)->first();
             $inputGardu->id_organisasi = $id_org->id;
             $inputGardu->id_penyulang = $request->GD;
             $inputGardu->nama_gardu = $request->tambahnamagardu;
@@ -443,11 +443,9 @@ class AreaController extends Controller
     public function lihat_trafo_gi($id_organisasi, $id_trafo_gi){
         $rayon = Organisasi::where('id_organisasi', $id_organisasi)->first();
         $trafo_gi = TrafoGI::where('id', $id_trafo_gi)->first();
-        $data = Transfer::select('transfer.id_organisasi', 'transfer.id_penyulang','penyulang.id','penyulang.nama_penyulang', 'penyulang.alamat_penyulang')
+        $data = Transfer::select('transfer.id_organisasi', 'penyulang.data_master','transfer.id_penyulang','penyulang.id','penyulang.nama_penyulang', 'penyulang.alamat_penyulang')
             ->join('Penyulang','Penyulang.id_trafo_gi','=','transfer.id_trafo_gi')
             ->get();
-//        $data = Penyulang::where('id_trafo_gi', $id_trafo_gi)->get();
-//        dd($this->populateArea());
         $decoded = json_decode($trafo_gi->data_master, true);
         return view('admin.nonmaster.dashboard_user.datamaster_trafo_gi',[
             'data' =>$data,
