@@ -31,12 +31,14 @@
                                             {{--</tr>--}}
 
                                         @foreach($data as $list)
-
                                             <tr>
-                                             @if($list->id_trafo_gi)
-                                                <td><a href="{{url('/area/list_datamaster_penyulang/'.$id_organisasi.'/'.$list->id)}}"> {{$list->nama_penyulang}} </a></td>
-                                             @else
-                                                <td><a href="{{url('/area/list_datamaster_penyulang/'."t".$id_organisasi.'/'.$list->id)}}"> {{$list->nama_penyulang}} </a></td>
+                                                {{--{{dd($list)}}--}}
+                                                @if($list->id==$list->id_penyulang)
+                                                 <td> {{$list->nama_penyulang}} </td>
+                                                @elseif($list->id!=$list->id_organisasi && $list->id_gi)
+                                                    <td><a href="{{url('/area/list_datamaster_penyulang/'."t".$id_organisasi.'/'.$list->id)}}"> {{$list->nama_penyulang}} </a></td>
+                                                @elseif($list->id_organisasi != $list->id_org)
+                                                    <td><a href="{{url('/area/list_datamaster_penyulang/'.$id_organisasi.'/'.$list->id)}}"> {{$list->nama_penyulang}} </a></td>
                                              @endif
                                                 <td> {{$list->alamat_penyulang}} </td>
                                                 {{--{{url('/area/list_datamaster_list_GD/'.$id_organisasi.'/'.$list->id)}}--}}
