@@ -76,7 +76,7 @@ class Input extends Controller
 
     public function list_gd($id_gi){
         $penyulang = Penyulang::where('id', $id_gi)->first();
-        $data = GD::where('id_penyulang', $id_gi)->get();
+        $data = Gardu::where('id_penyulang', $id_gi)->get();
         return view('admin.nonmaster.dashboard_user.list_input_gd',[
             'data' =>$data,
             'penyulang' =>$penyulang

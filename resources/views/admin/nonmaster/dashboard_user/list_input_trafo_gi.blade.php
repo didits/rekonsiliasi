@@ -50,8 +50,8 @@
                                         @foreach($data as $list)
                                             <tr>
                                                 <td>{{ $list->id }}</td>
-                                                {{--<td><a href="{{url("/rayon/input_data/$list->id/trafo_gi")}}">{{$list->nama_trafo_gi}}</a></td>--}}
                                                 <td>{{$list->nama_trafo_gi}}</td>
+                                                <td><a href="{{url("/rayon/input_data/$list->id/trafo_gi")}}">Input Transaksi</a></td>
                                                 <td><a href="{{route('input.list_penyulang', $list->id)}}">Lihat List Penyulang</a></td>
                                             </tr>
                                         @endforeach
