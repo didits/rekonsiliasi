@@ -76,7 +76,7 @@ class Input extends Controller
 
     public function list_gd($id_gi){
         $penyulang = Penyulang::where('id', $id_gi)->first();
-        $data = Gardu::where('id_penyulang', $id_gi)->get();
+        $data = GD::where('id_penyulang', $id_gi)->get();
         return view('admin.nonmaster.dashboard_user.list_input_gd',[
             'data' =>$data,
             'penyulang' =>$penyulang
@@ -328,7 +328,7 @@ class Input extends Controller
 
     public function input_data($id,$tipe){
 
-        if($tipe==="gi"){
+        if($tipe=="gi"){
             $data = PenyimpananGI::where('periode',date('Ym'))->where('id_gi', $id)->first();
             $jenis = GI::where('id',$id)->first();
         }
