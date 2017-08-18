@@ -12,13 +12,13 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Daftar Gardu</h4>
+                                <h4 class="title">Daftar Gardu Induk</h4>
                             </div>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
                                     <thead>
                                         <th>ID</th>
-                                    	<th>Nama Gardu</th>
+                                    	<th>Nama Gardu Induk</th>
                                     </thead>
                                     <tbody>
                                     @if($data)

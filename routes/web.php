@@ -51,7 +51,7 @@ Route::get('/laporan_GI', function () {
 });
 
 Route::get('/input_dummy', function () {
-    return view('admin.nonmaster.dashboard_user.input_data_dummy');
+    return view('admin.nonmaster.dashboard_user.input_data_dummy1');
 });
 
 Route::resource('input_listrik', 'Input');
@@ -101,9 +101,24 @@ Route::group(['middleware' => 'auth', 'prefix' => 'rayon'], function () {
         'uses'      => 'Input@list_trafo_gi'
     ]);
 
+    Route::get('/list_penyulang/{id}', [
+        'as'        => 'input.list_penyulang',
+        'uses'      => 'Input@list_penyulang'
+    ]);
+
+    Route::get('/list_gd/{id}', [
+        'as'        => 'input.list_gd',
+        'uses'      => 'Input@list_gd'
+    ]);
+
     Route::get('/input_data/{id}/{nama}', [
         'as'        => 'input.input_data',
         'uses'      => 'Input@input_data'
+    ]);
+
+    Route::get('/input_data_keluar/{id}/{nama}', [
+        'as'        => 'input.input_data_keluar',
+        'uses'      => 'Input@input_data_keluar'
     ]);
 
     Route::get('/input_gardu/{id_gardu}', [

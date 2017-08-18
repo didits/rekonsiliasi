@@ -12,17 +12,17 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Gardu {{$gardu->nama_gardu}}</h4>
+                                <h4 class="title">Trafo GI {{$t_gi->nama_trafo_gi}}</h4>
                             </div>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
                                     <thead>
-                                    	<th>Input Gardu</th>
+                                    	<th>Input Trafo GI</th>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             {{--{{dd(json_encode($gardu))}}--}}
-                                        	<td><a href="{{url("/rayon/input_data/$gardu->id/gi")}}">Input Transaksi Beli Gardu</a></td>
+                                        	<td><a href="{{url("/rayon/input_data/$t_gi->id/trafo_gi")}}">Input Transaksi Beli Trafo GI</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -35,19 +35,23 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Trafo Gardu {{$gardu->nama_gardu}}</h4>
+                                <h4 class="title">List Penyulang pada Trafo GI {{$t_gi->nama_trafo_gi}}</h4>
                             </div>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
                                     <thead>
-                                        <th>Nama Trafo</th>
+                                        <th>ID</th>
+                                        <th>Nama Penyulang</th>
+                                        <th></th>
                                     </thead>
                                     <tbody>
                                     {{--{{dd($data)}}--}}
                                     @if($data)
                                         @foreach($data as $list)
                                             <tr>
-                                                <td><a href="{{url("/rayon/input_data/$list->id/penyulang")}}"> {{$list->nama_penyulang}}</a></td>
+                                                <td>{{ $list->id }}</td><td>{{$list->nama_penyulang}}</td>
+                                                <td><a href="{{url("/rayon/input_data_keluar/$list->id/penyulang")}}">Input Transaksi</a></td>
+                                                <td><a href="{{route('input.list_gd', $list->id)}}">Lihat List GD</a></td>
                                             </tr>
                                         @endforeach
                                     @endif
