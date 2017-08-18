@@ -443,9 +443,14 @@ class AreaController extends Controller
     public function lihat_trafo_gi($id_organisasi, $id_trafo_gi){
         $rayon = Organisasi::where('id_organisasi', $id_organisasi)->first();
         $trafo_gi = TrafoGI::where('id', $id_trafo_gi)->first();
+        $data2 = Transfer::select('transfer.id_organisasi', 'organisasi.nama_organisasi')
+            ->join('Organisasi','organisasi.id','=','transfer.id_organisasi')
+            ->get();
         $data = Transfer::select('transfer.id_organisasi', 'penyulang.data_master','transfer.id_penyulang','penyulang.id','penyulang.nama_penyulang', 'penyulang.alamat_penyulang')
             ->join('Penyulang','Penyulang.id_trafo_gi','=','transfer.id_trafo_gi')
             ->get();
+
+//        dd($data2);
         $decoded = json_decode($trafo_gi->data_master, true);
         return view('admin.nonmaster.dashboard_user.datamaster_trafo_gi',[
             'data' =>$data,
