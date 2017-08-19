@@ -24,14 +24,14 @@
                                         </a>
                                     </li>
                                     @foreach($data as $list => $key)
-                                    @if($key->id!=$key->id_penyulang)
+                                    {{--@if($key->id!=$key->id_penyulang)--}}
                                     <li class="">
                                         <a href="#map-logo{{$list+1}}" role="tab" data-toggle="tab" aria-expanded="false">
                                             <i class="fa fa-map-marker"></i><br>
                                                 {{$key->nama_penyulang}}
                                         </a>
                                     </li>
-                                    @endif
+                                    {{--@endif--}}
                                     @endforeach
                                     <li class="">
                                         <a href="#legal-logo" role="tab" data-toggle="tab" aria-expanded="false">
@@ -548,13 +548,8 @@
                                                             @foreach($data as $list => $key)
                                                             <tr>
                                                                 <td class="text-center">{{$list+1}}</td>
-                                                                @if($key->nama_organisasi)
-                                                                    <td>{{$key->nama_penyulang}}</td>
-                                                                    <td>{{$key->nama_organisasi}}</td>
-                                                                @else
                                                                     <td>{{$key->nama_penyulang}}</td>
                                                                     <td>{{$rayon->nama_organisasi}}</td>
-                                                                @endif
 
                                                                     <td class="td-actions text-right">
                                                                     <a href="#" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="View Profile">

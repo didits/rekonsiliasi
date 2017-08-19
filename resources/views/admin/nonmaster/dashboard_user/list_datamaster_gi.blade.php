@@ -49,8 +49,8 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="header">
-                                    <h4 class="title">Daftar Gardu Induk Transfer</h4>
-                                    <p class="category">Daftar Gardu Induk Rayon {{$nama_rayon}} </p>
+                                    <h4 class="title">Daftar PCT</h4>
+                                    <p class="category">Daftar PCT Rayon {{$nama_rayon}} </p>
                                 </div>
                                 <div class="content table-responsive table-full-width">
                                     <table class="table table-hover table-striped">

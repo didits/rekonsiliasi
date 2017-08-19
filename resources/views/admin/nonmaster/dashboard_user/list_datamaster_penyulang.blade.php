@@ -39,7 +39,7 @@
                                                     <td><a href="{{url('/area/list_datamaster_penyulang/'."t".$id_organisasi.'/'.$list->id)}}"> {{$list->nama_penyulang}} </a></td>
                                                 @elseif($list->id_organisasi != $list->id_org)
                                                     <td><a href="{{url('/area/list_datamaster_penyulang/'.$id_organisasi.'/'.$list->id)}}"> {{$list->nama_penyulang}} </a></td>
-                                             @endif
+                                                @endif
                                                 <td> {{$list->alamat_penyulang}} </td>
                                                 {{--{{url('/area/list_datamaster_list_GD/'.$id_organisasi.'/'.$list->id)}}--}}
                                                 <td><a href="">Lihat List GD</a></td>

@@ -414,8 +414,8 @@ class AreaController extends Controller
             ['id_penyulang', '==', $id_rayon]])->get();
         $data = Transfer::select('transfer.id_organisasi','transfer.id_gi', 'penyulang.id as id','penyulang.nama_penyulang', 'penyulang.alamat_penyulang')
             ->join('Penyulang','Penyulang.id','=','transfer.id_penyulang')->distinct('transfer.id_penyulang')
-            ->where('transfer.id_organisasi', $id_rayon)->get();
-//        dd($data2);
+            ->where('transfer.id_trafo_gi', $id_trafo_gi)->get();
+//        dd($data);
         $nama_tgi = TrafoGI::select('nama_trafo_gi')->where('id', $id_trafo_gi)->first();
         return view('admin.nonmaster.dashboard_user.list_datamaster_penyulang',[
             'data'         => $data,
@@ -446,11 +446,21 @@ class AreaController extends Controller
         $data2 = Transfer::select('transfer.id_organisasi', 'organisasi.nama_organisasi')
             ->join('Organisasi','organisasi.id','=','transfer.id_organisasi')
             ->get();
+//        $data = Transfer::select('transfer.id_organisasi', 'penyulang.data_master','transfer.id_penyulang','penyulang.id','penyulang.nama_penyulang', 'penyulang.alamat_penyulang')
+//            ->join('Penyulang','Penyulang.id_trafo_gi','=','transfer.id_trafo_gi')
+//            ->get();
+//         dd($id_trafo_gi);
         $data = Transfer::select('transfer.id_organisasi', 'penyulang.data_master','transfer.id_penyulang','penyulang.id','penyulang.nama_penyulang', 'penyulang.alamat_penyulang')
             ->join('Penyulang','Penyulang.id_trafo_gi','=','transfer.id_trafo_gi')
             ->get();
+        $data = Penyulang::select('nama_penyulang','data_master')
+            ->where('id_trafo_gi', $id_trafo_gi)
+            ->get();
 
-//        dd($data2);
+        $data3 = $data2->union($data);
+//        dd($data);
+
+
         $decoded = json_decode($trafo_gi->data_master, true);
         return view('admin.nonmaster.dashboard_user.datamaster_trafo_gi',[
             'data' =>$data,
@@ -472,7 +482,7 @@ class AreaController extends Controller
         else $rayon = Organisasi::where('id_organisasi', $id_organisasi)->first();
         $penyulang = Penyulang::where('id', $id_penyulang)->first();
         $data = Gardu::where('id_penyulang', $id_penyulang)->get();
-//        dd($penyulang);
+//        dd($data);
         $decoded = json_decode($penyulang->data_master, true);
         return view('admin.nonmaster.dashboard_user.datamaster_penyulang',[
             'data' =>$data,
