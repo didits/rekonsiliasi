@@ -43,6 +43,7 @@ class HomeController extends Controller
             'content'       => 'Berhasil login!'
             ]);
         }
+
             return $next($request);
         });
     }
@@ -75,4 +76,9 @@ class HomeController extends Controller
         }
     }
 
+    public function populateArea()
+    {
+        $dropdown_area = Organisasi::select('id_organisasi', 'nama_organisasi')->get();
+        return $dropdown_area;
+    }
 }

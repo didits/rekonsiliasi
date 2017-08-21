@@ -18,14 +18,14 @@
                                 <div class="content table-responsive table-full-width">
                                     <table class="table table-hover table-striped">
                                         <thead>
-                                        <th>ID RAYON</th>
                                         <th>RAYON</th>
+                                        <th>ALAMAT RAYON</th>
                                         </thead>
                                         <tbody>
                                         @foreach($data as $list)
                                         <tr>
-                                            <td>{{$list->id_organisasi}}</td>
                                             <td><a href="{{route('area.list_gardu_induk', $list->id_organisasi)}}">{{$list->nama_organisasi}}</a></td>
+                                            <td>{{$list->alamat}}</td>
                                         </tr>
                                         @endforeach
                                         </tbody>

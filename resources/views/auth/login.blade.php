@@ -42,9 +42,17 @@
                                     <div class="header text-center">Login</div>
                                     <div class="content">
                                         <div class="form-group{{ $errors->has('id_organisasi') ? ' has-error' : '' }}">
-                                            <label for="id_organisasi">Username</label>
-                                            <input id="id_organisasi" type="id_organisasi" class="form-control" name="id_organisasi" value="{{ old('id_organisasi') }}" required autofocus>
-                                            @if ($errors->has('id_organisasi'))
+                                            {{--<label for="id_organisasi">Username</label>--}}
+                                            {{--<input id="id_organisasi" type="id_organisasi" class="form-control" name="id_organisasi" value="{{ old('id_organisasi') }}" required autofocus>--}}
+                                            <select name="id_organisasi" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">
+                                                <option class="bs-title-option" value="">AREA/RAYON</option>
+                                                @foreach ($dropdown_area as $areas)
+
+                                                    <option value="{{ $areas->id_organisasi }}">{{ $areas->nama_organisasi }}</option>
+                                                @endforeach
+                                            </select>
+
+                                        @if ($errors->has('id_organisasi'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('id_organisasi') }}</strong>
                                                 </span>

@@ -40,7 +40,6 @@
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
                                     <thead>
-                                        <th>ID</th>
                                         <th>Nama Trafo GI</th>
                                         <th></th>
                                     </thead>
@@ -49,7 +48,6 @@
                                     @if($data)
                                         @foreach($data as $list)
                                             <tr>
-                                                <td>{{ $list->id }}</td>
                                                 <td>{{$list->nama_trafo_gi}}</td>
                                                 <td><a href="{{url("/rayon/input_data_keluar/$list->id/trafo_gi")}}">Input Transaksi</a></td>
                                                 <td><a href="{{route('input.list_penyulang', $list->id)}}">Lihat List Penyulang</a></td>
