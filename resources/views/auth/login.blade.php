@@ -41,31 +41,28 @@
                                 <div class="card card-hidden">
                                     <div class="header text-center">Login</div>
                                     <div class="content">
-                                        <div class="form-group{{ $errors->has('id_organisasi') ? ' has-error' : '' }}">
-                                            {{--<label for="id_organisasi">Username</label>--}}
-                                            {{--<input id="id_organisasi" type="id_organisasi" class="form-control" name="id_organisasi" value="{{ old('id_organisasi') }}" required autofocus>--}}
+                                        <div class="form-group">
+                                            <label for="username">Username </label>
                                             <select name="id_organisasi" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">
                                                 <option class="bs-title-option" value="">AREA/RAYON</option>
                                                 @foreach ($dropdown_area as $areas)
-
-                                                    <option value="{{ $areas->id_organisasi }}">{{ $areas->nama_organisasi }}</option>
+                                                    @if($areas->tipe_organisasi==2)
+                                                        <option value="{{ $areas->id_organisasi }}">{{ $areas->nama_organisasi." (AREA)" }}</option>
+                                                    @elseif($areas->tipe_organisasi==3)
+                                                        <option value="{{ $areas->id_organisasi }}">{{ $areas->nama_organisasi." (RAYON)" }}</option>
+                                                    @endif
                                                 @endforeach
                                             </select>
 
-                                        @if ($errors->has('id_organisasi'))
+                                        <div class="form-group{{ $errors->has('id_organisasi') ? ' has-error' : '' }}">
+                                            <label for="password">Password </label>
+                                            <input id="password" type="password" class="form-control" name="password" required>
+                                            @if ($errors->has('id_organisasi'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('id_organisasi') }}</strong>
                                                 </span>
                                             @endif
                                         </div>
-                                        <div class="form-group">
-                                            <label for="password">Password </label>
-                                            <input id="password" type="password" class="form-control" name="password" required>
-                                            @if ($errors->has('password'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('password') }}</strong>
-                                                </span>
-                                            @endif
                                         </div>
                                     </div>
                                     <div class="footer text-center">

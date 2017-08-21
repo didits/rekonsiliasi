@@ -24,11 +24,11 @@
                                         </a>
                                     </li>
                                     @foreach($data as $list => $key)
-                                    {{--@if($key->id!=$key->id_penyulang)--}}
+                                    {{--@if($key->id_gi)--}}
                                     <li class="">
                                         <a href="#map-logo{{$list+1}}" role="tab" data-toggle="tab" aria-expanded="false">
                                             <i class="fa fa-map-marker"></i><br>
-                                                {{$key->nama_penyulang}}
+                                            {{$key->nama_penyulang}}
                                         </a>
                                     </li>
                                     {{--@endif--}}

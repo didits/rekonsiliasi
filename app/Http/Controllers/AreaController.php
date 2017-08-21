@@ -391,9 +391,10 @@ class AreaController extends Controller
     public function list_penyulang($id_rayon, $id_trafo_gi){
         $rayon = Organisasi::select('id')->where('id_organisasi', $id_rayon)->get();
         $nama_rayon = $rayon[0]->nama_organisasi;
-//        dd($rayon);
-        $data = Transfer::select('transfer.id_organisasi','penyulang.id_organisasi as id_org' , 'transfer.id_penyulang','penyulang.id','penyulang.nama_penyulang', 'penyulang.alamat_penyulang')
+//        dd($id_trafo_gi);
+        $data = Transfer::select('transfer.id_organisasi','transfer.id_trafo_gi','penyulang.id_organisasi as id_org' , 'transfer.id_penyulang','penyulang.id','penyulang.nama_penyulang', 'penyulang.alamat_penyulang')
             ->join('Penyulang','Penyulang.id_trafo_gi','=','transfer.id_trafo_gi')
+            ->where('Penyulang.id_trafo_gi',$id_trafo_gi)
             ->get();
 //        dd($data);
         $nama_tgi = TrafoGI::select('nama_trafo_gi')->where('id', $id_trafo_gi)->first();
@@ -443,13 +444,12 @@ class AreaController extends Controller
     public function lihat_trafo_gi($id_organisasi, $id_trafo_gi){
         $rayon = Organisasi::where('id_organisasi', $id_organisasi)->first();
         $trafo_gi = TrafoGI::where('id', $id_trafo_gi)->first();
+        $transfer = Transfer::where('id_trafo_gi',$id_trafo_gi)->pluck('id_penyulang');
         $data = Penyulang::select('nama_penyulang','data_master')
-            ->where('id_trafo_gi', $id_trafo_gi)
+            ->whereNotIn('id',$transfer)
+            ->where('id_trafo_gi',$id_trafo_gi)
             ->get();
-
 //        dd($data);
-
-
         $decoded = json_decode($trafo_gi->data_master, true);
         return view('admin.nonmaster.dashboard_user.datamaster_trafo_gi',[
             'data' =>$data,
