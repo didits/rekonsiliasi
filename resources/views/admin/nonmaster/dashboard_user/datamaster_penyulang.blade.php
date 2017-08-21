@@ -539,6 +539,7 @@
                                                                 <th class="text-center">#</th>
                                                                 <th>Nama</th>
                                                                 <th>Rayon</th>
+                                                                <th>Tipe Gardu</th>
                                                                 <th class="text-right">Tindakan</th>
                                                             </tr>
                                                             </thead>
@@ -547,6 +548,9 @@
                                                             <tr>
                                                                 <td class="text-center">{{$list+1}}</td>
                                                                 <td>{{$key->nama_gardu}}</td>
+                                                                @if($key->tipe_penyulang)
+                                                                <td>{{$rayon->nama_organisasi}}</td>
+                                                                @endif
                                                                 <td>{{$rayon->nama_organisasi}}</td>
                                                                 <td class="td-actions text-right">
                                                                     <a href="#" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="View Profile">

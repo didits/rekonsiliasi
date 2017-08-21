@@ -104,7 +104,6 @@ class AreaController extends Controller
             return back();
         }
         elseif($request->GD){
-
             $inputGardu = new Gardu;
             $id_org = Organisasi::where('id',$request->id_org)->first();
             $inputGardu->id_organisasi = $id_org->id;
@@ -112,6 +111,7 @@ class AreaController extends Controller
             $inputGardu->nama_gardu = $request->tambahnamagardu;
             $inputGardu->alamat_gardu = $request->tambahalamatgardu;
             $inputGardu->data_master="";
+            $inputGardu->tipe_gardu=$request->optionsRadios;
 
             if($inputGardu->save());
             return back();
