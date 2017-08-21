@@ -33,9 +33,7 @@
                                         @foreach($data as $list)
                                             <tr>
                                                 {{--{{dd($list)}}--}}
-                                                @if($list->id==$list->id_penyulang)
-                                                 <td> {{$list->nama_penyulang}} </td>
-                                                @elseif($list->id!=$list->id_organisasi && $list->id_gi)
+                                                @if($list->id!=$list->id_organisasi && $list->id_gi)
                                                     <td><a href="{{url('/area/list_datamaster_penyulang/'."t".$id_organisasi.'/'.$list->id)}}"> {{$list->nama_penyulang}} </a></td>
                                                 @elseif($list->id_organisasi != $list->id_org)
                                                     <td><a href="{{url('/area/list_datamaster_penyulang/'.$id_organisasi.'/'.$list->id)}}"> {{$list->nama_penyulang}} </a></td>
@@ -46,7 +44,15 @@
                                             </tr>
 
                                         @endforeach
-
+                                        @if($data2)
+                                        @foreach($data2 as $list)
+                                            <tr>
+                                                <td> {{$list->nama_penyulang}}</td>
+                                                <td> {{$list->alamat_penyulang}} </td>
+                                                <td><a href="">Lihat List GD</a></td>
+                                            </tr>
+                                        @endforeach
+                                        @endif
                                         </tbody>
                                     </table>
                                 </div>
