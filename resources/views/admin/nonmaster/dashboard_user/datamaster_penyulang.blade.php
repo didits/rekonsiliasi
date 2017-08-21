@@ -20,14 +20,14 @@
                                     <li class="active">
                                         <a href="#description-logo" role="tab" data-toggle="tab" aria-expanded="true">
                                             <i class="fa fa-info-circle"></i><br>
-                                            Penyulang
+                                            Penyulang {{$penyulang->nama_penyulang}}
                                         </a>
                                     </li>
                                     @foreach($data as $list => $key)
                                     <li class="">
                                         <a href="#map-logo{{$list+1}}" role="tab" data-toggle="tab" aria-expanded="false">
                                             <i class="fa fa-map-marker"></i><br>
-                                            {{$key->nama_gardu}}
+                                            Gardu {{$key->nama_gardu}}
                                         </a>
                                     </li>
                                     @endforeach
@@ -268,7 +268,7 @@
                                             <div class="col-md-12">
                                                 <div class="card">
                                                     <div class="header">
-                                                        <h4 class="title">GARDU {{$list+1}}</h4>
+                                                        <h4 class="title">GARDU {{$key->nama_gardu}}</h4>
                                                         {{--<p class="category">Data KWH Meter</p>--}}
                                                     </div>
                                                     <div class="content">
@@ -530,7 +530,7 @@
                                                 <div class="card">
                                                     <div class="header">
                                                         <h4 class="title">PENYULANG {{$penyulang->nama_penyulang}}</h4>
-                                                        <p class="category">Daftar GD</p>
+                                                        <p class="category">Daftar Gardu</p>
                                                     </div>
                                                     <div class="content table-responsive table-full-width">
                                                         <table class="table">
@@ -579,17 +579,17 @@
                                                         <input type="hidden" name="idrayon" value={{$rayon->id_organisasi}}>
                                                         <input type="hidden" name="id_org" value={{$id_org}}>
                                                         {{ csrf_field() }}
-                                                        <div class="header">Tambah GD</div>
+                                                        <div class="header">Tambah Gardu</div>
                                                         <div class="content">
 
 
                                                             <div class="form-group">
-                                                                <label class="control-label">Nama GD <star>*</star></label>
+                                                                <label class="control-label">Nama Gardu <star>*</star></label>
                                                                 <input class="form-control" name="tambahnamagardu" type="text" required="required" aria-required="true">
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <label class="control-label">Alamat GD <star>*</star></label>
+                                                                <label class="control-label">Alamat Gardu <star>*</star></label>
                                                                 <input class="form-control" name="tambahalamatgardu" type="text" required="required" aria-required="true">
                                                             </div>
 
@@ -625,17 +625,23 @@
                                                             {{--</div>--}}
 
                                                             <div class="form-group">
-                                                                <label class="control-label">Jenis Penyulang</label>
+                                                                <label class="control-label">Jenis Gardu</label>
                                                                 <label class="radio checked">
                                                                     <span class="icons"><span class="first-icon fa fa-circle-o"></span>
                                                                     <span class="second-icon fa fa-dot-circle-o"></span></span>
-                                                                    <input type="radio" data-toggle="radio" name="optionsRadios" value="option1">GD
+                                                                    <input type="radio" data-toggle="radio" name="optionsRadios" value="0">GD
                                                                 </label>
                                                                 <div class="clearfix"></div>
                                                                 <label class="radio">
                                                                     <span class="icons"><span class="first-icon fa fa-circle-o"></span>
                                                                     <span class="second-icon fa fa-dot-circle-o"></span></span>
-                                                                    <input type="radio" data-toggle="radio" name="optionsRadios" value="option2">PCT
+                                                                    <input type="radio" data-toggle="radio" name="optionsRadios" value="1">PCT
+                                                                </label>
+                                                                <div class="clearfix"></div>
+                                                                <label class="radio">
+                                                                    <span class="icons"><span class="first-icon fa fa-circle-o"></span>
+                                                                    <span class="second-icon fa fa-dot-circle-o"></span></span>
+                                                                    <input type="radio" data-toggle="radio" name="optionsRadios" value="2">Pelanggan TM
                                                                 </label>
 
                                                             </div>
