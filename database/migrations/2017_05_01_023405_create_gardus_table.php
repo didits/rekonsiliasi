@@ -65,6 +65,7 @@ class CreateGardusTable extends Migration
             $table->increments('id');
             $table->integer('id_organisasi')->unsigned();
             $table->integer('id_penyulang')->unsigned();
+            $table->integer('tipe_gardu');
             $table->string('nama_gardu');
             $table->string('alamat_gardu');
             $table->text('data_master');
