@@ -1,12 +1,15 @@
 @extends('admin.master.app')
+
 @section('title', 'Si-Oneng, Rekonsiliasi Energi')
 
 @section('content')
 
     <div class="wrapper">
         @include('admin.master.navbar')
+
         <div class="main-panel">
             @include('admin.master.top_navbar', ['navbartitle' => "LIST GARDU INDUK RAYON " . $nama_rayon])
+
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
@@ -19,9 +22,9 @@
                                 <div class="content table-responsive table-full-width">
                                     <table class="table table-hover table-striped">
                                         <thead>
-                                        <th>Nama Gardu Induk</th>
-                                        <th>Alamat Gardu Induk</th>
-                                        <th></th>
+                                            <th>Nama Gardu Induk</th>
+                                            <th>Alamat Gardu Induk</th>
+                                            <th></th>
                                         </thead>
                                         <tbody>
                                         @foreach($data as $list)
@@ -33,12 +36,12 @@
                                                 <td> {{$list->alamat_gi}} </td>
                                                 <td>
                                                     <a href="{{url('/area/list_datamaster_list_trafo_gi/'.$id_organisasi.'/'.$list->id)}}">Lihat
-                                                        List Trafo Gardu</a></td>
+                                                        List Trafo Gardu Induk</a></td>
                                             </tr>
                                         @endforeach
+
                                         </tbody>
                                     </table>
-
                                 </div>
                             </div>
                         </div>
@@ -55,9 +58,9 @@
                                 <div class="content table-responsive table-full-width">
                                     <table class="table table-hover table-striped">
                                         <thead>
-                                        <th>Nama Gardu Induk</th>
-                                        <th>Alamat Gardu Induk</th>
-                                        <th></th>
+                                            <th>Nama Gardu Induk</th>
+                                            <th>Alamat Gardu Induk</th>
+                                            <th></th>
                                         </thead>
                                         <tbody>
                                         @foreach($data2 as $list)
@@ -73,6 +76,7 @@
                                                 </td>
                                             </tr>
                                         @endforeach
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -113,27 +117,6 @@
                                             <input class="form-control" name="tambahnamarayon" type="text" disabled=""
                                                    value="{{$nama_rayon}}" required="required" aria-required="true">
                                         </div>
-
-                                        <div class="form-group">
-                                            <label class="control-label">Jenis Penyulang</label>
-                                            <label class="radio checked">
-                                                                    <span class="icons"><span
-                                                                                class="first-icon fa fa-circle-o"></span>
-                                                                    <span class="second-icon fa fa-dot-circle-o"></span></span>
-                                                <input type="radio" data-toggle="radio" name="optionsRadios"
-                                                       value="option1">GD
-                                            </label>
-                                            <div class="clearfix"></div>
-                                            <label class="radio">
-                                                                    <span class="icons"><span
-                                                                                class="first-icon fa fa-circle-o"></span>
-                                                                    <span class="second-icon fa fa-dot-circle-o"></span></span>
-                                                <input type="radio" data-toggle="radio" name="optionsRadios"
-                                                       value="option2">PCT
-                                            </label>
-
-                                        </div>
-
 
                                         <div class="category">
                                             <star>*</star>

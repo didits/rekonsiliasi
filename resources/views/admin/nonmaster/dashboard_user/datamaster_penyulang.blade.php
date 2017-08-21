@@ -1,11 +1,15 @@
 @extends('admin.master.app')
+
 @section('title', 'Si-Oneng, Rekonsiliasi Energi')
 
 @section('content')
+
     <div class="wrapper">
         @include('admin.master.navbar')
+
         <div class="main-panel">
             @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER PENYULANG: " . $penyulang->nama_penyulang])
+
             <div class="content">
                 <div class="container-fluid">
 
@@ -24,6 +28,7 @@
                                         </a>
                                     </li>
                                     @foreach($data as $list => $key)
+
                                     <li class="">
                                         <a href="#map-logo{{$list+1}}" role="tab" data-toggle="tab" aria-expanded="false">
                                             <i class="fa fa-map-marker"></i><br>
@@ -31,6 +36,7 @@
                                         </a>
                                     </li>
                                     @endforeach
+
                                     <li class="">
                                         <a href="#legal-logo" role="tab" data-toggle="tab" aria-expanded="false">
                                             <i class="fa fa-legal"></i><br>
@@ -262,6 +268,7 @@
                                     </div>
                                 </div>
                                 @foreach($data as $list => $key)
+
                                 <div class="tab-pane" id="map-logo{{$list+1}}">
                                     <div class="content" id="trafoheader">
                                         <div class="row">
@@ -545,17 +552,22 @@
                                                             </thead>
                                                             <tbody>
                                                             @foreach($data as $list => $key)
+
                                                             <tr>
                                                                 <td class="text-center">{{$list+1}}</td>
                                                                 <td>{{$key->nama_gardu}}</td>
                                                                 <td>{{$rayon->nama_organisasi}}</td>
                                                                 @if($key->tipe_gardu=0)
+
                                                                 <td>GD</td>
                                                                 @elseif($key->tipe_gardu=1)
+
                                                                 <td>PCT</td>
                                                                 @elseif($key->tipe_gardu=2)
+
                                                                 <td>PELANGGAN TM</td>
                                                                 @endif
+
                                                                 <td class="td-actions text-right">
                                                                     <a href="#" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="View Profile">
                                                                         <i class="fa fa-user"></i>
@@ -569,6 +581,7 @@
                                                                 </td>
                                                             </tr>
                                                             @endforeach
+
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -680,4 +693,5 @@
 
         </div>
     </div>
+
 @endsection

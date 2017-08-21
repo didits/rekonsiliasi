@@ -1,11 +1,15 @@
 @extends('admin.master.app')
+
 @section('title', 'Si-Oneng, Rekonsiliasi Energi')
 
 @section('content')
+
     <div class="wrapper">
         @include('admin.master.navbar')
+
         <div class="main-panel">
             @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER TRAFO GI: " . $trafo_gi->nama_trafo_gi])
+
             <div class="content">
                 <div class="container-fluid">
 
@@ -20,19 +24,21 @@
                                     <li class="active">
                                         <a href="#description-logo" role="tab" data-toggle="tab" aria-expanded="true">
                                             <i class="fa fa-info-circle"></i><br>
-                                            Trafo GI
+                                            Trafo GI {{$trafo_gi->nama_trafo_gi}}
                                         </a>
                                     </li>
                                     @foreach($data as $list => $key)
+
                                     {{--@if($key->id_gi)--}}
                                     <li class="">
                                         <a href="#map-logo{{$list+1}}" role="tab" data-toggle="tab" aria-expanded="false">
                                             <i class="fa fa-map-marker"></i><br>
-                                            {{$key->nama_penyulang}}
+                                            Penyulang {{$key->nama_penyulang}}
                                         </a>
                                     </li>
                                     {{--@endif--}}
                                     @endforeach
+
                                     <li class="">
                                         <a href="#legal-logo" role="tab" data-toggle="tab" aria-expanded="false">
                                             <i class="fa fa-legal"></i><br>
@@ -115,6 +121,8 @@
                                                     <div class="card">
                                                         <div class="header">
                                                             <h4 class="title">KWH Meter Utama</h4>
+
+                                                            <p class="category">TRAFO GI {{$trafo_gi->nama_trafo_gi}}</p>
                                                         </div>
                                                         <div class="content">
                                                         </div>
@@ -125,7 +133,6 @@
                                                                 <div class="card">
                                                                     <div class="header">
                                                                         <h4 class="title">KWH Meter</h4>
-                                                                        {{--<p class="category">Data KWH Meter</p>--}}
                                                                     </div>
                                                                     <div class="content">
                                                                         <form action="{{route('input_datamaster.store')}}" method="post">
@@ -305,6 +312,7 @@
                                                     <div class="card">
                                                         <div class="header">
                                                             <h4 class="title">KWH Meter Pembanding</h4>
+                                                            <p class="category">TRAFO GI {{$trafo_gi->nama_trafo_gi}}</p>
                                                         </div>
                                                         <div class="content">
                                                         </div>
@@ -495,6 +503,7 @@
                                                     <div class="card">
                                                         <div class="header">
                                                             <h4 class="title">Pemakaian Sendiri</h4>
+                                                            <p class="category">TRAFO GI {{$trafo_gi->nama_trafo_gi}}</p>
                                                         </div>
                                                         <div class="content">
                                                         </div>
@@ -689,13 +698,14 @@
 
                                 </div>
                                 @foreach($data as $list => $key)
+
                                 <div class="tab-pane" id="map-logo{{$list+1}}">
                                     <div class="content" id="trafoheader">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="card">
                                                     <div class="header">
-                                                        <h4 class="title">PENYULANG {{$list+1}}</h4>
+                                                        <h4 class="title">PENYULANG {{$key->nama_penyulang}}</h4>
                                                         {{--<p class="category">Data KWH Meter</p>--}}
                                                     </div>
                                                     <div class="content">
@@ -969,6 +979,7 @@
                                                             </thead>
                                                             <tbody>
                                                             @foreach($data as $list => $key)
+
                                                             <tr>
                                                                 <td class="text-center">{{$list+1}}</td>
                                                                     <td>{{$key->nama_penyulang}}</td>
@@ -987,6 +998,7 @@
                                                                 </td>
                                                             </tr>
                                                             @endforeach
+
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -1035,6 +1047,7 @@
 
                                                                                     <option value="{{ $areas->id_organisasi }}">{{ $areas->nama_organisasi }}</option>
                                                                                     @endforeach
+
                                                                                 </select>
                                                                             </div>
                                                                         </div>
@@ -1050,23 +1063,6 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-
-                                                            <div class="form-group">
-                                                                <label class="control-label">Jenis Penyulang</label>
-                                                                <label class="radio checked">
-                                                                    <span class="icons"><span class="first-icon fa fa-circle-o"></span>
-                                                                    <span class="second-icon fa fa-dot-circle-o"></span></span>
-                                                                    <input type="radio" data-toggle="radio" name="optionsRadios" value="option1">GD
-                                                                </label>
-                                                                <div class="clearfix"></div>
-                                                                <label class="radio">
-                                                                    <span class="icons"><span class="first-icon fa fa-circle-o"></span>
-                                                                    <span class="second-icon fa fa-dot-circle-o"></span></span>
-                                                                    <input type="radio" data-toggle="radio" name="optionsRadios" value="option2">PCT
-                                                                </label>
-
-                                                            </div>
-
 
                                                             <div class="category"><star>*</star> Required fields</div>
                                                         </div>
