@@ -32,7 +32,7 @@
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <a href="#meter-pemabanding" role="tab" data-toggle="tab">
+                                                            <a href="#meter-pembanding" role="tab" data-toggle="tab">
                                                                 <i class="fa fa-exchange"></i><br>
                                                                 KWH Meter Pembanding
                                                             </a>
@@ -115,7 +115,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="tab-pane" id="meter-pemabanding">
+                                                    <div class="tab-pane" id="meter-pembanding">
                                                         <div class="card">
                                                             <div class="header">
                                                                 <h4 class="title">KWH Meter Pembanding</h4>
