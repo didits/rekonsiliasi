@@ -730,179 +730,592 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="content" id="kwhmeter">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="card">
-                                                    <div class="header">
-                                                        <h4 class="title">KWH Meter</h4>
-                                                        {{--<p class="category">Data KWH Meter</p>--}}
+                                    <div class="row">
+
+                                        <div class="col-md-12">
+                                            <div class="nav-container">
+                                                <ul class="nav nav-icons" role="tablist">
+                                                    <li class="active">
+                                                        <a href="#meter-utama-trafo-gi{{$list+1}}" role="tab" data-toggle="tab">
+                                                            <i class="fa fa-bolt"></i><br>
+                                                            KWH Meter Utama
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#meter-pembanding-trafo-gi{{$list+1}}" role="tab" data-toggle="tab">
+                                                            <i class="fa fa-exchange"></i><br>
+                                                            KWH Meter Pembanding
+                                                        </a>
+                                                    </li>
+                                                    <li class="">
+                                                        <a href="#pemakaian-sendiri-trafo-gi{{$list+1}}" role="tab" data-toggle="tab">
+                                                            <i class="fa fa-building-o"></i><br>
+                                                            Pemakaian Sendiri
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="tab-content">
+                                                <div class="tab-pane active" id="meter-utama-trafo-gi{{$list+1}}">
+                                                    <div class="card">
+                                                        <div class="header">
+                                                            <h4 class="title">KWH Meter Utama</h4>
+                                                            <p class="category">TRAFO GI {{$list+1}}</p>
+                                                        </div>
+                                                        <div class="content">
+                                                        </div>
                                                     </div>
-                                                    <div class="content">
-                                                        <form action="{{route('input_datamaster.store')}}" method="post">
-                                                            <input type="hidden" name="_method" value="POST">
-                                                            <input type="hidden" name="tipe" value="KWH">
-                                                            <input type="hidden" name="form_trafogi" value="{{$key->id}}">
-                                                            {{ csrf_field() }}
+                                                    <div class="content" id="kwhmeter">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="card">
+                                                                    <div class="header">
+                                                                        <h4 class="title">KWH Meter</h4>
+                                                                        {{--<p class="category">Data KWH Meter</p>--}}
+                                                                    </div>
+                                                                    <div class="content">
+                                                                        <form action="{{route('input_datamaster.store')}}" method="post">
+                                                                            <input type="hidden" name="_method" value="POST">
+                                                                            <input type="hidden" name="tipe" value="KWH">
+                                                                            <input type="hidden" name="form_trafogi" value="{{$key->id}}">
+                                                                            {{ csrf_field() }}
 
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Merk</label>
-                                                                        <input type="text" name="merk" class="form-control" placeholder="Merk" value="{{json_decode($key->data_master, true)['KWH']['merk']}}">
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Merk</label>
+                                                                                        <input type="text" name="merk" class="form-control" placeholder="Merk" value="{{json_decode($key->data_master, true)['KWH']['merk']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Nomor Seri</label>
+                                                                                        <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="{{json_decode($key->data_master, true)['KWH']['nomorseri']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Konstanta</label>
+                                                                                        <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="{{json_decode($key->data_master, true)['KWH']['konstanta']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Tegangan Arus</label>
+                                                                                        <input type="text" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{json_decode($key->data_master, true)['KWH']['teganganarus']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
+                                                                            <div class="clearfix"></div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="content" id="trafoarus">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="card">
+                                                                    <div class="header">
+                                                                        <h4 class="title">Trafo Arus (CT)</h4>
+                                                                        {{--<p class="category">Data KWH Meter</p>--}}
+                                                                    </div>
+                                                                    <div class="content">
+                                                                        <form action="{{route('input_datamaster.store')}}" method="post">
+                                                                            <input type="hidden" name="_method" value="POST">
+                                                                            <input type="hidden" name="tipe" value="TA">
+                                                                            <input type="hidden" name="form_trafogi" value="{{$key->id}}">
+                                                                            {{ csrf_field() }}
 
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Nomor Seri</label>
-                                                                        <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="{{json_decode($key->data_master, true)['KWH']['nomorseri']}}">
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Ratio</label>
+                                                                                        <input type="text" name="ratioct" class="form-control" placeholder="Ratio" value="{{json_decode($key->data_master, true)['TA']['ratioct']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Burden (VA)</label>
+                                                                                        <input type="text" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{json_decode($key->data_master, true)['TA']['burdenct']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
+                                                                            <div class="clearfix"></div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="content" id="trafotegangan">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="card">
+                                                                    <div class="header">
+                                                                        <h4 class="title">Trafo Tegangan (PT)</h4>
+                                                                        {{--<p class="category">Data KWH Meter</p>--}}
+                                                                    </div>
+                                                                    <div class="content">
+                                                                        <form action="{{route('input_datamaster.store')}}" method="post">
+                                                                            <input type="hidden" name="_method" value="POST">
+                                                                            <input type="hidden" name="tipe" value="TT">
+                                                                            <input type="hidden" name="form_trafogi" value="{{$key->id}}">
+                                                                            {{ csrf_field() }}
 
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Konstanta</label>
-                                                                        <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="{{json_decode($key->data_master, true)['KWH']['konstanta']}}">
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Ratio</label>
+                                                                                        <input type="text" name="ratiopt" class="form-control" placeholder="Ratio" value="{{json_decode($key->data_master, true)['TT']['ratiopt']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Burden (VA)</label>
+                                                                                        <input type="text" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{json_decode($key->data_master, true)['TT']['burdenpt']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
+                                                                            <div class="clearfix"></div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="content" id="faktorkalimeter">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="card">
+                                                                    <div class="header">
+                                                                        <h4 class="title">Faktor Kali Meter</h4>
+                                                                        {{--<p class="category">Data KWH Meter</p>--}}
+                                                                    </div>
+                                                                    <div class="content">
+                                                                        <form action="{{route('input_datamaster.store')}}" method="post">
+                                                                            <input type="hidden" name="_method" value="POST">
+                                                                            <input type="hidden" name="tipe" value="FK">
+                                                                            <input type="hidden" name="form_trafogi" value="{{$key->id}}">
+                                                                            {{--form--}}
+                                                                            {{ csrf_field() }}
 
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Tegangan Arus</label>
-                                                                        <input type="text" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{json_decode($key->data_master, true)['KWH']['teganganarus']}}">
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Faktor Kali Meter</label>
+                                                                                        <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{json_decode($key->data_master, true)['FK']['faktorkali']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
+                                                                            <div class="clearfix"></div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
-
-                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
-                                                            <div class="clearfix"></div>
-                                                        </form>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="content" id="trafoarus">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="card">
-                                                    <div class="header">
-                                                        <h4 class="title">Trafo Arus (CT)</h4>
-                                                        {{--<p class="category">Data KWH Meter</p>--}}
+
+                                                <div class="tab-pane" id="meter-pembanding-trafo-gi{{$list+1}}">
+                                                    <div class="card">
+                                                        <div class="header">
+                                                            <h4 class="title">KWH Meter Pembanding</h4>
+                                                            <p class="category">TRAFO GI {{$list+1}}</p>
+                                                        </div>
+                                                        <div class="content">
+                                                        </div>
                                                     </div>
-                                                    <div class="content">
-                                                        <form action="{{route('input_datamaster.store')}}" method="post">
-                                                            <input type="hidden" name="_method" value="POST">
-                                                            <input type="hidden" name="tipe" value="TA">
-                                                            <input type="hidden" name="form_trafogi" value="{{$key->id}}">
-                                                            {{ csrf_field() }}
+                                                    <div class="content" id="kwhmeter">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="card">
+                                                                    <div class="header">
+                                                                        <h4 class="title">KWH Meter</h4>
+                                                                        {{--<p class="category">Data KWH Meter</p>--}}
+                                                                    </div>
+                                                                    <div class="content">
+                                                                        <form action="{{route('input_datamaster.store')}}" method="post">
+                                                                            <input type="hidden" name="_method" value="POST">
+                                                                            <input type="hidden" name="tipe" value="KWH">
+                                                                            <input type="hidden" name="form_trafogi" value="{{$key->id}}">
+                                                                            {{ csrf_field() }}
 
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Ratio</label>
-                                                                        <input type="text" name="ratioct" class="form-control" placeholder="Ratio" value="{{json_decode($key->data_master, true)['TA']['ratioct']}}">
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Merk</label>
+                                                                                        <input type="text" name="merk" class="form-control" placeholder="Merk" value="{{json_decode($key->data_master, true)['KWH']['merk']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Nomor Seri</label>
+                                                                                        <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="{{json_decode($key->data_master, true)['KWH']['nomorseri']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Konstanta</label>
+                                                                                        <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="{{json_decode($key->data_master, true)['KWH']['konstanta']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Tegangan Arus</label>
+                                                                                        <input type="text" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{json_decode($key->data_master, true)['KWH']['teganganarus']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
+                                                                            <div class="clearfix"></div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="content" id="trafoarus">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="card">
+                                                                    <div class="header">
+                                                                        <h4 class="title">Trafo Arus (CT)</h4>
+                                                                        {{--<p class="category">Data KWH Meter</p>--}}
+                                                                    </div>
+                                                                    <div class="content">
+                                                                        <form action="{{route('input_datamaster.store')}}" method="post">
+                                                                            <input type="hidden" name="_method" value="POST">
+                                                                            <input type="hidden" name="tipe" value="TA">
+                                                                            <input type="hidden" name="form_trafogi" value="{{$key->id}}">
+                                                                            {{ csrf_field() }}
 
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Burden (VA)</label>
-                                                                        <input type="text" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{json_decode($key->data_master, true)['TA']['burdenct']}}">
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Ratio</label>
+                                                                                        <input type="text" name="ratioct" class="form-control" placeholder="Ratio" value="{{json_decode($key->data_master, true)['TA']['ratioct']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Burden (VA)</label>
+                                                                                        <input type="text" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{json_decode($key->data_master, true)['TA']['burdenct']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
+                                                                            <div class="clearfix"></div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="content" id="trafotegangan">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="card">
+                                                                    <div class="header">
+                                                                        <h4 class="title">Trafo Tegangan (PT)</h4>
+                                                                        {{--<p class="category">Data KWH Meter</p>--}}
+                                                                    </div>
+                                                                    <div class="content">
+                                                                        <form action="{{route('input_datamaster.store')}}" method="post">
+                                                                            <input type="hidden" name="_method" value="POST">
+                                                                            <input type="hidden" name="tipe" value="TT">
+                                                                            <input type="hidden" name="form_trafogi" value="{{$key->id}}">
+                                                                            {{ csrf_field() }}
 
-                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
-                                                            <div class="clearfix"></div>
-                                                        </form>
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Ratio</label>
+                                                                                        <input type="text" name="ratiopt" class="form-control" placeholder="Ratio" value="{{json_decode($key->data_master, true)['TT']['ratiopt']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Burden (VA)</label>
+                                                                                        <input type="text" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{json_decode($key->data_master, true)['TT']['burdenpt']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
+                                                                            <div class="clearfix"></div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="content" id="faktorkalimeter">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="card">
+                                                                    <div class="header">
+                                                                        <h4 class="title">Faktor Kali Meter</h4>
+                                                                        {{--<p class="category">Data KWH Meter</p>--}}
+                                                                    </div>
+                                                                    <div class="content">
+                                                                        <form action="{{route('input_datamaster.store')}}" method="post">
+                                                                            <input type="hidden" name="_method" value="POST">
+                                                                            <input type="hidden" name="tipe" value="FK">
+                                                                            <input type="hidden" name="form_trafogi" value="{{$key->id}}">
+                                                                            {{--form--}}
+                                                                            {{ csrf_field() }}
+
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Faktor Kali Meter</label>
+                                                                                        <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{json_decode($key->data_master, true)['FK']['faktorkali']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
+                                                                            <div class="clearfix"></div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="content" id="trafotegangan">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="card">
-                                                    <div class="header">
-                                                        <h4 class="title">Trafo Tegangan (PT)</h4>
-                                                        {{--<p class="category">Data KWH Meter</p>--}}
+
+                                                <div class="tab-pane" id="pemakaian-sendiri-trafo-gi{{$list+1}}">
+                                                    <div class="card">
+                                                        <div class="header">
+                                                            <h4 class="title">Pemakaian Sendiri</h4>
+                                                            <p class="category">TRAFO GI {{$list+1}}</p>
+                                                        </div>
+                                                        <div class="content">
+                                                        </div>
                                                     </div>
-                                                    <div class="content">
-                                                        <form action="{{route('input_datamaster.store')}}" method="post">
-                                                            <input type="hidden" name="_method" value="POST">
-                                                            <input type="hidden" name="tipe" value="TT">
-                                                            <input type="hidden" name="form_trafogi" value="{{$key->id}}">
-                                                            {{ csrf_field() }}
+                                                    <div class="content" id="kwhmeter">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="card">
+                                                                    <div class="header">
+                                                                        <h4 class="title">KWH Meter</h4>
+                                                                        {{--<p class="category">Data KWH Meter</p>--}}
+                                                                    </div>
+                                                                    <div class="content">
+                                                                        <form action="{{route('input_datamaster.store')}}" method="post">
+                                                                            <input type="hidden" name="_method" value="POST">
+                                                                            <input type="hidden" name="tipe" value="KWH">
+                                                                            <input type="hidden" name="form_trafogi" value="{{$key->id}}">
+                                                                            {{ csrf_field() }}
 
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Ratio</label>
-                                                                        <input type="text" name="ratiopt" class="form-control" placeholder="Ratio" value="{{json_decode($key->data_master, true)['TT']['ratiopt']}}">
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Merk</label>
+                                                                                        <input type="text" name="merk" class="form-control" placeholder="Merk" value="{{json_decode($key->data_master, true)['KWH']['merk']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Nomor Seri</label>
+                                                                                        <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="{{json_decode($key->data_master, true)['KWH']['nomorseri']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Konstanta</label>
+                                                                                        <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="{{json_decode($key->data_master, true)['KWH']['konstanta']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Tegangan Arus</label>
+                                                                                        <input type="text" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{json_decode($key->data_master, true)['KWH']['teganganarus']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
+                                                                            <div class="clearfix"></div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="content" id="trafoarus">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="card">
+                                                                    <div class="header">
+                                                                        <h4 class="title">Trafo Arus (CT)</h4>
+                                                                        {{--<p class="category">Data KWH Meter</p>--}}
+                                                                    </div>
+                                                                    <div class="content">
+                                                                        <form action="{{route('input_datamaster.store')}}" method="post">
+                                                                            <input type="hidden" name="_method" value="POST">
+                                                                            <input type="hidden" name="tipe" value="TA">
+                                                                            <input type="hidden" name="form_trafogi" value="{{$key->id}}">
+                                                                            {{ csrf_field() }}
 
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Burden (VA)</label>
-                                                                        <input type="text" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{json_decode($key->data_master, true)['TT']['burdenpt']}}">
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Ratio</label>
+                                                                                        <input type="text" name="ratioct" class="form-control" placeholder="Ratio" value="{{json_decode($key->data_master, true)['TA']['ratioct']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Burden (VA)</label>
+                                                                                        <input type="text" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{json_decode($key->data_master, true)['TA']['burdenct']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
+                                                                            <div class="clearfix"></div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="content" id="trafotegangan">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="card">
+                                                                    <div class="header">
+                                                                        <h4 class="title">Trafo Tegangan (PT)</h4>
+                                                                        {{--<p class="category">Data KWH Meter</p>--}}
+                                                                    </div>
+                                                                    <div class="content">
+                                                                        <form action="{{route('input_datamaster.store')}}" method="post">
+                                                                            <input type="hidden" name="_method" value="POST">
+                                                                            <input type="hidden" name="tipe" value="TT">
+                                                                            <input type="hidden" name="form_trafogi" value="{{$key->id}}">
+                                                                            {{ csrf_field() }}
 
-                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
-                                                            <div class="clearfix"></div>
-                                                        </form>
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Ratio</label>
+                                                                                        <input type="text" name="ratiopt" class="form-control" placeholder="Ratio" value="{{json_decode($key->data_master, true)['TT']['ratiopt']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Burden (VA)</label>
+                                                                                        <input type="text" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{json_decode($key->data_master, true)['TT']['burdenpt']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
+                                                                            <div class="clearfix"></div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="content" id="faktorkalimeter">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="card">
+                                                                    <div class="header">
+                                                                        <h4 class="title">Faktor Kali Meter</h4>
+                                                                        {{--<p class="category">Data KWH Meter</p>--}}
+                                                                    </div>
+                                                                    <div class="content">
+                                                                        <form action="{{route('input_datamaster.store')}}" method="post">
+                                                                            <input type="hidden" name="_method" value="POST">
+                                                                            <input type="hidden" name="tipe" value="FK">
+                                                                            <input type="hidden" name="form_trafogi" value="{{$key->id}}">
+                                                                            {{--form--}}
+                                                                            {{ csrf_field() }}
+
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Faktor Kali Meter</label>
+                                                                                        <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{json_decode($key->data_master, true)['FK']['faktorkali']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
+                                                                            <div class="clearfix"></div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="content" id="faktorkalimeter">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="card">
-                                                    <div class="header">
-                                                        <h4 class="title">Faktor Kali Meter</h4>
-                                                        {{--<p class="category">Data KWH Meter</p>--}}
-                                                    </div>
-                                                    <div class="content">
-                                                        <form action="{{route('input_datamaster.store')}}" method="post">
-                                                            <input type="hidden" name="_method" value="POST">
-                                                            <input type="hidden" name="tipe" value="FK">
-                                                            <input type="hidden" name="form_trafogi" value="{{$key->id}}">
-                                                            {{--form--}}
-                                                            {{ csrf_field() }}
 
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Faktor Kali Meter</label>
-                                                                        <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{json_decode($key->data_master, true)['FK']['faktorkali']}}">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                            </div> <!-- end tab content -->
 
-                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
-                                                            <div class="clearfix"></div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </div> <!-- end col-md-8 -->
+
                                     </div>
                                 </div>
                                 @endforeach
