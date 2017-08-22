@@ -50,6 +50,8 @@
                                                         <option value="{{ $areas->id_organisasi }}">{{ $areas->nama_organisasi." (AREA)" }}</option>
                                                     @elseif($areas->tipe_organisasi==3)
                                                         <option value="{{ $areas->id_organisasi }}">{{ $areas->nama_organisasi." (RAYON)" }}</option>
+                                                    @else
+                                                        <option value="{{ $areas->id_organisasi }}">{{ $areas->nama_organisasi }}</option>
                                                     @endif
                                                 @endforeach
                                             </select>
