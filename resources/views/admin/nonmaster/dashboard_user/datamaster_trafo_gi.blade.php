@@ -79,7 +79,7 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label>Kapasitas</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Kapasitas" value="{{$decoded['TT']['ratiopt']}}">
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Kapasitas" value="{{$decoded['Utama']['TT']['ratiopt']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -140,6 +140,7 @@
                                                                             <input type="hidden" name="tipe" value="KWH">
                                                                             <input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>
                                                                             <input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">
+                                                                            <input type="hidden" name="form_utama" value="{{$trafo_gi->id}}">
 
                                                                             {{--{{dd($gardu)}}--}}
                                                                             {{ csrf_field() }}
@@ -148,7 +149,7 @@
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Merk</label>
-                                                                                        <input type="text" name="merk" class="form-control" placeholder="Merk" value="{{$decoded['KWH']['merk']}}">
+                                                                                        <input type="text" name="merk" class="form-control" placeholder="Merk" value="{{$decoded['Utama']['KWH']['merk']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -157,7 +158,7 @@
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Nomor Seri</label>
-                                                                                        <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="{{$decoded['KWH']['nomorseri']}}">
+                                                                                        <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="{{$decoded['Utama']['KWH']['nomorseri']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -166,7 +167,7 @@
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Konstanta</label>
-                                                                                        <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="{{$decoded['KWH']['konstanta']}}">
+                                                                                        <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="{{$decoded['Utama']['KWH']['konstanta']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -175,7 +176,7 @@
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Tegangan Arus</label>
-                                                                                        <input type="text" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{$decoded['KWH']['teganganarus']}}">
+                                                                                        <input type="text" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{$decoded['Utama']['KWH']['teganganarus']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -203,13 +204,14 @@
                                                                             <input type="hidden" name="tipe" value="TA">
                                                                             <input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>
                                                                             <input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">
+                                                                            <input type="hidden" name="form_utama" value="{{$trafo_gi->id}}">
                                                                             {{ csrf_field() }}
 
                                                                             <div class="row">
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Ratio</label>
-                                                                                        <input type="text" name="ratioct" class="form-control" placeholder="Ratio" value="{{$decoded['TA']['ratioct']}}">
+                                                                                        <input type="text" name="ratioct" class="form-control" placeholder="Ratio" value="{{$decoded['Utama']['TA']['ratioct']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -218,7 +220,7 @@
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Burden (VA)</label>
-                                                                                        <input type="text" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{$decoded['TA']['burdenct']}}">
+                                                                                        <input type="text" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{$decoded['Utama']['TA']['burdenct']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -245,13 +247,14 @@
                                                                             <input type="hidden" name="tipe" value="TT">
                                                                             <input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>
                                                                             <input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">
+                                                                            <input type="hidden" name="form_utama" value="{{$trafo_gi->id}}">
                                                                             {{ csrf_field() }}
 
                                                                             <div class="row">
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Ratio</label>
-                                                                                        <input type="text" name="ratiopt" class="form-control" placeholder="Ratio" value="{{$decoded['TT']['ratiopt']}}">
+                                                                                        <input type="text" name="ratiopt" class="form-control" placeholder="Ratio" value="{{$decoded['Utama']['TT']['ratiopt']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -260,7 +263,7 @@
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Burden (VA)</label>
-                                                                                        <input type="text" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{$decoded['TT']['burdenpt']}}">
+                                                                                        <input type="text" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{$decoded['Utama']['TT']['burdenpt']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -287,13 +290,14 @@
                                                                             <input type="hidden" name="tipe" value="FK">
                                                                             <input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>
                                                                             <input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">
+                                                                            <input type="hidden" name="form_utama" value="{{$trafo_gi->id}}">
                                                                             {{ csrf_field() }}
 
                                                                             <div class="row">
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Faktor Kali Meter</label>
-                                                                                        <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{$decoded['FK']['faktorkali']}}">
+                                                                                        <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{$decoded['Utama']['FK']['faktorkali']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -331,7 +335,7 @@
                                                                             <input type="hidden" name="tipe" value="KWH">
                                                                             <input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>
                                                                             <input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">
-
+                                                                            <input type="hidden" name="form_pembanding" value="{{$trafo_gi->id}}">
                                                                             {{--{{dd($gardu)}}--}}
                                                                             {{ csrf_field() }}
 
@@ -339,7 +343,7 @@
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Merk</label>
-                                                                                        <input type="text" name="merk" class="form-control" placeholder="Merk" value="{{$decoded['KWH']['merk']}}">
+                                                                                        <input type="text" name="merk" class="form-control" placeholder="Merk" value="{{$decoded['Pembanding']['KWH']['merk']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -348,7 +352,7 @@
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Nomor Seri</label>
-                                                                                        <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="{{$decoded['KWH']['nomorseri']}}">
+                                                                                        <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="{{$decoded['Pembanding']['KWH']['nomorseri']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -357,7 +361,7 @@
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Konstanta</label>
-                                                                                        <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="{{$decoded['KWH']['konstanta']}}">
+                                                                                        <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="{{$decoded['Pembanding']['KWH']['konstanta']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -366,7 +370,7 @@
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Tegangan Arus</label>
-                                                                                        <input type="text" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{$decoded['KWH']['teganganarus']}}">
+                                                                                        <input type="text" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{$decoded['Pembanding']['KWH']['teganganarus']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -394,13 +398,14 @@
                                                                             <input type="hidden" name="tipe" value="TA">
                                                                             <input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>
                                                                             <input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">
+                                                                            <input type="hidden" name="form_pembanding" value="{{$trafo_gi->id}}">
                                                                             {{ csrf_field() }}
 
                                                                             <div class="row">
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Ratio</label>
-                                                                                        <input type="text" name="ratioct" class="form-control" placeholder="Ratio" value="{{$decoded['TA']['ratioct']}}">
+                                                                                        <input type="text" name="ratioct" class="form-control" placeholder="Ratio" value="{{$decoded['Pembanding']['TA']['ratioct']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -409,7 +414,7 @@
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Burden (VA)</label>
-                                                                                        <input type="text" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{$decoded['TA']['burdenct']}}">
+                                                                                        <input type="text" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{$decoded['Pembanding']['TA']['burdenct']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -436,13 +441,14 @@
                                                                             <input type="hidden" name="tipe" value="TT">
                                                                             <input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>
                                                                             <input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">
+                                                                            <input type="hidden" name="form_pembanding" value="{{$trafo_gi->id}}">
                                                                             {{ csrf_field() }}
 
                                                                             <div class="row">
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Ratio</label>
-                                                                                        <input type="text" name="ratiopt" class="form-control" placeholder="Ratio" value="{{$decoded['TT']['ratiopt']}}">
+                                                                                        <input type="text" name="ratiopt" class="form-control" placeholder="Ratio" value="{{$decoded['Pembanding']['TT']['ratiopt']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -451,7 +457,7 @@
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Burden (VA)</label>
-                                                                                        <input type="text" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{$decoded['TT']['burdenpt']}}">
+                                                                                        <input type="text" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{$decoded['Pembanding']['TT']['burdenpt']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -478,13 +484,13 @@
                                                                             <input type="hidden" name="tipe" value="FK">
                                                                             <input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>
                                                                             <input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">
+                                                                            <input type="hidden" name="form_pembanding" value="{{$trafo_gi->id}}">
                                                                             {{ csrf_field() }}
 
                                                                             <div class="row">
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Faktor Kali Meter</label>
-                                                                                        <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{$decoded['FK']['faktorkali']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -522,7 +528,7 @@
                                                                             <input type="hidden" name="tipe" value="KWH">
                                                                             <input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>
                                                                             <input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">
-
+                                                                            <input type="hidden" name="form_ps" value="{{$trafo_gi->id}}">
                                                                             {{--{{dd($gardu)}}--}}
                                                                             {{ csrf_field() }}
 
@@ -530,7 +536,7 @@
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Merk</label>
-                                                                                        <input type="text" name="merk" class="form-control" placeholder="Merk" value="{{$decoded['KWH']['merk']}}">
+                                                                                        <input type="text" name="merk" class="form-control" placeholder="Merk" value="{{$decoded['PS']['KWH']['merk']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -539,7 +545,7 @@
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Nomor Seri</label>
-                                                                                        <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="{{$decoded['KWH']['nomorseri']}}">
+                                                                                        <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="{{$decoded['PS']['KWH']['nomorseri']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -548,7 +554,7 @@
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Konstanta</label>
-                                                                                        <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="{{$decoded['KWH']['konstanta']}}">
+                                                                                        <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="{{$decoded['PS']['KWH']['konstanta']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -557,7 +563,7 @@
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Tegangan Arus</label>
-                                                                                        <input type="text" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{$decoded['KWH']['teganganarus']}}">
+                                                                                        <input type="text" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{$decoded['PS']['KWH']['teganganarus']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -585,13 +591,14 @@
                                                                             <input type="hidden" name="tipe" value="TA">
                                                                             <input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>
                                                                             <input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">
+                                                                            <input type="hidden" name="form_ps" value="{{$trafo_gi->id}}">
                                                                             {{ csrf_field() }}
 
                                                                             <div class="row">
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Ratio</label>
-                                                                                        <input type="text" name="ratioct" class="form-control" placeholder="Ratio" value="{{$decoded['TA']['ratioct']}}">
+                                                                                        <input type="text" name="ratioct" class="form-control" placeholder="Ratio" value="{{$decoded['PS']['TA']['ratioct']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -600,7 +607,7 @@
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Burden (VA)</label>
-                                                                                        <input type="text" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{$decoded['TA']['burdenct']}}">
+                                                                                        <input type="text" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{$decoded['PS']['TA']['burdenct']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -627,13 +634,14 @@
                                                                             <input type="hidden" name="tipe" value="TT">
                                                                             <input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>
                                                                             <input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">
+                                                                            <input type="hidden" name="form_ps" value="{{$trafo_gi->id}}">
                                                                             {{ csrf_field() }}
 
                                                                             <div class="row">
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Ratio</label>
-                                                                                        <input type="text" name="ratiopt" class="form-control" placeholder="Ratio" value="{{$decoded['TT']['ratiopt']}}">
+                                                                                        <input type="text" name="ratiopt" class="form-control" placeholder="Ratio" value="{{$decoded['PS']['TT']['ratiopt']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -642,7 +650,7 @@
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Burden (VA)</label>
-                                                                                        <input type="text" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{$decoded['TT']['burdenpt']}}">
+                                                                                        <input type="text" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{$decoded['PS']['TT']['burdenpt']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -669,13 +677,14 @@
                                                                             <input type="hidden" name="tipe" value="FK">
                                                                             <input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>
                                                                             <input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">
+                                                                            <input type="hidden" name="form_ps" value="{{$trafo_gi->id}}">
                                                                             {{ csrf_field() }}
 
                                                                             <div class="row">
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Faktor Kali Meter</label>
-                                                                                        <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{$decoded['FK']['faktorkali']}}">
+                                                                                        <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{$decoded['Pembanding']['FK']['faktorkali']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -948,7 +957,7 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label>Kapasitas</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Kapasitas" value="{{$decoded['TT']['ratiopt']}}">
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Kapasitas" value="{{$decoded['Utama']['TT']['ratiopt']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
