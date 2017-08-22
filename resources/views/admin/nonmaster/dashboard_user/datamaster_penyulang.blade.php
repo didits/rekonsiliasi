@@ -646,11 +646,11 @@
                                                             {{--</div>--}}
 
                                                             <div class="form-group">
-                                                                <label class="control-label">Jenis Gardu</label>
-                                                                <label class="radio checked">
+                                                                <label class="control-label">Jenis Gardu <star>*</star></label>
+                                                                <label class="radio">
                                                                     <span class="icons"><span class="first-icon fa fa-circle-o"></span>
                                                                     <span class="second-icon fa fa-dot-circle-o"></span></span>
-                                                                    <input type="radio" data-toggle="radio" name="optionsRadios" value="0">GD
+                                                                    <input type="radio" data-toggle="radio" name="optionsRadios" value="0" required>GD
                                                                 </label>
                                                                 <div class="clearfix"></div>
                                                                 <label class="radio">
