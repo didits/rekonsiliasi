@@ -816,4 +816,10 @@ class AreaController extends Controller
         $dropdown_area = Organisasi::select('id_organisasi', 'nama_organisasi')->where('tipe_organisasi', '=', 2)->get();
         return $dropdown_area;
     }
+
+    public function laporan_master()
+    {
+        return view("admin.nonmaster.dashboard_user.laporan_master", [
+            'list_distribusi' => $this->list_distribusi()]);
+    }
 }

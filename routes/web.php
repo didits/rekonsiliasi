@@ -233,6 +233,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
         'uses'      => 'AreaController@list_penyulang_transfer'
     ]);
 
+    Route::get('/laporan_master', [
+        'as'        => 'area.laporan_master',
+        'uses'      => 'AreaController@laporan_master'
+    ]);
+
 
 });
 

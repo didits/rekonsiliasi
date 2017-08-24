@@ -69,6 +69,13 @@
                             <p>Laporan</p>
                         </a>
                     </li>
+
+                    <li>
+                        <a href="{{route('area.laporan_master')}}">
+                            <i class="pe-7s-notebook"></i>
+                            <p>Laporan Master</p>
+                        </a>
+                    </li>
                     {{--<li>--}}
                         {{--<a href="{{route('area.list_rayon')}}">--}}
                             {{--<i class="pe-7s-photo-gallery"></i>--}}
