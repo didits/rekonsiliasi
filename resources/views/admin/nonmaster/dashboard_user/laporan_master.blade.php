@@ -25,7 +25,7 @@
                                             <th data-field="state" data-checkbox="true"></th>
                                             <th data-field="id" data-sortable="true">ID</th>
                                             <th data-field="jenis" data-sortable="true">Jenis</th>
-                                            <th data-field="id_org" data-sortable="true">ID Organisasi</th>
+                                            <th data-field="id_org" data-sortable="true">Rayon</th>
                                             <th data-field="nama" data-sortable="true">Nama</th>
                                         </thead>
                                         <tbody>
@@ -33,10 +33,10 @@
                                         @foreach($rayon as $gi)
 
                                             <tr>
-                                                <td></td>
+                                                <td>{{ $gi->area }}</td>
                                                 <td>{{ $gi->id }}</td>
                                                 <td>GI</td>
-                                                <td>{{ $gi->id_organisasi }}</td>
+                                                <td>{{ $gi->nama_organisasi }}</td>
                                                 <td>{{ $gi->nama_gi }}</td>
                                             </tr>
                                         @foreach($gi['trafo_gi'] as $trafo_gi)
@@ -45,7 +45,7 @@
                                                 <td></td>
                                                 <td>{{ $trafo_gi->id }}</td>
                                                 <td>Trafo GI</td>
-                                                <td>{{ $trafo_gi->id_organisasi }}</td>
+                                                <td>{{ $trafo_gi->nama_organisasi }}</td>
                                                 <td>{{ $trafo_gi->nama_trafo_gi }}</td>
                                             </tr>
                                         @foreach($trafo_gi['penyulang'] as $penyulang)
@@ -54,7 +54,7 @@
                                                 <td></td>
                                                 <td>{{ $penyulang->id }}</td>
                                                 <td>Penyulang</td>
-                                                <td>{{ $penyulang->id_organisasi }}</td>
+                                                <td>{{ $penyulang->nama_organisasi }}</td>
                                                 <td>{{ $penyulang->nama_penyulang }}</td>
                                             </tr>
                                         @endforeach
