@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Gardu;
 use App\GI;
 use App\Organisasi;
+use App\PenyimpananGardu;
 use App\PenyimpananGI;
+use App\PenyimpananPenyulang;
 use App\PenyimpananTrafoGI;
 use App\Penyulang;
 use App\TrafoGI;
@@ -20,7 +22,7 @@ class Input extends Controller
         $this->middleware('auth');
     }
 
-     public function index()
+    public function index()
     {
 //        $rayon = Organisasi::where('id_organisasi', Auth::user()->id_organisasi)->get();
 //        $id_org = $rayon[0]->id;
@@ -28,7 +30,7 @@ class Input extends Controller
 //        return view('admin.nonmaster.dashboard_user.list_gardu_induk',[
 //            'data' =>$data
 //        ]);
-         return $this->list_gardu_induk(Auth::user()->id_organisasi);
+        return $this->list_gardu_induk(Auth::user()->id_organisasi);
     }
 
     /**
@@ -110,6 +112,7 @@ class Input extends Controller
 
     public function store(Request $request)
     {
+        $date = date('Ym')- "1";
         $input_visual = array(
             'lwbp1_visual' => $request->lwbp1_visual,
             'lwbp2_visual' => $request->lwbp2_visual,
@@ -124,62 +127,185 @@ class Input extends Controller
             'kvarh_download' => $request->kvarh_download
         );
 
-        if($request->tipe=="gardu"){
-            $data_listrik = PenyimpananGI::where('periode', date('Ym'))->where('id_gardu', $request->id)->first();
+        if($request->tipe=="gi"){
+            $data_listrik = PenyimpananGI::where('periode', date('Ym'))->where('id_gi', $request->id)->first();
         }
-        else {
+        elseif($request->tipe=="trafo_gi"){
             $data_listrik = PenyimpananTrafoGI::where('periode', date('Ym'))->where('id_trafo_gi', $request->id)->first();
+        }
+        elseif($request->tipe=="penyulang"){
+            $data_listrik = PenyimpananPenyulang::where('periode', date('Ym'))->where('id_penyulang', $request->id)->first();
+        }
+        elseif($request->tipe=="gardu"){
+            $data_listrik = PenyimpananGardu::where('periode', date('Ym'))->where('id_gardu', $request->id)->first();
         }
 
         if($data_listrik){
-            $data = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe);
-            return view('admin.nonmaster.listrik.hasil_pengolahan', [
-                'data'            => $data
-            ]);
+            $data = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter);
+            $data_listrik->data = json_encode($data);
+            if ($data_listrik->save()) ;
+            return back()->withInput();
         }
-        else{
+        else {
             $data = array(
                 'visual' => $input_visual,
                 'download' => $input_download
             );
 
-            $dt =array(
-                'beli'=>$data,
-                'hasil pengolahan'=> null
+            $dt = array(
+                'beli' => $data,
+                'hasil pengolahan' => null
             );
-            if($request->tipe=="gardu") {
+            if ($request->tipe == "gi") {
                 $P = new PenyimpananGI();
-                $P->id_gardu = $request->id;
+                $P->id_gi = $request->id;
                 $P->periode = date('Ym');
                 $P->data = json_encode($dt);
-            }
-            else{
+                $P->data_keluar = "";
+                $data_awal = PenyimpananGI::where('periode', $date)->where('id_gi', $request->id)->first();
+            } elseif ($request->tipe == "trafo_gi") {
                 $P = new PenyimpananTrafoGI();
                 $P->id_trafo_gi = $request->id;
                 $P->periode = date('Ym');
                 $P->data = json_encode($dt);
+                $P->data_keluar = "";
+                $data_awal = PenyimpananTrafoGI::where('periode', $date)->where('id_trafo_gi', $request->id)->first();
+            } elseif ($request->tipe == "penyulang") {
+                $P = new PenyimpananPenyulang();
+                $P->id_penyulang= $request->id;
+                $P->periode = date('Ym');
+                $P->data = json_encode($dt);
+                $P->data_keluar = "";
+                $data_awal = PenyimpananPenyulang::where('periode', $date)->where('id_penyulang', $request->id)->first();
+            } elseif ($request->tipe == "gardu") {
+                $P = new PenyimpananGardu();
+                $P->id_gardu = $request->id;
+                $P->periode = date('Ym');
+                $P->data = json_encode($dt);
+                $P->data_keluar = "";
+                $data_awal = PenyimpananPenyulang::where('periode', $date)->where('id_gardu', $request->id)->first();
             }
-            if($P->save()){
-                if($request->tipe=="gardu")
-                    $data = PenyimpananGI::where('id_gardu', $request->id)->get();
-                else
-                    $data = PenyimpananTrafoGI::where('id_trafo_gi', $request->id)->get();
-                return view('admin.nonmaster.listrik.hasil_pengolahan', [
-                    'data'            => $data
-                ]);
-                echo "berhasil";
+            if($data_awal){
+                $data = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter);
+                $P->data = json_encode($data);
+                if ($P->save());
             }
-            else
-                echo "gagal";
+            else $P->save();
+
+            return back()->withInput();
+        }
+    }
+
+    public function olah_data($visual,$download,$id,$tipe,$meter){
+        $date = date('Ym')- "1";
+        $boolean = true;
+
+        if($tipe=="gi"){
+            $awal = PenyimpananGI::where('periode', $date)->where('id_gi', $id)->first();
+            $data_master = GI::where('id', $id)->first();
+        }
+        elseif($tipe=="trafo_gi"){
+            $awal = PenyimpananTrafoGI::where('periode', $date)->where('id_trafo_gi', $id)->first();
+            $data_master = TrafoGI::where('id', $id)->first();
+        }
+        elseif($tipe=="penyulang"){
+            $awal = PenyimpananPenyulang::where('periode', $date)->where('id_penyulang', $id)->first();
+            $data_master = Penyulang::where('id', $id)->first();
+        }
+        elseif($tipe=="gardu"){
+            $awal = PenyimpananGardu::where('periode', $date)->where('id_gardu', $id)->first();
+            $data_master = Gardu::where('id', $id)->first();
         }
 
-//        return redirect(route('listrik.list_data'))->with('status', [
-//            'enabled'       => true,
-//            'type'          => 'success',
-//            'content'       => 'Berhasil login!'
-//        ]);
+        $data_master = json_decode($data_master->data_master, true);
 
+        if($tipe=="trafo_gi")
+            $faktor_kali = (int)$data_master[$meter]['FK']['faktorkali'];
+        else
+            $faktor_kali = (int)$data_master['FK']['faktorkali'];
+
+        if($awal){
+            $boolean = true;
+            $data_awal = json_decode($awal->data, true);
+        }else {
+            $boolean = false;
+        }
+
+        $lwbp1_visual = $visual['lwbp1_visual'];
+        $lwbp2_visual = $visual['lwbp2_visual'];
+        $wbp_visual = $visual['wbp_visual'];
+        $kvarh_visual = $visual['kvarh_visual'];
+
+        $data_visual = array(
+            'lwbp1_visual' => $lwbp1_visual,
+            'lwbp2_visual' => $lwbp2_visual,
+            'wbp_visual' => $wbp_visual,
+            'kvarh_visual' => $kvarh_visual,
+        );
+
+        if($boolean){
+            $lwbp1_visual = ($data_visual['lwbp1_visual'] - $data_awal['beli']['visual']['lwbp1_visual'])*$faktor_kali;
+            $lwbp2_visual = ($data_visual['lwbp2_visual'] - $data_awal['beli']['visual']['lwbp2_visual'])*$faktor_kali;
+            $wbp_visual = ($data_visual['wbp_visual'] - $data_awal['beli']['visual']['wbp_visual'])*$faktor_kali;
+            $kvarh_visual = ($data_visual['kvarh_visual'] - $data_awal['beli']['visual']['kvarh_visual'])*$faktor_kali;
+        }
+
+        $data_visual2 = array(
+            'lwbp1_visual' => $lwbp1_visual,
+            'lwbp2_visual' => $lwbp2_visual,
+            'wbp_visual' => $wbp_visual,
+            'kvarh_visual' => $kvarh_visual,
+            'total_pemakaian_kwh_visual' => $lwbp1_visual + $lwbp2_visual + $wbp_visual
+        );
+
+        $lwbp1_download = $download['lwbp1_download'];
+        $lwbp2_download = $download['lwbp2_download'];
+        $wbp_download =  $download['wbp_download'];
+        $kvarh_download = $download['kvarh_download'];
+
+        $data_download = array(
+            'lwbp1_download' => $lwbp1_download,
+            'lwbp2_download' => $lwbp2_download,
+            'wbp_download' => $wbp_download,
+            'kvarh_download' => $kvarh_download,
+            'total_pemakaian_kwh_download' => $lwbp1_download + $lwbp2_download + $wbp_download
+        );
+
+        if($boolean){
+            $lwbp1_download = ($download['lwbp1_download'] - $data_awal['beli']['download']['lwbp1_download'])*$faktor_kali;
+            $lwbp2_download = ($download['lwbp2_download'] - $data_awal['beli']['download']['lwbp2_download'])*$faktor_kali;
+            $wbp_download =  ($download['wbp_download'] - $data_awal['beli']['download']['wbp_download'])*$faktor_kali;
+            $kvarh_download = ($download['kvarh_download'] - $data_awal['beli']['download']['kvarh_download'])*$faktor_kali;
+        }
+
+        $data_download2 = array(
+            'lwbp1_download' => $lwbp1_download,
+            'lwbp2_download' => $lwbp2_download,
+            'wbp_download' => $wbp_download,
+            'kvarh_download' => $kvarh_download,
+            'total_pemakaian_kwh_download' => $lwbp1_download + $lwbp2_download + $wbp_download
+
+        );
+
+        $data = array(
+            'visual' => $data_visual,
+            'download' => $data_download );
+        if($boolean) {
+            $data_pengolahan = array(
+                'visual' => $data_visual2,
+                'download' => $data_download2
+            );
+        }
+        else{
+            $data_pengolahan = "";
+        }
+
+        $dt = array(
+            'beli' => $data,
+            'hasil pengolahan' => $data_pengolahan );
+        return $dt;
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -320,7 +446,7 @@ class Input extends Controller
     }
 
     public function list_laporan_gardu($id_gardu){
-        $data = PenyimpananGI::where('id_gardu', $id_gardu)->get();
+        $data = PenyimpananGI::where('id_gi', $id_gardu)->get();
         return view('admin.nonmaster.listrik.hasil_pengolahan', [
             'data'            => $data
         ]);
@@ -332,9 +458,17 @@ class Input extends Controller
             $data = PenyimpananGI::where('periode',date('Ym'))->where('id_gi', $id)->first();
             $jenis = GI::where('id',$id)->first();
         }
-        else{
+        elseif($tipe=="trafo_gi"){
             $data = PenyimpananTrafoGI::where('periode',date('Ym'))->where('id_trafo_gi', $id)->first();
             $jenis = TrafoGI::where('id',$id)->first();
+        }
+        elseif($tipe=="penyulang"){
+            $data = PenyimpananPenyulang::where('periode',date('Ym'))->where('id_penyulang', $id)->first();
+            $jenis = Penyulang::where('id',$id)->first();
+        }
+        elseif($tipe=="gardu"){
+            $data = PenyimpananGardu::where('periode',date('Ym'))->where('id_gardu', $id)->first();
+            $jenis = Gardu::where('id',$id)->first();
         }
 
         if($data){
@@ -369,7 +503,7 @@ class Input extends Controller
         }
 
 //        dd($data);
-        return view('admin.nonmaster.dashboard_user.input_data_dummy', [
+        return view('admin.nonmaster.dashboard_user.input_data', [
             'data'            => $data,
             'jenis'           => $jenis,
             'tipe'            => $tipe
@@ -426,116 +560,6 @@ class Input extends Controller
         ]);
     }
 
-    public function olah_data($visual,$download,$id,$tipe){
-        $date = date('Ym')- "1";
-        $boolean_ada_data_awal = true; 
-        $data_master = Gardu::where('id_organisasi', Auth::user()->id_organisasi)->first();
-        $data_master = json_decode($data_master->data_master, true);
-
-        $faktor_kali = (int)$data_master['FK']['faktorkali'];
-        
-        if($tipe=="gardu")
-            $awal = PenyimpananGI::where('periode', $date)->where('id_gardu', $id)->first();
-        else
-            $awal = PenyimpananTrafoGI::where('periode', $date)->where('id_trafo_gi', $id)->first();
-        if($awal){
-            $boolean_ada_data_awal = true;
-            $data_awal = json_decode($awal->data, true);
-        }else {
-            $boolean_ada_data_awal = false;
-        }
-        $lwbp1_visual = $visual['lwbp1_visual'];
-        $lwbp2_visual = $visual['lwbp2_visual'];
-        $wbp_visual = $visual['wbp_visual'];
-        $kvarh_visual = $visual['kvarh_visual'];
-
-        $data_visual = array(
-            'lwbp1_visual' => $lwbp1_visual,
-            'lwbp2_visual' => $lwbp2_visual,
-            'wbp_visual' => $wbp_visual,
-            'kvarh_visual' => $kvarh_visual,
-        );
-
-        if($boolean_ada_data_awal){
-            $lwbp1_visual = ($data_visual['lwbp1_visual'] - $data_awal['beli']['visual']['lwbp1_visual'])*$faktor_kali;
-            $lwbp2_visual = ($data_visual['lwbp2_visual'] - $data_awal['beli']['visual']['lwbp2_visual'])*$faktor_kali;
-            $wbp_visual = ($data_visual['wbp_visual'] - $data_awal['beli']['visual']['wbp_visual'])*$faktor_kali;
-            $kvarh_visual = ($data_visual['kvarh_visual'] - $data_awal['beli']['visual']['kvarh_visual'])*$faktor_kali;
-        }else{
-            $lwbp1_visual = ($data_visual['lwbp1_visual'])*$faktor_kali;
-            $lwbp2_visual = ($data_visual['lwbp2_visual'])*$faktor_kali;
-            $wbp_visual = ($data_visual['wbp_visual'])*$faktor_kali;
-            $kvarh_visual = ($data_visual['kvarh_visual'])*$faktor_kali;
-        }
-        
-        $data_visual2 = array(
-            'lwbp1_visual' => $lwbp1_visual,
-            'lwbp2_visual' => $lwbp2_visual,
-            'wbp_visual' => $wbp_visual,
-            'kvarh_visual' => $kvarh_visual,
-            'total_pemakaian_kwh_visual' => $lwbp1_visual + $lwbp2_visual + $wbp_visual
-        );
-
-        $lwbp1_download = $download['lwbp1_download'];
-        $lwbp2_download = $download['lwbp2_download'];
-        $wbp_download =  $download['wbp_download'];
-        $kvarh_download = $download['kvarh_download'];
-
-        $data_download = array(
-            'lwbp1_download' => $lwbp1_download,
-            'lwbp2_download' => $lwbp2_download,
-            'wbp_download' => $wbp_download,
-            'kvarh_download' => $kvarh_download,
-            'total_pemakaian_kwh_visual' => $lwbp1_download + $lwbp2_download + $wbp_download
-        );
-
-        if($boolean_ada_data_awal){
-            $lwbp1_download = ($download['lwbp1_download'] - $data_awal['beli']['download']['lwbp1_download'])*$faktor_kali;
-            $lwbp2_download = ($download['lwbp2_download'] - $data_awal['beli']['download']['lwbp2_download'])*$faktor_kali;
-            $wbp_download =  ($download['wbp_download'] - $data_awal['beli']['download']['wbp_download'])*$faktor_kali;
-            $kvarh_download = ($download['kvarh_download'] - $data_awal['beli']['download']['kvarh_download'])*$faktor_kali;
-        }else{
-            $lwbp1_download = ($download['lwbp1_download'] )*$faktor_kali;
-            $lwbp2_download = ($download['lwbp2_download'] )*$faktor_kali;
-            $wbp_download =  ($download['wbp_download'] )*$faktor_kali;
-            $kvarh_download = ($download['kvarh_download'] )*$faktor_kali;
-        }
-
-
-        $data_download2 = array(
-            'lwbp1_download' => $lwbp1_download,
-            'lwbp2_download' => $lwbp2_download,
-            'wbp_download' => $wbp_download,
-            'kvarh_download' => $kvarh_download,
-            'total_pemakaian_kwh_visual' => $lwbp1_download + $lwbp2_download + $wbp_download
-
-        );
-        $data = array(
-            'visual' => $data_visual,
-            'download' => $data_download );
-        $data_pengolahan = array(
-                'visual' => $data_visual2,
-                'download' => $data_download2 );
-
-        $dt = array(
-                'beli' => $data,
-                'hasil pengolahan' => $data_pengolahan );
-
-        if($tipe=="gardu")
-            $hasil = PenyimpananGI::where('periode', date('Ym'))->where('id_gardu',$id)->first();
-        else
-            $hasil = PenyimpananTrafoGI::where('periode', date('Ym'))->where('id_trafo_gi',$id)->first();
-        $hasil->data = json_encode($dt);
-
-        if($hasil->save()){
-            if($tipe=="gardu")
-                $data = PenyimpananGI::where('id_gardu', $id )->get();
-            else
-                $data = PenyimpananTrafoGI::where('id_trafo_gi', $id )->get();
-            return $data;
-        }
-
-    }
 
 
 }

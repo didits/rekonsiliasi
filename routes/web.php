@@ -116,10 +116,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'rayon'], function () {
         'uses'      => 'Input@input_data'
     ]);
 
-    Route::get('/input_data_keluar/{id}/{nama}', [
-        'as'        => 'input.input_data_keluar',
-        'uses'      => 'Input@input_data_keluar'
-    ]);
+//    Route::get('/input_data_keluar/{id}/{nama}', [
+//        'as'        => 'input.input_data_keluar',
+//        'uses'      => 'Input@input_data_keluar'
+//    ]);
 
     Route::get('/input_gardu/{id_gardu}', [
         'as'        => 'input.input_gardu',
@@ -231,6 +231,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
     Route::get('/list_datamaster_list_penyulang_transfer/{id_organisasi}/{id_trafo_gi}', [
         'as'        => 'area.list_penyulang_transfer',
         'uses'      => 'AreaController@list_penyulang_transfer'
+    ]);
+
+    Route::get('/laporan_master', [
+        'as'        => 'area.laporan_master',
+        'uses'      => 'AreaController@laporan_master'
     ]);
 
 
