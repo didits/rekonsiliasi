@@ -158,7 +158,7 @@ class Input extends Controller
             );
             if ($request->tipe == "gi") {
                 $P = new PenyimpananGI();
-                $P->id_gardu = $request->id;
+                $P->id_gi = $request->id;
                 $P->periode = date('Ym');
                 $P->data = json_encode($dt);
                 $P->data_keluar = "";
@@ -198,7 +198,7 @@ class Input extends Controller
 
     public function olah_data($visual,$download,$id,$tipe,$meter){
         $date = date('Ym')- "1";
-        $boolean_ada_data_awal = true;
+        $boolean = true;
 
         if($tipe=="gi"){
             $awal = PenyimpananGI::where('periode', $date)->where('id_gi', $id)->first();
@@ -225,10 +225,10 @@ class Input extends Controller
             $faktor_kali = (int)$data_master['FK']['faktorkali'];
 
         if($awal){
-            $boolean_ada_data_awal = true;
+            $boolean = true;
             $data_awal = json_decode($awal->data, true);
         }else {
-            $boolean_ada_data_awal = false;
+            $boolean = false;
         }
 
         $lwbp1_visual = $visual['lwbp1_visual'];
@@ -243,18 +243,12 @@ class Input extends Controller
             'kvarh_visual' => $kvarh_visual,
         );
 
-        if($boolean_ada_data_awal){
+        if($boolean){
             $lwbp1_visual = ($data_visual['lwbp1_visual'] - $data_awal['beli']['visual']['lwbp1_visual'])*$faktor_kali;
             $lwbp2_visual = ($data_visual['lwbp2_visual'] - $data_awal['beli']['visual']['lwbp2_visual'])*$faktor_kali;
             $wbp_visual = ($data_visual['wbp_visual'] - $data_awal['beli']['visual']['wbp_visual'])*$faktor_kali;
             $kvarh_visual = ($data_visual['kvarh_visual'] - $data_awal['beli']['visual']['kvarh_visual'])*$faktor_kali;
         }
-//        else{
-//            $lwbp1_visual = ($data_visual['lwbp1_visual']);
-//            $lwbp2_visual = ($data_visual['lwbp2_visual']);
-//            $wbp_visual = ($data_visual['wbp_visual']);
-//            $kvarh_visual = ($data_visual['kvarh_visual']);
-//        }
 
         $data_visual2 = array(
             'lwbp1_visual' => $lwbp1_visual,
@@ -277,18 +271,12 @@ class Input extends Controller
             'total_pemakaian_kwh_download' => $lwbp1_download + $lwbp2_download + $wbp_download
         );
 
-        if($boolean_ada_data_awal){
+        if($boolean){
             $lwbp1_download = ($download['lwbp1_download'] - $data_awal['beli']['download']['lwbp1_download'])*$faktor_kali;
             $lwbp2_download = ($download['lwbp2_download'] - $data_awal['beli']['download']['lwbp2_download'])*$faktor_kali;
             $wbp_download =  ($download['wbp_download'] - $data_awal['beli']['download']['wbp_download'])*$faktor_kali;
             $kvarh_download = ($download['kvarh_download'] - $data_awal['beli']['download']['kvarh_download'])*$faktor_kali;
         }
-//        else{
-//            $lwbp1_download = ($download['lwbp1_download']);
-//            $lwbp2_download = ($download['lwbp2_download']);
-//            $wbp_download =  ($download['wbp_download']);
-//            $kvarh_download = ($download['kvarh_download']);
-//        }
 
         $data_download2 = array(
             'lwbp1_download' => $lwbp1_download,
@@ -302,7 +290,7 @@ class Input extends Controller
         $data = array(
             'visual' => $data_visual,
             'download' => $data_download );
-        if($boolean_ada_data_awal) {
+        if($boolean) {
             $data_pengolahan = array(
                 'visual' => $data_visual2,
                 'download' => $data_download2
@@ -458,7 +446,7 @@ class Input extends Controller
     }
 
     public function list_laporan_gardu($id_gardu){
-        $data = PenyimpananGI::where('id_gardu', $id_gardu)->get();
+        $data = PenyimpananGI::where('id_gi', $id_gardu)->get();
         return view('admin.nonmaster.listrik.hasil_pengolahan', [
             'data'            => $data
         ]);
