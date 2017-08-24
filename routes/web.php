@@ -116,10 +116,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'rayon'], function () {
         'uses'      => 'Input@input_data'
     ]);
 
-    Route::get('/input_data_keluar/{id}/{nama}', [
-        'as'        => 'input.input_data_keluar',
-        'uses'      => 'Input@input_data_keluar'
-    ]);
+//    Route::get('/input_data_keluar/{id}/{nama}', [
+//        'as'        => 'input.input_data_keluar',
+//        'uses'      => 'Input@input_data_keluar'
+//    ]);
 
     Route::get('/input_gardu/{id_gardu}', [
         'as'        => 'input.input_gardu',
