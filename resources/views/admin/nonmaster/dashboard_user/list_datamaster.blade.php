@@ -20,12 +20,14 @@
                                         <thead>
                                         <th>RAYON</th>
                                         <th>ALAMAT RAYON</th>
+                                        <th>STRUKTUR LISTRIK</th>
                                         </thead>
                                         <tbody>
                                         @foreach($data as $list)
                                         <tr>
                                             <td><a href="{{route('area.list_gardu_induk', $list->id_organisasi)}}">{{$list->nama_organisasi}}</a></td>
                                             <td>{{$list->alamat}}</td>
+                                            <td><a href="{{route('area.get_structure', $list->id)}}">LIHAT</a></td>
                                         </tr>
                                         @endforeach
                                         </tbody>

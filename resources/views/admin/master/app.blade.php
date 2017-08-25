@@ -4,7 +4,7 @@
         <meta charset="utf-8" />
         <link rel="icon" type="image/png" href="{{ URL::asset('dashboard/img/favicon.ico') }}">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-
+ 
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
         <meta name="viewport" content="width=device-width" />
 
@@ -58,6 +58,9 @@
 
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
     <script src="{{ URL::asset('dashboard/js/light-bootstrap-dashboard.js') }}"></script>
+
+    
+    
 
     <script type="text/javascript">
         $().ready(function(){

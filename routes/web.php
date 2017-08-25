@@ -156,6 +156,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'rayon'], function () {
 //area
 Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
 
+    Route::get('/getStructure/{id}', [
+        'as'        => 'area.get_structure',
+        'uses'      => 'AreaController@getStructureKelistrikan'
+    ]);
+
     Route::get('/', [
         'as'        => 'area.index',
         'uses'      => 'AreaController@list_rayon'
