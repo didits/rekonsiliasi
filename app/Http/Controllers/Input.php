@@ -144,7 +144,7 @@ class Input extends Controller
             $data = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter);
             $data_listrik->data = json_encode($data);
             if ($data_listrik->save()) ;
-            return back()->withInput();
+            return back();
         }
         else {
             $data = array(
@@ -152,10 +152,60 @@ class Input extends Controller
                 'download' => $input_download
             );
 
-            $dt = array(
-                'beli' => $data,
-                'hasil pengolahan' => null
-            );
+            if($request->tipe=="trafo_gi"){
+                $visual = array(
+                    'lwbp1_visual' => null,
+                    'lwbp2_visual' => null,
+                    'wbp_visual' => null,
+                    'kvarh_visual' => null,
+                );
+
+                $download = array(
+                    'lwbp1_download' => null,
+                    'lwbp2_download' => null,
+                    'wbp_download' => null,
+                    'kvarh_download' => null,
+                );
+                $data2 = array(
+                    'visual' => $visual,
+                    'download' => $download
+                );
+
+                if($request->meter=="utama") {
+                    $data1 = array(
+                        'utama' => $data,
+                        'pembanding' => $data2,
+                        'ps' => $data2
+                    );
+                }
+                elseif($request->meter=="pembanding") {
+                    $data1 = array(
+                        'utama' => $data2,
+                        'pembanding' => $data,
+                        'ps' => $data2
+                    );
+                }
+                elseif($request->meter=="ps") {
+                    $data1 = array(
+                        'utama' => $data2,
+                        'pembanding' => $data2,
+                        'ps' =>  $data,
+                    );
+                }
+//                dd($data1);
+                $dt = array(
+                    'beli' => $data1,
+                    'hasil_pengolahan' => null
+                );
+            }
+            else{
+                $dt = array(
+                    'beli' => $data,
+                    'hasil_pengolahan' => null
+                );
+
+            }
+
             if ($request->tipe == "gi") {
                 $P = new PenyimpananGI();
                 $P->id_gi = $request->id;
@@ -163,7 +213,8 @@ class Input extends Controller
                 $P->data = json_encode($dt);
                 $P->data_keluar = "";
                 $data_awal = PenyimpananGI::where('periode', $date)->where('id_gi', $request->id)->first();
-            } elseif ($request->tipe == "trafo_gi") {
+            }
+            elseif ($request->tipe == "trafo_gi") {
                 $P = new PenyimpananTrafoGI();
                 $P->id_trafo_gi = $request->id;
                 $P->periode = date('Ym');
@@ -185,38 +236,46 @@ class Input extends Controller
                 $P->data_keluar = "";
                 $data_awal = PenyimpananPenyulang::where('periode', $date)->where('id_gardu', $request->id)->first();
             }
+
             if($data_awal){
                 $data = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter);
                 $P->data = json_encode($data);
                 if ($P->save());
             }
-            else $P->save();
+            else {
+                if($P->save());
+            }
 
-            return back()->withInput();
+            return back();
+
         }
     }
 
     public function olah_data($visual,$download,$id,$tipe,$meter){
         $date = date('Ym')- "1";
+        $date_ = date('Ym');
         $boolean = true;
 
         if($tipe=="gi"){
             $awal = PenyimpananGI::where('periode', $date)->where('id_gi', $id)->first();
             $data_master = GI::where('id', $id)->first();
+            $akhir = PenyimpananGI::where('periode', $date_)->where('id_gi', $id)->first();
         }
         elseif($tipe=="trafo_gi"){
             $awal = PenyimpananTrafoGI::where('periode', $date)->where('id_trafo_gi', $id)->first();
             $data_master = TrafoGI::where('id', $id)->first();
+            $akhir = PenyimpananTrafoGI::where('periode', $date_)->where('id_trafo_gi', $id)->first();
         }
         elseif($tipe=="penyulang"){
             $awal = PenyimpananPenyulang::where('periode', $date)->where('id_penyulang', $id)->first();
             $data_master = Penyulang::where('id', $id)->first();
+            $akhir = PenyimpananPenyulang::where('periode', $date_)->where('id_penyulang', $id)->first();
         }
         elseif($tipe=="gardu"){
             $awal = PenyimpananGardu::where('periode', $date)->where('id_gardu', $id)->first();
             $data_master = Gardu::where('id', $id)->first();
+            $akhir = PenyimpananGardu::where('periode', $date_)->where('id_gardu', $id)->first();
         }
-
         $data_master = json_decode($data_master->data_master, true);
 
         if($tipe=="trafo_gi")
@@ -224,10 +283,305 @@ class Input extends Controller
         else
             $faktor_kali = (int)$data_master['FK']['faktorkali'];
 
-        if($awal){
+        $data_master = array(
+            'visual' => $visual,
+            'download' => $download
+        );
+
+//        if($awal){
+//            $visual = $this->json_datamaster($data_master, $akhir, "visual", $tipe,$meter, $faktor_kali);
+//            $download = $this->json_datamaster($data_master, $akhir, "download", $tipe,$meter, $faktor_kali);
+//        }else{
+//            $visual = $this->json_datamaster($data_master, $awal, "visual", $tipe,$meter, $faktor_kali);
+//            $download = $this->json_datamaster($data_master, $awal, "download", $tipe,$meter, $faktor_kali);
+//        }
+//
+//        $data_master2 = array(
+//            'visual' => $visual,
+//            'download' => $download
+//        );
+////        dd($data_master2);
+        $da="";
+        $data="";
+        $hasil="";
+
+//        if($awal){
+////            $da = json_decode($akhir->data, true);
+//            if($tipe=="trafo_gi"){
+//                if($meter=="utama"){
+////                    $utama = $da['beli']['utama'];
+////                    $pembanding = $da['beli']['pembanding'];
+////                    $ps = $da['beli']['ps'];
+////                    $pembanding2 = array(
+////                        'visual' => $this->json_datamaster($da['beli']['pembanding'], $awal, "visual", $tipe,"pembanding", $faktor_kali),
+////                        'download' => $this->json_datamaster($da['beli']['pembanding'], $awal, "download", $tipe,"pembanding", $faktor_kali)
+////                    );
+////                    $ps2 = array(
+////                        'visual' => $this->json_datamaster($da['beli']['ps'], $awal, "visual", $tipe,"ps", $faktor_kali),
+////                        'download' => $this->json_datamaster($da['beli']['ps'], $awal, "download", $tipe,"ps", $faktor_kali)
+////                    );
+//                    $pembanding = array(
+//                        'visual' => $this->json_datamaster($da['beli']['pembanding'], $awal, "visual", $tipe,"pembanding", $faktor_kali),
+//                        'download' => $this->json_datamaster($da['beli']['pembanding'], $awal, "download", $tipe,"pembanding", $faktor_kali)
+//                    );
+//                    $ps = array(
+//                        'visual' => $this->json_datamaster($da['beli']['ps'], $awal, "visual", $tipe,"ps", $faktor_kali),
+//                        'download' => $this->json_datamaster($da['beli']['ps'], $awal, "download", $tipe,"ps", $faktor_kali)
+//                    );
+//                    $data  = array(
+//                        'utama' => $data_master,
+//                        'pembanding' => $pembanding,
+//                        'ps' =>$ps
+//                    );
+////                    $hasil  = array(
+////                        'utama' => $data_master,
+////                        'pembanding' => $pembanding2,
+////                        'ps' =>$ps2
+////                    );
+//                }
+//                elseif($meter=="pembanding"){
+//                    $utama = array(
+//                        'visual' => $this->json_datamaster($da['beli']['utama'], $awal, "visual", $tipe,"utama", $faktor_kali),
+//                        'download' => $this->json_datamaster($da['beli']['utama'], $awal, "download", $tipe,"utama", $faktor_kali)
+//                    );
+//                    $ps = array(
+//                        'visual' => $this->json_datamaster($da['beli']['ps'], $awal, "visual", $tipe,"ps", $faktor_kali),
+//                        'download' => $this->json_datamaster($da['beli']['ps'], $awal, "download", $tipe,"ps", $faktor_kali)
+//                    );
+//                    $data  = array(
+//                        'utama' => $utama,
+//                        'pembanding' => $data_master,
+//                        'ps' =>$ps
+//                    );
+//                }
+//                elseif($meter=="ps"){
+//                    $utama = array(
+//                        'visual' => $this->json_datamaster($da['beli']['utama'], $awal, "visual", $tipe,"utama", $faktor_kali),
+//                        'download' => $this->json_datamaster($da['beli']['utama'], $awal, "download", $tipe,"utama", $faktor_kali)
+//                    );
+//                    $pembanding = array(
+//                        'visual' => $this->json_datamaster($da['beli']['pembanding'], $awal, "visual", $tipe,"pembanding", $faktor_kali),
+//                        'download' => $this->json_datamaster($da['beli']['pembanding'], $awal, "download", $tipe,"pembanding", $faktor_kali)
+//                    );
+//                    $data  = array(
+//                        'utama' => $utama,
+//                        'pembanding' => $pembanding,
+//                        'ps' =>$data_master
+//                    );
+//                }
+//
+//
+//            }
+//            else{
+//                $data = $data_master;
+//            }
+//
+//
+//        }
+//        else{
+//            $akhir=$akhir->data;
+////            dd($akhir);
+//            $visual = $this->json_datamaster($data_master, $awal, "visual", $tipe,$meter, $faktor_kali);
+//            $download = $this->json_datamaster($data_master, $awal, "download", $tipe,$meter, $faktor_kali);
+//            $data_master = array(
+//                'visual'=> $visual,
+//                'download'=> $download
+//            );
+//            if($tipe=="trafo_gi"){
+//                if($meter=="utama"){
+//                    $pembanding = array(
+//                        'visual' => $this->json_datamaster($akhir, $awal, "visual", $tipe,$meter, $faktor_kali),
+//                        'download' => $this->json_datamaster($akhir, $awal, "download", $tipe,$meter, $faktor_kali)
+//                    );
+//                    $ps = array(
+//                        'visual' => $this->json_datamaster($akhir, $awal, "visual", $tipe,$meter, $faktor_kali),
+//                        'download' => $this->json_datamaster($akhir, $awal, "download", $tipe,$meter, $faktor_kali)
+//                    );
+//
+//                    $data  = array(
+//                        'utama' => $data_master,
+//                        'pembanding' => $pembanding,
+//                        'ps' =>$ps
+//                    );
+//
+////                    dd($data);
+//                }
+//                elseif($meter=="pembanding"){
+//                    $utama = array(
+//                        'visual' => $this->json_datamaster($akhir, $awal, "visual", $tipe,$meter, $faktor_kali),
+//                        'download' => $this->json_datamaster($akhir, $awal, "download", $tipe,$meter, $faktor_kali)
+//                    );
+//                    $ps = array(
+//                        'visual' => $this->json_datamaster($akhir, $awal, "visual", $tipe,$meter, $faktor_kali),
+//                        'download' => $this->json_datamaster($akhir, $awal, "download", $tipe,$meter, $faktor_kali)
+//                    );
+//                    $data  = array(
+//                        'utama' => $utama,
+//                        'pembanding' => $data_master,
+//                        'ps' =>$ps
+//                    );
+//                }
+//                elseif($meter=="ps"){
+//                    $utama = array(
+//                        'visual' => $this->json_datamaster($akhir, $awal, "visual", $tipe,$meter, $faktor_kali),
+//                        'download' => $this->json_datamaster($akhir, $awal, "download", $tipe,$meter, $faktor_kali)
+//                    );
+//                    $pembanding = array(
+//                        'visual' => $this->json_datamaster($akhir, $awal, "visual", $tipe,$meter, $faktor_kali),
+//                        'download' => $this->json_datamaster($akhir, $awal, "download", $tipe,$meter, $faktor_kali)
+//                    );
+//                    $data  = array(
+//                        'utama' => $utama,
+//                        'pembanding' => $pembanding,
+//                        'ps' =>$data_master
+//                    );
+//                }
+//            }
+//            else{
+//                $data = $data_master;
+//            }
+//        }
+//
+//        if($awal && $akhir);
+//        else $hasil ="";
+//
+//        $dt = array(
+//            'beli' => $data,
+//            'hasil_pengolahan' => $hasil
+//        );
+//        dd($dt);
+        if($tipe=="trafo_gi"){
+            $diff =$this->json_dt($awal,$visual,$download,$tipe,$meter,$faktor_kali);
+            $dt = array(
+                'beli'=> $diff[0],
+                'hasil_pengolahan'=> $diff[1]
+            );
+            $update = $dt['beli'];
+            $olah = $dt['hasil_pengolahan'];
+            if(!$akhir){
+                $diff =$this->json_dt($awal,$visual,$download,$tipe,$meter,$faktor_kali);
+                $dt = array(
+                    'beli'=> $diff[0],
+                    'hasil_pengolahan'=> $diff[1]
+                );
+                if($meter=="utama"){
+                    $dt = array(
+                        'utama'=>$update,
+                        'pembanding'=> null,
+                        'ps'=>null
+                    );
+                    $dt2 = array(
+                        'utama'=>$olah,
+                        'pembanding'=> null,
+                        'ps'=>null
+                    );
+                    $dt = array(
+                        'beli'=> $dt,
+                        'hasil_pengolahan'=> $dt2
+                    );
+                }
+                elseif($meter=="pembanding"){
+                    $dt = array(
+                        'utama'=>null,
+                        'pembanding'=>$update,
+                        'ps'=>null
+                    );
+                    $dt2 = array(
+                        'utama'=>null,
+                        'pembanding'=>$olah,
+                        'ps'=>null
+                    );
+                    $dt = array(
+                        'beli'=> $dt,
+                        'hasil_pengolahan'=> $dt2
+                    );
+                }
+                elseif($meter=="ps"){
+                    $dt = array(
+                        'utama'=>null,
+                        'pembanding'=>null,
+                        'ps'=>$update
+                    );
+                    $dt2 = array(
+                        'utama'=>null,
+                        'pembanding'=>null,
+                        'ps'=>$olah
+                    );
+                    $dt = array(
+                        'beli'=> $dt,
+                        'hasil_pengolahan'=> $dt2
+                    );
+                }
+            }
+            else{
+                $akhir = json_decode($akhir->data,true);
+                if($meter=="utama"){
+                    $dt = array(
+                        'utama'=>$update,
+                        'pembanding'=> $akhir['beli']['pembanding'],
+                        'ps'=>$akhir['beli']['ps']
+                    );
+                    $dt2 = array(
+                        'utama'=>$olah,
+                        'pembanding'=> $akhir['hasil_pengolahan']['pembanding'],
+                        'ps'=>$akhir['hasil_pengolahan']['ps']
+                    );
+                    $dt = array(
+                        'beli'=> $dt,
+                        'hasil_pengolahan'=> $dt2
+                    );
+
+                }
+                elseif($meter=="pembanding"){
+                    $dt = array(
+                        'utama'=>$akhir['beli']['utama'],
+                        'pembanding'=>$update,
+                        'ps'=>$akhir['beli']['ps']
+                    );
+                    $dt2 = array(
+                        'utama'=>$akhir['hasil_pengolahan']['utama'],
+                        'pembanding'=>$olah,
+                        'ps'=>$akhir['hasil_pengolahan']['ps']
+                    );
+                    $dt = array(
+                        'beli'=> $dt,
+                        'hasil_pengolahan'=> $dt2
+                    );
+
+                }
+                elseif($meter=="ps"){
+                    $dt = array(
+                        'utama'=>$akhir['beli']['utama'],
+                        'pembanding'=>$akhir['beli']['pembanding'],
+                        'ps'=>$update
+                    );
+                    $dt2 = array(
+                        'utama'=>$akhir['hasil_pengolahan']['utama'],
+                        'pembanding'=>$akhir['hasil_pengolahan']['pembanding'],
+                        'ps'=>$olah
+                    );
+                    $dt = array(
+                        'beli'=> $dt,
+                        'hasil_pengolahan'=> $dt2
+                    );
+                }
+
+            }
+                   }
+        else{
+            $dt = $this->json_dt($awal,$visual,$download,$tipe,$meter,$faktor_kali);
+        }
+//                dd($dt);
+
+        return $dt;
+    }
+
+    public function json_dt($data_awal,$visual,$download,$tipe,$meter,$faktor_kali )
+    {
+        if($data_awal){
             $boolean = true;
-            $data_awal = json_decode($awal->data, true);
-        }else {
+            $data_awal = json_decode($data_awal->data, true);
+        }else{
             $boolean = false;
         }
 
@@ -244,10 +598,18 @@ class Input extends Controller
         );
 
         if($boolean){
-            $lwbp1_visual = ($data_visual['lwbp1_visual'] - $data_awal['beli']['visual']['lwbp1_visual'])*$faktor_kali;
-            $lwbp2_visual = ($data_visual['lwbp2_visual'] - $data_awal['beli']['visual']['lwbp2_visual'])*$faktor_kali;
-            $wbp_visual = ($data_visual['wbp_visual'] - $data_awal['beli']['visual']['wbp_visual'])*$faktor_kali;
-            $kvarh_visual = ($data_visual['kvarh_visual'] - $data_awal['beli']['visual']['kvarh_visual'])*$faktor_kali;
+            if($tipe=="trafo_gi"){
+                $lwbp1_visual = ($data_visual['lwbp1_visual'] - $data_awal['beli'][$meter]['visual']['lwbp1_visual'])*$faktor_kali;
+                $lwbp2_visual = ($data_visual['lwbp2_visual'] - $data_awal['beli'][$meter]['visual']['lwbp2_visual'])*$faktor_kali;
+                $wbp_visual = ($data_visual['wbp_visual'] - $data_awal['beli'][$meter]['visual']['wbp_visual'])*$faktor_kali;
+                $kvarh_visual = ($data_visual['kvarh_visual'] - $data_awal['beli'][$meter]['visual']['kvarh_visual'])*$faktor_kali;
+            }
+            else{
+                $lwbp1_visual = ($data_visual['lwbp1_visual'] - $data_awal['beli']['visual']['lwbp1_visual'])*$faktor_kali;
+                $lwbp2_visual = ($data_visual['lwbp2_visual'] - $data_awal['beli']['visual']['lwbp2_visual'])*$faktor_kali;
+                $wbp_visual = ($data_visual['wbp_visual'] - $data_awal['beli']['visual']['wbp_visual'])*$faktor_kali;
+                $kvarh_visual = ($data_visual['kvarh_visual'] - $data_awal['beli']['visual']['kvarh_visual'])*$faktor_kali;
+            }
         }
 
         $data_visual2 = array(
@@ -268,14 +630,20 @@ class Input extends Controller
             'lwbp2_download' => $lwbp2_download,
             'wbp_download' => $wbp_download,
             'kvarh_download' => $kvarh_download,
-            'total_pemakaian_kwh_download' => $lwbp1_download + $lwbp2_download + $wbp_download
         );
 
         if($boolean){
-            $lwbp1_download = ($download['lwbp1_download'] - $data_awal['beli']['download']['lwbp1_download'])*$faktor_kali;
-            $lwbp2_download = ($download['lwbp2_download'] - $data_awal['beli']['download']['lwbp2_download'])*$faktor_kali;
-            $wbp_download =  ($download['wbp_download'] - $data_awal['beli']['download']['wbp_download'])*$faktor_kali;
-            $kvarh_download = ($download['kvarh_download'] - $data_awal['beli']['download']['kvarh_download'])*$faktor_kali;
+            if($tipe=="trafo_gi"){
+                $lwbp1_download = ($download['lwbp1_download'] - $data_awal['beli'][$meter]['download']['lwbp1_download'])*$faktor_kali;
+                $lwbp2_download = ($download['lwbp2_download'] - $data_awal['beli'][$meter]['download']['lwbp2_download'])*$faktor_kali;
+                $wbp_download =  ($download['wbp_download'] - $data_awal['beli'][$meter]['download']['wbp_download'])*$faktor_kali;
+                $kvarh_download = ($download['kvarh_download'] - $data_awal['beli'][$meter]['download']['kvarh_download'])*$faktor_kali;
+            }else{
+                $lwbp1_download = ($download['lwbp1_download'] - $data_awal['beli']['download']['lwbp1_download'])*$faktor_kali;
+                $lwbp2_download = ($download['lwbp2_download'] - $data_awal['beli']['download']['lwbp2_download'])*$faktor_kali;
+                $wbp_download =  ($download['wbp_download'] - $data_awal['beli']['download']['wbp_download'])*$faktor_kali;
+                $kvarh_download = ($download['kvarh_download'] - $data_awal['beli']['download']['kvarh_download'])*$faktor_kali;
+            }
         }
 
         $data_download2 = array(
@@ -290,6 +658,7 @@ class Input extends Controller
         $data = array(
             'visual' => $data_visual,
             'download' => $data_download );
+
         if($boolean) {
             $data_pengolahan = array(
                 'visual' => $data_visual2,
@@ -302,8 +671,11 @@ class Input extends Controller
 
         $dt = array(
             'beli' => $data,
-            'hasil pengolahan' => $data_pengolahan );
-        return $dt;
+            'hasil_pengolahan' => $data_pengolahan
+        );
+
+        return array ($data, $data_pengolahan);
+
     }
 
 
@@ -475,6 +847,7 @@ class Input extends Controller
             $data = json_decode($data->data, true);
         }
         else {
+
             $data_visual = array(
                 'lwbp1_visual' => null,
                 'lwbp2_visual' => null,
@@ -493,16 +866,22 @@ class Input extends Controller
                 'visual' => $data_visual,
                 'download' => $data_download );
 
+            if($tipe=="trafo_gi"){
+                $data_awal = array(
+                    'utama' => $data_awal,
+                    'pembanding' => $data_awal,
+                    'ps' => $data_awal,
+                );
+            }
             $data =array(
                 'beli'=>$data_awal,
-                'hasil pengolahan'=> null
+                'hasil_pengolahan'=> null
             );
-            $hasil = json_encode($data);
 
+            $hasil = json_encode($data);
             $data = json_decode($hasil, true);
         }
 
-//        dd($data);
         return view('admin.nonmaster.dashboard_user.input_data', [
             'data'            => $data,
             'jenis'           => $jenis,
@@ -545,7 +924,7 @@ class Input extends Controller
 
             $data =array(
                 'beli'=>$data_awal,
-                'hasil pengolahan'=> null
+                'hasil_pengolahan'=> null
             );
             $hasil = json_encode($data);
 

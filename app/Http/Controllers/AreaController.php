@@ -130,23 +130,23 @@ class AreaController extends Controller
             if($data->id_gi){
                 if($request->form_utama){
                     $data = array(
-                        'Utama' => $this->json_datamaster($request, $data, "Utama",1),
-                        'Pembanding' => $this->json_datamaster($request, $data, "Pembanding",0),
-                        'PS' => $this->json_datamaster($request, $data, "PS",0)
+                        'utama' => $this->json_datamaster($request, $data, "Utama",1),
+                        'pembanding' => $this->json_datamaster($request, $data, "Pembanding",0),
+                        'ps' => $this->json_datamaster($request, $data, "PS",0)
                     );
                 }
                 elseif ($request->form_pembanding){
                     $data = array(
-                        'Utama' => $this->json_datamaster($request, $data, "Utama",0),
-                        'Pembanding' => $this->json_datamaster($request, $data, "Pembanding",1),
-                        'PS' => $this->json_datamaster($request, $data, "PS",0)
+                        'utama' => $this->json_datamaster($request, $data, "Utama",0),
+                        'pembanding' => $this->json_datamaster($request, $data, "Pembanding",1),
+                        'ps' => $this->json_datamaster($request, $data, "PS",0)
                     );
                 }
                 elseif ($request->form_ps){
                     $data = array(
-                        'Utama' => $this->json_datamaster($request, $data, "Utama",0),
-                        'Pembanding' => $this->json_datamaster($request, $data, "Pembanding",0),
-                        'PS' => $this->json_datamaster($request, $data, "PS",1)
+                        'utama' => $this->json_datamaster($request, $data, "Utama",0),
+                        'pembanding' => $this->json_datamaster($request, $data, "Pembanding",0),
+                        'ps' => $this->json_datamaster($request, $data, "PS",1)
                     );
                 }
             }
