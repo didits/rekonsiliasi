@@ -156,6 +156,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'rayon'], function () {
 //area
 Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
 
+    Route::get('/getStructure/{id}', [
+        'as'        => 'area.get_structure',
+        'uses'      => 'AreaController@getStructureKelistrikan'
+    ]);
+
     Route::get('/', [
         'as'        => 'area.index',
         'uses'      => 'AreaController@list_rayon'
@@ -231,6 +236,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
     Route::get('/list_datamaster_list_penyulang_transfer/{id_organisasi}/{id_trafo_gi}', [
         'as'        => 'area.list_penyulang_transfer',
         'uses'      => 'AreaController@list_penyulang_transfer'
+    ]);
+
+    Route::get('/laporan_master', [
+        'as'        => 'area.laporan_master',
+        'uses'      => 'AreaController@laporan_master'
     ]);
 
 

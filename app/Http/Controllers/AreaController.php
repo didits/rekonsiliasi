@@ -27,6 +27,49 @@ class AreaController extends Controller
         });
     }
 
+    public function getStructureKelistrikan($id_organisasi){
+        $nama_rayon = Organisasi::find($id_organisasi);
+        $area = array('name' => $nama_rayon->nama_organisasi, 'title' => '', 'children' => '', 'office' => 'Rayon ');
+        for ($h=0; $h < 1; $h++) { 
+            $gi = GI::where('id_organisasi', $id_organisasi)->get(array('nama_gi as name','alamat_gi as title', 'id as id'))->toArray();
+            $gi_array = '';
+            for ($i=0; $i < count($gi); $i++) { 
+                $trafo_gi = TrafoGI::where('id_organisasi', $id_organisasi)->where('id_gi',$gi[$i]['id'])->get(array('nama_trafo_gi as name','alamat_trafo_gi as title', 'id as id'))->toArray();
+                $trafo_gi_array = '';
+                for ($j=0; $j < count($trafo_gi); $j++) { 
+                    $penyulang = Penyulang::where('id_organisasi', $id_organisasi)->where('id_trafo_gi', $trafo_gi[$j]['id'])->get(array('nama_penyulang as name','alamat_penyulang as title', 'id as id'))->toArray();
+                    $penyulang_array = '';
+                    for ($k=0; $k < count($penyulang); $k++) {
+                        $gardu = Gardu::where('id_organisasi', $id_organisasi)->where('id_penyulang', $penyulang[$k]['id'])->get(array('nama_gardu as name','alamat_gardu as title'))->toArray();
+                        $gardu_array = '';
+                        for ($l=0; $l < count($gardu); $l++) { 
+                            if($gardu[$l])
+                                $gardu_array[$l] = array('name' => $gardu[$l]['name'], 'title' => $penyulang[$l]['title'], 'office' => 'GD');
+                        }
+                        if($gardu_array)
+                            $penyulang_array_ = array('name' => $penyulang[$k]['name'], 'title' => $penyulang[$k]['title'], 'children' => $gardu_array, 'office' => 'Penyulang');
+                        else
+                            $penyulang_array_ = array('name' => $penyulang[$k]['name'], 'title' => $penyulang[$k]['title'], 'office' => 'Penyulang');
+                        $penyulang_array[$k] = $penyulang_array_;
+                    }
+                    if($penyulang_array)
+                        $trafo_gi_array_ = array('name' => $trafo_gi[$i]['name'], 'title' => $trafo_gi[$i]['title'], 'children' => $penyulang_array, 'office' => 'Trafo GI');
+                    else
+                        $trafo_gi_array_ = array('name' => $trafo_gi[$i]['name'], 'title' => $trafo_gi[$i]['title'], 'office' => 'Trafo GI');
+                    $trafo_gi_array[$j] = $trafo_gi_array_;
+                }
+                if($trafo_gi_array)
+                    $gi_array_ = array('name' => $gi[$h]['name'], 'title' => $gi[$h]['title'], 'children' => $trafo_gi_array, 'office' => 'GI');
+                else
+                    $gi_array_ = array('name' => $gi[$h]['name'], 'title' => $gi[$h]['title'], 'office' => 'GI');
+                $gi_array[$i] =  $gi_array_;
+            }
+            $area['children'] = $gi_array;
+        }
+        return view('admin.nonmaster.dashboard_user.structure_organization',[
+            'data' => json_encode($area)]);
+    }
+
     public function index()
     {
 //        $data = Gardu::where('id_organisasi', Auth::user()->id_organisasi)->first();
@@ -789,18 +832,21 @@ class AreaController extends Controller
         $gi = array();
         $i = 0;
         foreach ($id_rayon as $idr) {
-            $gi[] = GI::select('id', 'id_organisasi', 'nama_gi', 'alamat_gi')
-                ->where('id_organisasi', $idr)
+            $gi[] = GI::select('gi.id', 'organisasi.nama_organisasi', 'gi.nama_gi', 'gi.alamat_gi')
+                ->where('gi.id_organisasi', $idr)
+                ->join('organisasi', 'organisasi.id', '=', 'gi.id_organisasi')
                 ->get();
             $j = 0;
             foreach ($gi[$i] as $gis) {
-                $gi[$i][$j]['trafo_gi'] = TrafoGI::select('id', 'id_organisasi', 'id_gi', 'nama_trafo_gi', 'alamat_trafo_gi')
-                    ->where('id_gi', $gis->id)
+                $gi[$i][$j]['trafo_gi'] = TrafoGI::select('trafo_gi.id', 'organisasi.nama_organisasi', 'trafo_gi.id_gi', 'trafo_gi.nama_trafo_gi', 'trafo_gi.alamat_trafo_gi')
+                    ->where('trafo_gi.id_gi', $gis->id)
+                    ->join('organisasi', 'organisasi.id', '=', 'trafo_gi.id_organisasi')
                     ->get();
                 $k = 0;
                 foreach ($gi[$i][$j]['trafo_gi'] as $trafogi) {
-                    $gi[$i][$j]['trafo_gi'][$k]['penyulang'] = Penyulang::select('id', 'id_organisasi', 'id_trafo_gi', 'nama_penyulang', 'alamat_penyulang')
-                        ->where('id_trafo_gi', $trafogi->id)
+                    $gi[$i][$j]['trafo_gi'][$k]['penyulang'] = Penyulang::select('penyulang.id', 'organisasi.nama_organisasi', 'penyulang.id_trafo_gi', 'penyulang.nama_penyulang', 'penyulang.alamat_penyulang')
+                        ->where('penyulang.id_trafo_gi', $trafogi->id)
+                        ->join('organisasi', 'organisasi.id', '=', 'penyulang.id_organisasi')
                         ->get();
                     $k++;
                 }
@@ -815,5 +861,11 @@ class AreaController extends Controller
     {
         $dropdown_area = Organisasi::select('id_organisasi', 'nama_organisasi')->where('tipe_organisasi', '=', 2)->get();
         return $dropdown_area;
+    }
+
+    public function laporan_master()
+    {
+        return view("admin.nonmaster.dashboard_user.laporan_master", [
+            'list_distribusi' => $this->list_distribusi()]);
     }
 }
