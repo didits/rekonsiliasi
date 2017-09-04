@@ -551,19 +551,17 @@
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            @foreach($data as $list => $key)
-
-                                                            <tr>
+                                                            @foreach($data as $list => $key)                                                            <tr>
                                                                 <td class="text-center">{{$list+1}}</td>
                                                                 <td>{{$key->nama_gardu}}</td>
                                                                 <td>{{$rayon->nama_organisasi}}</td>
-                                                                @if($key->tipe_gardu=0)
+                                                                @if($key->tipe_gardu==0)
 
                                                                 <td>GD</td>
-                                                                @elseif($key->tipe_gardu=1)
+                                                                @elseif($key->tipe_gardu==1)
 
                                                                 <td>PCT</td>
-                                                                @elseif($key->tipe_gardu=2)
+                                                                @elseif($key->tipe_gardu==2)
 
                                                                 <td>PELANGGAN TM</td>
                                                                 @endif
