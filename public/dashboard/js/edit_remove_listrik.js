@@ -7,7 +7,7 @@ var title_;
 var task_;
 
 edit_datamaster = {
-    showSwal: function (type, id_) {
+    showSwal: function (type, id_, nama_, alamat_) {
         if (type == 'trafo_gi') {
             title_ = "Edit " + datamaster[1];
             task_ = tasks[1];
@@ -27,14 +27,15 @@ edit_datamaster = {
         } else if (type == 'p_tm') {
             title_ = "Edit " + datamaster[5];
             task_ = tasks[5];
-
         }
 
         swal({
                 title: title_,
                 html:
                 '<label>Nama</label>' +
-                '<input id="edit_nama" class="form-control">',
+                '<input id="edit_nama" class="form-control" value="' +nama_+ '">' +
+                '<label>Alamat</label>' +
+                '<input id="edit_alamat" class="form-control" value="' +alamat_+ '">',
                 showCancelButton: true,
                 closeOnConfirm: false,
                 allowOutsideClick: false,
@@ -51,6 +52,7 @@ edit_datamaster = {
                         task: task_,
                         id: id_,
                         nama: $('#edit_nama').val(),
+                        alamat: $('#edit_alamat').val()
                     }, function(data, status){
                     if (status == "success" && data == "1")
                         swal({
@@ -59,11 +61,13 @@ edit_datamaster = {
                         }, location.reload());
                 });
             })
+        alert($('#edit_alamat').val())
+
     }
 };
 
 hapus_datamaster = {
-        showSwal: function (type, id_org_, id_) {
+        showSwal: function (type, id_org_, id_, nama_) {
             if (type == 'trafo_gi') {
                 title_ = "Hapus " + datamaster[1];
                 task_ = tasks[1];
@@ -88,7 +92,7 @@ hapus_datamaster = {
 
             swal({
                     title: title_,
-                    text: "Master akan dihapus!",
+                    text: nama_+" akan dihapus!",
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonClass: "btn btn-info btn-fill",
@@ -101,10 +105,11 @@ hapus_datamaster = {
                         function(data, status){
                             if (status == "success" && data == "1")
                                 swal({
-                                    title: "Master telah dihapus!",
+                                    title: nama_+" telah dihapus!",
                                     type: "success"
                                 }, location.reload());
                         });
                 })
+            alert($('#edit_alamat').val());
         }
     }

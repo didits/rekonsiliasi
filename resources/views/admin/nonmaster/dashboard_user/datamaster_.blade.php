@@ -1066,14 +1066,15 @@
                                                                             <i class="fa fa-user"></i>
                                                                         </a>
                                                                         @endif
+{{--                                                                        {{dd($key)}}--}}
 
                                                                         <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile"
                                                                             @if($id_gi)
-                                                                            onclick="edit_datamaster.showSwal('trafo_gi', {{$key->id}})">
+                                                                            onclick="edit_datamaster.showSwal('trafo_gi', {{$key->id}},'{{$key->nama_trafo_gi}}','{{$key->alamat_trafo_gi}}')">
                                                                             @elseif($id_trafo_gi)
-                                                                            onclick="edit_datamaster.showSwal('penyulang', {{$key->id}})">
+                                                                            onclick="edit_datamaster.showSwal('penyulang', {{$key->id}},'{{$key->nama_penyulang}}','{{$key->alamat_penyulang}}')">
                                                                             @elseif($id_penyulang)
-                                                                            onclick="edit_datamaster.showSwal('gardu', {{$key->id}})">
+                                                                            onclick="edit_datamaster.showSwal('gardu', {{$key->id}},'{{$key->nama_gardu}}','{{$key->alamat_gardu}}')">
                                                                             @endif
 
                                                                             <i class="fa fa-edit"></i>
@@ -1083,11 +1084,11 @@
                                                                         {{--</a>--}}
                                                                         <a href="#" rel="tooltip" title="" class="btn btn-danger btn-fill " data-original-title="Remove"
                                                                             @if($id_gi)
-                                                                            onclick="hapus_datamaster.showSwal('trafo_gi', {{$id_org}}, {{$key->id}})">
+                                                                            onclick="hapus_datamaster.showSwal('trafo_gi', {{$id_org}}, {{$key->id}},'{{$key->nama_trafo_gi}}')">
                                                                             @elseif($id_trafo_gi)
-                                                                            onclick="hapus_datamaster.showSwal('penyulang', {{$id_org}}, {{$key->id}})">
+                                                                            onclick="hapus_datamaster.showSwal('penyulang', {{$id_org}}, {{$key->id}},'{{$key->nama_penyulang}}')">
                                                                             @elseif($id_penyulang)
-                                                                            onclick="hapus_datamaster.showSwal('gd', {{$id_org}}, {{$key->id}})">
+                                                                            onclick="hapus_datamaster.showSwal('gd', {{$id_org}}, {{$key->id}},'{{$key->nama_gardu}}')">
                                                                             @endif
 
                                                                             <i class="fa fa-times"></i>

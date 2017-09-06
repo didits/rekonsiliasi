@@ -1063,19 +1063,22 @@ class AreaController extends Controller
         $edit = $request->task;
         $id = $request->id;
         $nama = $request->nama;
+        $alamat = $request->alamat;
+
+//        dd($request->alamat);
 
 //        return $request->task;
 
         if ($edit == "t_gi")
-            $table = TrafoGI::where('id', $id)->update(['nama_trafo_gi' => $nama]);
+            $table = TrafoGI::where('id', $id)->update(['nama_trafo_gi' => $nama],['alamat_trafo_gi' => $alamat]);
         elseif ($edit == "penyulang")
-            $table = Penyulang::where('id', $id)->update(['nama_penyulang' => $nama]);
+            $table = Penyulang::where('id', $id)->update(['nama_penyulang' => $nama],['alamat_penyulang' => $alamat]);
         elseif ($edit == "gd")
-            $table = Gardu::where('id', $id)->update(['nama_gardu' => $nama]);
+            $table = Gardu::where('id', $id)->update(['nama_gardu' => $nama],['alamat_gardu' => $alamat]);
         elseif ($edit == "pct")
-            $table = Gardu::where('id', $id)->update(['nama_gardu' => $nama]);
+            $table = Gardu::where('id', $id)->update(['nama_gardu' => $nama],['alamat_gardu' => $alamat]);
         elseif ($edit == "p_tm")
-            $table = Gardu::where('id', $id)->update(['nama_gardu' => $nama]);
+            $table = Gardu::where('id', $id)->update(['nama_gardu' => $nama],['alamat_gardu' => $alamat]);
 
         return $table;
     }
