@@ -42,7 +42,7 @@ class AreaController extends Controller
                     for ($k=0; $k < count($penyulang); $k++) {
                         $gardu = Gardu::where('id_organisasi', $id_organisasi)->where('id_penyulang', $penyulang[$k]['id'])->get(array('nama_gardu as name','alamat_gardu as title'))->toArray();
                         $gardu_array = array();
-                        for ($l=0; $l < count($gardu); $l++) { 
+                        for ($l=0; $l < count($gardu); $l++) {
                             if($gardu[$l])
                                 $gardu_array[$l] = array('name' => $gardu[$l]['name'], 'title' => $penyulang[$l]['title'], 'office' => 'GD');
                         }
@@ -102,7 +102,7 @@ class AreaController extends Controller
            Gardu::where('id',$id)->delete();
         return back();
     }
-    
+
     public function store(Request $request){
         if($request->id_organisasi){
             $inputGardu = new GI;
@@ -913,7 +913,7 @@ class AreaController extends Controller
     {
         return view('admin.nonmaster.dashboard_user.pemakaiansendiri');
     }
-    
+
 //    public function datamaster()
 //    {
 //        $data = Gardu::where('id_organisasi', Auth::user()->id_organisasi)->first();
@@ -1038,5 +1038,43 @@ class AreaController extends Controller
     {
         return view("admin.nonmaster.dashboard_user.laporan_master", [
             'list_distribusi' => $this->list_distribusi()]);
+    }
+
+    public function edit_datamaster(Request $request)
+    {
+        $edit = $request->task;
+        $id = $request->id;
+        $nama = $request->nama;
+
+//        return $request->task;
+
+        if ($edit == "t_gi")
+            $table = TrafoGI::where('id', $id)->update(['nama_trafo_gi' => $nama]);
+        elseif ($edit == "penyulang")
+            $table = Penyulang::where('id', $id)->update(['nama_penyulang' => $nama]);
+        elseif ($edit == "gd")
+            $table = Gardu::where('id', $id)->update(['nama_gardu' => $nama]);
+        elseif ($edit == "pct")
+            $table = Gardu::where('id', $id)->update(['nama_gardu' => $nama]);
+        elseif ($edit == "p_tm")
+            $table = Gardu::where('id', $id)->update(['nama_gardu' => $nama]);
+
+        return $table;
+    }
+
+    public function hapus_datamaster($id_organisasi,$tipe, $id)
+    {
+        if ($tipe == "t_gi")
+            $table = TrafoGI::where('id',$id)->delete();
+        elseif ($tipe == "penyulang")
+            $table = Penyulang::where('id',$id)->delete();
+        elseif ($tipe == "gd")
+            $table = Gardu::where('id',$id)->delete();
+        elseif ($tipe == "pct")
+            $table = Gardu::where('id',$id)->delete();
+        elseif ($tipe == "p_tm")
+            $table = Gardu::where('id',$id)->delete();
+
+        return $table;
     }
 }

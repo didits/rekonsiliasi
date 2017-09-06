@@ -1037,33 +1037,59 @@
 
                                                                 <tr>
                                                                     <td class="text-center">{{$list+1}}</td>
-                                                                    <td>
-                                                                        @if($id_gi)
-                                                                            {{$key->nama_trafo_gi}}</td>
-                                                                        @elseif($id_trafo_gi)
-                                                                            {{$key->nama_penyulang}}</td>
-                                                                        @elseif($id_penyulang)
-                                                                            {{$key->nama_gardu}}</td>
-                                                                        @endif
+                                                                    @if($id_gi)
+
+                                                                    <td>{{$key->nama_trafo_gi}}</td>
+                                                                    @elseif($id_trafo_gi)
+
+                                                                    <td>{{$key->nama_penyulang}}</td>
+                                                                    @elseif($id_penyulang)
+
+                                                                    <td>{{$key->nama_gardu}}</td>
+                                                                    @endif
+
                                                                     <td>{{$rayon->nama_organisasi}}</td>
                                                                     <td class="td-actions text-right">
                                                                         @if($id_gi)
-                                                                            <a href="{{url('/area/list_datamaster_trafo_gi/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
-                                                                                <i class="fa fa-user"></i>
-                                                                            </a>
+
+                                                                        <a href="{{url('/area/list_datamaster_trafo_gi/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                            <i class="fa fa-user"></i>
+                                                                        </a>
                                                                         @elseif($id_trafo_gi)
-                                                                            <a href="{{url('/area/list_datamaster_penyulang/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
-                                                                                <i class="fa fa-user"></i>
-                                                                            </a>
+
+                                                                        <a href="{{url('/area/list_datamaster_penyulang/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                            <i class="fa fa-user"></i>
+                                                                        </a>
                                                                         @elseif($id_penyulang)
-                                                                            <a href="{{url('/area/list_datamaster_gardu/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
-                                                                                <i class="fa fa-user"></i>
-                                                                            </a>
+
+                                                                        <a href="{{url('/area/list_datamaster_gardu/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                            <i class="fa fa-user"></i>
+                                                                        </a>
                                                                         @endif
-                                                                        <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile">
+
+                                                                        <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile"
+                                                                            @if($id_gi)
+                                                                            onclick="edit_datamaster.showSwal('trafo_gi', {{$key->id}})">
+                                                                            @elseif($id_trafo_gi)
+                                                                            onclick="edit_datamaster.showSwal('penyulang', {{$key->id}})">
+                                                                            @elseif($id_penyulang)
+                                                                            onclick="edit_datamaster.showSwal('gardu', {{$key->id}})">
+                                                                            @endif
+
                                                                             <i class="fa fa-edit"></i>
                                                                         </a>
-                                                                        <a href="{{url('/area/delete/'.$id_org.'/'."GD".'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-danger btn-fill " data-original-title="Remove">
+                                                                        {{--<a href="{{url('/area/delete/'.$id_org.'/'."GD".'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-danger btn-fill " data-original-title="Remove">--}}
+                                                                            {{--<i class="fa fa-times"></i>--}}
+                                                                        {{--</a>--}}
+                                                                        <a href="#" rel="tooltip" title="" class="btn btn-danger btn-fill " data-original-title="Remove"
+                                                                            @if($id_gi)
+                                                                            onclick="hapus_datamaster.showSwal('trafo_gi', {{$id_org}}, {{$key->id}})">
+                                                                            @elseif($id_trafo_gi)
+                                                                            onclick="hapus_datamaster.showSwal('penyulang', {{$id_org}}, {{$key->id}})">
+                                                                            @elseif($id_penyulang)
+                                                                            onclick="hapus_datamaster.showSwal('gd', {{$id_org}}, {{$key->id}})">
+                                                                            @endif
+
                                                                             <i class="fa fa-times"></i>
                                                                         </a>
                                                                     </td>
@@ -1280,7 +1306,22 @@
 
         </div>
     </div>
+
 @endsection
+
+@section('extra_plugin')
+
+    <!--  Notifications Plugin    -->
+    <script src="{{ URL::asset('dashboard/js/bootstrap-notify.js') }}"></script>
+
+    <!-- Sweet Alert 2 plugin -->
+    <script src="{{ URL::asset('dashboard/js/sweetalert2.js') }}"></script>
+
+    <!-- Sweet Alert 2 plugin -->
+{{--    <script src="{{ URL::asset('dashboard/js/edit_remove_listrik.js') }}"></script>--}}
+
+@endsection
+
 @section('extra_script')
 
     <script type="text/javascript">
@@ -1311,6 +1352,118 @@
             });
 
         });
+    </script>
+
+    <script type="text/javascript">
+        type = ['', 'info', 'success', 'warning', 'danger'];
+        datamaster = ["Gardu Induk", "Trafo GI", "Penyulang", "GD", "PCT", "Pelanggan TM"];
+        tasks = ['gi', 't_gi', 'penyulang', 'gd', 'pct', 'p_tm'];
+        var title_;
+        var task_;
+
+        edit_datamaster = {
+            showSwal: function (type, id_) {
+                if (type == 'trafo_gi') {
+                    title_ = "Edit " + datamaster[1];
+                    task_ = tasks[1];
+
+                } else if (type == 'penyulang') {
+                    title_ = "Edit " + datamaster[2];
+                    task_ = tasks[2];
+
+                } else if (type == 'gd') {
+                    title_ = "Edit " + datamaster[3];
+                    task_ = tasks[3];
+
+                } else if (type == 'pct') {
+                    title_ = "Edit " + datamaster[4];
+                    task_ = tasks[4];
+
+                } else if (type == 'p_tm') {
+                    title_ = "Edit " + datamaster[5];
+                    task_ = tasks[5];
+
+                }
+
+                swal({
+                        title: title_,
+                        html:
+                        '<label>Nama</label>' +
+                        '<input id="edit_nama" class="form-control">',
+                        showCancelButton: true,
+                        closeOnConfirm: false,
+                        allowOutsideClick: false,
+                        showLoaderOnConfirm: true
+                    },
+                    function () {
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        $.post('{{route('area.edit_datamaster')}}',
+                            {
+                                task: task_,
+                                id: id_,
+                                nama: $('#edit_nama').val(),
+                            }, function(data, status){
+                                if (status == "success" && data == "1")
+                                    swal({
+                                        title: "Data telah diubah",
+                                        type: "success"
+                                    }, location.reload());
+                            });
+                    })
+            }
+        };
+
+        hapus_datamaster = {
+            showSwal: function (type, id_org_, id_) {
+                if (type == 'trafo_gi') {
+                    title_ = "Hapus " + datamaster[1];
+                    task_ = tasks[1];
+
+                } else if (type == 'penyulang') {
+                    title_ = "Hapus " + datamaster[2];
+                    task_ = tasks[2];
+
+                } else if (type == 'gd') {
+                    title_ = "Hapus " + datamaster[3];
+                    task_ = tasks[3];
+
+                } else if (type == 'pct') {
+                    title_ = "Hapus " + datamaster[4];
+                    task_ = tasks[4];
+
+                } else if (type == 'p_tm') {
+                    title_ = "Hapus " + datamaster[5];
+                    task_ = tasks[5];
+
+                }
+
+                swal({
+                        title: title_,
+                        text: "Master akan dihapus!",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonClass: "btn btn-info btn-fill",
+                        confirmButtonText: "Hapus",
+                        cancelButtonClass: "btn btn-danger btn-fill",
+                        closeOnConfirm: false
+                    },
+                    function () {
+                        $.get("{{url('area/hapus_datamaster')}}" + "/" + id_org_ + "/" + task_ + "/" + id_,
+                            function(data, status){
+                                if (status == "success" && data == "1")
+                                    swal({
+                                        title: "Master telah dihapus!",
+                                        type: "success"
+                                    }, location.reload());
+                            });
+                    })
+            }
+        }
+
     </script>
 
 @endsection
