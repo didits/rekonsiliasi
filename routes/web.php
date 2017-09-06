@@ -165,7 +165,12 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
         'as'        => 'area.index',
         'uses'      => 'AreaController@list_rayon'
     ]);
-    
+
+    Route::get('delete/{id_organisasi}/{tipe}/{id}', [
+        'as'        => 'area.delete',
+        'uses'      => 'AreaController@delete'
+    ]);
+
     Route::get('/profil', [
         'as'        => 'area.profil',
         'uses'      => 'AreaController@profil'
@@ -192,7 +197,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
     ]);
 
 
-    Route::get('/list_datamaster_trafo/{id_organisasi}/{id_gardu_induk}', [
+    Route::get('/list_datamaster_gi/{id_organisasi}/{id_gardu_induk}', [
         'as'        => 'area.lihat_gi',
         'uses'      => 'AreaController@lihat_gi'
         ]);
@@ -202,9 +207,14 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
         'uses'      => 'AreaController@lihat_trafo_gi'
     ]);
 
-    Route::get('/list_datamaster_penyulang/{id_organisasi}/{id_trafo}', [
+    Route::get('/list_datamaster_penyulang/{id_organisasi}/{id_penyulang}', [
         'as'        => 'area.lihat_penyulang',
         'uses'      => 'AreaController@lihat_penyulang'
+    ]);
+
+    Route::get('/list_datamaster_gardu/{id_organisasi}/{id_gardu}', [
+        'as'        => 'area.lihat_gardu',
+        'uses'      => 'AreaController@lihat_gardu'
     ]);
 
     Route::get('/list_datamaster_gardu_distribusi/{id_organisasi}/{id_trafo}', [
@@ -214,8 +224,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
 
 
     Route::get('/list_datamaster_rayon/{id_organisasi}', [
-        'as'        => 'area.list_gardu_induk',
-        'uses'      => 'AreaController@list_gardu_induk'
+//        'as'        => 'area.list_gardu_induk',
+//        'uses'      => 'AreaController@list_gardu_induk'
+        'as'        => 'area.list_datamaster',
+        'uses'      => 'AreaController@list_datamaster'
     ]);
 
     Route::get('/list_datamaster_list_trafo_gi/{id_organisasi}/{id_gardu_induk}', [
