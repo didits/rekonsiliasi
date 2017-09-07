@@ -20,7 +20,7 @@
                                         <thead>
                                         <th>RAYON</th>
                                         <th>ALAMAT RAYON</th>
-                                        <th>STRUKTUR LISTRIK</th>
+                                        <th>SINGLE LINE</th>
                                         </thead>
                                         <tbody>
                                         @foreach($data as $list)

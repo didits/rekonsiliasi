@@ -40,32 +40,59 @@ class AreaController extends Controller
                     $penyulang = Penyulang::where('id_organisasi', $id_organisasi)->where('id_trafo_gi', $trafo_gi[$j]['id'])->get(array('nama_penyulang as name','alamat_penyulang as title', 'id as id'))->toArray();
                     $penyulang_array = array();
                     for ($k=0; $k < count($penyulang); $k++) {
-                        $gardu = Gardu::where('id_organisasi', $id_organisasi)->where('id_penyulang', $penyulang[$k]['id'])->get(array('nama_gardu as name','alamat_gardu as title'))->toArray();
+                        $gardu = Gardu::where('id_organisasi', $id_organisasi)->where('id_penyulang', $penyulang[$k]['id'])->get(array('nama_gardu as name','alamat_gardu as title', 'tipe_gardu as tipe_gardu'))->toArray();
+                        $semua_gardu = array();
+
                         $gardu_array = array();
                         for ($l=0; $l < count($gardu); $l++) { 
-                            if($gardu[$l])
-                                $gardu_array[$l] = array('name' => $gardu[$l]['name'], 'title' => $penyulang[$l]['title'], 'office' => 'GD');
+                            if($gardu[$l] && $gardu[$l]['tipe_gardu']==0)
+                                array_push($gardu_array,array('name' => $gardu[$l]['name'], 'title' => $gardu[$l]['title'], 'office' => ''));
                         }
+                        $penyulang_array_gd = array('name' => 'GD', 'title' => 'GD', 'children' => $gardu_array, 'office' => 'GD');
                         if($gardu_array)
-                            $penyulang_array_ = array('name' => $penyulang[$k]['name'], 'title' => $penyulang[$k]['title'], 'children' => $gardu_array, 'office' => 'Penyulang');
-                        else
-                            $penyulang_array_ = array('name' => $penyulang[$k]['name'], 'title' => $penyulang[$k]['title'], 'office' => 'Penyulang');
+                        array_push($semua_gardu,$penyulang_array_gd);
+
+                        $gardu_array = array();
+                        for ($l=0; $l < count($gardu); $l++) { 
+                            if($gardu[$l] && $gardu[$l]['tipe_gardu']==1)
+                                array_push($gardu_array,array('name' => $gardu[$l]['name'], 'title' => $gardu[$l]['title'], 'office' => ''));
+                        }
+                        $penyulang_array_pct = array('name' => 'PCT', 'title' => 'PCT', 'children' => $gardu_array, 'office' => 'PCT');
+                        if($gardu_array)
+                        array_push($semua_gardu,$penyulang_array_pct);
+
+                        $gardu_array = array();
+                        for ($l=0; $l < count($gardu); $l++) { 
+                            if($gardu[$l] && $gardu[$l]['tipe_gardu']==2)
+                                array_push($gardu_array,array('name' => $gardu[$l]['name'], 'title' => $gardu[$l]['title'], 'office' => ''));
+                        }
+                        $penyulang_array_tm = array('name' => 'TM', 'title' => 'TM', 'children' => $gardu_array, 'office' => 'TM');
+                        if($gardu_array)
+                        array_push($semua_gardu,$penyulang_array_tm);
+
+                        
+                        $penyulang_array_ = array('name' => $penyulang[$k]['name'], 'title' => $penyulang[$k]['name'], 'children' => $semua_gardu, 'office' => 'Penyulang');
+                        if($penyulang_array_)
                         array_push($penyulang_array,$penyulang_array_);
                     }
+
+
                     if($penyulang_array)
-                        $trafo_gi_array_ = array('name' => $trafo_gi[$i]['name'], 'title' => $trafo_gi[$i]['title'], 'children' => $penyulang_array, 'office' => 'Trafo GI');
+                        $trafo_gi_array_ = array('name' => $trafo_gi[$j]['name'], 'title' => $trafo_gi[$j]['title'], 'children' => $penyulang_array, 'office' => 'Trafo GI');
                     else
-                        $trafo_gi_array_ = array('name' => $trafo_gi[$i]['name'], 'title' => $trafo_gi[$i]['title'], 'office' => 'Trafo GI');
+                        $trafo_gi_array_ = array('name' => $trafo_gi[$j]['name'], 'title' => $trafo_gi[$j]['title'], 'office' => 'Trafo GI');
                     array_push($trafo_gi_array,$trafo_gi_array_);
                 }
+
                 if($trafo_gi_array)
-                    $gi_array_ = array('name' => $gi[$h]['name'], 'title' => $gi[$h]['title'], 'children' => $trafo_gi_array, 'office' => 'GI');
+                    $gi_array_ = array('name' => $gi[$i]['name'], 'title' => $gi[$i]['title'], 'children' => $trafo_gi_array, 'office' => 'GI');
                 else
-                    $gi_array_ = array('name' => $gi[$h]['name'], 'title' => $gi[$h]['title'], 'office' => 'GI');
+                    $gi_array_ = array('name' => $gi[$i]['name'], 'title' => $gi[$i]['title'], 'office' => 'GI');
                 array_push($gi_array,$gi_array_);
             }
             $area['children'] = $gi_array;
         }
+
         return view('admin.nonmaster.dashboard_user.structure_organization',[
             'data' => json_encode($area)]);
     }
