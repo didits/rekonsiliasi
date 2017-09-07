@@ -830,11 +830,12 @@ class AreaController extends Controller
             ->where('transfer.id_trafo_gi', $id_trafo_gi)->get();
 //        dd($data);
         $nama_tgi = TrafoGI::select('nama_trafo_gi')->where('id', $id_trafo_gi)->first();
-        return view('admin.nonmaster.dashboard_user.list_datamaster_penyulang',[
+        return view('admin.nonmaster.dashboard_user.list_datamaster_trafo_gi',[
             'data'         => $data,
             'data2'         => $data2,
             'id_organisasi' => $id_rayon,
             'nama_rayon'    => $nama_rayon,
+            'nama_gi'    => null,
             'nama_tgi'      => $nama_tgi->nama_trafo_gi
         ]);
     }

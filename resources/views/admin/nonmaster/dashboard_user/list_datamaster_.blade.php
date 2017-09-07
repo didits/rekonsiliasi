@@ -36,7 +36,7 @@
                                                 </td>
                                                 <td> {{$list->alamat_gi}} </td>
                                                 <td class="td-actions text-right">
-                                                    <a href="{{url('/area/list_datamaster_gi/'.$id_organisasi.'/'.$list->id)}}}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                    <a href="{{url('/area/list_datamaster_gi/'.$id_organisasi.'/'.$list->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
                                                         <i class="fa fa-user"></i>
                                                     </a>
                                                     <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile"
@@ -85,10 +85,15 @@
                                                     {{$list->nama_gi}}
                                                 </td>
                                                 <td> {{$list->alamat_gi}} </td>
-                                                <td>
-                                                    <a href="{{url('/area/list_datamaster_list_trafo_gi_transfer/'.$list->id_organisasi.'/'.$list->id_gi)}}">Lihat
-                                                        List Trafo Gardu</a>
+                                                <td class="td-actions text-right">
+                                                    <a href="{{url('/area/list_datamaster_list_trafo_gi_transfer/'.$list->id_organisasi.'/'.$list->id_gi)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View List Trafo GI">
+                                                        <i class="fa fa-user"></i>
+                                                    </a>
                                                 </td>
+                                                {{--<td>--}}
+                                                    {{--<a href="{{url('/area/list_datamaster_list_trafo_gi_transfer/'.$list->id_organisasi.'/'.$list->id_gi)}}">Lihat--}}
+                                                        {{--List Trafo Gardu</a>--}}
+                                                {{--</td>--}}
                                             </tr>
                                         @endforeach
 

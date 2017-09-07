@@ -1051,10 +1051,9 @@
                                                                     <td>{{$rayon->nama_organisasi}}</td>
                                                                     <td class="td-actions text-right">
                                                                         @if($id_gi)
-
-                                                                        <a href="{{url('/area/list_datamaster_trafo_gi/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
-                                                                            <i class="fa fa-user"></i>
-                                                                        </a>
+                                                                            <a href="{{url('/area/list_datamaster_trafo_gi/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                                <i class="fa fa-user"></i>
+                                                                            </a>
                                                                         @elseif($id_trafo_gi)
 
                                                                         <a href="{{url('/area/list_datamaster_penyulang/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
