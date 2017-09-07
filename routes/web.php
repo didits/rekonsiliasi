@@ -261,12 +261,25 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
         'uses'      => 'AreaController@list_penyulang_transfer'
     ]);
 
-    Route::get('/laporan_master', [
-        'as'        => 'area.laporan_master',
-        'uses'      => 'AreaController@laporan_master'
+    Route::get('/tabel_master', [
+        'as'        => 'area.tabel_master',
+        'uses'      => 'AreaController@tabel_master'
     ]);
 
+    Route::get('/laporan_master', [
+        'as'        => 'area.laporan_master',
+        'uses'      => 'AreaController@list_master_rayon'
+    ]);
 
+    Route::get('/laporan_master_list_gi/{id_organisasi}', [
+        'as'        => 'area.list_master_gi',
+        'uses'      => 'AreaController@list_master_gi'
+    ]);
+
+    Route::get('/view_datamaster', [
+        'as'        => 'area.view_datamaster',
+        'uses'      => 'AreaController@view_datamaster'
+    ]);
 });
 
 //distribusi

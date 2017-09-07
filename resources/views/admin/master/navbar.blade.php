@@ -115,14 +115,14 @@
                     </li>
                     @endif
                     @if(Auth::user()->tipe_organisasi==2)
-                    @if(Request::is('area/list_datamaster_rayon/*', 'area/list_datamaster_gi/*', 'area/list_datamaster_trafo_gi/*', 'area/list_datamaster_penyulang/*', 'area/list_datamaster_gardu/*', 'area', 'area/laporan_master'))
+                    @if(Request::is('area/list_datamaster_rayon/*', 'area/list_datamaster_gi/*', 'area/list_datamaster_trafo_gi/*', 'area/list_datamaster_penyulang/*', 'area/list_datamaster_gardu/*', 'area', 'area/laporan_master', 'area/tabel_master'))
                     <li class="active">
 
                     @else
                     <li>
 
                     @endif
-                        @if(Request::is('area/list_datamaster_rayon/*', 'area/list_datamaster_gi/*', 'area/list_datamaster_trafo_gi/*', 'area/list_datamaster_penyulang/*', 'area/list_datamaster_gardu/*', 'area', 'area/laporan_master'))
+                        @if(Request::is('area/list_datamaster_rayon/*', 'area/list_datamaster_gi/*', 'area/list_datamaster_trafo_gi/*', 'area/list_datamaster_penyulang/*', 'area/list_datamaster_gardu/*', 'area', 'area/laporan_master', 'area/tabel_master'))
                         <a data-toggle="collapse" href="#dataMaster" aria-expanded="true">
 
                         @else
@@ -134,7 +134,7 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        @if(Request::is('area/list_datamaster_rayon/*', 'area/list_datamaster_gi/*', 'area/list_datamaster_trafo_gi/*', 'area/list_datamaster_penyulang/*', 'area/list_datamaster_gardu/*', 'area', 'area/laporan_master'))
+                        @if(Request::is('area/list_datamaster_rayon/*', 'area/list_datamaster_gi/*', 'area/list_datamaster_trafo_gi/*', 'area/list_datamaster_penyulang/*', 'area/list_datamaster_gardu/*', 'area', 'area/laporan_master', 'area/tabel_master'))
                         <div class="collapse in" id="dataMaster">
 
                         @else
@@ -144,6 +144,9 @@
                             <ul class="nav">
                                 <li @if(Request::is('area/list_datamaster_rayon/*', 'area/list_datamaster_gi/*', 'area/list_datamaster_trafo_gi/*', 'area/list_datamaster_penyulang/*', 'area/list_datamaster_gardu/*', 'area'))class="active"@endif>
                                     <a href="{{ url('/') }}">Entry Data Master</a>
+                                </li>
+                                <li @if(Request::is('area/tabel_master'))class="active"@endif>
+                                    <a href="{{route('area.tabel_master')}}">Laporan Data Master</a>
                                 </li>
                                 <li @if(Request::is('area/laporan_master'))class="active"@endif>
                                     <a href="{{route('area.laporan_master')}}">Laporan Data Master</a>

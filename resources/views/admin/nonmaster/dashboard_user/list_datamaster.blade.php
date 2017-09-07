@@ -30,7 +30,13 @@
                                             <td>{{$list->alamat}}</td>
                                             <td>
                                                 <a href="{{route('area.get_structure', $list->id)}}" class="btn btn-info btn-fill pull-right" style="margin-left:5pt">Single line</a>
+                                                @if($laporan)
+                                                <a href="{{route('area.list_master_gi', $list->id_organisasi)}}" class="btn btn-info btn-fill pull-right" >List GI</a>
+
+                                                @else
                                                 <a href="{{route('area.list_datamaster', $list->id_organisasi)}}" class="btn btn-info btn-fill pull-right" >List GI</a>
+
+                                                @endif
                                             </td>
                                         </tr>
                                         @endforeach

@@ -35,19 +35,33 @@
                                                      {{$list->nama_gi}}
                                                 </td>
                                                 <td> {{$list->alamat_gi}} </td>
+                                                @if($laporan)
+
                                                 <td class="td-actions text-right">
-                                                    <a href="{{url('/area/list_datamaster_gi/'.$id_organisasi.'/'.$list->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
-                                                        <i class="fa fa-user"></i>
-                                                    </a>
-                                                    <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile"
-                                                       onclick="edit_datamaster.showSwal('gi', {{$list->id}},'{{$list->nama_gi}}','{{$list->alamat_gi}}')">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a>
-                                                    <a href="#" rel="tooltip" title="" class="btn btn-danger btn-fill " data-original-title="Remove"
-                                                       onclick="hapus_datamaster.showSwal('gi', {{$id_organisasi}}, {{$list->id}},'{{$list->nama_gi}}')">
-                                                        <i class="fa fa-times"></i>
-                                                    </a>
-                                                </td>
+                                                        <a href="{{url('/area/list_datamaster_gi/'.$id_organisasi.'/'.$list->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                            <i class="fa fa-info"></i>
+                                                        </a>
+                                                        <a href="{{url('/area/list_datamaster_list_trafo_gi/'.$id_organisasi.'/'.$list->id)}}"" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List Trafo GI">
+                                                            <i class="fa fa-th-list"></i>
+                                                        </a>
+                                                    </td>
+                                                @else
+
+                                                <td class="td-actions text-right">
+                                                        <a href="{{url('/area/list_datamaster_gi/'.$id_organisasi.'/'.$list->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                            <i class="fa fa-user"></i>
+                                                        </a>
+                                                        <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile"
+                                                           onclick="edit_datamaster.showSwal('gi', {{$list->id}},'{{$list->nama_gi}}','{{$list->alamat_gi}}')">
+                                                            <i class="fa fa-edit"></i>
+                                                        </a>
+                                                        <a href="#" rel="tooltip" title="" class="btn btn-danger btn-fill " data-original-title="Remove"
+                                                           onclick="hapus_datamaster.showSwal('gi', {{$id_organisasi}}, {{$list->id}},'{{$list->nama_gi}}')">
+                                                            <i class="fa fa-times"></i>
+                                                        </a>
+                                                    </td>
+
+                                                @endif
                                                 {{--<td>--}}
                                                     {{--<a class="btn btn-info btn-fill pull-right" href="{{url('/area/list_datamaster_list_trafo_gi/'.$id_organisasi.'/'.$list->id)}}">Lihat Datamaster</a></td>--}}
                                                     {{--<a href="{{url('/area/list_datamaster_gi/'.$id_organisasi.'/'.$list->id)}}" class="btn btn-info btn-fill pull-right" >Lihat Datamaster</a>--}}
@@ -63,6 +77,7 @@
                     </div>
 
                     {{--Transfer--}}
+                    @if(!$laporan)
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
@@ -152,6 +167,8 @@
                             </div>
                         </div>
                     </div>
+                    @endif
+
                 </div>
             </div>
 
