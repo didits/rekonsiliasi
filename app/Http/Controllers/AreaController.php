@@ -1139,6 +1139,24 @@ class AreaController extends Controller
 
         return $table;
     }
+
+    public function view_datamaster($id_organisasi, $unit, $id_unit)
+    {
+        $rayon = Organisasi::where('id_organisasi', $id_organisasi)->first();
+        $gardu = GI::where('id', $id_unit)->first();
+        $data = TrafoGI::where('id_gi', $id_unit)->get();
+        $decoded = json_decode($gardu->data_master, true);
+        return view("admin.nonmaster.dashboard_user.laporan_datamaster", [
+            'unit' => $unit,
+            'data' =>$data,
+            'decoded' =>$decoded,
+            'master'=>$gardu,
+            'id_unit'=>$id_unit,
+            'rayon'=>$rayon,
+            'id_org'=>$id_organisasi,
+            'dropdown_area'=>$this->populateArea()
+        ]);
+    }
 }
 
 class masterGI

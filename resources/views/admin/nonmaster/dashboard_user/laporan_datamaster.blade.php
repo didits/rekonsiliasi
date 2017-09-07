@@ -9,87 +9,182 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             <div class="card">
                                 <div class="header">
-                                    <h4 class="title">EDIT PROFIL</h4>
-                                    <hr>
+                                    <h4 class="title">Laporan Data Master</h4>
+                                    @if($unit == "gi")
+                                    <p class="category">Gardu Induk {{$master->nama_gi}}</p>
+                                        
+                                    @elseif($unit == "t_gi")
+                                        <p class="category">Trafo GI {{$master->nama_trafo_gi}}</p>
+
+                                    @elseif($unit == "penyulang")
+                                        <p class="category">Penyulang {{$master->nama_penyulang}}</p>
+
+                                    @elseif($unit == "gd")
+                                        <p class="category">GD {{$master->nama_gardu}}</p>
+                                        
+                                    @elseif($unit == "pct")
+                                        <p class="category">PCT {{$master->nama_nama_gardu}}</p>
+
+                                    @elseif($unit == "p_tm")
+                                        <p class="category">Pelanggan TM {{$master->nama_gardu}}</p>
+                                        
+                                    @endif
+                                    
                                 </div>
                                 <div class="content">
-                                    <form id="registerFormValidation" novalidate="" role="form" method="POST" action="{{ url('/profil') }}">
-                                        {{ csrf_field() }}
-                                        <input type="hidden" name="id_user" value="{{Auth::id()}}">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Kode Organisasi</label>
-                                                    <input name="kode" type="text" class="form-control" value="@if (Auth::guest())kode
-                                                @else{{ Auth::user()->id_organisasi }}@endif" disabled="">
-                                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="content" id="kwhmeter">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card">
+                                            <div class="header">
+                                                <h4 class="title">KWH Meter</h4>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Tipe Tingkatan</label>
-                                                    <input name="tipe" type="text" disabled class="form-control" value="@if (Auth::guest())tipe
-                                                @else{{ Auth::user()->tipe_organisasi }}@endif">
+                                            <div class="content">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Merk</label>
+                                                            <input type="text" name="merk" class="form-control" placeholder="Merk" value="{{$decoded['KWH']['merk']}}" disabled>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Daerah</label>
-                                                    <input name="nama" type="text" class="form-control" value="@if (Auth::guest())nama
-                                                @else{{ Auth::user()->nama_organisasi }}@endif" disabled="">
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Nomor Seri</label>
+                                                            <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="{{$decoded['KWH']['nomorseri']}}" disabled>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>Alamat</label>
-                                                    <textarea name="alamat" rows="3" class="form-control" placeholder="" >@if (Auth::guest())alamat
-                                                        @else{{ Auth::user()->alamat }}@endif</textarea>
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Konstanta</label>
+                                                            <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="{{$decoded['KWH']['konstanta']}}" disabled>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Password</label>
-                                                    <input class="form-control"
-                                                           name="password"
-                                                           id="registerPassword"
-                                                           type="password"
-                                                           required="true"
-                                                           minLength="4"
-                                                           value="1234"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Konfirmasi Password</label>
-                                                    <input class="form-control"
-                                                           name="password_confirmation"
-                                                           id="registerPasswordConfirmation"
-                                                           type="password"
-                                                           required="true"
-                                                           value="1234"
-                                                           equalTo="#registerPassword"
-                                                    />
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Tegangan Arus</label>
+                                                            <input type="text" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{$decoded['KWH']['teganganarus']}}" disabled>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
-                                        <div class="clearfix"></div>
-                                    </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="content" id="trafoarus">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card">
+                                            <div class="header">
+                                                <h4 class="title">Trafo Arus (CT)</h4>
+                                                {{--<p class="category">Data KWH Meter</p>--}}
+                                            </div>
+                                            {{--{{dd($decoded)}}--}}
+                                            <div class="content">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Ratio</label>
+                                                            <input type="text" name="ratioct" class="form-control" placeholder="Ratio" value="{{$decoded['TA']['ratioct']}}" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Burden (VA)</label>
+                                                            <input type="text" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{$decoded['TA']['burdenct']}}" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="content" id="trafotegangan">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card">
+                                            <div class="header">
+                                                <h4 class="title">Trafo Tegangan (PT)</h4>
+                                                {{--<p class="category">Data KWH Meter</p>--}}
+                                            </div>
+                                            <div class="content">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Ratio</label>
+                                                            <input type="text" name="ratiopt" class="form-control" placeholder="Ratio" value="{{$decoded['TT']['ratiopt']}}" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Burden (VA)</label>
+                                                            <input type="text" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{$decoded['TT']['burdenpt']}}" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="content" id="faktorkalimeter">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card">
+                                            <div class="header">
+                                                <h4 class="title">Faktor Kali Meter</h4>
+                                                {{--<p class="category">Data KWH Meter</p>--}}
+                                            </div>
+                                            <div class="content">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Faktor Kali Meter</label>
+                                                            <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{$decoded['FK']['faktorkali']}}" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
             @include('admin.master.footer')
 
