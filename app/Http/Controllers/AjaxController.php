@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Gardu;
 use App\Organisasi;
+use App\Penyulang;
 
 class AjaxController extends Controller
 {
@@ -13,5 +15,20 @@ class AjaxController extends Controller
             ['id_organisasi', 'like', $subarea],
             ['tipe_organisasi', '!=', 2]])->pluck('nama_organisasi', 'id_organisasi');
         return json_encode($rayon);
+    }
+
+    public function populatePenyulang($id_rayon)
+    {
+        $rayon = Organisasi::select('id')->where('id_organisasi', $id_rayon)->first();
+        $penyulang = Penyulang::select('id', 'nama_penyulang')->where('id_organisasi', $rayon->id)->pluck('nama_penyulang', 'id');
+        return json_encode($penyulang);
+    }
+
+    public function populateGD($id_penyulang)
+    {
+        $gardu = Gardu::select('id', 'nama_gardu')->where([
+            ['id_penyulang', '=', $id_penyulang],
+            ['tipe_gardu', '=', 0]])->pluck('nama_gardu', 'id');
+        return json_encode($gardu);
     }
 }

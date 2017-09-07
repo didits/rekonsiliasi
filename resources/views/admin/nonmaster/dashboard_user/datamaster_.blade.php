@@ -1233,9 +1233,114 @@
                                                                 <input class="form-control" name="tambahalamatgardu" type="text" required="required" aria-required="true">
                                                             </div>
 
+                                                            {{--<div class="form-group">--}}
+                                                                {{--<label class="control-label">Rayon <star>*</star></label>--}}
+                                                                {{--<input class="form-control" name="tambahnamarayon" type="text" disabled="" value="{{$rayon->nama_organisasi}}" required="required" aria-required="true">--}}
+                                                            {{--</div>--}}
+
+                                                            <div class="form-group">
+                                                                <label class="control-label">EXIM <star>*</star></label>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="btn-group bootstrap-select">
+                                                                            <div class="btn-group bootstrap-select">
+                                                                                <select name="selectExim" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">
+                                                                                    <option class="bs-title-option" value="">Pilih EXIM</option>
+                                                                                    <option value="pct_impor">Impor</option>
+                                                                                    <option value="pct_ekspor">Ekspor</option>
+
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label class="control-label">Tujuan EXIM <star>*</star></label>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="btn-group bootstrap-select">
+                                                                            <div class="btn-group bootstrap-select">
+                                                                                <select name="selectTujuanExim" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">
+                                                                                    <option class="bs-title-option" value="">Pilih Tujuan EXIM</option>
+                                                                                    <option value="pct_penyulang">Penyulang</option>
+                                                                                    <option value="pct_gd">GD</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
                                                             <div class="form-group">
                                                                 <label class="control-label">Rayon <star>*</star></label>
-                                                                <input class="form-control" name="tambahnamarayon" type="text" disabled="" value="{{$rayon->nama_organisasi}}" required="required" aria-required="true">
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="btn-group bootstrap-select">
+                                                                            <div class="btn-group bootstrap-select">
+                                                                                <select name="selectareasingle" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">
+                                                                                    <option class="bs-title-option" value="">Area</option>
+                                                                                    @foreach ($dropdown_area as $areas)
+
+                                                                                        <option value="{{ $areas->id_organisasi }}">{{ $areas->nama_organisasi }}</option>
+                                                                                    @endforeach
+
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="btn-group bootstrap-select">
+                                                                            <div class="btn-group bootstrap-select">
+                                                                                <select name="selectrayonsingle" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">
+                                                                                    <option class="bs-title-option" value="">Rayon</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group"  id="pct_selectPenyulang">
+                                                                <label class="control-label">Gardu Distribusi <star>*</star></label>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="btn-group bootstrap-select">
+                                                                            <div class="btn-group bootstrap-select">
+                                                                                <select name="selectpenyulangsingle" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">
+                                                                                    <option class="bs-title-option" value="">Penyulang</option>
+
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group"  id="pct_selectGD">
+                                                                <label class="control-label">Penyulang <star>*</star></label>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="btn-group bootstrap-select">
+                                                                            <div class="btn-group bootstrap-select">
+                                                                                <select name="selectpenyulangsingle" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">
+                                                                                    <option class="bs-title-option" value="">Penyulang</option>
+
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="btn-group bootstrap-select">
+                                                                            <div class="btn-group bootstrap-select">
+                                                                                <select name="selectgdsingle" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">
+                                                                                    <option class="bs-title-option" value="">GD</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
 
                                                             <div class="category"><star>*</star> Required fields</div>
@@ -1559,7 +1664,7 @@
 
                                                             <div class="form-group">
                                                                 <label class="control-label">Rayon <star>*</star></label>
-                                                                <input class="form-control" name="tambahnamarayon" type="text" disabled="" value="{{Auth::user()->nama_organisasi}}" required="required" aria-required="true">
+                                                                <input class="form-control" name="tambahnamarayon" type="text" disabled="" value="{{$rayon->nama_organisasi}}" required="required" aria-required="true">
                                                             </div>
                                                             <div class="category"><star>*</star> Required fields</div>
                                                         </div>
@@ -1591,12 +1696,13 @@
                                                                     <input class="form-control" name="tambahalamatpenyulang" type="text" required="required" aria-required="true">
                                                                 </div>
 
-                                                                <div class="form-group">
-                                                                    <label class="control-label">Rayon <star>*</star></label>
-                                                                    <input class="form-control" name="tambahnamarayon" type="text" disabled="" value="{{Auth::user()->nama_organisasi}}" required="required" aria-required="true">
-                                                                </div>
+                                                                {{--<div class="form-group">--}}
+                                                                    {{--<label class="control-label">Rayon <star>*</star></label>--}}
+                                                                    {{--<input class="form-control" name="tambahnamarayon" type="text" disabled="" value="{{$rayon->nama_organisasi}}" required="required" aria-required="true">--}}
+                                                                {{--</div>--}}
 
                                                                 <div class="form-group">
+                                                                    <label class="control-label">Rayon <star>*</star></label>
                                                                     <div class="row">
                                                                         <div class="col-md-6">
                                                                             <div class="btn-group bootstrap-select">
@@ -1658,32 +1764,6 @@
                                                                     <label class="control-label">Rayon <star>*</star></label>
                                                                     <input class="form-control" name="tambahnamarayon" type="text" disabled="" value="{{Auth::user()->nama_organisasi}}" required="required" aria-required="true">
                                                                 </div>
-
-                                                                {{--<div class="form-group">--}}
-                                                                {{--<div class="row">--}}
-                                                                {{--<div class="col-md-6">--}}
-                                                                {{--<div class="btn-group bootstrap-select">--}}
-                                                                {{--<div class="btn-group bootstrap-select">--}}
-                                                                {{--<select name="selectrayonsingle" class="selectpicker" data-title="Single Select" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">--}}
-                                                                {{--<option class="bs-title-option" value="">Single Select</option>--}}
-                                                                {{--<option value="010101">Rayon Sukolilo</option>--}}
-                                                                {{--<option value="010102">Rayon Gubeng</option>--}}
-                                                                {{--</select>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--<div class="col-md-6">--}}
-                                                                {{--<div class="btn-group bootstrap-select show-tick">--}}
-                                                                {{--<div class="btn-group bootstrap-select show-tick">--}}
-                                                                {{--<select multiple="" data-title="Multiple Select" name="selectrayonmultiple" class="selectpicker" data-style="btn-info btn-fill btn-block" data-menu-style="dropdown-blue" tabindex="-98">--}}
-                                                                {{--<option value="010101">Rayon Sukolilo</option>--}}
-                                                                {{--<option value="010102">Rayon Gubeng</option>--}}
-                                                                {{--</select>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
 
                                                                 <div class="form-group">
                                                                     <label class="control-label">Jenis Gardu <star>*</star></label>
@@ -1757,31 +1837,76 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            $('select[name="selectareasingle"]').on('change', function() {
+            $('select[name="selectareasingle"]').on('change', function () {
                 var id_area = $(this).val();
-                if(id_area) {
+                if (id_area) {
                     $.ajax({
-                        url: '{{ url('populate/rayon/') }}'+'/'+id_area,
+                        url: '{{ url('populate/rayon/') }}' + '/' + id_area,
+                        type: "GET",
+                        dataType: "json",
+                        success: function (data) {
+//                            console.log(data);
+
+                            $('select[name="selectrayonsingle"]').empty().append('<option class="bs-title-option" value="">Rayon</option>');
+                            ;
+                            $.each(data, function (key, value) {
+                                $('select[name="selectrayonsingle"]').append('<option value="' + key + '">' + value + '</option>');
+                            });
+                            $('.selectpicker').selectpicker('refresh');
+
+                        }
+                    });
+                } else {
+                    $('select[name="selectrayonsingle"]').empty().append('<option class="bs-title-option" value="">Rayon</option>');
+                }
+            });
+            $('select[name="selectrayonsingle"]').on('change', function () {
+                var id_rayon = $(this).val();
+                console.log(id_rayon);
+                if (id_rayon) {
+                    $.ajax({
+                        url: '{{ url('populate/penyulang/') }}' + '/' + id_rayon,
+                        type: "GET",
+                        dataType: "json",
+                        success: function (data) {
+//                            console.log(data);
+
+                            $('select[name="selectpenyulangsingle"]').empty().append('<option class="bs-title-option" value="">Penyulang</option>');
+                            ;
+                            $.each(data, function (key, value) {
+                                $('select[name="selectpenyulangsingle"]').append('<option value="' + key + '">' + value + '</option>');
+                            });
+                            $('.selectpicker').selectpicker('refresh');
+
+                        }
+                    });
+                } else {
+                    $('select[name="selectpenyulangsingle"]').empty().append('<option class="bs-title-option" value="">Penyulang</option>');
+                }
+            });
+            $('select[name="selectpenyulangsingle"]').on('change', function() {
+                var id_penyulang = $(this).val();
+                console.log(id_penyulang);
+                if(id_penyulang) {
+                    $.ajax({
+                        url: '{{ url('populate/gd/') }}'+'/'+id_penyulang,
                         type: "GET",
                         dataType: "json",
                         success:function(data) {
-                            console.log(data);
+//                            console.log(data);
 
-
-                            $('select[name="selectrayonsingle"]').empty().append('<option class="bs-title-option" value="">Rayon</option>');;
+                            $('select[name="selectgdsingle"]').empty().append('<option class="bs-title-option" value="">GD</option>');;
                             $.each(data, function(key, value) {
-                                $('select[name="selectrayonsingle"]').append('<option value="'+ key +'">'+ value +'</option>');
+                                $('select[name="selectgdsingle"]').append('<option value="'+ key +'">'+ value +'</option>');
                             });
                             $('.selectpicker').selectpicker('refresh');
 
                         }
                     });
                 }else{
-                    $('select[name="selectrayonsingle"]').empty().append('<option class="bs-title-option" value="">Rayon</option>');;
-
+                    $('select[name="selectgdsingle"]').empty().append('<option class="bs-title-option" value="">Penyulang</option>');
                 }
             });
-
         });
     </script>
 

@@ -59,6 +59,8 @@ Route::resource('input_datamaster', 'AreaController');
 
 Route::get('populate/area',array('as'=>'populate.area','uses'=>'AjaxController@populateArea'));
 Route::get('populate/rayon/{id_area}',array('as'=>'populate.rayon','uses'=>'AjaxController@populateRayon'));
+Route::get('populate/penyulang/{id_rayon}',array('as'=>'populate.penyulang','uses'=>'AjaxController@populatePenyulang'));
+Route::get('populate/gd/{id_penyulang}',array('as'=>'populate.gd','uses'=>'AjaxController@populateGD'));
 
 Auth::routes();
 
