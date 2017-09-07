@@ -65,6 +65,7 @@ class AreaController extends Controller
                         for ($l=0; $l < count($gardu); $l++) { 
                             if($gardu[$l] && $gardu[$l]['tipe_gardu']==2)
                                 array_push($gardu_array,array('name' => $gardu[$l]['name'], 'title' => $gardu[$l]['title'], 'office' => ''));
+
                         }
                         $penyulang_array_tm = array('name' => 'TM', 'title' => 'TM', 'children' => $gardu_array, 'office' => 'TM');
                         if($gardu_array)
@@ -124,6 +125,12 @@ class AreaController extends Controller
         echo "slam";
     }
 
+    public function delete($id_organisasi,$tipe, $id){
+        if($tipe=="GD")
+           Gardu::where('id',$id)->delete();
+        return back();
+    }
+
     public function store(Request $request){
         if($request->id_organisasi){
             $inputGardu = new GI;
@@ -181,7 +188,7 @@ class AreaController extends Controller
             $inputGardu->nama_gardu = $request->tambahnamagardu;
             $inputGardu->alamat_gardu = $request->tambahalamatgardu;
             $inputGardu->data_master="";
-            $inputGardu->tipe_gardu=$request->optionsRadios;
+            $inputGardu->tipe_gardu=$request->tipe_;
 
             if($inputGardu->save());
             return back();
@@ -196,7 +203,7 @@ class AreaController extends Controller
                 $data = Penyulang::where('id',$request->form_penyulang)->first();
             elseif($request->form_gardu)
                 $data = Gardu::where('id',$request->form_gardu)->first();
-
+//            dd($data);
             if($data->id_gi){
                 if($request->form_utama){
                     $data = array(
@@ -242,7 +249,29 @@ class AreaController extends Controller
     public function json_dm($request,$data){
         if($data ){
             $decoded = json_decode($data->data_master, true);
-            if($request->tipe == 'KWH'){
+            if($request->tipe == 'all'){
+                $data_KWH = array(
+                    'merk' => $request->merk,
+                    'nomorseri' => $request->noseri,
+                    'konstanta' => $request->konstanta,
+                    'teganganarus' => $request->teganganarus
+                );
+                $data_TA = array(
+                    'ratioct' => $request->ratioct,
+                    'burdenct' => $request->burdenct
+                );
+
+                $data_TT = array(
+                    'ratiopt' => $request->ratiopt,
+                    'burdenpt' => $request->burdenpt
+                );
+
+                $data_FK = array(
+                    'faktorkali' => $request->faktorkali
+                );
+
+            }
+            elseif($request->tipe == 'KWH'){
                 $data_KWH = array(
                     'merk' => $request->merk,
                     'nomorseri' => $request->noseri,
@@ -336,7 +365,29 @@ class AreaController extends Controller
 
         }
         else {
-            if($request->tipe == 'KWH'){
+            if($request->tipe == 'all') {
+                $data_KWH = array(
+                    'merk' => $request->merk,
+                    'nomorseri' => $request->noseri,
+                    'konstanta' => $request->konstanta,
+                    'teganganarus' => $request->teganganarus
+                );
+                $data_TA = array(
+                    'ratioct' => $request->ratioct,
+                    'burdenct' => $request->burdenct
+                );
+
+                $data_TT = array(
+                    'ratiopt' => $request->ratiopt,
+                    'burdenpt' => $request->burdenpt
+                );
+
+                $data_FK = array(
+                    'faktorkali' => $request->faktorkali
+                );
+            }
+
+            elseif($request->tipe == 'KWH'){
                 $data_KWH = array(
                     'merk' => $request->merk,
                     'nomorseri' => $request->noseri,
@@ -438,7 +489,46 @@ class AreaController extends Controller
     {
         if($data ){
             $decoded = json_decode($data->data_master, true);
-            if($request->tipe == 'KWH'){
+            if($request->tipe == 'all') {
+                if($action){
+                    $data_KWH = array(
+                        'merk' => $request->merk,
+                        'nomorseri' => $request->noseri,
+                        'konstanta' => $request->konstanta,
+                        'teganganarus' => $request->teganganarus
+                    );
+                    $data_TA = array(
+                        'ratioct' => $request->ratioct,
+                        'burdenct' => $request->burdenct
+                    );
+                    $data_TT = array(
+                        'ratiopt' => $request->ratiopt,
+                        'burdenpt' => $request->burdenpt
+                    );
+                    $data_FK = array(
+                        'faktorkali' => $request->faktorkali
+                    );
+                }else{
+                    $data_KWH = array(
+                        'merk' => $decoded[$meter]['KWH']['merk'],
+                        'nomorseri' => $decoded[$meter]['KWH']['nomorseri'],
+                        'konstanta' => $decoded[$meter]['KWH']['konstanta'],
+                        'teganganarus' => $decoded[$meter]['KWH']['teganganarus']
+                    );
+                    $data_TA = array(
+                        'ratioct' => $decoded[$meter]['TA']['ratioct'],
+                        'burdenct' => $decoded[$meter]['TA']['burdenct']
+                    );
+                    $data_TT = array(
+                        'ratiopt' => $decoded[$meter]['TT']['ratiopt'],
+                        'burdenpt' => $decoded[$meter]['TT']['burdenpt']
+                    );
+                    $data_FK = array(
+                        'faktorkali' => $decoded[$meter]['FK']['faktorkali']
+                    );
+                }
+            }
+            elseif($request->tipe == 'KWH'){
                if($action){
                    $data_KWH = array(
                        'merk' => $request->merk,
@@ -691,6 +781,25 @@ class AreaController extends Controller
         ]);
     }
 
+    public function list_datamaster($id_rayon){
+        $rayon = Organisasi::where('id_organisasi', $id_rayon)->get();
+        $nama_rayon = $rayon[0]->nama_organisasi;
+        $id_org = $rayon[0]->id;
+        $data = GI::where('id_organisasi', $id_org)->get();
+//        dd($rayon);
+        $id_ryn = Organisasi::where('id_organisasi', $id_rayon)->first();
+        $data2 = Transfer::select('transfer.id_organisasi','transfer.id_gi', 'gi.nama_gi', 'gi.alamat_gi')
+            ->join('GI','GI.id','=','transfer.id_gi')->distinct('transfer.id_gi')
+            ->where('transfer.id_organisasi', $id_ryn->id)->get();
+//        dd($data2);
+        return view('admin.nonmaster.dashboard_user.list_datamaster_',[
+            'data' =>$data,
+            'data2' =>$data2,
+            'id_organisasi'=>$id_rayon,
+            'nama_rayon' =>$nama_rayon
+        ]);
+    }
+
     public function list_trafo_gi($id_rayon, $id_gardu_induk){
         $rayon = Organisasi::where('id_organisasi', $id_rayon)->get();
         $nama_rayon = $rayon[0]->nama_organisasi;
@@ -749,31 +858,31 @@ class AreaController extends Controller
             ->where('transfer.id_trafo_gi', $id_trafo_gi)->get();
 //        dd($data);
         $nama_tgi = TrafoGI::select('nama_trafo_gi')->where('id', $id_trafo_gi)->first();
-        return view('admin.nonmaster.dashboard_user.list_datamaster_penyulang',[
+        return view('admin.nonmaster.dashboard_user.list_datamaster_trafo_gi',[
             'data'         => $data,
             'data2'         => $data2,
             'id_organisasi' => $id_rayon,
             'nama_rayon'    => $nama_rayon,
+            'nama_gi'    => null,
             'nama_tgi'      => $nama_tgi->nama_trafo_gi
         ]);
     }
-
     public function lihat_gi($id_organisasi, $id_gardu_induk){
         $rayon = Organisasi::where('id_organisasi', $id_organisasi)->first();
         $gardu = GI::where('id', $id_gardu_induk)->first();
         $data = TrafoGI::where('id_gi', $id_gardu_induk)->get();
         $decoded = json_decode($gardu->data_master, true);
-//        dd($data);
-        return view('admin.nonmaster.dashboard_user.datamaster_gardu_induk',[
+//        dd($id_organisasi);
+        return view('admin.nonmaster.dashboard_user.datamaster_',[
             'data' =>$data,
             'decoded' =>$decoded,
-            'gardu'=>$gardu,
-            'idgardu'=>$id_gardu_induk,
+            'gi'=>$gardu,'trafo_gi'=>null,'penyulang'=>null,'gardu'=>null,
+            'id_gi'=>$id_gardu_induk,'id_trafo_gi'=>null,'id_penyulang'=>null,'id_gardu'=>null,
             'rayon'=>$rayon,
             'id_org'=>$id_organisasi,
-            ]);
+            'dropdown_area'=>$this->populateArea()
+        ]);
     }
-
     public function lihat_trafo_gi($id_organisasi, $id_trafo_gi){
         $rayon = Organisasi::where('id_organisasi', $id_organisasi)->first();
         $trafo_gi = TrafoGI::where('id', $id_trafo_gi)->first();
@@ -784,11 +893,11 @@ class AreaController extends Controller
             ->get();
 //        dd($data);
         $decoded = json_decode($trafo_gi->data_master, true);
-        return view('admin.nonmaster.dashboard_user.datamaster_trafo_gi',[
+        return view('admin.nonmaster.dashboard_user.datamaster_',[
             'data' =>$data,
             'decoded' =>$decoded,
-            'trafo_gi'=>$trafo_gi,
-            'id_trafo_gi'=>$id_trafo_gi,
+            'gi'=>null,'trafo_gi'=>$trafo_gi,'penyulang'=>null,'gardu'=>null,
+            'id_gi'=>null,'id_trafo_gi'=>$id_trafo_gi,'id_penyulang'=>null,'id_gardu'=>null,
             'rayon'=>$rayon,
             'id_org'=>$id_organisasi,
             'dropdown_area'=>$this->populateArea()
@@ -806,14 +915,33 @@ class AreaController extends Controller
         $data = Gardu::where('id_penyulang', $id_penyulang)->get();
 //        dd($data);
         $decoded = json_decode($penyulang->data_master, true);
-        return view('admin.nonmaster.dashboard_user.datamaster_penyulang',[
+        return view('admin.nonmaster.dashboard_user.datamaster_',[
             'data' =>$data,
             'decoded' =>$decoded,
-            'penyulang'=>$penyulang,
-            'id_penyulang'=>$id_penyulang,
+            'gi'=>null,'trafo_gi'=>null,'penyulang'=>$penyulang,'gardu'=>null,
+            'id_gi'=>null,'id_trafo_gi'=>null,'id_penyulang'=>$id_penyulang,'id_gardu'=>null,
             'rayon'=>$rayon,
             'id_org'=>$rayon->id,
-            ]);
+            'dropdown_area'=>$this->populateArea()
+        ]);
+    }
+
+    public function lihat_gardu($id_organisasi, $id_gardu){
+
+        $rayon = Organisasi::where('id', $id_organisasi)->first();
+        $gardu = Gardu::where('id', $id_gardu)->first();
+        $data = Gardu::where('id', $id_gardu)->get();
+        $decoded = json_decode($gardu->data_master, true);
+//        dd($id_organisasi);
+        return view('admin.nonmaster.dashboard_user.datamaster_',[
+            'data' =>$data,
+            'decoded' =>$decoded,
+            'gi'=>null,'trafo_gi'=>null,'gardu'=>$gardu,'penyulang'=>null,
+            'id_gi'=>null,'id_trafo_gi'=>null,'id_gardu'=>$id_gardu,'id_penyulang'=>null,
+            'rayon'=>$rayon,
+            'id_org'=>$id_organisasi,
+            'dropdown_area'=>$this->populateArea()
+        ]);
     }
 
     public function profil()
@@ -832,13 +960,14 @@ class AreaController extends Controller
     {
         return view('admin.nonmaster.dashboard_user.pemakaiansendiri');
     }
-    public function datamaster()
-    {
-        $data = Gardu::where('id_organisasi', Auth::user()->id_organisasi)->first();
-        $decoded = json_decode($data->data_master, true);
-        return view('admin.nonmaster.dashboard_user.datamaster',[
-            'data' => $decoded]);
-    }
+
+//    public function datamaster()
+//    {
+//        $data = Gardu::where('id_organisasi', Auth::user()->id_organisasi)->first();
+//        $decoded = json_decode($data->data_master, true);
+//        return view('admin.nonmaster.dashboard_user.datamaster',[
+//            'data' => $decoded]);
+//    }
 
     public function list_biasa(){
 
@@ -956,5 +1085,46 @@ class AreaController extends Controller
     {
         return view("admin.nonmaster.dashboard_user.laporan_master", [
             'list_distribusi' => $this->list_distribusi()]);
+    }
+
+    public function edit_datamaster(Request $request)
+    {
+        $edit = $request->task;
+        $id = $request->id;
+        $nama = $request->nama;
+        $alamat = $request->alamat;
+
+//        dd($request->alamat);
+
+//        return $request->task;
+
+        if ($edit == "t_gi")
+            $table = TrafoGI::where('id', $id)->update(['nama_trafo_gi' => $nama],['alamat_trafo_gi' => $alamat]);
+        elseif ($edit == "penyulang")
+            $table = Penyulang::where('id', $id)->update(['nama_penyulang' => $nama],['alamat_penyulang' => $alamat]);
+        elseif ($edit == "gd")
+            $table = Gardu::where('id', $id)->update(['nama_gardu' => $nama],['alamat_gardu' => $alamat]);
+        elseif ($edit == "pct")
+            $table = Gardu::where('id', $id)->update(['nama_gardu' => $nama],['alamat_gardu' => $alamat]);
+        elseif ($edit == "p_tm")
+            $table = Gardu::where('id', $id)->update(['nama_gardu' => $nama],['alamat_gardu' => $alamat]);
+
+        return $table;
+    }
+
+    public function hapus_datamaster($id_organisasi,$tipe, $id)
+    {
+        if ($tipe == "t_gi")
+            $table = TrafoGI::where('id',$id)->delete();
+        elseif ($tipe == "penyulang")
+            $table = Penyulang::where('id',$id)->delete();
+        elseif ($tipe == "gd")
+            $table = Gardu::where('id',$id)->delete();
+        elseif ($tipe == "pct")
+            $table = Gardu::where('id',$id)->delete();
+        elseif ($tipe == "p_tm")
+            $table = Gardu::where('id',$id)->delete();
+
+        return $table;
     }
 }

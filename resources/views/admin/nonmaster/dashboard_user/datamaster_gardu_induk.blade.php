@@ -998,13 +998,10 @@
                                                             <td>{{$key->nama_trafo_gi}}</td>
                                                             <td>{{$rayon->nama_organisasi}}</td>
                                                             <td class="td-actions text-right">
-                                                                <a href="#" rel="tooltip" title="" class="btn btn-info btn-simple btn-xs" data-original-title="View Profile">
-                                                                    <i class="fa fa-user"></i>
-                                                                </a>
-                                                                <a href="#" rel="tooltip" title="" class="btn btn-success btn-simple btn-xs" data-original-title="Edit Profile">
+                                                                <a href="#" rel="tooltip" title="" class="btn btn-success btn-simple btn-xs" data-original-title="Edit Trafo GI" onclick="edit_datamaster.showSwal('trafo_gi')">
                                                                     <i class="fa fa-edit"></i>
                                                                 </a>
-                                                                <a href="#" rel="tooltip" title="" class="btn btn-danger btn-simple btn-xs" data-original-title="Remove">
+                                                                <a href="#" rel="tooltip" title="" class="btn btn-danger btn-simple btn-xs" data-original-title="Hapus Trafo GI">
                                                                     <i class="fa fa-times"></i>
                                                                 </a>
                                                             </td>
@@ -1116,4 +1113,133 @@
 
     </div>
 </div>
+@endsection
+
+
+@section('extra_plugin')
+
+    <!--  Notifications Plugin    -->
+    <script src="{{ URL::asset('dashboard/js/bootstrap-notify.js') }}"></script>
+
+    <!-- Sweet Alert 2 plugin -->
+    <script src="{{ URL::asset('dashboard/js/sweetalert2.js') }}"></script>
+
+    <!-- Sweet Alert 2 plugin -->
+{{--    <script src="{{ URL::asset('dashboard/js/edit_remove_listrik.js') }}"></script>--}}
+
+@endsection
+
+@section('extra_script')
+
+    <script type="text/javascript">
+        type = ['', 'info', 'success', 'warning', 'danger'];
+
+        edit_datamaster = {
+            showSwal: function (type) {
+                if (type == 'trafo_gi') {
+                    swal({
+                            title: 'Edit Trafo GI',
+                            html:
+                            '<label>Nama</label>' +
+                            '<input id="nama_t_gi" class="form-control">',
+                            showCancelButton: true,
+                            closeOnConfirm: false,
+                            allowOutsideClick: false
+                        },
+                        function () {
+                            $.ajaxSetup({
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                }
+                            });
+                            $.post('{{route('area.edit_datamaster')}}',
+                                {
+                                    task: 't_gi',
+                                    id: 'id',
+                                    nama: $('#nama_t_gi').val(),
+                                }, function(data, status){
+                                    alert("Data: " + data + "\nStatus: " + status);
+                                });
+
+                            // swal({
+                            //     html:
+                            //     'You entered: <strong>' +
+                            //     $('#nama_t_gi').val() +
+                            //     '</strong>'
+                            // });
+                        })
+
+                } else if (type == 'penyulang') {
+                    swal({
+                            title: 'Edit Penyulang',
+                            html: '<p><input id="input-field" class="form-control">',
+                            showCancelButton: true,
+                            closeOnConfirm: false,
+                            allowOutsideClick: false
+                        },
+                        function () {
+                            swal({
+                                html:
+                                'You entered: <strong>' +
+                                $('#input-field').val() +
+                                '</strong>'
+                            });
+                        })
+
+                } else if (type == 'gd') {
+                    swal({
+                            title: 'Edit GD',
+                            html: '<p><input id="input-field" class="form-control">',
+                            showCancelButton: true,
+                            closeOnConfirm: false,
+                            allowOutsideClick: false
+                        },
+                        function () {
+                            swal({
+                                html:
+                                'You entered: <strong>' +
+                                $('#input-field').val() +
+                                '</strong>'
+                            });
+                        })
+
+                } else if (type == 'pct') {
+                    swal({
+                            title: 'Edit PCT',
+                            html: '<p><input id="input-field" class="form-control">',
+                            showCancelButton: true,
+                            closeOnConfirm: false,
+                            allowOutsideClick: false
+                        },
+                        function () {
+                            swal({
+                                html:
+                                'You entered: <strong>' +
+                                $('#input-field').val() +
+                                '</strong>'
+                            });
+                        })
+
+                } else if (type == 'p_tm') {
+                    swal({
+                            title: 'Edit Pelanggan TM',
+                            html: '<p><input id="input-field" class="form-control">',
+                            showCancelButton: true,
+                            closeOnConfirm: false,
+                            allowOutsideClick: false
+                        },
+                        function () {
+                            swal({
+                                html:
+                                'You entered: <strong>' +
+                                $('#input-field').val() +
+                                '</strong>'
+                            });
+                        })
+                }
+            }
+        }
+
+    </script>
+
 @endsection

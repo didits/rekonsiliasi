@@ -2,6 +2,7 @@
     <head>
         <title>SI - ONENG | Dashboard - @yield('title')</title>
         <meta charset="utf-8" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="icon" type="image/png" href="{{ URL::asset('dashboard/img/favicon.ico') }}">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
  
@@ -56,11 +57,10 @@
     {{--<!--  Google Maps Plugin    -->--}}
     {{--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>--}}
 
+    @yield('extra_plugin')
+
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
     <script src="{{ URL::asset('dashboard/js/light-bootstrap-dashboard.js') }}"></script>
-
-    
-    
 
     <script type="text/javascript">
         $().ready(function(){

@@ -5,7 +5,11 @@
     <div class="wrapper">
         @include('admin.master.navbar')
         <div class="main-panel">
+            @if($nama_gi)
             @include('admin.master.top_navbar', ['navbartitle' => "LIST TRAFO GARDU INDUK, GARDU INDUK " . $nama_gi . ", RAYON " . $nama_rayon])
+            @elseif($nama_tgi)
+            @include('admin.master.top_navbar', ['navbartitle' => "LIST TRAFO GARDU INDUK, GARDU INDUK " . $nama_tgi . ", RAYON " . $nama_rayon])
+            @endif
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
@@ -27,17 +31,42 @@
                                         @foreach($data as $list)
                                             <tr>
                                                 {{--{{dd($data)}}--}}
-                                                @if($list->id_gi)
-                                                    <td><a href="{{url('/area/list_datamaster_trafo_gi/'.$id_organisasi.'/'.$list->id)}}"> {{$list->nama_trafo_gi}} </a></td>
-                                                @else
+                                                {{--@if($list->id_gi)--}}
+                                                    {{--<td><a href="{{url('/area/list_datamaster_trafo_gi/'.$id_organisasi.'/'.$list->id)}}"> {{$list->nama_trafo_gi}} </a></td>--}}
+                                                {{--@else--}}
+                                                @if($nama_gi)
                                                     <td> {{$list->nama_trafo_gi}} </td>
+                                                    <td> {{$list->alamat_trafo_gi}} </td>
+                                                @elseif($nama_tgi)
+                                                    <td> {{$list->nama_penyulang}} </td>
+                                                    <td> {{$list->alamat_penyulang}} </td>
                                                 @endif
-                                                <td> {{$list->alamat_trafo_gi}} </td>
-                                                @if($list->id_gi)
-                                                    <td><a href="{{url('/area/list_datamaster_list_penyulang/'.$id_organisasi.'/'.$list->id)}}">Lihat List Penyulang</a></td>
-                                                @else
-                                                    <td><a href="{{url('/area/list_datamaster_list_penyulang_transfer/'.$id_organisasi.'/'.$list->id)}}">Lihat List Penyulang</a></td>
-                                                @endif
+                                                {{--@if($list->id_gi)--}}
+                                                    {{--<td><a href="{{url('/area/list_datamaster_list_penyulang/'.$id_organisasi.'/'.$list->id)}}">Lihat List Penyulang</a></td>--}}
+                                                {{--@else--}}
+                                                    {{--<td><a href="{{url('/area/list_datamaster_list_penyulang_transfer/'.$id_organisasi.'/'.$list->id)}}">Lihat List Penyulang</a></td>--}}
+                                                {{--@endif--}}
+
+                                                <td class="td-actions text-right">
+
+                                                    @if($nama_gi)
+                                                        <a href="{{url('/area/list_datamaster_list_penyulang_transfer/'.$id_organisasi.'/'.$list->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View List Trafo GI">
+                                                        <i class="fa fa-user"></i>
+                                                    </a>
+                                                    @elseif($nama_tgi)
+                                                    <a href="{{url('/area/list_datamaster_list_trafo_gi_transfer/'.$list->id_organisasi.'/'.$list->id_gi)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View List Trafo GI">
+                                                        <i class="fa fa-user"></i>
+                                                    </a>
+                                                    <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile"
+                                                       onclick="edit_datamaster.showSwal('gi', {{$list->id}},'{{$list->nama_gi}}','{{$list->alamat_gi}}')">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                    <a href="#" rel="tooltip" title="" class="btn btn-danger btn-fill " data-original-title="Remove"
+                                                       onclick="hapus_datamaster.showSwal('gi', {{$id_organisasi}}, {{$list->id}},'{{$list->nama_gi}}')">
+                                                        <i class="fa fa-times"></i>
+                                                    </a>
+                                                    @endif
+                                                </td>
                                             </tr>
 
                                         @endforeach

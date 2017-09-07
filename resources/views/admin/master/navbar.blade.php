@@ -14,40 +14,100 @@
                 @if(Auth::user()->tipe_organisasi==3)
 
                     <li>
-                        <a data-toggle="collapse" href="#inputarea">
-                            <i class="pe-7s-server"></i>
-                            <p>Data Transaksi
+                        <a data-toggle="collapse" href="#dataMaster">
+                            <i class="pe-7s-gleam"></i>
+                            <p>Data Master
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="inputarea">
+                        <div class="collapse" id="dataMaster">
                             <ul class="nav">
                                 <li>
-                                    <a href="{{route('input.list_gardu_induk',Auth::user()->id_organisasi)}}">Beli</a>
+                                    <a href="#">Laporan Data Master</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    @if(Request::is('rayon/list_gardu_induk/*', 'rayon/list_trafo_gi/*','rayon/list_penyulang/*','rayon/list_gd/*', 'rayon', 'rayon/input_data/*'))
+                    <li class="active">
+
+                    @else
+                    <li>
+
+                    @endif
+                        @if(Request::is('rayon/list_gardu_induk/*', 'rayon/list_trafo_gi/*','rayon/list_penyulang/*','rayon/list_gd/*', 'rayon', 'rayon/input_data/*'))
+                        <a data-toggle="collapse" href="#dataTransaksiBeli" aria-expanded="true">
+
+                        @else
+                        <a data-toggle="collapse" href="#dataTransaksiBeli">
+
+                        @endif
+                            <i class="pe-7s-upload"></i>
+                            <p>Data Transaksi Beli
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        @if(Request::is('rayon/list_gardu_induk/*', 'rayon/list_trafo_gi/*','rayon/list_penyulang/*','rayon/list_gd/*', 'rayon', 'rayon/input_data/*'))
+                        <div class="collapse in" id="dataTransaksiBeli">
+
+                        @else
+                        <div class="collapse" id="dataTransaksiBeli">
+
+                        @endif
+                            <ul class="nav">
+                                <li @if(Request::is('rayon/list_gardu_induk/*', 'rayon/list_trafo_gi/*','rayon/list_penyulang/*','rayon/list_gd/*', 'rayon', 'rayon/input_data/*'))class="active"@endif>
+                                    <a href="{{route('input.list_gardu_induk',Auth::user()->id_organisasi)}}">Entry Data Transaksi Beli</a>
+                                </li><li>
+                                    <a href="{{route('listrik.list_data')}}">Laporan Transaksi Beli</a>
                                 </li>
                             </ul>
                         </div>
                     </li>
 
                     <li>
-                        <a href="#">
-                            <i class="pe-7s-info"></i>
-                            <p>Master</p>
+                        <a data-toggle="collapse" href="#dataTransaksiJual">
+                            <i class="pe-7s-download"></i>
+                            <p>Data Transaksi Jual
+                                <b class="caret"></b>
+                            </p>
                         </a>
+                        <div class="collapse" id="dataTransaksiJual">
+                            <ul class="nav">
+                                <li>
+                                    <a href="#">GD</a>
+                                </li>
+                                <li>
+                                    <a href="#">TM</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
+
                     <li>
-                        <a href="{{route('listrik.list_data')}}">
-                            <i class="pe-7s-notebook"></i>
-                            <p>Laporan</p>
+                        <a data-toggle="collapse" href="#histori">
+                            <i class="pe-7s-timer"></i>
+                            <p>Histori
+                                <b class="caret"></b>
+                            </p>
                         </a>
+                        <div class="collapse" id="histori">
+                            <ul class="nav">
+                                <li>
+                                    <a href="#">Rekap</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
-                    <li>
-                        <a href="{{route('listrik.hasil_pengolahan')}}">
-                            <i class="pe-7s-notebook"></i>
-                            <p>Hasil Pengolahan</p>
-                        </a>
-                    </li>
-                    <li>
+
+                    {{--<li>--}}
+                        {{--<a href="{{route('listrik.hasil_pengolahan')}}">--}}
+                            {{--<i class="pe-7s-notebook"></i>--}}
+                            {{--<p>Hasil Pengolahan</p>--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
+
+                    <li @if(Request::is('rayon/profil'))class="active"@endif>
                         <a href="{{route('rayon.profil')}}">
                             <i class="pe-7s-id"></i>
                             <p>Profile</p>
@@ -55,34 +115,76 @@
                     </li>
                     @endif
                     @if(Auth::user()->tipe_organisasi==2)
+                    @if(Request::is('area/list_datamaster_rayon/*', 'area/list_datamaster_gi/*', 'area/list_datamaster_trafo_gi/*', 'area/list_datamaster_penyulang/*', 'area/list_datamaster_gardu/*', 'area', 'area/laporan_master'))
+                    <li class="active">
 
+                    @else
                     <li>
-                        <a href="{{ url('/') }}">
+
+                    @endif
+                        @if(Request::is('area/list_datamaster_rayon/*', 'area/list_datamaster_gi/*', 'area/list_datamaster_trafo_gi/*', 'area/list_datamaster_penyulang/*', 'area/list_datamaster_gardu/*', 'area', 'area/laporan_master'))
+                        <a data-toggle="collapse" href="#dataMaster" aria-expanded="true">
+
+                        @else
+                        <a data-toggle="collapse" href="#dataMaster">
+
+                        @endif
                             <i class="pe-7s-gleam"></i>
-                            <p>Data Master</p>
+                            <p>Data Master
+                                <b class="caret"></b>
+                            </p>
                         </a>
+                        @if(Request::is('area/list_datamaster_rayon/*', 'area/list_datamaster_gi/*', 'area/list_datamaster_trafo_gi/*', 'area/list_datamaster_penyulang/*', 'area/list_datamaster_gardu/*', 'area', 'area/laporan_master'))
+                        <div class="collapse in" id="dataMaster">
+
+                        @else
+                        <div class="collapse" id="dataMaster">
+
+                        @endif
+                            <ul class="nav">
+                                <li @if(Request::is('area/list_datamaster_rayon/*', 'area/list_datamaster_gi/*', 'area/list_datamaster_trafo_gi/*', 'area/list_datamaster_penyulang/*', 'area/list_datamaster_gardu/*', 'area'))class="active"@endif>
+                                    <a href="{{ url('/') }}">Entry Data Master</a>
+                                </li>
+                                <li @if(Request::is('area/laporan_master'))class="active"@endif>
+                                    <a href="{{route('area.laporan_master')}}">Laporan Data Master</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
 
                     <li>
-                        <a href="{{route('listrik.list_data')}}">
+                        <a data-toggle="collapse" href="#dataTransaksiEnergi">
                             <i class="pe-7s-notebook"></i>
-                            <p>Laporan</p>
+                            <p>Data Transaksi Energi
+                                <b class="caret"></b>
+                            </p>
                         </a>
+                        <div class="collapse" id="dataTransaksiEnergi">
+                            <ul class="nav">
+                                <li>
+                                    <a href="{{route('listrik.list_data')}}">Laporan Transaksi Energi</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
 
                     <li>
-                        <a href="{{route('area.laporan_master')}}">
-                            <i class="pe-7s-notebook"></i>
-                            <p>Laporan Master</p>
+                        <a data-toggle="collapse" href="#histori">
+                            <i class="pe-7s-timer"></i>
+                            <p>Histori
+                                <b class="caret"></b>
+                            </p>
                         </a>
+                        <div class="collapse" id="histori">
+                            <ul class="nav">
+                                <li>
+                                    <a href="#">Rekap</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
-                    {{--<li>--}}
-                        {{--<a href="{{route('area.list_rayon')}}">--}}
-                            {{--<i class="pe-7s-photo-gallery"></i>--}}
-                            {{--<p>List Rayon</p>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                    <li>
+
+                    <li @if(Request::is('area/profil'))class="active"@endif>
                         <a href="{{route('area.profil')}}">
                             <i class="pe-7s-id"></i>
                             <p>Profile</p>
@@ -91,165 +193,66 @@
                     @endif
                     @if(Auth::user()->tipe_organisasi==0)
 
-                    <li>
+                    <li @if(Request::is('admin/management_rayon'))class="active"@endif>
                         <a href="{{route('admin.management_rayon')}}">
                             <i class="pe-7s-user"></i>
                             <p>Manajemen Organisasi</p>
                         </a>
                     </li>
                     @endif
+                    @if(Auth::user()->tipe_organisasi==1)
+
+                    <li>
+                        <a data-toggle="collapse" href="#dataMaster">
+                            <i class="pe-7s-gleam"></i>
+                            <p>Data Master
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="dataMaster">
+                            <ul class="nav">
+                                <li>
+                                    <a href="#">Laporan Data Master</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a data-toggle="collapse" href="#dataTransaksiEnergi">
+                            <i class="pe-7s-notebook"></i>
+                            <p>Data Transaksi Energi
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="dataTransaksiEnergi">
+                            <ul class="nav">
+                                <li>
+                                    <a href="#">Laporan Data Master</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a data-toggle="collapse" href="#histori">
+                            <i class="pe-7s-timer"></i>
+                            <p>Histori
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="histori">
+                            <ul class="nav">
+                                <li>
+                                    <a href="#">Rekap</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    @endif
 
                 </ul>
-                @if(Auth::user()->tipe_organisasi==0)
 
-                <div class="user">
-                </div>
-                <div class="logo">
-                    <a href="{{url('/')}}" class="logo-text">
-                        LIST GI
-                    </a>
-                </div>
-                <div class="logo logo-mini">
-                    <a href="{{url('/')}}" class="logo-text">
-                        LIST GI
-                    </a>
-                </div>
-
-                <ul class="nav nav1">
-                    <li>
-                        <a data-toggle="collapse" href="#listGI1">
-                            <p>GI 1
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <div class="collapse" id="listGI1">
-                            <ul class="nav nav2">
-                                <li>
-                                    <a data-toggle="collapse" href="#listGI11">
-                                        <p>Trafo GI 1
-                                            <b class="caret"></b>
-                                        </p>
-                                    </a>
-                                    <div class="collapse" id="listGI11">
-                                        <ul class="nav">
-                                            <li>
-                                                <a href="#">
-                                                    <p>Penyulang</p>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a data-toggle="collapse" href="#listGI2">
-                            <i class="pe-7s-server"></i>
-                            <p>GI 1
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <div class="collapse" id="listGI2">
-                            <ul class="nav">
-                                <li>
-                                    <a href="#">GD</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a data-toggle="collapse" href="#listGI3">
-                            <i class="pe-7s-server"></i>
-                            <p>GI 1
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <div class="collapse" id="listGI3">
-                            <ul class="nav">
-                                <li>
-                                    <a href="#">GD</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a data-toggle="collapse" href="#listGI4">
-                            <i class="pe-7s-server"></i>
-                            <p>GI 1
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <div class="collapse" id="listGI4">
-                            <ul class="nav">
-                                <li>
-                                    <a href="#">GD</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-
-                    <li routerlinkactive="active">
-                        <a data-toggle="collapse" href="#formsExamples">
-                            <i class="pe-7s-note2"></i>
-                            <p>Forms
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <div class="collapse" id="formsExamples">
-                            <ul class="nav">
-                                <li routerlinkactive="active">
-                                    <a data-toggle="collapse" href="#formsExampless">
-                                        <i class="pe-7s-note2"></i>
-                                        <p>Forms
-                                            <b class="caret"></b>
-                                        </p>
-                                    </a>
-                                    <div class="collapse" id="formsExampless">
-                                        <ul class="nav" style="margin-left: 20px">
-                                            <li routerlinkactive="active">
-                                                <a href="#/forms/regular">
-                                                    Regular Forms
-                                                </a>
-                                            </li>
-                                            <li routerlinkactive="active">
-                                                <a href="#/forms/extended">
-                                                    Extended Forms
-                                                </a>
-                                            </li>
-                                            <li routerlinkactive="active">
-                                                <a href="#/forms/validation">
-                                                    Validation Forms
-                                                </a>
-                                            </li>
-                                            <li routerlinkactive="active">
-                                                <a href="#/forms/wizard">
-                                                    Wizard
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li routerlinkactive="active">
-                                    <a href="#/forms/extended">
-                                        Extended Forms
-                                    </a>
-                                </li>
-                                <li routerlinkactive="active">
-                                    <a href="#/forms/validation">
-                                        Validation Forms
-                                    </a>
-                                </li>
-                                <li routerlinkactive="active">
-                                    <a href="#/forms/wizard">
-                                        Wizard
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-                @endif
                 @if(isset($list_distribusi))
 
                 @if(Auth::user()->tipe_organisasi==2)
