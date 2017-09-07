@@ -160,7 +160,7 @@ class AreaController extends Controller
             $inputGardu->nama_gardu = $request->tambahnamagardu;
             $inputGardu->alamat_gardu = $request->tambahalamatgardu;
             $inputGardu->data_master="";
-            $inputGardu->tipe_gardu=$request->optionsRadios;
+            $inputGardu->tipe_gardu=$request->tipe_;
 
             if($inputGardu->save());
             return back();

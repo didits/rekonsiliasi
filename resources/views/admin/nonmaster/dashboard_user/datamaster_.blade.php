@@ -43,6 +43,22 @@
                                         </a>
                                     </li>
                                     @if($gardu)
+                                    @elseif($penyulang)
+                                    <li class="">
+                                        <a href="#home-logo" role="tab" data-toggle="tab" aria-expanded="false">
+                                            <i class="fa fa-home"></i><br>List GD
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#code-fork-logo" role="tab" data-toggle="tab" aria-expanded="false">
+                                            <i class="fa fa-code-fork"></i><br>List PCT
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#industry-logo" role="tab" data-toggle="tab" aria-expanded="false">
+                                            <i class="fa fa-industry"></i><br>List Pelanggan TM
+                                        </a>
+                                    </li>
                                     @else
                                     <li class="">
                                         <a href="#legal-logo" role="tab" data-toggle="tab" aria-expanded="false">
@@ -71,6 +87,8 @@
                                                             <h4 class="title">GARDU INDUK {{$gi->nama_gi}}</h4>
                                                         @elseif($trafo_gi)
                                                             <h4 class="title">TRAFO GI {{$trafo_gi->nama_trafo_gi}}</h4>
+                                                        @elseif($penyulang)
+                                                            <h4 class="title">PENYULANG {{$penyulang->nama_penyulang}}</h4>
                                                         @endif
                                                         {{--<p class="category">Data KWH Meter</p>--}}
                                                     </div>
@@ -961,6 +979,416 @@
                                     @endif
                                 </div>
 {{--DISINI PUNYA FORM.BLADE--}}
+                                @if($penyulang)
+                                <div class="tab-pane" id="home-logo">
+                                    <div class="content" id="trafoheader">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+                                                    <div class="header">
+                                                        <h4 class="title">PENYULANG {{$penyulang->nama_penyulang}}</h4>
+                                                    </div>
+                                                    <div class="content">
+                                                        <form action="{{route('input_datamaster.store')}}" method="post">
+                                                            <input type="hidden" name="_method" value="POST">
+                                                            {{ csrf_field() }}
+
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label>Area</label>
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Area" value="{{Auth::user()->nama_organisasi}}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label>Rayon</label>
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$rayon->nama_organisasi}}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label>Alamat</label>
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Alamat" value="">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="clearfix"></div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="content" id="tabelpenyulang-">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+                                                    <div class="header">
+                                                        <h4 class="title">PENYULANG {{$penyulang->nama_penyulang}}</h4>
+                                                        <p class="category">Daftar GD</p>
+                                                    </div>
+                                                    <div class="content table-responsive table-full-width">
+                                                        <table class="table">
+                                                            <thead>
+                                                            <tr>
+                                                                <th class="text-center">#</th>
+                                                                <th>Nama</th>
+                                                                <th>Rayon</th>
+                                                                <th class="text-right">Tindakan</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <div class="{{$list = 0}}" style="display: none"></div>
+                                                            @foreach($data as $key)
+                                                            @if($key->tipe_gardu == 0)
+
+                                                                <tr>
+                                                                    <td class="text-center">{{$list+1}}</td>
+                                                                    <td>{{$key->nama_gardu}}</td>
+                                                                    <td>{{$rayon->nama_organisasi}}</td>
+                                                                    <td class="td-actions text-right">
+                                                                        <a href="{{url('/area/list_datamaster_gardu/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                            <i class="fa fa-user"></i>
+                                                                        </a>
+                                                                        <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile"
+                                                                           onclick="edit_datamaster.showSwal('gd', {{$key->id}},'{{$key->nama_gardu}}','{{$key->alamat_gardu}}')">
+                                                                            <i class="fa fa-edit"></i>
+                                                                        </a>
+                                                                        <a href="#" rel="tooltip" title="" class="btn btn-danger btn-fill " data-original-title="Remove"
+                                                                           onclick="hapus_datamaster.showSwal('gd', {{$id_org}}, {{$key->id}},'{{$key->nama_gardu}}')">
+                                                                            <i class="fa fa-times"></i>
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
+                                                            @endforeach
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="content" id="tambahpenyulang-">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+                                                    <form action="{{route('input_datamaster.store')}}" method="post">
+                                                        <input type="hidden" name="_method" value="POST">
+                                                        <input type="hidden" name="GD" value="{{$id_penyulang}}">
+                                                        <input type="hidden" name="idpenyulang" value={{$penyulang->id}}>
+                                                        <input type="hidden" name="idrayon" value={{$rayon->id_organisasi}}>
+                                                        <input type="hidden" name="id_org" value={{$id_org}}>
+                                                        <input type="hidden" name="tipe_" value=0>
+                                                        {{ csrf_field() }}
+                                                        <div class="header">Tambah Gardu Distribusi</div>
+                                                        <div class="content">
+
+
+                                                            <div class="form-group">
+                                                                <label class="control-label">Nama Gardu Distribusi <star>*</star></label>
+                                                                <input class="form-control" name="tambahnamagardu" type="text" required="required" aria-required="true">
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label class="control-label">Alamat Gardu Distribusi <star>*</star></label>
+                                                                <input class="form-control" name="tambahalamatgardu" type="text" required="required" aria-required="true">
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label class="control-label">Rayon <star>*</star></label>
+                                                                <input class="form-control" name="tambahnamarayon" type="text" disabled="" value="{{$rayon->nama_organisasi}}" required="required" aria-required="true">
+                                                            </div>
+
+                                                            <div class="category"><star>*</star> Required fields</div>
+                                                        </div>
+
+                                                        <div class="footer">
+                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Register</button>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="code-fork-logo">
+                                    <div class="content" id="trafoheader">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+                                                    <div class="header">
+                                                        <h4 class="title">PENYULANG {{$penyulang->nama_penyulang}}</h4>
+                                                    </div>
+                                                    <div class="content">
+                                                        <form action="{{route('input_datamaster.store')}}" method="post">
+                                                            <input type="hidden" name="_method" value="POST">
+                                                            {{ csrf_field() }}
+
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label>Area</label>
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Area" value="{{Auth::user()->nama_organisasi}}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label>Rayon</label>
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$rayon->nama_organisasi}}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label>Alamat</label>
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Alamat" value="">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="clearfix"></div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="content" id="tabelpenyulang-">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+                                                    <div class="header">
+                                                        <h4 class="title">PENYULANG {{$penyulang->nama_penyulang}}</h4>
+                                                        <p class="category">Daftar PCT</p>
+                                                    </div>
+                                                    <div class="content table-responsive table-full-width">
+                                                        <table class="table">
+                                                            <thead>
+                                                            <tr>
+                                                                <th class="text-center">#</th>
+                                                                <th>Nama</th>
+                                                                <th>Rayon</th>
+                                                                <th class="text-right">Tindakan</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <div class="{{$list = 0}}" style="display: none"></div>
+                                                            @foreach($data as $key)
+                                                            @if($key->tipe_gardu == 1)
+
+                                                                <tr>
+                                                                    <td class="text-center">{{$list+1}}</td>
+                                                                    <td>{{$key->nama_gardu}}</td>
+                                                                    <td>{{$rayon->nama_organisasi}}</td>
+                                                                    <td class="td-actions text-right">
+                                                                        <a href="{{url('/area/list_datamaster_gardu/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                            <i class="fa fa-user"></i>
+                                                                        </a>
+                                                                        <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile"
+                                                                           onclick="edit_datamaster.showSwal('pct', {{$key->id}},'{{$key->nama_gardu}}','{{$key->alamat_gardu}}')">
+                                                                            <i class="fa fa-edit"></i>
+                                                                        </a>
+                                                                        <a href="#" rel="tooltip" title="" class="btn btn-danger btn-fill " data-original-title="Remove"
+                                                                           onclick="hapus_datamaster.showSwal('pct', {{$id_org}}, {{$key->id}},'{{$key->nama_gardu}}')">
+                                                                            <i class="fa fa-times"></i>
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
+                                                            @endforeach
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="content" id="tambahpenyulang-">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+                                                    <form action="{{route('input_datamaster.store')}}" method="post">
+                                                        <input type="hidden" name="_method" value="POST">
+                                                        <input type="hidden" name="GD" value="{{$id_penyulang}}">
+                                                        <input type="hidden" name="idpenyulang" value={{$penyulang->id}}>
+                                                        <input type="hidden" name="idrayon" value={{$rayon->id_organisasi}}>
+                                                        <input type="hidden" name="id_org" value={{$id_org}}>
+                                                        <input type="hidden" name="tipe_" value=1>
+                                                        {{ csrf_field() }}
+                                                        <div class="header">Tambah PCT</div>
+                                                        <div class="content">
+
+
+                                                            <div class="form-group">
+                                                                <label class="control-label">Nama PCT <star>*</star></label>
+                                                                <input class="form-control" name="tambahnamagardu" type="text" required="required" aria-required="true">
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label class="control-label">Alamat PCT <star>*</star></label>
+                                                                <input class="form-control" name="tambahalamatgardu" type="text" required="required" aria-required="true">
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label class="control-label">Rayon <star>*</star></label>
+                                                                <input class="form-control" name="tambahnamarayon" type="text" disabled="" value="{{$rayon->nama_organisasi}}" required="required" aria-required="true">
+                                                            </div>
+
+                                                            <div class="category"><star>*</star> Required fields</div>
+                                                        </div>
+
+                                                        <div class="footer">
+                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Register</button>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="industry-logo">
+                                    <div class="content" id="trafoheader">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+                                                    <div class="header">
+                                                        <h4 class="title">PENYULANG {{$penyulang->nama_penyulang}}</h4>
+                                                    </div>
+                                                    <div class="content">
+                                                        <form action="{{route('input_datamaster.store')}}" method="post">
+                                                            <input type="hidden" name="_method" value="POST">
+                                                            {{ csrf_field() }}
+
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label>Area</label>
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Area" value="{{Auth::user()->nama_organisasi}}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label>Rayon</label>
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$rayon->nama_organisasi}}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label>Alamat</label>
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Alamat" value="">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="clearfix"></div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="content" id="tabelpenyulang-">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+                                                    <div class="header">
+                                                        <h4 class="title">PENYULANG {{$penyulang->nama_penyulang}}</h4>
+                                                        <p class="category">Daftar Pelanggan TM</p>
+                                                    </div>
+                                                    <div class="content table-responsive table-full-width">
+                                                        <table class="table">
+                                                            <thead>
+                                                            <tr>
+                                                                <th class="text-center">#</th>
+                                                                <th>Nama</th>
+                                                                <th>Rayon</th>
+                                                                <th class="text-right">Tindakan</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <div class="{{$list = 0}}" style="display: none"></div>
+                                                            @foreach($data as $key)
+                                                            @if($key->tipe_gardu == 2)
+
+                                                                <tr>
+                                                                    <td class="text-center">{{$list+1}}</td>
+                                                                    <td>{{$key->nama_gardu}}</td>
+                                                                    <td>{{$rayon->nama_organisasi}}</td>
+                                                                    <td class="td-actions text-right">
+                                                                        <a href="{{url('/area/list_datamaster_gardu/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                            <i class="fa fa-user"></i>
+                                                                        </a>
+                                                                        <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile"
+                                                                           onclick="edit_datamaster.showSwal('p_tm', {{$key->id}},'{{$key->nama_gardu}}','{{$key->alamat_gardu}}')">
+                                                                            <i class="fa fa-edit"></i>
+                                                                        </a>
+                                                                        <a href="#" rel="tooltip" title="" class="btn btn-danger btn-fill " data-original-title="Remove"
+                                                                           onclick="hapus_datamaster.showSwal('p_tm', {{$id_org}}, {{$key->id}},'{{$key->nama_gardu}}')">
+                                                                            <i class="fa fa-times"></i>
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
+                                                            @endforeach
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="content" id="tambahpenyulang-">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+                                                    <form action="{{route('input_datamaster.store')}}" method="post">
+                                                        <input type="hidden" name="_method" value="POST">
+                                                        <input type="hidden" name="GD" value="{{$id_penyulang}}">
+                                                        <input type="hidden" name="idpenyulang" value={{$penyulang->id}}>
+                                                        <input type="hidden" name="idrayon" value={{$rayon->id_organisasi}}>
+                                                        <input type="hidden" name="id_org" value={{$id_org}}>
+                                                        <input type="hidden" name="tipe_" value=2>
+                                                        {{ csrf_field() }}
+                                                        <div class="header">Tambah Pelanggan TM</div>
+                                                        <div class="content">
+
+
+                                                            <div class="form-group">
+                                                                <label class="control-label">Nama Pelanggan TM <star>*</star></label>
+                                                                <input class="form-control" name="tambahnamagardu" type="text" required="required" aria-required="true">
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label class="control-label">Alamat Pelanggan TM <star>*</star></label>
+                                                                <input class="form-control" name="tambahalamatgardu" type="text" required="required" aria-required="true">
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label class="control-label">Rayon <star>*</star></label>
+                                                                <input class="form-control" name="tambahnamarayon" type="text" disabled="" value="{{$rayon->nama_organisasi}}" required="required" aria-required="true">
+                                                            </div>
+
+                                                            <div class="category"><star>*</star> Required fields</div>
+                                                        </div>
+
+                                                        <div class="footer">
+                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Register</button>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @else
                                 <div class="tab-pane" id="legal-logo">
                                     <div class="content" id="trafoheader">
                                         <div class="row">
@@ -1294,6 +1722,9 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                @endif
+
                             </div> <!-- end tab content -->
 
                         </div> <!-- end col-md-8 -->
