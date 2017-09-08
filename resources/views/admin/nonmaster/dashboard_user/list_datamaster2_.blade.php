@@ -15,7 +15,7 @@
             @elseif($tipe=="penyulang")
                 @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER PENYULANG: " . $data[0]->nama_penyulang])
             @elseif($tipe=="gd")
-                @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER GARDU: " . $data[0]->nama_gardu])
+                @include('admin.master.top_navbar',  ['navbartitle' => "DATAMASTER GARDU: " . $data[0]->nama_gardu])
             @endif
 
             <div class="content">
