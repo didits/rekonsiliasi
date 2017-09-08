@@ -20,7 +20,7 @@
                                         <thead>
                                         <th>RAYON</th>
                                         <th>ALAMAT RAYON</th>
-                                        <th>SINGLE LINE</th>
+                                        <th></th>
                                         </thead>
                                         <tbody>
                                         @foreach($data as $list)

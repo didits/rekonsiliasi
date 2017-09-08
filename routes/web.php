@@ -276,6 +276,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
         'uses'      => 'AreaController@list_master_gi'
     ]);
 
+    Route::get('/laporan_master_list/{id_organisasi}/{tipe}/{id}', [
+        'as'        => 'area.list_master',
+        'uses'      => 'AreaController@list_master'
+    ]);
+
     Route::get('/view_datamaster/{id_organisasi}/{unit}/{id_unit}', [
         'as'        => 'area.view_datamaster',
         'uses'      => 'AreaController@view_datamaster'

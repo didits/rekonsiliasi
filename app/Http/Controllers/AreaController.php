@@ -802,12 +802,26 @@ class AreaController extends Controller
     }
 
     public function list_master_gi($id_rayon){
+
         $master_gi = new masterGI($id_rayon);
-        return view('admin.nonmaster.dashboard_user.list_datamaster_',[
+        return view('admin.nonmaster.dashboard_user.list_datamaster2_',[
             'data' =>$master_gi->data,
             'data2' =>$master_gi->data2,
+            'tipe' => "gi",
             'id_organisasi'=>$master_gi->id_rayon,
             'nama_rayon' =>$master_gi->nama_rayon,
+            'laporan' => true
+        ]);
+    }
+
+    public function list_master($id_rayon,$tipe,$id){
+        $master = new master($id_rayon,$tipe,$id);
+        return view('admin.nonmaster.dashboard_user.list_datamaster2_',[
+            'data' =>$master->data,
+            'data2' =>$master->data2,
+            'tipe' => $master->tipe,
+            'id_organisasi'=>$master->id_rayon,
+            'nama_rayon' =>$master->nama_rayon,
             'laporan' => true
         ]);
     }
@@ -903,7 +917,7 @@ class AreaController extends Controller
             ->whereNotIn('id',$transfer)
             ->where('id_trafo_gi',$id_trafo_gi)
             ->get();
-//        dd($data);
+//        dd($trafo_gi);
         $decoded = json_decode($trafo_gi->data_master, true);
         return view('admin.nonmaster.dashboard_user.datamaster_',[
             'data' =>$data,
@@ -1159,7 +1173,38 @@ class AreaController extends Controller
     }
 }
 
-class masterGI
+class master
+{
+    public function __construct($id_rayon,$tipe,$id)
+    {
+        $this->id_rayon = $id_rayon;
+        $rayon = Organisasi::where('id_organisasi', $id_rayon)->get();
+        $this->nama_rayon = $rayon[0]->nama_organisasi;
+        $id_org = $rayon[0]->id;
+        if($tipe=="tgi"){
+            $this->data = TrafoGI::where('id_gi', $id)->get();
+        }
+        elseif($tipe=="penyulang"){
+            $transfer = Transfer::where('id_trafo_gi',$id)->pluck('id_penyulang');
+            $data = Penyulang::select('id','nama_penyulang','alamat_penyulang','data_master')
+                ->whereNotIn('id',$transfer)
+                ->where('id_trafo_gi',$id)
+                ->get();
+
+            $this->data =$data;
+        }
+        elseif($tipe=="gd"){
+            $this->data = Gardu::where('id_penyulang', $id)->get();
+        }
+        $id_ryn = Organisasi::where('id_organisasi', $id_rayon)->first();
+        $this->data2 = Transfer::select('transfer.id_organisasi','transfer.id_gi', 'gi.nama_gi', 'gi.alamat_gi')
+            ->join('GI','GI.id','=','transfer.id_gi')->distinct('transfer.id_gi')
+            ->where('transfer.id_organisasi', $id_ryn->id)->get();
+        $this->tipe = $tipe;
+
+    }
+
+}class masterGI
 {
     public function __construct($id_rayon)
     {

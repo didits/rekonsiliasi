@@ -22,9 +22,9 @@
                                 <div class="content table-responsive table-full-width">
                                     <table class="table table-hover table-striped">
                                         <thead>
-                                            <th>Nama Gardu Induk</th>
-                                            <th>Alamat Gardu Induk</th>
-                                            <th></th>
+                                        <th>Nama Gardu Induk</th>
+                                        <th>Alamat Gardu Induk</th>
+                                        <th></th>
                                         </thead>
                                         <tbody>
                                         @foreach($data as $list)
@@ -32,39 +32,25 @@
                                             <tr>
                                                 <td>
                                                     {{--<a href="{{url('/area/list_datamaster_trafo/'.$id_organisasi.'/'.$list->id)}}"> {{$list->nama_gi}} </a>--}}
-                                                     {{$list->nama_gi}}
+                                                    {{$list->nama_gi}}
                                                 </td>
                                                 <td> {{$list->alamat_gi}} </td>
-                                                @if($laporan)
-
                                                 <td class="td-actions text-right">
-                                                        <a href="{{route('area.view_datamaster', [$id_organisasi, 'gi', $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
-                                                            <i class="fa fa-info"></i>
-                                                        </a>
-                                                        <a href="{{url('/area/list_datamaster_list_trafo_gi/'.$id_organisasi.'/'.$list->id)}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List Trafo GI">
-                                                            <i class="fa fa-th-list"></i>
-                                                        </a>
-                                                    </td>
-                                                @else
-
-                                                <td class="td-actions text-right">
-                                                        <a href="{{url('/area/list_datamaster_gi/'.$id_organisasi.'/'.$list->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
-                                                            <i class="fa fa-user"></i>
-                                                        </a>
-                                                        <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile"
-                                                           onclick="edit_datamaster.showSwal('gi', {{$list->id}},'{{$list->nama_gi}}','{{$list->alamat_gi}}')">
-                                                            <i class="fa fa-edit"></i>
-                                                        </a>
-                                                        <a href="#" rel="tooltip" title="" class="btn btn-danger btn-fill " data-original-title="Remove"
-                                                           onclick="hapus_datamaster.showSwal('gi', {{$id_organisasi}}, {{$list->id}},'{{$list->nama_gi}}')">
-                                                            <i class="fa fa-times"></i>
-                                                        </a>
-                                                    </td>
-
-                                                @endif
+                                                    <a href="{{url('/area/list_datamaster_gi/'.$id_organisasi.'/'.$list->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                        <i class="fa fa-user"></i>
+                                                    </a>
+                                                    <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile"
+                                                       onclick="edit_datamaster.showSwal('gi', {{$list->id}},'{{$list->nama_gi}}','{{$list->alamat_gi}}')">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                    <a href="#" rel="tooltip" title="" class="btn btn-danger btn-fill " data-original-title="Remove"
+                                                       onclick="hapus_datamaster.showSwal('gi', {{$id_organisasi}}, {{$list->id}},'{{$list->nama_gi}}')">
+                                                        <i class="fa fa-times"></i>
+                                                    </a>
+                                                </td>
                                                 {{--<td>--}}
-                                                    {{--<a class="btn btn-info btn-fill pull-right" href="{{url('/area/list_datamaster_list_trafo_gi/'.$id_organisasi.'/'.$list->id)}}">Lihat Datamaster</a></td>--}}
-                                                    {{--<a href="{{url('/area/list_datamaster_gi/'.$id_organisasi.'/'.$list->id)}}" class="btn btn-info btn-fill pull-right" >Lihat Datamaster</a>--}}
+                                                {{--<a class="btn btn-info btn-fill pull-right" href="{{url('/area/list_datamaster_list_trafo_gi/'.$id_organisasi.'/'.$list->id)}}">Lihat Datamaster</a></td>--}}
+                                                {{--<a href="{{url('/area/list_datamaster_gi/'.$id_organisasi.'/'.$list->id)}}" class="btn btn-info btn-fill pull-right" >Lihat Datamaster</a>--}}
                                                 {{--</td>--}}
                                             </tr>
                                         @endforeach
@@ -77,7 +63,6 @@
                     </div>
 
                     {{--Transfer--}}
-                    @if(!$laporan)
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
@@ -88,9 +73,9 @@
                                 <div class="content table-responsive table-full-width">
                                     <table class="table table-hover table-striped">
                                         <thead>
-                                            <th>Nama Gardu Induk</th>
-                                            <th>Alamat Gardu Induk</th>
-                                            <th></th>
+                                        <th>Nama Gardu Induk</th>
+                                        <th>Alamat Gardu Induk</th>
+                                        <th></th>
                                         </thead>
                                         <tbody>
                                         @foreach($data2 as $list)
@@ -106,8 +91,8 @@
                                                     </a>
                                                 </td>
                                                 {{--<td>--}}
-                                                    {{--<a href="{{url('/area/list_datamaster_list_trafo_gi_transfer/'.$list->id_organisasi.'/'.$list->id_gi)}}">Lihat--}}
-                                                        {{--List Trafo Gardu</a>--}}
+                                                {{--<a href="{{url('/area/list_datamaster_list_trafo_gi_transfer/'.$list->id_organisasi.'/'.$list->id_gi)}}">Lihat--}}
+                                                {{--List Trafo Gardu</a>--}}
                                                 {{--</td>--}}
                                             </tr>
                                         @endforeach
@@ -167,8 +152,6 @@
                             </div>
                         </div>
                     </div>
-                    @endif
-
                 </div>
             </div>
 
