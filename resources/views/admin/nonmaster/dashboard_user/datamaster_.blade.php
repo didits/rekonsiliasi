@@ -27,13 +27,12 @@
                             {{--<br>--}}
                             <div class="nav-container">
                                 <ul class="nav nav-icons" role="tablist">
-
+                                    @if($gi)
+                                    @else
                                     <li class="active">
                                         <a href="#description-logo" role="tab" data-toggle="tab" aria-expanded="true">
                                             <i class="fa fa-info-circle"></i><br>
-                                            @if($gi)
-                                                Gardu Induk {{$gi->nama_gi}}
-                                            @elseif($trafo_gi)
+                                            @if($trafo_gi)
                                                 Trafo GI {{$trafo_gi->nama_trafo_gi}}
                                             @elseif($penyulang)
                                                 Penyulang {{$penyulang->nama_penyulang}}
@@ -42,6 +41,7 @@
                                             @endif
                                         </a>
                                     </li>
+                                    @endif
                                     @if($gardu)
                                     @elseif($penyulang)
                                     <li class="">
@@ -77,6 +77,8 @@
                             </div>
 
                             <div class="tab-content">
+                                @if($gi)
+                                @else
                                 <div class="tab-pane active" id="description-logo">
                                     <div class="content" id="trafoheader">
                                         <div class="row">
@@ -750,6 +752,7 @@
                                         </div> <!-- end col-md-8 -->
 
                                     </div>
+                                    @elseif($gi)
                                     @else
                                     <div class="row">
                                         <div class="col-md-12">
@@ -978,6 +981,7 @@
                                     </div>
                                     @endif
                                 </div>
+                                @endif
 {{--DISINI PUNYA FORM.BLADE--}}
                                 @if($penyulang)
                                 <div class="tab-pane" id="home-logo">
@@ -1493,17 +1497,17 @@
                                     </div>
                                 </div>
 
-                                @else
-                                <div class="tab-pane" id="legal-logo">
+                                @elseif($gi)
+                                <div class="tab-pane active" id="legal-logo">
                                     <div class="content" id="trafoheader">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="card">
                                                     <div class="header">
                                                         @if($id_gi)
-                                                        <h4 class="title">GARDU INDUK {{$gi->nama_gi}}</h4>
+                                                            <h4 class="title">GARDU INDUK {{$gi->nama_gi}}</h4>
                                                         @elseif($id_trafo_gi)
-                                                        <h4 class="title">TRAFO GI {{$trafo_gi->nama_trafo_gi}}</h4>
+                                                            <h4 class="title">TRAFO GI {{$trafo_gi->nama_trafo_gi}}</h4>
                                                         @endif    {{--<p class="category">Data KWH Meter</p>--}}
                                                     </div>
                                                     <div class="content">
@@ -1572,13 +1576,13 @@
                                                                     <td class="text-center">{{$list+1}}</td>
                                                                     @if($id_gi)
 
-                                                                    <td>{{$key->nama_trafo_gi}}</td>
+                                                                        <td>{{$key->nama_trafo_gi}}</td>
                                                                     @elseif($id_trafo_gi)
 
-                                                                    <td>{{$key->nama_penyulang}}</td>
+                                                                        <td>{{$key->nama_penyulang}}</td>
                                                                     @elseif($id_penyulang)
 
-                                                                    <td>{{$key->nama_gardu}}</td>
+                                                                        <td>{{$key->nama_gardu}}</td>
                                                                     @endif
 
                                                                     <td>{{$rayon->nama_organisasi}}</td>
@@ -1589,38 +1593,38 @@
                                                                             </a>
                                                                         @elseif($id_trafo_gi)
 
-                                                                        <a href="{{url('/area/list_datamaster_penyulang/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
-                                                                            <i class="fa fa-user"></i>
-                                                                        </a>
+                                                                            <a href="{{url('/area/list_datamaster_penyulang/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                                <i class="fa fa-user"></i>
+                                                                            </a>
                                                                         @elseif($id_penyulang)
 
-                                                                        <a href="{{url('/area/list_datamaster_gardu/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
-                                                                            <i class="fa fa-user"></i>
-                                                                        </a>
+                                                                            <a href="{{url('/area/list_datamaster_gardu/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                                <i class="fa fa-user"></i>
+                                                                            </a>
                                                                         @endif
-{{--                                                                        {{dd($key)}}--}}
+                                                                        {{--                                                                        {{dd($key)}}--}}
 
                                                                         <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile"
-                                                                            @if($id_gi)
-                                                                            onclick="edit_datamaster.showSwal('trafo_gi', {{$key->id}},'{{$key->nama_trafo_gi}}','{{$key->alamat_trafo_gi}}')">
+                                                                           @if($id_gi)
+                                                                           onclick="edit_datamaster.showSwal('trafo_gi', {{$key->id}},'{{$key->nama_trafo_gi}}','{{$key->alamat_trafo_gi}}')">
                                                                             @elseif($id_trafo_gi)
-                                                                            onclick="edit_datamaster.showSwal('penyulang', {{$key->id}},'{{$key->nama_penyulang}}','{{$key->alamat_penyulang}}')">
+                                                                                onclick="edit_datamaster.showSwal('penyulang', {{$key->id}},'{{$key->nama_penyulang}}','{{$key->alamat_penyulang}}')">
                                                                             @elseif($id_penyulang)
-                                                                            onclick="edit_datamaster.showSwal('gardu', {{$key->id}},'{{$key->nama_gardu}}','{{$key->alamat_gardu}}')">
+                                                                                onclick="edit_datamaster.showSwal('gardu', {{$key->id}},'{{$key->nama_gardu}}','{{$key->alamat_gardu}}')">
                                                                             @endif
 
                                                                             <i class="fa fa-edit"></i>
                                                                         </a>
                                                                         {{--<a href="{{url('/area/delete/'.$id_org.'/'."GD".'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-danger btn-fill " data-original-title="Remove">--}}
-                                                                            {{--<i class="fa fa-times"></i>--}}
+                                                                        {{--<i class="fa fa-times"></i>--}}
                                                                         {{--</a>--}}
                                                                         <a href="#" rel="tooltip" title="" class="btn btn-danger btn-fill " data-original-title="Remove"
-                                                                            @if($id_gi)
-                                                                            onclick="hapus_datamaster.showSwal('trafo_gi', {{$id_org}}, {{$key->id}},'{{$key->nama_trafo_gi}}')">
+                                                                           @if($id_gi)
+                                                                           onclick="hapus_datamaster.showSwal('trafo_gi', {{$id_org}}, {{$key->id}},'{{$key->nama_trafo_gi}}')">
                                                                             @elseif($id_trafo_gi)
-                                                                            onclick="hapus_datamaster.showSwal('penyulang', {{$id_org}}, {{$key->id}},'{{$key->nama_penyulang}}')">
+                                                                                onclick="hapus_datamaster.showSwal('penyulang', {{$id_org}}, {{$key->id}},'{{$key->nama_penyulang}}')">
                                                                             @elseif($id_penyulang)
-                                                                            onclick="hapus_datamaster.showSwal('gd', {{$id_org}}, {{$key->id}},'{{$key->nama_gardu}}')">
+                                                                                onclick="hapus_datamaster.showSwal('gd', {{$id_org}}, {{$key->id}},'{{$key->nama_gardu}}')">
                                                                             @endif
 
                                                                             <i class="fa fa-times"></i>
@@ -1641,41 +1645,41 @@
                                             <div class="col-md-12">
                                                 <div class="card">
                                                     @if($id_gi)
-                                                    <form action="{{route('input_datamaster.store')}}" method="post">
-                                                        <input type="hidden" name="_method" value="POST">
-                                                        <input type="hidden" name="trafogi" value="{{$id_gi}}">
-                                                        <input type="hidden" name="idgardu" value={{$gi->id}}>
-                                                        <input type="hidden" name="idrayon" value={{$rayon->id_organisasi}}>
-                                                        <input type="hidden" name="id_org" value={{$id_org}}>
-                                                        {{ csrf_field() }}
-                                                        <div class="header">Tambah Trafo GI</div>
-                                                        <div class="content">
+                                                        <form action="{{route('input_datamaster.store')}}" method="post">
+                                                            <input type="hidden" name="_method" value="POST">
+                                                            <input type="hidden" name="trafogi" value="{{$id_gi}}">
+                                                            <input type="hidden" name="idgardu" value={{$gi->id}}>
+                                                            <input type="hidden" name="idrayon" value={{$rayon->id_organisasi}}>
+                                                            <input type="hidden" name="id_org" value={{$id_org}}>
+                                                            {{ csrf_field() }}
+                                                            <div class="header">Tambah Trafo GI</div>
+                                                            <div class="content">
 
 
-                                                            <div class="form-group">
-                                                                <label class="control-label">Nama Trafo GI <star>*</star></label>
-                                                                <input class="form-control" name="tambahnamatrafogi" type="text" required="required" aria-required="true">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Nama Trafo GI <star>*</star></label>
+                                                                    <input class="form-control" name="tambahnamatrafogi" type="text" required="required" aria-required="true">
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Alamat Trafo GI <star>*</star></label>
+                                                                    <input class="form-control" name="tambahalamattrafogi" type="text" required="required" aria-required="true">
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Rayon <star>*</star></label>
+                                                                    <input class="form-control" name="tambahnamarayon" type="text" disabled="" value="{{$rayon->nama_organisasi}}" required="required" aria-required="true">
+                                                                </div>
+                                                                <div class="category"><star>*</star> Required fields</div>
                                                             </div>
 
-                                                            <div class="form-group">
-                                                                <label class="control-label">Alamat Trafo GI <star>*</star></label>
-                                                                <input class="form-control" name="tambahalamattrafogi" type="text" required="required" aria-required="true">
+                                                            <div class="footer">
+                                                                <button type="submit" class="btn btn-info btn-fill pull-right">Register</button>
+                                                                <div class="clearfix"></div>
                                                             </div>
-
-                                                            <div class="form-group">
-                                                                <label class="control-label">Rayon <star>*</star></label>
-                                                                <input class="form-control" name="tambahnamarayon" type="text" disabled="" value="{{$rayon->nama_organisasi}}" required="required" aria-required="true">
-                                                            </div>
-                                                            <div class="category"><star>*</star> Required fields</div>
-                                                        </div>
-
-                                                        <div class="footer">
-                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Register</button>
-                                                            <div class="clearfix"></div>
-                                                        </div>
-                                                    </form>
+                                                        </form>
                                                     @elseif($id_trafo_gi)
-                                                    <form action="{{route('input_datamaster.store')}}" method="post">
+                                                        <form action="{{route('input_datamaster.store')}}" method="post">
                                                             <input type="hidden" name="_method" value="POST">
                                                             <input type="hidden" name="penyulang" value="{{$id_trafo_gi}}">
                                                             <input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>
@@ -1697,8 +1701,8 @@
                                                                 </div>
 
                                                                 {{--<div class="form-group">--}}
-                                                                    {{--<label class="control-label">Rayon <star>*</star></label>--}}
-                                                                    {{--<input class="form-control" name="tambahnamarayon" type="text" disabled="" value="{{$rayon->nama_organisasi}}" required="required" aria-required="true">--}}
+                                                                {{--<label class="control-label">Rayon <star>*</star></label>--}}
+                                                                {{--<input class="form-control" name="tambahnamarayon" type="text" disabled="" value="{{$rayon->nama_organisasi}}" required="required" aria-required="true">--}}
                                                                 {{--</div>--}}
 
                                                                 <div class="form-group">
@@ -1739,7 +1743,7 @@
                                                             </div>
                                                         </form>
                                                     @elseif($id_penyulang)
-                                                    <form action="{{route('input_datamaster.store')}}" method="post">
+                                                        <form action="{{route('input_datamaster.store')}}" method="post">
                                                             <input type="hidden" name="_method" value="POST">
                                                             <input type="hidden" name="GD" value="{{$id_penyulang}}">
                                                             <input type="hidden" name="idpenyulang" value={{$penyulang->id}}>
@@ -1768,20 +1772,20 @@
                                                                 <div class="form-group">
                                                                     <label class="control-label">Jenis Gardu <star>*</star></label>
                                                                     <label class="radio">
-                                                                    <span class="icons"><span class="first-icon fa fa-circle-o"></span>
-                                                                    <span class="second-icon fa fa-dot-circle-o"></span></span>
+                                                                <span class="icons"><span class="first-icon fa fa-circle-o"></span>
+                                                                <span class="second-icon fa fa-dot-circle-o"></span></span>
                                                                         <input type="radio" data-toggle="radio" name="optionsRadios" value="0" required>GD
                                                                     </label>
                                                                     <div class="clearfix"></div>
                                                                     <label class="radio">
-                                                                    <span class="icons"><span class="first-icon fa fa-circle-o"></span>
-                                                                    <span class="second-icon fa fa-dot-circle-o"></span></span>
+                                                                <span class="icons"><span class="first-icon fa fa-circle-o"></span>
+                                                                <span class="second-icon fa fa-dot-circle-o"></span></span>
                                                                         <input type="radio" data-toggle="radio" name="optionsRadios" value="1">PCT
                                                                     </label>
                                                                     <div class="clearfix"></div>
                                                                     <label class="radio">
-                                                                    <span class="icons"><span class="first-icon fa fa-circle-o"></span>
-                                                                    <span class="second-icon fa fa-dot-circle-o"></span></span>
+                                                                <span class="icons"><span class="first-icon fa fa-circle-o"></span>
+                                                                <span class="second-icon fa fa-dot-circle-o"></span></span>
                                                                         <input type="radio" data-toggle="radio" name="optionsRadios" value="2">Pelanggan TM
                                                                     </label>
 
@@ -1802,6 +1806,315 @@
                                         </div>
                                     </div>
                                 </div>
+                                @else
+                                <div class="tab-pane" id="legal-logo">
+                                        <div class="content" id="trafoheader">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="card">
+                                                        <div class="header">
+                                                            @if($id_gi)
+                                                                <h4 class="title">GARDU INDUK {{$gi->nama_gi}}</h4>
+                                                            @elseif($id_trafo_gi)
+                                                                <h4 class="title">TRAFO GI {{$trafo_gi->nama_trafo_gi}}</h4>
+                                                            @endif    {{--<p class="category">Data KWH Meter</p>--}}
+                                                        </div>
+                                                        <div class="content">
+                                                            <form action="{{route('input_datamaster.store')}}" method="post">
+                                                                <input type="hidden" name="_method" value="POST">
+                                                                {{ csrf_field() }}
+
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group">
+                                                                            <label>Area</label>
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Area" value="{{Auth::user()->nama_organisasi}}">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group">
+                                                                            <label>Rayon</label>
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$rayon->nama_organisasi}}">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group">
+                                                                            <label>Alamat</label>
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Alamat" value="">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="clearfix"></div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="content" id="tabelpenyulang-">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="card">
+                                                        <div class="header">
+                                                            @if($id_gi)
+                                                                <h4 class="title">GARDU INDUK {{$gi->nama_gi}}</h4>
+                                                                <p class="category">Daftar Trafo GI</p>
+                                                            @elseif($id_trafo_gi)
+                                                                <h4 class="title">TRAFO GI {{$trafo_gi->nama_trafo_gi}}</h4>
+                                                                <p class="category">Daftar Penyulang</p>
+                                                            @elseif($id_penyulang)
+                                                                {{--{{dd($penyulang)}}--}}
+                                                                <h4 class="title">PENYULANG {{$penyulang->nama_penyulang}}</h4>
+                                                                <p class="category">Daftar Gardu</p>
+                                                            @endif    {{--<p class="category">Data KWH Meter</p>--}}
+                                                        </div>
+                                                        <div class="content table-responsive table-full-width">
+                                                            <table class="table">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th class="text-center">#</th>
+                                                                    <th>Nama</th>
+                                                                    <th>Rayon</th>
+                                                                    <th class="text-right">Tindakan</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                @foreach($data as $list => $key)
+
+                                                                    <tr>
+                                                                        <td class="text-center">{{$list+1}}</td>
+                                                                        @if($id_gi)
+
+                                                                            <td>{{$key->nama_trafo_gi}}</td>
+                                                                        @elseif($id_trafo_gi)
+
+                                                                            <td>{{$key->nama_penyulang}}</td>
+                                                                        @elseif($id_penyulang)
+
+                                                                            <td>{{$key->nama_gardu}}</td>
+                                                                        @endif
+
+                                                                        <td>{{$rayon->nama_organisasi}}</td>
+                                                                        <td class="td-actions text-right">
+                                                                            @if($id_gi)
+                                                                                <a href="{{url('/area/list_datamaster_trafo_gi/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                                    <i class="fa fa-user"></i>
+                                                                                </a>
+                                                                            @elseif($id_trafo_gi)
+
+                                                                                <a href="{{url('/area/list_datamaster_penyulang/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                                    <i class="fa fa-user"></i>
+                                                                                </a>
+                                                                            @elseif($id_penyulang)
+
+                                                                                <a href="{{url('/area/list_datamaster_gardu/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                                    <i class="fa fa-user"></i>
+                                                                                </a>
+                                                                            @endif
+                                                                            {{--                                                                        {{dd($key)}}--}}
+
+                                                                            <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile"
+                                                                               @if($id_gi)
+                                                                               onclick="edit_datamaster.showSwal('trafo_gi', {{$key->id}},'{{$key->nama_trafo_gi}}','{{$key->alamat_trafo_gi}}')">
+                                                                                @elseif($id_trafo_gi)
+                                                                                    onclick="edit_datamaster.showSwal('penyulang', {{$key->id}},'{{$key->nama_penyulang}}','{{$key->alamat_penyulang}}')">
+                                                                                @elseif($id_penyulang)
+                                                                                    onclick="edit_datamaster.showSwal('gardu', {{$key->id}},'{{$key->nama_gardu}}','{{$key->alamat_gardu}}')">
+                                                                                @endif
+
+                                                                                <i class="fa fa-edit"></i>
+                                                                            </a>
+                                                                            {{--<a href="{{url('/area/delete/'.$id_org.'/'."GD".'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-danger btn-fill " data-original-title="Remove">--}}
+                                                                            {{--<i class="fa fa-times"></i>--}}
+                                                                            {{--</a>--}}
+                                                                            <a href="#" rel="tooltip" title="" class="btn btn-danger btn-fill " data-original-title="Remove"
+                                                                               @if($id_gi)
+                                                                               onclick="hapus_datamaster.showSwal('trafo_gi', {{$id_org}}, {{$key->id}},'{{$key->nama_trafo_gi}}')">
+                                                                                @elseif($id_trafo_gi)
+                                                                                    onclick="hapus_datamaster.showSwal('penyulang', {{$id_org}}, {{$key->id}},'{{$key->nama_penyulang}}')">
+                                                                                @elseif($id_penyulang)
+                                                                                    onclick="hapus_datamaster.showSwal('gd', {{$id_org}}, {{$key->id}},'{{$key->nama_gardu}}')">
+                                                                                @endif
+
+                                                                                <i class="fa fa-times"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="content" id="tambahpenyulang-">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="card">
+                                                        @if($id_gi)
+                                                            <form action="{{route('input_datamaster.store')}}" method="post">
+                                                                <input type="hidden" name="_method" value="POST">
+                                                                <input type="hidden" name="trafogi" value="{{$id_gi}}">
+                                                                <input type="hidden" name="idgardu" value={{$gi->id}}>
+                                                                <input type="hidden" name="idrayon" value={{$rayon->id_organisasi}}>
+                                                                <input type="hidden" name="id_org" value={{$id_org}}>
+                                                                {{ csrf_field() }}
+                                                                <div class="header">Tambah Trafo GI</div>
+                                                                <div class="content">
+
+
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Nama Trafo GI <star>*</star></label>
+                                                                        <input class="form-control" name="tambahnamatrafogi" type="text" required="required" aria-required="true">
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Alamat Trafo GI <star>*</star></label>
+                                                                        <input class="form-control" name="tambahalamattrafogi" type="text" required="required" aria-required="true">
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Rayon <star>*</star></label>
+                                                                        <input class="form-control" name="tambahnamarayon" type="text" disabled="" value="{{$rayon->nama_organisasi}}" required="required" aria-required="true">
+                                                                    </div>
+                                                                    <div class="category"><star>*</star> Required fields</div>
+                                                                </div>
+
+                                                                <div class="footer">
+                                                                    <button type="submit" class="btn btn-info btn-fill pull-right">Register</button>
+                                                                    <div class="clearfix"></div>
+                                                                </div>
+                                                            </form>
+                                                        @elseif($id_trafo_gi)
+                                                            <form action="{{route('input_datamaster.store')}}" method="post">
+                                                                <input type="hidden" name="_method" value="POST">
+                                                                <input type="hidden" name="penyulang" value="{{$id_trafo_gi}}">
+                                                                <input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>
+                                                                <input type="hidden" name="idrayon" value={{$rayon->id_organisasi}}>
+                                                                <input type="hidden" name="id_org" value={{$id_org}}>
+                                                                {{ csrf_field() }}
+                                                                <div class="header">Tambah Penyulang</div>
+                                                                <div class="content">
+
+
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Nama Penyulang <star>*</star></label>
+                                                                        <input class="form-control" name="tambahnamapenyulang" type="text" required="required" aria-required="true">
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Alamat Penyulang <star>*</star></label>
+                                                                        <input class="form-control" name="tambahalamatpenyulang" type="text" required="required" aria-required="true">
+                                                                    </div>
+
+                                                                    {{--<div class="form-group">--}}
+                                                                    {{--<label class="control-label">Rayon <star>*</star></label>--}}
+                                                                    {{--<input class="form-control" name="tambahnamarayon" type="text" disabled="" value="{{$rayon->nama_organisasi}}" required="required" aria-required="true">--}}
+                                                                    {{--</div>--}}
+
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Rayon <star>*</star></label>
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <div class="btn-group bootstrap-select">
+                                                                                    <div class="btn-group bootstrap-select">
+                                                                                        <select name="selectareasingle" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">
+                                                                                            <option class="bs-title-option" value="">Area</option>
+                                                                                            @foreach ($dropdown_area as $areas)
+
+                                                                                                <option value="{{ $areas->id_organisasi }}">{{ $areas->nama_organisasi }}</option>
+                                                                                            @endforeach
+
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="btn-group bootstrap-select">
+                                                                                    <div class="btn-group bootstrap-select">
+                                                                                        <select name="selectrayonsingle" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">
+                                                                                            <option class="bs-title-option" value="">Rayon</option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="category"><star>*</star> Required fields</div>
+                                                                </div>
+
+                                                                <div class="footer">
+                                                                    <button type="submit" class="btn btn-info btn-fill pull-right">Register</button>
+                                                                    <div class="clearfix"></div>
+                                                                </div>
+                                                            </form>
+                                                        @elseif($id_penyulang)
+                                                            <form action="{{route('input_datamaster.store')}}" method="post">
+                                                                <input type="hidden" name="_method" value="POST">
+                                                                <input type="hidden" name="GD" value="{{$id_penyulang}}">
+                                                                <input type="hidden" name="idpenyulang" value={{$penyulang->id}}>
+                                                                <input type="hidden" name="idrayon" value={{$rayon->id_organisasi}}>
+                                                                <input type="hidden" name="id_org" value={{$id_org}}>
+                                                                {{ csrf_field() }}
+                                                                <div class="header">Tambah Gardu</div>
+                                                                <div class="content">
+
+
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Nama Gardu <star>*</star></label>
+                                                                        <input class="form-control" name="tambahnamagardu" type="text" required="required" aria-required="true">
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Alamat Gardu <star>*</star></label>
+                                                                        <input class="form-control" name="tambahalamatgardu" type="text" required="required" aria-required="true">
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Rayon <star>*</star></label>
+                                                                        <input class="form-control" name="tambahnamarayon" type="text" disabled="" value="{{Auth::user()->nama_organisasi}}" required="required" aria-required="true">
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Jenis Gardu <star>*</star></label>
+                                                                        <label class="radio">
+                                                                    <span class="icons"><span class="first-icon fa fa-circle-o"></span>
+                                                                    <span class="second-icon fa fa-dot-circle-o"></span></span>
+                                                                            <input type="radio" data-toggle="radio" name="optionsRadios" value="0" required>GD
+                                                                        </label>
+                                                                        <div class="clearfix"></div>
+                                                                        <label class="radio">
+                                                                    <span class="icons"><span class="first-icon fa fa-circle-o"></span>
+                                                                    <span class="second-icon fa fa-dot-circle-o"></span></span>
+                                                                            <input type="radio" data-toggle="radio" name="optionsRadios" value="1">PCT
+                                                                        </label>
+                                                                        <div class="clearfix"></div>
+                                                                        <label class="radio">
+                                                                    <span class="icons"><span class="first-icon fa fa-circle-o"></span>
+                                                                    <span class="second-icon fa fa-dot-circle-o"></span></span>
+                                                                            <input type="radio" data-toggle="radio" name="optionsRadios" value="2">Pelanggan TM
+                                                                        </label>
+
+                                                                    </div>
+
+
+                                                                    <div class="category"><star>*</star> Required fields</div>
+                                                                </div>
+
+                                                                <div class="footer">
+                                                                    <button type="submit" class="btn btn-info btn-fill pull-right">Register</button>
+                                                                    <div class="clearfix"></div>
+                                                                </div>
+                                                            </form>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                 @endif
 

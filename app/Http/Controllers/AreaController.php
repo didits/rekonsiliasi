@@ -1157,14 +1157,32 @@ class AreaController extends Controller
     public function view_datamaster($id_organisasi, $unit, $id_unit)
     {
         $rayon = Organisasi::where('id_organisasi', $id_organisasi)->first();
-        $gardu = GI::where('id', $id_unit)->first();
-        $data = TrafoGI::where('id_gi', $id_unit)->get();
-        $decoded = json_decode($gardu->data_master, true);
+
+        if($unit=="gi"){
+            $master = GI::where('id', $id_unit)->first();
+            $data = TrafoGI::where('id_gi', $id_unit)->get();
+        }
+        elseif($unit=="tgi"){
+            $master = TrafoGI::where('id', $id_unit)->first();
+            $data = Penyulang::where('id_trafo_gi', $id_unit)->get();
+        }
+        elseif($unit=="penyulang"){
+            $master = Penyulang::where('id', $id_unit)->first();
+            $data = Gardu::where('id_penyulang', $id_unit)->get();
+        }
+        elseif($unit=="gd"){
+            $master = Gardu::where('id', $id_unit)->first();
+//            $data = Gardu::where('id_gi', $id_unit)->get();
+            $data="";
+        }
+//        dd($master);
+
+        $decoded = json_decode($master->data_master, true);
         return view("admin.nonmaster.dashboard_user.laporan_datamaster", [
             'unit' => $unit,
             'data' =>$data,
             'decoded' =>$decoded,
-            'master'=>$gardu,
+            'master'=>$master,
             'id_unit'=>$id_unit,
             'rayon'=>$rayon,
             'id_org'=>$id_organisasi,

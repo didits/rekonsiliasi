@@ -16,7 +16,7 @@
                                     @if($unit == "gi")
                                     <p class="category">Gardu Induk {{$master->nama_gi}}</p>
                                         
-                                    @elseif($unit == "t_gi")
+                                    @elseif($unit == "tgi")
                                         <p class="category">Trafo GI {{$master->nama_trafo_gi}}</p>
 
                                     @elseif($unit == "penyulang")

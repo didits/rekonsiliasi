@@ -91,6 +91,7 @@
                                                         {{--@elseif($list->id_gi)--}}
                                                         {{--<a href="{{url('/area/laporan_master_list/'.$id_org.'/'.$list->id)}}" class="btn btn-info btn-fill pull-right" >List GI</a>--}}
                                                         {{--@endif--}}
+                                                        {{--{{dd($tipe)}}--}}
                                                         <a href="{{route('area.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
                                                             <i class="fa fa-info"></i>
                                                         </a>
