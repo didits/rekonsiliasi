@@ -917,7 +917,7 @@ class AreaController extends Controller
             ->whereNotIn('id',$transfer)
             ->where('id_trafo_gi',$id_trafo_gi)
             ->get();
-//        dd($trafo_gi);
+//        dd($data);
         $decoded = json_decode($trafo_gi->data_master, true);
         return view('admin.nonmaster.dashboard_user.datamaster_',[
             'data' =>$data,
