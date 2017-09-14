@@ -223,7 +223,17 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
         'uses'      => 'AreaController@lihat_penyulang'
     ]);
 
-    Route::get('/list_datamaster_gardu/{id_organisasi}/{id_gardu}', [
+    Route::get('/list_datamaster_gd/{id_organisasi}/{id_gardu}', [
+        'as'        => 'area.lihat_gardu',
+        'uses'      => 'AreaController@lihat_gardu'
+    ]);
+
+    Route::get('/list_datamaster_pct/{id_organisasi}/{id_gardu}', [
+        'as'        => 'area.lihat_gardu',
+        'uses'      => 'AreaController@lihat_gardu'
+    ]);
+
+    Route::get('/list_datamaster_ptm/{id_organisasi}/{id_gardu}', [
         'as'        => 'area.lihat_gardu',
         'uses'      => 'AreaController@lihat_gardu'
     ]);

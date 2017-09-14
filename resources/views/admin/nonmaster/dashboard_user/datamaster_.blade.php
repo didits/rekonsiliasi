@@ -1729,7 +1729,7 @@
                                                                     <td>{{$key->nama_gardu}}</td>
                                                                     <td>{{$rayon->nama_organisasi}}</td>
                                                                     <td class="td-actions text-right">
-                                                                        <a href="{{url('/area/list_datamaster_gardu/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                        <a href="{{url('/area/list_datamaster_gd/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
                                                                             <i class="fa fa-user"></i>
                                                                         </a>
                                                                         <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile"
@@ -1865,7 +1865,7 @@
                                                                     <td>{{$key->nama_gardu}}</td>
                                                                     <td>{{$rayon->nama_organisasi}}</td>
                                                                     <td class="td-actions text-right">
-                                                                        <a href="{{url('/area/list_datamaster_gardu/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                        <a href="{{url('/area/list_datamaster_pct/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
                                                                             <i class="fa fa-user"></i>
                                                                         </a>
                                                                         <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile"
@@ -2064,7 +2064,7 @@
                                                                     <td>{{$key->nama_gardu}}</td>
                                                                     <td>{{$rayon->nama_organisasi}}</td>
                                                                     <td class="td-actions text-right">
-                                                                        <a href="{{url('/area/list_datamaster_gardu/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                        <a href="{{url('/area/list_datamaster_ptm/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
                                                                             <i class="fa fa-user"></i>
                                                                         </a>
                                                                         <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile"
