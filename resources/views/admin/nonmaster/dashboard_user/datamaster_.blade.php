@@ -1264,23 +1264,7 @@
                                                                 <label class="control-label">Tujuan EXIM <star>*</star></label>
                                                                 <div class="row">
                                                                     <div class="col-md-6">
-                                                                        <div class="btn-group bootstrap-select">
-                                                                            <div class="btn-group bootstrap-select">
-                                                                                <select name="selectTujuanExim" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">
-                                                                                    <option class="bs-title-option" value="">Pilih Tujuan EXIM</option>
-                                                                                    <option value="pct_penyulang">Penyulang</option>
-                                                                                    <option value="pct_gd">GD</option>
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                                <label class="control-label">Rayon <star>*</star></label>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
+                                                                        <label class="control-label">Area <star>*</star></label>
                                                                         <div class="btn-group bootstrap-select">
                                                                             <div class="btn-group bootstrap-select">
                                                                                 <select name="selectareasingle" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">
@@ -1295,6 +1279,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
+                                                                        <label class="control-label">Rayon <star>*</star></label>
                                                                         <div class="btn-group bootstrap-select">
                                                                             <div class="btn-group bootstrap-select">
                                                                                 <select name="selectrayonsingle" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">
@@ -1307,22 +1292,6 @@
                                                             </div>
 
                                                             <div class="form-group"  id="pct_selectPenyulang">
-                                                                <label class="control-label">Gardu Distribusi <star>*</star></label>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="btn-group bootstrap-select">
-                                                                            <div class="btn-group bootstrap-select">
-                                                                                <select name="selectpenyulangsingle" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">
-                                                                                    <option class="bs-title-option" value="">Penyulang</option>
-
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="form-group"  id="pct_selectGD">
                                                                 <label class="control-label">Penyulang <star>*</star></label>
                                                                 <div class="row">
                                                                     <div class="col-md-6">
@@ -1331,15 +1300,6 @@
                                                                                 <select name="selectpenyulangsingle" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">
                                                                                     <option class="bs-title-option" value="">Penyulang</option>
 
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="btn-group bootstrap-select">
-                                                                            <div class="btn-group bootstrap-select">
-                                                                                <select name="selectgdsingle" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">
-                                                                                    <option class="bs-title-option" value="">GD</option>
                                                                                 </select>
                                                                             </div>
                                                                         </div>
