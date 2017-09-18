@@ -54,10 +54,15 @@
                                                         <i class="fa fa-user"></i>
                                                     </a>
                                                     @elseif($nama_tgi)
-                                                    <a href="{{url('/area/list_datamaster_list_trafo_gi_transfer/'.$list->id_organisasi.'/'.$list->id_gi)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View List Trafo GI">
+                                                   {{--<a href="{{url('/area/list_datamaster_penyulang/'."t".$id_organisasi.'/'.$list->id)}}"> {{$list->nama_penyulang}} </a>--}}
+                                                        {{--<a href="{{url('/area/list_datamaster_list_penyulang_transfer/'.$list->id_organisasi.'/'.$list->id_trafo_gi)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View List Trafo GI">--}}
+                                                        {{--<i class="fa fa-user"></i>--}}
+                                                        {{--</a>--}}
+                                                    <a href="{{url('/area/list_datamaster_penyulang/'."t".$list->id_organisasi.'/'.$list->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View List Trafo GI">
                                                         <i class="fa fa-user"></i>
                                                     </a>
-                                                    <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile"
+
+                                                        <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile"
                                                        onclick="edit_datamaster.showSwal('gi', {{$list->id}},'{{$list->nama_gi}}','{{$list->alamat_gi}}')">
                                                         <i class="fa fa-edit"></i>
                                                     </a>

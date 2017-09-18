@@ -9,16 +9,17 @@
 
         <div class="main-panel">
             @if($tipe=="gi")
-                @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER GARDU INDUK: " . $data[0]->nama_gi])
+                @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER GARDU INDUK: " . $nama_rayon])
             @elseif($tipe=="tgi")
-                @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER TRAFO GI: " . $data[0]->nama_trafo_gi])
+                @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER TRAFO GI: " . $nama['nama_gi']])
             @elseif($tipe=="penyulang")
-                @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER PENYULANG: " . $data[0]->nama_penyulang])
+                @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER PENYULANG: " . $nama['nama_trafo_gi']])
             @elseif($tipe=="gd")
-                @include('admin.master.top_navbar',  ['navbartitle' => "DATAMASTER GARDU: " . $data[0]->nama_gardu])
+                @include('admin.master.top_navbar',  ['navbartitle' => "DATAMASTER GARDU: " . $nama['nama_penyulang']])
+                {{--{{dd($data)}}--}}
             @endif
 
-            <div class="content">
+                <div class="content">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
@@ -34,8 +35,8 @@
                                         <h4 class="title">Daftar Penyulang</h4>
                                         <p class="category">Daftar Penyulang {{$nama_rayon}} </p>
                                     @elseif($tipe=="gd")
-                                        <h4 class="title">Daftar Gardu</h4>
-                                        <p class="category">Daftar Gardu {{$nama_rayon}} </p>
+                                        <h4 class="title">Daftar Gardu/PCT/TM</h4>
+                                        <p class="category">Daftar/PCT/TM {{$nama_rayon}} </p>
                                     @endif
                                 </div>
                                 <div class="content table-responsive table-full-width">
@@ -51,12 +52,14 @@
                                             <th>Nama Penyulang</th>
                                             <th>Alamat Penyulang</th>
                                         @elseif($tipe=="gd")
-                                            <th>Nama Gardu</th>
-                                            <th>Alamat Gardu</th>
+                                            <th>Nama Gardu/PCT/TM</th>
+                                            <th>Jenis</th>
                                         @endif
                                         <th></th>
                                         </thead>
                                         <tbody>
+                                        @if($data==null)
+                                        @else
                                         @foreach($data as $list)
 
                                             <tr>
@@ -80,7 +83,10 @@
                                                     @elseif($tipe=="penyulang")
                                                         {{$list->alamat_penyulang}}
                                                     @elseif($tipe=="gd")
-                                                        {{$list->alamat_gardu}}
+                                                        @if($list->tipe_gardu==0)Gardu
+                                                        @elseif($list->tipe_gardu==1)PCT
+                                                        @elseif($list->tipe_gardu==2)TM
+                                                        @endif
                                                     @endif
                                                 </td>
                                                 @if($laporan)
@@ -142,7 +148,7 @@
                                                 {{--</td>--}}
                                             </tr>
                                         @endforeach
-
+                                        @endif
                                         </tbody>
                                     </table>
                                 </div>

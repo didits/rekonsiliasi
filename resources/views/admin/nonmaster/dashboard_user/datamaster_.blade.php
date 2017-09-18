@@ -129,13 +129,13 @@
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label>APP</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Area" value="{{Auth::user()->nama_organisasi}}">
+                                                                        <input type="text" class="form-control"  disabled="" placeholder="Area" value="{{Auth::user()->nama_organisasi}}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label>Kapasitas</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Rayon" value="Kapasitas (Kvarh)">
+                                                                        <input type="text" class="form-control"  disabled="" placeholder="Rayon" value="Kapasitas (Kvarh)">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -161,7 +161,7 @@
                                                                 <div class="content">
                                                                     <form action="{{route('input_datamaster.store')}}" method="post">
                                                                         <input type="hidden" name="_method" value="POST">
-                                                                        <input type="hidden" name="tipe" value="KWH">
+                                                                        <input type="hidden" name="tipe" value="GI">
                                                                         <input type="hidden" name="idgardu" value={{$gi->id}}>
                                                                         <input type="hidden" name="form_gi" value={{$gi->id}}>
                                                                         {{--{{dd($gardu)}}--}}
@@ -171,9 +171,9 @@
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label>APP</label>
-                                                                                    <select name="app" class="selectpicker" data-title="Isi APP sekarang" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                                                                                    <select name="APP" class="selectpicker" data-title="Isi APP sekarang" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
                                                                                         <option value="malang">Malang</option>
-                                                                                        <option value="probolinggi">Probolinggo</option>
+                                                                                        <option value="probolinggo">Probolinggo</option>
                                                                                     </select>
                                                                                 </div>
                                                                             </div>
@@ -183,7 +183,7 @@
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label>Kapasitas</label>
-                                                                                    <input type="number" name="kapasitas" class="form-control" placeholder="Merk" value="{{$decoded['KWH']['merk']}}">
+                                                                                    <input type="number" name="kapasitas" class="form-control" placeholder="Kapasitas" value="{{$decoded['kapasitas']}}">
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -895,7 +895,7 @@
                                                     <li>
                                                         <a href="#meter-ekspor" role="tab" data-toggle="tab">
                                                             <i class="fa fa-upload"></i><br>
-                                                            Meter Pembanding
+                                                            Meter Ekspor
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -2246,6 +2246,7 @@
                                                     <div class="content">
                                                         <form action="{{route('input_datamaster.store')}}" method="post">
                                                             <input type="hidden" name="_method" value="POST">
+                                                            <input type="hidden" name="tipe" value="GI">
                                                             {{ csrf_field() }}
 
                                                             <div class="row">

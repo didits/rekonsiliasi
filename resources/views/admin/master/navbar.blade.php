@@ -145,9 +145,9 @@
                                 <li @if(Request::is('area/list_datamaster_rayon/*', 'area/list_datamaster_gi/*', 'area/list_datamaster_trafo_gi/*', 'area/list_datamaster_penyulang/*', 'area/list_datamaster_gardu/*', 'area'))class="active"@endif>
                                     <a href="{{ url('/') }}">Entry Data Master</a>
                                 </li>
-                                <li @if(Request::is('area/tabel_master'))class="active"@endif>
-                                    <a href="{{route('area.tabel_master')}}">Laporan Data Master</a>
-                                </li>
+                                {{--<li @if(Request::is('area/tabel_master'))class="active"@endif>--}}
+                                    {{--<a href="{{route('area.tabel_master')}}">Laporan Data Master</a>--}}
+                                {{--</li>--}}
                                 <li @if(Request::is('area/laporan_master'))class="active"@endif>
                                     <a href="{{route('area.laporan_master')}}">Laporan Data Master</a>
                                 </li>
@@ -187,12 +187,12 @@
                         </div>
                     </li>
 
-                    <li @if(Request::is('area/profil'))class="active"@endif>
-                        <a href="{{route('area.profil')}}">
-                            <i class="pe-7s-id"></i>
-                            <p>Profile</p>
-                        </a>
-                    </li>
+                    {{--<li @if(Request::is('area/profil'))class="active"@endif>--}}
+                        {{--<a href="{{route('area.profil')}}">--}}
+                            {{--<i class="pe-7s-id"></i>--}}
+                            {{--<p>Profile</p>--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
                     @endif
                     @if(Auth::user()->tipe_organisasi==0)
 
