@@ -15,7 +15,13 @@
             @elseif($id_penyulang)
                 @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER PENYULANG: " . $penyulang->nama_penyulang])
             @elseif($id_gardu)
+                @if($gardu->tipe_gardu == 0)
                 @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER GARDU: " . $gardu->nama_gardu])
+                @elseif($gardu->tipe_gardu == 1)
+                @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER PCT: " . $gardu->nama_gardu])
+                @elseif($gardu->tipe_gardu == 2)
+                @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER PELANGGAN TM: " . $gardu->nama_gardu])
+                @endif
             @endif
             <div class="content">
                 <div class="container-fluid">
@@ -68,7 +74,7 @@
 
                                         <li class="">
                                             <a href="#legal-logo" role="tab" data-toggle="tab" aria-expanded="false">
-                                                <i class="fa fa-legal"></i><br>Lihat EXIM
+                                                <i class="fa fa-legal"></i><br>Edit PCT
                                             </a>
                                         </li>
                                         @endif
@@ -2028,83 +2034,14 @@
                                                         <div class="header">Tambah PCT</div>
                                                         <div class="content">
 
-                                                            <label class="control-label">Nama PCT <star>*</star></label>
                                                             <div class="form-group">
+                                                                <label class="control-label">Nama PCT <star>*</star></label>
                                                                 <input class="form-control" name="tambahnamagardu" type="text" required="required" aria-required="true">
                                                             </div>
 
-                                                            <label class="control-label">Alamat PCT <star>*</star></label>
                                                             <div class="form-group">
+                                                                <label class="control-label">Alamat PCT <star>*</star></label>
                                                                 <input class="form-control" name="tambahalamatgardu" type="text" required="required" aria-required="true">
-                                                            </div>
-
-                                                            <label class="control-label">EXIM <star>*</star></label>
-                                                            <div class="form-group">
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="btn-group bootstrap-select">
-                                                                            <div class="btn-group bootstrap-select">
-                                                                                <select name="selectExim" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">
-                                                                                    <option class="bs-title-option" value="">Pilih EXIM</option>
-                                                                                    <option value="pct_impor">Impor</option>
-                                                                                    <option value="pct_ekspor">Ekspor</option>
-
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <label class="control-label">Tujuan EXIM <star>*</star></label>
-                                                            <div class="form-group">
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label class="control-label">Area <star>*</star></label>
-                                                                            <div class="btn-group bootstrap-select">
-                                                                                <div class="btn-group bootstrap-select">
-                                                                                    <select name="selectareasingle" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">
-                                                                                        <option class="bs-title-option" value="">Area</option>
-                                                                                        @foreach ($dropdown_area as $areas)
-
-                                                                                            <option value="{{ $areas->id_organisasi }}">{{ $areas->nama_organisasi }}</option>
-                                                                                        @endforeach
-
-                                                                                    </select>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label class="control-label">Rayon <star>*</star></label>
-                                                                            <div class="btn-group bootstrap-select">
-                                                                                <div class="btn-group bootstrap-select">
-                                                                                    <select name="selectrayonsingle" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">
-                                                                                        <option class="bs-title-option" value="">Rayon</option>
-                                                                                    </select>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="form-group"  id="pct_selectPenyulang">
-                                                                <label class="control-label">Penyulang <star>*</star></label>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="btn-group bootstrap-select">
-                                                                            <div class="btn-group bootstrap-select">
-                                                                                <select name="selectpenyulangsingle" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">
-                                                                                    <option class="bs-title-option" value="">Penyulang</option>
-
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
                                                             </div>
 
                                                             <div class="category"><star>*</star> Required fields</div>
@@ -2610,57 +2547,57 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="content" id="tambahpenyulang-">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="card">
-                                                    <form action="{{route('input_datamaster.store')}}" method="post">
-                                                        <input type="hidden" name="_method" value="POST">
-                                                        <input type="hidden" name="GD" value="{{$id_gardu}}">
-                                                        <input type="hidden" name="idpenyulang" value={{$gardu->id_penyulang}}>
-                                                        <input type="hidden" name="idrayon" value={{$rayon->id_organisasi}}>
-                                                        <input type="hidden" name="id_org" value={{$id_org}}>
-                                                        <input type="hidden" name="tipe_" value=1>
-                                                        {{ csrf_field() }}
-                                                        <div class="header">Lihat EXIM</div>
-                                                        <div class="content">
+                                    {{--<div class="content" id="tambahpenyulang-">--}}
+                                        {{--<div class="row">--}}
+                                            {{--<div class="col-md-12">--}}
+                                                {{--<div class="card">--}}
+                                                    {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
+                                                        {{--<input type="hidden" name="_method" value="POST">--}}
+                                                        {{--<input type="hidden" name="GD" value="{{$id_gardu}}">--}}
+                                                        {{--<input type="hidden" name="idpenyulang" value={{$gardu->id_penyulang}}>--}}
+                                                        {{--<input type="hidden" name="idrayon" value={{$rayon->id_organisasi}}>--}}
+                                                        {{--<input type="hidden" name="id_org" value={{$id_org}}>--}}
+                                                        {{--<input type="hidden" name="tipe_" value=1>--}}
+                                                        {{--{{ csrf_field() }}--}}
+                                                        {{--<div class="header">Lihat EXIM</div>--}}
+                                                        {{--<div class="content">--}}
 
 
-                                                            <label class="control-label">Jenis EXIM <star>*</star></label>
-                                                            <div class="form-group">
-                                                                <input type="text" class="form-control" disabled="" placeholder="Rayon" value="Impor">
-                                                            </div>
+                                                            {{--<label class="control-label">Jenis EXIM <star>*</star></label>--}}
+                                                            {{--<div class="form-group">--}}
+                                                                {{--<input type="text" class="form-control" disabled="" placeholder="Rayon" value="Impor">--}}
+                                                            {{--</div>--}}
 
-                                                            <label>Tujuan EXIM</label>
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Area</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Area" value="{{Auth::user()->nama_organisasi}}">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Rayon</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$rayon->nama_organisasi}}">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                            {{--<label>Tujuan EXIM</label>--}}
+                                                            {{--<div class="row">--}}
+                                                                {{--<div class="col-md-6">--}}
+                                                                    {{--<div class="form-group">--}}
+                                                                        {{--<label>Area</label>--}}
+                                                                        {{--<input type="text" class="form-control" disabled="" placeholder="Area" value="{{Auth::user()->nama_organisasi}}">--}}
+                                                                    {{--</div>--}}
+                                                                {{--</div>--}}
+                                                                {{--<div class="col-md-6">--}}
+                                                                    {{--<div class="form-group">--}}
+                                                                        {{--<label>Rayon</label>--}}
+                                                                        {{--<input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$rayon->nama_organisasi}}">--}}
+                                                                    {{--</div>--}}
+                                                                {{--</div>--}}
+                                                            {{--</div>--}}
 
-                                                            <div class="form-group">
-                                                                <label class="control-label">Penyulang <star>*</star></label>
-                                                                <input type="text" class="form-control" disabled="" placeholder="Rayon" value="Penyulang">
-                                                            </div>
-                                                        </div>
+                                                            {{--<div class="form-group">--}}
+                                                                {{--<label class="control-label">Penyulang <star>*</star></label>--}}
+                                                                {{--<input type="text" class="form-control" disabled="" placeholder="Rayon" value="Penyulang">--}}
+                                                            {{--</div>--}}
+                                                        {{--</div>--}}
 
-                                                        <div class="footer">
-                                                            <div class="clearfix"></div>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                                        {{--<div class="footer">--}}
+                                                            {{--<div class="clearfix"></div>--}}
+                                                        {{--</div>--}}
+                                                    {{--</form>--}}
+                                                {{--</div>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
                                     <div class="content" id="editEXIM-">
                                         <div class="row">
                                             <div class="col-md-12">
@@ -2676,23 +2613,23 @@
                                                         <div class="header">Edit EXIM</div>
                                                         <div class="content">
 
-                                                            <label class="control-label">EXIM <star>*</star></label>
-                                                            <div class="form-group">
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="btn-group bootstrap-select">
-                                                                            <div class="btn-group bootstrap-select">
-                                                                                <select name="selectExim" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">
-                                                                                    <option class="bs-title-option" value="">Pilih EXIM</option>
-                                                                                    <option value="pct_impor">Impor</option>
-                                                                                    <option value="pct_ekspor">Ekspor</option>
+                                                            {{--<label class="control-label">EXIM <star>*</star></label>--}}
+                                                            {{--<div class="form-group">--}}
+                                                                {{--<div class="row">--}}
+                                                                    {{--<div class="col-md-6">--}}
+                                                                        {{--<div class="btn-group bootstrap-select">--}}
+                                                                            {{--<div class="btn-group bootstrap-select">--}}
+                                                                                {{--<select name="selectExim" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">--}}
+                                                                                    {{--<option class="bs-title-option" value="">Pilih EXIM</option>--}}
+                                                                                    {{--<option value="pct_impor">Impor</option>--}}
+                                                                                    {{--<option value="pct_ekspor">Ekspor</option>--}}
 
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                                                {{--</select>--}}
+                                                                            {{--</div>--}}
+                                                                        {{--</div>--}}
+                                                                    {{--</div>--}}
+                                                                {{--</div>--}}
+                                                            {{--</div>--}}
 
                                                             <label class="control-label">Tujuan EXIM <star>*</star></label>
                                                             <div class="form-group">
