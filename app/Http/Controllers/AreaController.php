@@ -189,23 +189,24 @@ class AreaController extends Controller
             $inputGardu->nama_gardu = $request->tambahnamagardu;
             $inputGardu->alamat_gardu = $request->tambahalamatgardu;
             if($request->tipe_== 1){
-                $lokasi = array(
-                    'Area' => $request->selectareasingle,
-                    'Rayon' => $request->selectrayonsingle,
-                    'Penyulang' => $request->selectpenyulangsingle );
-                $dt = array(
-                    'KWH' => "data_KWH",
-                    'TA' => "data_TA",
-                    'TT' => "data_TT",
-                    'FK' => "data_FK" );
-                $meter = array(
-                    'Impor' => $dt,
-                    'Ekspor' => $dt );
-                $data = array(
-                    'EXIM' => "",
-                    'Meter' => $meter,
-                    'Lokasi' => $lokasi );
-                $data=json_encode($data);
+//                $lokasi = array(
+//                    'Area' => $request->selectareasingle,
+//                    'Rayon' => $request->selectrayonsingle,
+//                    'Penyulang' => $request->selectpenyulangsingle );
+//                $dt = array(
+//                    'KWH' => "data_KWH",
+//                    'TA' => "data_TA",
+//                    'TT' => "data_TT",
+//                    'FK' => "data_FK" );
+//                $meter = array(
+//                    'Impor' => $dt,
+//                    'Ekspor' => $dt );
+//                $data = array(
+//                    'EXIM' => "",
+//                    'Meter' => $meter,
+//                    'Lokasi' => $lokasi );
+//                $data=json_encode($data);
+                $data="";
             }
             $inputGardu->data_master = $data;
             $inputGardu->tipe_gardu=$request->tipe_;
@@ -951,7 +952,7 @@ class AreaController extends Controller
         $trafo_gi = TrafoGI::where('id', $id_trafo_gi)->first();
         $transfer = Transfer::where('id_trafo_gi',$id_trafo_gi)->pluck('id_penyulang');
         $data = Penyulang::select('id','nama_penyulang','data_master')
-            ->whereNotIn('id',$transfer)
+//            ->whereNotIn('id',$transfer)
             ->where('id_trafo_gi',$id_trafo_gi)
             ->get();
 //        dd($data);

@@ -63,46 +63,46 @@
                     </div>
 
                     {{--Transfer--}}
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="header">
-                                    <h4 class="title">Daftar PCT</h4>
-                                    <p class="category">Daftar PCT Rayon {{$nama_rayon}} </p>
-                                </div>
-                                <div class="content table-responsive table-full-width">
-                                    <table class="table table-hover table-striped">
-                                        <thead>
-                                        <th>Nama Gardu Induk</th>
-                                        <th>Alamat Gardu Induk</th>
-                                        <th></th>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($data2 as $list)
+                    {{--<div class="row">--}}
+                        {{--<div class="col-md-12">--}}
+                            {{--<div class="card">--}}
+                                {{--<div class="header">--}}
+                                    {{--<h4 class="title">Daftar PCT</h4>--}}
+                                    {{--<p class="category">Daftar PCT Rayon {{$nama_rayon}} </p>--}}
+                                {{--</div>--}}
+                                {{--<div class="content table-responsive table-full-width">--}}
+                                    {{--<table class="table table-hover table-striped">--}}
+                                        {{--<thead>--}}
+                                        {{--<th>Nama Gardu Induk</th>--}}
+                                        {{--<th>Alamat Gardu Induk</th>--}}
+                                        {{--<th></th>--}}
+                                        {{--</thead>--}}
+                                        {{--<tbody>--}}
+                                        {{--@foreach($data2 as $list)--}}
 
-                                            <tr>
-                                                <td>
-                                                    {{$list->nama_gi}}
-                                                </td>
-                                                <td> {{$list->alamat_gi}} </td>
-                                                <td class="td-actions text-right">
-                                                    <a href="{{url('/area/list_datamaster_list_trafo_gi_transfer/'.$list->id_organisasi.'/'.$list->id_gi)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View List Trafo GI">
-                                                        <i class="fa fa-user"></i>
-                                                    </a>
-                                                </td>
+                                            {{--<tr>--}}
+                                                {{--<td>--}}
+                                                    {{--{{$list->nama_gi}}--}}
+                                                {{--</td>--}}
+                                                {{--<td> {{$list->alamat_gi}} </td>--}}
+                                                {{--<td class="td-actions text-right">--}}
+                                                    {{--<a href="{{url('/area/list_datamaster_list_trafo_gi_transfer/'.$list->id_organisasi.'/'.$list->id_gi)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View List Trafo GI">--}}
+                                                        {{--<i class="fa fa-user"></i>--}}
+                                                    {{--</a>--}}
+                                                {{--</td>--}}
                                                 {{--<td>--}}
                                                 {{--<a href="{{url('/area/list_datamaster_list_trafo_gi_transfer/'.$list->id_organisasi.'/'.$list->id_gi)}}">Lihat--}}
                                                 {{--List Trafo Gardu</a>--}}
                                                 {{--</td>--}}
-                                            </tr>
-                                        @endforeach
+                                            {{--</tr>--}}
+                                        {{--@endforeach--}}
 
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                        {{--</tbody>--}}
+                                    {{--</table>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
