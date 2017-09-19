@@ -129,13 +129,13 @@
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label>APP</label>
-                                                                        <input type="text" class="form-control"  disabled="" placeholder="Area" value="{{Auth::user()->nama_organisasi}}">
+                                                                        <input type="text" class="form-control"  disabled="" placeholder="Area" value="{{$decoded['APP']}}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label>Kapasitas</label>
-                                                                        <input type="text" class="form-control"  disabled="" placeholder="Rayon" value="Kapasitas (Kvarh)">
+                                                                        <input type="text" class="form-control"  disabled="" placeholder="Rayon" value={{$decoded['kapasitas']}}>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -240,7 +240,15 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label>Alamat</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$rayon->alamat_organisasi}}">
+                                                                        @if($gi)
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$gi->alamat_gi}}">
+                                                                        @elseif($trafo_gi)
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$trafo_gi->alamat_trafo_gi}}">
+                                                                        @elseif($penyulang)
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$penyulang->alamat_penyulang}}">
+                                                                        @elseif($gardu)
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$gardu->alamat_gardu}}">
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1791,7 +1799,15 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label>Alamat</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Alamat" value="">
+                                                                        @if($gi)
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$gi->alamat_gi}}">
+                                                                        @elseif($trafo_gi)
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$trafo_gi->alamat_trafo_gi}}">
+                                                                        @elseif($penyulang)
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$penyulang->alamat_penyulang}}">
+                                                                        @elseif($gardu)
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$gardu->alamat_gardu}}">
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1927,7 +1943,15 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label>Alamat</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Alamat" value="">
+                                                                        @if($gi)
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$gi->alamat_gi}}">
+                                                                        @elseif($trafo_gi)
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$trafo_gi->alamat_trafo_gi}}">
+                                                                        @elseif($penyulang)
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$penyulang->alamat_penyulang}}">
+                                                                        @elseif($gardu)
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$gardu->alamat_gardu}}">
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -2126,7 +2150,15 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label>Alamat</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Alamat" value="">
+                                                                        @if($gi)
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$gi->alamat_gi}}">
+                                                                        @elseif($trafo_gi)
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$trafo_gi->alamat_trafo_gi}}">
+                                                                        @elseif($penyulang)
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$penyulang->alamat_penyulang}}">
+                                                                        @elseif($gardu)
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$gardu->alamat_gardu}}">
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -2253,13 +2285,13 @@
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label>APP</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Area" value="{{Auth::user()->nama_organisasi}}">
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Area" value="{{$decoded['APP']}}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label>Kapasitas</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Rayon" value="Kapasitas (Kvarh)">
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Kapasitas (Kvarh)" value={{$decoded['kapasitas']}}>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -2567,7 +2599,7 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label>Alamat</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Alamat" value="">
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$gardu->alamat_gardu}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -2762,7 +2794,15 @@
                                                                     <div class="col-md-4">
                                                                         <div class="form-group">
                                                                             <label>Alamat</label>
-                                                                            <input type="text" class="form-control" disabled="" placeholder="Alamat" value="">
+                                                                            @if($gi)
+                                                                                <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$gi->alamat_gi}}">
+                                                                            @elseif($trafo_gi)
+                                                                                <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$trafo_gi->alamat_trafo_gi}}">
+                                                                            @elseif($penyulang)
+                                                                                <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$penyulang->alamat_penyulang}}">
+                                                                            @elseif($gardu)
+                                                                                <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$gardu->alamat_gardu}}">
+                                                                            @endif
                                                                         </div>
                                                                     </div>
                                                                 </div>
