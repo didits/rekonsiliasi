@@ -737,7 +737,7 @@
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <label>Merk</label>
-                                                                            <input type="text" name="merk" class="form-control" placeholder="Merk" value="{{$decoded['utama']['KWH']['merk']}}" disabled>
+                                                                            <input type="text" name="merk" class="form-control" placeholder="Merk" value="{{$decoded['meter']['impor']['KWH']['merk']}}" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -746,7 +746,7 @@
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <label>Nomor Seri</label>
-                                                                            <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="{{$decoded['utama']['KWH']['nomorseri']}}" disabled>
+                                                                            <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="{{$decoded['meter']['impor']['KWH']['nomorseri']}}" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -755,7 +755,7 @@
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <label>Konstanta</label>
-                                                                            <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="{{$decoded['utama']['KWH']['konstanta']}}" disabled>
+                                                                            <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="{{$decoded['meter']['impor']['KWH']['konstanta']}}" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -764,7 +764,7 @@
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <label>Tegangan Arus</label>
-                                                                            <input type="text" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{$decoded['utama']['KWH']['teganganarus']}}" disabled>
+                                                                            <input type="text" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{$decoded['meter']['impor']['KWH']['teganganarus']}}" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -789,7 +789,7 @@
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <label>Ratio</label>
-                                                                            <input type="text" name="ratioct" class="form-control" placeholder="Ratio" value="{{$decoded['utama']['TA']['ratioct']}}" disabled>
+                                                                            <input type="text" name="ratioct" class="form-control" placeholder="Ratio" value="{{$decoded['meter']['impor']['TA']['ratioct']}}" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -798,7 +798,7 @@
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <label>Burden (VA)</label>
-                                                                            <input type="text" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{$decoded['utama']['TA']['burdenct']}}" disabled>
+                                                                            <input type="text" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{$decoded['meter']['impor']['TA']['burdenct']}}" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -822,7 +822,7 @@
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <label>Ratio</label>
-                                                                            <input type="text" name="ratiopt" class="form-control" placeholder="Ratio" value="{{$decoded['utama']['TT']['ratiopt']}}" disabled>
+                                                                            <input type="text" name="ratiopt" class="form-control" placeholder="Ratio" value="{{$decoded['meter']['impor']['TT']['ratiopt']}}" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -831,7 +831,7 @@
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <label>Burden (VA)</label>
-                                                                            <input type="text" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{$decoded['utama']['TT']['burdenpt']}}" disabled>
+                                                                            <input type="text" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{$decoded['meter']['impor']['TT']['burdenpt']}}" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -855,7 +855,7 @@
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <label>Faktor Kali Meter</label>
-                                                                            <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{$decoded['utama']['FK']['faktorkali']}}" disabled>
+                                                                            <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{$decoded['meter']['impor']['FK']['faktorkali']}}" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -883,7 +883,7 @@
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <label>Merk</label>
-                                                                            <input type="text" name="merk" class="form-control" placeholder="Merk" value="{{$decoded['pembanding']['KWH']['merk']}}" disabled>
+                                                                            <input type="text" name="merk" class="form-control" placeholder="Merk" value="{{$decoded['meter']['ekspor']['KWH']['merk']}}" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -892,7 +892,7 @@
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <label>Nomor Seri</label>
-                                                                            <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="{{$decoded['pembanding']['KWH']['nomorseri']}}" disabled>
+                                                                            <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="{{$decoded['meter']['ekspor']['KWH']['nomorseri']}}" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -901,7 +901,7 @@
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <label>Konstanta</label>
-                                                                            <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="{{$decoded['pembanding']['KWH']['konstanta']}}" disabled>
+                                                                            <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="{{$decoded['meter']['ekspor']['KWH']['konstanta']}}" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -910,7 +910,7 @@
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <label>Tegangan Arus</label>
-                                                                            <input type="text" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{$decoded['pembanding']['KWH']['teganganarus']}}" disabled>
+                                                                            <input type="text" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{$decoded['meter']['ekspor']['KWH']['teganganarus']}}" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -935,7 +935,7 @@
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <label>Ratio</label>
-                                                                            <input type="text" name="ratioct" class="form-control" placeholder="Ratio" value="{{$decoded['pembanding']['TA']['ratioct']}}" disabled>
+                                                                            <input type="text" name="ratioct" class="form-control" placeholder="Ratio" value="{{$decoded['meter']['ekspor']['TA']['ratioct']}}" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -944,7 +944,7 @@
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <label>Burden (VA)</label>
-                                                                            <input type="text" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{$decoded['pembanding']['TA']['burdenct']}}" disabled>
+                                                                            <input type="text" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{$decoded['meter']['ekspor']['TA']['burdenct']}}" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -968,7 +968,7 @@
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <label>Ratio</label>
-                                                                            <input type="text" name="ratiopt" class="form-control" placeholder="Ratio" value="{{$decoded['pembanding']['TT']['ratiopt']}}" disabled>
+                                                                            <input type="text" name="ratiopt" class="form-control" placeholder="Ratio" value="{{$decoded['meter']['ekspor']['TT']['ratiopt']}}" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -977,7 +977,7 @@
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <label>Burden (VA)</label>
-                                                                            <input type="text" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{$decoded['pembanding']['TT']['burdenpt']}}" disabled>
+                                                                            <input type="text" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{$decoded['meter']['ekspor']['TT']['burdenpt']}}" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1001,7 +1001,7 @@
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <label>Faktor Kali Meter</label>
-                                                                            <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{$decoded['pembanding']['FK']['faktorkali']}}" disabled>
+                                                                            <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{$decoded['meter']['ekspor']['FK']['faktorkali']}}" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1023,11 +1023,10 @@
 
 
                                                     <label class="control-label">Jenis EXIM
-                                                        <star>*</star>
                                                     </label>
                                                     <div class="form-group">
                                                         <input type="text" class="form-control" disabled=""
-                                                               placeholder="Rayon" value="Impor">
+                                                               placeholder="Rayon" value="Ekspor">
                                                     </div>
 
                                                     <label>Tujuan EXIM</label>
@@ -1037,7 +1036,7 @@
                                                                 <label>Area</label>
                                                                 <input type="text" class="form-control" disabled=""
                                                                        placeholder="Area"
-                                                                       value="{{Auth::user()->nama_organisasi}}">
+                                                                       value="{{$decoded['lokasi']['area']}}">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
@@ -1045,17 +1044,16 @@
                                                                 <label>Rayon</label>
                                                                 <input type="text" class="form-control" disabled=""
                                                                        placeholder="Rayon"
-                                                                       value="{{$rayon->nama_organisasi}}">
+                                                                       value="{{$decoded['lokasi']['rayon']}}">
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label class="control-label">Penyulang
-                                                            <star>*</star>
                                                         </label>
                                                         <input type="text" class="form-control" disabled=""
-                                                               placeholder="Rayon" value="Penyulang">
+                                                               placeholder="Rayon" value="{{$decoded['lokasi']['penyulang']}}">
                                                     </div>
                                                 </div>
 
@@ -1132,7 +1130,7 @@
                                                     <h4 class="title">Trafo Arus (CT)</h4>
                                                     <p class="category">Data KWH Meter</p>
                                                 </div>
-                                                {{dd($decoded)}}
+                                                {{--{{dd($decoded)}}--}}
                                                 <div class="content">
                                                     <div class="row">
                                                         <div class="col-md-12">
@@ -1220,9 +1218,9 @@
                     @endif
                 </div>
             </div>
+            @include('admin.master.footer')
         </div>
 
-            @include('admin.master.footer')
 
         </div>
     </div>
