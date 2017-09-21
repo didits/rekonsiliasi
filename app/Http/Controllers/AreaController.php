@@ -181,14 +181,13 @@ class AreaController extends Controller
             return back();
         }
         elseif($request->GD){
-            $data="";
             $inputGardu = new Gardu;
             $id_org = Organisasi::where('id',$request->id_org)->first();
             $inputGardu->id_organisasi = $id_org->id;
             $inputGardu->id_penyulang = $request->GD;
             $inputGardu->nama_gardu = $request->tambahnamagardu;
             $inputGardu->alamat_gardu = $request->tambahalamatgardu;
-            $inputGardu->data_master = $data;
+            $inputGardu->data_master = "";
             $inputGardu->tipe_gardu=$request->tipe_;
 
             if($inputGardu->save());
@@ -234,38 +233,42 @@ class AreaController extends Controller
                     $area = Organisasi::where('id_organisasi', $request->selectareasingle)->first();
                     $rayon = Organisasi::where('id_organisasi', $request->selectrayonsingle)->first();
                     $penyulang = Penyulang::where('id', $request->selectpenyulangsingle)->first();
-                    $lok = array(
+                    $penyulang2 = Penyulang::where('id', $request->gardu)->first();
+                    $lok_d = array(
+                        'area' => $request->area,
+                        'rayon' => $request->rayon,
+                        'penyulang' =>$penyulang2->nama_penyulang
+                    );
+                    $lok_t = array(
                         'area' => $area->nama_organisasi,
                         'rayon' => $rayon->nama_organisasi,
                         'penyulang' =>$penyulang->nama_penyulang
                     );
-                    $dt = array(
-                        'impor' => $this->json_datamaster($request, $data, "impor",0),
-                        'ekspor' => $this->json_datamaster($request, $data, "ekspor",0)
+                    $lok = array(
+                        'impor' => $lok_d,
+                        'ekspor' => $lok_t
                     );
                 }
                 else{
                     $decoded = json_decode($data->data_master, true);
-                    if($request->form_exim){
-                        $dt = array(
-                            'impor' => $this->json_datamaster($request, $data, "impor",1),
-                            'ekspor' => $this->json_datamaster($request, $data, "ekspor",0)
-                        );
-                    }
-                    elseif($request->form_exim_){
-                        $dt = array(
-                            'impor' => $this->json_datamaster($request, $data, "impor",0),
-                            'ekspor' => $this->json_datamaster($request, $data, "ekspor",1)
-                        );
-                    }
+                    $lok_d = array(
+                        'area' => $decoded['lokasi']['impor']['area'],
+                        'rayon' => $decoded['lokasi']['impor']['rayon'],
+                        'penyulang' =>$decoded['lokasi']['impor']['penyulang']
+                    );
+                    $lok_t = array(
+                        'area' => $decoded['lokasi']['ekspor']['area'],
+                        'rayon' => $decoded['lokasi']['ekspor']['rayon'],
+                        'penyulang' =>$decoded['lokasi']['ekspor']['penyulang']
+                    );
                     $lok = array(
-                        'area' => $decoded['lokasi']['area'],
-                        'rayon' => $decoded['lokasi']['rayon'],
-                        'penyulang' =>$decoded['lokasi']['penyulang']
+                        'impor' => $lok_d,
+                        'ekspor' => $lok_t
                     );
                 }
+                $dat = $this->json_datamaster($request, $data, "meter",1);
                 $data = array(
-                    'meter'=> $dt,
+                    'meter' => $dat,
                     'lokasi'=> $lok
                 );
             }
@@ -302,16 +305,13 @@ class AreaController extends Controller
                     'ratioct' => $request->ratioct,
                     'burdenct' => $request->burdenct
                 );
-
                 $data_TT = array(
                     'ratiopt' => $request->ratiopt,
                     'burdenpt' => $request->burdenpt
                 );
-
                 $data_FK = array(
                     'faktorkali' => $request->faktorkali
                 );
-
             }
             elseif($request->tipe == 'KWH'){
                 $data_KWH = array(
@@ -324,16 +324,13 @@ class AreaController extends Controller
                     'ratioct' => $decoded['TA']['ratioct'],
                     'burdenct' => $decoded['TA']['burdenct']
                 );
-
                 $data_TT = array(
                     'ratiopt' => $decoded['TT']['ratiopt'],
                     'burdenpt' => $decoded['TT']['burdenpt']
                 );
-
                 $data_FK = array(
                     'faktorkali' => $decoded['FK']['faktorkali']
                 );
-
             }
             else if($request->tipe == 'TA'){
                 $data_KWH = array(
@@ -974,6 +971,7 @@ class AreaController extends Controller
             'nama_tgi'      => $nama_tgi->nama_trafo_gi
         ]);
     }
+
     public function lihat_gi($id_organisasi, $id_gardu_induk){
         $rayon = Organisasi::where('id_organisasi', $id_organisasi)->first();
         $gardu = GI::where('id', $id_gardu_induk)->first();

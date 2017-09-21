@@ -954,7 +954,11 @@
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label>Merk</label>
+                                                                                    @if($id_gardu)
+                                                                                    <input type="text" name="merk" class="form-control" placeholder="Merk" value="{{$decoded['meter']['KWH']['merk']}}">
+                                                                                    @else
                                                                                     <input type="text" name="merk" class="form-control" placeholder="Merk" value="{{$decoded['KWH']['merk']}}">
+                                                                                    @endif
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -963,7 +967,11 @@
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label>Nomor Seri</label>
+                                                                                    @if($id_gardu)
+                                                                                    <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="{{$decoded['meter']['KWH']['nomorseri']}}">
+                                                                                    @else
                                                                                     <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="{{$decoded['KWH']['nomorseri']}}">
+                                                                                    @endif
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -972,7 +980,11 @@
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label>Konstanta</label>
+                                                                                    @if($id_gardu)
+                                                                                    <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="{{$decoded['meter']['KWH']['konstanta']}}">
+                                                                                    @else
                                                                                     <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="{{$decoded['KWH']['konstanta']}}">
+                                                                                    @endif
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -981,7 +993,11 @@
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label>Tegangan Arus</label>
+                                                                                    @if($id_gardu)
+                                                                                    <input type="text" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{$decoded['meter']['KWH']['teganganarus']}}">
+                                                                                    @else
                                                                                     <input type="text" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{$decoded['KWH']['teganganarus']}}">
+                                                                                    @endif
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -1023,7 +1039,11 @@
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label>Ratio</label>
+                                                                                    @if($id_gardu)
+                                                                                    <input type="text" name="ratioct" class="form-control" placeholder="Ratio" value="{{$decoded['meter']['TA']['ratioct']}}">
+                                                                                    @else
                                                                                     <input type="text" name="ratioct" class="form-control" placeholder="Ratio" value="{{$decoded['TA']['ratioct']}}">
+                                                                                    @endif
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -1032,7 +1052,11 @@
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label>Burden (VA)</label>
+                                                                                    @if($id_gardu)
+                                                                                    <input type="text" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{$decoded['meter']['TA']['burdenct']}}">
+                                                                                    @else
                                                                                     <input type="text" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{$decoded['TA']['burdenct']}}">
+                                                                                    @endif
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -1073,7 +1097,11 @@
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label>Ratio</label>
+                                                                                    @if($id_gardu)
+                                                                                    <input type="text" name="ratiopt" class="form-control" placeholder="Ratio" value="{{$decoded['meter']['TT']['ratiopt']}}">
+                                                                                    @else
                                                                                     <input type="text" name="ratiopt" class="form-control" placeholder="Ratio" value="{{$decoded['TT']['ratiopt']}}">
+                                                                                    @endif
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -1082,7 +1110,11 @@
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label>Burden (VA)</label>
+                                                                                    @if($id_gardu)
+                                                                                    <input type="text" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{$decoded['meter']['TT']['burdenpt']}}">
+                                                                                    @else
                                                                                     <input type="text" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{$decoded['TT']['burdenpt']}}">
+                                                                                    @endif
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -1124,7 +1156,11 @@
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label>Faktor Kali Meter</label>
+                                                                                    @if($id_gardu)
+                                                                                    <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{$decoded['meter']['FK']['faktorkali']}}">
+                                                                                    @else
                                                                                     <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{$decoded['FK']['faktorkali']}}">
+                                                                                    @endif
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -2158,39 +2194,39 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Area</label>
-                                                                    <input type="text" class="form-control" disabled="" placeholder="Area" value="{{$decoded['lokasi']['area']}}">
+                                                                    <input type="text" class="form-control" disabled="" placeholder="Area" value="{{$decoded['lokasi']['ekspor']['area']}}">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Rayon</label>
-                                                                    <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$decoded['lokasi']['rayon']}}">
+                                                                    <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$decoded['lokasi']['ekspor']['rayon']}}">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="control-label">Penyulang</label>
-                                                            <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="{{$decoded['lokasi']['penyulang']}}">
+                                                            <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="{{$decoded['lokasi']['ekspor']['penyulang']}}">
                                                         </div>
 
-                                                        <label>Impor Dari:</label>
+                                                        <label>Impor dari:</label>
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Area</label>
-                                                                    <input type="text" class="form-control" disabled="" placeholder="Area" value="{{$decoded['lokasi']['area']}}">
+                                                                    <input type="text" class="form-control" disabled="" placeholder="Area" value="{{$decoded['lokasi']['impor']['area']}}">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Rayon</label>
-                                                                    <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$decoded['lokasi']['rayon']}}">
+                                                                    <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$decoded['lokasi']['impor']['rayon']}}">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="control-label">Penyulang</label>
-                                                            <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="{{$decoded['lokasi']['penyulang']}}">
+                                                            <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="{{$decoded['lokasi']['impor']['penyulang']}}">
                                                         </div>
                                                     </div>
 
@@ -2210,10 +2246,13 @@
                                                         <input type="hidden" name="_method" value="POST">
                                                         <input type="hidden" name="tipe" value="all">
                                                         <input type="hidden" name="pct" value={{$gardu->id}}>
+                                                        <input type="hidden" name="area" value={{Auth::user()->nama_organisasi}}>
+                                                        <input type="hidden" name="rayon" value={{$rayon->nama_organisasi}}>
+                                                        <input type="hidden" name="gardu" value={{$gardu->id_penyulang}}>
                                                         <input type="hidden" name="form_gardu" value="{{$gardu->id}}">
                                                         <input type="hidden" name="form_editExim" value="{{$gardu->id}}">
                                                         {{ csrf_field() }}
-                                                        <div class="header">Edit EXIM</div>
+                                                        <div class="header">Edit Ekspor</div>
                                                         <div class="content">
 
                                                             {{--<label class="control-label">EXIM <star>*</star></label>--}}
@@ -2234,7 +2273,7 @@
                                                                 {{--</div>--}}
                                                             {{--</div>--}}
 
-                                                            <label class="control-label">Tujuan EXIM <star>*</star></label>
+                                                            <label class="control-label">Tujuan Ekspor <star>*</star></label>
                                                             <div class="form-group">
                                                                 <div class="row">
                                                                     <div class="col-md-6">
@@ -2245,9 +2284,9 @@
                                                                                     <select name="selectareasingle" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98" >
                                                                                         <option class="bs-title-option" value="">Area</option>
                                                                                         @foreach ($dropdown_area as $areas)
-                                                                                            @if($decoded['lokasi']['rayon'])
-                                                                                                <option class="bs-title-option" value="">{{$decoded['lokasi']['rayon']}}</option>
-                                                                                            @endif
+                                                                                            {{--@if($decoded['lokasi']['rayon'])--}}
+                                                                                                {{--<option class="bs-title-option" value="">{{$decoded['lokasi']['rayon']}}</option>--}}
+                                                                                            {{--@endif--}}
                                                                                             <option value="{{ $areas->id_organisasi }}">{{ $areas->nama_organisasi }}</option>
                                                                                         @endforeach
 
@@ -2262,11 +2301,11 @@
                                                                             <div class="btn-group bootstrap-select">
                                                                                 <div class="btn-group bootstrap-select">
                                                                                     <select name="selectrayonsingle" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">
-                                                                                        @if($decoded['lokasi']['rayon'])
-                                                                                        <option class="bs-title-option" value="">{{$decoded['lokasi']['rayon']}}</option>
-                                                                                        @else
+                                                                                        {{--@if($decoded['lokasi']['rayon'])--}}
+                                                                                        {{--<option class="bs-title-option" value="">{{$decoded['lokasi']['rayon']}}</option>--}}
+                                                                                        {{--@else--}}
                                                                                         <option class="bs-title-option" value="">Rayon</option>
-                                                                                        @endif
+                                                                                        {{--@endif--}}
                                                                                     </select>
                                                                                 </div>
                                                                             </div>
@@ -2282,11 +2321,11 @@
                                                                         <div class="btn-group bootstrap-select">
                                                                             <div class="btn-group bootstrap-select">
                                                                                 <select name="selectpenyulangsingle" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">
-                                                                                    @if($decoded['lokasi']['penyulang'])
-                                                                                    <option class="bs-title-option" value="">{{$decoded['lokasi']['penyulang']}}</option>
-                                                                                    @else
+                                                                                    {{--@if($decoded['lokasi']['penyulang'])--}}
+                                                                                    {{--<option class="bs-title-option" value="">{{$decoded['lokasi']['penyulang']}}</option>--}}
+                                                                                    {{--@else--}}
                                                                                     <option class="bs-title-option" value="">Penyulang</option>
-                                                                                    @endif
+                                                                                    {{--@endif--}}
                                                                                 </select>
                                                                             </div>
                                                                         </div>
