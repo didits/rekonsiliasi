@@ -113,7 +113,6 @@ class Input extends Controller
     public function store(Request $request)
     {
         $date = date('Ym')- "1";
-        $date = date('Ym')- "1";
 
         $input_visual = array(
             'lwbp1_visual' => $request->lwbp1_visual,
@@ -137,30 +136,113 @@ class Input extends Controller
         elseif($request->tipe=="penyulang"){
             $data_listrik = PenyimpananPenyulang::where('periode', date('Ym'))->where('id_penyulang', $request->id)->first();
         }
-        elseif($request->tipe=="gardu"){
+        elseif($request->tipe=="gardu"|| $request->tipe=="pct" || $request->tipe=="tm"){
             $data_listrik = PenyimpananGardu::where('periode', date('Ym'))->where('id_gardu', $request->id)->first();
         }
-
         if($data_listrik){
             $decoded = json_decode($data_listrik->data,true);
-            if($request->visual){
-                $input_download = array(
-                    'lwbp1_download' => $decoded['beli']['download']['lwbp1_download'],
-                    'lwbp2_download' => $decoded['beli']['download']['lwbp2_download'],
-                    'wbp_download' => $decoded['beli']['download']['wbp_download'],
-                    'kvarh_download' => $decoded['beli']['download']['kvarh_download']
-                );
-            }
-            elseif ($request->download){
-                $input_visual = array(
-                    'lwbp1_visual' => $decoded['beli']['visual']['lwbp1_visual'],
-                    'lwbp2_visual' => $decoded['beli']['visual']['lwbp2_visual'],
-                    'wbp_visual' => $decoded['beli']['visual']['wbp_visual'],
-                    'kvarh_visual' => $decoded['beli']['visual']['kvarh_visual']
-                );
-            }
-            $data = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter);
 
+//            $lok_d = array(
+//                'area' => $request->area,
+//                'rayon' => $request->rayon,
+//                'penyulang' =>$penyulang2->nama_penyulang
+//            );
+//            $lok_t = array(
+//                'area' => $area->nama_organisasi,
+//                'rayon' => $rayon->nama_organisasi,
+//                'penyulang' =>$penyulang->nama_penyulang
+//            );
+//
+//            $lok = array(
+//                'impor' => $lok_d,
+//                'ekspor' => $lok_t
+//            );
+//
+//            $dt = array(
+//                'beli' => $data,
+//                'hasil_pengolahan' => null
+//            );
+//
+//            $dt_im = array(
+//                'impor' => $dt_im,
+//                'ekspor' => $dt_eks
+//            );
+//
+//            $dt_eks = array(
+//                'impor' => $dt_im,
+//                'ekspor' => $dt_eks
+//            );
+//
+//            $dt = array(
+//                'impor' => $dt_im,
+//                'ekspor' => $dt_eks
+//            );
+//
+//            $data = array(
+//                'meter' =>$dt,
+//                'lokasi' =>$lok,
+//            );
+
+//
+//
+            if($request->tipe=="pct") {
+                $meter=$request->meter;
+                if($request->visual){
+                    $input_download = array(
+                        'lwbp1_download' => $decoded['beli'][$meter]['download']['lwbp1_download'],
+                        'lwbp2_download' => $decoded['beli'][$meter]['download']['lwbp2_download'],
+                        'wbp_download' => $decoded['beli'][$meter]['download']['wbp_download'],
+                        'kvarh_download' => $decoded['beli'][$meter]['download']['kvarh_download']
+                    );
+                }
+                elseif ($request->download){
+                    $input_visual = array(
+                        'lwbp1_visual' => $decoded['beli'][$meter]['visual']['lwbp1_visual'],
+                        'lwbp2_visual' => $decoded['beli'][$meter]['visual']['lwbp2_visual'],
+                        'wbp_visual' => $decoded['beli'][$meter]['visual']['wbp_visual'],
+                        'kvarh_visual' => $decoded['beli'][$meter]['visual']['kvarh_visual']
+                    );
+                }
+            }
+            elseif($request->tipe=="trafo_gi") {
+                $meter=$request->meter;
+                if($request->visual){
+                    $input_download = array(
+                        'lwbp1_download' => $decoded['beli'][$meter]['download']['lwbp1_download'],
+                        'lwbp2_download' => $decoded['beli'][$meter]['download']['lwbp2_download'],
+                        'wbp_download' => $decoded['beli'][$meter]['download']['wbp_download'],
+                        'kvarh_download' => $decoded['beli'][$meter]['download']['kvarh_download']
+                    );
+                }
+                elseif ($request->download){
+                    $input_visual = array(
+                        'lwbp1_visual' => $decoded['beli'][$meter]['visual']['lwbp1_visual'],
+                        'lwbp2_visual' => $decoded['beli'][$meter]['visual']['lwbp2_visual'],
+                        'wbp_visual' => $decoded['beli'][$meter]['visual']['wbp_visual'],
+                        'kvarh_visual' => $decoded['beli'][$meter]['visual']['kvarh_visual']
+                    );
+                }
+            }
+            else{
+                if($request->visual){
+                    $input_download = array(
+                        'lwbp1_download' => $decoded['beli']['download']['lwbp1_download'],
+                        'lwbp2_download' => $decoded['beli']['download']['lwbp2_download'],
+                        'wbp_download' => $decoded['beli']['download']['wbp_download'],
+                        'kvarh_download' => $decoded['beli']['download']['kvarh_download']
+                    );
+                }
+                elseif ($request->download){
+                    $input_visual = array(
+                        'lwbp1_visual' => $decoded['beli']['visual']['lwbp1_visual'],
+                        'lwbp2_visual' => $decoded['beli']['visual']['lwbp2_visual'],
+                        'wbp_visual' => $decoded['beli']['visual']['wbp_visual'],
+                        'kvarh_visual' => $decoded['beli']['visual']['kvarh_visual']
+                    );
+                }
+            }
+
+            $data = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter);
             $data_listrik->data = json_encode($data);
             if ($data_listrik->save()) ;
             return back();
@@ -170,7 +252,6 @@ class Input extends Controller
                 'visual' => $input_visual,
                 'download' => $input_download
             );
-
             if($request->tipe=="trafo_gi"){
                 $visual = array(
                     'lwbp1_visual' => null,
@@ -217,6 +298,43 @@ class Input extends Controller
                     'hasil_pengolahan' => null
                 );
             }
+            elseif($request->tipe=="pct"){
+                $visual = array(
+                    'lwbp1_visual' => null,
+                    'lwbp2_visual' => null,
+                    'wbp_visual' => null,
+                    'kvarh_visual' => null,
+                );
+                $download = array(
+                    'lwbp1_download' => null,
+                    'lwbp2_download' => null,
+                    'wbp_download' => null,
+                    'kvarh_download' => null,
+                );
+                $data2 = array(
+                    'visual' => $visual,
+                    'download' => $download
+                );
+
+                if($request->meter=="impor") {
+                    $data1 = array(
+                        'impor' => $data,
+                        'ekspor' => $data2,
+                        'meter' => ""
+                    );
+                }
+                elseif($request->meter=="ekspor") {
+                    $data1 = array(
+                        'impor' => $data2,
+                        'ekspor' => $data,
+                        'meter' => ""
+                    );
+                }
+                $dt = array(
+                    'beli' => $data1,
+                    'hasil_pengolahan' => null
+                );
+            }
             else{
                 $dt = array(
                     'beli' => $data,
@@ -250,13 +368,13 @@ class Input extends Controller
                 $P->data_keluar = "";
                 $data_awal = PenyimpananPenyulang::where('periode', $date)->where('id_penyulang', $request->id)->first();
             }
-            elseif ($request->tipe == "gardu") {
+            elseif ($request->tipe == "gardu"|| $request->tipe=="pct" || $request->tipe=="tm") {
                 $P = new PenyimpananGardu();
                 $P->id_gardu = $request->id;
                 $P->periode = date('Ym');
                 $P->data = json_encode($dt);
                 $P->data_keluar = "";
-                $data_awal = PenyimpananPenyulang::where('periode', $date)->where('id_gardu', $request->id)->first();
+                $data_awal = PenyimpananGardu::where('periode', $date)->where('id_gardu', $request->id)->first();
             }
 
             if($data_awal){
@@ -293,14 +411,17 @@ class Input extends Controller
             $data_master = Penyulang::where('id', $id)->first();
             $akhir = PenyimpananPenyulang::where('periode', $date_)->where('id_penyulang', $id)->first();
         }
-        elseif($tipe=="gardu"){
+        elseif($tipe=="gardu"|| $tipe=="pct" || $tipe=="tm"){
             $awal = PenyimpananGardu::where('periode', $date)->where('id_gardu', $id)->first();
             $data_master = Gardu::where('id', $id)->first();
             $akhir = PenyimpananGardu::where('periode', $date_)->where('id_gardu', $id)->first();
         }
+
         $data_master = json_decode($data_master->data_master, true);
         if($tipe=="trafo_gi")
             $faktor_kali = (int)$data_master[$meter]['FK']['faktorkali'];
+        elseif($tipe=="pct")
+            $faktor_kali = (int)$data_master['meter']['FK']['faktorkali'];
         else
             $faktor_kali = (int)$data_master['FK']['faktorkali'];
 
@@ -309,7 +430,7 @@ class Input extends Controller
             'download' => $download
         );
 
-        if($tipe=="trafo_gi"){
+        if($tipe=="trafo_gi"||$tipe=="pct"){
             $diff =$this->json_dt($awal,$visual,$download,$tipe,$meter,$faktor_kali);
             $dt = array(
                 'beli'=> $diff[0],
@@ -371,6 +492,38 @@ class Input extends Controller
                         'hasil_pengolahan'=> $dt2
                     );
                 }
+                elseif($meter=="impor"){
+                    $dt = array(
+                        'impor'=>$update,
+                        'ekspor'=>null,
+                        'meter'=> null
+                    );
+                    $dt2 = array(
+                        'impor'=>null,
+                        'ekspor'=>$olah,
+                        'meter'=> null
+                    );
+                    $dt = array(
+                        'beli'=> $dt,
+                        'hasil_pengolahan'=> $dt2
+                    );
+                }
+                elseif($meter=="ekspor"){
+                    $dt = array(
+                        'impor'=>null,
+                        'ekspor'=>$update,
+                        'meter'=> null
+                    );
+                    $dt2 = array(
+                        'impor'=>$olah,
+                        'ekspor'=>null,
+                        'meter'=> null
+                    );
+                    $dt = array(
+                        'beli'=> $dt,
+                        'hasil_pengolahan'=> $dt2
+                    );
+                }
             }
             else{
                 $akhir = json_decode($akhir->data,true);
@@ -424,9 +577,41 @@ class Input extends Controller
                         'hasil_pengolahan'=> $dt2
                     );
                 }
+                elseif($meter=="impor"){
+                    $dt = array(
+                        'impor'=>$update,
+                        'ekspor'=>$akhir['beli']['ekspor'],
+                        'meter'=> null
+                    );
+                    $dt2 = array(
+                        'impor'=>$olah,
+                        'ekspor'=>$akhir['hasil_pengolahan']['ekspor'],
+                        'meter'=> null
+                    );
+                    $dt = array(
+                        'beli'=> $dt,
+                        'hasil_pengolahan'=> $dt2
+                    );
+                }
+                elseif($meter=="ekspor"){
+                    $dt = array(
+                        'impor'=>$akhir['beli']['impor'],
+                        'ekspor'=>$update,
+                        'meter'=> null
+                    );
+                    $dt2 = array(
+                        'impor'=>$akhir['hasil_pengolahan']['impor'],
+                        'ekspor'=>$olah,
+                        'meter'=> null
+                    );
+                    $dt = array(
+                        'beli'=> $dt,
+                        'hasil_pengolahan'=> $dt2
+                    );
+                }
 
             }
-                   }
+        }
         else{
             $dt = $this->json_dt($awal,$visual,$download,$tipe,$meter,$faktor_kali);
         }
@@ -453,9 +638,8 @@ class Input extends Controller
             'wbp_visual' => $wbp_visual,
             'kvarh_visual' => $kvarh_visual,
         );
-
         if($boolean){
-            if($tipe=="trafo_gi"){
+            if($tipe=="trafo_gi"||$tipe=="pct"){
                 $lwbp1_visual = ($data_visual['lwbp1_visual'] - $data_awal['beli'][$meter]['visual']['lwbp1_visual'])*$faktor_kali;
                 $lwbp2_visual = ($data_visual['lwbp2_visual'] - $data_awal['beli'][$meter]['visual']['lwbp2_visual'])*$faktor_kali;
                 $wbp_visual = ($data_visual['wbp_visual'] - $data_awal['beli'][$meter]['visual']['wbp_visual'])*$faktor_kali;
@@ -490,7 +674,7 @@ class Input extends Controller
         );
 
         if($boolean){
-            if($tipe=="trafo_gi"){
+            if($tipe=="trafo_gi"||$tipe=="pct"){
                 $lwbp1_download = ($download['lwbp1_download'] - $data_awal['beli'][$meter]['download']['lwbp1_download'])*$faktor_kali;
                 $lwbp2_download = ($download['lwbp2_download'] - $data_awal['beli'][$meter]['download']['lwbp2_download'])*$faktor_kali;
                 $wbp_download =  ($download['wbp_download'] - $data_awal['beli'][$meter]['download']['wbp_download'])*$faktor_kali;
@@ -531,9 +715,9 @@ class Input extends Controller
             'hasil_pengolahan' => $data_pengolahan
         );
 //        dd($dt);
-
-        return $dt;
-
+        if($tipe=="trafo_gi"||$tipe=="pct")
+            return array ($data, $data_pengolahan);
+        else return $dt;
     }
 
 
@@ -731,17 +915,26 @@ class Input extends Controller
                     'ps' => $data_awal,
                 );
             }
+            elseif($tipe=="pct"){
+                $data_awal = array(
+                    'impor' => $data_awal,
+                    'ekspor' => $data_awal,
+                    'meter' => "",
+                );
+            }
             $data =array(
                 'beli'=>$data_awal,
                 'hasil_pengolahan'=> null
             );
 
-            $hasil = json_encode($data);
-            $data = json_decode($hasil, true);
+//            $hasil = json_encode($data);
+//            $data = json_decode($hasil, true);
         }
-
+        $decoded = json_decode($jenis->data_master,true);
+//        dd($data);
         return view('admin.nonmaster.dashboard_user.input_data', [
             'data'            => $data,
+            'decoded'         => $decoded,
             'jenis'           => $jenis,
             'tipe'            => $tipe
         ]);
