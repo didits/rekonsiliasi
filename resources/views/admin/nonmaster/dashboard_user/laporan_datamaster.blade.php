@@ -701,15 +701,9 @@
                             <div class="nav-container">
                                 <ul class="nav nav-icons" role="tablist">
                                     <li class="active">
-                                        <a href="#meter-impor" role="tab" data-toggle="tab">
-                                            <i class="fa fa-download"></i><br>
-                                            Meter Impor
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#meter-ekspor" role="tab" data-toggle="tab">
-                                            <i class="fa fa-upload"></i><br>
-                                            Meter Ekspor
+                                        <a href="#meter-PCT" role="tab" data-toggle="tab">
+                                            <i class="fa fa-exchange"></i><br>
+                                            Meter PCT
                                         </a>
                                     </li>
                                     <li>
@@ -722,7 +716,7 @@
                             </div>
 
                             <div class="tab-content">
-                                <div class="tab-pane active" id="meter-impor">
+                                <div class="tab-pane active" id="meter-PCT">
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="content" id="kwhmeter">
@@ -868,152 +862,6 @@
                                     </div>
                                 </div>
 
-                                <div class="tab-pane" id="meter-ekspor">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="content" id="kwhmeter">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="card">
-                                                            <div class="header">
-                                                                <h4 class="title">KWH Meter</h4>
-                                                            </div>
-                                                            <div class="content">
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <div class="form-group">
-                                                                            <label>Merk</label>
-                                                                            <input type="text" name="merk" class="form-control" placeholder="Merk" value="{{$decoded['meter']['ekspor']['KWH']['merk']}}" disabled>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <div class="form-group">
-                                                                            <label>Nomor Seri</label>
-                                                                            <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="{{$decoded['meter']['ekspor']['KWH']['nomorseri']}}" disabled>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <div class="form-group">
-                                                                            <label>Konstanta</label>
-                                                                            <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="{{$decoded['meter']['ekspor']['KWH']['konstanta']}}" disabled>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <div class="form-group">
-                                                                            <label>Tegangan Arus</label>
-                                                                            <input type="text" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{$decoded['meter']['ekspor']['KWH']['teganganarus']}}" disabled>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="content" id="trafoarus">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="card">
-                                                            <div class="header">
-                                                                <h4 class="title">Trafo Arus (CT)</h4>
-                                                                {{--<p class="category">Data KWH Meter</p>--}}
-                                                            </div>
-                                                            {{--{{dd($decoded)}}--}}
-                                                            <div class="content">
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <div class="form-group">
-                                                                            <label>Ratio</label>
-                                                                            <input type="text" name="ratioct" class="form-control" placeholder="Ratio" value="{{$decoded['meter']['ekspor']['TA']['ratioct']}}" disabled>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <div class="form-group">
-                                                                            <label>Burden (VA)</label>
-                                                                            <input type="text" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{$decoded['meter']['ekspor']['TA']['burdenct']}}" disabled>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="content" id="trafotegangan">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="card">
-                                                            <div class="header">
-                                                                <h4 class="title">Trafo Tegangan (PT)</h4>
-                                                                {{--<p class="category">Data KWH Meter</p>--}}
-                                                            </div>
-                                                            <div class="content">
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <div class="form-group">
-                                                                            <label>Ratio</label>
-                                                                            <input type="text" name="ratiopt" class="form-control" placeholder="Ratio" value="{{$decoded['meter']['ekspor']['TT']['ratiopt']}}" disabled>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <div class="form-group">
-                                                                            <label>Burden (VA)</label>
-                                                                            <input type="text" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{$decoded['meter']['ekspor']['TT']['burdenpt']}}" disabled>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="content" id="faktorkalimeter">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="card">
-                                                            <div class="header">
-                                                                <h4 class="title">Faktor Kali Meter</h4>
-                                                                {{--<p class="category">Data KWH Meter</p>--}}
-                                                            </div>
-                                                            <div class="content">
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <div class="form-group">
-                                                                            <label>Faktor Kali Meter</label>
-                                                                            <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{$decoded['meter']['ekspor']['FK']['faktorkali']}}" disabled>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <div class="tab-pane" id="lihatEXIM">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -1021,13 +869,12 @@
                                                 <div class="header">Lihat EXIM</div>
                                                 <div class="content">
 
-
-                                                    <label class="control-label">Jenis EXIM
-                                                    </label>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" disabled=""
-                                                               placeholder="Rayon" value="Ekspor">
-                                                    </div>
+                                                    {{--<label class="control-label">Jenis EXIM--}}
+                                                    {{--</label>--}}
+                                                    {{--<div class="form-group">--}}
+                                                        {{--<input type="text" class="form-control" disabled=""--}}
+                                                               {{--placeholder="Rayon" value="Ekspor">--}}
+                                                    {{--</div>--}}
 
                                                     <label>Tujuan EXIM</label>
                                                     <div class="row">
