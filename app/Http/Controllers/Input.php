@@ -142,49 +142,6 @@ class Input extends Controller
         if($data_listrik){
             $decoded = json_decode($data_listrik->data,true);
 
-//            $lok_d = array(
-//                'area' => $request->area,
-//                'rayon' => $request->rayon,
-//                'penyulang' =>$penyulang2->nama_penyulang
-//            );
-//            $lok_t = array(
-//                'area' => $area->nama_organisasi,
-//                'rayon' => $rayon->nama_organisasi,
-//                'penyulang' =>$penyulang->nama_penyulang
-//            );
-//
-//            $lok = array(
-//                'impor' => $lok_d,
-//                'ekspor' => $lok_t
-//            );
-//
-//            $dt = array(
-//                'beli' => $data,
-//                'hasil_pengolahan' => null
-//            );
-//
-//            $dt_im = array(
-//                'impor' => $dt_im,
-//                'ekspor' => $dt_eks
-//            );
-//
-//            $dt_eks = array(
-//                'impor' => $dt_im,
-//                'ekspor' => $dt_eks
-//            );
-//
-//            $dt = array(
-//                'impor' => $dt_im,
-//                'ekspor' => $dt_eks
-//            );
-//
-//            $data = array(
-//                'meter' =>$dt,
-//                'lokasi' =>$lok,
-//            );
-
-//
-//
             if($request->tipe=="pct") {
                 $meter=$request->meter;
                 if($request->visual){
@@ -320,14 +277,14 @@ class Input extends Controller
                     $data1 = array(
                         'impor' => $data,
                         'ekspor' => $data2,
-                        'meter' => ""
+                        'lokasi' => ""
                     );
                 }
                 elseif($request->meter=="ekspor") {
                     $data1 = array(
                         'impor' => $data2,
                         'ekspor' => $data,
-                        'meter' => ""
+                        'lokasi' => ""
                     );
                 }
                 $dt = array(
@@ -496,12 +453,12 @@ class Input extends Controller
                     $dt = array(
                         'impor'=>$update,
                         'ekspor'=>null,
-                        'meter'=> null
+                        'lokasi'=> null
                     );
                     $dt2 = array(
                         'impor'=>null,
                         'ekspor'=>$olah,
-                        'meter'=> null
+                        'lokasi'=> null
                     );
                     $dt = array(
                         'beli'=> $dt,
@@ -512,12 +469,12 @@ class Input extends Controller
                     $dt = array(
                         'impor'=>null,
                         'ekspor'=>$update,
-                        'meter'=> null
+                        'lokasi'=> null
                     );
                     $dt2 = array(
                         'impor'=>$olah,
                         'ekspor'=>null,
-                        'meter'=> null
+                        'lokasi'=> null
                     );
                     $dt = array(
                         'beli'=> $dt,
@@ -581,12 +538,12 @@ class Input extends Controller
                     $dt = array(
                         'impor'=>$update,
                         'ekspor'=>$akhir['beli']['ekspor'],
-                        'meter'=> null
+                        'lokasi'=> null
                     );
                     $dt2 = array(
                         'impor'=>$olah,
                         'ekspor'=>$akhir['hasil_pengolahan']['ekspor'],
-                        'meter'=> null
+                        'lokasi'=> null
                     );
                     $dt = array(
                         'beli'=> $dt,
@@ -597,12 +554,12 @@ class Input extends Controller
                     $dt = array(
                         'impor'=>$akhir['beli']['impor'],
                         'ekspor'=>$update,
-                        'meter'=> null
+                        'lokasi'=> null
                     );
                     $dt2 = array(
                         'impor'=>$akhir['hasil_pengolahan']['impor'],
                         'ekspor'=>$olah,
-                        'meter'=> null
+                        'lokasi'=> null
                     );
                     $dt = array(
                         'beli'=> $dt,
@@ -919,7 +876,7 @@ class Input extends Controller
                 $data_awal = array(
                     'impor' => $data_awal,
                     'ekspor' => $data_awal,
-                    'meter' => "",
+                    'lokasi' => "",
                 );
             }
             $data =array(
