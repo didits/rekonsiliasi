@@ -2,10 +2,13 @@
 @section('title', 'Si-Oneng, Rekonsiliasi Energi')
 
 @section('content')
+
 <div class="wrapper">
 @include('admin.master.navbar')
+
     <div class="main-panel">
-@include('admin.master.top_navbar', ['navbartitle' => "RAYON " .    Auth::user()->nama_organisasi])
+        @include('admin.master.top_navbar', ['navbartitle' => "RAYON " .    Auth::user()->nama_organisasi])
+
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -20,17 +23,23 @@
                                         {{--<th>ID</th>--}}
                                         <th>Nama Gardu Induk</th>
                                         <th>Alamat Gardu Induk</th>
+                                        <th></th>
                                     </thead>
                                     <tbody>
                                     @if($data)
                                         @foreach($data as $list)
-                                            <tr>
-                                                {{--<td>{{$list->id}}</td>--}}
-                                                <td><a href="{{route('input.list_trafo_gi', $list->id)}}">{{$list->nama_gi}}</a></td>
-                                                <td>{{$list->alamat_gi}}</td>
-                                            </tr>
+
+                                        <tr>
+                                            {{--<td>{{$list->id}}</td>--}}
+                                            <td>{{$list->nama_gi}}</td>
+                                            <td>{{$list->alamat_gi}}</td>
+                                            <td>
+                                                <a href="{{route('input.list_trafo_gi', $list->id)}}" class="btn btn-info btn-fill pull-right">Lihat GI</a>
+                                            </td>
+                                        </tr>
                                         @endforeach
                                     @endif
+
                                     </tbody>
                                 </table>
 
@@ -40,7 +49,6 @@
                 </div>
             </div>
         </div>
-
         @include('admin.master.footer')
 
     </div>

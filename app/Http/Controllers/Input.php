@@ -61,27 +61,27 @@ class Input extends Controller
     public function list_trafo_gi($id_gi){
         $gi = GI::where('id', $id_gi)->first();
         $data = TrafoGI::where('id_gi', $id_gi)->get();
-        return view('admin.nonmaster.dashboard_user.list_input_trafo_gi',[
-            'data' =>$data,
-            'gardu' =>$gi
+        return view('admin.nonmaster.dashboard_user.list_input',[
+            'data' => $data,
+            'gi' =>$gi, 't_gi' => null, 'penyulang' => null
         ]);
     }
 
     public function list_penyulang($id_trafo_gi){
         $t_gi = TrafoGI::where('id', $id_trafo_gi)->first();
         $data = Penyulang::where('id_trafo_gi', $id_trafo_gi)->get();
-        return view('admin.nonmaster.dashboard_user.list_input_penyulang',[
-            'data' =>$data,
-            't_gi' =>$t_gi
+        return view('admin.nonmaster.dashboard_user.list_input',[
+            'data' => $data,
+            'gi' => null, 't_gi' => $t_gi, 'penyulang' => null
         ]);
     }
 
     public function list_gd($id_gi){
         $penyulang = Penyulang::where('id', $id_gi)->first();
         $data = Gardu::where('id_penyulang', $id_gi)->get();
-        return view('admin.nonmaster.dashboard_user.list_input_gd',[
-            'data' =>$data,
-            'penyulang' =>$penyulang
+        return view('admin.nonmaster.dashboard_user.list_input',[
+            'data' => $data,
+            'gi' => null, 't_gi' => null, 'penyulang' => $penyulang
         ]);
     }
 
@@ -676,7 +676,7 @@ class Input extends Controller
             $data = PenyimpananPenyulang::where('periode',date('Ym'))->where('id_penyulang', $id)->first();
             $jenis = Penyulang::where('id',$id)->first();
         }
-        elseif($tipe=="gardu"){
+        elseif($tipe=="gd" || $tipe=="pct" || $tipe=="tm"){
             $data = PenyimpananGardu::where('periode',date('Ym'))->where('id_gardu', $id)->first();
             $jenis = Gardu::where('id',$id)->first();
         }
