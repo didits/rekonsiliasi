@@ -113,13 +113,14 @@ class Input extends Controller
     public function store(Request $request)
     {
         $date = date('Ym')- "1";
+        $date = date('Ym')- "1";
+
         $input_visual = array(
             'lwbp1_visual' => $request->lwbp1_visual,
             'lwbp2_visual' => $request->lwbp2_visual,
             'wbp_visual' => $request->wbp_visual,
             'kvarh_visual' => $request->kvarh_visual
         );
-
         $input_download = array(
             'lwbp1_download' => $request->lwbp1_download,
             'lwbp2_download' => $request->lwbp2_download,
@@ -141,7 +142,25 @@ class Input extends Controller
         }
 
         if($data_listrik){
+            $decoded = json_decode($data_listrik->data,true);
+            if($request->visual){
+                $input_download = array(
+                    'lwbp1_download' => $decoded['beli']['download']['lwbp1_download'],
+                    'lwbp2_download' => $decoded['beli']['download']['lwbp2_download'],
+                    'wbp_download' => $decoded['beli']['download']['wbp_download'],
+                    'kvarh_download' => $decoded['beli']['download']['kvarh_download']
+                );
+            }
+            elseif ($request->download){
+                $input_visual = array(
+                    'lwbp1_visual' => $decoded['beli']['visual']['lwbp1_visual'],
+                    'lwbp2_visual' => $decoded['beli']['visual']['lwbp2_visual'],
+                    'wbp_visual' => $decoded['beli']['visual']['wbp_visual'],
+                    'kvarh_visual' => $decoded['beli']['visual']['kvarh_visual']
+                );
+            }
             $data = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter);
+
             $data_listrik->data = json_encode($data);
             if ($data_listrik->save()) ;
             return back();
@@ -203,6 +222,7 @@ class Input extends Controller
                     'beli' => $data,
                     'hasil_pengolahan' => null
                 );
+//                dd($dt);
 
             }
 
@@ -221,14 +241,16 @@ class Input extends Controller
                 $P->data = json_encode($dt);
                 $P->data_keluar = "";
                 $data_awal = PenyimpananTrafoGI::where('periode', $date)->where('id_trafo_gi', $request->id)->first();
-            } elseif ($request->tipe == "penyulang") {
+            }
+            elseif ($request->tipe == "penyulang") {
                 $P = new PenyimpananPenyulang();
                 $P->id_penyulang= $request->id;
                 $P->periode = date('Ym');
                 $P->data = json_encode($dt);
                 $P->data_keluar = "";
                 $data_awal = PenyimpananPenyulang::where('periode', $date)->where('id_penyulang', $request->id)->first();
-            } elseif ($request->tipe == "gardu") {
+            }
+            elseif ($request->tipe == "gardu") {
                 $P = new PenyimpananGardu();
                 $P->id_gardu = $request->id;
                 $P->periode = date('Ym');
@@ -277,7 +299,6 @@ class Input extends Controller
             $akhir = PenyimpananGardu::where('periode', $date_)->where('id_gardu', $id)->first();
         }
         $data_master = json_decode($data_master->data_master, true);
-
         if($tipe=="trafo_gi")
             $faktor_kali = (int)$data_master[$meter]['FK']['faktorkali'];
         else
@@ -409,8 +430,6 @@ class Input extends Controller
         else{
             $dt = $this->json_dt($awal,$visual,$download,$tipe,$meter,$faktor_kali);
         }
-//                dd($dt);
-
         return $dt;
     }
 
@@ -511,8 +530,9 @@ class Input extends Controller
             'beli' => $data,
             'hasil_pengolahan' => $data_pengolahan
         );
+//        dd($dt);
 
-        return array ($data, $data_pengolahan);
+        return $dt;
 
     }
 

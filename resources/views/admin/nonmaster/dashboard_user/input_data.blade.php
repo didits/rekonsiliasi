@@ -68,6 +68,7 @@
                                                                             <input type="hidden" name="_method" value="POST">
                                                                             <input type="hidden" name="id" value="{{$jenis->id}}">
                                                                             <input type="hidden" name="tipe" value="{{$tipe}}">
+                                                                            <input type="hidden" name="visual" value="{{$jenis->id}}">
                                                                             <input type="hidden" name="meter" value="utama">
                                                                             <input type="hidden" name="form_utama" value="1">
                                                                             {{ csrf_field() }}
@@ -121,6 +122,7 @@
                                                                             <input type="hidden" name="id" value="{{$jenis->id}}">
                                                                             <input type="hidden" name="tipe" value="{{$tipe}}">
                                                                             <input type="hidden" name="meter" value="utama">
+                                                                            <input type="hidden" name="download" value="{{$jenis->id}}">
                                                                             <input type="hidden" name="form_utama" value="1">
                                                                             {{ csrf_field() }}
 
@@ -199,6 +201,7 @@
                                                                             <input type="hidden" name="id" value="{{$jenis->id}}">
                                                                             <input type="hidden" name="tipe" value="{{$tipe}}">
                                                                             <input type="hidden" name="meter" value="pembanding">
+                                                                            <input type="hidden" name="visual" value="{{$jenis->id}}">
                                                                             <input type="hidden" name="form_pembanding" value="1">
                                                                             {{ csrf_field() }}
 
@@ -251,6 +254,7 @@
                                                                             <input type="hidden" name="id" value="{{$jenis->id}}">
                                                                             <input type="hidden" name="tipe" value="{{$tipe}}">
                                                                             <input type="hidden" name="meter" value="pembanding">
+                                                                            <input type="hidden" name="download" value="{{$jenis->id}}">
                                                                             <input type="hidden" name="form_pembanding" value="1">
                                                                             {{ csrf_field() }}
 
@@ -329,6 +333,7 @@
                                                                             <input type="hidden" name="id" value="{{$jenis->id}}">
                                                                             <input type="hidden" name="tipe" value="{{$tipe}}">
                                                                             <input type="hidden" name="meter" value="ps">
+                                                                            <input type="hidden" name="visual" value="{{$jenis->id}}">
                                                                             <input type="hidden" name="form_ps" value="1">
                                                                             {{ csrf_field() }}
 
@@ -382,6 +387,7 @@
                                                                             <input type="hidden" name="tipe" value="{{$tipe}}">
                                                                             <input type="hidden" name="meter" value="ps">
                                                                             <input type="hidden" name="form_ps" value="1">
+                                                                            <input type="hidden" name="download" value="{{$jenis->id}}">
                                                                             {{ csrf_field() }}
 
                                                                             <div class="card">
@@ -515,6 +521,7 @@
                                                                             <input type="hidden" name="tipe" value="{{$tipe}}">
                                                                             <input type="hidden" name="meter" value="impor">
                                                                             <input type="hidden" name="form_impor" value="1">
+                                                                            <input type="hidden" name="visual" value="{{$jenis->id}}">
                                                                             {{ csrf_field() }}
 
                                                                             <div class="card">
@@ -565,6 +572,7 @@
                                                                             <input type="hidden" name="_method" value="POST">
                                                                             <input type="hidden" name="id" value="{{$jenis->id}}">
                                                                             <input type="hidden" name="tipe" value="{{$tipe}}">
+                                                                            <input type="hidden" name="download" value="{{$jenis->id}}">
                                                                             <input type="hidden" name="meter" value="impor">
                                                                             <input type="hidden" name="form_impor" value="1">
                                                                             {{ csrf_field() }}
@@ -675,6 +683,7 @@
                                                                             <input type="hidden" name="id" value="{{$jenis->id}}">
                                                                             <input type="hidden" name="tipe" value="{{$tipe}}">
                                                                             <input type="hidden" name="meter" value="ekspor">
+                                                                            <input type="hidden" name="visual" value="{{$jenis->id}}">
                                                                             <input type="hidden" name="form_ekspor" value="1">
                                                                             {{ csrf_field() }}
 
@@ -727,6 +736,7 @@
                                                                             <input type="hidden" name="id" value="{{$jenis->id}}">
                                                                             <input type="hidden" name="tipe" value="{{$tipe}}">
                                                                             <input type="hidden" name="meter" value="ekspor">
+                                                                            <input type="hidden" name="download" value="{{$jenis->id}}">
                                                                             <input type="hidden" name="form_ekspor" value="1">
                                                                             {{ csrf_field() }}
 
@@ -811,6 +821,7 @@
                                                                     <input type="hidden" name="_method" value="POST">
                                                                     <input type="hidden" name="id" value="{{$jenis->id}}">
                                                                     <input type="hidden" name="tipe" value="{{$tipe}}">
+                                                                    <input type="hidden" name="visual" value="{{$jenis->id}}">
                                                                     {{ csrf_field() }}
 
                                                                     <div class="card">
@@ -861,6 +872,7 @@
                                                                     <input type="hidden" name="_method" value="POST">
                                                                     <input type="hidden" name="id" value="{{$jenis->id}}">
                                                                     <input type="hidden" name="tipe" value="{{$tipe}}">
+                                                                    <input type="hidden" name="download" value="{{$jenis->id}}">
                                                                     {{ csrf_field() }}
 
                                                                     <div class="card">
