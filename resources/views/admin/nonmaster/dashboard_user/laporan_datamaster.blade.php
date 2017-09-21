@@ -44,6 +44,30 @@
                     </div>
 
                     @if($unit == "tgi")
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="content">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Tegangan</label>
+                                                <input type="text" class="form-control"
+                                                       placeholder="Tegangan" value="" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Kapasitas</label>
+                                                <input type="text" class="form-control"
+                                                       placeholder="Kapasitas" value="" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="row">
 
@@ -528,16 +552,7 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label>APP</label>
-                                                            <input type="text" name="app" class="form-control" placeholder="Merk" value="{{$decoded['APP']}}" disabled>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label>Kapasitas</label>
-                                                            <input type="text" name="kapasitas" class="form-control" placeholder="Nomor Seri" value="{{$decoded['kapasitas']}}" disabled>
+                                                            <input type="text" name="app" class="form-control" placeholder="APP" value="{{$decoded['APP']}}" disabled>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -132,16 +132,10 @@
                                                             {{ csrf_field() }}
 
                                                             <div class="row">
-                                                                <div class="col-md-6">
+                                                                <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>APP</label>
-                                                                        <input type="text" class="form-control"  disabled="" placeholder="Area" value="{{$decoded['APP']}}">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Kapasitas</label>
-                                                                        <input type="text" class="form-control"  disabled="" placeholder="Rayon" value={{$decoded['kapasitas']}}>
+                                                                        <input type="text" class="form-control"  disabled="" placeholder="APP" value="{{$decoded['APP']}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -181,15 +175,6 @@
                                                                                         <option value="malang">Malang</option>
                                                                                         <option value="probolinggo">Probolinggo</option>
                                                                                     </select>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="form-group">
-                                                                                    <label>Kapasitas</label>
-                                                                                    <input type="number" name="kapasitas" class="form-control" placeholder="Kapasitas" value="{{$decoded['kapasitas']}}">
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -275,8 +260,35 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
                                     @if($id_trafo_gi)
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card">
+                                                <div class="content">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Tegangan</label>
+                                                                <input type="text" class="form-control"
+                                                                       placeholder="Tegangan" value="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Kapasitas</label>
+                                                                <input type="text" class="form-control"
+                                                                       placeholder="Kapasitas" value="">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="row">
 
                                         <div class="col-md-12">
