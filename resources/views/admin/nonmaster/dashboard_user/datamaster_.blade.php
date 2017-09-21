@@ -2139,50 +2139,56 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="card">
-                                                    {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
-                                                        {{--<input type="hidden" name="_method" value="POST">--}}
-                                                        {{--<input type="hidden" name="GD" value="{{$id_gardu}}">--}}
-                                                        {{--<input type="hidden" name="idpenyulang" value={{$gardu->id_penyulang}}>--}}
-                                                        {{--<input type="hidden" name="idrayon" value={{$rayon->id_organisasi}}>--}}
-                                                        {{--<input type="hidden" name="id_org" value={{$id_org}}>--}}
-                                                        {{--<input type="hidden" name="tipe_" value=1>--}}
-                                                        {{--{{ csrf_field() }}--}}
-                                                        <div class="header">EXIM</div>
-                                                        <div class="content">
-                                                            {{--<label class="control-label">Jenis EXIM</label>--}}
-                                                            {{--<div class="form-group">--}}
-                                                                {{--<input type="text" class="form-control" disabled="" placeholder="Rayon" value="Impor">--}}
-                                                            {{--</div>--}}
-
-                                                            <label>Tujuan EXIM</label>
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Area</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Area" value="{{$decoded['lokasi']['area']}}">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Rayon</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$decoded['lokasi']['rayon']}}">
-                                                                    </div>
+                                                    <div class="header">EXIM</div>
+                                                    <div class="content">
+                                                        <label>Ekspor ke:</label>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Area</label>
+                                                                    <input type="text" class="form-control" disabled="" placeholder="Area" value="{{$decoded['lokasi']['area']}}">
                                                                 </div>
                                                             </div>
-
-                                                            <div class="form-group">
-                                                                <label class="control-label">Penyulang</label>
-                                                                <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$decoded['lokasi']['penyulang']}}">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Rayon</label>
+                                                                    <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$decoded['lokasi']['rayon']}}">
+                                                                </div>
                                                             </div>
                                                         </div>
-
-                                                        <div class="footer">
-                                                            <div class="clearfix"></div>
+                                                        <div class="form-group">
+                                                            <label class="control-label">Penyulang</label>
+                                                            <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="{{$decoded['lokasi']['penyulang']}}">
                                                         </div>
-                                                    {{--</form>--}}
+
+                                                        <label>Impor Dari:</label>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Area</label>
+                                                                    <input type="text" class="form-control" disabled="" placeholder="Area" value="{{$decoded['lokasi']['area']}}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Rayon</label>
+                                                                    <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$decoded['lokasi']['rayon']}}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="control-label">Penyulang</label>
+                                                            <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="{{$decoded['lokasi']['penyulang']}}">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="footer">
+                                                        <div class="clearfix"></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
                                     <div class="content" id="editEXIM-">
                                         <div class="row">

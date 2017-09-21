@@ -868,42 +868,46 @@
                                             <div class="card">
                                                 <div class="header">Lihat EXIM</div>
                                                 <div class="content">
-
-                                                    {{--<label class="control-label">Jenis EXIM--}}
-                                                    {{--</label>--}}
-                                                    {{--<div class="form-group">--}}
-                                                        {{--<input type="text" class="form-control" disabled=""--}}
-                                                               {{--placeholder="Rayon" value="Ekspor">--}}
-                                                    {{--</div>--}}
-
-                                                    <label>Tujuan EXIM</label>
+                                                    <label>Ekspor ke:</label>
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label>Area</label>
-                                                                <input type="text" class="form-control" disabled=""
-                                                                       placeholder="Area"
-                                                                       value="{{$decoded['lokasi']['area']}}">
+                                                                <input type="text" class="form-control" disabled="" placeholder="Area" value="{{$decoded['lokasi']['area']}}">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label>Rayon</label>
-                                                                <input type="text" class="form-control" disabled=""
-                                                                       placeholder="Rayon"
-                                                                       value="{{$decoded['lokasi']['rayon']}}">
+                                                                <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$decoded['lokasi']['rayon']}}">
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                     <div class="form-group">
-                                                        <label class="control-label">Penyulang
-                                                        </label>
-                                                        <input type="text" class="form-control" disabled=""
-                                                               placeholder="Rayon" value="{{$decoded['lokasi']['penyulang']}}">
+                                                        <label class="control-label">Penyulang</label>
+                                                        <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="{{$decoded['lokasi']['penyulang']}}">
+                                                    </div>
+
+                                                    <label>Impor Dari:</label>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Area</label>
+                                                                <input type="text" class="form-control" disabled="" placeholder="Area" value="{{$decoded['lokasi']['area']}}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Rayon</label>
+                                                                <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$decoded['lokasi']['rayon']}}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Penyulang</label>
+                                                        <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="{{$decoded['lokasi']['penyulang']}}">
                                                     </div>
                                                 </div>
-
                                                 <div class="footer">
                                                     <div class="clearfix"></div>
                                                 </div>
