@@ -832,7 +832,7 @@ class AreaController extends Controller
         return view('admin.nonmaster.dashboard_user.list_datamaster',[
             'data' => $data,
             'list_distribusi' => $this->list_distribusi(),
-            'laporan' => false]);
+            'laporan' => false, 'transaksi' => false]);
     }
 
     public function list_master_rayon() {
@@ -841,7 +841,16 @@ class AreaController extends Controller
         return view('admin.nonmaster.dashboard_user.list_datamaster',[
             'data' => $data,
             'list_distribusi' => $this->list_distribusi(),
-            'laporan' => true]);
+            'laporan' => true, 'transaksi' => false]);
+    }
+
+    public function laporan_beli() {
+        $data = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get();
+//        dd($data);
+        return view('admin.nonmaster.dashboard_user.list_datamaster',[
+            'data' => $data,
+            'list_distribusi' => $this->list_distribusi(),
+            'laporan' => false, 'transaksi' => true]);
     }
 
     public function list_gardu_induk($id_rayon){
@@ -864,31 +873,31 @@ class AreaController extends Controller
     }
 
     public function list_datamaster($id_rayon){
-        $master_gi = new masterGI($id_rayon);
+        $master_gi = new MasterGI($id_rayon);
 //        dd($master_gi->data);
         return view('admin.nonmaster.dashboard_user.list_datamaster_',[
             'data' =>$master_gi->data,
             'data2' =>$master_gi->data2,
             'id_organisasi'=>$master_gi->id_rayon,
             'nama_rayon' =>$master_gi->nama_rayon,
-            'laporan' => false
+            'laporan' => false, 'transaksi' => false
         ]);
     }
 
     public function list_master_gi($id_rayon){
-        $master_gi = new masterGI($id_rayon);
+        $master_gi = new MasterGI($id_rayon);
         return view('admin.nonmaster.dashboard_user.list_datamaster2_',[
             'data' =>$master_gi->data,
             'data2' =>$master_gi->data2,
             'tipe' => "gi",
             'id_organisasi'=>$master_gi->id_rayon,
             'nama_rayon' =>$master_gi->nama_rayon,
-            'laporan' => true
+            'laporan' => true, 'transaksi' => false
         ]);
     }
 
     public function list_master($id_rayon,$tipe,$id){
-        $master = new master($id_rayon,$tipe,$id);
+        $master = new Master($id_rayon,$tipe,$id);
         if($master->data->count()==0)
             $master->data=null;
         if($master->data2->count()==0)
@@ -900,7 +909,7 @@ class AreaController extends Controller
             'id_organisasi'=>$master->id_rayon,
             'nama_rayon' =>$master->nama_rayon,
             'nama' =>$master->nama,
-            'laporan' => true
+            'laporan' => true, 'transaksi' => false
         ]);
     }
 
@@ -1266,55 +1275,4 @@ class AreaController extends Controller
             'dropdown_area'=>$this->populateArea()
         ]);
     }
-}
-
-class master
-{
-    public function __construct($id_rayon,$tipe,$id)
-    {
-        $this->id_rayon = $id_rayon;
-        $rayon = Organisasi::where('id_organisasi', $id_rayon)->get();
-        $this->nama_rayon = $rayon[0]->nama_organisasi;
-        $id_org = $rayon[0]->id;
-        $nama="";
-        if($tipe=="tgi"){
-            $this->data = TrafoGI::where('id_gi', $id)->get();
-            $nama = GI::select('nama_gi')->where('id', $id)->first();
-        }
-        elseif($tipe=="penyulang"){
-            $transfer = Transfer::where('id_trafo_gi',$id)->pluck('id_penyulang');
-            $data = Penyulang::select('id','nama_penyulang','alamat_penyulang','data_master')
-                ->whereNotIn('id',$transfer)
-                ->where('id_trafo_gi',$id)
-                ->get();
-            $this->data =$data;
-            $nama = TrafoGI::select('nama_trafo_gi')->where('id', $id)->first();
-        }
-        elseif($tipe=="gd"){
-            $this->data = Gardu::where('id_penyulang', $id)->get();
-            $nama = Penyulang::select('nama_penyulang')->where('id', $id)->first();
-        }
-        $id_ryn = Organisasi::where('id_organisasi', $id_rayon)->first();
-        $this->data2 = Transfer::select('transfer.id_organisasi','transfer.id_gi', 'gi.nama_gi', 'gi.alamat_gi')
-            ->join('GI','GI.id','=','transfer.id_gi')->distinct('transfer.id_gi')
-            ->where('transfer.id_organisasi', $id_ryn->id)->get();
-        $this->tipe = $tipe;
-        $this->nama = $nama;
-    }
-
-}class masterGI
-{
-    public function __construct($id_rayon)
-    {
-        $this->id_rayon = $id_rayon;
-        $rayon = Organisasi::where('id_organisasi', $id_rayon)->get();
-        $this->nama_rayon = $rayon[0]->nama_organisasi;
-        $id_org = $rayon[0]->id;
-        $this->data = GI::where('id_organisasi', $id_org)->get();
-        $id_ryn = Organisasi::where('id_organisasi', $id_rayon)->first();
-        $this->data2 = Transfer::select('transfer.id_organisasi','transfer.id_gi', 'gi.nama_gi', 'gi.alamat_gi')
-            ->join('GI','GI.id','=','transfer.id_gi')->distinct('transfer.id_gi')
-            ->where('transfer.id_organisasi', $id_ryn->id)->get();
-    }
-
 }

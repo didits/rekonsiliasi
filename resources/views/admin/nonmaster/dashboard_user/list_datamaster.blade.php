@@ -29,9 +29,15 @@
                                             <td>{{$list->nama_organisasi}}</td>
                                             <td>{{$list->alamat}}</td>
                                             <td>
+                                                @if(!$transaksi)
                                                 <a href="{{route('area.get_structure', $list->id)}}" class="btn btn-info btn-fill pull-right" style="margin-left:5pt">Single line</a>
+
+                                                @endif
                                                 @if($laporan)
                                                 <a href="{{route('area.list_master_gi', $list->id_organisasi)}}" class="btn btn-info btn-fill pull-right" >List GI</a>
+
+                                                @elseif($transaksi)
+                                                <a href="{{route('area.list_beli_gi', $list->id_organisasi)}}" class="btn btn-info btn-fill pull-right" >List GI</a>
 
                                                 @else
                                                 <a href="{{route('area.list_datamaster', $list->id_organisasi)}}" class="btn btn-info btn-fill pull-right" >List GI</a>

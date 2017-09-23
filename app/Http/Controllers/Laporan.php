@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Penyulang;
 use App\Gardu;
+use Illuminate\Support\Facades\Auth;
 
 class Laporan extends Controller
 {
@@ -46,6 +47,34 @@ class Laporan extends Controller
         ]);
     }
 
+    public function list_beli_gi($id_rayon){
+        $master_gi = new MasterGI($id_rayon);
+        Auth::user()->tipe_organisasi == 3 ? $rayon = true : $rayon = false;
+        return view('admin.nonmaster.dashboard_user.list_datamaster2_',[
+            'data' =>$master_gi->data,
+            'data2' =>$master_gi->data2,
+            'tipe' => "gi",
+            'id_organisasi'=>$master_gi->id_rayon,
+            'nama_rayon' =>$master_gi->nama_rayon,
+            'laporan' => false, 'transaksi' => true, 'rayon' => $rayon
+        ]);
+    }
 
-
+    public function list_beli($id_rayon,$tipe,$id){
+        $master = new Master($id_rayon,$tipe,$id);
+        Auth::user()->tipe_organisasi == 3 ? $rayon = true : $rayon = false;
+        if($master->data->count()==0)
+            $master->data=null;
+        if($master->data2->count()==0)
+            $master->data2=null;
+        return view('admin.nonmaster.dashboard_user.list_datamaster2_',[
+            'data' =>$master->data,
+            'data2' =>$master->data2,
+            'tipe' => $master->tipe,
+            'id_organisasi'=>$master->id_rayon,
+            'nama_rayon' =>$master->nama_rayon,
+            'nama' =>$master->nama,
+            'laporan' => false, 'transaksi' => true, 'rayon' => $rayon
+        ]);
+    }
 }

@@ -58,8 +58,12 @@
                             <ul class="nav">
                                 <li @if(Request::is('rayon/list_gardu_induk/*', 'rayon/list_trafo_gi/*','rayon/list_penyulang/*','rayon/list_gd/*', 'rayon', 'rayon/input_data/*'))class="active"@endif>
                                     <a href="{{route('input.list_gardu_induk',Auth::user()->id_organisasi)}}">Entry Data Transaksi Beli</a>
-                                </li><li>
-                                    <a href="{{route('listrik.list_data')}}">Laporan Transaksi Beli</a>
+                                </li>
+                                {{--<li>--}}
+                                    {{--<a href="{{route('listrik.list_data')}}">Laporan Transaksi Beli</a>--}}
+                                {{--</li>--}}
+                                <li>
+                                    <a href="{{route('rayon.list_beli_gi', Auth::user()->id_organisasi)}}">Laporan Transaksi Beli</a>
                                 </li>
                             </ul>
                         </div>
@@ -165,7 +169,7 @@
                         <div class="collapse" id="dataTransaksiEnergi">
                             <ul class="nav">
                                 <li>
-                                    <a href="{{route('listrik.list_data')}}">Laporan Transaksi Energi</a>
+                                    <a href="{{route('area.laporan_beli')}}">Laporan Transaksi Energi</a>
                                 </li>
                             </ul>
                         </div>
