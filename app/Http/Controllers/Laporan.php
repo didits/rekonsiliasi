@@ -77,4 +77,8 @@ class Laporan extends Controller
             'laporan' => false, 'transaksi' => true, 'rayon' => $rayon
         ]);
     }
+
+    public function view_beli($id_rayon,$tipe,$id){
+        return view('admin.nonmaster.laporan.gi');
+    }
 }

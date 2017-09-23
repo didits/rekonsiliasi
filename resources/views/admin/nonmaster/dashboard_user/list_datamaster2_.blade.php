@@ -137,7 +137,7 @@
                                                 @elseif($rayon)
 
                                                     <td class="td-actions text-right">
-                                                        <a href="{{route('rayon.view_laporan_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Laporan Beli">
+                                                        <a href="{{route('rayon.view_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Laporan Beli">
                                                             <i class="fa fa-info"></i>
                                                         </a>
                                                         @if($tipe=="gi")
@@ -167,7 +167,7 @@
                                                 @elseif($transaksi)
 
                                                     <td class="td-actions text-right">
-                                                        <a href="{{route('area.view_laporan_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Laporan Beli">
+                                                        <a href="{{route('area.view_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Laporan Beli">
                                                             <i class="fa fa-info"></i>
                                                         </a>
                                                         @if($tipe=="gi")

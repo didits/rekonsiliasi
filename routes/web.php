@@ -164,7 +164,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'rayon'], function () {
     ]);
 
     Route::get('/view_laporan_transaksi/{id_organisasi}/{unit}/{id_unit}', [
-        'as'        => 'rayon.view_laporan_beli',
+        'as'        => 'rayon.view_beli',
         'uses'      => 'Laporan@view_beli'
     ]);
 });
@@ -326,7 +326,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
     ]);
 
     Route::get('/view_laporan_transaksi/{id_organisasi}/{unit}/{id_unit}', [
-        'as'        => 'area.view_laporan_beli',
+        'as'        => 'area.view_beli',
         'uses'      => 'Laporan@view_beli'
     ]);
 });
