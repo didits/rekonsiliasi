@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\GI;
+use App\Organisasi;
+use App\PenyimpananPenyulang;
+use App\PenyimpananTrafoGI;
+use App\TrafoGI;
 use Illuminate\Http\Request;
 use App\Penyulang;
 use App\Gardu;
@@ -79,6 +84,61 @@ class Laporan extends Controller
     }
 
     public function view_beli($id_rayon,$tipe,$id){
-        return view('admin.nonmaster.laporan.gi');
+        $cmb = new MasterLaporan($id_rayon,$tipe,$id);
+        $gi = GI::where('id',$id)->first();
+        $areas = Organisasi::where('id',$gi->id_organisasi)->first();
+        $id_org = substr($areas->id_organisasi, 0, 3) . "%%";
+        $area = Organisasi::where('id_organisasi', 'like', $id_org)->where('tipe_organisasi', 2)->first();
+        $penyulang_array = array();
+        $list_array = array();
+        $p = $cmb->penyulang->toArray();
+        $t = $cmb->trafo->toArray();
+
+//        dd($cmb->p_penyulang_[]->id_penyulang);
+//        for ($j=0; $j < count($cmb->id); $j++) {
+//            for ($i=0; $i < count($p); $j++) {
+//                if($cmb->p_penyulang_[$i]->id_penyulang);
+////                $lwbp1 =;
+////                $lwbp2 =;
+////                $wbp =;
+//            }
+//        }
+//        dd($cmb->id);
+
+        $pemakaian_penyulang = array(
+            'pemakaian_lwbp1' => $cmb,
+            'pemakaian_lwbp2' => $cmb,
+            'pemakaian_wbp' => $cmb,
+            'total_pemakaian_energi' => $cmb
+        );
+
+
+        for ($j=0; $j < count($p); $j++) {
+            $penyulang = PenyimpananPenyulang::where('id_penyulang', $p[$j]['id'])->where('periode', date("Ym")-1)->get(array('data'))->toArray();
+            $penyulang_ = PenyimpananPenyulang::where('id_penyulang', $p[$j]['id'])->where('periode', date("Ym"))->get(array('data'))->toArray();
+            if(count($penyulang) >0)
+                $dt = $penyulang[0]['data'];
+            else $dt = "";
+            if(count($penyulang_) >0)
+                $dt_ = $penyulang_[0]['data'];
+            else $dt_ = "";
+
+            $dtpenyulang = array(
+                'nama' => $p[$j]['nama_penyulang'],
+                'data' => $dt,
+                'data_' => $dt_,
+                'id_penyulang' => $p[$j]['id'],
+                'id_trafo' => $p[$j]['id_trafo_gi'],
+            );
+            array_push($penyulang_array,$dtpenyulang);
+        }
+//        dd(($penyulang_array));
+        return view('admin.nonmaster.laporan.gi',[
+            'data'      => $cmb,
+            'penyulang' => $penyulang_array,
+            'list_p'    => $list_array,
+            'gi'        => $gi,
+            'area'      => $area->nama_organisasi
+        ]);
     }
 }
