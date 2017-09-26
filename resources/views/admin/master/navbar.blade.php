@@ -23,7 +23,7 @@
                         <div class="collapse" id="dataMaster">
                             <ul class="nav">
                                 <li>
-                                    <a href="#">Laporan Data Master</a>
+                                    <a href="{{route('rayon.laporan_master')}}">Laporan Data Master</a>
                                 </li>
                             </ul>
                         </div>
