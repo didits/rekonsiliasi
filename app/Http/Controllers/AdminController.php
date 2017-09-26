@@ -84,4 +84,45 @@ class AdminController extends Controller
         }
 
     }
+
+    public function add_org(Request $request){
+        $id_org = $request->id_org;
+        $nama = $request->nama;
+        $tipe = $request->tipe;
+        $alamat = $request->alamat;
+        $pass = Hash::make($request->alamat);
+
+        $org = Organisasi::where('id_organisasi',$id_org)->first();
+
+        if(!$org){
+            $organisasi = New Organisasi();
+            $organisasi->id_organisasi = $id_org;
+            $organisasi->nama_organisasi = $nama;
+            $organisasi->tipe_organisasi = $tipe;
+            $organisasi->password = $pass;
+            $organisasi->alamat = $alamat;
+            $organisasi->save();
+            return 1;
+        }
+
+        else
+            return 0;
+    }
+
+    public function edit_org(Request $request){
+        $id = $request->id;
+        $id_org = $request->id_org;
+        $nama = $request->nama;
+        $tipe = $request->tipe;
+        $alamat = $request->alamat;
+
+        $org = Organisasi::where('id', $id)->update(['id_organisasi' => $id_org, 'nama_organisasi' => $nama, 'tipe_organisasi' => $tipe, 'alamat' => $alamat]);
+        return $org;
+    }
+
+    public function delete_org(Request $request){
+        $id = $request->id;
+        $org = Organisasi::where('id',$id)->delete();
+        return $org;
+    }
 }

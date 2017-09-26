@@ -362,5 +362,20 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
         'uses'      => 'AdminController@managementRayon'
     ]);
 
+    Route::post('/add_org', [
+        'as'        => 'admin.add_org',
+        'uses'      => 'AdminController@add_org'
+    ]);
+
+    Route::post('/edit_org', [
+        'as'        => 'admin.edit_org',
+        'uses'      => 'AdminController@edit_org'
+    ]);
+
+    Route::post('/delete_org', [
+        'as'        => 'admin.delete_org',
+        'uses'      => 'AdminController@delete_org'
+    ]);
+
     Route::post('/import_organisasi', 'AdminController@importOrganisasi');
 });
