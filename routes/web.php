@@ -167,6 +167,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'rayon'], function () {
         'as'        => 'rayon.view_beli',
         'uses'      => 'Laporan@view_beli'
     ]);
+
+    Route::get('/laporan_master', [
+        'as'        => 'rayon.laporan_master',
+        'uses'      => 'RayonController@list_master_rayon'
+    ]);
 });
 
 //area
