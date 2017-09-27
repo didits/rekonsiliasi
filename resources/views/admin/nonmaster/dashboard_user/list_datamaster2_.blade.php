@@ -15,12 +15,282 @@
             @elseif($tipe=="penyulang")
                 @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER PENYULANG: " . $nama['nama_trafo_gi']])
             @elseif($tipe=="gd")
-                @include('admin.master.top_navbar',  ['navbartitle' => "DATAMASTER GARDU: " . $nama['nama_penyulang']])
+                @include('admin.master.top_navbar',  ['navbartitle' => "DATAMASTER GD/PCT/TM: " . $nama['nama_penyulang']])
                 {{--{{dd($data)}}--}}
             @endif
 
-                <div class="content">
+            <div class="content">
                 <div class="container-fluid">
+
+                    @if($tipe=="gd")
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="nav-container">
+                                <ul class="nav nav-icons" role="tablist">
+                                    <li class="active">
+                                        <a href="#home-logo" role="tab" data-toggle="tab" aria-expanded="false">
+                                            <i class="fa fa-home"></i><br>List GD
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#code-fork-logo" role="tab" data-toggle="tab" aria-expanded="false">
+                                            <i class="fa fa-code-fork"></i><br>List PCT
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#industry-logo" role="tab" data-toggle="tab" aria-expanded="false">
+                                            <i class="fa fa-industry"></i><br>List Pelanggan TM
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="home-logo">
+                                    <div class="content">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+                                                    <div class="header">
+                                                        <h4 class="title">Dafta GD</h4>
+                                                        <p class="category">Daftar GD {{$nama_rayon}} </p>
+                                                    </div>
+                                                    <div class="content table-responsive table-full-width">
+                                                        <table class="table table-hover table-striped">
+                                                            <thead>
+                                                                <th class="text-center">#</th>
+                                                                <th>Nama GD</th>
+                                                                <th>Alamat GD</th>
+                                                                <th></th>
+                                                            </thead>
+                                                            <tbody>
+                                                                <div class="{{$num = 0}}" style="display: none"></div>
+                                                            @if($data==null)
+                                                            @else
+                                                            @foreach($data as $list)
+                                                                @if($list->tipe_gardu == 0)
+
+                                                                <tr>
+                                                                    <td class="text-center">{{$num+1}}</td>
+                                                                    <td>{{$list->nama_gardu}}</td>
+                                                                    <td>{{$list->alamat_gardu}}</td>
+                                                                    @if($laporan)
+
+                                                                        <td class="td-actions text-right">
+                                                                            <a href="{{route('area.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                                <i class="fa fa-info"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                    @elseif($rayon)
+
+                                                                        <td class="td-actions text-right">
+                                                                            <a href="{{route('rayon.view_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Laporan Beli">
+                                                                                <i class="fa fa-info"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                    @elseif($transaksi)
+
+                                                                        <td class="td-actions text-right">
+                                                                            <a href="{{route('area.view_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Laporan Beli">
+                                                                                <i class="fa fa-info"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                    @else
+
+                                                                        <td class="td-actions text-right">
+                                                                            <a href="{{url('/area/list_datamaster_gi/'.$id_organisasi.'/'.$list->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                                <i class="fa fa-user"></i>
+                                                                            </a>
+                                                                            <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile"
+                                                                               onclick="edit_datamaster.showSwal('gi', {{$list->id}},'{{$list->nama_gi}}','{{$list->alamat_gi}}')">
+                                                                                <i class="fa fa-edit"></i>
+                                                                            </a>
+                                                                            <a href="#" rel="tooltip" title="" class="btn btn-danger btn-fill " data-original-title="Remove"
+                                                                               onclick="hapus_datamaster.showSwal('gi', {{$id_organisasi}}, {{$list->id}},'{{$list->nama_gi}}')">
+                                                                                <i class="fa fa-times"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                    @endif
+
+                                                                </tr>
+                                                                @endif
+                                                            @endforeach
+                                                            @endif
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="code-fork-logo">
+                                    <div class="content">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+                                                    <div class="header">
+                                                        <h4 class="title">Dafta PCT</h4>
+                                                        <p class="category">Daftar PCT {{$nama_rayon}} </p>
+                                                    </div>
+                                                    <div class="content table-responsive table-full-width">
+                                                        <table class="table table-hover table-striped">
+                                                            <thead>
+                                                                <th class="text-center">#</th>
+                                                                <th>Nama PCT</th>
+                                                                <th>Alamat PCT</th>
+                                                                <th></th>
+                                                            </thead>
+                                                            <tbody>
+                                                                <div class="{{$num = 0}}" style="display: none"></div>
+                                                            @if($data==null)
+                                                            @else
+                                                            @foreach($data as $list)
+                                                                @if($list->tipe_gardu == 1)
+
+                                                                <tr>
+                                                                    <td class="text-center">{{$num+1}}</td>
+                                                                    <td>{{$list->nama_gardu}}</td>
+                                                                    <td>{{$list->alamat_gardu}}</td>
+                                                                    @if($laporan)
+
+                                                                        <td class="td-actions text-right">
+                                                                            <a href="{{route('area.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                                <i class="fa fa-info"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                    @elseif($rayon)
+
+                                                                        <td class="td-actions text-right">
+                                                                            <a href="{{route('rayon.view_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Laporan Beli">
+                                                                                <i class="fa fa-info"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                    @elseif($transaksi)
+
+                                                                        <td class="td-actions text-right">
+                                                                            <a href="{{route('area.view_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Laporan Beli">
+                                                                                <i class="fa fa-info"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                    @else
+
+                                                                        <td class="td-actions text-right">
+                                                                            <a href="{{url('/area/list_datamaster_gi/'.$id_organisasi.'/'.$list->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                                <i class="fa fa-user"></i>
+                                                                            </a>
+                                                                            <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile"
+                                                                               onclick="edit_datamaster.showSwal('gi', {{$list->id}},'{{$list->nama_gi}}','{{$list->alamat_gi}}')">
+                                                                                <i class="fa fa-edit"></i>
+                                                                            </a>
+                                                                            <a href="#" rel="tooltip" title="" class="btn btn-danger btn-fill " data-original-title="Remove"
+                                                                               onclick="hapus_datamaster.showSwal('gi', {{$id_organisasi}}, {{$list->id}},'{{$list->nama_gi}}')">
+                                                                                <i class="fa fa-times"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                    @endif
+
+                                                                </tr>
+                                                                @endif
+                                                            @endforeach
+                                                            @endif
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="industry-logo">
+                                    <div class="content">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+                                                    <div class="header">
+                                                        <h4 class="title">Dafta Pelanggan TM</h4>
+                                                        <p class="category">Daftar Pelanggan TM {{$nama_rayon}} </p>
+                                                    </div>
+                                                    <div class="content table-responsive table-full-width">
+                                                        <table class="table table-hover table-striped">
+                                                            <thead>
+                                                                <th class="text-center">#</th>
+                                                                <th>Nama Pelanggan TM</th>
+                                                                <th>Alamat Pelanggan TM</th>
+                                                                <th></th>
+                                                            </thead>
+                                                            <tbody>
+                                                                <div class="{{$num = 0}}" style="display: none"></div>
+                                                            @if($data==null)
+                                                            @else
+                                                            @foreach($data as $list)
+                                                                @if($list->tipe_gardu == 0)
+
+                                                                <tr>
+                                                                    <td class="text-center">{{$num+1}}</td>
+                                                                    <td>{{$list->nama_gardu}}</td>
+                                                                    <td>{{$list->alamat_gardu}}</td>
+                                                                    @if($laporan)
+
+                                                                        <td class="td-actions text-right">
+                                                                            <a href="{{route('area.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                                <i class="fa fa-info"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                    @elseif($rayon)
+
+                                                                        <td class="td-actions text-right">
+                                                                            <a href="{{route('rayon.view_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Laporan Beli">
+                                                                                <i class="fa fa-info"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                    @elseif($transaksi)
+
+                                                                        <td class="td-actions text-right">
+                                                                            <a href="{{route('area.view_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Laporan Beli">
+                                                                                <i class="fa fa-info"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                    @else
+
+                                                                        <td class="td-actions text-right">
+                                                                            <a href="{{url('/area/list_datamaster_gi/'.$id_organisasi.'/'.$list->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                                <i class="fa fa-user"></i>
+                                                                            </a>
+                                                                            <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile"
+                                                                               onclick="edit_datamaster.showSwal('gi', {{$list->id}},'{{$list->nama_gi}}','{{$list->alamat_gi}}')">
+                                                                                <i class="fa fa-edit"></i>
+                                                                            </a>
+                                                                            <a href="#" rel="tooltip" title="" class="btn btn-danger btn-fill " data-original-title="Remove"
+                                                                               onclick="hapus_datamaster.showSwal('gi', {{$id_organisasi}}, {{$list->id}},'{{$list->nama_gi}}')">
+                                                                                <i class="fa fa-times"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                    @endif
+
+                                                                </tr>
+                                                                @endif
+                                                            @endforeach
+                                                            @endif
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @else
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
@@ -37,10 +307,6 @@
 
                                     <h4 class="title">Daftar Penyulang</h4>
                                     <p class="category">Daftar Penyulang {{$nama_rayon}} </p>
-                                @elseif($tipe=="gd")
-
-                                    <h4 class="title">Daftar Gardu/PCT/TM</h4>
-                                    <p class="category">Daftar/PCT/TM {{$nama_rayon}} </p>
                                 @endif
 
                                 </div>
@@ -58,13 +324,9 @@
 
                                             <th>Nama Penyulang</th>
                                             <th>Alamat Penyulang</th>
-                                        @elseif($tipe=="gd")
-
-                                            <th>Nama Gardu/PCT/TM</th>
-                                            <th>Jenis</th>
                                         @endif
 
-                                        <th></th>
+                                            <th></th>
                                         </thead>
                                         <tbody>
                                         @if($data==null)
@@ -80,8 +342,6 @@
                                                         {{$list->nama_trafo_gi}}
                                                     @elseif($tipe=="penyulang")
                                                         {{$list->nama_penyulang}}
-                                                    @elseif($tipe=="gd")
-                                                        {{$list->nama_gardu}}
                                                     @endif
                                                 </td>
                                                 <td>
@@ -91,11 +351,6 @@
                                                         {{$list->alamat_trafo_gi}}
                                                     @elseif($tipe=="penyulang")
                                                         {{$list->alamat_penyulang}}
-                                                    @elseif($tipe=="gd")
-                                                        @if($list->tipe_gardu==0)Gardu
-                                                        @elseif($list->tipe_gardu==1)PCT
-                                                        @elseif($list->tipe_gardu==2)TM
-                                                        @endif
                                                     @endif
                                                 </td>
                                                 @if($laporan)
@@ -223,110 +478,111 @@
                             </div>
                         </div>
                     </div>
-
-                    {{--Transfer--}}
-                    @if(!$laporan && !$transaksi && !$rayon)
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="header">
-                                        <h4 class="title">Daftar PCT</h4>
-                                        <p class="category">Daftar PCT Rayon {{$nama_rayon}} </p>
-                                    </div>
-                                    <div class="content table-responsive table-full-width">
-                                        <table class="table table-hover table-striped">
-                                            <thead>
-                                            @if($tipe=="gi")
-                                                <th>Nama Gardu Induk</th>
-                                                <th>Alamat Gardu Induk</th>
-                                            @elseif($tipe=="tgi")
-                                                <th>Nama Trafo GI</th>
-                                                <th>Alamat Trafo GI</th>
-                                            @elseif($tipe=="penyulang")
-                                                <th>Nama Penyulang</th>
-                                                <th>Alamat Penyulang</th>
-                                            @elseif($tipe=="gd")
-                                                <th>Nama Gardu</th>
-                                                <th>Alamat Gardu</th>
-                                            @endif
-                                            <th></th>
-                                            </thead>
-                                            <tbody>
-                                            @foreach($data2 as $list)
-
-                                                <tr>
-                                                    <td>
-                                                        {{$list->nama_gi}}
-                                                    </td>
-                                                    <td> {{$list->alamat_gi}} </td>
-                                                    <td class="td-actions text-right">
-                                                        <a href="{{url('/area/list_datamaster_list_trafo_gi_transfer/'.$list->id_organisasi.'/'.$list->id_gi)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View List Trafo GI">
-                                                            <i class="fa fa-user"></i>
-                                                        </a>
-                                                    </td>
-                                                    {{--<td>--}}
-                                                    {{--<a href="{{url('/area/list_datamaster_list_trafo_gi_transfer/'.$list->id_organisasi.'/'.$list->id_gi)}}">Lihat--}}
-                                                    {{--List Trafo Gardu</a>--}}
-                                                    {{--</td>--}}
-                                                </tr>
-                                            @endforeach
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <form action="{{route('input_datamaster.store')}}" method="post">
-                                        <input type="hidden" name="_method" value="POST">
-                                        <input type="hidden" name="id_organisasi" value="{{$id_organisasi}}">
-                                        {{ csrf_field() }}
-                                        {{--<form id="registerFormValidation" action="{{route('input_datamaster.create')}}" method="post" method="" novalidate="novalidate">--}}
-                                        {{--{{ csrf_field() }}--}}
-                                        <div class="header">Tambah Gardu Induk</div>
-                                        <div class="content">
-                                            <div class="form-group">
-                                                <label class="control-label">Nama Gardu Induk
-                                                    <star>*</star>
-                                                </label>
-                                                <input class="form-control" name="tambahnamagardu" type="text"
-                                                       required="required" aria-required="true">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label">Alamat Gardu Induk
-                                                    <star>*</star>
-                                                </label>
-                                                <input class="form-control" name="tambahalamatgardu" type="text"
-                                                       required="required" aria-required="true">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label">Rayon
-                                                    <star>*</star>
-                                                </label>
-                                                <input class="form-control" name="tambahnamarayon" type="text" disabled=""
-                                                       value="{{$nama_rayon}}" required="required" aria-required="true">
-                                            </div>
-
-                                            <div class="category">
-                                                <star>*</star>
-                                                Required fields
-                                            </div>
-                                        </div>
-
-                                        <div class="footer">
-                                            <button type="submit" class="btn btn-info btn-fill pull-right">Tambah Gardu</button>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
                     @endif
+
+                {{--Transfer--}}
+                {{--@if(!$laporan && !$transaksi && !$rayon)--}}
+                    {{--<div class="row">--}}
+                        {{--<div class="col-md-12">--}}
+                            {{--<div class="card">--}}
+                                {{--<div class="header">--}}
+                                    {{--<h4 class="title">Daftar PCT</h4>--}}
+                                    {{--<p class="category">Daftar PCT Rayon {{$nama_rayon}} </p>--}}
+                                {{--</div>--}}
+                                {{--<div class="content table-responsive table-full-width">--}}
+                                    {{--<table class="table table-hover table-striped">--}}
+                                        {{--<thead>--}}
+                                        {{--@if($tipe=="gi")--}}
+                                            {{--<th>Nama Gardu Induk</th>--}}
+                                            {{--<th>Alamat Gardu Induk</th>--}}
+                                        {{--@elseif($tipe=="tgi")--}}
+                                            {{--<th>Nama Trafo GI</th>--}}
+                                            {{--<th>Alamat Trafo GI</th>--}}
+                                        {{--@elseif($tipe=="penyulang")--}}
+                                            {{--<th>Nama Penyulang</th>--}}
+                                            {{--<th>Alamat Penyulang</th>--}}
+                                        {{--@elseif($tipe=="gd")--}}
+                                            {{--<th>Nama Gardu</th>--}}
+                                            {{--<th>Alamat Gardu</th>--}}
+                                        {{--@endif--}}
+                                        {{--<th></th>--}}
+                                        {{--</thead>--}}
+                                        {{--<tbody>--}}
+                                        {{--@foreach($data2 as $list)--}}
+
+                                            {{--<tr>--}}
+                                                {{--<td>--}}
+                                                    {{--{{$list->nama_gi}}--}}
+                                                {{--</td>--}}
+                                                {{--<td> {{$list->alamat_gi}} </td>--}}
+                                                {{--<td class="td-actions text-right">--}}
+                                                    {{--<a href="{{url('/area/list_datamaster_list_trafo_gi_transfer/'.$list->id_organisasi.'/'.$list->id_gi)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View List Trafo GI">--}}
+                                                        {{--<i class="fa fa-user"></i>--}}
+                                                    {{--</a>--}}
+                                                {{--</td>--}}
+                                                {{--<td>--}}
+                                                {{--<a href="{{url('/area/list_datamaster_list_trafo_gi_transfer/'.$list->id_organisasi.'/'.$list->id_gi)}}">Lihat--}}
+                                                {{--List Trafo Gardu</a>--}}
+                                                {{--</td>--}}
+                                            {{--</tr>--}}
+                                        {{--@endforeach--}}
+
+                                        {{--</tbody>--}}
+                                    {{--</table>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="row">--}}
+                        {{--<div class="col-md-12">--}}
+                            {{--<div class="card">--}}
+                                {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
+                                    {{--<input type="hidden" name="_method" value="POST">--}}
+                                    {{--<input type="hidden" name="id_organisasi" value="{{$id_organisasi}}">--}}
+                                    {{--{{ csrf_field() }}--}}
+                                    {{--<form id="registerFormValidation" action="{{route('input_datamaster.create')}}" method="post" method="" novalidate="novalidate">--}}
+                                    {{--{{ csrf_field() }}--}}
+                                    {{--<div class="header">Tambah Gardu Induk</div>--}}
+                                    {{--<div class="content">--}}
+                                        {{--<div class="form-group">--}}
+                                            {{--<label class="control-label">Nama Gardu Induk--}}
+                                                {{--<star>*</star>--}}
+                                            {{--</label>--}}
+                                            {{--<input class="form-control" name="tambahnamagardu" type="text"--}}
+                                                   {{--required="required" aria-required="true">--}}
+                                        {{--</div>--}}
+
+                                        {{--<div class="form-group">--}}
+                                            {{--<label class="control-label">Alamat Gardu Induk--}}
+                                                {{--<star>*</star>--}}
+                                            {{--</label>--}}
+                                            {{--<input class="form-control" name="tambahalamatgardu" type="text"--}}
+                                                   {{--required="required" aria-required="true">--}}
+                                        {{--</div>--}}
+
+                                        {{--<div class="form-group">--}}
+                                            {{--<label class="control-label">Rayon--}}
+                                                {{--<star>*</star>--}}
+                                            {{--</label>--}}
+                                            {{--<input class="form-control" name="tambahnamarayon" type="text" disabled=""--}}
+                                                   {{--value="{{$nama_rayon}}" required="required" aria-required="true">--}}
+                                        {{--</div>--}}
+
+                                        {{--<div class="category">--}}
+                                            {{--<star>*</star>--}}
+                                            {{--Required fields--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+
+                                    {{--<div class="footer">--}}
+                                        {{--<button type="submit" class="btn btn-info btn-fill pull-right">Tambah Gardu</button>--}}
+                                        {{--<div class="clearfix"></div>--}}
+                                    {{--</div>--}}
+                                {{--</form>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--@endif--}}
 
                 </div>
             </div>
