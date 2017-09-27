@@ -92,10 +92,6 @@ class Laporan extends Controller
         $penyulang_array = array();
         $list_array = array();
         $p = $cmb->penyulang->toArray();
-        $pp =$cmb->p_penyulang_->toArray();
-        $t = $cmb->trafo->toArray();
-//        dd($p[0]['id_trafo_gi']);
-//        dd($pp[0]['id']);
         for ($j=0; $j < count($p); $j++) {
             $penyulang = PenyimpananPenyulang::where('id_penyulang', $p[$j]['id'])->where('periode', date("Ym")-1)->get(array('data'))->toArray();
             $penyulang_ = PenyimpananPenyulang::where('id_penyulang', $p[$j]['id'])->where('periode', date("Ym"))->get(array('data'))->toArray();
@@ -117,51 +113,62 @@ class Laporan extends Controller
         }
 
         $total_lwbp1 = 0;$total_lwbp2 = 0;$total_wbp = 0;
+        $total_lwbp1_ = 0;$total_lwbp2_ = 0;$total_wbp_ = 0;
+        $hasil_lwbp1 = null; $hasil_lwbp2=null; $hasil_wbp=null;
+        $hasil_lwbp1_=null; $hasil_lwbp2_=null; $hasil_wbp_=null;
         for ($i=0; $i < count($cmb->id); $i++) {
             for ($j = 0; $j < count($penyulang_array); $j++) {
                 if ($penyulang_array[$j]['id_trafo'] == $cmb->id[$i]) {
-                    $hasil_lwbp1 = abs(json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['visual']['lwbp1_visual'])
-                        + abs(json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['download']['lwbp1_download']);
-                    $hasil_lwbp2 = abs(json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['visual']['lwbp2_visual'])
-                        + abs(json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['download']['lwbp2_download']);
-                    $hasil_wbp = abs(json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['visual']['wbp_visual'])
-                        + abs(json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['download']['wbp_download']);
-                    $total_lwbp1 += $hasil_lwbp1;
-                    $total_lwbp2 += $hasil_lwbp2;
-                    $total_wbp += $hasil_wbp;
+//
+//                    echo " dsad ";
+//                    dd( $penyulang_array[3]['data']);
+//                    echo " sad ";
+                    if($penyulang_array[$j]['data'] == ""){
+                        $hasil_lwbp1 = null; $hasil_lwbp2=null; $hasil_wbp=null;
+                    }
+                    else{
+                        $hasil_lwbp1 = (json_decode($penyulang_array[$j]['data'], true)['hasil_pengolahan']['visual']['lwbp1_visual'])
+                            + (json_decode($penyulang_array[$j]['data'], true)['hasil_pengolahan']['download']['lwbp1_download']);
+                        $hasil_lwbp2 = (json_decode($penyulang_array[$j]['data'], true)['hasil_pengolahan']['visual']['lwbp2_visual'])
+                            + (json_decode($penyulang_array[$j]['data'], true)['hasil_pengolahan']['download']['lwbp2_download']);
+                        $hasil_wbp = (json_decode($penyulang_array[$j]['data'], true)['hasil_pengolahan']['visual']['wbp_visual'])
+                            + (json_decode($penyulang_array[$j]['data'], true)['hasil_pengolahan']['download']['wbp_download']);
+                        $total_lwbp1 += $hasil_lwbp1;
+                        $total_lwbp2 += $hasil_lwbp2;
+                        $total_wbp += $hasil_wbp;
+                    }
+
+                    if($penyulang_array[$j]['data_']== ""){
+                        $hasil_lwbp1_=null; $hasil_lwbp2_=null; $hasil_wbp_=null;
+                    }
+                    else{
+                        $hasil_lwbp1_ = (json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['visual']['lwbp1_visual'])
+                            + (json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['download']['lwbp1_download']);
+                        $hasil_lwbp2_ = (json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['visual']['lwbp2_visual'])
+                            + (json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['download']['lwbp2_download']);
+                        $hasil_wbp_ = (json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['visual']['wbp_visual'])
+                            + (json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['download']['wbp_download']);
+                        $total_lwbp1_ += $hasil_lwbp1_;
+                        $total_lwbp2_ += $hasil_lwbp2_;
+                        $total_wbp_ += $hasil_wbp_;
+                    }
                 }
             }
             $pemakaian_penyulang = array(
                 'pemakaian_lwbp1' => $total_lwbp1,
                 'pemakaian_lwbp2' => $total_lwbp2,
                 'pemakaian_wbp' => $total_wbp,
-                'total_pemakaian_energi' => $total_lwbp2+$total_lwbp1+$total_wbp
+                'total_pemakaian_energi' => $total_lwbp1+$total_lwbp2+$total_wbp,
+                'pemakaian_lwbp1_' => $total_lwbp1_,
+                'pemakaian_lwbp2_' => $total_lwbp2_,
+                'pemakaian_wbp_' => $total_wbp_,
+                'total_pemakaian_energi_' => $total_lwbp1_+$total_lwbp2_+$total_wbp_
             );
             array_push($list_array,$pemakaian_penyulang);
             $total_lwbp1 = 0;$total_lwbp2 = 0;$total_wbp = 0;
         }
-//        $list_pemakaian =json_encode($list_array);
+//        dd($pemakaian_penyulang);
 
-// /        for ($j=0; $j < count($cmb->id); $j++) {
-//            for ($i=0; $i < count($p); $i++) {
-//                if($p[$i]['id_trafo_gi']== $t[$j]['id']){
-//                    for ($k=0; $k < count($pp); $k++) {
-//                        if($p[$i]['id_trafo_gi']== $pp[$k]['id']){
-//                            $t_lwbp1 = $pp[$j]
-//                        }
-//                    }
-//                }
-//                //                $lwbp1 =;
-////                $lwbp2 =;
-////                $wbp =;
-//            }
-//        }
-//        dd($cmb->id);
-
-
-
-
-//        dd(($penyulang_array));
 //        dd(($list_array));
         return view('admin.nonmaster.laporan.gi',[
             'data'      => $cmb,

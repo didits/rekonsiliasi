@@ -593,16 +593,16 @@ class Input extends Controller
         );
         if($boolean){
             if($tipe=="trafo_gi"||$tipe=="pct"){
-                $lwbp1_visual = abs($data_visual['lwbp1_visual'] - $data_awal['beli'][$meter]['visual']['lwbp1_visual'])*$faktor_kali;
-                $lwbp2_visual = abs($data_visual['lwbp2_visual'] - $data_awal['beli'][$meter]['visual']['lwbp2_visual'])*$faktor_kali;
-                $wbp_visual = abs($data_visual['wbp_visual'] - $data_awal['beli'][$meter]['visual']['wbp_visual'])*$faktor_kali;
-                $kvarh_visual = abs($data_visual['kvarh_visual'] - $data_awal['beli'][$meter]['visual']['kvarh_visual'])*$faktor_kali;
+                $lwbp1_visual = ($data_visual['lwbp1_visual'] - $data_awal['beli'][$meter]['visual']['lwbp1_visual'])*$faktor_kali;
+                $lwbp2_visual = ($data_visual['lwbp2_visual'] - $data_awal['beli'][$meter]['visual']['lwbp2_visual'])*$faktor_kali;
+                $wbp_visual = ($data_visual['wbp_visual'] - $data_awal['beli'][$meter]['visual']['wbp_visual'])*$faktor_kali;
+                $kvarh_visual = ($data_visual['kvarh_visual'] - $data_awal['beli'][$meter]['visual']['kvarh_visual'])*$faktor_kali;
             }
             else{
-                $lwbp1_visual = abs($data_visual['lwbp1_visual'] - $data_awal['beli']['visual']['lwbp1_visual'])*$faktor_kali;
-                $lwbp2_visual = abs($data_visual['lwbp2_visual'] - $data_awal['beli']['visual']['lwbp2_visual'])*$faktor_kali;
-                $wbp_visual = abs($data_visual['wbp_visual'] - $data_awal['beli']['visual']['wbp_visual'])*$faktor_kali;
-                $kvarh_visual = abs($data_visual['kvarh_visual'] - $data_awal['beli']['visual']['kvarh_visual'])*$faktor_kali;
+                $lwbp1_visual = ($data_visual['lwbp1_visual'] - $data_awal['beli']['visual']['lwbp1_visual'])*$faktor_kali;
+                $lwbp2_visual = ($data_visual['lwbp2_visual'] - $data_awal['beli']['visual']['lwbp2_visual'])*$faktor_kali;
+                $wbp_visual = ($data_visual['wbp_visual'] - $data_awal['beli']['visual']['wbp_visual'])*$faktor_kali;
+                $kvarh_visual = ($data_visual['kvarh_visual'] - $data_awal['beli']['visual']['kvarh_visual'])*$faktor_kali;
             }
         }
         else{
@@ -634,15 +634,15 @@ class Input extends Controller
 
         if($boolean){
             if($tipe=="trafo_gi"||$tipe=="pct"){
-                $lwbp1_download = abs($download['lwbp1_download'] - $data_awal['beli'][$meter]['download']['lwbp1_download'])*$faktor_kali;
-                $lwbp2_download = abs($download['lwbp2_download'] - $data_awal['beli'][$meter]['download']['lwbp2_download'])*$faktor_kali;
-                $wbp_download =  abs($download['wbp_download'] - $data_awal['beli'][$meter]['download']['wbp_download'])*$faktor_kali;
-                $kvarh_download = ($download['kvarh_download'] - $data_awal['beli'][$meter]['download']['kvarh_download'])*$faktor_kali;
+                $lwbp1_download = ($download['lwbp1_download'] - $data_awal['beli'][$meter]['download']['lwbp1_download']);
+                $lwbp2_download = ($download['lwbp2_download'] - $data_awal['beli'][$meter]['download']['lwbp2_download']);
+                $wbp_download =  ($download['wbp_download'] - $data_awal['beli'][$meter]['download']['wbp_download']);
+                $kvarh_download = ($download['kvarh_download'] - $data_awal['beli'][$meter]['download']['kvarh_download']);
             }else{
-                $lwbp1_download = abs($download['lwbp1_download'] - $data_awal['beli']['download']['lwbp1_download'])*$faktor_kali;
-                $lwbp2_download = abs($download['lwbp2_download'] - $data_awal['beli']['download']['lwbp2_download'])*$faktor_kali;
-                $wbp_download = abs ($download['wbp_download'] - $data_awal['beli']['download']['wbp_download'])*$faktor_kali;
-                $kvarh_download = abs($download['kvarh_download'] - $data_awal['beli']['download']['kvarh_download'])*$faktor_kali;
+                $lwbp1_download = ($download['lwbp1_download'] - $data_awal['beli']['download']['lwbp1_download']);
+                $lwbp2_download = ($download['lwbp2_download'] - $data_awal['beli']['download']['lwbp2_download']);
+                $wbp_download =  ($download['wbp_download'] - $data_awal['beli']['download']['wbp_download']);
+                $kvarh_download = ($download['kvarh_download'] - $data_awal['beli']['download']['kvarh_download']);
             }
         }
         else{
