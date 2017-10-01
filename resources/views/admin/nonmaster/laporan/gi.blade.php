@@ -283,18 +283,18 @@
                                         </tr>
                                         <tr class="text-right">
                                             <td colspan="2" class="text-left">SELISIH PEMBACAAN</td>
-                                            <td>{{abs(json_decode($data->p_trafo_[0]->data,true)['beli']['utama']['visual']['lwbp1_visual']-json_decode($data->p_trafo[0]->data,true)['beli']['utama']['visual']['lwbp1_visual'])}}</td>
+                                            <td>{{(json_decode($data->p_trafo_[0]->data,true)['beli']['utama']['visual']['lwbp1_visual']-json_decode($data->p_trafo[0]->data,true)['beli']['utama']['visual']['lwbp1_visual'])}}</td>
                                             <td></td>
-                                            {{--<td>{{abs(json_decode($data->p_trafo_[0]->data,true)['beli']['utama']['download']['lwbp1_download']-json_decode($data->p_trafo[0]->data,true)['beli']['utama']['download']['lwbp1_download'])}}</td>--}}
-                                            <td>{{abs(json_decode($data->p_trafo_[0]->data,true)['beli']['pembanding']['visual']['lwbp1_visual']-json_decode($data->p_trafo[0]->data,true)['beli']['pembanding']['visual']['lwbp1_visual'])}}</td>
-                                            <td>{{abs(json_decode($data->p_trafo_[0]->data,true)['beli']['pembanding']['download']['lwbp1_download']-json_decode($data->p_trafo[0]->data,true)['beli']['pembanding']['download']['lwbp1_download'])}}</td>
-                                            <td>{{abs(json_decode($data->p_trafo_[0]->data,true)['beli']['ps']['download']['lwbp1_download']-json_decode($data->p_trafo[0]->data,true)['beli']['ps']['download']['lwbp1_download'])}}</td>
+                                            {{--<td>{{(json_decode($data->p_trafo_[0]->data,true)['beli']['utama']['download']['lwbp1_download']-json_decode($data->p_trafo[0]->data,true)['beli']['utama']['download']['lwbp1_download'])}}</td>--}}
+                                            <td>{{(json_decode($data->p_trafo_[0]->data,true)['beli']['pembanding']['visual']['lwbp1_visual']-json_decode($data->p_trafo[0]->data,true)['beli']['pembanding']['visual']['lwbp1_visual'])}}</td>
+                                            <td>{{(json_decode($data->p_trafo_[0]->data,true)['beli']['pembanding']['download']['lwbp1_download']-json_decode($data->p_trafo[0]->data,true)['beli']['pembanding']['download']['lwbp1_download'])}}</td>
+                                            <td>{{(json_decode($data->p_trafo_[0]->data,true)['beli']['ps']['download']['lwbp1_download']-json_decode($data->p_trafo[0]->data,true)['beli']['ps']['download']['lwbp1_download'])}}</td>
                                             <td></td>
                                             <td></td>
                                             @for ($j=0; $j < count($penyulang); $j++)
                                                 @if($penyulang[$j]['id_trafo']== $data->p_trafo[0]->id_trafo_gi)
-                                            <td>{{abs(json_decode($penyulang[$j]['data'],true)['beli']['visual']['lwbp1_visual']-json_decode($penyulang[$j]['data_'],true)['beli']['visual']['lwbp1_visual'])}}</td>
-                                            <td>{{abs(json_decode($penyulang[$j]['data'],true)['beli']['download']['lwbp1_download']-json_decode($penyulang[$j]['data_'],true)['beli']['download']['lwbp1_download'])}}</td>
+                                            <td>{{(json_decode($penyulang[$j]['data_'],true)['beli']['visual']['lwbp1_visual']-json_decode($penyulang[$j]['data'],true)['beli']['visual']['lwbp1_visual'])}}</td>
+                                            <td>{{(json_decode($penyulang[$j]['data_'],true)['beli']['download']['lwbp1_download']-json_decode($penyulang[$j]['data'],true)['beli']['download']['lwbp1_download'])}}</td>
                                                 @endif
                                             @endfor
                                             <td></td>
@@ -328,8 +328,8 @@
                                             <td></td>
                                             @for ($j=0; $j < count($penyulang); $j++)
                                                 @if($penyulang[$j]['id_trafo']== $data->p_trafo[0]->id_trafo_gi)
-                                                    <td>{{abs(json_decode($penyulang[$j]['data_'],true)['hasil_pengolahan']['visual']['lwbp1_visual'])}}</td>
-                                                     <td>{{abs(json_decode($penyulang[$j]['data_'],true)['hasil_pengolahan']['download']['lwbp1_download'])}}</td>
+                                                    <td>{{(json_decode($penyulang[$j]['data_'],true)['hasil_pengolahan']['visual']['lwbp1_visual'])}}</td>
+                                                     <td>{{(json_decode($penyulang[$j]['data_'],true)['hasil_pengolahan']['download']['lwbp1_download'])}}</td>
                                                 @endif
                                             @endfor
                                             <td></td>
@@ -373,18 +373,18 @@
                                         </tr>
                                         <tr class="text-right">
                                             <td colspan="2" class="text-left">SELISIH PEMBACAAN</td>
-                                            <td>{{abs(json_decode($data->p_trafo_[0]->data,true)['beli']['utama']['visual']['lwbp2_visual']-json_decode($data->p_trafo[0]->data,true)['beli']['utama']['visual']['lwbp2_visual'])}}</td>
+                                            <td>{{(json_decode($data->p_trafo_[0]->data,true)['beli']['utama']['visual']['lwbp2_visual']-json_decode($data->p_trafo[0]->data,true)['beli']['utama']['visual']['lwbp2_visual'])}}</td>
                                             <td></td>
-                                            {{--<td>{{abs(json_decode($data->p_trafo_[0]->data,true)['beli']['utama']['download']['lwbp2_download']-json_decode($data->p_trafo[0]->data,true)['beli']['utama']['download']['lwbp2_download'])}}</td>--}}
-                                            <td>{{abs(json_decode($data->p_trafo_[0]->data,true)['beli']['pembanding']['visual']['lwbp2_visual']-json_decode($data->p_trafo[0]->data,true)['beli']['pembanding']['visual']['lwbp2_visual'])}}</td>
-                                            <td>{{abs(json_decode($data->p_trafo_[0]->data,true)['beli']['pembanding']['download']['lwbp2_download']-json_decode($data->p_trafo[0]->data,true)['beli']['pembanding']['download']['lwbp2_download'])}}</td>
-                                            <td>{{abs(json_decode($data->p_trafo_[0]->data,true)['beli']['ps']['download']['lwbp2_download']-json_decode($data->p_trafo[0]->data,true)['beli']['ps']['download']['lwbp2_download'])}}</td>
+                                            {{--<td>{{(json_decode($data->p_trafo_[0]->data,true)['beli']['utama']['download']['lwbp2_download']-json_decode($data->p_trafo[0]->data,true)['beli']['utama']['download']['lwbp2_download'])}}</td>--}}
+                                            <td>{{(json_decode($data->p_trafo_[0]->data,true)['beli']['pembanding']['visual']['lwbp2_visual']-json_decode($data->p_trafo[0]->data,true)['beli']['pembanding']['visual']['lwbp2_visual'])}}</td>
+                                            <td>{{(json_decode($data->p_trafo_[0]->data,true)['beli']['pembanding']['download']['lwbp2_download']-json_decode($data->p_trafo[0]->data,true)['beli']['pembanding']['download']['lwbp2_download'])}}</td>
+                                            <td>{{(json_decode($data->p_trafo_[0]->data,true)['beli']['ps']['download']['lwbp2_download']-json_decode($data->p_trafo[0]->data,true)['beli']['ps']['download']['lwbp2_download'])}}</td>
                                             <td></td>
                                             <td></td>
                                             @for ($j=0; $j < count($penyulang); $j++)
                                                 @if($penyulang[$j]['id_trafo']== $data->p_trafo[0]->id_trafo_gi)
-                                                    <td>{{abs(json_decode($penyulang[$j]['data'],true)['beli']['visual']['lwbp2_visual']-json_decode($penyulang[$j]['data_'],true)['beli']['visual']['lwbp2_visual'])}}</td>
-                                                    <td>{{abs(json_decode($penyulang[$j]['data'],true)['beli']['download']['lwbp2_download']-json_decode($penyulang[$j]['data_'],true)['beli']['download']['lwbp2_download'])}}</td>
+                                                    <td>{{(json_decode($penyulang[$j]['data_'],true)['beli']['visual']['lwbp2_visual']-json_decode($penyulang[$j]['data'],true)['beli']['visual']['lwbp2_visual'])}}</td>
+                                                    <td>{{(json_decode($penyulang[$j]['data_'],true)['beli']['download']['lwbp2_download']-json_decode($penyulang[$j]['data'],true)['beli']['download']['lwbp2_download'])}}</td>
                                                 @endif
                                             @endfor
                                             <td></td>
@@ -418,8 +418,8 @@
                                             <td></td>
                                             @for ($j=0; $j < count($penyulang); $j++)
                                                 @if($penyulang[$j]['id_trafo']== $data->p_trafo[0]->id_trafo_gi)
-                                            <td>{{abs(json_decode($penyulang[$j]['data_'],true)['hasil_pengolahan']['visual']['lwbp2_visual'])}}</td>
-                                            <td>{{abs(json_decode($penyulang[$j]['data_'],true)['hasil_pengolahan']['download']['lwbp2_download'])}}</td>
+                                            <td>{{(json_decode($penyulang[$j]['data_'],true)['hasil_pengolahan']['visual']['lwbp2_visual'])}}</td>
+                                            <td>{{(json_decode($penyulang[$j]['data_'],true)['hasil_pengolahan']['download']['lwbp2_download'])}}</td>
                                                 @endif
                                             @endfor
                                             <td></td>
@@ -463,17 +463,17 @@
                                         </tr>
                                         <tr class="text-right">
                                             <td colspan="2" class="text-left">SELISIH PEMBACAAN</td>
-                                            <td>{{abs(json_decode($data->p_trafo_[0]->data,true)['beli']['utama']['visual']['wbp_visual']-json_decode($data->p_trafo[0]->data,true)['beli']['utama']['visual']['wbp_visual'])}}</td>
+                                            <td>{{(json_decode($data->p_trafo_[0]->data,true)['beli']['utama']['visual']['wbp_visual']-json_decode($data->p_trafo[0]->data,true)['beli']['utama']['visual']['wbp_visual'])}}</td>
                                             <td></td>
-                                            <td>{{abs(json_decode($data->p_trafo_[0]->data,true)['beli']['pembanding']['visual']['wbp_visual']-json_decode($data->p_trafo[0]->data,true)['beli']['pembanding']['visual']['wbp_visual'])}}</td>
-                                            <td>{{abs(json_decode($data->p_trafo_[0]->data,true)['beli']['pembanding']['download']['wbp_download']-json_decode($data->p_trafo[0]->data,true)['beli']['pembanding']['download']['wbp_download'])}}</td>
-                                            <td>{{abs(json_decode($data->p_trafo_[0]->data,true)['beli']['ps']['download']['wbp_download']-json_decode($data->p_trafo[0]->data,true)['beli']['ps']['download']['wbp_download'])}}</td>
+                                            <td>{{(json_decode($data->p_trafo_[0]->data,true)['beli']['pembanding']['visual']['wbp_visual']-json_decode($data->p_trafo[0]->data,true)['beli']['pembanding']['visual']['wbp_visual'])}}</td>
+                                            <td>{{(json_decode($data->p_trafo_[0]->data,true)['beli']['pembanding']['download']['wbp_download']-json_decode($data->p_trafo[0]->data,true)['beli']['pembanding']['download']['wbp_download'])}}</td>
+                                            <td>{{(json_decode($data->p_trafo_[0]->data,true)['beli']['ps']['download']['wbp_download']-json_decode($data->p_trafo[0]->data,true)['beli']['ps']['download']['wbp_download'])}}</td>
                                             <td></td>
                                             <td></td>
                                             @for ($j=0; $j < count($penyulang); $j++)
                                                 @if($penyulang[$j]['id_trafo']== $data->p_trafo[0]->id_trafo_gi)
-                                                    <td>{{abs(json_decode($penyulang[$j]['data'],true)['beli']['visual']['wbp_visual']-json_decode($penyulang[$j]['data_'],true)['beli']['visual']['wbp_visual'])}}</td>
-                                                    <td>{{abs(json_decode($penyulang[$j]['data'],true)['beli']['download']['wbp_download']-json_decode($penyulang[$j]['data_'],true)['beli']['download']['wbp_download'])}}</td>
+                                                    <td>{{(json_decode($penyulang[$j]['data_'],true)['beli']['visual']['wbp_visual']-json_decode($penyulang[$j]['data'],true)['beli']['visual']['wbp_visual'])}}</td>
+                                                    <td>{{(json_decode($penyulang[$j]['data_'],true)['beli']['download']['wbp_download']-json_decode($penyulang[$j]['data'],true)['beli']['download']['wbp_download'])}}</td>
                                                 @endif
                                             @endfor
                                             <td></td>
@@ -506,8 +506,8 @@
                                             <td></td>
                                             @for ($j=0; $j < count($penyulang); $j++)
                                                 @if($penyulang[$j]['id_trafo']== $data->p_trafo[0]->id_trafo_gi)
-                                            <td>{{abs(json_decode($penyulang[$j]['data_'],true)['hasil_pengolahan']['visual']['wbp_visual'])}}</td>
-                                            <td>{{abs(json_decode($penyulang[$j]['data_'],true)['hasil_pengolahan']['download']['wbp_download'])}}</td>
+                                            <td>{{(json_decode($penyulang[$j]['data_'],true)['hasil_pengolahan']['visual']['wbp_visual'])}}</td>
+                                            <td>{{(json_decode($penyulang[$j]['data_'],true)['hasil_pengolahan']['download']['wbp_download'])}}</td>
                                                 @endif
                                             @endfor
                                             <td></td>
@@ -524,7 +524,7 @@
                                             <td>-</td>
                                             @for ($j=0; $j < count($penyulang); $j++)
                                                 @if($penyulang[$j]['id_trafo']== $data->p_trafo[0]->id_trafo_gi)
-                                                    <td>{{abs(json_decode($penyulang[$j]['data_'],true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual'])}}</td>
+                                                    <td>{{(json_decode($penyulang[$j]['data_'],true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual'])}}</td>
                                                     <td>-</td>
                                                 @endif
                                             @endfor
@@ -550,7 +550,7 @@
                                             <td></td>
                                         </tr>
                                         <tr class="text-right">
-                                            <td colspan="2" class="text-left">PEMAKAIAN KVARH</td>
+                                            <td colspan="2" class="text-left">DAYA KONSINDEN</td>
                                             <td></td>
                                             <td class="warning">17,097</td>
                                             <td></td>
@@ -574,9 +574,9 @@
                                             <td class="text-left">PEMBANDING</td>
                                             <td></td>
                                             <td></td>
-                                            <td><i>({{abs(json_decode($data->p_trafo_[0]->data,true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']-json_decode($data->p_trafo_[0]->data,true)['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual'])
+                                            <td><i>({{(json_decode($data->p_trafo_[0]->data,true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']-json_decode($data->p_trafo_[0]->data,true)['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual'])
                                             /json_decode($data->p_trafo_[0]->data,true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']*100}})</i></td>
-                                            <td>{{abs(json_decode($data->p_trafo_[0]->data,true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']-json_decode($data->p_trafo_[0]->data,true)['hasil_pengolahan']['pembanding']['download']['total_pemakaian_kwh_download'])
+                                            <td>{{(json_decode($data->p_trafo_[0]->data,true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']-json_decode($data->p_trafo_[0]->data,true)['hasil_pengolahan']['pembanding']['download']['total_pemakaian_kwh_download'])
                                             /json_decode($data->p_trafo_[0]->data,true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']*100}}</td>
                                             <td class="text-left"><i>%</i></td>
                                             <td class="text-left"><i>% (inc >&ltout AMR)</i></td>
@@ -595,9 +595,9 @@
                                             <td class="text-left">OUT GOING</td>
                                             <td></td>
                                             <td></td>
-                                            <td><i>{{abs(json_decode($data->p_trafo_[0]->data,true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']-json_decode($data->p_trafo_[0]->data,true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']-$pemakaian[0]['total_pemakaian_energi'])/
+                                            <td><i>{{(json_decode($data->p_trafo_[0]->data,true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']-json_decode($data->p_trafo_[0]->data,true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']-$pemakaian[0]['total_pemakaian_energi'])/
                                             (json_decode($data->p_trafo_[0]->data,true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']-json_decode($data->p_trafo_[0]->data,true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual'])*100}}</i></td>
-                                            <td>{{abs(json_decode($data->p_trafo_[0]->data,true)['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual']-json_decode($data->p_trafo_[0]->data,true)['hasil_pengolahan']['pembanding']['download']['total_pemakaian_kwh_download'])
+                                            <td>{{(json_decode($data->p_trafo_[0]->data,true)['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual']-json_decode($data->p_trafo_[0]->data,true)['hasil_pengolahan']['pembanding']['download']['total_pemakaian_kwh_download'])
                                             /json_decode($data->p_trafo_[0]->data,true)['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual']*100}}</td>
                                             <td class="text-left"><i>%</i></td>
                                             <td><i>100.00</i></td>
@@ -634,21 +634,20 @@
                                         <tr class="text-right">
                                             <td colspan="2"></td>
                                             <td></td>
-                                            <td>10,842,831</td>
+                                            <td>{{json_decode($data->p_trafo_[0]->data,true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']-json_decode($data->p_trafo_[0]->data,true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']}}</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td>2,836,328</td>
-                                            <td></td>
-                                            <td>1,248,865</td>
-                                            <td></td>
-                                            <td>2,570,797</td>
-                                            <td></td>
-                                            <td>4,186,841</td>
-                                            <td></td>
-                                            <td></td>
+                                            @for ($j=0; $j < count($penyulang); $j++)
+                                                @if($penyulang[$j]['id_trafo']== $data->p_trafo[0]->id_trafo_gi)
+                                                    <td>{{(json_decode($data->p_trafo_[0]->data,true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']-json_decode($data->p_trafo_[0]->data,true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual'])
+                                                        /($pemakaian[0]['total_pemakaian_energi_'])*(json_decode($penyulang[$j]['data_'],true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual'])}}</td>
+                                                    <td>-</td>
+                                                @endif
+                                            @endfor
+                                            <td>{{$sum}}</td>
                                         </tr>
                                     </tbody>
                                 </table>

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Penyulang;
 use App\Gardu;
 use Illuminate\Support\Facades\Auth;
+use phpDocumentor\Reflection\Types\Null_;
 
 class Laporan extends Controller
 {
@@ -111,7 +112,7 @@ class Laporan extends Controller
             );
             array_push($penyulang_array,$dtpenyulang);
         }
-
+//        dd((json_decode($penyulang_array[0]['data'], true)['hasil_pengolahan']['visual']));
         $total_lwbp1 = 0;$total_lwbp2 = 0;$total_wbp = 0;
         $total_lwbp1_ = 0;$total_lwbp2_ = 0;$total_wbp_ = 0;
         $hasil_lwbp1 = null; $hasil_lwbp2=null; $hasil_wbp=null;
@@ -119,10 +120,6 @@ class Laporan extends Controller
         for ($i=0; $i < count($cmb->id); $i++) {
             for ($j = 0; $j < count($penyulang_array); $j++) {
                 if ($penyulang_array[$j]['id_trafo'] == $cmb->id[$i]) {
-//
-//                    echo " dsad ";
-//                    dd( $penyulang_array[3]['data']);
-//                    echo " sad ";
                     if($penyulang_array[$j]['data'] == ""){
                         $hasil_lwbp1 = null; $hasil_lwbp2=null; $hasil_wbp=null;
                     }
@@ -137,7 +134,6 @@ class Laporan extends Controller
                         $total_lwbp2 += $hasil_lwbp2;
                         $total_wbp += $hasil_wbp;
                     }
-
                     if($penyulang_array[$j]['data_']== ""){
                         $hasil_lwbp1_=null; $hasil_lwbp2_=null; $hasil_wbp_=null;
                     }
@@ -165,16 +161,72 @@ class Laporan extends Controller
                 'total_pemakaian_energi_' => $total_lwbp1_+$total_lwbp2_+$total_wbp_
             );
             array_push($list_array,$pemakaian_penyulang);
-            $total_lwbp1 = 0;$total_lwbp2 = 0;$total_wbp = 0;
+            $total_lwbp1 = $total_lwbp2 = $total_wbp = null;
+            $hasil_lwbp1= $hasil_lwbp2 = $hasil_wbp= null;
+            $total_lwbp1_ = $total_lwbp2_ = $total_wbp_ = null;
+            $hasil_lwbp1_= $hasil_lwbp2_= $hasil_wbp_= null;
         }
-//        dd($pemakaian_penyulang);
+        $sum =0;
+        if(count($cmb->p_trafo)>0){
+            for ($j=0; $j < count($penyulang_array); $j++)
+                if ($penyulang_array[$j]['id_trafo'] == $cmb->p_trafo[0]->id_trafo_gi)
+                    $sum += (json_decode($cmb->p_trafo_[0]->data, true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download'] - json_decode($cmb->p_trafo_[0]->data, true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual'])
+                        / ($list_array[0]['total_pemakaian_energi_']) * (json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']);
+        }
 
-//        dd(($list_array));
+//        dd($list_array);
+//        $list_array BUAT Total P.E. per Trafo di GI
+//        $penyulang_array Data SEMUA Penyulang di GI
+        $no_trafo =0;
+        $no_penyulang =1;
+
+        $A_lwbp1 = (json_decode($cmb->p_trafo_[$no_trafo]['data'],true)['hasil_pengolahan']['utama']['download']['lwbp1_download']-json_decode($cmb->p_trafo_[$no_trafo]['data'],true)['hasil_pengolahan']['ps']['visual']['lwbp1_visual']);
+        $A_lwbp2 = (json_decode($cmb->p_trafo_[$no_trafo]['data'],true)['hasil_pengolahan']['utama']['download']['lwbp2_download']-json_decode($cmb->p_trafo_[$no_trafo]['data'],true)['hasil_pengolahan']['ps']['visual']['lwbp2_visual']);
+        $A_wbp   = (json_decode($cmb->p_trafo_[$no_trafo]['data'],true)['hasil_pengolahan']['utama']['download']['wbp_download']-json_decode($cmb->p_trafo_[$no_trafo]['data'],true)['hasil_pengolahan']['ps']['visual']['wbp_visual']);
+        $B = (json_decode($cmb->p_trafo_[$no_trafo]->data,true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']
+             -json_decode($cmb->p_trafo_[$no_trafo]->data,true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']);
+        $C = $B/($list_array[$no_trafo]['total_pemakaian_energi_'])*(json_decode($penyulang_array[$no_penyulang]['data_'],true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']);
+        $KWH_salur_lwbp1 = intval((($A_lwbp1/$B*$C/1) + 0.5 )*1);
+        $KWH_salur_lwbp2 = intval((($A_lwbp2/$B*$C/1) + 0.5 )*1);
+        $KWH_salur_wbp = intval((($A_wbp/$B*$C/1) + 0.5 )*1);
+
+//      INI DITANYAIN BIKIN FORM ATAU TIDAK??? KALO IYA DIMASUKIN ke Penyimpanan Trafo GI
+        $daya_konsiden_utama = 17097;
+        $daya_konsiden_ps = 18;
+        $D = $daya_konsiden_utama -$daya_konsiden_ps;
+
+//        $i = (json_decode($cmb->p_trafo_[0]->data,true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']
+//            - json_decode($cmb->p_trafo_[0]->data,true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']);
+//        $c = $i / ($list_array[0]['total_pemakaian_energi_'])*(json_decode($penyulang_array[0]['data_'],true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']);
+//        $KW = intval(($c/$B*$D) + 0.5 )* 1;
+
+        $c = 1 / ($list_array[$no_trafo]['total_pemakaian_energi_'])*(json_decode($penyulang_array[$no_penyulang]['data_'],true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']);
+        $KW = intval((($c*$D) + 0.5 )* 1);
+        $total_kwh = $KWH_salur_lwbp1+$KWH_salur_lwbp2+$KWH_salur_wbp;
+
+//      YANG DISIMPAN di data_keluar Penyimpanan Penyulang
+//      KOLOM F, G, H, I, K
+//      $KWH_salur_lwbp1, $KWH_salur_lwbp2, $KWH_salur_wbp, $KW, $total_kwh
+        $KWH_bulan_lalu = 2714687;
+
+//      KOLOM N, O
+//      $KWH = $total_kwh - $KWH_bulan_lalu;
+//      $persen = $KWH/$KWH_bulan_lalu*100;
+
+        $data_keluar = array(
+            'lwbp1' => $KWH_salur_lwbp1,
+            'lwbp2' => $KWH_salur_lwbp2,
+            'wbp'   => $KWH_salur_wbp,
+            'total_kwh' => $total_kwh,
+            'KW' => $KW
+        );
+//        dd($data_keluar);
+
         return view('admin.nonmaster.laporan.gi',[
             'data'      => $cmb,
             'penyulang' => $penyulang_array,
             'pemakaian' => $list_array,
-//            'pemakaian' => $list_pemakaian,
+            'sum'       => $sum,
             'gi'        => $gi,
             'area'      => $area->nama_organisasi
         ]);
