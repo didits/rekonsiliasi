@@ -76,7 +76,7 @@
                                             <th rowspan="3" class="text-center">PEMAKAIAN<br>SENDIRI</th>
                                             <th rowspan="2" colspan="2" class="text-center">TOTAL PENYULANG</th>
                                             <th colspan="{{2*count($dt_trafo[$tr])}}" class="text-center">PENYULANG</th>
-                                            <th rowspan="{{count($dt_trafo[$tr])-1}}" class="text-center">KETERANGAN</th>
+                                            <th rowspan="3" class="text-center">KETERANGAN</th>
                                         </tr>
                                         <tr>
                                             @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
@@ -139,14 +139,11 @@
                                             <td>{{json_decode($data_master[$tr]['data_master'],true)['ps']['KWH']['teganganarus']}}</td>
                                             <td></td>
                                             <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
+                                                <td></td>
+                                                <td></td>
+                                            @endfor
+
                                             <td></td>
                                         </tr>
                                         <tr class="text-center">
@@ -176,14 +173,11 @@
                                             <td>{{json_decode($data_master[$tr]['data_master'],true)['ps']['TA']['burdenct']}}</td>
                                             <td></td>
                                             <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
+                                                <td></td>
+                                                <td></td>
+                                            @endfor
+
                                             <td></td>
                                         </tr>
                                         <tr class="text-center">
@@ -212,14 +206,11 @@
                                             <td>{{json_decode($data_master[$tr]['data_master'],true)['ps']['TT']['burdenpt']}}</td>
                                             <td></td>
                                             <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
+                                                <td></td>
+                                                <td></td>
+                                            @endfor
+
                                             <td></td>
                                         </tr>
                                         <tr>
@@ -231,14 +222,11 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
+                                                <td></td>
+                                                <td></td>
+                                            @endfor
+
                                             <td></td>
                                         </tr>
                                         {{--LWBP 1--}}
@@ -506,14 +494,11 @@
                                             <td>13,685</td>
                                             <td></td>
                                             <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
+                                                <td></td>
+                                                <td></td>
+                                            @endfor
+
                                             <td></td>
                                         </tr>
                                         <tr class="text-right">
@@ -525,14 +510,11 @@
                                             <td>18</td>
                                             <td></td>
                                             <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
+                                                <td></td>
+                                                <td></td>
+                                            @endfor
+
                                             <td></td>
                                         </tr>
                                         {{----}}
@@ -546,13 +528,11 @@
                                             <td class="text-left"><i>%</i></td>
                                             <td class="text-left"><i>% (inc >&ltout AMR)</i></td>
                                             <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
+                                                <td></td>
+                                                <td></td>
+                                            @endfor
+
                                             <td></td>
                                         </tr>
                                         <tr class="text-right">
@@ -565,14 +545,11 @@
                                             <td class="text-left"><i>%</i></td>
                                             <td><i>100.00</i></td>
                                             <td class="text-left"><i>% (visual >&lt AMR)</i></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
+                                                <td></td>
+                                                <td></td>
+                                            @endfor
+
                                             <td></td>
                                         </tr>
                                         {{----}}
