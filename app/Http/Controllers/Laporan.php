@@ -349,4 +349,18 @@ class Laporan extends Controller
             'area'      => $area->nama_organisasi
         ]);
     }
+
+    public function view_beli_tsa($id_organisasi, $tipe, $id_gi){
+        return view('admin.nonmaster.laporan.tsa_penyulang',[
+            'area'      => 'waw'
+        ]);
+//        return "yes";
+    }
+
+    public function view_beli_deviasi($id_organisasi, $tipe, $id_gi){
+        return view('admin.nonmaster.laporan.deviasi',[
+            'area'      => 'waw'
+        ]);
+//        return "yes";
+    }
 }

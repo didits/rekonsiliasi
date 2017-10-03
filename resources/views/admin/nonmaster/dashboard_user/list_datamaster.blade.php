@@ -37,7 +37,9 @@
                                                 <a href="{{route('area.list_master_gi', $list->id_organisasi)}}" class="btn btn-info btn-fill pull-right" >List GI</a>
 
                                                 @elseif($transaksi)
-                                                <a href="{{route('area.list_beli_gi', $list->id_organisasi)}}" class="btn btn-info btn-fill pull-right" >List GI</a>
+                                                <a href="{{route('area.view_beli_deviasi', [$list->id_organisasi, 'rayon', 0])}}" style="margin-left:5pt"  class="btn btn-success btn-fill pull-right">View Deviasi</a>
+                                                <a href="{{route('area.view_beli_tsa', [$list->id_organisasi, 'rayon', 0])}}" style="margin-left:5pt"  class="btn btn-success btn-fill pull-right">View TSA Penyulang</a>
+                                                <a href="{{route('area.list_beli_gi', $list->id_organisasi)}}" class="btn btn-info btn-fill pull-right">List GI</a>
 
                                                 @else
                                                 <a href="{{route('area.list_datamaster', $list->id_organisasi)}}" class="btn btn-info btn-fill pull-right" >List GI</a>
@@ -53,6 +55,32 @@
                             </div>
                         </div>
                     </div>
+                    @if($transaksi)
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h4 class="title">Laporan TSA</h4>
+                                    <p class="category">Area {{Auth::user()->nama_organisasi}}</p>
+                                </div>
+                                <div class="content all-icons">
+                                    <div class="row">
+                                        <div class="font-icon-list col-md-2">
+                                            <a href="{{route('area.view_beli_tsa', [$list->id_organisasi, 'area', 0])}}" rel="tooltip" title="" data-original-title="Laporan TSA Penyulang">
+                                                <button class="font-icon-detail btn btn-info btn-fill btn-wd"><i class="pe-7s-folder"></i><br/>Laporan<br/>TSA<br/>Penyulang</button>
+                                            </a>
+                                        </div>
+                                        <div class="font-icon-list col-md-2">
+                                            <a href="{{route('area.view_beli_deviasi', [$list->id_organisasi, 'area', 0])}}" rel="tooltip" title="" data-original-title="Laporan Deviasi">
+                                                <button class="font-icon-detail btn btn-info btn-fill btn-wd"><i class="pe-7s-graph"></i><br/>Laporan<br/>Deviasi<br/><br/></button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
                 </div>
             </div>
 

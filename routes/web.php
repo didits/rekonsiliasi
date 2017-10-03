@@ -172,6 +172,14 @@ Route::group(['middleware' => 'auth', 'prefix' => 'rayon'], function () {
         'as'        => 'rayon.laporan_master',
         'uses'      => 'RayonController@list_master_rayon'
     ]);
+    Route::get('/view_laporan_tsa/{id_organisasi}/{tipe}/{id_gi}', [
+        'as'        => 'rayon.view_beli_tsa',
+        'uses'      => 'Laporan@view_beli_tsa'
+    ]);
+    Route::get('/view_laporan_deviasi/{id_organisasi}/{tipe}/{id_gi}', [
+        'as'        => 'rayon.view_beli_deviasi',
+        'uses'      => 'Laporan@view_beli_deviasi'
+    ]);
 });
 
 //area
@@ -333,6 +341,14 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
     Route::get('/view_laporan_transaksi/{id_organisasi}/{unit}/{id_unit}', [
         'as'        => 'area.view_beli',
         'uses'      => 'Laporan@view_beli'
+    ]);
+    Route::get('/view_laporan_tsa/{id_organisasi}/{tipe}/{id_gi}', [
+        'as'        => 'area.view_beli_tsa',
+        'uses'      => 'Laporan@view_beli_tsa'
+    ]);
+    Route::get('/view_laporan_deviasi/{id_organisasi}/{tipe}/{id_gi}', [
+        'as'        => 'area.view_beli_deviasi',
+        'uses'      => 'Laporan@view_beli_deviasi'
     ]);
 });
 

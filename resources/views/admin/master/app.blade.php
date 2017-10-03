@@ -19,7 +19,7 @@
         <link href="{{ URL::asset('dashboard/css/light-bootstrap-dashboard.css') }}" rel="stylesheet"/>
 
         {{--<!--  CSS for Demo Purpose, don't include it in your project     -->--}}
-        {{--<link href="{{ URL::asset('dashboard/css/demo.css') }}" rel="stylesheet" />--}}
+        <link href="{{ URL::asset('dashboard/css/demo.css') }}" rel="stylesheet" />
         {{--<link href="{{ URL::asset('css/universal.css') }}" rel="stylesheet" />--}}
 
         {{--<!--     Fonts and icons     -->--}}

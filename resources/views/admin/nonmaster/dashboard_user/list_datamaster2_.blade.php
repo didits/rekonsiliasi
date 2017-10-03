@@ -399,6 +399,12 @@
                                                             <a href="{{route('rayon.list_beli', [$id_organisasi, 'tgi', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List Trafo GI">
                                                                 <i class="fa fa-th-list"></i>
                                                             </a>
+                                                            <a href="{{route('rayon.view_beli_tsa', [$list->id_organisasi, 'gi', $list->id])}}" rel="tooltip" title="" class="btn btn-warning btn-fill" data-original-title="View TSA Penyulang">
+                                                                <i class="fa fa-folder"></i>
+                                                            </a>
+                                                            <a href="{{route('rayon.view_beli_deviasi', [$list->id_organisasi, 'gi', $list->id])}}" rel="tooltip" title="" class="btn btn-warning btn-fill" data-original-title="View Deviasi">
+                                                                <i class="fa fa-pie-chart"></i>
+                                                            </a>
                                                         @elseif($tipe=="tgi")
                                                             <a href="{{route('rayon.list_beli', [$id_organisasi, 'penyulang', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List Penyulang">
                                                                 <i class="fa fa-th-list"></i>
@@ -428,6 +434,12 @@
                                                         @if($tipe=="gi")
                                                             <a href="{{route('area.list_beli', [$id_organisasi, 'tgi', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List Trafo GI">
                                                                 <i class="fa fa-th-list"></i>
+                                                            </a>
+                                                            <a href="{{route('area.view_beli_tsa', [$list->id_organisasi, 'gi', $list->id])}}" rel="tooltip" title="" class="btn btn-warning btn-fill" data-original-title="View TSA Penyulang">
+                                                                <i class="fa fa-folder"></i>
+                                                            </a>
+                                                            <a href="{{route('area.view_beli_deviasi', [$list->id_organisasi, 'gi', $list->id])}}" rel="tooltip" title="" class="btn btn-warning btn-fill" data-original-title="View Deviasi">
+                                                                <i class="fa fa-pie-chart"></i>
                                                             </a>
                                                         @elseif($tipe=="tgi")
                                                             <a href="{{route('area.list_beli', [$id_organisasi, 'penyulang', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List Penyulang">
