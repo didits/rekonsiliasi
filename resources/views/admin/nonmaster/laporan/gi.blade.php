@@ -31,7 +31,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-9">
+                    <div class="col-xs-6">
                         <div class="card">
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
@@ -47,6 +47,18 @@
                                     </tr>
                                     </thead>
                                 </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="card text-center">
+                            <div class="header">
+                                <h4 class="title">Download Laporan</h4>
+                            </div>
+                            <div class="content">
+                                <a href="" rel="tooltip" title="" data-original-title="">
+                                    <button class="btn btn-info btn-fill btn-wd"><i class="pe-7s-diskette"></i><br/>Download Laporan</button>
+                                </a>
                             </div>
                         </div>
                     </div>

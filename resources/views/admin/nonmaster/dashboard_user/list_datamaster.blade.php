@@ -66,12 +66,12 @@
                                 <div class="content all-icons">
                                     <div class="row">
                                         <div class="font-icon-list col-md-2">
-                                            <a href="{{route('area.view_beli_tsa', [$list->id_organisasi, 'area', 0])}}" rel="tooltip" title="" data-original-title="Laporan TSA Penyulang">
+                                            <a href="{{route('area.view_beli_tsa', [$list->id_organisasi, 'area', 0])}}" rel="tooltip" title="" data-original-title="">
                                                 <button class="font-icon-detail btn btn-info btn-fill btn-wd"><i class="pe-7s-folder"></i><br/>Laporan<br/>TSA<br/>Penyulang</button>
                                             </a>
                                         </div>
                                         <div class="font-icon-list col-md-2">
-                                            <a href="{{route('area.view_beli_deviasi', [$list->id_organisasi, 'area', 0])}}" rel="tooltip" title="" data-original-title="Laporan Deviasi">
+                                            <a href="{{route('area.view_beli_deviasi', [$list->id_organisasi, 'area', 0])}}" rel="tooltip" title="" data-original-title="">
                                                 <button class="font-icon-detail btn btn-info btn-fill btn-wd"><i class="pe-7s-graph"></i><br/>Laporan<br/>Deviasi<br/><br/></button>
                                             </a>
                                         </div>
