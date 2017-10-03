@@ -250,12 +250,7 @@ class Input extends Controller
                         'ps' =>  $data,
                     );
                 }
-                $dt = array(
-                    'beli' => $data_input,
-                    'hasil_pengolahan' => $data_olah
-                );
-
-//                dd($data1);
+                $dt = $data_olah;
             }
             elseif($request->tipe=="pct"){
                 $visual = array(
@@ -295,10 +290,7 @@ class Input extends Controller
                 );
             }
             else{
-                $dt = array(
-                    'beli' => $data,
-                    'hasil_pengolahan' => $data_olah
-                );
+                $dt = $data_olah;
             }
             if ($request->tipe == "gi") {
                 $P = new PenyimpananGI();
@@ -388,6 +380,7 @@ class Input extends Controller
                 'beli'=> $diff[0],
                 'hasil_pengolahan'=> $diff[1]
             );
+//            dd($dt);
             $update = $dt['beli'];
             $olah = $dt['hasil_pengolahan'];
             if(!$akhir){
@@ -565,8 +558,6 @@ class Input extends Controller
         }
         else{
             $dt = $this->json_dt($awal,$visual,$download,$tipe,$meter,$faktor_kali);
-//            dd($dt);
-
         }
         return $dt;
     }
