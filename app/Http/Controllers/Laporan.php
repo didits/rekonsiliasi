@@ -182,12 +182,10 @@ class Laporan extends Controller
         return $list_array;
     }
 
-    public function data_trafo($id){
-        $trafo_GI = array();
+    public function data_trafo($id,$list_array){
+        $trafo_GI =array();
         $tr = TrafoGI::whereIn('id',$id)->get();
-        $cmb = new MasterLaporan(0,"rayon",$id);
-        $penyulang_array =$this->data_penyulang($cmb->trafo);
-        $list_array =$this->total_pemakaian_energi($id, $penyulang_array);
+
         for ($i=0; $i < count($id); $i++) {
             $p_tr = PenyimpananTrafoGI::where([
                 ['id_trafo_gi', $tr[$i]['id']],
@@ -218,6 +216,8 @@ class Laporan extends Controller
                 /$zero;
             $selisih = abs(json_decode($p_tr_['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']-json_decode($p_tr_['data'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']-$list_array[$i]['total_pemakaian_energi_'])
                 /$zero_s;
+//            dd($list_array);
+
             $persen =(json_decode($p_tr_['data'],true)['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual']-json_decode($p_tr_['data'],true)['hasil_pengolahan']['pembanding']['download']['total_pemakaian_kwh_download'])
                 /$zero_p;
             $dttrafo = array(
@@ -245,8 +245,8 @@ class Laporan extends Controller
 
         $penyulang_array =$this->data_penyulang($cmb->trafo);
         $list_array = $this->total_pemakaian_energi($cmb->id, $penyulang_array);
-//        dd($list_array);
-        $trafo_GI = $this->data_trafo($cmb->id);
+
+        $trafo_GI = $this->data_trafo($cmb->id,$list_array);
 
 
         $list_data_trafo = array();
