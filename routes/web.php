@@ -70,7 +70,7 @@ Route::get('/admin', 'HomeController@index');
 Route::get('/logout', 'AuthController@logout');
 
 //rayon
-Route::group(['middleware' => 'auth', 'prefix' => 'rayon'], function () {
+Route::group(['prefix' => 'rayon', 'middleware' => ['auth', 'tipe:3']], function () {
 
     Route::get('/', [
         'as'        => 'rayon.index',
@@ -183,7 +183,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'rayon'], function () {
 });
 
 //area
-Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
+Route::group(['prefix' => 'area', 'middleware' => ['auth', 'tipe:2']], function () {
 
     Route::get('/getStructure/{id}', [
         'as'        => 'area.get_structure',
@@ -353,7 +353,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'area'], function () {
 });
 
 //distribusi
-Route::group(['middleware' => 'auth', 'prefix' => 'distribusi'], function () {
+Route::group(['prefix' => 'distribusi', 'middleware' => ['auth', 'tipe:1']], function () {
 
     Route::get('/', [
         'as'        => 'distribusi.index',
@@ -367,7 +367,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'distribusi'], function () {
 });
 
 //admin
-Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'tipe:0']], function () {
     Route::get('/', [
         'as'        => 'admin.index',
         'uses'      => 'AdminController@index'
