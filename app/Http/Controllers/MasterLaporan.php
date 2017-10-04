@@ -36,5 +36,9 @@ class MasterLaporan
             $this->p_penyulang_ = $p_penyulang_;
             $this->id = $id_trafo;
         }
+        elseif($tipe = "rayon"){
+            $this->trafo = $MasterTrafo;
+            $this->id = $id_trafo;
+        }
     }
 }
