@@ -104,6 +104,10 @@
                                                                                                 <label>Stand Akhir KVARH</label>
                                                                                                 <input type="text" name="kvarh_visual" class="form-control" placeholder="" value="{{$data['beli']['utama']['visual']['kvarh_visual']}}">
                                                                                             </div>
+                                                                                            <div class="form-group">
+                                                                                                <label>Daya Konsiden</label>
+                                                                                                <input type="text" name="konsiden_visual" class="form-control" placeholder="" value="">
+                                                                                            </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
                                                                                         </div>
@@ -156,6 +160,10 @@
                                                                                             <div class="form-group">
                                                                                                 <label>Pemakaian KWH KVARH</label>
                                                                                                 <input type="text" name="kvarh_download" class="form-control" placeholder="" value="{{$data['beli']['utama']['download']['kvarh_download']}}">
+                                                                                            </div>
+                                                                                            <div class="form-group">
+                                                                                                <label>Daya Konsiden</label>
+                                                                                                <input type="text" name="konsiden_download" class="form-control" placeholder="" value="">
                                                                                             </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
@@ -236,6 +244,10 @@
                                                                                                 <label>Stand Akhir KVARH</label>
                                                                                                 <input type="text" name="kvarh_visual" class="form-control" placeholder="" value="{{$data['beli']['pembanding']['visual']['kvarh_visual']}}">
                                                                                             </div>
+                                                                                            <div class="form-group">
+                                                                                                <label>Daya Konsiden</label>
+                                                                                                <input type="text" name="konsiden_visual" class="form-control" placeholder="" value="">
+                                                                                            </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
                                                                                         </div>
@@ -288,6 +300,10 @@
                                                                                             <div class="form-group">
                                                                                                 <label>Pemakaian KWH KVARH</label>
                                                                                                 <input type="text" name="kvarh_download" class="form-control" placeholder="" value="{{$data['beli']['pembanding']['download']['kvarh_download']}}">
+                                                                                            </div>
+                                                                                            <div class="form-group">
+                                                                                                <label>Daya Konsiden</label>
+                                                                                                <input type="text" name="konsiden_download" class="form-control" placeholder="" value="">
                                                                                             </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
@@ -368,6 +384,10 @@
                                                                                                 <label>Stand Akhir KVARH</label>
                                                                                                 <input type="text" name="kvarh_visual" class="form-control" placeholder="" value="{{$data['beli']['ps']['visual']['kvarh_visual']}}">
                                                                                             </div>
+                                                                                            <div class="form-group">
+                                                                                                <label>Daya Konsiden</label>
+                                                                                                <input type="text" name="konsiden_visual" class="form-control" placeholder="" value="">
+                                                                                            </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
                                                                                         </div>
@@ -420,6 +440,10 @@
                                                                                             <div class="form-group">
                                                                                                 <label>Pemakaian KWH KVARH</label>
                                                                                                 <input type="text" name="kvarh_download" class="form-control" placeholder="" value="{{$data['beli']['ps']['download']['kvarh_download']}}">
+                                                                                            </div>
+                                                                                            <div class="form-group">
+                                                                                                <label>Daya Konsiden</label>
+                                                                                                <input type="text" name="konsiden_download" class="form-control" placeholder="" value="">
                                                                                             </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
