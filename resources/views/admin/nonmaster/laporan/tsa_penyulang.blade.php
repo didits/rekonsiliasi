@@ -23,10 +23,10 @@
                                             <th><i>DISTRIBUSI JAWA TIMUR</i></th>
                                         </tr>
                                         <tr>
-                                            @if($tipe == 3)
+                                            @if($tipe == "rayon")
                                             <th><i>RAYON {{$area}}</i></th>
-                                            @elseif($tipe == 2)
-                                            <th><i>AREA {{$area}}</i></th>
+                                            @elseif($tipe == "area")
+                                            <th><i>AREA {{Auth::user()->nama_organisasi}}</i></th>
                                             @endif
                                         </tr>
                                     </thead>
@@ -97,6 +97,8 @@
                                             <th class="text-center">%</th>
                                         </tr>
                                     </thead>
+                                    @if($tipe=="rayon")
+
                                     @if($trafo)
                                     <tbody>
                                         @for($j=0;$j<count($trafo);$j++)
@@ -165,6 +167,87 @@
                                             <th class="text-right"><b>{{$total_jumlah['persen']}}</b></th>
                                         </tr>
                                     </thead>
+                                    @endif
+
+                                    @elseif($tipe=="area")
+                                    @if($trafo)
+                                    <tbody>
+                                    <div style="display: none;">{{$py=0}}</div>
+                                    @for($gi=0;$gi<count($trafo);$gi++)
+                                        <div style="display: none;">{{$flag=true}}</div>
+                                        @for($tr=0;$tr<count($trafo[$gi]);$tr++)
+                                            <div style="display: none;">{{$flag=true}}</div>
+                                            {{--{{dd($data_gi)}}--}}
+                                            @for($py=0;$py<count($data_gi[$gi]);$py++)
+                                            <tr class="text-right">
+                                                @if($data_gi[$gi][$py]['id_trafo']==$trafo[$gi][$tr]['id'])
+                                                    {{--{{dd($data_gi)}}--}}
+                                                    @if($flag==1)
+                                                        <td class="text-center">{{$gi+1}}</td>
+                                                        <td class="text-left">{{$nama_gi[$gi]['nama_gi']}}</td>
+                                                        <td class="text-center">{{$trafo[$gi][$tr]['nama_trafo_gi']}}</td>
+                                                        <td class="text-center">40</td>
+                                                        <div style="display: none;">{{$flag=false}}</div>
+                                                    @else
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    @endif
+                                                    <td class="text-center">{{$data_gi[$gi][$py]['nama_p']}}</td>
+                                                    <td>{{$data_gi[$gi][$py]['lwbp1']}}</td>
+                                                    <td>{{$data_gi[$gi][$py]['lwbp2']}}</td>
+                                                    <td>{{$data_gi[$gi][$py]['wbp']}}</td>
+                                                    <td>{{$data_gi[$gi][$py]['total_kwh']}}</td>
+                                                    <td>-</td>
+                                                    <td>{{$data_gi[$gi][$py]['KW']}}</td>
+                                                    <td class="text-left">KRAKSAAN</td>
+                                                    <td>{{$data_gi[$gi][$py]['KWH_lalu']}}</td>
+                                                    <td>{{$data_gi[$gi][$py]['KWH']}}</td>
+                                                    <td>{{$data_gi[$gi][$py]['persen']}}</td>
+                                                @endif
+                                            </tr>
+                                            @endfor
+
+                                            {{--                                        {{dd($data_jumlah)}}--}}
+                                        <tr class="text-right">
+                                            <td class="text-center"></td>
+                                            <td colspan="4" class="text-center"><b>JUMLAH</b></td>
+                                            <td><b>{{$data_jumlah[$gi][$tr]['lwbp1']}}</b></td>
+                                            <td><b>{{$data_jumlah[$gi][$tr]['lwbp2']}}</b></td>
+                                            <td><b>{{$data_jumlah[$gi][$tr]['wbp']}}</b></td>
+                                            <td><b>{{$data_jumlah[$gi][$tr]['total_kwh']}}</b></td>
+                                            <td><b>-</b></td>
+                                            <td><b>{{$data_jumlah[$gi][$tr]['KW']}}</b></td>
+                                            <td class="text-left"><b></b></td>
+                                            <td><b>{{$data_jumlah[$gi][$tr]['KWH_lalu']}}</b></td>
+                                            <td><b>{{$data_jumlah[$gi][$tr]['KWH']}}</b></td>
+                                            <td><b>{{$data_jumlah[$gi][$tr]['persen']}}</b></td>
+
+                                        </tr>
+                                    @endfor
+                                @endfor
+                                    {{--JUMLAH--}}
+                                    </tbody>
+                                    {{-----------}}
+                                    {{--{{dd($total_jumlah}}--}}
+                                    <thead>
+                                    <tr>
+                                        <th colspan="5" class="text-center">JUMLAH</th>
+                                        <th class="text-right"><b>{{$total_jumlah['lwbp1']}}</b></th>
+                                        <th class="text-right"><b>{{$total_jumlah['lwbp2']}}</b></th>
+                                        <th class="text-right"><b>{{$total_jumlah['wbp']}}</b></th>
+                                        <th class="text-right"><b>{{$total_jumlah['total_kwh']}}</b></th>
+                                        <th class="text-right"><b></b></th>
+                                        <th class="text-right"><b>{{$total_jumlah['KW']}}</b></th>
+                                        <th class="text-center"><b></b></th>
+                                        <th class="text-right"><b>{{$total_jumlah['KWH_lalu']}}</b></th>
+                                        <th class="text-right"><b>{{$total_jumlah['KWH']}}</b></th>
+                                        <th class="text-right"><b>{{$total_jumlah['persen']}}</b></th>
+                                    </tr>
+                                    </thead>
+                                    @endif
+
                                     @endif
                                 </table>
                             </div>
