@@ -24,10 +24,10 @@ class MasterLaporan
 
         $MasterPenyulang = Penyulang::whereIn('id_trafo_gi',$id_trafo)->get();
         $id_penyulang = Penyulang::whereIn('id_trafo_gi',$id_trafo)->pluck('id');
-//        dd($id_penyulang);
         $p_penyulang = PenyimpananPenyulang::whereIn('id_penyulang',$id_penyulang)->where('periode',$date)->get();
         $p_penyulang_ = PenyimpananPenyulang::whereIn('id_penyulang',$id_penyulang)->where('periode',date("Ym"))->get();
-        if($tipe = "gi"){
+
+        if($tipe = "tsa"){
             $this->trafo = $MasterTrafo;
             $this->penyulang = $MasterPenyulang;
             $this->p_trafo = $p_trafo;
@@ -36,7 +36,7 @@ class MasterLaporan
             $this->p_penyulang_ = $p_penyulang_;
             $this->id = $id_trafo;
         }
-        elseif($tipe = "rayon"){
+        elseif($tipe = "deviasi"){
             $this->trafo = $MasterTrafo;
             $this->id = $id_trafo;
         }

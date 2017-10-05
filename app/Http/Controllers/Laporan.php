@@ -237,7 +237,7 @@ class Laporan extends Controller
     }
 
     public function view_beli($id_rayon,$tipe,$id){
-        $cmb = new MasterLaporan($id_rayon,$tipe,$id);
+        $cmb = new MasterLaporan($id_rayon,"tsa",$id);
         $gi = GI::where('id',$id)->first();
         $areas = Organisasi::where('id',$gi->id_organisasi)->first();
         $id_org = substr($areas->id_organisasi, 0, 3) . "%%";
@@ -304,13 +304,10 @@ class Laporan extends Controller
     }
 
     public function view_beli_tsa($id_organisasi, $tipe, $id_gi){
-        $org = Organisasi::select('tipe_organisasi','nama_organisasi')->where('id',$id_organisasi)->first();
-        $id_gi = GI::where('id_organisasi',$id_organisasi)->select('id','nama_gi')->first();
-//        dd($id_gi);
+        $org = Organisasi::select('tipe_organisasi','nama_organisasi')->where('id_organisasi',$id_organisasi)->first();
+        $id_gi = GI::where('id_organisasi',$id_gi)->select('id','nama_gi')->first();
         if($id_gi){
-            $cmb = new MasterLaporan($id_organisasi,$tipe,$id_gi->id);
-
-
+            $cmb = new MasterLaporan($id_organisasi,"tsa",$id_gi->id);
 //        $list_array BUAT Total P.E. per Trafo di GI
 //        $penyulang_array Data SEMUA Penyulang di GI
 //        dd($penyulang_array);
@@ -457,11 +454,11 @@ class Laporan extends Controller
             return view('admin.nonmaster.laporan.tsa_penyulang',[
                 'trafo'      => null,
                 'gi'      => null,
-                'area'      => null,
+                'area'      => $org->nama_organisasi,
                 'data_gi'      => null,
                 'data_jumlah'      => null,
                 'total_jumlah'      => null,
-                'tipe'      => null,
+                'tipe'      => $org->tipe_organisasi,
             ]);
         }
 //        dd($jumlah_trafo);
@@ -469,9 +466,94 @@ class Laporan extends Controller
 
     }
 
-    public function view_beli_deviasi($id_organisasi, $tipe, $id_gi){
-        return view('admin.nonmaster.laporan.deviasi',[
-            'area'      => 'waw'
-        ]);
+    public function data_deviasi($data_gi,$id_organisasi){
+        $cmb = new MasterLaporan($id_organisasi,"deviasi",$data_gi->id);
+        $penyulang_array =$this->data_penyulang($cmb->trafo);
+        $total_pemakaian_penyulang = $this->total_pemakaian_energi($cmb->id, $penyulang_array);
+        $trafo_GI = $this->data_trafo($cmb->id,$total_pemakaian_penyulang);
+        $data_GI = array();
+        $tot_D =$tot_E =$tot_F =$tot_G =$tot_H =$tot_I =$tot_J =$tot_K=$tot_L =$tot_M= $tot_N =null;
+        for($i=0;$i<count($trafo_GI);$i++){
+            $D =(json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']);
+            $E =(json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']);
+            $F = $D-$E;
+            $G =(json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual']);
+            $H = $total_pemakaian_penyulang[$i]['total_pemakaian_energi_'];
+            $I = abs($D-$G);
+            if($D==0)$D =1;
+            $J = abs($I/$D*100);
+            $K = abs($D-$E-$H);
+            if($F==0)$F =1;
+            $L = abs($K/$F*100);
+            $G_E =$G-$E;
+            $M = abs($G -$H);
+            if($G-$E==0)$G_E = 1;
+            $N = abs($M / ($G_E)*100);
+            $data = array(
+                'gi' =>$data_gi->nama_gi,
+                'trafo' =>$trafo_GI[$i]['nama'],
+                'id_trafo' =>$trafo_GI[$i]['id_trafo'],
+                'D' => $D, 'E' => $E, 'F' => $F, 'G' => $G, 'H' => $H, 'I' => $I,
+                'J' => $J, 'K' => $K, 'L' => $L, 'M' => $M, 'N' => $N
+            );
+            array_push($data_GI,$data);
+            $tot_D +=$D; $tot_E +=$E;$tot_F +=$F;$tot_G +=$G;$tot_H +=$H;$tot_I +=$I;$tot_J +=$J;$tot_K +=$K;$tot_L +=$L;$tot_M +=$M;$tot_N +=$N;
+        }
+        $jumlah = array(
+            'gi' =>$data_gi->nama_gi,
+            'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'I' => $tot_I,
+            'J' => $tot_J, 'K' => $tot_K, 'L' => $tot_L, 'M' => $tot_M, 'N' => $tot_N
+        );
+
+        return array ($data_GI, $jumlah);
+    }
+
+    public function view_beli_deviasi($id_organisasi, $tipe, $id){
+        if($tipe == "area"){
+            $data_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
+            $id_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
+            $data_GI = array();
+            for($i =0 ;$i <count($id_org);$i++){
+                $dt = GI::where('id_organisasi',$id_org[$i])->select('id','id_organisasi','nama_gi')->first();
+                if(!$dt==null)
+                    $data = $this->data_deviasi($dt,$data_org[$i]['id_organisasi']);
+                else $data =null;
+                array_push($data_GI,$data);
+            }
+            $jumlah =0;
+//            dd($data_GI);
+            return view('admin.nonmaster.laporan.deviasi',[
+                'area'      => 'data',
+                'data_GI'   => $data_GI,
+                'tipe'      => $tipe,
+                'jumlah'      => $jumlah,
+//                'rayon'     => $org->nama_organisasi,
+            ]);
+        }
+        elseif($tipe == "rayon"){
+            $org = Organisasi::select('tipe_organisasi','nama_organisasi')->where('id_organisasi',$id_organisasi)->first();
+            $data_gi = GI::where('id_organisasi',$id)->select('id','nama_gi')->first();
+            if($data_gi){
+                $data = $this->data_deviasi($data_gi,$id_organisasi);
+                $data_GI =$data[0];
+                $jumlah =$data[1];
+                return view('admin.nonmaster.laporan.deviasi',[
+                    'area'      => 'data',
+                    'data_GI'   => $data_GI,
+                    'tipe'      => $tipe,
+                    'jumlah'      => $jumlah,
+                    'rayon'     => $org->nama_organisasi,
+                ]);
+            }
+            elseif(!$data_gi){
+                return view('admin.nonmaster.laporan.deviasi',[
+                    'area'      => 'null',
+                    'data_GI'   => null,
+                    'tipe'      => $tipe,
+                    'jumlah'      => null,
+                    'rayon'     => $org->nama_organisasi,
+                ]);
+            }
+        }
     }
 }

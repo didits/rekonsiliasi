@@ -9,8 +9,7 @@
     <div class="main-panel">
     @include('admin.master.top_navbar', ['navbartitle' => "LAPORAN "])
         <div class="content">
-            @if($trafo)
-            <div class="container-fluid">
+             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xs-3">
                         <div class="card">
@@ -98,6 +97,7 @@
                                             <th class="text-center">%</th>
                                         </tr>
                                     </thead>
+                                    @if($trafo)
                                     <tbody>
                                         @for($j=0;$j<count($trafo);$j++)
 
@@ -165,13 +165,13 @@
                                             <th class="text-right"><b>{{$total_jumlah['persen']}}</b></th>
                                         </tr>
                                     </thead>
+                                    @endif
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            @endif
         </div>
         @include('admin.master.footer')
 
