@@ -36,7 +36,7 @@
                                                 </td>
                                                 <td> {{$list->alamat_gi}} </td>
                                                 <td class="td-actions text-right">
-                                                    <a href="{{url('/area/list_datamaster_gi/'.$id_organisasi.'/'.$list->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="List Trafo GI">
+                                                    <a href="{{route('area.lihat_gi', [$id_organisasi, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="List Trafo GI">
                                                         <i class="fa fa-user"></i>
                                                     </a>
                                                     <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile"

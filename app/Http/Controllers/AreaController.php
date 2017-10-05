@@ -846,7 +846,6 @@ class AreaController extends Controller
 
     public function laporan_beli() {
         $data = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get();
-//        dd($data);
         return view('admin.nonmaster.dashboard_user.list_datamaster',[
             'data' => $data,
             'list_distribusi' => $this->list_distribusi(),
@@ -897,6 +896,8 @@ class AreaController extends Controller
     }
 
     public function list_master($id_rayon,$tipe,$id){
+        if($tipe == 'gtt_pct')
+            $tipe = 'gd';
         $master = new Master($id_rayon,$tipe,$id);
         if($master->data->count()==0)
             $master->data=null;

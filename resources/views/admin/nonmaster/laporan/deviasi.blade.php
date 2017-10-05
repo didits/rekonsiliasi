@@ -9,7 +9,7 @@
     <div class="main-panel">
     @include('admin.master.top_navbar', ['navbartitle' => "LAPORAN "])
 
-        <div class="content"> 
+        <div class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xs-3">
@@ -24,7 +24,11 @@
                                             <th><i>DISTRIBUSI JAWA TIMUR</i></th>
                                         </tr>
                                         <tr>
-                                            <th><i>AREA {{$area}}</i></th>
+                                            @if($tipe == "area")
+                                            <th><i>AREA {{Auth::user()->nama_organisasi}}</i></th>
+                                            @elseif($tipe == "rayon")
+                                            <th><i>RAYON {{$rayon}}</i></th>
+                                            @endif
                                         </tr>
                                     </thead>
                                 </table>
@@ -115,82 +119,123 @@
                                             <th class="text-center">16</th>
                                         </tr>
                                     </thead>
+                                    @if($area == "data")
                                     <tbody>
+                                        <div style="display: none;">{{$flag=true}}</div>
+                                        @for($i=0;$i<count($data_GI);$i++)
                                         <tr class="text-right">
+                                            @if($flag)
                                             <td class="text-center">1</td>
-                                            <td class="text-left">GI PAITON</td>
-                                            <td class="text-center">I</td>
-                                            <td>5,077,342</td>
-                                            <td>2,195</td>
-                                            <td>5,075,147</td>
-                                            <td>5,081,417</td>
-                                            <td>5,084,470</td>
-                                            <td>(4,075)</td>
-                                            <td>(0.08)</td>
-                                            <td>(9,323)</td>
-                                            <td>(0.18)</td>
-                                            <td>(5,248)</td>
-                                            <td>(0.10)</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr class="text-right">
-                                            <td class="text-center">2</td>
-                                            <td class="text-left">GI KRAKSAAN</td>
-                                            <td class="text-center">I</td>
-                                            <td>9,408,343</td>
-                                            <td>13,273</td>
-                                            <td>9,395,070</td>
-                                            <td>9,426,750</td>
-                                            <td>10,429,790</td>
-                                            <td>(18,407)</td>
-                                            <td>(0.20)</td>
-                                            <td>(1,034,720)</td>
-                                            <td>(11.01)</td>
-                                            <td>(1,016,313)</td>
-                                            <td>(10.80)</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr class="text-right">
+                                            <td class="text-left">{{$data_GI[$i]['gi']}}</td>
+                                            <div style="display: none;">{{$flag=false}}</div>
+                                            @else
                                             <td class="text-center"></td>
                                             <td class="text-left"></td>
-                                            <td class="text-center">II</td>
-                                            <td>5,518,343</td>
-                                            <td>-</td>
-                                            <td>5,518,343</td>
-                                            <td>5,526,790</td>
-                                            <td>4,574,220</td>
-                                            <td>(8,447)</td>
-                                            <td>(0.15)</td>
-                                            <td>944,123</td>
-                                            <td>17.11</td>
-                                            <td>952,570</td>
-                                            <td>17.24</td>
+                                            @endif
+                                            <td class="text-center">{{$data_GI[$i]['trafo']}}</td>
+                                            <td>{{number_format($data_GI[$i]['D'],0)}}</td>
+                                            <td>{{number_format($data_GI[$i]['E'],0)}}</td>
+                                            <td>{{number_format($data_GI[$i]['F'],0)}}</td>
+                                            <td>{{number_format($data_GI[$i]['G'],0)}}</td>
+                                            <td>{{number_format($data_GI[$i]['H'],0)}}</td>
+                                            <td>({{number_format($data_GI[$i]['I']),0}})</td>
+                                            <td>({{number_format($data_GI[$i]['J'],2)}})</td>
+                                            <td>({{number_format($data_GI[$i]['K'],0)}})</td>
+                                            <td>({{number_format($data_GI[$i]['L'],2)}})</td>
+                                            <td>({{number_format($data_GI[$i]['M'],0)}})</td>
+                                            <td>({{number_format($data_GI[$i]['N'],2)}})</td>
                                             <td></td>
                                             <td></td>
                                         </tr>
+                                        @endfor
 
                                     </tbody>
                                     {{-----------}}
                                     <thead>
                                         <tr>
-                                            <th colspan="3" class="text-center">JUMLAH</th>
-                                            <th class="text-right">310,379,523</th>
-                                            <th class="text-right">189,788</th>
-                                            <th class="text-right">310,189,735</th>
-                                            <th class="text-right">310,264,944</th>
-                                            <th class="text-right">311,439,100</th>
-                                            <th class="text-right">114,579</th>
-                                            <th class="text-right">0.04</th>
-                                            <th class="text-right">(1,249,366)</th>
-                                            <th class="text-right">(0.40)</th>
-                                            <th class="text-right">(1,189,624)</th>
-                                            <th class="text-right">(0.38)</th>
-                                            <th class="text-center"></th>
-                                            <th class="text-center"></th>
+                                            <th class="text-center" colspan="3" class="text-center">JUMLAH</th>
+                                            <th class="text-center">{{number_format($jumlah['D'],0)}}</th>
+                                            <th class="text-center">{{number_format($jumlah['E'],0)}}</th>
+                                            <th class="text-center">{{number_format($jumlah['F'],0)}}</th>
+                                            <th class="text-center">{{number_format($jumlah['G'],0)}}</th>
+                                            <th class="text-center">{{number_format($jumlah['H'],0)}}</th>
+                                            <th class="text-center">({{number_format($jumlah['I']),0}})</th>
+                                            <th class="text-center">({{number_format($jumlah['J'],2)}})</th>
+                                            <th class="text-center">({{number_format($jumlah['K'],0)}})</th>
+                                            <th class="text-center">({{number_format($jumlah['L'],2)}})</th>
+                                            <th class="text-center">({{number_format($jumlah['M'],0)}})</th>
+                                            <th class="text-center">({{number_format($jumlah['N'],2)}})</th>
                                         </tr>
                                     </thead>
+                                    @elseif($area == "area")
+                                    <tbody>
+                                    @for($i=0;$i<count($data_GI);$i++)
+                                        <div style="display: none;">{{$flag=true}}</div>
+                                        @for($j=0;$j<count($data_GI[$i]);$j++)
+                                        <tr class="text-right">
+                                            @if($flag)
+                                            <td class="text-center">{{$i+1}}</td>
+                                            <td class="text-left">{{$data_GI[$i][$j]['gi']}}</td>
+                                            <div style="display: none;">{{$flag=false}}</div>
+                                            @else
+                                            <td class="text-center"></td>
+                                            <td class="text-left"></td>
+                                            @endif
+                                            {{--{{dd($data_GI[$i][$j])}}--}}
+                                            <td class="text-center">{{$data_GI[$i][$j]['trafo']}}</td>
+                                            <td>{{number_format($data_GI[$i][$j]['D'],0)}}</td>
+                                            <td>{{number_format($data_GI[$i][$j]['E'],0)}}</td>
+                                            <td>{{number_format($data_GI[$i][$j]['F'],0)}}</td>
+                                            <td>{{number_format($data_GI[$i][$j]['G'],0)}}</td>
+                                            <td>{{number_format($data_GI[$i][$j]['H'],0)}}</td>
+                                            <td>({{number_format($data_GI[$i][$j]['I']),0}})</td>
+                                            <td>({{number_format($data_GI[$i][$j]['J'],2)}})</td>
+                                            <td>({{number_format($data_GI[$i][$j]['K'],0)}})</td>
+                                            <td>({{number_format($data_GI[$i][$j]['L'],2)}})</td>
+                                            <td>({{number_format($data_GI[$i][$j]['M'],0)}})</td>
+                                            <td>({{number_format($data_GI[$i][$j]['N'],2)}})</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        @endfor
+
+                                        {{-----------}}
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center" colspan="3" class="text-center">JUMLAH</th>
+                                            <th class="text-center">{{number_format($jumlah[$i]['D'],0)}}</th>
+                                            <th class="text-center">{{number_format($jumlah[$i]['E'],0)}}</th>
+                                            <th class="text-center">{{number_format($jumlah[$i]['F'],0)}}</th>
+                                            <th class="text-center">{{number_format($jumlah[$i]['G'],0)}}</th>
+                                            <th class="text-center">{{number_format($jumlah[$i]['H'],0)}}</th>
+                                            <th class="text-center">({{number_format($jumlah[$i]['I']),0}})</th>
+                                            <th class="text-center">({{number_format($jumlah[$i]['J'],2)}})</th>
+                                            <th class="text-center">({{number_format($jumlah[$i]['K'],0)}})</th>
+                                            <th class="text-center">({{number_format($jumlah[$i]['L'],2)}})</th>
+                                            <th class="text-center">({{number_format($jumlah[$i]['M'],0)}})</th>
+                                            <th class="text-center">({{number_format($jumlah[$i]['N'],2)}})</th>
+                                        </tr>
+                                        </thead>
+                                    @endfor
+                                        {{-----------}}
+                                        <thead>
+                                        <tr>
+                                            <td class="text-center" colspan="3" class="text-center"><b></b>JUMLAH</td>
+                                            <td class="text-center"><b>{{number_format($total['D'],0)}}</b></td>
+                                            <td class="text-center"><b>{{number_format($total['E'],0)}}</b></td>
+                                            <td class="text-center"><b>{{number_format($total['F'],0)}}</b></td>
+                                            <td class="text-center"><b>{{number_format($total['G'],0)}}</b></td>
+                                            <td class="text-center"><b>{{number_format($total['H'],0)}}</b></td>
+                                            <td class="text-center"><b>({{number_format($total['I']),0}})</b></td>
+                                            <td class="text-center"><b>({{number_format($total['J'],2)}})</b></td>
+                                            <td class="text-center"><b>({{number_format($total['K'],0)}})</b></td>
+                                            <td class="text-center"><b>({{number_format($total['L'],2)}})</b></td>
+                                            <td class="text-center"><b>({{number_format($total['M'],0)}})</b></td>
+                                            <td class="text-center"><b>({{number_format($total['N'],2)}})</b></td>
+                                        </tr>
+                                        </thead>
+                                    </tbody>
+                                    @endif
                                 </table>
                             </div>
                         </div>

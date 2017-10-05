@@ -68,6 +68,8 @@ class Laporan extends Controller
     }
 
     public function list_beli($id_rayon,$tipe,$id){
+        if($tipe == 'gtt_pct')
+            $tipe = 'gd';
         $master = new Master($id_rayon,$tipe,$id);
         Auth::user()->tipe_organisasi == 3 ? $rayon = true : $rayon = false;
         if($master->data->count()==0)
@@ -204,23 +206,23 @@ class Laporan extends Controller
                 $dt_ = $p_tr_['data'];
             else $dt_ = "";
 
-            $zero = json_decode($p_tr_['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']*100;
-            $zero_p =json_decode($p_tr_['data'],true)['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual']*100;
+            $zero = json_decode($p_tr_['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download'];
+            $zero_p =json_decode($p_tr_['data'],true)['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual'];
             $zero_s =(json_decode($p_tr_['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']-json_decode($p_tr_['data'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']);
             if($zero==0)$zero=1;
             if($zero_s==0)$zero_s=1;
             if($zero_p==0)$zero_p=1;
 
             $s_out= abs(json_decode($p_tr_['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']-json_decode($p_tr_['data'],true)['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual'])
-                /$zero;
+                /$zero*100;
             $p_out =(json_decode($p_tr_['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']-json_decode($p_tr_['data'],true)['hasil_pengolahan']['pembanding']['download']['total_pemakaian_kwh_download'])
-                /$zero;
+                /$zero*100;
             $selisih = abs(
                 (json_decode($p_tr_['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']
                     -json_decode($p_tr_['data'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']-$list_array[$i]['total_pemakaian_energi_'])
                 /($zero_s))*100;;
             $persen =(json_decode($p_tr_['data'],true)['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual']-json_decode($p_tr_['data'],true)['hasil_pengolahan']['pembanding']['download']['total_pemakaian_kwh_download'])
-                /$zero_p;
+                /$zero_p*100;
             $dttrafo = array(
                 'nama' => $tr[$i]['nama_trafo_gi'],
                 'data_master' => $tr[$i]['data_master'],
@@ -238,7 +240,7 @@ class Laporan extends Controller
     }
 
     public function view_beli($id_rayon,$tipe,$id){
-        $cmb = new MasterLaporan($id_rayon,$tipe,$id);
+        $cmb = new MasterLaporan($id_rayon,"tsa",$id);
         $gi = GI::where('id',$id)->first();
         $areas = Organisasi::where('id',$gi->id_organisasi)->first();
         $id_org = substr($areas->id_organisasi, 0, 3) . "%%";
@@ -307,22 +309,14 @@ class Laporan extends Controller
         ]);
     }
 
-    public function view_beli_tsa($id_organisasi, $tipe, $id_gi){
-        $org = Organisasi::select('tipe_organisasi','nama_organisasi')->where('id',$id_organisasi)->first();
-        $id_gi = GI::where('id_organisasi',$id_organisasi)->select('id','nama_gi')->first();
-//        dd($id_gi);
-        if($id_gi){
-            $cmb = new MasterLaporan($id_organisasi,$tipe,$id_gi->id);
-
-
-//        $list_array BUAT Total P.E. per Trafo di GI
-//        $penyulang_array Data SEMUA Penyulang di GI
-//        dd($penyulang_array);
+    public function data_tsa($id_organisasi,$tipe,$data_gi){
+        $cmb = new MasterLaporan($id_organisasi,$tipe,$data_gi->id);
+        if($cmb){
             $penyulang_array =$this->data_penyulang($cmb->trafo);
             $list_array = $this->total_pemakaian_energi($cmb->id, $penyulang_array);
             $list_p = array();
             $jumlah_trafo = array();
-            $trafo = TrafoGI::select('nama_trafo_gi','id')->where('id_gi',$id_gi->id)->get()->toArray();
+            $trafo = TrafoGI::select('nama_trafo_gi','id','id_gi')->where('id_gi',$data_gi->id)->get()->toArray();
 
             $tot_lwbp1 = $tot_lwbp2 = $tot_wbp =$tot_t_kwh = $tot_KW = $tot_KWH = $tot_KWH_lalu=$tot_persen= null;
             for ($i=0;$i<count($cmb->trafo);$i++){
@@ -447,36 +441,217 @@ class Laporan extends Controller
                 'KWH_lalu'   => $tot_KWH_lalu,
                 'persen' => $tot_persen
             );
+
+        }
+        return array($trafo,$list_p,$jumlah_trafo,$jumlah_tot);
+    }
+
+    public function view_beli_tsa($id_organisasi, $tipe, $id_gi){
+        if($tipe =="area"){
+            $data_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
+            $id_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
+            $tsa = array();
+            $trafo = array();
+            $list_p = array();
+            $nama_gi = array();
+            $jumlah_trafo = array();
+            $jumlah_tot = array();
+            for($i =0 ;$i <count($id_org);$i++) {
+                $data_gi = GI::where('id_organisasi', $id_org[$i])->select('id', 'nama_gi')->first();
+                if ($data_gi) {
+                    $data = $this->data_tsa($id_organisasi, "tsa", $data_gi);
+                    if($data[0])
+                        array_push($trafo,$data[0]);
+                    if($data[1])
+                        array_push($list_p,$data[1]);
+                    if($data[2])
+                        array_push($jumlah_trafo,$data[2]);
+                    if($data[3])
+                        array_push($jumlah_tot,$data[3]);
+                    $dt = array(
+                        'trafo' => $data[0],
+                        'list_p' => $data[1],
+                        'jumlah_trafo' => $data[2],
+                        'jumlah_tot' => $data[3],
+                    );
+                    array_push($nama_gi,$data_gi);
+                    array_push($tsa,$dt);
+                }
+            }
+
+            $tot_lwbp1 = $tot_lwbp2 = $tot_wbp =$tot_t_kwh = $tot_KW = $tot_KWH = $tot_KWH_lalu=$tot_persen= null;
+            for($i=0;$i < count($jumlah_trafo);$i++){
+                $tot_lwbp1 += $jumlah_trafo[$i][0]['lwbp1'];
+                $tot_lwbp2 += $jumlah_trafo[$i][0]['lwbp2'];
+                $tot_wbp += $jumlah_trafo[$i][0]['wbp'];
+                $tot_t_kwh += $jumlah_trafo[$i][0]['total_kwh'];
+                $tot_KWH_lalu+=$jumlah_trafo[$i][0]['KWH_lalu'];
+                $tot_KW +=$jumlah_trafo[$i][0]['KW'];
+                $tot_KWH += $jumlah_trafo[$i][0]['KWH'];
+                if($tot_KWH_lalu == 0)$tot_KWH_lalu =1;
+                $tot_persen = $tot_KWH/$tot_KWH_lalu*100;
+            }
+
+            $jumlah_tot =array(
+                'lwbp1' => $tot_lwbp1,
+                'lwbp2' => $tot_lwbp2,
+                'wbp' => $tot_wbp,
+                'total_kwh' => $tot_t_kwh,
+                'KW' => $tot_KW,
+                'KWH'   => $tot_KWH,
+                'KWH_lalu'   => $tot_KWH_lalu,
+                'persen' => $tot_persen
+            );
+
             return view('admin.nonmaster.laporan.tsa_penyulang',[
                 'trafo'      => $trafo,
-                'gi'      => $id_gi->nama_gi,
-                'area'      => $org->nama_organisasi,
+                'nama_gi'      => $nama_gi,
                 'data_gi'      => $list_p,
                 'data_jumlah'      => $jumlah_trafo,
                 'total_jumlah'      => $jumlah_tot,
-                'tipe'      => $org->tipe_organisasi,
+                'tipe'      => "area",
             ]);
         }
-        else {
-            return view('admin.nonmaster.laporan.tsa_penyulang',[
-                'trafo'      => null,
-                'gi'      => null,
-                'area'      => null,
-                'data_gi'      => null,
-                'data_jumlah'      => null,
-                'total_jumlah'      => null,
-                'tipe'      => null,
-            ]);
+        elseif($tipe = "rayon"){
+            $org = Organisasi::select('tipe_organisasi','nama_organisasi')->where('id_organisasi',$id_organisasi)->first();
+            $data_gi = GI::where('id_organisasi',$id_gi)->select('id','nama_gi')->first();
+            if($data_gi){
+                $data = $this->data_tsa($id_organisasi, "tsa", $data_gi);
+                $trafo =$data[0];
+                $list_p =$data[1];
+                $jumlah_trafo =$data[2];
+                $jumlah_tot =$data[3];
+
+                return view('admin.nonmaster.laporan.tsa_penyulang',[
+                    'trafo'      => $trafo,
+                    'gi'      => $data_gi->nama_gi,
+                    'area'      => $org->nama_organisasi,
+                    'data_gi'      => $list_p,
+                    'data_jumlah'      => $jumlah_trafo,
+                    'total_jumlah'      => $jumlah_tot,
+                    'tipe'      => "rayon",
+                ]);
+            }
+            else {
+                return view('admin.nonmaster.laporan.tsa_penyulang',[
+                    'trafo'      => null,
+                    'gi'      => null,
+                    'area'      => $org->nama_organisasi,
+                    'data_gi'      => null,
+                    'data_jumlah'      => null,
+                    'total_jumlah'      => null,
+                    'tipe'      => "rayon",
+                ]);
+            }
         }
+
 //        dd($jumlah_trafo);
 
 
     }
 
-    public function view_beli_deviasi($id_organisasi, $tipe, $id_gi){
-        return view('admin.nonmaster.laporan.deviasi',[
-            'area'      => 'waw'
-        ]);
+    public function data_deviasi($data_gi,$id_organisasi){
+        $cmb = new MasterLaporan($id_organisasi,"deviasi",$data_gi->id);
+        $penyulang_array =$this->data_penyulang($cmb->trafo);
+        $total_pemakaian_penyulang = $this->total_pemakaian_energi($cmb->id, $penyulang_array);
+        $trafo_GI = $this->data_trafo($cmb->id,$total_pemakaian_penyulang);
+        $data_GI = array();
+        $tot_D =$tot_E =$tot_F =$tot_G =$tot_H =$tot_I =$tot_J =$tot_K=$tot_L =$tot_M= $tot_N =null;
+        for($i=0;$i<count($trafo_GI);$i++){
+            $D =(json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']);
+            $E =(json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']);
+            $F = $D-$E;
+            $G =(json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual']);
+            $H = $total_pemakaian_penyulang[$i]['total_pemakaian_energi_'];
+            $I = abs($D-$G);
+            if($D==0)$D =1;
+            $J = abs($I/$D*100);
+            $K = abs($D-$E-$H);
+            if($F==0)$F =1;
+            $L = abs($K/$F*100);
+            $G_E =$G-$E;
+            $M = abs($G -$H);
+            if($G-$E==0)$G_E = 1;
+            $N = abs($M / ($G_E)*100);
+            $data = array(
+                'gi' =>$data_gi->nama_gi,
+                'trafo' =>$trafo_GI[$i]['nama'],
+                'id_trafo' =>$trafo_GI[$i]['id_trafo'],
+                'D' => $D, 'E' => $E, 'F' => $F, 'G' => $G, 'H' => $H, 'I' => $I,
+                'J' => $J, 'K' => $K, 'L' => $L, 'M' => $M, 'N' => $N
+            );
+            array_push($data_GI,$data);
+            $tot_D +=$D; $tot_E +=$E;$tot_F +=$F;$tot_G +=$G;$tot_H +=$H;$tot_I +=$I;$tot_J +=$J;$tot_K +=$K;$tot_L +=$L;$tot_M +=$M;$tot_N +=$N;
+        }
+        $jumlah = array(
+            'gi' =>$data_gi->nama_gi,
+            'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'I' => $tot_I,
+            'J' => $tot_J, 'K' => $tot_K, 'L' => $tot_L, 'M' => $tot_M, 'N' => $tot_N
+        );
+
+        return array ($data_GI, $jumlah);
+    }
+
+    public function view_beli_deviasi($id_organisasi, $tipe, $id){
+        if($tipe == "area"){
+            $data_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
+            $id_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
+            $data_GI = array();
+            $jumlah = array();
+            $tot_D =$tot_E =$tot_F =$tot_G =$tot_H =$tot_I =$tot_J =$tot_K=$tot_L =$tot_M= $tot_N =null;
+            for($i =0 ;$i <count($id_org);$i++){
+                $dt = GI::where('id_organisasi',$id_org[$i])->select('id','id_organisasi','nama_gi')->first();
+                if(!$dt==null){
+                    $data = $this->data_deviasi($dt,$data_org[$i]['id_organisasi']);
+                    if($data[0]){
+                        array_push($data_GI,$data[0]);
+                        array_push($jumlah,$data[1]);
+                        $tot_D +=$data[1]['D']; $tot_E +=$data[1]['E'];$tot_F +=$data[1]['F'];$tot_G +=$data[1]['G'];$tot_H +=$data[1]['H'];$tot_I +=$data[1]['I'];$tot_J +=$data[1]['J'];$tot_K +=$data[1]['K'];$tot_L +=$data[1]['L'];$tot_M +=$data[1]['M'];$tot_N +=$data[1]['N'];
+                    }
+                }
+            }
+            $total = array(
+                'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'I' => $tot_I,
+                'J' => $tot_J, 'K' => $tot_K, 'L' => $tot_L, 'M' => $tot_M, 'N' => $tot_N
+            );
+//            dd(count($data_GI));
+            return view('admin.nonmaster.laporan.deviasi',[
+                'area'      => 'area',
+                'data_GI'   => $data_GI,
+                'tipe'      => $tipe,
+                'jumlah'      => $jumlah,
+                'total'      => $total,
+//                'rayon'     => $org->nama_organisasi,
+            ]);
+        }
+        elseif($tipe == "rayon"){
+            $org = Organisasi::select('tipe_organisasi','nama_organisasi')->where('id_organisasi',$id_organisasi)->first();
+            $data_gi = GI::where('id_organisasi',$id)->select('id','nama_gi')->first();
+            if($data_gi){
+                $data = $this->data_deviasi($data_gi,$id_organisasi);
+                $data_GI =$data[0];
+                $jumlah =$data[1];
+//                dd($jumlah);
+
+                return view('admin.nonmaster.laporan.deviasi',[
+                    'area'      => 'data',
+                    'data_GI'   => $data_GI,
+                    'tipe'      => $tipe,
+                    'jumlah'      => $jumlah,
+                    'rayon'     => $org->nama_organisasi,
+                ]);
+
+            }
+            elseif(!$data_gi){
+                return view('admin.nonmaster.laporan.deviasi',[
+                    'area'      => 'null',
+                    'data_GI'   => null,
+                    'tipe'      => $tipe,
+                    'jumlah'      => null,
+                    'rayon'     => $org->nama_organisasi,
+                ]);
+            }
+        }
     }
 
     public function excel_beli($id_rayon,$tipe,$id,$tr){

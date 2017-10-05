@@ -93,31 +93,6 @@ Route::group(['prefix' => 'rayon', 'middleware' => ['auth', 'tipe:3']], function
 //        'uses'      => 'Input@create'
 //    ]);
 
-    Route::get('/list_gardu_induk/{id_organisasi}', [
-        'as'        => 'input.list_gardu_induk',
-        'uses'      => 'Input@list_gardu_induk'
-    ]);
-
-    Route::get('/list_trafo_gi/{id}', [
-        'as'        => 'input.list_trafo_gi',
-        'uses'      => 'Input@list_trafo_gi'
-    ]);
-
-    Route::get('/list_penyulang/{id}', [
-        'as'        => 'input.list_penyulang',
-        'uses'      => 'Input@list_penyulang'
-    ]);
-
-    Route::get('/list_gd/{id}', [
-        'as'        => 'input.list_gd',
-        'uses'      => 'Input@list_gd'
-    ]);
-
-    Route::get('/input_data/{id}/{nama}', [
-        'as'        => 'input.input_data',
-        'uses'      => 'Input@input_data'
-    ]);
-
 //    Route::get('/input_data_keluar/{id}/{nama}', [
 //        'as'        => 'input.input_data_keluar',
 //        'uses'      => 'Input@input_data_keluar'
@@ -152,6 +127,39 @@ Route::group(['prefix' => 'rayon', 'middleware' => ['auth', 'tipe:3']], function
         'as'        => 'laporan.list_hasil_laporan_semua_penyulang',
         'uses'      => 'Laporan@list_hasil_laporan_semua_penyulang'
     ]);
+});
+
+//rayon-entry_transaksi
+Route::group(['prefix' => 'rayon/entry_transaksi', 'middleware' => ['auth', 'tipe:3']], function () {
+
+    Route::get('/list_gardu_induk/{id_organisasi}', [
+        'as'        => 'input.list_gardu_induk',
+        'uses'      => 'Input@list_gardu_induk'
+    ]);
+
+    Route::get('/list_trafo_gi/{id}', [
+        'as'        => 'input.list_trafo_gi',
+        'uses'      => 'Input@list_trafo_gi'
+    ]);
+
+    Route::get('/list_penyulang/{id}', [
+        'as'        => 'input.list_penyulang',
+        'uses'      => 'Input@list_penyulang'
+    ]);
+
+    Route::get('/list_gtt_pct/{id}', [
+        'as'        => 'input.list_gd',
+        'uses'      => 'Input@list_gd'
+    ]);
+
+    Route::get('/input_data/{id}/{nama}', [
+        'as'        => 'input.input_data',
+        'uses'      => 'Input@input_data'
+    ]);
+});
+
+//rayon-laporan_transaksi
+Route::group(['prefix' => 'rayon/laporan_transaksi', 'middleware' => ['auth', 'tipe:3']], function () {
 
     Route::get('/laporan_transaksi_gi/{id_organisasi}', [
         'as'        => 'rayon.list_beli_gi',
@@ -189,11 +197,6 @@ Route::group(['prefix' => 'rayon', 'middleware' => ['auth', 'tipe:3']], function
 
 //area
 Route::group(['prefix' => 'area', 'middleware' => ['auth', 'tipe:2']], function () {
-
-    Route::get('/getStructure/{id}', [
-        'as'        => 'area.get_structure',
-        'uses'      => 'AreaController@getStructureKelistrikan'
-    ]);
 
     Route::get('/', [
         'as'        => 'area.index',
@@ -240,10 +243,19 @@ Route::group(['prefix' => 'area', 'middleware' => ['auth', 'tipe:2']], function 
         'uses'      => 'AreaController@hapus_datamaster'
     ]);
 
+    Route::get('/tabel_master', [
+        'as'        => 'area.tabel_master',
+        'uses'      => 'AreaController@tabel_master'
+    ]);
+});
+
+//area-entry_master
+Route::group(['prefix' => 'area/entry_master', 'middleware' => ['auth', 'tipe:2']], function () {
+
     Route::get('/list_datamaster_gi/{id_organisasi}/{id_gardu_induk}', [
         'as'        => 'area.lihat_gi',
         'uses'      => 'AreaController@lihat_gi'
-        ]);
+    ]);
 
     Route::get('/list_datamaster_trafo_gi/{id_organisasi}/{id_trafo_gi}', [
         'as'        => 'area.lihat_trafo_gi',
@@ -261,12 +273,12 @@ Route::group(['prefix' => 'area', 'middleware' => ['auth', 'tipe:2']], function 
     ]);
 
     Route::get('/list_datamaster_pct/{id_organisasi}/{id_gardu}', [
-        'as'        => 'area.lihat_gardu',
+        'as'        => 'area.lihat_pct',
         'uses'      => 'AreaController@lihat_gardu'
     ]);
 
     Route::get('/list_datamaster_ptm/{id_organisasi}/{id_gardu}', [
-        'as'        => 'area.lihat_gardu',
+        'as'        => 'area.lihat_ptm',
         'uses'      => 'AreaController@lihat_gardu'
     ]);
 
@@ -302,23 +314,27 @@ Route::group(['prefix' => 'area', 'middleware' => ['auth', 'tipe:2']], function 
         'as'        => 'area.list_penyulang_transfer',
         'uses'      => 'AreaController@list_penyulang_transfer'
     ]);
+});
 
-    Route::get('/tabel_master', [
-        'as'        => 'area.tabel_master',
-        'uses'      => 'AreaController@tabel_master'
+//area-laporan_master
+Route::group(['prefix' => 'area/laporan_master', 'middleware' => ['auth', 'tipe:2']], function () {
+
+    Route::get('/getStructure/{id}', [
+        'as'        => 'area.get_structure',
+        'uses'      => 'AreaController@getStructureKelistrikan'
     ]);
 
-    Route::get('/laporan_master', [
+    Route::get('/', [
         'as'        => 'area.laporan_master',
         'uses'      => 'AreaController@list_master_rayon'
     ]);
 
-    Route::get('/laporan_master_list_gi/{id_organisasi}', [
+    Route::get('/list_gi/{id_organisasi}', [
         'as'        => 'area.list_master_gi',
         'uses'      => 'AreaController@list_master_gi'
     ]);
 
-    Route::get('/laporan_master_list/{id_organisasi}/{tipe}/{id}', [
+    Route::get('/list/{id_organisasi}/{tipe}/{id}', [
         'as'        => 'area.list_master',
         'uses'      => 'AreaController@list_master'
     ]);
@@ -327,18 +343,22 @@ Route::group(['prefix' => 'area', 'middleware' => ['auth', 'tipe:2']], function 
         'as'        => 'area.view_datamaster',
         'uses'      => 'AreaController@view_datamaster'
     ]);
+});
 
-    Route::get('/laporan_transaksi', [
+//area-laporan_transaksi
+Route::group(['prefix' => 'area/laporan_transaksi', 'middleware' => ['auth', 'tipe:2']], function () {
+
+    Route::get('/', [
         'as'        => 'area.laporan_beli',
         'uses'      => 'AreaController@laporan_beli'
     ]);
 
-    Route::get('/laporan_transaksi_gi/{id_organisasi}', [
+    Route::get('/gi/{id_organisasi}', [
         'as'        => 'area.list_beli_gi',
         'uses'      => 'Laporan@list_beli_gi'
     ]);
 
-    Route::get('/laporan_transaksi_list/{id_organisasi}/{tipe}/{id}', [
+    Route::get('/list/{id_organisasi}/{tipe}/{id}', [
         'as'        => 'area.list_beli',
         'uses'      => 'Laporan@list_beli'
     ]);
