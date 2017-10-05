@@ -15,7 +15,7 @@
 Route::get('/profil', function () { 
     return view('admin.nonmaster.dashboard_user.profile');
 }); 
-
+ 
 Route::get('/edit_profil', function () {
     return view('admin.nonmaster.dashboard_user.profile_edit');
 });
@@ -166,6 +166,11 @@ Route::group(['prefix' => 'rayon', 'middleware' => ['auth', 'tipe:3']], function
     Route::get('/view_laporan_transaksi/{id_organisasi}/{unit}/{id_unit}', [
         'as'        => 'rayon.view_beli',
         'uses'      => 'Laporan@view_beli'
+    ]);
+
+    Route::get('/excel_laporan_transaksi/{id_organisasi}/{unit}/{id_unit}/{tr}', [
+        'as'        => 'rayon.view_excel_beli',
+        'uses'      => 'Laporan@excel_beli'
     ]);
 
     Route::get('/laporan_master', [

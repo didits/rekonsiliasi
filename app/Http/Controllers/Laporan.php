@@ -12,6 +12,7 @@ use App\Penyulang;
 use App\Gardu;
 use Illuminate\Support\Facades\Auth;
 use phpDocumentor\Reflection\Types\Null_;
+use Excel;
 
 class Laporan extends Controller
 {
@@ -299,7 +300,10 @@ class Laporan extends Controller
             'sum'       => $sum,
             'sum_'       => $arr_sum_,
             'gi'        => $gi,
-            'area'      => $area->nama_organisasi
+            'area'      => $area->nama_organisasi,
+            'id_organisasi' =>$id_rayon,
+            'tipe'      =>$tipe,
+            'id'        =>$id
         ]);
     }
 
@@ -473,5 +477,120 @@ class Laporan extends Controller
         return view('admin.nonmaster.laporan.deviasi',[
             'area'      => 'waw'
         ]);
+    }
+
+    public function excel_beli($id_rayon,$tipe,$id,$tr){
+        $cmb = new MasterLaporan($id_rayon,$tipe,$id);
+        $gi = GI::where('id',$id)->first();
+        $areas = Organisasi::where('id',$gi->id_organisasi)->first();
+        $id_org = substr($areas->id_organisasi, 0, 3) . "%%";
+        $area = Organisasi::where('id_organisasi', 'like', $id_org)->where('tipe_organisasi', 2)->first();
+
+        $penyulang_array =$this->data_penyulang($cmb->trafo);
+        $list_array = $this->total_pemakaian_energi($cmb->id, $penyulang_array);
+
+        $trafo_GI = $this->data_trafo($cmb->id,$list_array);
+
+
+        $list_data_trafo = array();
+        $trafo = array();
+        for ($i=0; $i < count($cmb->trafo); $i++) {
+            for ($j=0; $j < count($penyulang_array); $j++) {
+                if($cmb->trafo[$i]['id']== $penyulang_array[$j]['id_trafo'])
+                    array_push($trafo,$penyulang_array[$j]);
+            }
+            array_push($list_data_trafo,$trafo);
+            $trafo = array();
+        }
+
+        $arr_sum_=array();$deviasi = array();
+        for ($i=0; $i < count($list_data_trafo); $i++) {
+            $tot_penyulang =0;
+            $a =$list_array[$i]['total_pemakaian_energi_'];
+            if($list_array[$i]['total_pemakaian_energi_']==0)$a =1;
+            $C = (json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']
+                - json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual'])/$a;
+            for ($j=0; $j < count($list_data_trafo[$i]); $j++) {
+                $dev = $C *(json_decode($list_data_trafo[$i][$j]['data_'],true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']);
+                $tot_penyulang+=$dev;
+                $ar =array(
+                    'deviasi' => $dev,
+                    'id_trafo' => $list_data_trafo[$i][$j]['id_trafo']
+
+                );
+                array_push($deviasi, $ar);
+            }
+            array_push($arr_sum_,$tot_penyulang);
+        }
+
+        $sum =0; $sum_ =0;
+        for ($j=0; $j < count($penyulang_array); $j++){
+            if($penyulang_array[$j]['id_trafo']== $cmb->trafo[0]->id){
+                $sum +=(json_decode($penyulang_array[$j]['data'],true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual'])+(json_decode($penyulang_array[$j]['data'],true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download']);
+                $sum_ +=(json_decode($cmb->p_trafo_[0]->data,true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']-json_decode($cmb->p_trafo_[0]->data,true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual'])
+                /($list_array[0]['total_pemakaian_energi_'])*(json_decode($penyulang_array[$j]['data_'],true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']);
+            }
+        }
+
+        $nama_organisasi = $area->nama_organisasi;
+
+        Excel::create('laporan GI', function($excel)use($cmb,$penyulang_array,$list_array,$list_data_trafo,$trafo_GI,$deviasi,$sum,$arr_sum_,$gi,$nama_organisasi,$tr){
+
+                $excel->sheet('SSHHSPK', function($sheet) use($cmb,$penyulang_array,$list_array,$list_data_trafo,$trafo_GI,$deviasi,$sum,$arr_sum_,$gi,$nama_organisasi,$tr) {
+
+                    $sheet->mergeCells('A9:B9');
+                    $sheet->mergeCells('C9:D9');
+                    $sheet->mergeCells('E9:F9');
+                    $sheet->mergeCells('H9:I9');
+
+                    //
+                    $sheet->mergeCells('A10:B10');
+                    $sheet->mergeCells('C10:D10');
+                    $sheet->mergeCells('E10:F10');
+                    $sheet->mergeCells('H10:I10');
+
+                    //
+                    $sheet->mergeCells('A9:A10');
+                    $sheet->mergeCells('C9:C10');
+                    $sheet->mergeCells('E9:E10');
+                    $sheet->mergeCells('G9:G10');
+                    $sheet->mergeCells('H9:H10');
+
+                    $sheet->setPageMargin(0.25);
+                    $sheet->setOrientation('landscape');
+                    $sheet->loadView('admin.nonmaster.excel.excelGI',[
+                        'data'      => $cmb,
+                        'penyulang' => $penyulang_array,
+                        'pemakaian' => $list_array,
+                        'dt_trafo' => $list_data_trafo,
+                        'data_master' => $trafo_GI,
+                        'deviasi' => $deviasi,
+                        'sum'       => $sum,
+                        'sum_'       => $arr_sum_,
+                        'gi'        => $gi,
+                        'area'      => $nama_organisasi,
+                        'tr'        => $tr
+                    ]);
+
+                });
+
+            })
+            ->export('xls');
+
+
+        return view('admin.nonmaster.excel.excelGI',[
+            'data'      => $cmb,
+            'penyulang' => $penyulang_array,
+            'pemakaian' => $list_array,
+            'dt_trafo' => $list_data_trafo,
+            'data_master' => $trafo_GI,
+            'deviasi' => $deviasi,
+            'sum'       => $sum,
+            'sum_'       => $arr_sum_,
+            'gi'        => $gi,
+            'area'      => $area->nama_organisasi
+        ]);
+
+        
     }
 }
