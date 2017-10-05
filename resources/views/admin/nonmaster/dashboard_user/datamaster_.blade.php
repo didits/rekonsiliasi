@@ -268,22 +268,36 @@
                                         <div class="col-md-12">
                                             <div class="card">
                                                 <div class="content">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label>Tegangan</label>
-                                                                <input type="text" class="form-control"
-                                                                       placeholder="Tegangan" value="">
+                                                    {{--KAPASITAS LAM--}}
+                                                    <form action="{{route('input_datamaster.store')}}" method="post">
+                                                        <input type="hidden" name="_method" value="POST">
+                                                        <input type="hidden" name="tipe" value="KWH">
+                                                        <input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>
+                                                        <input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">
+                                                        <input type="hidden" name="form_utama" value="{{$trafo_gi->id}}">
+                                                        {{ csrf_field() }}
+
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Tegangan</label>
+                                                                    <input type="text" class="form-control"
+                                                                           placeholder="Tegangan" value="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Kapasitas</label>
+                                                                    <input type="text" class="form-control"
+                                                                           placeholder="Kapasitas" value="">
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label>Kapasitas</label>
-                                                                <input type="text" class="form-control"
-                                                                       placeholder="Kapasitas" value="">
-                                                            </div>
-                                                        </div>
-                                                    </div>
+
+
+                                                        <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
+                                                        <div class="clearfix"></div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -1855,16 +1869,10 @@
                                                             {{ csrf_field() }}
 
                                                             <div class="row">
-                                                                <div class="col-md-6">
+                                                                <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label>APP</label>
                                                                         <input type="text" class="form-control" disabled="" placeholder="Area" value="{{$decoded['APP']}}">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Kapasitas</label>
-                                                                        <input type="text" class="form-control" disabled="" placeholder="Kapasitas (Kvarh)" value={{$decoded['kapasitas']}}>
                                                                     </div>
                                                                 </div>
                                                             </div>
