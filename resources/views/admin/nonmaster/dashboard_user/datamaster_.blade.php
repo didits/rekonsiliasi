@@ -81,7 +81,7 @@
                                     @elseif($penyulang)
                                     <li class="">
                                         <a href="#home-logo" role="tab" data-toggle="tab" aria-expanded="false">
-                                            <i class="fa fa-home"></i><br>List GD
+                                            <i class="fa fa-home"></i><br>List GTT
                                         </a>
                                     </li>
                                     <li class="">
@@ -1480,7 +1480,7 @@
                                                 <div class="card">
                                                     <div class="header">
                                                         <h4 class="title">PENYULANG {{$penyulang->nama_penyulang}}</h4>
-                                                        <p class="category">Daftar GD</p>
+                                                        <p class="category">Daftar GTT</p>
                                                     </div>
                                                     <div class="content table-responsive table-full-width">
                                                         <table class="table">
@@ -1502,7 +1502,7 @@
                                                                     <td>{{$key->nama_gardu}}</td>
                                                                     <td>{{$rayon->nama_organisasi}}</td>
                                                                     <td class="td-actions text-right">
-                                                                        <a href="{{url('/area/list_datamaster_gd/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                        <a href="{{route('area.lihat_gardu', [$id_org, $key->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
                                                                             <i class="fa fa-user"></i>
                                                                         </a>
                                                                         <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile"
@@ -1646,7 +1646,7 @@
                                                                     <td>{{$key->nama_gardu}}</td>
                                                                     <td>{{$rayon->nama_organisasi}}</td>
                                                                     <td class="td-actions text-right">
-                                                                        <a href="{{url('/area/list_datamaster_pct/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                        <a href="{{route('area.lihat_pct', [$id_org, $key->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
                                                                             <i class="fa fa-user"></i>
                                                                         </a>
                                                                         <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile"
@@ -1784,7 +1784,7 @@
                                                                     <td>{{$key->nama_gardu}}</td>
                                                                     <td>{{$rayon->nama_organisasi}}</td>
                                                                     <td class="td-actions text-right">
-                                                                        <a href="{{url('/area/list_datamaster_ptm/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                        <a href="{{route('area.lihat_ptm', [$id_org, $key->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
                                                                             <i class="fa fa-user"></i>
                                                                         </a>
                                                                         <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile"
@@ -1929,17 +1929,17 @@
                                                                     <td>{{$rayon->nama_organisasi}}</td>
                                                                     <td class="td-actions text-right">
                                                                         @if($id_gi)
-                                                                            <a href="{{url('/area/list_datamaster_trafo_gi/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                            <a href="{{route('area.lihat_trafo_gi', [$id_org, $key->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
                                                                                 <i class="fa fa-user"></i>
                                                                             </a>
                                                                         @elseif($id_trafo_gi)
 
-                                                                            <a href="{{url('/area/list_datamaster_penyulang/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                            <a href="{{route('area.lihat_penyulang', [$id_org, $key->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
                                                                                 <i class="fa fa-user"></i>
                                                                             </a>
                                                                         @elseif($id_penyulang)
 
-                                                                            <a href="{{url('/area/list_datamaster_gardu/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                            <a href="{{route('area.lihat_gardu', [$id_org, $key->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
                                                                                 <i class="fa fa-user"></i>
                                                                             </a>
                                                                         @endif
@@ -2115,7 +2115,7 @@
                                                                     <label class="radio">
                                                                 <span class="icons"><span class="first-icon fa fa-circle-o"></span>
                                                                 <span class="second-icon fa fa-dot-circle-o"></span></span>
-                                                                        <input type="radio" data-toggle="radio" name="optionsRadios" value="0" required>GD
+                                                                        <input type="radio" data-toggle="radio" name="optionsRadios" value="0" required>GTT
                                                                     </label>
                                                                     <div class="clearfix"></div>
                                                                     <label class="radio">
@@ -2455,17 +2455,17 @@
                                                                     <td>{{$rayon->nama_organisasi}}</td>
                                                                     <td class="td-actions text-right">
                                                                         @if($id_gi)
-                                                                            <a href="{{url('/area/list_datamaster_trafo_gi/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                            <a href="{{route('area.lihat_trafo_gi', [$id_org, $key->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
                                                                                 <i class="fa fa-user"></i>
                                                                             </a>
                                                                         @elseif($id_trafo_gi)
 
-                                                                            <a href="{{url('/area/list_datamaster_penyulang/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                            <a href="{{route('area.lihat_penyulang', [$id_org, $key->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
                                                                                 <i class="fa fa-user"></i>
                                                                             </a>
                                                                         @elseif($id_penyulang)
 
-                                                                            <a href="{{url('/area/list_datamaster_gardu/'.$id_org.'/'.$key->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                            <a href="{{route('area.lihat_gardu', [$id_org, $key->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
                                                                                 <i class="fa fa-user"></i>
                                                                             </a>
                                                                         @endif
@@ -2641,7 +2641,7 @@
                                                                     <label class="radio">
                                                                 <span class="icons"><span class="first-icon fa fa-circle-o"></span>
                                                                 <span class="second-icon fa fa-dot-circle-o"></span></span>
-                                                                        <input type="radio" data-toggle="radio" name="optionsRadios" value="0" required>GD
+                                                                        <input type="radio" data-toggle="radio" name="optionsRadios" value="0" required>GTT
                                                                     </label>
                                                                     <div class="clearfix"></div>
                                                                     <label class="radio">
@@ -2765,7 +2765,7 @@
                         success:function(data) {
 //                            console.log(data);
 
-                            $('select[name="selectgdsingle"]').empty().append('<option class="bs-title-option" value="">GD</option>');;
+                            $('select[name="selectgdsingle"]').empty().append('<option class="bs-title-option" value="">GTT</option>');;
                             $.each(data, function(key, value) {
                                 $('select[name="selectgdsingle"]').append('<option value="'+ key +'">'+ value +'</option>');
                             });

@@ -56,7 +56,7 @@
                                         <td>{{$gi->nama_gi}}</td>
                                         <td>{{$gi->alamat_gi}}</td>
                                         <td class="td-actions text-right">
-                                            <a href="{{url("/rayon/input_data/$gi->id/gi")}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Input Transaksi Beli Gardu Induk">
+                                            <a href="{{route('input.input_data', [$gi->id, 'gi'])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Input Transaksi Beli Gardu Induk">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>
@@ -65,7 +65,7 @@
                                         <td>{{$t_gi->nama_trafo_gi}}</td>
                                         <td>{{$t_gi->alamat_trafo_gi}}</td>
                                         <td class="td-actions text-right">
-                                            <a href="{{url("/rayon/input_data/$t_gi->id/trafo_gi")}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Input Transaksi Beli Trafo GI">
+                                            <a href="{{route('input.input_data', [$t_gi->id, 'trafo_gi'])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Input Transaksi Beli Trafo GI">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>
@@ -74,7 +74,7 @@
                                         <td>{{$penyulang->nama_penyulang}}</td>
                                         <td>{{$penyulang->alamat_penyulang}}</td>
                                         <td class="td-actions text-right">
-                                            <a href="{{url("/rayon/input_data/$penyulang->id/penyulang")}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Input Transaksi Beli Penyulang">
+                                            <a href="{{route('input.input_data', [$penyulang->id, 'penyulang'])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Input Transaksi Beli Penyulang">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>
@@ -98,7 +98,7 @@
                             <ul class="nav nav-icons" role="tablist">
                                 <li class="active">
                                     <a href="#home-logo" role="tab" data-toggle="tab" aria-expanded="false">
-                                        <i class="fa fa-home"></i><br>List GD
+                                        <i class="fa fa-home"></i><br>List GTT
                                     </a>
                                 </li>
                                 <li>
@@ -142,7 +142,7 @@
                                                                 <td>{{$list->nama_gardu}}</td>
                                                                 <td>{{$list->alamat_gardu}}</td>
                                                                 <td class="td-actions text-right">
-                                                                    <a href="{{url("/rayon/input_data/$list->id/gd")}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Input Transaksi">
+                                                                    <a href="{{route('input.input_data', [$list->id, 'gd'])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Input Transaksi">
                                                                         <i class="fa fa-edit"></i>
                                                                     </a>
                                                                 </td>
@@ -189,7 +189,7 @@
                                                             <td>{{$list->nama_gardu}}</td>
                                                             <td>{{$list->alamat_gardu}}</td>
                                                             <td class="td-actions text-right">
-                                                                <a href="{{url("/rayon/input_data/$list->id/pct")}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Input Transaksi">
+                                                                <a href="{{route('input.input_data', [$list->id, 'pct'])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Input Transaksi">
                                                                     <i class="fa fa-edit"></i>
                                                                 </a>
                                                             </td>
@@ -235,7 +235,7 @@
                                                                 <td>{{$list->nama_gardu}}</td>
                                                                 <td>{{$list->alamat_gardu}}</td>
                                                                 <td class="td-actions text-right">
-                                                                    <a href="{{url("/rayon/input_data/$list->id/tm")}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Input Transaksi">
+                                                                    <a href="{{route('input.input_data', [$list->id, 'tm'])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Input Transaksi">
                                                                         <i class="fa fa-edit"></i>
                                                                     </a>
                                                                 </td>
@@ -296,7 +296,7 @@
                                             <td>{{$list->nama_trafo_gi}}</td>
                                             <td>{{$list->alamat_trafo_gi}}</td>
                                             <td class="td-actions text-right">
-                                                <a href="{{url("/rayon/input_data/$list->id/trafo_gi")}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Input Transaksi">
+                                                <a href="{{route('input.input_data', [$list->id, 'trafo_gi'])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Input Transaksi">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                                 <a href="{{route('input.list_penyulang', $list->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="Lihat List Penyulang">
@@ -308,10 +308,10 @@
                                             <td>{{$list->nama_penyulang}}</td>
                                             <td>{{$list->alamat_penyulang}}</td>
                                             <td class="td-actions text-right">
-                                                <a href="{{url("/rayon/input_data/$list->id/penyulang")}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Input Transaksi">
+                                                <a href="{{route('input.input_data', [$list->id, 'penyulang'])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Input Transaksi">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
-                                                <a href="{{route('input.list_gd', $list->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="Lihat List Gardu">
+                                                <a href="{{route('input.list_gd', $list->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="Lihat List GTT, PCT, TM">
                                                     <i class="fa fa-th-list"></i>
                                                 </a>
                                             </td>

@@ -16,6 +16,7 @@
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">Daftar Gardu Induk</h4>
+                                <p class="category">Daftar Gardu Induk Rayon {{Auth::user()->nama_organisasi}} </p>
                             </div>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
