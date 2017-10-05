@@ -513,29 +513,31 @@ class Laporan extends Controller
             $data_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
             $id_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
             $data_GI = array();
+            $jumlah = array();
+//            dd(count($id_org));
+            $tot_D =$tot_E =$tot_F =$tot_G =$tot_H =$tot_I =$tot_J =$tot_K=$tot_L =$tot_M= $tot_N =null;
             for($i =0 ;$i <count($id_org);$i++){
                 $dt = GI::where('id_organisasi',$id_org[$i])->select('id','id_organisasi','nama_gi')->first();
-                if(!$dt==null)
+                if(!$dt==null){
                     $data = $this->data_deviasi($dt,$data_org[$i]['id_organisasi']);
-//                else {
-//                    $dt = array(
-//                        'id' => null,
-//                        'id_organisasi'=> null,
-//                        'nama_gi'=>null
-//                    );
-//                    $data =$dt;
-//                }
-                array_push($data_GI,$data);
-//                dd($data);
-
+                    if($data[0]){
+                        array_push($data_GI,$data[0]);
+                        array_push($jumlah,$data[1]);
+                        $tot_D +=$data[1]['D']; $tot_E +=$data[1]['E'];$tot_F +=$data[1]['F'];$tot_G +=$data[1]['G'];$tot_H +=$data[1]['H'];$tot_I +=$data[1]['I'];$tot_J +=$data[1]['J'];$tot_K +=$data[1]['K'];$tot_L +=$data[1]['L'];$tot_M +=$data[1]['M'];$tot_N +=$data[1]['N'];
+                    }
+                }
             }
-            $jumlah =0;
-//            dd($data_GI);
+            $total = array(
+                'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'I' => $tot_I,
+                'J' => $tot_J, 'K' => $tot_K, 'L' => $tot_L, 'M' => $tot_M, 'N' => $tot_N
+            );
+//            dd(count($data_GI));
             return view('admin.nonmaster.laporan.deviasi',[
                 'area'      => 'area',
                 'data_GI'   => $data_GI,
                 'tipe'      => $tipe,
                 'jumlah'      => $jumlah,
+                'total'      => $total,
 //                'rayon'     => $org->nama_organisasi,
             ]);
         }
@@ -546,7 +548,7 @@ class Laporan extends Controller
                 $data = $this->data_deviasi($data_gi,$id_organisasi);
                 $data_GI =$data[0];
                 $jumlah =$data[1];
-//                dd($data_GI);
+//                dd($jumlah);
 
                 return view('admin.nonmaster.laporan.deviasi',[
                     'area'      => 'data',

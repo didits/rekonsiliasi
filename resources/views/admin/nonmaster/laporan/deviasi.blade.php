@@ -25,7 +25,7 @@
                                         </tr>
                                         <tr>
                                             @if($tipe == "area")
-                                            <th><i>AREA {{$area}}</i></th>
+                                            <th><i>AREA {{Auth::user()->nama_organisasi}}</i></th>
                                             @elseif($tipe == "rayon")
                                             <th><i>RAYON {{$rayon}}</i></th>
                                             @endif
@@ -123,9 +123,11 @@
                                     <tbody>
                                         @for($i=0;$i<count($data_GI);$i++)
                                         <tr class="text-right">
-                                            @if($i==0)
+                                            <div style="display: none;">{{$flag=true}}</div>
+                                            @if($flag)
                                             <td class="text-center">1</td>
                                             <td class="text-left">{{$data_GI[$i]['gi']}}</td>
+                                            <div style="display: none;">{{$flag=false}}</div>
                                             @else
                                             <td class="text-center"></td>
                                             <td class="text-left"></td>
@@ -148,36 +150,7 @@
                                         @endfor
 
                                     </tbody>
-                                    @elseif($area == "area")
-                                    <tbody>
-                                        @for($i=0;$i<count($data_GI);$i++)
-                                        <tr class="text-right">
-                                            @if($i==0)
-                                                <td class="text-center">1</td>{{$}}
-                                                <td class="text-left">{{$data_GI[$i][0][1]['gi']}}</td>
-                                            @else
-                                                <td class="text-center"></td>
-                                                <td class="text-left"></td>
-                                            @endif
-                                            <td class="text-center">{{$data_GI[$i][0][0]['trafo']}}</td>
-                                            <td>{{number_format($data_GI[$i][0][0]['D'],0)}}</td>
-                                            <td>{{number_format($data_GI[$i][0][0]['E'],0)}}</td>
-                                            <td>{{number_format($data_GI[$i][0][0]['F'],0)}}</td>
-                                            <td>{{number_format($data_GI[$i][0][0]['G'],0)}}</td>
-                                            <td>{{number_format($data_GI[$i][0][0]['H'],0)}}</td>
-                                            <td>({{number_format($data_GI[$i][0][0]['I']),0}})</td>
-                                            <td>({{number_format($data_GI[$i][0][0]['J'],2)}})</td>
-                                            <td>({{number_format($data_GI[$i][0][0]['K'],0)}})</td>
-                                            <td>({{number_format($data_GI[$i][0][0]['L'],2)}})</td>
-                                            <td>({{number_format($data_GI[$i][0][0]['M'],0)}})</td>
-                                            <td>({{number_format($data_GI[$i][0][0]['N'],2)}})</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        @endfor
-                                    </tbody>
-
-                                            {{-----------}}
+                                    {{-----------}}
                                     <thead>
                                         <tr>
                                             <th class="text-center" colspan="3" class="text-center">JUMLAH</th>
@@ -194,6 +167,74 @@
                                             <th class="text-center">({{number_format($jumlah['N'],2)}})</th>
                                         </tr>
                                     </thead>
+                                    @elseif($area == "area")
+                                    <tbody>
+                                    @for($i=0;$i<count($data_GI);$i++)
+                                        <div style="display: none;">{{$flag=true}}</div>
+                                        @for($j=0;$j<count($data_GI[$i]);$j++)
+                                        <tr class="text-right">
+                                            @if($flag)
+                                            <td class="text-center">{{$i+1}}</td>
+                                            <td class="text-left">{{$data_GI[$i][$j]['gi']}}</td>
+                                            <div style="display: none;">{{$flag=false}}</div>
+                                            @else
+                                            <td class="text-center"></td>
+                                            <td class="text-left"></td>
+                                            @endif
+                                            {{--{{dd($data_GI[$i][$j])}}--}}
+                                            <td class="text-center">{{$data_GI[$i][$j]['trafo']}}</td>
+                                            <td>{{number_format($data_GI[$i][$j]['D'],0)}}</td>
+                                            <td>{{number_format($data_GI[$i][$j]['E'],0)}}</td>
+                                            <td>{{number_format($data_GI[$i][$j]['F'],0)}}</td>
+                                            <td>{{number_format($data_GI[$i][$j]['G'],0)}}</td>
+                                            <td>{{number_format($data_GI[$i][$j]['H'],0)}}</td>
+                                            <td>({{number_format($data_GI[$i][$j]['I']),0}})</td>
+                                            <td>({{number_format($data_GI[$i][$j]['J'],2)}})</td>
+                                            <td>({{number_format($data_GI[$i][$j]['K'],0)}})</td>
+                                            <td>({{number_format($data_GI[$i][$j]['L'],2)}})</td>
+                                            <td>({{number_format($data_GI[$i][$j]['M'],0)}})</td>
+                                            <td>({{number_format($data_GI[$i][$j]['N'],2)}})</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        @endfor
+
+                                        {{-----------}}
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center" colspan="3" class="text-center">JUMLAH</th>
+                                            <th class="text-center">{{number_format($jumlah[$i]['D'],0)}}</th>
+                                            <th class="text-center">{{number_format($jumlah[$i]['E'],0)}}</th>
+                                            <th class="text-center">{{number_format($jumlah[$i]['F'],0)}}</th>
+                                            <th class="text-center">{{number_format($jumlah[$i]['G'],0)}}</th>
+                                            <th class="text-center">{{number_format($jumlah[$i]['H'],0)}}</th>
+                                            <th class="text-center">({{number_format($jumlah[$i]['I']),0}})</th>
+                                            <th class="text-center">({{number_format($jumlah[$i]['J'],2)}})</th>
+                                            <th class="text-center">({{number_format($jumlah[$i]['K'],0)}})</th>
+                                            <th class="text-center">({{number_format($jumlah[$i]['L'],2)}})</th>
+                                            <th class="text-center">({{number_format($jumlah[$i]['M'],0)}})</th>
+                                            <th class="text-center">({{number_format($jumlah[$i]['N'],2)}})</th>
+                                        </tr>
+                                        </thead>
+                                    @endfor
+                                        {{-----------}}
+                                        <thead>
+                                        <tr>
+                                            <td class="text-center" colspan="3" class="text-center"><b></b>JUMLAH</td>
+                                            <td class="text-center"><b>{{number_format($total['D'],0)}}</b></td>
+                                            <td class="text-center"><b>{{number_format($total['E'],0)}}</b></td>
+                                            <td class="text-center"><b>{{number_format($total['F'],0)}}</b></td>
+                                            <td class="text-center"><b>{{number_format($total['G'],0)}}</b></td>
+                                            <td class="text-center"><b>{{number_format($total['H'],0)}}</b></td>
+                                            <td class="text-center"><b>({{number_format($total['I']),0}})</b></td>
+                                            <td class="text-center"><b>({{number_format($total['J'],2)}})</b></td>
+                                            <td class="text-center"><b>({{number_format($total['K'],0)}})</b></td>
+                                            <td class="text-center"><b>({{number_format($total['L'],2)}})</b></td>
+                                            <td class="text-center"><b>({{number_format($total['M'],0)}})</b></td>
+                                            <td class="text-center"><b>({{number_format($total['N'],2)}})</b></td>
+                                        </tr>
+                                        </thead>
+                                    </tbody>
                                     @endif
                                 </table>
                             </div>
