@@ -67,6 +67,8 @@ class Laporan extends Controller
     }
 
     public function list_beli($id_rayon,$tipe,$id){
+        if($tipe == 'gtt_pct')
+            $tipe = 'gd';
         $master = new Master($id_rayon,$tipe,$id);
         Auth::user()->tipe_organisasi == 3 ? $rayon = true : $rayon = false;
         if($master->data->count()==0)

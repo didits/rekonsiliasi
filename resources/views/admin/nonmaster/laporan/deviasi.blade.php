@@ -121,9 +121,9 @@
                                     </thead>
                                     @if($area == "data")
                                     <tbody>
+                                        <div style="display: none;">{{$flag=true}}</div>
                                         @for($i=0;$i<count($data_GI);$i++)
                                         <tr class="text-right">
-                                            <div style="display: none;">{{$flag=true}}</div>
                                             @if($flag)
                                             <td class="text-center">1</td>
                                             <td class="text-left">{{$data_GI[$i]['gi']}}</td>

@@ -896,6 +896,8 @@ class AreaController extends Controller
     }
 
     public function list_master($id_rayon,$tipe,$id){
+        if($tipe == 'gtt_pct')
+            $tipe = 'gd';
         $master = new Master($id_rayon,$tipe,$id);
         if($master->data->count()==0)
             $master->data=null;

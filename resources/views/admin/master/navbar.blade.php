@@ -29,14 +29,14 @@
                         </div>
                     </li>
 
-                    @if(Request::is('rayon/list_gardu_induk/*', 'rayon/list_trafo_gi/*','rayon/list_penyulang/*','rayon/list_gd/*', 'rayon', 'rayon/input_data/*'))
+                    @if(Request::is('rayon/entry_transaksi/*', 'rayon', 'rayon/laporan_transaksi', 'rayon/laporan_transaksi/*'))
                     <li class="active">
 
                     @else
                     <li>
 
                     @endif
-                        @if(Request::is('rayon/list_gardu_induk/*', 'rayon/list_trafo_gi/*','rayon/list_penyulang/*','rayon/list_gd/*', 'rayon', 'rayon/input_data/*'))
+                        @if(Request::is('rayon/entry_transaksi/*', 'rayon', 'rayon/laporan_transaksi', 'rayon/laporan_transaksi/*'))
                         <a data-toggle="collapse" href="#dataTransaksiBeli" aria-expanded="true">
 
                         @else
@@ -48,7 +48,7 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        @if(Request::is('rayon/list_gardu_induk/*', 'rayon/list_trafo_gi/*','rayon/list_penyulang/*','rayon/list_gd/*', 'rayon', 'rayon/input_data/*'))
+                        @if(Request::is('rayon/entry_transaksi/*', 'rayon', 'rayon/laporan_transaksi', 'rayon/laporan_transaksi/*'))
                         <div class="collapse in" id="dataTransaksiBeli">
 
                         @else
@@ -56,13 +56,13 @@
 
                         @endif
                             <ul class="nav">
-                                <li @if(Request::is('rayon/list_gardu_induk/*', 'rayon/list_trafo_gi/*','rayon/list_penyulang/*','rayon/list_gd/*', 'rayon', 'rayon/input_data/*'))class="active"@endif>
-                                    <a href="{{route('input.list_gardu_induk',Auth::user()->id_organisasi)}}">Entry Data Transaksi Beli</a>
+                                <li @if(Request::is('rayon/entry_transaksi/*', 'rayon'))class="active"@endif>
+                                    <a href="{{ url('/') }}">Entry Data Transaksi Beli</a>
                                 </li>
                                 {{--<li>--}}
                                     {{--<a href="{{route('listrik.list_data')}}">Laporan Transaksi Beli</a>--}}
                                 {{--</li>--}}
-                                <li>
+                                <li @if(Request::is('rayon/laporan_transaksi', 'rayon/laporan_transaksi/*'))class="active"@endif>
                                     <a href="{{route('rayon.list_beli_gi', Auth::user()->id_organisasi)}}">Laporan Transaksi Beli</a>
                                 </li>
                             </ul>
@@ -119,14 +119,14 @@
                     </li>
                     @endif
                     @if(Auth::user()->tipe_organisasi==2)
-                    @if(Request::is('area/list_datamaster_rayon/*', 'area/list_datamaster_gi/*', 'area/list_datamaster_trafo_gi/*', 'area/list_datamaster_penyulang/*', 'area/list_datamaster_gardu/*', 'area', 'area/laporan_master', 'area/tabel_master'))
+                    @if(Request::is('area/entry_master/*', 'area', 'area/laporan_master', 'area/tabel_master', 'area/laporan_master/*'))
                     <li class="active">
 
                     @else
                     <li>
 
                     @endif
-                        @if(Request::is('area/list_datamaster_rayon/*', 'area/list_datamaster_gi/*', 'area/list_datamaster_trafo_gi/*', 'area/list_datamaster_penyulang/*', 'area/list_datamaster_gardu/*', 'area', 'area/laporan_master', 'area/tabel_master'))
+                        @if(Request::is('area/entry_master/*', 'area', 'area/laporan_master', 'area/tabel_master', 'area/laporan_master/*'))
                         <a data-toggle="collapse" href="#dataMaster" aria-expanded="true">
 
                         @else
@@ -138,7 +138,7 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        @if(Request::is('area/list_datamaster_rayon/*', 'area/list_datamaster_gi/*', 'area/list_datamaster_trafo_gi/*', 'area/list_datamaster_penyulang/*', 'area/list_datamaster_gardu/*', 'area', 'area/laporan_master', 'area/tabel_master'))
+                        @if(Request::is('area/entry_master/*', 'area', 'area/laporan_master', 'area/tabel_master', 'area/laporan_master/*'))
                         <div class="collapse in" id="dataMaster">
 
                         @else
@@ -146,29 +146,47 @@
 
                         @endif
                             <ul class="nav">
-                                <li @if(Request::is('area/list_datamaster_rayon/*', 'area/list_datamaster_gi/*', 'area/list_datamaster_trafo_gi/*', 'area/list_datamaster_penyulang/*', 'area/list_datamaster_gardu/*', 'area'))class="active"@endif>
+                                <li @if(Request::is('area/entry_master/*', 'area'))class="active"@endif>
                                     <a href="{{ url('/') }}">Entry Data Master</a>
                                 </li>
                                 {{--<li @if(Request::is('area/tabel_master'))class="active"@endif>--}}
                                     {{--<a href="{{route('area.tabel_master')}}">Laporan Data Master</a>--}}
                                 {{--</li>--}}
-                                <li @if(Request::is('area/laporan_master'))class="active"@endif>
+                                <li @if(Request::is('area/laporan_master', 'area/laporan_master/*'))class="active"@endif>
                                     <a href="{{route('area.laporan_master')}}">Laporan Data Master</a>
                                 </li>
                             </ul>
                         </div>
                     </li>
 
+                @if(Request::is('area/laporan_transaksi', 'area/laporan_transaksi/*'))
+                    <li class="active">
+
+                @else
                     <li>
+
+                @endif
+                        @if(Request::is('area/laporan_transaksi', 'area/laporan_transaksi/*'))
+                        <a data-toggle="collapse" href="#dataTransaksiEnergi" aria-expanded="true">
+
+                        @else
                         <a data-toggle="collapse" href="#dataTransaksiEnergi">
+
+                        @endif
                             <i class="pe-7s-notebook"></i>
                             <p>Data Transaksi Energi
                                 <b class="caret"></b>
                             </p>
                         </a>
+                        @if(Request::is('area/laporan_transaksi', 'area/laporan_transaksi/*'))
+                        <div class="collapse in" id="dataTransaksiEnergi">
+
+                        @else
                         <div class="collapse" id="dataTransaksiEnergi">
+
+                        @endif
                             <ul class="nav">
-                                <li>
+                                <li @if(Request::is('area/laporan_transaksi', 'area/laporan_transaksi/*'))class="active"@endif>
                                     <a href="{{route('area.laporan_beli')}}">Laporan Transaksi Energi</a>
                                 </li>
                             </ul>
@@ -191,12 +209,12 @@
                         </div>
                     </li>
 
-                    {{--<li @if(Request::is('area/profil'))class="active"@endif>--}}
-                        {{--<a href="{{route('area.profil')}}">--}}
-                            {{--<i class="pe-7s-id"></i>--}}
-                            {{--<p>Profile</p>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
+                    <li @if(Request::is('area/profil'))class="active"@endif>
+                        <a href="{{route('area.profil')}}">
+                            <i class="pe-7s-id"></i>
+                            <p>Profile</p>
+                        </a>
+                    </li>
                     @endif
                     @if(Auth::user()->tipe_organisasi==0)
 

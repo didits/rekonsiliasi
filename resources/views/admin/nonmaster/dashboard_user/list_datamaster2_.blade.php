@@ -228,7 +228,7 @@
                                                             @if($data==null)
                                                             @else
                                                             @foreach($data as $list)
-                                                                @if($list->tipe_gardu == 0)
+                                                                @if($list->tipe_gardu == 2)
 
                                                                 <tr>
                                                                     <td class="text-center">{{$num+1}}</td>
@@ -366,15 +366,15 @@
                                                             <i class="fa fa-info"></i>
                                                         </a>
                                                         @if($tipe=="gi")
-                                                            <a href="{{url('/area/laporan_master_list/'.$id_organisasi.'/tgi/'.$list->id)}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List Trafo GI">
+                                                            <a href="{{route('area.list_master', [$id_organisasi ,'tgi', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List Trafo GI">
                                                                 <i class="fa fa-th-list"></i>
                                                             </a>
                                                         @elseif($tipe=="tgi")
-                                                            <a href="{{url('/area/laporan_master_list/'.$id_organisasi.'/penyulang/'.$list->id)}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List Trafo GI">
+                                                            <a href="{{route('area.list_master', [$id_organisasi ,'penyulang', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List Penyulang">
                                                                 <i class="fa fa-th-list"></i>
                                                             </a>
                                                         @elseif($tipe=="penyulang")
-                                                            <a href="{{url('/area/laporan_master_list/'.$id_organisasi.'/gd/'.$list->id)}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List Trafo GI">
+                                                            <a href="{{route('area.list_master', [$id_organisasi ,'gtt_pct', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List GTT, PCT, TM">
                                                                 <i class="fa fa-th-list"></i>
                                                             </a>
                                                         {{--@elseif($tipe=="gd")--}}
@@ -410,7 +410,7 @@
                                                                 <i class="fa fa-th-list"></i>
                                                             </a>
                                                         @elseif($tipe=="penyulang")
-                                                            <a href="{{route('rayon.list_beli', [$id_organisasi, 'gd', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List GD, PCT, TM">
+                                                            <a href="{{route('rayon.list_beli', [$id_organisasi, 'gtt_pct', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List GD, PCT, TM">
                                                                 <i class="fa fa-th-list"></i>
                                                             </a>
                                                             {{--@elseif($tipe=="gd")--}}
@@ -446,7 +446,7 @@
                                                                 <i class="fa fa-th-list"></i>
                                                             </a>
                                                         @elseif($tipe=="penyulang")
-                                                            <a href="{{route('area.list_beli', [$id_organisasi, 'gd', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List GD, PCT, TM">
+                                                            <a href="{{route('area.list_beli', [$id_organisasi, 'gtt_pct', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List GTT, PCT, TM">
                                                                 <i class="fa fa-th-list"></i>
                                                             </a>
                                                         {{--@elseif($tipe=="gd")--}}
