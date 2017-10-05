@@ -517,13 +517,22 @@ class Laporan extends Controller
                 $dt = GI::where('id_organisasi',$id_org[$i])->select('id','id_organisasi','nama_gi')->first();
                 if(!$dt==null)
                     $data = $this->data_deviasi($dt,$data_org[$i]['id_organisasi']);
-                else $data =null;
+//                else {
+//                    $dt = array(
+//                        'id' => null,
+//                        'id_organisasi'=> null,
+//                        'nama_gi'=>null
+//                    );
+//                    $data =$dt;
+//                }
                 array_push($data_GI,$data);
+//                dd($data);
+
             }
             $jumlah =0;
 //            dd($data_GI);
             return view('admin.nonmaster.laporan.deviasi',[
-                'area'      => 'data',
+                'area'      => 'area',
                 'data_GI'   => $data_GI,
                 'tipe'      => $tipe,
                 'jumlah'      => $jumlah,
@@ -537,6 +546,8 @@ class Laporan extends Controller
                 $data = $this->data_deviasi($data_gi,$id_organisasi);
                 $data_GI =$data[0];
                 $jumlah =$data[1];
+//                dd($data_GI);
+
                 return view('admin.nonmaster.laporan.deviasi',[
                     'area'      => 'data',
                     'data_GI'   => $data_GI,
@@ -544,6 +555,7 @@ class Laporan extends Controller
                     'jumlah'      => $jumlah,
                     'rayon'     => $org->nama_organisasi,
                 ]);
+
             }
             elseif(!$data_gi){
                 return view('admin.nonmaster.laporan.deviasi',[

@@ -148,7 +148,36 @@
                                         @endfor
 
                                     </tbody>
-                                    {{-----------}}
+                                    @elseif($area == "area")
+                                    <tbody>
+                                        @for($i=0;$i<count($data_GI);$i++)
+                                        <tr class="text-right">
+                                            @if($i==0)
+                                                <td class="text-center">1</td>{{$}}
+                                                <td class="text-left">{{$data_GI[$i][0][1]['gi']}}</td>
+                                            @else
+                                                <td class="text-center"></td>
+                                                <td class="text-left"></td>
+                                            @endif
+                                            <td class="text-center">{{$data_GI[$i][0][0]['trafo']}}</td>
+                                            <td>{{number_format($data_GI[$i][0][0]['D'],0)}}</td>
+                                            <td>{{number_format($data_GI[$i][0][0]['E'],0)}}</td>
+                                            <td>{{number_format($data_GI[$i][0][0]['F'],0)}}</td>
+                                            <td>{{number_format($data_GI[$i][0][0]['G'],0)}}</td>
+                                            <td>{{number_format($data_GI[$i][0][0]['H'],0)}}</td>
+                                            <td>({{number_format($data_GI[$i][0][0]['I']),0}})</td>
+                                            <td>({{number_format($data_GI[$i][0][0]['J'],2)}})</td>
+                                            <td>({{number_format($data_GI[$i][0][0]['K'],0)}})</td>
+                                            <td>({{number_format($data_GI[$i][0][0]['L'],2)}})</td>
+                                            <td>({{number_format($data_GI[$i][0][0]['M'],0)}})</td>
+                                            <td>({{number_format($data_GI[$i][0][0]['N'],2)}})</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        @endfor
+                                    </tbody>
+
+                                            {{-----------}}
                                     <thead>
                                         <tr>
                                             <th class="text-center" colspan="3" class="text-center">JUMLAH</th>
