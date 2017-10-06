@@ -129,6 +129,35 @@ Route::group(['prefix' => 'rayon', 'middleware' => ['auth', 'tipe:3']], function
     ]);
 });
 
+//rayon-laporan_master
+Route::group(['prefix' => 'rayon/laporan_master', 'middleware' => ['auth', 'tipe:3']], function () {
+
+    Route::get('/getStructure/{id}', [
+        'as'        => 'rayon.get_structure',
+        'uses'      => 'Datamaster@getStructureKelistrikan'
+    ]);
+
+    Route::get('/', [
+        'as'        => 'rayon.laporan_master',
+        'uses'      => 'Datamaster@list_master_rayon'
+    ]);
+
+    Route::get('/list_gi/{id_organisasi}', [
+        'as'        => 'rayon.list_master_gi',
+        'uses'      => 'Datamaster@list_master_gi'
+    ]);
+
+    Route::get('/list/{id_organisasi}/{tipe}/{id}', [
+        'as'        => 'rayon.list_master',
+        'uses'      => 'Datamaster@list_master'
+    ]);
+
+    Route::get('/view_datamaster/{id_organisasi}/{unit}/{id_unit}', [
+        'as'        => 'rayon.view_datamaster',
+        'uses'      => 'Datamaster@view_datamaster'
+    ]);
+});
+
 //rayon-entry_transaksi
 Route::group(['prefix' => 'rayon/entry_transaksi', 'middleware' => ['auth', 'tipe:3']], function () {
 
@@ -181,10 +210,6 @@ Route::group(['prefix' => 'rayon/laporan_transaksi', 'middleware' => ['auth', 't
         'uses'      => 'Laporan@excel_beli'
     ]);
 
-    Route::get('/laporan_master', [
-        'as'        => 'rayon.laporan_master',
-        'uses'      => 'RayonController@list_master_rayon'
-    ]);
     Route::get('/view_laporan_tsa/{id_organisasi}/{tipe}/{id_gi}', [
         'as'        => 'rayon.view_beli_tsa',
         'uses'      => 'Laporan@view_beli_tsa'
@@ -321,27 +346,27 @@ Route::group(['prefix' => 'area/laporan_master', 'middleware' => ['auth', 'tipe:
 
     Route::get('/getStructure/{id}', [
         'as'        => 'area.get_structure',
-        'uses'      => 'AreaController@getStructureKelistrikan'
+        'uses'      => 'Datamaster@getStructureKelistrikan'
     ]);
 
     Route::get('/', [
         'as'        => 'area.laporan_master',
-        'uses'      => 'AreaController@list_master_rayon'
+        'uses'      => 'Datamaster@list_master_rayon'
     ]);
 
     Route::get('/list_gi/{id_organisasi}', [
         'as'        => 'area.list_master_gi',
-        'uses'      => 'AreaController@list_master_gi'
+        'uses'      => 'Datamaster@list_master_gi'
     ]);
 
     Route::get('/list/{id_organisasi}/{tipe}/{id}', [
         'as'        => 'area.list_master',
-        'uses'      => 'AreaController@list_master'
+        'uses'      => 'Datamaster@list_master'
     ]);
 
     Route::get('/view_datamaster/{id_organisasi}/{unit}/{id_unit}', [
         'as'        => 'area.view_datamaster',
-        'uses'      => 'AreaController@view_datamaster'
+        'uses'      => 'Datamaster@view_datamaster'
     ]);
 });
 

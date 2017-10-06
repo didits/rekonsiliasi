@@ -77,7 +77,14 @@
                                                                     @if($laporan)
 
                                                                         <td class="td-actions text-right">
+                                                                        @if (Auth::user()->tipe_organisasi == 3)
+
+                                                                            <a href="{{route('rayon.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                        @else
+
                                                                             <a href="{{route('area.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                        @endif
+
                                                                                 <i class="fa fa-info"></i>
                                                                             </a>
                                                                         </td>
@@ -157,7 +164,14 @@
                                                                     @if($laporan)
 
                                                                         <td class="td-actions text-right">
+                                                                        @if (Auth::user()->tipe_organisasi == 3)
+
+                                                                            <a href="{{route('rayon.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                        @else
+
                                                                             <a href="{{route('area.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                        @endif
+
                                                                                 <i class="fa fa-info"></i>
                                                                             </a>
                                                                         </td>
@@ -237,7 +251,14 @@
                                                                     @if($laporan)
 
                                                                         <td class="td-actions text-right">
+                                                                        @if (Auth::user()->tipe_organisasi == 3)
+
+                                                                            <a href="{{route('rayon.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                        @else
+
                                                                             <a href="{{route('area.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                        @endif
+
                                                                                 <i class="fa fa-info"></i>
                                                                             </a>
                                                                         </td>
@@ -362,19 +383,47 @@
                                                         {{--<a href="{{url('/area/laporan_master_list/'.$id_org.'/'.$list->id)}}" class="btn btn-info btn-fill pull-right" >List GI</a>--}}
                                                         {{--@endif--}}
                                                         {{--{{dd($tipe)}}--}}
+                                                        @if (Auth::user()->tipe_organisasi == 3)
+
+                                                        <a href="{{route('rayon.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                        @else
+
                                                         <a href="{{route('area.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                        @endif
+
                                                             <i class="fa fa-info"></i>
                                                         </a>
                                                         @if($tipe=="gi")
+                                                            @if (Auth::user()->tipe_organisasi == 3)
+
+                                                            <a href="{{route('rayon.list_master', [$id_organisasi ,'tgi', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List Trafo GI">
+                                                            @else
+
                                                             <a href="{{route('area.list_master', [$id_organisasi ,'tgi', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List Trafo GI">
+                                                            @endif
+
                                                                 <i class="fa fa-th-list"></i>
                                                             </a>
                                                         @elseif($tipe=="tgi")
+                                                            @if (Auth::user()->tipe_organisasi == 3)
+
+                                                            <a href="{{route('rayon.list_master', [$id_organisasi ,'penyulang', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List Penyulang">
+                                                            @else
+
                                                             <a href="{{route('area.list_master', [$id_organisasi ,'penyulang', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List Penyulang">
+                                                            @endif
+
                                                                 <i class="fa fa-th-list"></i>
                                                             </a>
                                                         @elseif($tipe=="penyulang")
+                                                            @if (Auth::user()->tipe_organisasi == 3)
+
+                                                            <a href="{{route('rayon.list_master', [$id_organisasi ,'gtt_pct', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List GTT, PCT, TM">
+                                                            @else
+
                                                             <a href="{{route('area.list_master', [$id_organisasi ,'gtt_pct', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List GTT, PCT, TM">
+                                                            @endif
+
                                                                 <i class="fa fa-th-list"></i>
                                                             </a>
                                                         {{--@elseif($tipe=="gd")--}}
