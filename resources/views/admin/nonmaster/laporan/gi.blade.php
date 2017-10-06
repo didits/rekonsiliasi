@@ -56,7 +56,7 @@
                                 <h4 class="title">Download Laporan</h4>
                             </div>
                             <div class="content">
-                                <a href="{{url('rayon/excel_laporan_transaksi/'.$id_organisasi.'/'.$tipe.'/'.$id.'/'.$tr)}}" rel="tooltip" title="" data-original-title="">
+                                <a href="" rel="tooltip" title="" data-original-title="">
                                     <button class="btn btn-info btn-fill btn-wd"><i class="pe-7s-diskette"></i><br/>Download Laporan</button>
                                 </a>
                             </div>
