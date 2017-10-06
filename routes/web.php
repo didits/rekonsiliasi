@@ -161,12 +161,12 @@ Route::group(['prefix' => 'rayon/entry_transaksi', 'middleware' => ['auth', 'tip
 //rayon-laporan_transaksi
 Route::group(['prefix' => 'rayon/laporan_transaksi', 'middleware' => ['auth', 'tipe:3']], function () {
 
-    Route::get('/laporan_transaksi_gi/{id_organisasi}', [
+    Route::get('/gi/{id_organisasi}', [
         'as'        => 'rayon.list_beli_gi',
         'uses'      => 'Laporan@list_beli_gi'
     ]);
 
-    Route::get('/laporan_transaksi_list/{id_organisasi}/{tipe}/{id}', [
+    Route::get('/list/{id_organisasi}/{tipe}/{id}', [
         'as'        => 'rayon.list_beli',
         'uses'      => 'Laporan@list_beli'
     ]);
@@ -374,6 +374,11 @@ Route::group(['prefix' => 'area/laporan_transaksi', 'middleware' => ['auth', 'ti
     Route::get('/view_laporan_deviasi/{id_organisasi}/{tipe}/{id_gi}', [
         'as'        => 'area.view_beli_deviasi',
         'uses'      => 'Laporan@view_beli_deviasi'
+    ]);
+
+    Route::get('/excel_laporan_transaksi/{id_organisasi}/{unit}/{id_unit}/{tr}', [
+        'as'        => 'area.view_excel_beli',
+        'uses'      => 'Laporan@excel_beli'
     ]);
 });
 

@@ -56,7 +56,14 @@
                                 <h4 class="title">Download Laporan</h4>
                             </div>
                             <div class="content">
-                                <a href="" rel="tooltip" title="" data-original-title="">
+                                @if (Auth::user()->tipe_organisasi == 2)
+
+                                <a href="{{route('area.view_excel_beli' , [$id_organisasi, $tipe, $id, $tr])}}" rel="tooltip" title="" data-original-title="">
+                                @else
+
+                                <a href="{{route('rayon.view_excel_beli' , [$id_organisasi, $tipe, $id, $tr])}}" rel="tooltip" title="" data-original-title="">
+                                @endif
+
                                     <button class="btn btn-info btn-fill btn-wd"><i class="pe-7s-diskette"></i><br/>Download Laporan</button>
                                 </a>
                             </div>
