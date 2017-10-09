@@ -13,17 +13,37 @@
                 <ul class="nav">
                 @if(Auth::user()->tipe_organisasi==3)
 
+                    @if(Request::is('rayon/laporan_master/*'))
+                    <li class="active">
+
+                    @else
                     <li>
+
+                    @endif
+                        @if(Request::is('rayon/laporan_master/*'))
+                        <a data-toggle="collapse" href="#dataMaster" aria-expanded="true">
+
+                        @else
                         <a data-toggle="collapse" href="#dataMaster">
+
+                        @endif
+
                             <i class="pe-7s-gleam"></i>
                             <p>Data Master
                                 <b class="caret"></b>
                             </p>
                         </a>
+                    @if(Request::is('rayon/laporan_master/*'))
+                        <div class="collapse in" id="dataMaster">
+
+                    @else
                         <div class="collapse" id="dataMaster">
+
+                    @endif
+
                             <ul class="nav">
-                                <li>
-                                    <a href="{{route('rayon.laporan_master')}}">Laporan Data Master</a>
+                                <li @if(Request::is('rayon/laporan_master/*'))class="active"@endif>
+                                    <a href="{{route('rayon.list_master_gi', Auth::user()->id_organisasi)}}">Laporan Data Master</a>
                                 </li>
                             </ul>
                         </div>
