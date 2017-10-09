@@ -70,15 +70,17 @@ class Input extends Controller
     public function list_penyulang($id_trafo_gi){
         $t_gi = TrafoGI::where('id', $id_trafo_gi)->first();
         $data = Penyulang::where('id_trafo_gi', $id_trafo_gi)->get();
+//        dd($id_trafo_gi);
         return view('admin.nonmaster.dashboard_user.list_input',[
             'data' => $data,
             'gi' => null, 't_gi' => $t_gi, 'penyulang' => null
         ]);
     }
 
-    public function list_gd($id_gi){
-        $penyulang = Penyulang::where('id', $id_gi)->first();
-        $data = Gardu::where('id_penyulang', $id_gi)->get();
+    public function list_gd($id_penyulang){
+//        dd($id_penyulang);
+        $penyulang = Penyulang::where('id', $id_penyulang)->first();
+        $data = Gardu::where('id_penyulang', $id_penyulang)->get();
         return view('admin.nonmaster.dashboard_user.list_input',[
             'data' => $data,
             'gi' => null, 't_gi' => null, 'penyulang' => $penyulang
@@ -118,17 +120,19 @@ class Input extends Controller
             'lwbp1_visual' => $request->lwbp1_visual,
             'lwbp2_visual' => $request->lwbp2_visual,
             'wbp_visual' => $request->wbp_visual,
-            'kvarh_visual' => $request->kvarh_visual
+            'kvarh_visual' => $request->kvarh_visual,
+            'konsiden_visual' => $request->konsiden_visual
         );
         $input_download = array(
             'lwbp1_download' => $request->lwbp1_download,
             'lwbp2_download' => $request->lwbp2_download,
             'wbp_download' => $request->wbp_download,
-            'kvarh_download' => $request->kvarh_download
+            'kvarh_download' => $request->kvarh_download,
+            'konsiden_download' => $request->konsiden_download
         );
 
         if($request->tipe=="gi"){
-                $data_listrik = PenyimpananGI::where('periode', date('Ym'))->where('id_gi', $request->id)->first();
+            $data_listrik = PenyimpananGI::where('periode', date('Ym'))->where('id_gi', $request->id)->first();
         }
         elseif($request->tipe=="trafo_gi"){
             $data_listrik = PenyimpananTrafoGI::where('periode', date('Ym'))->where('id_trafo_gi', $request->id)->first();
@@ -136,9 +140,11 @@ class Input extends Controller
         elseif($request->tipe=="penyulang"){
             $data_listrik = PenyimpananPenyulang::where('periode', date('Ym'))->where('id_penyulang', $request->id)->first();
         }
-        elseif($request->tipe=="gardu"|| $request->tipe=="pct" || $request->tipe=="tm"){
+        elseif($request->tipe=="gd"|| $request->tipe=="pct" || $request->tipe=="tm"){
             $data_listrik = PenyimpananGardu::where('periode', date('Ym'))->where('id_gardu', $request->id)->first();
         }
+
+//        dd($data_listrik);
         if($data_listrik){
             $decoded = json_decode($data_listrik->data,true);
             if($request->tipe=="pct") {
@@ -167,15 +173,17 @@ class Input extends Controller
                         'lwbp1_download' => $decoded['beli'][$meter]['download']['lwbp1_download'],
                         'lwbp2_download' => $decoded['beli'][$meter]['download']['lwbp2_download'],
                         'wbp_download' => $decoded['beli'][$meter]['download']['wbp_download'],
-                        'kvarh_download' => $decoded['beli'][$meter]['download']['kvarh_download']
-                    );
+                        'kvarh_download' => $decoded['beli'][$meter]['download']['kvarh_download'],
+                        'konsiden_download' => $decoded['beli'][$meter]['download']['konsiden_download']
+                     );
                 }
                 elseif ($request->download){
                     $input_visual = array(
                         'lwbp1_visual' => $decoded['beli'][$meter]['visual']['lwbp1_visual'],
                         'lwbp2_visual' => $decoded['beli'][$meter]['visual']['lwbp2_visual'],
                         'wbp_visual' => $decoded['beli'][$meter]['visual']['wbp_visual'],
-                        'kvarh_visual' => $decoded['beli'][$meter]['visual']['kvarh_visual']
+                        'kvarh_visual' => $decoded['beli'][$meter]['visual']['kvarh_visual'],
+                        'konsiden_visual' => $decoded['beli'][$meter]['visual']['konsiden_visual']
                     );
                 }
             }
@@ -185,7 +193,8 @@ class Input extends Controller
                         'lwbp1_download' => $decoded['beli']['download']['lwbp1_download'],
                         'lwbp2_download' => $decoded['beli']['download']['lwbp2_download'],
                         'wbp_download' => $decoded['beli']['download']['wbp_download'],
-                        'kvarh_download' => $decoded['beli']['download']['kvarh_download']
+                        'kvarh_download' => $decoded['beli']['download']['kvarh_download'],
+                        'konsiden_download' => $decoded['beli']['download']['konsiden_download']
                     );
                 }
                 elseif ($request->download){
@@ -193,14 +202,16 @@ class Input extends Controller
                         'lwbp1_visual' => $decoded['beli']['visual']['lwbp1_visual'],
                         'lwbp2_visual' => $decoded['beli']['visual']['lwbp2_visual'],
                         'wbp_visual' => $decoded['beli']['visual']['wbp_visual'],
-                        'kvarh_visual' => $decoded['beli']['visual']['kvarh_visual']
+                        'kvarh_visual' => $decoded['beli']['visual']['kvarh_visual'],
+                        'konsiden_visual' => $decoded['beli']['visual']['konsiden_visual']
                     );
                 }
             }
-
             $data = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter);
+//            dd($data);
             $data_listrik->data = json_encode($data);
-            if ($data_listrik->save()) ;
+            if($data_listrik->save());
+//            dd($data_listrik->data);
             return back();
         }
         else {
@@ -216,6 +227,7 @@ class Input extends Controller
                     'lwbp2_visual' => null,
                     'wbp_visual' => null,
                     'kvarh_visual' => null,
+                    'konsiden_visual' => null,
                 );
 
                 $download = array(
@@ -223,6 +235,7 @@ class Input extends Controller
                     'lwbp2_download' => null,
                     'wbp_download' => null,
                     'kvarh_download' => null,
+                    'konsiden_download' => null,
                 );
                 $data2 = array(
                     'visual' => $visual,
@@ -316,7 +329,7 @@ class Input extends Controller
                 $P->data_keluar = "";
                 $data_awal = PenyimpananPenyulang::where('periode', $date)->where('id_penyulang', $request->id)->first();
             }
-            elseif ($request->tipe == "gardu"|| $request->tipe=="pct" || $request->tipe=="tm") {
+            elseif ($request->tipe == "gd"|| $request->tipe=="pct" || $request->tipe=="tm") {
                 $P = new PenyimpananGardu();
                 $P->id_gardu = $request->id;
                 $P->periode = date('Ym');
@@ -324,9 +337,9 @@ class Input extends Controller
                 $P->data_keluar = "";
                 $data_awal = PenyimpananGardu::where('periode', $date)->where('id_gardu', $request->id)->first();
             }
-
             if($data_awal){
                 $data = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter);
+//                dd($data);
                 $P->data = json_encode($data);
                 if ($P->save());
             }
@@ -344,7 +357,6 @@ class Input extends Controller
         $date = date('Ym')- "1";
         $date_ = date('Ym');
         $boolean = true;
-
         if($tipe=="gi"){
             $awal = PenyimpananGI::where('periode', $date)->where('id_gi', $id)->first();
             $data_master = GI::where('id', $id)->first();
@@ -360,19 +372,23 @@ class Input extends Controller
             $data_master = Penyulang::where('id', $id)->first();
             $akhir = PenyimpananPenyulang::where('periode', $date_)->where('id_penyulang', $id)->first();
         }
-        elseif($tipe=="gardu"|| $tipe=="pct" || $tipe=="tm"){
+        elseif($tipe=="gd"|| $tipe=="pct" || $tipe=="tm"){
             $awal = PenyimpananGardu::where('periode', $date)->where('id_gardu', $id)->first();
             $data_master = Gardu::where('id', $id)->first();
             $akhir = PenyimpananGardu::where('periode', $date_)->where('id_gardu', $id)->first();
         }
-
-        $data_master = json_decode($data_master->data_master, true);
-        if($tipe=="trafo_gi")
-            $faktor_kali = (int)$data_master[$meter]['FK']['faktorkali'];
-        elseif($tipe=="pct")
-            $faktor_kali = (int)$data_master['meter']['FK']['faktorkali'];
+//        dd($id);
+        if($data_master){
+            $data_master = json_decode($data_master->data_master, true);
+            if($tipe=="trafo_gi")
+                $faktor_kali = (int)$data_master[$meter]['FK']['faktorkali'];
+            elseif($tipe=="pct")
+                $faktor_kali = (int)$data_master['meter']['FK']['faktorkali'];
+            else
+                $faktor_kali = (int)$data_master['FK']['faktorkali'];
+        }
         else
-            $faktor_kali = (int)$data_master['FK']['faktorkali'];
+            $faktor_kali = null;
 
         if($tipe=="trafo_gi"||$tipe=="pct"){
             $diff =$this->json_dt($awal,$visual,$download,$tipe,$meter,$faktor_kali);
@@ -380,7 +396,6 @@ class Input extends Controller
                 'beli'=> $diff[0],
                 'hasil_pengolahan'=> $diff[1]
             );
-//            dd($dt);
             $update = $dt['beli'];
             $olah = $dt['hasil_pengolahan'];
             if(!$akhir){
@@ -558,6 +573,7 @@ class Input extends Controller
         }
         else{
             $dt = $this->json_dt($awal,$visual,$download,$tipe,$meter,$faktor_kali);
+//            dd($dt);
         }
         return $dt;
     }
@@ -575,12 +591,14 @@ class Input extends Controller
         $lwbp2_visual = $visual['lwbp2_visual'];
         $wbp_visual = $visual['wbp_visual'];
         $kvarh_visual = $visual['kvarh_visual'];
+        $konsiden_visual = $visual['konsiden_visual'];
 
         $data_visual = array(
             'lwbp1_visual' => $lwbp1_visual,
             'lwbp2_visual' => $lwbp2_visual,
             'wbp_visual' => $wbp_visual,
             'kvarh_visual' => $kvarh_visual,
+            'konsiden_visual' => $konsiden_visual,
         );
         if($boolean){
             if($tipe=="trafo_gi"||$tipe=="pct"){
@@ -588,12 +606,17 @@ class Input extends Controller
                 $lwbp2_visual = ($data_visual['lwbp2_visual'] - $data_awal['beli'][$meter]['visual']['lwbp2_visual'])*$faktor_kali;
                 $wbp_visual = ($data_visual['wbp_visual'] - $data_awal['beli'][$meter]['visual']['wbp_visual'])*$faktor_kali;
                 $kvarh_visual = ($data_visual['kvarh_visual'] - $data_awal['beli'][$meter]['visual']['kvarh_visual'])*$faktor_kali;
+                $konsiden_visual = ($data_visual['konsiden_visual'] - $data_awal['beli'][$meter]['visual']['konsiden_visual'])*$faktor_kali;
             }
             else{
+
+//                dd($data_awal['beli']['visual']);
+//                dd($konsiden_visual);
                 $lwbp1_visual = ($data_visual['lwbp1_visual'] - $data_awal['beli']['visual']['lwbp1_visual'])*$faktor_kali;
                 $lwbp2_visual = ($data_visual['lwbp2_visual'] - $data_awal['beli']['visual']['lwbp2_visual'])*$faktor_kali;
                 $wbp_visual = ($data_visual['wbp_visual'] - $data_awal['beli']['visual']['wbp_visual'])*$faktor_kali;
                 $kvarh_visual = ($data_visual['kvarh_visual'] - $data_awal['beli']['visual']['kvarh_visual'])*$faktor_kali;
+                $konsiden_visual = ($data_visual['konsiden_visual'] - $data_awal['beli']['visual']['konsiden_visual'])*$faktor_kali;
             }
         }
         else{
@@ -601,6 +624,7 @@ class Input extends Controller
             $lwbp2_visual=null;
             $wbp_visual=null;
             $kvarh_visual=null;
+            $konsiden_visual=null;
         }
 
         $data_visual2 = array(
@@ -608,6 +632,7 @@ class Input extends Controller
             'lwbp2_visual' => $lwbp2_visual,
             'wbp_visual' => $wbp_visual,
             'kvarh_visual' => $kvarh_visual,
+            'konsiden_visual' => $konsiden_visual,
             'total_pemakaian_kwh_visual' => $lwbp1_visual + $lwbp2_visual + $wbp_visual
         );
 
@@ -615,12 +640,14 @@ class Input extends Controller
         $lwbp2_download = $download['lwbp2_download'];
         $wbp_download =  $download['wbp_download'];
         $kvarh_download = $download['kvarh_download'];
+        $konsiden_download = $download['konsiden_download'];
 
         $data_download = array(
             'lwbp1_download' => $lwbp1_download,
             'lwbp2_download' => $lwbp2_download,
             'wbp_download' => $wbp_download,
             'kvarh_download' => $kvarh_download,
+            'konsiden_download' => $konsiden_download,
         );
 
         if($boolean){
@@ -629,11 +656,13 @@ class Input extends Controller
                 $lwbp2_download = ($download['lwbp2_download'] - $data_awal['beli'][$meter]['download']['lwbp2_download']);
                 $wbp_download =  ($download['wbp_download'] - $data_awal['beli'][$meter]['download']['wbp_download']);
                 $kvarh_download = ($download['kvarh_download'] - $data_awal['beli'][$meter]['download']['kvarh_download']);
+                $konsiden_download = ($download['konsiden_download'] - $data_awal['beli'][$meter]['download']['konsiden_download']);
             }else{
                 $lwbp1_download = ($download['lwbp1_download'] - $data_awal['beli']['download']['lwbp1_download']);
                 $lwbp2_download = ($download['lwbp2_download'] - $data_awal['beli']['download']['lwbp2_download']);
                 $wbp_download =  ($download['wbp_download'] - $data_awal['beli']['download']['wbp_download']);
                 $kvarh_download = ($download['kvarh_download'] - $data_awal['beli']['download']['kvarh_download']);
+                $konsiden_download = ($download['konsiden_download'] - $data_awal['beli']['download']['konsiden_download']);
             }
         }
         else{
@@ -641,6 +670,7 @@ class Input extends Controller
             $lwbp2_download=null;
             $wbp_download=null;
             $kvarh_download=null;
+            $konsiden_download=null;
         }
 
         $data_download2 = array(
@@ -648,6 +678,7 @@ class Input extends Controller
             'lwbp2_download' => $lwbp2_download,
             'wbp_download' => $wbp_download,
             'kvarh_download' => $kvarh_download,
+            'konsiden_download' => $konsiden_download,
             'total_pemakaian_kwh_download' => $lwbp1_download + $lwbp2_download + $wbp_download
 
         );
@@ -745,14 +776,16 @@ class Input extends Controller
                 'lwbp1_visual' => null,
                 'lwbp2_visual' => null,
                 'wbp_visual' => null,
-                'kvarh_visual' => null
+                'kvarh_visual' => null,
+                'konsiden_visual' => null
             );
 
             $data_download = array(
                 'lwbp1_download' => null,
                 'lwbp2_download' => null,
                 'wbp_download' => null,
-                'kvarh_download' => null
+                'kvarh_download' => null,
+                'konsiden_download' => null
             );
 
             $data_awal = array(
@@ -782,7 +815,7 @@ class Input extends Controller
 //            $data = json_decode($hasil, true);
         }
         $decoded = json_decode($jenis->data_master,true);
-//        dd($data);
+//        dd($jenis);
         return view('admin.nonmaster.dashboard_user.input_data', [
             'data'            => $data,
             'decoded'         => $decoded,

@@ -15,7 +15,7 @@
                             <div class="col-md-12">
                                 @if($tipe == "trafo_gi")
 
-                                    <div class="row">
+                                <div class="row">
                                     <div class="col-md-12">
                                         <div class="nav-container">
                                             <ul class="nav nav-icons" role="tablist">
@@ -106,7 +106,7 @@
                                                                                             </div>
                                                                                             <div class="form-group">
                                                                                                 <label>Daya Konsiden</label>
-                                                                                                <input type="text" name="konsiden_visual" class="form-control" placeholder="" value="">
+                                                                                                <input type="text" name="konsiden_visual" class="form-control" placeholder="" value="{{$data['beli']['utama']['visual']['konsiden_visual']}}">
                                                                                             </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
@@ -163,7 +163,7 @@
                                                                                             </div>
                                                                                             <div class="form-group">
                                                                                                 <label>Daya Konsiden</label>
-                                                                                                <input type="text" name="konsiden_download" class="form-control" placeholder="" value="">
+                                                                                                <input type="text" name="konsiden_download" class="form-control" placeholder="" value="{{$data['beli']['utama']['download']['konsiden_download']}}">
                                                                                             </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
@@ -246,7 +246,7 @@
                                                                                             </div>
                                                                                             <div class="form-group">
                                                                                                 <label>Daya Konsiden</label>
-                                                                                                <input type="text" name="konsiden_visual" class="form-control" placeholder="" value="">
+                                                                                                <input type="text" name="konsiden_visual" class="form-control" placeholder="" value="{{$data['beli']['pembanding']['visual']['konsiden_visual']}}">
                                                                                             </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
@@ -303,7 +303,7 @@
                                                                                             </div>
                                                                                             <div class="form-group">
                                                                                                 <label>Daya Konsiden</label>
-                                                                                                <input type="text" name="konsiden_download" class="form-control" placeholder="" value="">
+                                                                                                <input type="text" name="konsiden_download" class="form-control" placeholder="" value="{{$data['beli']['pembanding']['download']['konsiden_download']}}">
                                                                                             </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
@@ -386,7 +386,7 @@
                                                                                             </div>
                                                                                             <div class="form-group">
                                                                                                 <label>Daya Konsiden</label>
-                                                                                                <input type="text" name="konsiden_visual" class="form-control" placeholder="" value="">
+                                                                                                <input type="text" name="konsiden_visual" class="form-control" placeholder="" value="{{$data['beli']['ps']['visual']['konsiden_visual']}}">
                                                                                             </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
@@ -443,7 +443,7 @@
                                                                                             </div>
                                                                                             <div class="form-group">
                                                                                                 <label>Daya Konsiden</label>
-                                                                                                <input type="text" name="konsiden_download" class="form-control" placeholder="" value="">
+                                                                                                <input type="text" name="konsiden_download" class="form-control" placeholder="" value="{{$data['beli']['ps']['download']['konsiden_download']}}">
                                                                                             </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
@@ -899,7 +899,6 @@
                                                                     <input type="hidden" name="tipe" value="{{$tipe}}">
                                                                     <input type="hidden" name="download" value="{{$jenis->id}}">
                                                                     {{ csrf_field() }}
-
                                                                     <div class="card">
                                                                         <div class="header">
                                                                             <h4 class="title">DOWNLOAD</h4>
@@ -932,7 +931,6 @@
                                                                 </form>
                                                             </div>
                                                         </div> <!-- end tab content -->
-
                                                     </div> <!-- end col-md-8 -->
 
                                                 </div>

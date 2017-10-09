@@ -908,7 +908,7 @@
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label>Faktor Kali Meter</label>
-                                                                                        <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{$decoded['pembanding']['FK']['faktorkali']}}">
+                                                                                        <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{$decoded['ps']['FK']['faktorkali']}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

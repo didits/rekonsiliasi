@@ -194,7 +194,11 @@
                                             <td>({{number_format($data_GI[$i][$j]['L'],2)}})</td>
                                             <td>({{number_format($data_GI[$i][$j]['M'],0)}})</td>
                                             <td>({{number_format($data_GI[$i][$j]['N'],2)}})</td>
-                                            <td></td>
+                                            @if(number_format($data_GI[$i][$j]['N'],2)> 2)
+                                            <td>TIDAK NORMAL</td>
+                                            @elseif(number_format($data_GI[$i][$j]['N'],2)< 2)
+                                            <td>NORMAL</td>
+                                            @endif
                                             <td></td>
                                         </tr>
                                         @endfor
@@ -214,6 +218,8 @@
                                             <th class="text-center">({{number_format($jumlah[$i]['L'],2)}})</th>
                                             <th class="text-center">({{number_format($jumlah[$i]['M'],0)}})</th>
                                             <th class="text-center">({{number_format($jumlah[$i]['N'],2)}})</th>
+                                            <th></th>
+                                            <th></th>
                                         </tr>
                                         </thead>
                                     @endfor
@@ -232,6 +238,8 @@
                                             <td class="text-center"><b>({{number_format($total['L'],2)}})</b></td>
                                             <td class="text-center"><b>({{number_format($total['M'],0)}})</b></td>
                                             <td class="text-center"><b>({{number_format($total['N'],2)}})</b></td>
+                                            <td></td>
+                                            <td></td>
                                         </tr>
                                         </thead>
                                     </tbody>
