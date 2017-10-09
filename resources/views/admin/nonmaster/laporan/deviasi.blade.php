@@ -83,14 +83,15 @@
                                             <th rowspan="3" class="text-center">INCOMING<br/>PEMBANDING</th>
                                             <th rowspan="3" class="text-center">TOTAL<br/>PENYULANG</th>
                                             <th colspan="6" class="text-center">DEVIASI</th>
-                                            <th colspan="6" class="text-center">DEVIASI TIDAK NORMAL</th>
+                                            <th rowspan="3" class="text-center">KETERANGAN</th>
+                                            {{--<th colspan="6" class="text-center">DEVIASI TIDAK NORMAL</th>--}}
                                         </tr>
                                         <tr>
                                             <th colspan="2" class="text-center">UTAMA VS PEMBANDING</th>
                                             <th colspan="2" class="text-center">UTAMA VS ∑PENYULANG</th>
                                             <th colspan="2" class="text-center">PEMBANDING VS ∑PENYULANG</th>
-                                            <th rowspan="2" class="text-center">PENJELASAN</th>
-                                            <th rowspan="2" class="text-center">TINDAK LANJUT<br/>PENYELESAIAN</th>
+                                            {{--<th rowspan="2" class="text-center">PENJELASAN</th>--}}
+                                            {{--<th rowspan="2" class="text-center">TINDAK LANJUT<br/>PENYELESAIAN</th>--}}
                                         </tr>
                                         <tr>
                                             <th class="text-center">KWH</th>
@@ -116,7 +117,7 @@
                                             <th class="text-center">13=(7-5-8)</th>
                                             <th class="text-center">14=13/(7-5)*100</th>
                                             <th class="text-center">15</th>
-                                            <th class="text-center">16</th>
+                                            {{--<th class="text-center">16</th>--}}
                                         </tr>
                                     </thead>
                                     @if($area == "data")
@@ -144,8 +145,11 @@
                                             <td>({{number_format($data_GI[$i]['L'],2)}})</td>
                                             <td>({{number_format($data_GI[$i]['M'],0)}})</td>
                                             <td>({{number_format($data_GI[$i]['N'],2)}})</td>
-                                            <td></td>
-                                            <td></td>
+                                            @if(number_format($data_GI[$i]['N'],2)> 2)
+                                            <td>TIDAK NORMAL</td>
+                                            @elseif(number_format($data_GI[$i]['N'],2)< 2)
+                                            <td>NORMAL</td>
+                                            @endif
                                         </tr>
                                         @endfor
 
@@ -199,7 +203,7 @@
                                             @elseif(number_format($data_GI[$i][$j]['N'],2)< 2)
                                             <td>NORMAL</td>
                                             @endif
-                                            <td></td>
+                                            {{--<td></td>--}}
                                         </tr>
                                         @endfor
 
@@ -219,7 +223,7 @@
                                             <th class="text-center">({{number_format($jumlah[$i]['M'],0)}})</th>
                                             <th class="text-center">({{number_format($jumlah[$i]['N'],2)}})</th>
                                             <th></th>
-                                            <th></th>
+                                            {{--<th></th>--}}
                                         </tr>
                                         </thead>
                                     @endfor
@@ -239,7 +243,7 @@
                                             <td class="text-center"><b>({{number_format($total['M'],0)}})</b></td>
                                             <td class="text-center"><b>({{number_format($total['N'],2)}})</b></td>
                                             <td></td>
-                                            <td></td>
+                                            {{--<td></td>--}}
                                         </tr>
                                         </thead>
                                     </tbody>

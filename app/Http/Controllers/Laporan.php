@@ -474,24 +474,27 @@ class Laporan extends Controller
                 $data_gi = GI::where('id_organisasi', $id_org[$i])->select('id', 'nama_gi')->first();
                 if ($data_gi) {
                     $data = $this->data_tsa($id_organisasi, "tsa", $data_gi);
-                    if($data[0])
-                        array_push($trafo,$data[0]);
-                    if($data[1])
-                        array_push($list_p,$data[1]);
-                    if($data[2])
-                        array_push($jumlah_trafo,$data[2]);
-                    if($data[3])
-                        array_push($jumlah_tot,$data[3]);
-                    $dt = array(
-                        'trafo' => $data[0],
-                        'list_p' => $data[1],
-                        'jumlah_trafo' => $data[2],
-                        'jumlah_tot' => $data[3],
-                    );
-                    array_push($nama_gi,$data_gi);
-                    array_push($tsa,$dt);
-                }
+                    if($data[2]){
+                        if($data[0])
+                            array_push($trafo,$data[0]);
+                        if($data[1])
+                            array_push($list_p,$data[1]);
+                        if($data[2])
+                            array_push($jumlah_trafo,$data[2]);
+                        if($data[3])
+                            array_push($jumlah_tot,$data[3]);
+                        $dt = array(
+                            'trafo' => $data[0],
+                            'list_p' => $data[1],
+                            'jumlah_trafo' => $data[2],
+                            'jumlah_tot' => $data[3],
+                        );
+                        array_push($nama_gi,$data_gi);
+                        array_push($tsa,$dt);
+                    }
+                  }
             }
+//            dd($tsa);
 
             $tot_lwbp1 = $tot_lwbp2 = $tot_wbp =$tot_t_kwh = $tot_KW = $tot_KWH = $tot_KWH_lalu=$tot_persen= null;
             for($i=0;$i < count($jumlah_trafo);$i++){
