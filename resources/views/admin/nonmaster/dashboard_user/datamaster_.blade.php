@@ -271,25 +271,23 @@
                                                     {{--KAPASITAS LAM--}}
                                                     <form action="{{route('input_datamaster.store')}}" method="post">
                                                         <input type="hidden" name="_method" value="POST">
-                                                        <input type="hidden" name="tipe" value="KWH">
+                                                        <input type="hidden" name="tipe" value="tegangan">
                                                         <input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>
                                                         <input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">
-                                                        <input type="hidden" name="form_utama" value="{{$trafo_gi->id}}">
+                                                        <input type="hidden" name="form_kapasitas" value="{{$trafo_gi->id}}">
                                                         {{ csrf_field() }}
 
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Tegangan</label>
-                                                                    <input type="text" class="form-control"
-                                                                           placeholder="Tegangan" value="">
+                                                                    <input name="tegangan" type="text" class="form-control" placeholder="Tegangan" value="{{$decoded['kapasitas']['tegangan']}}">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Kapasitas</label>
-                                                                    <input type="text" class="form-control"
-                                                                           placeholder="Kapasitas" value="">
+                                                                    <input name="kapasitas" type="text" class="form-control" placeholder="Kapasitas" value="{{$decoded['kapasitas']['kapasitas']}}">
                                                                 </div>
                                                             </div>
                                                         </div>

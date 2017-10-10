@@ -68,7 +68,6 @@ class AreaController extends Controller
             $inputGardu->nama_gi = $request->tambahnamagardu;
             $inputGardu->alamat_gi = $request->tambahalamatgardu;
             $inputGardu->data_master="";
-
             if($inputGardu->save());
             return back();
         }
@@ -135,25 +134,50 @@ class AreaController extends Controller
                 $data = Gardu::where('id',$request->form_gardu)->first();
 //            dd($request->form_gardu);
             if($data->id_gi){
-                if($request->form_utama){
+//                dd(json_decode($data['data_master'],true));
+;               if($request->form_kapasitas) {
+                    $data_tk = array(
+                        'tegangan' => $request->tegangan,
+                        'kapasitas' => $request->kapasitas,
+                    );
+                }
+                else{
+                    $data_tk = array(
+                        'tegangan' => json_decode($data['data_master'],true)['kapasitas']['tegangan'],
+                        'kapasitas' => json_decode($data['data_master'],true)['kapasitas']['kapasitas'],
+                    );
+                }
+
+                if($request->form_kapasitas){
+                    $data = array(
+                        'utama' => $this->json_datamaster($request, $data, "utama",0),
+                        'pembanding' => $this->json_datamaster($request, $data, "pembanding",0),
+                        'ps' => $this->json_datamaster($request, $data, "ps",0),
+                        'kapasitas' => $data_tk
+                    );
+                }
+                elseif($request->form_utama){
                     $data = array(
                         'utama' => $this->json_datamaster($request, $data, "utama",1),
                         'pembanding' => $this->json_datamaster($request, $data, "pembanding",0),
-                        'ps' => $this->json_datamaster($request, $data, "ps",0)
+                        'ps' => $this->json_datamaster($request, $data, "ps",0),
+                        'kapasitas' => $data_tk
                     );
                 }
                 elseif ($request->form_pembanding){
                     $data = array(
                         'utama' => $this->json_datamaster($request, $data, "utama",0),
                         'pembanding' => $this->json_datamaster($request, $data, "pembanding",1),
-                        'ps' => $this->json_datamaster($request, $data, "ps",0)
+                        'ps' => $this->json_datamaster($request, $data, "ps",0),
+                        'kapasitas' => $data_tk
                     );
                 }
                 elseif ($request->form_ps){
                     $data = array(
                         'utama' => $this->json_datamaster($request, $data, "utama",0),
                         'pembanding' => $this->json_datamaster($request, $data, "pembanding",0),
-                        'ps' => $this->json_datamaster($request, $data, "ps",1)
+                        'ps' => $this->json_datamaster($request, $data, "ps",1),
+                        'kapasitas' => $data_tk
                     );
                 }
             }
@@ -647,12 +671,32 @@ class AreaController extends Controller
                     );
                 }
             }
+            else if($request->tipe == 'tegangan'){
+                $data_KWH = array(
+                    'merk' => $decoded[$meter]['KWH']['merk'],
+                    'nomorseri' => $decoded[$meter]['KWH']['nomorseri'],
+                    'konstanta' => $decoded[$meter]['KWH']['konstanta'],
+                    'teganganarus' => $decoded[$meter]['KWH']['teganganarus']
+                );
+                $data_TA = array(
+                    'ratioct' => $decoded[$meter]['TA']['ratioct'],
+                    'burdenct' => $decoded[$meter]['TA']['burdenct']
+                );
+                $data_TT = array(
+                    'ratiopt' => $decoded[$meter]['TT']['ratiopt'],
+                    'burdenpt' => $decoded[$meter]['TT']['burdenpt']
+                );
+                $data_FK = array(
+                    'faktorkali' => $decoded[$meter]['FK']['faktorkali']
+                );
+            }
 
             $data = array(
                 'KWH' => $data_KWH,
                 'TA' => $data_TA,
                 'TT' => $data_TT,
-                'FK' => $data_FK );
+                'FK' => $data_FK
+            );
 
         }
         else {
@@ -743,13 +787,33 @@ class AreaController extends Controller
                     'faktorkali' => $request->faktorkali
                 );
             }
+            else if($request->tipe == 'tegangan'){
+                $data_KWH = array(
+                    'merk' => null,
+                    'nomorseri' => null,
+                    'konstanta' => null,
+                    'teganganarus' => null
+                );
+
+                $data_TA = array(
+                    'ratioct' => null,
+                    'burdenct' => null
+                );
+                $data_TT = array(
+                    'ratiopt' => null,
+                    'burdenpt' => null
+                );
+
+                $data_FK = array(
+                    'faktorkali' => null
+                );
+            }
 
             $data = array(
                 'KWH' => $data_KWH,
                 'TA' => $data_TA,
                 'TT' => $data_TT,
                 'FK' => $data_FK );
-
         }
 
         return $data;
@@ -896,8 +960,8 @@ class AreaController extends Controller
 //            ->whereNotIn('id',$transfer)
             ->where('id_trafo_gi',$id_trafo_gi)
             ->get();
-//        dd($data);
         $decoded = json_decode($trafo_gi->data_master, true);
+//        dd($decoded);
         return view('admin.nonmaster.dashboard_user.datamaster_',[
             'data' =>$data,
             'decoded' =>$decoded,
