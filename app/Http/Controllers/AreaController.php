@@ -883,6 +883,7 @@ class AreaController extends Controller
             'gi'=>$gardu,'trafo_gi'=>null,'penyulang'=>null,'gardu'=>null,
             'id_gi'=>$id_gardu_induk,'id_trafo_gi'=>null,'id_penyulang'=>null,'id_gardu'=>null,
             'rayon'=>$rayon,
+            'meter'=>null,
             'id_org'=>$id_organisasi,
             'dropdown_area'=>$this->populateArea()
         ]);
@@ -903,6 +904,7 @@ class AreaController extends Controller
             'gi'=>null,'trafo_gi'=>$trafo_gi,'penyulang'=>null,'gardu'=>null,
             'id_gi'=>null,'id_trafo_gi'=>$id_trafo_gi,'id_penyulang'=>null,'id_gardu'=>null,
             'rayon'=>$rayon,
+            'meter'=>$rayon->id,
             'id_org'=>$id_organisasi,
             'dropdown_area'=>$this->populateArea()
         ]);
@@ -924,6 +926,7 @@ class AreaController extends Controller
             'gi'=>null,'trafo_gi'=>null,'penyulang'=>$penyulang,'gardu'=>null,
             'id_gi'=>null,'id_trafo_gi'=>null,'id_penyulang'=>$id_penyulang,'id_gardu'=>null,
             'rayon'=>$rayon,
+            'meter'=>null,
             'id_org'=>$rayon->id,
             'dropdown_area'=>$this->populateArea()
         ]);
@@ -935,12 +938,15 @@ class AreaController extends Controller
         $gardu = Gardu::where('id', $id_gardu)->first();
         $data = Gardu::where('id', $id_gardu)->get();
         $decoded = json_decode($gardu->data_master, true);
+        if($gardu->tipe_gardu!=1) $meter = null;
+        else $meter =1;
         return view('admin.nonmaster.dashboard_user.datamaster_',[
             'data' =>$data,
             'decoded' =>$decoded,
             'gi'=>null,'trafo_gi'=>null,'gardu'=>$gardu,'penyulang'=>null,
             'id_gi'=>null,'id_trafo_gi'=>null,'id_gardu'=>$id_gardu,'id_penyulang'=>null,
             'rayon'=>$rayon,
+            'meter'=>$meter,
             'id_org'=>$id_organisasi,
             'dropdown_area'=>$this->populateArea()
         ]);

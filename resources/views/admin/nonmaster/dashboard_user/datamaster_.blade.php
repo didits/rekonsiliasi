@@ -968,7 +968,7 @@
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label>Merk</label>
-                                                                                    @if($id_gardu)
+                                                                                    @if($meter)
                                                                                     <input type="text" name="merk" class="form-control" placeholder="Merk" value="{{$decoded['meter']['KWH']['merk']}}">
                                                                                     @else
                                                                                     <input type="text" name="merk" class="form-control" placeholder="Merk" value="{{$decoded['KWH']['merk']}}">
@@ -981,7 +981,7 @@
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label>Nomor Seri</label>
-                                                                                    @if($id_gardu)
+                                                                                    @if($meter)
                                                                                     <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="{{$decoded['meter']['KWH']['nomorseri']}}">
                                                                                     @else
                                                                                     <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="{{$decoded['KWH']['nomorseri']}}">
@@ -994,7 +994,7 @@
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label>Konstanta</label>
-                                                                                    @if($id_gardu)
+                                                                                    @if($meter)
                                                                                     <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="{{$decoded['meter']['KWH']['konstanta']}}">
                                                                                     @else
                                                                                     <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="{{$decoded['KWH']['konstanta']}}">
@@ -1007,7 +1007,7 @@
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label>Tegangan Arus</label>
-                                                                                    @if($id_gardu)
+                                                                                    @if($meter)
                                                                                     <input type="text" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{$decoded['meter']['KWH']['teganganarus']}}">
                                                                                     @else
                                                                                     <input type="text" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{$decoded['KWH']['teganganarus']}}">
@@ -1053,7 +1053,7 @@
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label>Ratio</label>
-                                                                                    @if($id_gardu)
+                                                                                    @if($meter)
                                                                                     <input type="text" name="ratioct" class="form-control" placeholder="Ratio" value="{{$decoded['meter']['TA']['ratioct']}}">
                                                                                     @else
                                                                                     <input type="text" name="ratioct" class="form-control" placeholder="Ratio" value="{{$decoded['TA']['ratioct']}}">
@@ -1066,7 +1066,7 @@
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label>Burden (VA)</label>
-                                                                                    @if($id_gardu)
+                                                                                    @if($meter)
                                                                                     <input type="text" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{$decoded['meter']['TA']['burdenct']}}">
                                                                                     @else
                                                                                     <input type="text" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{$decoded['TA']['burdenct']}}">
@@ -1111,7 +1111,7 @@
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label>Ratio</label>
-                                                                                    @if($id_gardu)
+                                                                                    @if($meter)
                                                                                     <input type="text" name="ratiopt" class="form-control" placeholder="Ratio" value="{{$decoded['meter']['TT']['ratiopt']}}">
                                                                                     @else
                                                                                     <input type="text" name="ratiopt" class="form-control" placeholder="Ratio" value="{{$decoded['TT']['ratiopt']}}">
@@ -1124,7 +1124,7 @@
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label>Burden (VA)</label>
-                                                                                    @if($id_gardu)
+                                                                                    @if($meter)
                                                                                     <input type="text" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{$decoded['meter']['TT']['burdenpt']}}">
                                                                                     @else
                                                                                     <input type="text" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{$decoded['TT']['burdenpt']}}">
@@ -1170,7 +1170,7 @@
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label>Faktor Kali Meter</label>
-                                                                                    @if($id_gardu)
+                                                                                    @if($meter)
                                                                                     <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{$decoded['meter']['FK']['faktorkali']}}">
                                                                                     @else
                                                                                     <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{$decoded['FK']['faktorkali']}}">
