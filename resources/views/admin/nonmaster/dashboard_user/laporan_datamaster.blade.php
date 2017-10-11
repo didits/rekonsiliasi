@@ -53,14 +53,14 @@
                                             <div class="form-group">
                                                 <label>Tegangan</label>
                                                 <input type="text" class="form-control"
-                                                       placeholder="Tegangan" value="" disabled>
+                                                       placeholder="Tegangan" value="{{$decoded['kapasitas']['tegangan']}}" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Kapasitas</label>
                                                 <input type="text" class="form-control"
-                                                       placeholder="Kapasitas" value="" disabled>
+                                                       placeholder="Kapasitas" value="{{$decoded['kapasitas']['kapasitas']}}" disabled>
                                             </div>
                                         </div>
                                     </div>

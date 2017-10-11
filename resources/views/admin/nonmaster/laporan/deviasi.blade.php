@@ -146,13 +146,12 @@
                                             <td>({{number_format($data_GI[$i]['M'],0)}})</td>
                                             <td>({{number_format($data_GI[$i]['N'],2)}})</td>
                                             @if(number_format($data_GI[$i]['N'],2)> 2)
-                                            <td>TIDAK NORMAL</td>
+                                            <td class="text-center">TIDAK NORMAL</td>
                                             @elseif(number_format($data_GI[$i]['N'],2)< 2)
-                                            <td>NORMAL</td>
+                                            <td class="text-center">NORMAL</td>
                                             @endif
                                         </tr>
                                         @endfor
-
                                     </tbody>
                                     {{-----------}}
                                     <thead>
