@@ -203,6 +203,7 @@
                                                     <td>{{number_format($data_gi[$gi][$py]['KW'],0)}}</td>
                                                     <td class="text-left">-</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['KWH_lalu'],0)}}</td>
+                                                    <td>{{number_format($data_gi[$gi][$py]['KWH'],0)}}</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['persen'],2)}}</td>
                                                 @endif
                                             </tr>
