@@ -418,6 +418,7 @@ class Laporan extends Controller
                                 'id_trafo' => $penyulang_array[$j]['id_trafo'],
                                 'nama_t' => $trafo[$i]['nama_trafo_gi'],
                                 'nama_p' => $penyulang_array[$j]['nama'],
+                                'ujung' => $ujung= json_decode($penyulang_array[0]['data_master'],true)['Tegangan']['tegangan'],
                                 'lwbp1' => $KWH_salur_lwbp1,
                                 'lwbp2' => $KWH_salur_lwbp2,
                                 'wbp'   => $KWH_salur_wbp,
@@ -436,6 +437,7 @@ class Laporan extends Controller
                                 'id_trafo' => $penyulang_array[$j]['id_trafo'],
                                 'nama_t' => $trafo[$i]['nama_trafo_gi'],
                                 'nama_p' => $penyulang_array[$j]['nama'],
+                                'ujung' => $ujung= json_decode($penyulang_array[0]['data_master'],true)['Tegangan']['tegangan'],
                                 'lwbp1' => null,
                                 'lwbp2' => null,
                                 'wbp'   => null,
@@ -552,7 +554,6 @@ class Laporan extends Controller
                 'KWH_lalu'   => $tot_KWH_lalu,
                 'persen' => $tot_persen
             );
-
             return view('admin.nonmaster.laporan.tsa_penyulang',[
                 'trafo'      => $trafo,
                 'nama_gi'      => $nama_gi,
@@ -571,7 +572,6 @@ class Laporan extends Controller
                 $list_p =$data[1];
                 $jumlah_trafo =$data[2];
                 $jumlah_tot =$data[3];
-//                dd($list_p);
                 return view('admin.nonmaster.laporan.tsa_penyulang',[
                     'trafo'      => $trafo,
                     'gi'      => $data_gi->nama_gi,

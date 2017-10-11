@@ -127,7 +127,7 @@
                                             <td>{{number_format($data_gi[$i]['total_kwh'],0)}}</td>
                                             <td>-</td>
                                             <td>{{number_format($data_gi[$i]['KW'],0)}}</td>
-                                            <td>TEGANGAN<br/>UJUNG</td>
+                                            <td>{{number_format($data_gi[$i]['ujung'],0)}}</td>
                                             <td class="text-left">-</td>
                                             <td>{{number_format($data_gi[$i]['KWH_lalu'],0)}}</td>
                                             <td>{{number_format($data_gi[$i]['KWH'],0)}}</td>
@@ -205,7 +205,7 @@
                                                     <td>{{number_format($data_gi[$gi][$py]['total_kwh'],0)}}</td>
                                                     <td>-</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['KW'],0)}}</td>
-                                                    <td>TEGANGAN<br/>UJUNG</td>
+                                                    <td>{{number_format($data_gi[$gi][$py]['ujung'],0)}}</td>
                                                     <td class="text-left">-</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['KWH_lalu'],0)}}</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['KWH'],0)}}</td>

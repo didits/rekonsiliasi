@@ -1205,17 +1205,16 @@
                                                     {{--KAPASITAS LAM--}}
                                                     <form action="{{route('input_datamaster.store')}}" method="post">
                                                         <input type="hidden" name="_method" value="POST">
-                                                        <input type="hidden" name="tipe" value="tegangan">
-                                                        <input type="hidden" name="idtrafo_gi" value={{$penyulang->id}}>
-                                                        <input type="hidden" name="form_trafogi" value="{{$penyulang->id}}">
-                                                        <input type="hidden" name="form_kapasitas" value="{{$penyulang->id}}">
+                                                        <input type="hidden" name="tipe" value="penyulang">
+                                                        <input type="hidden" name="form_penyulang" value="{{$penyulang->id}}">
+                                                        <input type="hidden" name="form_ujung" value="{{$penyulang->id}}">
                                                         {{ csrf_field() }}
 
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label>Tegangan Ujung</label>
-                                                                    <input name="tegangan" type="text" class="form-control" placeholder="Tegangan" value="">
+                                                                    <input name="tegangan" type="text" class="form-control" placeholder="Tegangan" value="{{$decoded['Tegangan']['tegangan']}}">
                                                                 </div>
                                                             </div>
                                                             {{--<div class="col-md-6">--}}
