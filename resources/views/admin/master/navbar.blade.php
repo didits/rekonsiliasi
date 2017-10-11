@@ -238,10 +238,10 @@
                     @endif
                     @if(Auth::user()->tipe_organisasi==0)
 
-                    <li @if(Request::is('admin/management_rayon'))class="active"@endif>
-                        <a href="{{route('admin.management_rayon')}}">
+                    <li @if(Request::is('admin'))class="active"@endif>
+                        <a href="{{url('/')}}">
                             <i class="pe-7s-user"></i>
-                            <p>Manajemen Organisasi</p>
+                            <p>Manajemen User</p>
                         </a>
                     </li>
                     @endif
