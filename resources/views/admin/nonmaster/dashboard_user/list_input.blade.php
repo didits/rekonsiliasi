@@ -120,15 +120,15 @@
                                         <div class="col-md-12">
                                             <div class="card">
                                                 <div class="header">
-                                                    <h4 class="title">List Gardu pada Penyulang {{$penyulang->nama_penyulang}}</h4>
+                                                    <h4 class="title">List GTT pada Penyulang {{$penyulang->nama_penyulang}}</h4>
                                                 </div>
                                                 {{--Gardu--}}
                                                 <div class="content table-responsive table-full-width">
                                                     <table class="table table-hover table-striped">
                                                         <thead>
                                                         <th class="text-center">#</th>
-                                                        <th>Nama Gardu</th>
-                                                        <th>Alamat Gardu</th>
+                                                        <th>Nama GTT</th>
+                                                        <th>Alamat GTT</th>
                                                         <th></th>
                                                         </thead>
                                                         <tbody>

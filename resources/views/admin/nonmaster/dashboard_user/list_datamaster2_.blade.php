@@ -645,6 +645,29 @@
                     {{--</div>--}}
                 {{--@endif--}}
 
+                    @if(Auth::user()->tipe_organisasi == 3)
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h4 class="title">Single Line</h4>
+                                    <p class="category">Rayon {{Auth::user()->nama_organisasi}}</p>
+                                </div>
+                                <div class="content all-icons">
+                                    <div class="row">
+                                        <div class="font-icon-list col-md-2">
+                                            <a href="{{route('rayon.get_structure', Auth::user()->id)}}" rel="tooltip" title="" data-original-title="">
+                                                <button class="font-icon-detail btn btn-info btn-fill btn-wd"><i class="pe-7s-network"></i><br/>Single line</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+
                 </div>
             </div>
 
