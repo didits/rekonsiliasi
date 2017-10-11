@@ -816,130 +816,170 @@
                                 @else
 
                                 <div class="row">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="nav-container">
+                                                <ul class="nav nav-icons" role="tablist">
+                                                    <li class="active">
+                                                        <a href="#beli" role="tab" data-toggle="tab">
+                                                            <i class="fa fa-download"></i><br>
+                                                            Transaksi Beli
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#jual" role="tab" data-toggle="tab">
+                                                            <i class="fa fa-upload"></i><br>
+                                                            Transaksi Jual
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="tab-content">
+                                                <div class="tab-pane active" id="beli">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="col-md-12">
+                                                                <div class="nav-container">
+                                                                    <ul class="nav nav-icons" role="tablist">
+                                                                        <li class="active">
+                                                                            <a href="#visual" role="tab" data-toggle="tab">
+                                                                                <i class="fa fa-tachometer"></i><br>
+                                                                                Visual
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#download" role="tab" data-toggle="tab">
+                                                                                <i class="fa fa-cloud-download"></i><br>
+                                                                                Download
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="tab-content">
+                                                                    <div class="tab-pane active" id="visual">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <form action="{{route('input_listrik.store')}}" method="post">
+                                                                                    <input type="hidden" name="_method" value="POST">
+                                                                                    <input type="hidden" name="id" value="{{$jenis->id}}">
+                                                                                    <input type="hidden" name="tipe" value="{{$tipe}}">
+                                                                                    <input type="hidden" name="visual" value="{{$jenis->id}}">
+                                                                                    {{ csrf_field() }}
 
-                                    <div class="col-md-12">
-                                        <div class="nav-container">
-                                            <ul class="nav nav-icons" role="tablist">
-                                                <li class="active">
-                                                    <a href="#visual" role="tab" data-toggle="tab">
-                                                        <i class="fa fa-tachometer"></i><br>
-                                                        Visual
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#download" role="tab" data-toggle="tab">
-                                                        <i class="fa fa-cloud-download"></i><br>
-                                                        Download
-                                                    </a>
-                                                </li>
-                                            </ul>
+                                                                                    <div class="card">
+                                                                                        <div class="header">
+                                                                                            <h4 class="title">VISUAL</h4>
+                                                                                        </div>
+                                                                                        <div class="content">
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-12">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Stand Akhir LWBP1</label>
+                                                                                                        <input type="text" name="lwbp1_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['lwbp1_visual']}}">
+                                                                                                    </div>
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Stand Akhir LWBP2</label>
+                                                                                                        <input type="text" name="lwbp2_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['lwbp2_visual']}}">
+                                                                                                    </div>
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Stand Akhir WBP</label>
+                                                                                                        <input type="text" name="wbp_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['wbp_visual']}}">
+                                                                                                    </div>
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Stand Akhir KVARH</label>
+                                                                                                        <input type="text" name="kvarh_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['kvarh_visual']}}">
+                                                                                                    </div>
+                                                                                                    <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
+                                                                                                    <div class="clearfix"></div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="tab-pane" id="download">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <form action="{{route('input_listrik.store')}}" method="post">
+                                                                                    <input type="hidden" name="_method" value="POST">
+                                                                                    <input type="hidden" name="id" value="{{$jenis->id}}">
+                                                                                    <input type="hidden" name="tipe" value="{{$tipe}}">
+                                                                                    <input type="hidden" name="download" value="{{$jenis->id}}">
+                                                                                    {{ csrf_field() }}
+                                                                                    <div class="card">
+                                                                                        <div class="header">
+                                                                                            <h4 class="title">DOWNLOAD</h4>
+                                                                                        </div>
+                                                                                        <div class="content">
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-12">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Pemakaian KWH LWBP1</label>
+                                                                                                        <input type="text" name="lwbp1_download" class="form-control" placeholder="" value="{{$data['beli']['download']['lwbp1_download']}}">
+                                                                                                    </div>
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Pemakaian KWH LWBP2</label>
+                                                                                                        <input type="text" name="lwbp2_download" class="form-control" placeholder="" value="{{$data['beli']['download']['lwbp2_download']}}">
+                                                                                                    </div>
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Pemakaian KWH WBP</label>
+                                                                                                        <input type="text" name="wbp_download" class="form-control" placeholder="" value="{{$data['beli']['download']['wbp_download']}}">
+                                                                                                    </div>
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Pemakaian KWH KVARH</label>
+                                                                                                        <input type="text" name="kvarh_download" class="form-control" placeholder="" value="{{$data['beli']['download']['kvarh_download']}}">
+                                                                                                    </div>
+                                                                                                    <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
+                                                                                                    <div class="clearfix"></div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane" id="jual">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <form action="{{route('input_listrik.store')}}" method="post">
+                                                                <input type="hidden" name="_method" value="POST">
+                                                                <input type="hidden" name="id" value="{{$jenis->id}}">
+                                                                <input type="hidden" name="tipe" value="{{$tipe}}">
+                                                                <input type="hidden" name="visual" value="{{$jenis->id}}">
+                                                                {{ csrf_field() }}
+
+                                                                <div class="card">
+                                                                    <div class="header">
+                                                                        <h4 class="title">Transaksi Jual</h4>
+                                                                    </div>
+                                                                    <div class="content">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <div class="form-group">
+                                                                                    <label>Total Pemakaian KWH</label>
+                                                                                    <input type="text" name="lwbp1_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['lwbp1_visual']}}">
+                                                                                </div>
+                                                                                <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
+                                                                                <div class="clearfix"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-
-                                        <div class="tab-content">
-                                            <div class="tab-pane active" id="visual">
-                                                <div class="row">
-
-                                                    <div class="col-md-12">
-                                                        <div class="tab-content">
-                                                            <div class="tab-pane active" id="meter-utama">
-                                                                <form action="{{route('input_listrik.store')}}" method="post">
-                                                                    <input type="hidden" name="_method" value="POST">
-                                                                    <input type="hidden" name="id" value="{{$jenis->id}}">
-                                                                    <input type="hidden" name="tipe" value="{{$tipe}}">
-                                                                    <input type="hidden" name="visual" value="{{$jenis->id}}">
-                                                                    {{ csrf_field() }}
-
-                                                                    <div class="card">
-                                                                        <div class="header">
-                                                                            <h4 class="title">VISUAL</h4>
-                                                                        </div>
-                                                                        <div class="content">
-                                                                            <div class="row">
-                                                                                <div class="col-md-12">
-                                                                                    <div class="form-group">
-                                                                                        <label>Stand Akhir LWBP1</label>
-                                                                                        <input type="text" name="lwbp1_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['lwbp1_visual']}}">
-                                                                                    </div>
-                                                                                    <div class="form-group">
-                                                                                        <label>Stand Akhir LWBP2</label>
-                                                                                        <input type="text" name="lwbp2_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['lwbp2_visual']}}">
-                                                                                    </div>
-                                                                                    <div class="form-group">
-                                                                                        <label>Stand Akhir WBP</label>
-                                                                                        <input type="text" name="wbp_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['wbp_visual']}}">
-                                                                                    </div>
-                                                                                    <div class="form-group">
-                                                                                        <label>Stand Akhir KVARH</label>
-                                                                                        <input type="text" name="kvarh_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['kvarh_visual']}}">
-                                                                                    </div>
-                                                                                    <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
-                                                                                    <div class="clearfix"></div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div> <!-- end tab content -->
-
-                                                    </div> <!-- end col-md-8 -->
-
-                                                </div>
-                                            </div>
-
-                                            <div class="tab-pane" id="download">
-                                                <div class="row">
-
-                                                    <div class="col-md-12">
-                                                        <div class="tab-content">
-                                                            <div class="tab-pane active" id="meter-utama">
-                                                                <form action="{{route('input_listrik.store')}}" method="post">
-                                                                    <input type="hidden" name="_method" value="POST">
-                                                                    <input type="hidden" name="id" value="{{$jenis->id}}">
-                                                                    <input type="hidden" name="tipe" value="{{$tipe}}">
-                                                                    <input type="hidden" name="download" value="{{$jenis->id}}">
-                                                                    {{ csrf_field() }}
-                                                                    <div class="card">
-                                                                        <div class="header">
-                                                                            <h4 class="title">DOWNLOAD</h4>
-                                                                        </div>
-                                                                        <div class="content">
-                                                                            <div class="row">
-                                                                                <div class="col-md-12">
-                                                                                    <div class="form-group">
-                                                                                        <label>Pemakaian KWH LWBP1</label>
-                                                                                        <input type="text" name="lwbp1_download" class="form-control" placeholder="" value="{{$data['beli']['download']['lwbp1_download']}}">
-                                                                                    </div>
-                                                                                    <div class="form-group">
-                                                                                        <label>Pemakaian KWH LWBP2</label>
-                                                                                        <input type="text" name="lwbp2_download" class="form-control" placeholder="" value="{{$data['beli']['download']['lwbp2_download']}}">
-                                                                                    </div>
-                                                                                    <div class="form-group">
-                                                                                        <label>Pemakaian KWH WBP</label>
-                                                                                        <input type="text" name="wbp_download" class="form-control" placeholder="" value="{{$data['beli']['download']['wbp_download']}}">
-                                                                                    </div>
-                                                                                    <div class="form-group">
-                                                                                        <label>Pemakaian KWH KVARH</label>
-                                                                                        <input type="text" name="kvarh_download" class="form-control" placeholder="" value="{{$data['beli']['download']['kvarh_download']}}">
-                                                                                    </div>
-                                                                                    <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
-                                                                                    <div class="clearfix"></div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div> <!-- end tab content -->
-                                                    </div> <!-- end col-md-8 -->
-
-                                                </div>
-                                            </div>
-
-                                        </div> <!-- end tab content -->
-
-                                    </div> <!-- end col-md-8 -->
-
+                                    </div>
                                 </div>
                                 @endif
 
