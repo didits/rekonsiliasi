@@ -22,7 +22,9 @@ class CreatePenyimpananGi extends Migration
             $table->text('data_keluar');
             $table->timestamps();
             $table->foreign('id_gi')
-              ->references('id')->on('gi');
+                ->references('id')
+                ->on('gi')
+                ->onDelete('cascade');
         });
     }
 

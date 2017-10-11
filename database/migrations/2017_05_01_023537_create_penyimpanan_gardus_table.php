@@ -22,8 +22,9 @@ class CreatePenyimpananGardusTable extends Migration
             $table->text('data_keluar');
             $table->timestamps();
             $table->foreign('id_gardu')
-                  ->references('id')
-                  ->on('gardu');
+                ->references('id')
+                ->on('gardu')
+                ->onDelete('cascade');
         });
     }
 

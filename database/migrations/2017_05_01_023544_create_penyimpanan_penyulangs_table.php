@@ -22,7 +22,9 @@ class CreatePenyimpananPenyulangsTable extends Migration
             $table->text('data_keluar');
             $table->timestamps();
             $table->foreign('id_penyulang')
-              ->references('id')->on('penyulang');
+                ->references('id')
+                ->on('penyulang')
+                ->onDelete('cascade');
         });
     }
 

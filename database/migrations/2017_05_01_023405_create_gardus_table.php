@@ -23,7 +23,8 @@ class CreateGardusTable extends Migration
             $table->timestamps();
             $table->foreign('id_organisasi')
                 ->references('id')
-                ->on('organisasi');
+                ->on('organisasi')
+                ->onDelete('cascade');
         });
 
         Schema::dropIfExists('trafo_gi');
@@ -37,10 +38,12 @@ class CreateGardusTable extends Migration
             $table->timestamps();
             $table->foreign('id_organisasi')
                 ->references('id')
-                ->on('organisasi');
+                ->on('organisasi')
+                ->onDelete('cascade');
             $table->foreign('id_gi')
                 ->references('id')
-                ->on('gi');
+                ->on('gi')
+                ->onDelete('cascade');
         });
 
         Schema::dropIfExists('penyulang');
@@ -54,10 +57,12 @@ class CreateGardusTable extends Migration
             $table->timestamps();
             $table->foreign('id_organisasi')
                 ->references('id')
-                ->on('organisasi');
+                ->on('organisasi')
+                ->onDelete('cascade');
             $table->foreign('id_trafo_gi')
                 ->references('id')
-                ->on('trafo_gi');
+                ->on('trafo_gi')
+                ->onDelete('cascade');
         });
 
         Schema::dropIfExists('gardu');
@@ -72,10 +77,12 @@ class CreateGardusTable extends Migration
             $table->timestamps();
             $table->foreign('id_organisasi')
                 ->references('id')
-                ->on('organisasi');
+                ->on('organisasi')
+                ->onDelete('cascade');
             $table->foreign('id_penyulang')
                 ->references('id')
-                ->on('penyulang');
+                ->on('penyulang')
+                ->onDelete('cascade');
         });
 
         Schema::dropIfExists('transfer');
@@ -89,16 +96,20 @@ class CreateGardusTable extends Migration
 
             $table->foreign('id_organisasi')
                 ->references('id')
-                ->on('organisasi');
+                ->on('organisasi')
+                ->onDelete('cascade');
             $table->foreign('id_gi')
                 ->references('id')
-                ->on('gi');
+                ->on('gi')
+                ->onDelete('cascade');
             $table->foreign('id_trafo_gi')
                 ->references('id')
-                ->on('trafo_gi');
+                ->on('trafo_gi')
+                ->onDelete('cascade');
             $table->foreign('id_penyulang')
                 ->references('id')
-                ->on('penyulang');
+                ->on('penyulang')
+                ->onDelete('cascade');
         });
     }
 
