@@ -22,7 +22,9 @@ class CreatePenyimpananTrafoGi extends Migration
             $table->text('data_keluar');
             $table->timestamps();
             $table->foreign('id_trafo_gi')
-              ->references('id')->on('trafo_gi');
+                ->references('id')
+                ->on('trafo_gi')
+                ->onDelete('cascade');
         });
     }
 
