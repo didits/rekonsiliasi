@@ -267,6 +267,9 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="card">
+                                                <div class="header">
+                                                    <h4 class="title">Tegangan & Kapasitas</h4>
+                                                </div>
                                                 <div class="content">
                                                     {{--KAPASITAS LAM--}}
                                                     <form action="{{route('input_datamaster.store')}}" method="post">
@@ -302,7 +305,6 @@
                                     </div>
 
                                     <div class="row">
-
                                         <div class="col-md-12">
                                             <div class="nav-container">
                                                 <ul class="nav nav-icons" role="tablist">
@@ -1195,228 +1197,259 @@
 
                                     <div class="row">
                                         <div class="col-md-12">
-                                            {{--<div class="tab-content">--}}
-                                            <div class="tab-pane active" id="meter-utama">
-                                                <div class="content" id="kwhmeter">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="card">
-                                                                <div class="header">
-                                                                    <h4 class="title">KWH Meter</h4>
-                                                                    {{--<p class="category">Data KWH Meter</p>--}}
-                                                                </div>
-                                                                <div class="content">
-                                                                    <form action="{{route('input_datamaster.store')}}" method="post">
-                                                                        <input type="hidden" name="_method" value="POST">
-                                                                        <input type="hidden" name="tipe" value="KWH">
-                                                                        {{--@if($id_gi)--}}
-                                                                        {{--@elif($id_trafo_gi)--}}
-                                                                        {{--@endif--}}
-                                                                        @if($id_gi)
-                                                                            <input type="hidden" name="idgardu" value={{$gi->id}}>
-                                                                            <input type="hidden" name="form_gi" value={{$gi->id}}>
-                                                                        @elseif($id_penyulang)
-                                                                            <input type="hidden" name="idpenyulang" value={{$penyulang->id}}>
-                                                                            <input type="hidden" name="form_penyulang" value={{$penyulang->id}}>
-                                                                        @elseif($id_gardu)
-                                                                            <input type="hidden" name="idgardu" value={{$gardu->id}}>
-                                                                            <input type="hidden" name="form_gardu" value={{$gardu->id}}>
-                                                                        @endif
-                                                                        {{--{{dd($gardu)}}--}}
-                                                                        {{ csrf_field() }}
+                                            <div class="card">
+                                                <div class="header">
+                                                    <h4 class="title">Tegangan Ujung</h4>
+                                                </div>
+                                                <div class="content">
+                                                    {{--KAPASITAS LAM--}}
+                                                    <form action="{{route('input_datamaster.store')}}" method="post">
+                                                        <input type="hidden" name="_method" value="POST">
+                                                        <input type="hidden" name="tipe" value="tegangan">
+                                                        <input type="hidden" name="idtrafo_gi" value={{$penyulang->id}}>
+                                                        <input type="hidden" name="form_trafogi" value="{{$penyulang->id}}">
+                                                        <input type="hidden" name="form_kapasitas" value="{{$penyulang->id}}">
+                                                        {{ csrf_field() }}
 
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="form-group">
-                                                                                    <label>Merk</label>
-                                                                                    <input type="text" name="merk" class="form-control" placeholder="Merk" value="{{$decoded['KWH']['merk']}}">
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="form-group">
-                                                                                    <label>Nomor Seri</label>
-                                                                                    <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="{{$decoded['KWH']['nomorseri']}}">
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="form-group">
-                                                                                    <label>Konstanta</label>
-                                                                                    <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="{{$decoded['KWH']['konstanta']}}">
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="form-group">
-                                                                                    <label>Tegangan Arus</label>
-                                                                                    <input type="text" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{$decoded['KWH']['teganganarus']}}">
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
-                                                                        <div class="clearfix"></div>
-                                                                    </form>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label>Tegangan Ujung</label>
+                                                                    <input name="tegangan" type="text" class="form-control" placeholder="Tegangan" value="">
                                                                 </div>
                                                             </div>
+                                                            {{--<div class="col-md-6">--}}
+                                                                {{--<div class="form-group">--}}
+                                                                    {{--<label>Kapasitas</label>--}}
+                                                                    {{--<input name="kapasitas" type="text" class="form-control" placeholder="Kapasitas" value="">--}}
+                                                                {{--</div>--}}
+                                                            {{--</div>--}}
                                                         </div>
-                                                    </div>
+                                                        <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
+                                                        <div class="clearfix"></div>
+                                                    </form>
                                                 </div>
-                                                <div class="content" id="trafoarus">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="card">
-                                                                <div class="header">
-                                                                    <h4 class="title">Trafo Arus (CT)</h4>
-                                                                    {{--<p class="category">Data KWH Meter</p>--}}
-                                                                </div>
-                                                                {{--{{dd($decoded)}}--}}
-                                                                <div class="content">
-                                                                    <form action="{{route('input_datamaster.store')}}" method="post">
-                                                                        <input type="hidden" name="_method" value="POST">
-                                                                        <input type="hidden" name="tipe" value="TA">
-                                                                        @if($id_gi)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="content" id="kwhmeter">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="card">
+                                                            <div class="header">
+                                                                <h4 class="title">KWH Meter</h4>
+                                                                {{--<p class="category">Data KWH Meter</p>--}}
+                                                            </div>
+                                                            <div class="content">
+                                                                <form action="{{route('input_datamaster.store')}}" method="post">
+                                                                    <input type="hidden" name="_method" value="POST">
+                                                                    <input type="hidden" name="tipe" value="KWH">
+                                                                    {{--@if($id_gi)--}}
+                                                                    {{--@elif($id_trafo_gi)--}}
+                                                                    {{--@endif--}}
+                                                                    @if($id_gi)
                                                                         <input type="hidden" name="idgardu" value={{$gi->id}}>
-                                                                        <input type="hidden" name="form_gi" value="{{$gi->id}}">
-                                                                        @elseif($id_penyulang)
+                                                                        <input type="hidden" name="form_gi" value={{$gi->id}}>
+                                                                    @elseif($id_penyulang)
                                                                         <input type="hidden" name="idpenyulang" value={{$penyulang->id}}>
                                                                         <input type="hidden" name="form_penyulang" value={{$penyulang->id}}>
-                                                                        @elseif($id_gardu)
+                                                                    @elseif($id_gardu)
                                                                         <input type="hidden" name="idgardu" value={{$gardu->id}}>
                                                                         <input type="hidden" name="form_gardu" value={{$gardu->id}}>
-                                                                        @endif
-                                                                        {{ csrf_field() }}
+                                                                    @endif
+                                                                    {{--{{dd($gardu)}}--}}
+                                                                    {{ csrf_field() }}
 
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="form-group">
-                                                                                    <label>Ratio</label>
-                                                                                    <input type="text" name="ratioct" class="form-control" placeholder="Ratio" value="{{$decoded['TA']['ratioct']}}">
-                                                                                </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <label>Merk</label>
+                                                                                <input type="text" name="merk" class="form-control" placeholder="Merk" value="{{$decoded['KWH']['merk']}}">
                                                                             </div>
                                                                         </div>
+                                                                    </div>
 
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="form-group">
-                                                                                    <label>Burden (VA)</label>
-                                                                                    <input type="text" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{$decoded['TA']['burdenct']}}">
-                                                                                </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <label>Nomor Seri</label>
+                                                                                <input type="text" name="noseri" class="form-control" placeholder="Nomor Seri" value="{{$decoded['KWH']['nomorseri']}}">
                                                                             </div>
                                                                         </div>
+                                                                    </div>
 
-                                                                        <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
-                                                                        <div class="clearfix"></div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="content" id="trafotegangan">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="card">
-                                                                <div class="header">
-                                                                    <h4 class="title">Trafo Tegangan (PT)</h4>
-                                                                    {{--<p class="category">Data KWH Meter</p>--}}
-                                                                </div>
-                                                                <div class="content">
-                                                                    <form action="{{route('input_datamaster.store')}}" method="post">
-                                                                        <input type="hidden" name="_method" value="POST">
-                                                                        <input type="hidden" name="tipe" value="TT">
-                                                                        @if($id_gi)
-                                                                            <input type="hidden" name="idgardu" value={{$gi->id}}>
-                                                                            <input type="hidden" name="form_gi" value="{{$gi->id}}">
-                                                                        @elseif($id_penyulang)
-                                                                            <input type="hidden" name="idpenyulang" value={{$penyulang->id}}>
-                                                                            <input type="hidden" name="form_penyulang" value={{$penyulang->id}}>
-                                                                        @elseif($id_gardu)
-                                                                            <input type="hidden" name="idgardu" value={{$gardu->id}}>
-                                                                            <input type="hidden" name="form_gardu" value={{$gardu->id}}>
-                                                                        @endif
-                                                                        {{ csrf_field() }}
-
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="form-group">
-                                                                                    <label>Ratio</label>
-                                                                                    <input type="text" name="ratiopt" class="form-control" placeholder="Ratio" value="{{$decoded['TT']['ratiopt']}}">
-                                                                                </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <label>Konstanta</label>
+                                                                                <input type="text" name="konstanta" class="form-control" placeholder="Konstanta" value="{{$decoded['KWH']['konstanta']}}">
                                                                             </div>
                                                                         </div>
+                                                                    </div>
 
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="form-group">
-                                                                                    <label>Burden (VA)</label>
-                                                                                    <input type="text" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{$decoded['TT']['burdenpt']}}">
-                                                                                </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <label>Tegangan Arus</label>
+                                                                                <input type="text" name="teganganarus" class="form-control" placeholder="Tegangan Arus" value="{{$decoded['KWH']['teganganarus']}}">
                                                                             </div>
                                                                         </div>
+                                                                    </div>
 
-                                                                        <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
-                                                                        <div class="clearfix"></div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="content" id="faktorkalimeter">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="card">
-                                                                <div class="header">
-                                                                    <h4 class="title">Faktor Kali Meter</h4>
-                                                                    {{--<p class="category">Data KWH Meter</p>--}}
-                                                                </div>
-
-                                                                <div class="content">
-                                                                    <form action="{{route('input_datamaster.store')}}" method="post">
-                                                                        <input type="hidden" name="_method" value="POST">
-                                                                        <input type="hidden" name="tipe" value="FK">
-                                                                        @if($id_gi)
-                                                                            <input type="hidden" name="idgardu" value={{$gi->id}}>
-                                                                            <input type="hidden" name="form_gi" value="{{$gi->id}}">
-                                                                        @elseif($id_penyulang)
-                                                                            <input type="hidden" name="idpenyulang" value={{$penyulang->id}}>
-                                                                            <input type="hidden" name="form_penyulang" value={{$penyulang->id}}>
-                                                                        @elseif($id_gardu)
-                                                                            <input type="hidden" name="idgardu" value={{$gardu->id}}>
-                                                                            <input type="hidden" name="form_gardu" value={{$gardu->id}}>
-                                                                        @endif
-                                                                        {{ csrf_field() }}
-
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="form-group">
-                                                                                    <label>Faktor Kali Meter</label>
-                                                                                    <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{$decoded['FK']['faktorkali']}}">
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
-                                                                        <div class="clearfix"></div>
-                                                                    </form>
-                                                                </div>
+                                                                    <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
+                                                                    <div class="clearfix"></div>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="content" id="trafoarus">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="card">
+                                                            <div class="header">
+                                                                <h4 class="title">Trafo Arus (CT)</h4>
+                                                                {{--<p class="category">Data KWH Meter</p>--}}
+                                                            </div>
+                                                            {{--{{dd($decoded)}}--}}
+                                                            <div class="content">
+                                                                <form action="{{route('input_datamaster.store')}}" method="post">
+                                                                    <input type="hidden" name="_method" value="POST">
+                                                                    <input type="hidden" name="tipe" value="TA">
+                                                                    @if($id_gi)
+                                                                    <input type="hidden" name="idgardu" value={{$gi->id}}>
+                                                                    <input type="hidden" name="form_gi" value="{{$gi->id}}">
+                                                                    @elseif($id_penyulang)
+                                                                    <input type="hidden" name="idpenyulang" value={{$penyulang->id}}>
+                                                                    <input type="hidden" name="form_penyulang" value={{$penyulang->id}}>
+                                                                    @elseif($id_gardu)
+                                                                    <input type="hidden" name="idgardu" value={{$gardu->id}}>
+                                                                    <input type="hidden" name="form_gardu" value={{$gardu->id}}>
+                                                                    @endif
+                                                                    {{ csrf_field() }}
 
-                                            {{--</div> <!-- end tab content -->--}}
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <label>Ratio</label>
+                                                                                <input type="text" name="ratioct" class="form-control" placeholder="Ratio" value="{{$decoded['TA']['ratioct']}}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
 
-                                        </div> <!-- end col-md-8 -->
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <label>Burden (VA)</label>
+                                                                                <input type="text" name="burdenct" class="form-control" placeholder="Burden (VA)" value="{{$decoded['TA']['burdenct']}}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
+                                                                    <div class="clearfix"></div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="content" id="trafotegangan">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="card">
+                                                            <div class="header">
+                                                                <h4 class="title">Trafo Tegangan (PT)</h4>
+                                                                {{--<p class="category">Data KWH Meter</p>--}}
+                                                            </div>
+                                                            <div class="content">
+                                                                <form action="{{route('input_datamaster.store')}}" method="post">
+                                                                    <input type="hidden" name="_method" value="POST">
+                                                                    <input type="hidden" name="tipe" value="TT">
+                                                                    @if($id_gi)
+                                                                        <input type="hidden" name="idgardu" value={{$gi->id}}>
+                                                                        <input type="hidden" name="form_gi" value="{{$gi->id}}">
+                                                                    @elseif($id_penyulang)
+                                                                        <input type="hidden" name="idpenyulang" value={{$penyulang->id}}>
+                                                                        <input type="hidden" name="form_penyulang" value={{$penyulang->id}}>
+                                                                    @elseif($id_gardu)
+                                                                        <input type="hidden" name="idgardu" value={{$gardu->id}}>
+                                                                        <input type="hidden" name="form_gardu" value={{$gardu->id}}>
+                                                                    @endif
+                                                                    {{ csrf_field() }}
+
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <label>Ratio</label>
+                                                                                <input type="text" name="ratiopt" class="form-control" placeholder="Ratio" value="{{$decoded['TT']['ratiopt']}}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <label>Burden (VA)</label>
+                                                                                <input type="text" name="burdenpt" class="form-control" placeholder="Burden (VA)" value="{{$decoded['TT']['burdenpt']}}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
+                                                                    <div class="clearfix"></div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="content" id="faktorkalimeter">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="card">
+                                                            <div class="header">
+                                                                <h4 class="title">Faktor Kali Meter</h4>
+                                                                {{--<p class="category">Data KWH Meter</p>--}}
+                                                            </div>
+
+                                                            <div class="content">
+                                                                <form action="{{route('input_datamaster.store')}}" method="post">
+                                                                    <input type="hidden" name="_method" value="POST">
+                                                                    <input type="hidden" name="tipe" value="FK">
+                                                                    @if($id_gi)
+                                                                        <input type="hidden" name="idgardu" value={{$gi->id}}>
+                                                                        <input type="hidden" name="form_gi" value="{{$gi->id}}">
+                                                                    @elseif($id_penyulang)
+                                                                        <input type="hidden" name="idpenyulang" value={{$penyulang->id}}>
+                                                                        <input type="hidden" name="form_penyulang" value={{$penyulang->id}}>
+                                                                    @elseif($id_gardu)
+                                                                        <input type="hidden" name="idgardu" value={{$gardu->id}}>
+                                                                        <input type="hidden" name="form_gardu" value={{$gardu->id}}>
+                                                                    @endif
+                                                                    {{ csrf_field() }}
+
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <label>Faktor Kali Meter</label>
+                                                                                <input type="number" name="faktorkali" class="form-control" placeholder="Faktor Kali" value="{{$decoded['FK']['faktorkali']}}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
+                                                                    <div class="clearfix"></div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     @endif
 
@@ -1453,15 +1486,7 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label>Alamat</label>
-                                                                        @if($gi)
-                                                                            <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$gi->alamat_gi}}">
-                                                                        @elseif($trafo_gi)
-                                                                            <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$trafo_gi->alamat_trafo_gi}}">
-                                                                        @elseif($penyulang)
-                                                                            <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$penyulang->alamat_penyulang}}">
-                                                                        @elseif($gardu)
-                                                                            <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$gardu->alamat_gardu}}">
-                                                                        @endif
+                                                                        <input type="text" class="form-control" disabled="" placeholder="Alamat" value="{{$penyulang->alamat_penyulang}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
