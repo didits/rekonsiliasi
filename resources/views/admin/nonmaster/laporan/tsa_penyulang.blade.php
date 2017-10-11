@@ -77,6 +77,7 @@
                                             <th colspan="3" class="text-center">GARDU INDUK (GI)</th>
                                             <th rowspan="3" class="text-center">NAMA PENYULANG</th >
                                             <th colspan="6" class="text-center">KWH SALUR</th>
+                                            <th rowspan="3" class="text-center">TEGANGAN<br/>UJUNG</th>
                                             <th rowspan="3" class="text-center">UP/UPJ</th>
                                             <th rowspan="3" class="text-center">KWH PENYULANG BULAN LALU</th>
                                             <th colspan="2" rowspan="2" class="text-center">NAIK/TURUN</th>
@@ -126,6 +127,7 @@
                                             <td>{{number_format($data_gi[$i]['total_kwh'],0)}}</td>
                                             <td>-</td>
                                             <td>{{number_format($data_gi[$i]['KW'],0)}}</td>
+                                            <td>TEGANGAN<br/>UJUNG</td>
                                             <td class="text-left">-</td>
                                             <td>{{number_format($data_gi[$i]['KWH_lalu'],0)}}</td>
                                             <td>{{number_format($data_gi[$i]['KWH'],0)}}</td>
@@ -142,6 +144,7 @@
                                             <td><b>{{number_format($data_jumlah[$j]['total_kwh'],0)}}</b></td>
                                             <td><b>-</b></td>
                                             <td><b>{{number_format($data_jumlah[$j]['KW'],0)}}</b></td>
+                                            <td class="text-left"><b></b></td>
                                             <td class="text-left"><b></b></td>
                                             <td><b>{{number_format($data_jumlah[$j]['KWH_lalu'],0)}}</b></td>
                                             <td><b>{{number_format($data_jumlah[$j]['KWH'],0)}}</b></td>
@@ -161,6 +164,7 @@
                                             <th class="text-right"><b>{{number_format($total_jumlah['total_kwh'],0)}}</b></th>
                                             <th class="text-right"><b></b></th>
                                             <th class="text-right"><b>{{number_format($total_jumlah['KW'],0)}}</b></th>
+                                            <th class="text-center"><b></b></th>
                                             <th class="text-center"><b></b></th>
                                             <th class="text-right"><b>{{number_format($total_jumlah['KWH_lalu'],0)}}</b></th>
                                             <th class="text-right"><b>{{number_format($total_jumlah['KWH'],0)}}</b></th>
@@ -201,6 +205,7 @@
                                                     <td>{{number_format($data_gi[$gi][$py]['total_kwh'],0)}}</td>
                                                     <td>-</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['KW'],0)}}</td>
+                                                    <td>TEGANGAN<br/>UJUNG</td>
                                                     <td class="text-left">-</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['KWH_lalu'],0)}}</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['KWH'],0)}}</td>
@@ -219,6 +224,7 @@
                                             <td><b>{{number_format($data_jumlah[$gi][$tr]['total_kwh'],0)}}</b></td>
                                             <td><b>-</b></td>
                                             <td><b>{{number_format($data_jumlah[$gi][$tr]['KW'],0)}}</b></td>
+                                            <td class="text-left"><b></b></td>
                                             <td class="text-left"><b></b></td>
                                             <td><b>{{number_format($data_jumlah[$gi][$tr]['KWH_lalu'],0)}}</b></td>
                                             <td><b>{{number_format($data_jumlah[$gi][$tr]['KWH'],0)}}</b></td>
@@ -239,6 +245,7 @@
                                         <th class="text-right"><b>{{number_format($total_jumlah['total_kwh'],0)}}</b></th>
                                         <th class="text-right"><b></b></th>
                                         <th class="text-right"><b>{{number_format($total_jumlah['KW'],0)}}</b></th>
+                                        <th class="text-center"><b></b></th>
                                         <th class="text-center"><b></b></th>
                                         <th class="text-right"><b>{{number_format($total_jumlah['KWH_lalu'],0)}}</b></th>
                                         <th class="text-right"><b>{{number_format($total_jumlah['KWH'],0)}}</b></th>
