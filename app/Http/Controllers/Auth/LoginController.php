@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Organisasi;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -35,5 +36,23 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
+    }
+
+    public function showLoginForm()
+    {
+        return view('auth.login', [
+            'dropdown_area'=>$this->populateArea()
+        ]);
+    }
+
+    public function populateArea()
+    {
+        $dropdown_area = Organisasi::select('id_organisasi', 'nama_organisasi', 'tipe_organisasi')->orderBy("nama_organisasi")->get();
+        return $dropdown_area;
+    }
+
+    public function username()
+    {
+        return 'id_organisasi';
     }
 }
