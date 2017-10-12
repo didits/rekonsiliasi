@@ -78,7 +78,7 @@
                                             <th rowspan="3" class="text-center">NAMA PENYULANG</th >
                                             <th colspan="6" class="text-center">KWH SALUR</th>
                                             <th rowspan="3" class="text-center">TEGANGAN<br/>UJUNG</th>
-                                            <th rowspan="3" class="text-center">UP/UPJ</th>
+                                            <th rowspan="3" class="text-center">RAYON</th>
                                             <th rowspan="3" class="text-center">KWH PENYULANG BULAN LALU</th>
                                             <th colspan="2" rowspan="2" class="text-center">NAIK/TURUN</th>
                                         </tr>
@@ -128,7 +128,7 @@
                                             <td>-</td>
                                             <td>{{number_format($data_gi[$i]['KW'],0)}}</td>
                                             <td>{{number_format($data_gi[$i]['ujung'],0)}}</td>
-                                            <td class="text-left">-</td>
+                                            <td class="text-left">RAYON</td>
                                             <td>{{number_format($data_gi[$i]['KWH_lalu'],0)}}</td>
                                             <td>{{number_format($data_gi[$i]['KWH'],0)}}</td>
                                             <td>{{number_format($data_gi[$i]['persen'],2)}}</td>

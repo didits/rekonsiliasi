@@ -92,6 +92,7 @@ class Laporan extends Controller
         for ($i=0; $i < count($trafo); $i++) {
             $py = Penyulang::where('id_trafo_gi',$trafo[$i]['id'])->get();
             for ($j=0; $j < count($py); $j++) {
+                echo (($py[$j]->id_organisasi));
                 $penyulang = PenyimpananPenyulang::where([
                     ['id_penyulang', $py[$j]['id']],
                     ['periode', date("Ym")-1]
@@ -106,12 +107,14 @@ class Laporan extends Controller
                 if(count($penyulang_) >0)
                     $dt_ = $penyulang_[0]['data'];
                 else $dt_ = "";
+//                dd($py[$j]->toArray());
                 $dtpenyulang = array(
                     'nama' => $py[$j]['nama_penyulang'],
                     'data_master' => $py[$j]['data_master'],
                     'data' => $dt,
                     'data_' => $dt_,
                     'id_penyulang' => $py[$j]['id'],
+                    'id_org' => $py[$j]['id_organisasi'],
                     'id_trafo' => $py[$j]['id_trafo_gi'],
                 );
                 array_push($penyulang_array,$dtpenyulang);
@@ -343,8 +346,10 @@ class Laporan extends Controller
 
     public function data_tsa($id_organisasi,$tipe,$data_gi){
         $cmb = new MasterLaporan($id_organisasi,$tipe,$data_gi->id);
+//        dd($cmb);
         if($cmb){
             $penyulang_array =$this->data_penyulang($cmb->trafo);
+            dd($penyulang_array);
             $list_array = $this->total_pemakaian_energi($cmb->id, $penyulang_array);
             $list_p = array();
             $jumlah_trafo = array();
@@ -372,7 +377,7 @@ class Laporan extends Controller
                             $KWH_salur_wbp = intval((($A_wbp/$B*$C/1) + 0.5 )*1);
 
 
-//                            dd($penyulang_array[$j]['id_penyulang']);
+                            dd($penyulang_array[$j]);
                             //      INI DITANYAIN BIKIN FORM ATAU TIDAK??? KALO IYA DIMASUKIN ke Penyimpanan Trafo GI
                             $daya_konsiden_utama = (json_decode($p_trafo_['data'],true)['beli']['utama']['download']['konsiden_download']);
                             $daya_konsiden_ps = (json_decode($p_trafo_['data'],true)['beli']['ps']['visual']['konsiden_visual']);
@@ -423,6 +428,7 @@ class Laporan extends Controller
                                 'lwbp2' => $KWH_salur_lwbp2,
                                 'wbp'   => $KWH_salur_wbp,
                                 'total_kwh' => $total_kwh,
+                                'rayon' => $total_kwh,
                                 'KW' => $KW,
                                 'KWH'   => $KWH,
                                 'KWH_lalu'   => $KWH_bulan_lalu,
@@ -529,7 +535,7 @@ class Laporan extends Controller
                     }
                   }
             }
-//            dd($tsa);
+            dd($tsa);
 
             $tot_lwbp1 = $tot_lwbp2 = $tot_wbp =$tot_t_kwh = $tot_KW = $tot_KWH = $tot_KWH_lalu=$tot_persen= null;
             for($i=0;$i < count($jumlah_trafo);$i++){
