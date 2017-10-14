@@ -486,7 +486,7 @@
                                                             <input type="hidden" name="_method" value="POST">
                                                             <input type="hidden" name="id" value="{{$jenis->id}}">
                                                             <input type="hidden" name="tipe" value="{{$tipe}}">
-                                                            <input type="hidden" name="visual" value="{{$jenis->id}}">
+                                                            <input type="hidden" name="jual" value="{{$jenis->id}}">
                                                             {{ csrf_field() }}
 
                                                             <div class="card">
@@ -498,7 +498,8 @@
                                                                         <div class="col-md-12">
                                                                             <div class="form-group">
                                                                                 <label>Total Pemakaian KWH</label>
-                                                                                <input type="text" name="total_pemakaian_kwh" class="form-control" placeholder="" value="">
+                                                                                {{--<input type="text" name="tpe_jual" class="form-control" placeholder="" value="">--}}
+                                                                                <input type="text" name="tpe_jual" class="form-control" placeholder="" value="{{$data['jual']['total_kwh_jual']}}">
                                                                             </div>
                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                             <div class="clearfix"></div>
@@ -1002,7 +1003,7 @@
                                                                 <input type="hidden" name="_method" value="POST">
                                                                 <input type="hidden" name="id" value="{{$jenis->id}}">
                                                                 <input type="hidden" name="tipe" value="{{$tipe}}">
-                                                                <input type="hidden" name="visual" value="{{$jenis->id}}">
+                                                                <input type="hidden" name="jual" value="{{$jenis->id}}">
                                                                 {{ csrf_field() }}
 
                                                                 <div class="card">
@@ -1014,7 +1015,8 @@
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label>Total Pemakaian KWH</label>
-                                                                                    <input type="text" name="total_pemakaian_kwh" class="form-control" placeholder="" value="">
+                                                                                    <input type="text" name="tpe_jual" class="form-control" placeholder="" value="">
+                                                                                    {{--<input type="text" name="tpe_jual" class="form-control" placeholder="" value="{{$data['jual']['total_kwh_jual']}}">--}}
                                                                                 </div>
                                                                                 <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                 <div class="clearfix"></div>

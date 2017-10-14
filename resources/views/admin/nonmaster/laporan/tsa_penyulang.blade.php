@@ -78,9 +78,12 @@
                                             <th rowspan="3" class="text-center">NAMA PENYULANG</th >
                                             <th colspan="6" class="text-center">KWH SALUR</th>
                                             <th rowspan="3" class="text-center">TEGANGAN<br/>UJUNG</th>
-                                            <th rowspan="3" class="text-center">RAYON</th>
                                             <th rowspan="3" class="text-center">KWH PENYULANG BULAN LALU</th>
                                             <th colspan="2" rowspan="2" class="text-center">NAIK/TURUN</th>
+                                            <th rowspan="3" class="text-center">KWH JUAL</th>
+                                            <th rowspan="3" class="text-center">KWH SUSUT</th>
+                                            <th rowspan="3" class="text-center">LOSSES(%)</th>
+                                            <th rowspan="3" class="text-center">RAYON</th>
                                         </tr>
                                         <tr>
                                             <th rowspan="2" class="text-center">NAMA</th>
@@ -103,7 +106,6 @@
                                     @if($trafo)
                                     <tbody>
                                         @for($j=0;$j<count($trafo);$j++)
-
                                             <div style="display: none;">{{$flag=true}}</div>
                                         @for($i=0;$i<count($data_gi);$i++)
                                         <tr class="text-right">
@@ -128,10 +130,13 @@
                                             <td>-</td>
                                             <td>{{number_format($data_gi[$i]['KW'],0)}}</td>
                                             <td>{{number_format($data_gi[$i]['ujung'],0)}}</td>
-                                            <td class="text-left">RAYON</td>
                                             <td>{{number_format($data_gi[$i]['KWH_lalu'],0)}}</td>
                                             <td>{{number_format($data_gi[$i]['KWH'],0)}}</td>
                                             <td>{{number_format($data_gi[$i]['persen'],2)}}</td>
+                                            <td>{{number_format($data_gi[$i]['persen'],2)}}</td>
+                                            <td>{{number_format($data_gi[$i]['persen'],2)}}</td>
+                                            <td>{{number_format($data_gi[$i]['persen'],2)}}</td>
+                                            <td class="text-left">{{$data_gi[$i]['rayon']}}</td>
                                             @endif
                                         </tr>
                                         @endfor
@@ -206,7 +211,7 @@
                                                     <td>-</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['KW'],0)}}</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['ujung'],0)}}</td>
-                                                    <td class="text-left">-</td>
+                                                    <td class="text-left">{{$data_gi[$gi][$py]['rayon']}}</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['KWH_lalu'],0)}}</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['KWH'],0)}}</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['persen'],2)}}</td>

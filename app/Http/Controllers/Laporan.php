@@ -32,7 +32,7 @@ class Laporan extends Controller
     		array_push($data_hasil_pengolahan_penyulang, $penyulang);
     	}
 
-    	dd($data_hasil_pengolahan_penyulang);
+//    	dd($data_hasil_pengolahan_penyulang);
 
     	$total_penyulang_visual = array(
             'lwbp1_visual' => $request->lwbp1_visual,
@@ -90,9 +90,9 @@ class Laporan extends Controller
     public function data_penyulang($trafo){
         $penyulang_array = array();
         for ($i=0; $i < count($trafo); $i++) {
-            $py = Penyulang::where('id_trafo_gi',$trafo[$i]['id'])->get();
+            $py = Penyulang::select('nama_penyulang','id_organisasi as id_org' ,'data_master','id','id_trafo_gi')->where('id_trafo_gi',$trafo[$i]['id'])->get();
             for ($j=0; $j < count($py); $j++) {
-                echo (($py[$j]->id_organisasi));
+                $org = Organisasi::select('nama_organisasi')->where('id',$py[$j]['id_org'])->first();
                 $penyulang = PenyimpananPenyulang::where([
                     ['id_penyulang', $py[$j]['id']],
                     ['periode', date("Ym")-1]
@@ -114,7 +114,7 @@ class Laporan extends Controller
                     'data' => $dt,
                     'data_' => $dt_,
                     'id_penyulang' => $py[$j]['id'],
-                    'id_org' => $py[$j]['id_organisasi'],
+                    'nama_org' => $org->nama_organisasi,
                     'id_trafo' => $py[$j]['id_trafo_gi'],
                 );
                 array_push($penyulang_array,$dtpenyulang);
@@ -349,7 +349,6 @@ class Laporan extends Controller
 //        dd($cmb);
         if($cmb){
             $penyulang_array =$this->data_penyulang($cmb->trafo);
-            dd($penyulang_array);
             $list_array = $this->total_pemakaian_energi($cmb->id, $penyulang_array);
             $list_p = array();
             $jumlah_trafo = array();
@@ -362,22 +361,36 @@ class Laporan extends Controller
                 for($j=0;$j< count($penyulang_array);$j++){
                     if($trafo[$i]['id'] == $penyulang_array[$j]['id_trafo']){
                         if($p_trafo_){
-                            $A_lwbp1 = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['download']['lwbp1_download']-json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['lwbp1_visual']);
-                            $A_lwbp2 = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['download']['lwbp2_download']-json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['lwbp2_visual']);
-                            $A_wbp   = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['download']['wbp_download']-json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['wbp_visual']);
-                            $B = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']
-                                -json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']);
-                            $var =($list_array[$i]['total_pemakaian_energi_']);
-                            if($var==0)$var=1;
-                            if($B==0)$B=1;
-                            $C = $B/$var*(json_decode($penyulang_array[$j]['data_'],true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']);
-
+                            if(json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']>0){
+                                $A_lwbp1 = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['download']['lwbp1_download']-json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['lwbp1_visual']);
+                                $A_lwbp2 = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['download']['lwbp2_download']-json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['lwbp2_visual']);
+                                $A_wbp   = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['download']['wbp_download']-json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['wbp_visual']);
+                                $B = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']
+                                    -json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']);
+                                $var =($list_array[$i]['total_pemakaian_energi_']);
+                                if($var==0)$var=1;
+                                if($B==0)$B=1;
+                            }
+                            else{
+                                $A_lwbp1 = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['visual']['lwbp1_visual']-json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['lwbp1_visual']);
+                                $A_lwbp2 = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['visual']['lwbp2_visual']-json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['lwbp2_visual']);
+                                $A_wbp   = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['visual']['wbp_visual']-json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['wbp_visual']);
+                                $B = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['visual']['total_pemakaian_kwh_visual']
+                                    -json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']);
+                                $var =($list_array[$i]['total_pemakaian_energi_']);
+                                if($var==0)$var=1;
+                                if($B==0)$B=1;
+                            }
+                            if((json_decode($penyulang_array[$j]['data_'],true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download']>0))
+                                $C = $B/$var*(json_decode($penyulang_array[$j]['data_'],true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download']);
+                            else
+                                $C = $B/$var*(json_decode($penyulang_array[$j]['data_'],true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']);
+//
                             $KWH_salur_lwbp1 = intval((($A_lwbp1/$B*$C/1) + 0.5 )*1);
                             $KWH_salur_lwbp2 = intval((($A_lwbp2/$B*$C/1) + 0.5 )*1);
                             $KWH_salur_wbp = intval((($A_wbp/$B*$C/1) + 0.5 )*1);
 
 
-                            dd($penyulang_array[$j]);
                             //      INI DITANYAIN BIKIN FORM ATAU TIDAK??? KALO IYA DIMASUKIN ke Penyimpanan Trafo GI
                             $daya_konsiden_utama = (json_decode($p_trafo_['data'],true)['beli']['utama']['download']['konsiden_download']);
                             $daya_konsiden_ps = (json_decode($p_trafo_['data'],true)['beli']['ps']['visual']['konsiden_visual']);
@@ -423,18 +436,20 @@ class Laporan extends Controller
                                 'id_trafo' => $penyulang_array[$j]['id_trafo'],
                                 'nama_t' => $trafo[$i]['nama_trafo_gi'],
                                 'nama_p' => $penyulang_array[$j]['nama'],
-                                'ujung' => $ujung= json_decode($penyulang_array[0]['data_master'],true)['Tegangan']['tegangan'],
+                                'ujung' => json_decode($penyulang_array[$j]['data_master'],true)['Tegangan']['tegangan'],
                                 'lwbp1' => $KWH_salur_lwbp1,
                                 'lwbp2' => $KWH_salur_lwbp2,
                                 'wbp'   => $KWH_salur_wbp,
                                 'total_kwh' => $total_kwh,
-                                'rayon' => $total_kwh,
+                                'rayon' => $penyulang_array[$j]['nama_org'],
                                 'KW' => $KW,
                                 'KWH'   => $KWH,
                                 'KWH_lalu'   => $KWH_bulan_lalu,
+//                                'jual'   => json_decode($penyulang_array[$j]['data_'],true)['jual']['total_kwh_jual'],
                                 'persen' => $persen
                             );
                             array_push($list_p,$data_keluar);
+//                            dd(json_decode($penyulang_array[$j]['data_'],true)['jual']['total_kwh_jual']);
                         }
                         else {
 //                      Query
@@ -443,14 +458,16 @@ class Laporan extends Controller
                                 'id_trafo' => $penyulang_array[$j]['id_trafo'],
                                 'nama_t' => $trafo[$i]['nama_trafo_gi'],
                                 'nama_p' => $penyulang_array[$j]['nama'],
-                                'ujung' => $ujung= json_decode($penyulang_array[0]['data_master'],true)['Tegangan']['tegangan'],
+                                'ujung' => json_decode($penyulang_array[0]['data_master'],true)['Tegangan']['tegangan'],
                                 'lwbp1' => null,
                                 'lwbp2' => null,
                                 'wbp'   => null,
                                 'total_kwh' => null,
+                                'rayon' => $penyulang_array[$j]['nama_org'],
                                 'KW' => null,
                                 'KWH'   => null,
                                 'KWH_lalu'   => $KWH_bulan_lalu,
+                                'jual'   => null,
                                 'persen' => null
                             );
                             array_push($list_p,$data_keluar);
@@ -535,7 +552,6 @@ class Laporan extends Controller
                     }
                   }
             }
-            dd($tsa);
 
             $tot_lwbp1 = $tot_lwbp2 = $tot_wbp =$tot_t_kwh = $tot_KW = $tot_KWH = $tot_KWH_lalu=$tot_persen= null;
             for($i=0;$i < count($jumlah_trafo);$i++){

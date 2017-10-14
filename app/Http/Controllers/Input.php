@@ -112,6 +112,37 @@ class Input extends Controller
         //
     }
 
+    public function input_beli($tpe_jual,$id){
+        $diff =$this->json_dt($awal,$visual,$download,$tipe,$meter,$faktor_kali);
+        $dt = array(
+            'beli'=> $diff[0],
+            'hasil_pengolahan'=> $diff[1]
+        );
+        $update = $dt['beli'];
+        $olah = $dt['hasil_pengolahan'];
+        $akhir = PenyimpananTrafoGI::where('periode', date("Ym"))->where('id_trafo_gi', $id)->first();
+        $dt = array(
+            'beli'=> $diff[0],
+            'hasil_pengolahan'=> $diff[1]
+        );
+        $dt = array(
+            'utama'=>$akhir['beli']['utama'],
+            'pembanding'=>$update,
+            'ps'=>$akhir['beli']['ps']
+        );
+        $dt2 = array(
+            'utama'=>$akhir['hasil_pengolahan']['utama'],
+            'pembanding'=>$olah,
+            'ps'=>$akhir['hasil_pengolahan']['ps']
+        );
+        $dt = array(
+            'beli'=> $dt,
+            'hasil_pengolahan'=> $dt2
+        );
+
+//        dd($akhir);
+    }
+
     public function store(Request $request)
     {
         $date = date('Ym')- "1";
@@ -144,7 +175,6 @@ class Input extends Controller
             $data_listrik = PenyimpananGardu::where('periode', date('Ym'))->where('id_gardu', $request->id)->first();
         }
 
-//        dd($data_listrik);
         if($data_listrik){
             $decoded = json_decode($data_listrik->data,true);
             if($request->tipe=="pct") {
@@ -175,7 +205,7 @@ class Input extends Controller
                         'wbp_download' => $decoded['beli'][$meter]['download']['wbp_download'],
                         'kvarh_download' => $decoded['beli'][$meter]['download']['kvarh_download'],
                         'konsiden_download' => $decoded['beli'][$meter]['download']['konsiden_download']
-                     );
+                    );
                 }
                 elseif ($request->download){
                     $input_visual = array(
@@ -194,7 +224,7 @@ class Input extends Controller
                         'lwbp2_download' => $decoded['beli']['download']['lwbp2_download'],
                         'wbp_download' => $decoded['beli']['download']['wbp_download'],
                         'kvarh_download' => $decoded['beli']['download']['kvarh_download'],
-                        'konsiden_download' => $decoded['beli']['download']['konsiden_download']
+//                        'konsiden_download' => $decoded['beli']['download']['konsiden_download']
                     );
                 }
                 elseif ($request->download){
@@ -203,11 +233,12 @@ class Input extends Controller
                         'lwbp2_visual' => $decoded['beli']['visual']['lwbp2_visual'],
                         'wbp_visual' => $decoded['beli']['visual']['wbp_visual'],
                         'kvarh_visual' => $decoded['beli']['visual']['kvarh_visual'],
-                        'konsiden_visual' => $decoded['beli']['visual']['konsiden_visual']
+//                        'konsiden_visual' => $decoded['beli']['visual']['konsiden_visual']
                     );
                 }
             }
-            $data = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter);
+
+            $data = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter, $request->tpe_jual);
 //            dd($data);
             $data_listrik->data = json_encode($data);
             if($data_listrik->save());
@@ -219,51 +250,10 @@ class Input extends Controller
                 'visual' => $input_visual,
                 'download' => $input_download
             );
-            $data_olah = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter);
-
+            $data_olah = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter, $request->tpe_jual);
             if($request->tipe=="trafo_gi"){
-                $visual = array(
-                    'lwbp1_visual' => null,
-                    'lwbp2_visual' => null,
-                    'wbp_visual' => null,
-                    'kvarh_visual' => null,
-                    'konsiden_visual' => null,
-                );
-
-                $download = array(
-                    'lwbp1_download' => null,
-                    'lwbp2_download' => null,
-                    'wbp_download' => null,
-                    'kvarh_download' => null,
-                    'konsiden_download' => null,
-                );
-                $data2 = array(
-                    'visual' => $visual,
-                    'download' => $download
-                );
-
-                if($request->meter=="utama") {
-                    $data_input = array(
-                        'utama' => $data,
-                        'pembanding' => $data2,
-                        'ps' => $data2
-                    );
-                }
-                elseif($request->meter=="pembanding") {
-                    $data_input = array(
-                        'utama' => $data2,
-                        'pembanding' => $data,
-                        'ps' => $data2
-                    );
-                }
-                elseif($request->meter=="ps") {
-                    $data_input = array(
-                        'utama' => $data2,
-                        'pembanding' => $data2,
-                        'ps' =>  $data,
-                    );
-                }
                 $dt = $data_olah;
+//                dd($dt);
             }
             elseif($request->tipe=="pct"){
                 $visual = array(
@@ -338,7 +328,7 @@ class Input extends Controller
                 $data_awal = PenyimpananGardu::where('periode', $date)->where('id_gardu', $request->id)->first();
             }
             if($data_awal){
-                $data = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter);
+                $data = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter, $request->tpe_jual);
 //                dd($data);
                 $P->data = json_encode($data);
                 if ($P->save());
@@ -353,7 +343,7 @@ class Input extends Controller
         }
     }
 
-    public function olah_data($visual,$download,$id,$tipe,$meter){
+    public function olah_data($visual,$download,$id,$tipe,$meter,$jual){
         $date = date('Ym')- "1";
         $date_ = date('Ym');
         $boolean = true;
@@ -380,8 +370,10 @@ class Input extends Controller
 //        dd($id);
         if($data_master){
             $data_master = json_decode($data_master->data_master, true);
-            if($tipe=="trafo_gi")
-                $faktor_kali = (int)$data_master[$meter]['FK']['faktorkali'];
+            if($jual)
+                $faktor_kali = 1;
+            elseif($tipe=="trafo_gi")
+                    $faktor_kali = (int)$data_master[$meter]['FK']['faktorkali'];
             elseif($tipe=="pct")
                 $faktor_kali = (int)$data_master['meter']['FK']['faktorkali'];
             else
@@ -391,189 +383,258 @@ class Input extends Controller
             $faktor_kali = null;
 
         if($tipe=="trafo_gi"||$tipe=="pct"){
-            $diff =$this->json_dt($awal,$visual,$download,$tipe,$meter,$faktor_kali);
-            $dt = array(
-                'beli'=> $diff[0],
-                'hasil_pengolahan'=> $diff[1]
-            );
-            $update = $dt['beli'];
-            $olah = $dt['hasil_pengolahan'];
-            if(!$akhir){
+            if($jual){
+                $akhir = json_decode($akhir->data,true);
+                $dt = array(
+                    'utama'=>$akhir['beli']['utama'],
+                    'pembanding'=> $akhir['beli']['pembanding'],
+                    'ps'=>$akhir['beli']['ps']
+                );
+                $dt2 = array(
+                    'utama'=>$akhir['hasil_pengolahan']['utama'],
+                    'pembanding'=> $akhir['hasil_pengolahan']['pembanding'],
+                    'ps'=>$akhir['hasil_pengolahan']['ps']
+                );
+                $dt_jual = array(
+                    'total_kwh_jual'=> $jual
+                );
+                $dt = array(
+                    'beli'=> $dt,
+                    'hasil_pengolahan'=> $dt2,
+                    'jual'=> $dt_jual
+                );
+            }
+            else {
                 $diff =$this->json_dt($awal,$visual,$download,$tipe,$meter,$faktor_kali);
+
                 $dt = array(
                     'beli'=> $diff[0],
-                    'hasil_pengolahan'=> $diff[1]
+                    'hasil_pengolahan'=> $diff[1],
+
                 );
-                if($meter=="utama"){
-                    $dt = array(
-                        'utama'=>$update,
-                        'pembanding'=> null,
-                        'ps'=>null
-                    );
-                    $dt2 = array(
-                        'utama'=>$olah,
-                        'pembanding'=> null,
-                        'ps'=>null
-                    );
-                    $dt = array(
-                        'beli'=> $dt,
-                        'hasil_pengolahan'=> $dt2
-                    );
-                }
-                elseif($meter=="pembanding"){
-                    $dt = array(
-                        'utama'=>null,
-                        'pembanding'=>$update,
-                        'ps'=>null
-                    );
-                    $dt2 = array(
-                        'utama'=>null,
-                        'pembanding'=>$olah,
-                        'ps'=>null
-                    );
-                    $dt = array(
-                        'beli'=> $dt,
-                        'hasil_pengolahan'=> $dt2
-                    );
-                }
-                elseif($meter=="ps"){
-                    $dt = array(
-                        'utama'=>null,
-                        'pembanding'=>null,
-                        'ps'=>$update
-                    );
-                    $dt2 = array(
-                        'utama'=>null,
-                        'pembanding'=>null,
-                        'ps'=>$olah
-                    );
-                    $dt = array(
-                        'beli'=> $dt,
-                        'hasil_pengolahan'=> $dt2
-                    );
-                }
-                elseif($meter=="impor"){
-                    $dt = array(
-                        'impor'=>$update,
-                        'ekspor'=>null,
-                        'lokasi'=> null
-                    );
-                    $dt2 = array(
-                        'impor'=>null,
-                        'ekspor'=>$olah,
-                        'lokasi'=> null
-                    );
-                    $dt = array(
-                        'beli'=> $dt,
-                        'hasil_pengolahan'=> $dt2
-                    );
-                }
-                elseif($meter=="ekspor"){
-                    $dt = array(
-                        'impor'=>null,
-                        'ekspor'=>$update,
-                        'lokasi'=> null
-                    );
-                    $dt2 = array(
-                        'impor'=>$olah,
-                        'ekspor'=>null,
-                        'lokasi'=> null
-                    );
-                    $dt = array(
-                        'beli'=> $dt,
-                        'hasil_pengolahan'=> $dt2
-                    );
-                }
-            }
-            else{
-                $akhir = json_decode($akhir->data,true);
-                if($meter=="utama"){
-                    $dt = array(
-                        'utama'=>$update,
-                        'pembanding'=> $akhir['beli']['pembanding'],
-                        'ps'=>$akhir['beli']['ps']
-                    );
-                    $dt2 = array(
-                        'utama'=>$olah,
-                        'pembanding'=> $akhir['hasil_pengolahan']['pembanding'],
-                        'ps'=>$akhir['hasil_pengolahan']['ps']
-                    );
-                    $dt = array(
-                        'beli'=> $dt,
-                        'hasil_pengolahan'=> $dt2
+                $update = $dt['beli'];
+                $olah = $dt['hasil_pengolahan'];
+
+                if(!$akhir){
+                    $visual = array(
+                        'lwbp1_visual' => null,
+                        'lwbp2_visual' => null,
+                        'wbp_visual' => null,
+                        'kvarh_visual' => null,
+                        'konsiden_visual' => null,
                     );
 
-                }
-                elseif($meter=="pembanding"){
-                    $dt = array(
-                        'utama'=>$akhir['beli']['utama'],
-                        'pembanding'=>$update,
-                        'ps'=>$akhir['beli']['ps']
+                    $download = array(
+                        'lwbp1_download' => null,
+                        'lwbp2_download' => null,
+                        'wbp_download' => null,
+                        'kvarh_download' => null,
+                        'konsiden_download' => null,
                     );
-                    $dt2 = array(
-                        'utama'=>$akhir['hasil_pengolahan']['utama'],
-                        'pembanding'=>$olah,
-                        'ps'=>$akhir['hasil_pengolahan']['ps']
-                    );
-                    $dt = array(
-                        'beli'=> $dt,
-                        'hasil_pengolahan'=> $dt2
+                    $data2 = array(
+                        'visual' => $visual,
+                        'download' => $download
                     );
 
+                    if($meter=="utama"){
+                        $dt = array(
+                            'utama'=>$update,
+                            'pembanding'=> $data2,
+                            'ps'=>$data2
+                        );
+                        $dt2 = array(
+                            'utama'=>$olah,
+                            'pembanding'=> null,
+                            'ps'=>null
+                        );
+                        $dt_jual = array(
+                            'total_kwh_jual'=> null
+                        );
+                        $dt = array(
+                            'beli'=> $dt,
+                            'hasil_pengolahan'=> $dt2,
+                            'jual'=> $dt_jual
+                        );
+                    }
+                    elseif($meter=="pembanding"){
+                        $dt = array(
+                            'utama'=>$data2,
+                            'pembanding'=>$update,
+                            'ps'=>$data2
+                        );
+                        $dt2 = array(
+                            'utama'=>null,
+                            'pembanding'=>$olah,
+                            'ps'=>null
+                        );
+                        $dt_jual = array(
+                            'total_kwh_jual'=> null
+                        );
+                        $dt = array(
+                            'beli'=> $dt,
+                            'hasil_pengolahan'=> $dt2,
+                            'jual'=> $dt_jual
+                        );
+                    }
+                    elseif($meter=="ps"){
+                        $dt = array(
+                            'utama'=>$data2,
+                            'pembanding'=>$data2,
+                            'ps'=>$update
+                        );
+                        $dt2 = array(
+                            'utama'=>null,
+                            'pembanding'=>null,
+                            'ps'=>$olah
+                        );
+                        $dt_jual = array(
+                            'total_kwh_jual'=> null
+                        );
+                        $dt = array(
+                            'beli'=> $dt,
+                            'hasil_pengolahan'=> $dt2,
+                            'jual'=> $dt_jual
+                        );
+                    }
+                    elseif($meter=="impor"){
+                        $dt = array(
+                            'impor'=>$update,
+                            'ekspor'=>null,
+                            'lokasi'=> null
+                        );
+                        $dt2 = array(
+                            'impor'=>null,
+                            'ekspor'=>$olah,
+                            'lokasi'=> null
+                        );
+                        $dt = array(
+                            'beli'=> $dt,
+                            'hasil_pengolahan'=> $dt2
+                        );
+                    }
+                    elseif($meter=="ekspor"){
+                        $dt = array(
+                            'impor'=>null,
+                            'ekspor'=>$update,
+                            'lokasi'=> null
+                        );
+                        $dt2 = array(
+                            'impor'=>$olah,
+                            'ekspor'=>null,
+                            'lokasi'=> null
+                        );
+                        $dt = array(
+                            'beli'=> $dt,
+                            'hasil_pengolahan'=> $dt2
+                        );
+                    }
                 }
-                elseif($meter=="ps"){
-                    $dt = array(
-                        'utama'=>$akhir['beli']['utama'],
-                        'pembanding'=>$akhir['beli']['pembanding'],
-                        'ps'=>$update
-                    );
-                    $dt2 = array(
-                        'utama'=>$akhir['hasil_pengolahan']['utama'],
-                        'pembanding'=>$akhir['hasil_pengolahan']['pembanding'],
-                        'ps'=>$olah
-                    );
-                    $dt = array(
-                        'beli'=> $dt,
-                        'hasil_pengolahan'=> $dt2
-                    );
-                }
-                elseif($meter=="impor"){
-                    $dt = array(
-                        'impor'=>$update,
-                        'ekspor'=>$akhir['beli']['ekspor'],
-                        'lokasi'=> null
-                    );
-                    $dt2 = array(
-                        'impor'=>$olah,
-                        'ekspor'=>$akhir['hasil_pengolahan']['ekspor'],
-                        'lokasi'=> null
-                    );
-                    $dt = array(
-                        'beli'=> $dt,
-                        'hasil_pengolahan'=> $dt2
-                    );
-                }
-                elseif($meter=="ekspor"){
-                    $dt = array(
-                        'impor'=>$akhir['beli']['impor'],
-                        'ekspor'=>$update,
-                        'lokasi'=> null
-                    );
-                    $dt2 = array(
-                        'impor'=>$akhir['hasil_pengolahan']['impor'],
-                        'ekspor'=>$olah,
-                        'lokasi'=> null
-                    );
-                    $dt = array(
-                        'beli'=> $dt,
-                        'hasil_pengolahan'=> $dt2
-                    );
+                else{
+                    $akhir = json_decode($akhir->data,true);
+                    if($meter=="utama"){
+                        $dt = array(
+                            'utama'=>$update,
+                            'pembanding'=> $akhir['beli']['pembanding'],
+                            'ps'=>$akhir['beli']['ps']
+                        );
+                        $dt2 = array(
+                            'utama'=>$olah,
+                            'pembanding'=> $akhir['hasil_pengolahan']['pembanding'],
+                            'ps'=>$akhir['hasil_pengolahan']['ps']
+                        );
+                        $dt = array(
+                            'beli'=> $dt,
+                            'hasil_pengolahan'=> $dt2,
+                            'jual'=>$akhir['jual']
+                        );
+
+                    }
+                    elseif($meter=="pembanding"){
+                        $dt = array(
+                            'utama'=>$akhir['beli']['utama'],
+                            'pembanding'=>$update,
+                            'ps'=>$akhir['beli']['ps']
+                        );
+                        $dt2 = array(
+                            'utama'=>$akhir['hasil_pengolahan']['utama'],
+                            'pembanding'=>$olah,
+                            'ps'=>$akhir['hasil_pengolahan']['ps']
+                        );
+                        $dt = array(
+                            'beli'=> $dt,
+                            'hasil_pengolahan'=> $dt2,
+                            'jual'=>$akhir['jual']
+                        );
+
+                    }
+                    elseif($meter=="ps"){
+                        $dt = array(
+                            'utama'=>$akhir['beli']['utama'],
+                            'pembanding'=>$akhir['beli']['pembanding'],
+                            'ps'=>$update
+                        );
+                        $dt2 = array(
+                            'utama'=>$akhir['hasil_pengolahan']['utama'],
+                            'pembanding'=>$akhir['hasil_pengolahan']['pembanding'],
+                            'ps'=>$olah
+                        );
+                        $dt = array(
+                            'beli'=> $dt,
+                            'hasil_pengolahan'=> $dt2,
+                            'jual'=>$akhir['jual']
+                        );
+                    }
+                    elseif($meter=="impor"){
+                        $dt = array(
+                            'impor'=>$update,
+                            'ekspor'=>$akhir['beli']['ekspor'],
+                            'lokasi'=> null
+                        );
+                        $dt2 = array(
+                            'impor'=>$olah,
+                            'ekspor'=>$akhir['hasil_pengolahan']['ekspor'],
+                            'lokasi'=> null
+                        );
+                        $dt = array(
+                            'beli'=> $dt,
+                            'hasil_pengolahan'=> $dt2
+                        );
+                    }
+                    elseif($meter=="ekspor"){
+                        $dt = array(
+                            'impor'=>$akhir['beli']['impor'],
+                            'ekspor'=>$update,
+                            'lokasi'=> null
+                        );
+                        $dt2 = array(
+                            'impor'=>$akhir['hasil_pengolahan']['impor'],
+                            'ekspor'=>$olah,
+                            'lokasi'=> null
+                        );
+                        $dt = array(
+                            'beli'=> $dt,
+                            'hasil_pengolahan'=> $dt2
+                        );
+                    }
                 }
             }
+
         }
         else{
-            $dt = $this->json_dt($awal,$visual,$download,$tipe,$meter,$faktor_kali);
-//            dd($dt);
+            if($jual){
+                $akhir = json_decode($akhir->data,true);
+                $dt_jual = array(
+                    'total_kwh_jual'=> $jual
+                );
+                $dt = array(
+                    'beli'=> $akhir['beli'],
+                    'hasil_pengolahan'=> $akhir['hasil_pengolahan'],
+                    'jual'=> $dt_jual
+                );
+            }
+            else{
+                $dt = $this->json_dt($awal,$visual,$download,$tipe,$meter,$faktor_kali);
+            }
         }
         return $dt;
     }
@@ -591,14 +652,14 @@ class Input extends Controller
         $lwbp2_visual = $visual['lwbp2_visual'];
         $wbp_visual = $visual['wbp_visual'];
         $kvarh_visual = $visual['kvarh_visual'];
-        $konsiden_visual = $visual['konsiden_visual'];
+//        $konsiden_visual = $visual['konsiden_visual'];
 
         $data_visual = array(
             'lwbp1_visual' => $lwbp1_visual,
             'lwbp2_visual' => $lwbp2_visual,
             'wbp_visual' => $wbp_visual,
             'kvarh_visual' => $kvarh_visual,
-            'konsiden_visual' => $konsiden_visual,
+//            'konsiden_visual' => $konsiden_visual,
         );
         if($boolean){
             if($tipe=="trafo_gi"||$tipe=="pct"){
@@ -606,17 +667,15 @@ class Input extends Controller
                 $lwbp2_visual = ($data_visual['lwbp2_visual'] - $data_awal['beli'][$meter]['visual']['lwbp2_visual'])*$faktor_kali;
                 $wbp_visual = ($data_visual['wbp_visual'] - $data_awal['beli'][$meter]['visual']['wbp_visual'])*$faktor_kali;
                 $kvarh_visual = ($data_visual['kvarh_visual'] - $data_awal['beli'][$meter]['visual']['kvarh_visual'])*$faktor_kali;
-                $konsiden_visual = ($data_visual['konsiden_visual'] - $data_awal['beli'][$meter]['visual']['konsiden_visual'])*$faktor_kali;
+//                $konsiden_visual = ($data_visual['konsiden_visual'] - $data_awal['beli'][$meter]['visual']['konsiden_visual'])*$faktor_kali;
             }
             else{
 
-//                dd($data_awal['beli']['visual']);
-//                dd($konsiden_visual);
                 $lwbp1_visual = ($data_visual['lwbp1_visual'] - $data_awal['beli']['visual']['lwbp1_visual'])*$faktor_kali;
                 $lwbp2_visual = ($data_visual['lwbp2_visual'] - $data_awal['beli']['visual']['lwbp2_visual'])*$faktor_kali;
                 $wbp_visual = ($data_visual['wbp_visual'] - $data_awal['beli']['visual']['wbp_visual'])*$faktor_kali;
                 $kvarh_visual = ($data_visual['kvarh_visual'] - $data_awal['beli']['visual']['kvarh_visual'])*$faktor_kali;
-                $konsiden_visual = ($data_visual['konsiden_visual'] - $data_awal['beli']['visual']['konsiden_visual'])*$faktor_kali;
+//                $konsiden_visual = ($data_visual['konsiden_visual'] - $data_awal['beli']['visual']['konsiden_visual'])*$faktor_kali;
             }
         }
         else{
@@ -624,7 +683,7 @@ class Input extends Controller
             $lwbp2_visual=null;
             $wbp_visual=null;
             $kvarh_visual=null;
-            $konsiden_visual=null;
+//            $konsiden_visual=null;
         }
 
         $data_visual2 = array(
@@ -632,7 +691,7 @@ class Input extends Controller
             'lwbp2_visual' => $lwbp2_visual,
             'wbp_visual' => $wbp_visual,
             'kvarh_visual' => $kvarh_visual,
-            'konsiden_visual' => $konsiden_visual,
+//            'konsiden_visual' => $konsiden_visual,
             'total_pemakaian_kwh_visual' => $lwbp1_visual + $lwbp2_visual + $wbp_visual
         );
 
@@ -640,14 +699,14 @@ class Input extends Controller
         $lwbp2_download = $download['lwbp2_download'];
         $wbp_download =  $download['wbp_download'];
         $kvarh_download = $download['kvarh_download'];
-        $konsiden_download = $download['konsiden_download'];
+//        $konsiden_download = $download['konsiden_download'];
 
         $data_download = array(
             'lwbp1_download' => $lwbp1_download,
             'lwbp2_download' => $lwbp2_download,
             'wbp_download' => $wbp_download,
             'kvarh_download' => $kvarh_download,
-            'konsiden_download' => $konsiden_download,
+//            'konsiden_download' => $konsiden_download,
         );
 
         if($boolean){
@@ -656,13 +715,13 @@ class Input extends Controller
                 $lwbp2_download = ($download['lwbp2_download'] - $data_awal['beli'][$meter]['download']['lwbp2_download']);
                 $wbp_download =  ($download['wbp_download'] - $data_awal['beli'][$meter]['download']['wbp_download']);
                 $kvarh_download = ($download['kvarh_download'] - $data_awal['beli'][$meter]['download']['kvarh_download']);
-                $konsiden_download = ($download['konsiden_download'] - $data_awal['beli'][$meter]['download']['konsiden_download']);
+//                $konsiden_download = ($download['konsiden_download'] - $data_awal['beli'][$meter]['download']['konsiden_download']);
             }else{
                 $lwbp1_download = ($download['lwbp1_download'] - $data_awal['beli']['download']['lwbp1_download']);
                 $lwbp2_download = ($download['lwbp2_download'] - $data_awal['beli']['download']['lwbp2_download']);
                 $wbp_download =  ($download['wbp_download'] - $data_awal['beli']['download']['wbp_download']);
                 $kvarh_download = ($download['kvarh_download'] - $data_awal['beli']['download']['kvarh_download']);
-                $konsiden_download = ($download['konsiden_download'] - $data_awal['beli']['download']['konsiden_download']);
+//                $konsiden_download = ($download['konsiden_download'] - $data_awal['beli']['download']['konsiden_download']);
             }
         }
         else{
@@ -670,7 +729,7 @@ class Input extends Controller
             $lwbp2_download=null;
             $wbp_download=null;
             $kvarh_download=null;
-            $konsiden_download=null;
+//            $konsiden_download=null;
         }
 
         $data_download2 = array(
@@ -678,7 +737,7 @@ class Input extends Controller
             'lwbp2_download' => $lwbp2_download,
             'wbp_download' => $wbp_download,
             'kvarh_download' => $kvarh_download,
-            'konsiden_download' => $konsiden_download,
+//            'konsiden_download' => $konsiden_download,
             'total_pemakaian_kwh_download' => $lwbp1_download + $lwbp2_download + $wbp_download
 
         );
@@ -699,10 +758,14 @@ class Input extends Controller
                 'download' => $data_download2
             );
         }
+        $dt_jual = array(
+            'total_kwh_jual'=> null
+        );
 
         $dt = array(
             'beli' => $data,
-            'hasil_pengolahan' => $data_pengolahan
+            'hasil_pengolahan' => $data_pengolahan,
+            'jual' => $dt_jual
         );
 //        dd($dt);
         if($tipe=="trafo_gi"||$tipe=="pct")
@@ -808,7 +871,8 @@ class Input extends Controller
             }
             $data =array(
                 'beli'=>$data_awal,
-                'hasil_pengolahan'=> null
+                'hasil_pengolahan'=> null,
+                'jual'=> null,
             );
 
 //            $hasil = json_encode($data);
