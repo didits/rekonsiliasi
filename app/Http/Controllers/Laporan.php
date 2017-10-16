@@ -815,7 +815,7 @@ class Laporan extends Controller
 
         Excel::create('laporan GI', function($excel)use($cmb,$penyulang_array,$list_array,$list_data_trafo,$trafo_GI,$deviasi,$sum,$arr_sum_,$gi,$nama_organisasi,$tr){
 
-                $excel->sheet('SSHHSPK', function($sheet) use($cmb,$penyulang_array,$list_array,$list_data_trafo,$trafo_GI,$deviasi,$sum,$arr_sum_,$gi,$nama_organisasi,$tr) {
+                $excel->sheet($trafo_GI[$tr]['nama'], function($sheet) use($cmb,$penyulang_array,$list_array,$list_data_trafo,$trafo_GI,$deviasi,$sum,$arr_sum_,$gi,$nama_organisasi,$tr) {
 
                     $sheet->mergeCells('A9:B9');
                     $sheet->mergeCells('C9:D9');
@@ -867,7 +867,8 @@ class Laporan extends Controller
             'sum'       => $sum,
             'sum_'       => $arr_sum_,
             'gi'        => $gi,
-            'area'      => $area->nama_organisasi
+            'area'      => $area->nama_organisasi,
+            'tr'        => $tr
         ]);
 
         
