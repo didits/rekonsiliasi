@@ -939,6 +939,14 @@
                                                                                                         <label>Stand Akhir KVARH</label>
                                                                                                         <input type="text" name="kvarh_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['kvarh_visual']}}">
                                                                                                     </div>
+                                                                                                    @if($tipe=="penyulang")
+
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Tegangan Ujung</label>
+                                                                                                        <input type="number" name="tu_visual" class="form-control" placeholder="" value="">
+                                                                                                    </div>
+                                                                                                    @endif
+
                                                                                                     <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                                     <div class="clearfix"></div>
                                                                                                 </div>
@@ -981,6 +989,14 @@
                                                                                                         <label>Pemakaian KWH KVARH</label>
                                                                                                         <input type="text" name="kvarh_download" class="form-control" placeholder="" value="{{$data['beli']['download']['kvarh_download']}}">
                                                                                                     </div>
+                                                                                                    @if($tipe=="penyulang")
+
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Tegangan Ujung</label>
+                                                                                                        <input type="number" name="tu_download" class="form-control" placeholder="" value="">
+                                                                                                    </div>
+                                                                                                    @endif
+
                                                                                                     <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                                     <div class="clearfix"></div>
                                                                                                 </div>
