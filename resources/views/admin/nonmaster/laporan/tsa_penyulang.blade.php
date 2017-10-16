@@ -133,9 +133,9 @@
                                             <td>{{number_format($data_gi[$i]['KWH_lalu'],0)}}</td>
                                             <td>{{number_format($data_gi[$i]['KWH'],0)}}</td>
                                             <td>{{number_format($data_gi[$i]['persen'],2)}}</td>
-                                            <td>{{number_format($data_gi[$i]['persen'],2)}}</td>
-                                            <td>{{number_format($data_gi[$i]['persen'],2)}}</td>
-                                            <td>{{number_format($data_gi[$i]['persen'],2)}}</td>
+                                            <td>{{number_format($data_gi[$i]['jual'],2)}}</td>
+                                            <td>{{number_format($data_gi[$i]['susut'],2)}}</td>
+                                            <td>{{number_format($data_gi[$i]['losses'],2)}}</td>
                                             <td class="text-left">{{$data_gi[$i]['rayon']}}</td>
                                             @endif
                                         </tr>

@@ -432,7 +432,12 @@ class Laporan extends Controller
                             $trafo_KW += $KW;
                             $trafo_KWH += $KWH;
                             $trafo_KWH_lalu += $KWH_bulan_lalu;
-                            $data_keluar = array(
+                            $jual =   json_decode($penyulang_array[$j]['data_'],true)['jual']['total_kwh_jual'];
+                            $susut =   $total_kwh-json_decode($penyulang_array[$j]['data_'],true)['jual']['total_kwh_jual'];
+                            if($total_kwh==0) $losses=0;
+                            else $losses =  $susut/$total_kwh*100;
+
+                                $data_keluar = array(
                                 'id_trafo' => $penyulang_array[$j]['id_trafo'],
                                 'nama_t' => $trafo[$i]['nama_trafo_gi'],
                                 'nama_p' => $penyulang_array[$j]['nama'],
@@ -445,7 +450,9 @@ class Laporan extends Controller
                                 'KW' => $KW,
                                 'KWH'   => $KWH,
                                 'KWH_lalu'   => $KWH_bulan_lalu,
-//                                'jual'   => json_decode($penyulang_array[$j]['data_'],true)['jual']['total_kwh_jual'],
+                                'jual'   => $jual,
+                                'susut'   => $susut,
+                                'losses'   => $losses,
                                 'persen' => $persen
                             );
                             array_push($list_p,$data_keluar);
@@ -468,6 +475,8 @@ class Laporan extends Controller
                                 'KWH'   => null,
                                 'KWH_lalu'   => $KWH_bulan_lalu,
                                 'jual'   => null,
+                                'susut'   => null,
+                                'losses'   => null,
                                 'persen' => null
                             );
                             array_push($list_p,$data_keluar);
