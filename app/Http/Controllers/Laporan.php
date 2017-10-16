@@ -436,8 +436,9 @@ class Laporan extends Controller
                             $trafo_KW += $KW;
                             $trafo_KWH += $KWH;
                             $trafo_KWH_lalu += $KWH_bulan_lalu;
-                            $jual =   json_decode($penyulang_array[$j]['data_'],true)['jual']['total_kwh_jual'];
-                            $susut =   $total_kwh-json_decode($penyulang_array[$j]['data_'],true)['jual']['total_kwh_jual'];
+                            $jual = 20000000;
+//                            $jual =   json_decode($penyulang_array[$j]['data_'],true)['jual']['total_kwh_jual'];
+                            $susut =   $total_kwh-$jual;
                             $trafo_jual += $jual;
                             if($total_kwh==0) $losses=0;
                             else $losses =  $susut/$total_kwh*100;
@@ -579,7 +580,8 @@ class Laporan extends Controller
                   }
             }
 
-            $tot_lwbp1 = $tot_lwbp2 = $tot_wbp =$tot_t_kwh = $tot_KW = $tot_KWH = $tot_KWH_lalu=$tot_persen= null;
+
+            $tot_lwbp1 = $tot_lwbp2 = $tot_wbp =$tot_t_kwh = $tot_KW = $tot_KWH = $tot_KWH_lalu=$tot_jual= null;
             for($i=0;$i < count($jumlah_trafo);$i++){
                 $tot_lwbp1 += $jumlah_trafo[$i][0]['lwbp1'];
                 $tot_lwbp2 += $jumlah_trafo[$i][0]['lwbp2'];
@@ -588,9 +590,14 @@ class Laporan extends Controller
                 $tot_KWH_lalu+=$jumlah_trafo[$i][0]['KWH_lalu'];
                 $tot_KW +=$jumlah_trafo[$i][0]['KW'];
                 $tot_KWH += $jumlah_trafo[$i][0]['KWH'];
-                if($tot_KWH_lalu == 0)$tot_KWH_lalu =1;
-                $tot_persen = $tot_KWH/$tot_KWH_lalu*100;
+                $tot_jual += $jumlah_trafo[$i][0]['jual'];
             }
+            if($tot_KWH_lalu == 0)$tot_persen =0;
+            else $tot_persen = $tot_KWH/$tot_KWH_lalu*100;
+            $tot_susut = $tot_t_kwh -$tot_jual;
+            if($tot_t_kwh==0) $tot_losses = 0;
+            else $tot_losses = $tot_susut / $tot_t_kwh *100;
+
 
             $jumlah_tot =array(
                 'lwbp1' => $tot_lwbp1,
@@ -600,7 +607,10 @@ class Laporan extends Controller
                 'KW' => $tot_KW,
                 'KWH'   => $tot_KWH,
                 'KWH_lalu'   => $tot_KWH_lalu,
-                'persen' => $tot_persen
+                'persen' => $tot_persen,
+                'jual'   => $tot_jual,
+                'susut'   => $tot_susut,
+                'losses'   => $tot_losses
             );
             return view('admin.nonmaster.laporan.tsa_penyulang',[
                 'trafo'      => $trafo,
@@ -642,10 +652,6 @@ class Laporan extends Controller
                 ]);
             }
         }
-
-//        dd($jumlah_trafo);
-
-
     }
 
     public function data_deviasi($data_gi,$id_organisasi){

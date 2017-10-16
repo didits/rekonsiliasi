@@ -221,6 +221,10 @@
                                                     <td>{{number_format($data_gi[$gi][$py]['KWH_lalu'],0)}}</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['KWH'],0)}}</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['persen'],2)}}</td>
+                                                    <td>{{number_format($data_gi[$gi][$py]['jual'],0)}}</td>
+                                                    <td>{{number_format($data_gi[$gi][$py]['susut'],0)}}</td>
+                                                    <td>{{number_format($data_gi[$gi][$py]['losses'],2)}}</td>
+
                                                 @endif
                                             </tr>
                                             @endfor
@@ -236,10 +240,12 @@
                                             <td><b>-</b></td>
                                             <td><b>{{number_format($data_jumlah[$gi][$tr]['KW'],0)}}</b></td>
                                             <td class="text-left"><b></b></td>
-                                            <td class="text-left"><b></b></td>
                                             <td><b>{{number_format($data_jumlah[$gi][$tr]['KWH_lalu'],0)}}</b></td>
                                             <td><b>{{number_format($data_jumlah[$gi][$tr]['KWH'],0)}}</b></td>
                                             <td><b>{{number_format($data_jumlah[$gi][$tr]['persen'],2)}}</b></td>
+                                            <td><b>{{number_format($data_jumlah[$gi][$tr]['jual'],0)}}</b></td>
+                                            <td><b>{{number_format($data_jumlah[$gi][$tr]['susut'],0)}}</b></td>
+                                            <td><b>{{number_format($data_jumlah[$gi][$tr]['losses'],2)}}</b></td>
 
                                         </tr>
                                     @endfor
@@ -257,10 +263,12 @@
                                         <th class="text-right"><b></b></th>
                                         <th class="text-right"><b>{{number_format($total_jumlah['KW'],0)}}</b></th>
                                         <th class="text-center"><b></b></th>
-                                        <th class="text-center"><b></b></th>
                                         <th class="text-right"><b>{{number_format($total_jumlah['KWH_lalu'],0)}}</b></th>
                                         <th class="text-right"><b>{{number_format($total_jumlah['KWH'],0)}}</b></th>
                                         <th class="text-right"><b>{{number_format($total_jumlah['persen'],2)}}</b></th>
+                                        <th class="text-right"><b>{{number_format($total_jumlah['jual'],0)}}</b></th>
+                                        <th class="text-right"><b>{{number_format($total_jumlah['susut'],0)}}</b></th>
+                                        <th class="text-right"><b>{{number_format($total_jumlah['losses'],2)}}</b></th>
                                     </tr>
                                     </thead>
                                     @endif
