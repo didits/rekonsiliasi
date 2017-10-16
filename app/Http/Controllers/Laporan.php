@@ -866,6 +866,9 @@ class Laporan extends Controller
 
         
     }
+    public function view_beli_tsa_trafo_gi($id_organisasi, $id_gi) {
+        return view('admin.nonmaster.laporan.tsa_trafo_gi');
+    }
     public function view_beli_tsa_rayon($id_organisasi) {
         return view('admin.nonmaster.laporan.tsa_rayon');
     }
