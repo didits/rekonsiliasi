@@ -396,6 +396,14 @@ Route::group(['prefix' => 'area/laporan_transaksi', 'middleware' => ['auth', 'ti
         'as'        => 'area.view_beli_tsa',
         'uses'      => 'Laporan@view_beli_tsa'
     ]);
+    Route::get('/view_laporan_tsa_rayon/{id_organisasi}', [
+        'as'        => 'area.view_beli_tsa_rayon',
+        'uses'      => 'Laporan@view_beli_tsa_rayon'
+    ]);
+    Route::get('/view_laporan_tsa_area/{id_organisasi}', [
+        'as'        => 'area.view_beli_tsa_area',
+        'uses'      => 'Laporan@view_beli_tsa_area'
+    ]);
     Route::get('/view_laporan_deviasi/{id_organisasi}/{tipe}/{id_gi}', [
         'as'        => 'area.view_beli_deviasi',
         'uses'      => 'Laporan@view_beli_deviasi'

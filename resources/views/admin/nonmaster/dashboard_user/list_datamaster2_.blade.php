@@ -645,6 +645,7 @@
                     {{--</div>--}}
                 {{--@endif--}}
 
+                    @if($laporan)
                     @if(Auth::user()->tipe_organisasi == 3)
 
                     <div class="row">
@@ -666,6 +667,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                     @endif
 
                 </div>
