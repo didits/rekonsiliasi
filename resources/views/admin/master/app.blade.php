@@ -23,8 +23,8 @@
         {{--<link href="{{ URL::asset('css/universal.css') }}" rel="stylesheet" />--}}
 
         {{--<!--     Fonts and icons     -->--}}
-        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-        <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+        <link href="{{ URL::asset('dashboard/css/font-awesome.min.css') }}" rel="stylesheet">
+        <link href='{{ URL::asset('dashboard/css/roboto.css') }}' rel='stylesheet' type='text/css'>
         <link href="{{ URL::asset('dashboard/css/pe-icon-7-stroke.css') }}" rel="stylesheet" />
         @yield('extra_style')
 
