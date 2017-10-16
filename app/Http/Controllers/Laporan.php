@@ -354,10 +354,10 @@ class Laporan extends Controller
             $jumlah_trafo = array();
             $trafo = TrafoGI::select('nama_trafo_gi','id','id_gi')->where('id_gi',$data_gi->id)->get()->toArray();
 
-            $tot_lwbp1 = $tot_lwbp2 = $tot_wbp =$tot_t_kwh = $tot_KW = $tot_KWH = $tot_KWH_lalu=$tot_persen= null;
+            $tot_lwbp1 = $tot_lwbp2 = $tot_wbp =$tot_t_kwh = $tot_KW = $tot_KWH = $tot_KWH_lalu=$tot_jual = null;
             for ($i=0;$i<count($cmb->trafo);$i++){
                 $p_trafo_ = PenyimpananTrafoGI::select('data','id_trafo_gi')->where('id_trafo_gi',$trafo[$i]['id'])->where('periode', date('Ym'))->first();
-                $trafo_lwbp1 = $trafo_lwbp2 = $trafo_wbp =$trafo_t_kwh = $trafo_KW = $trafo_KWH = $trafo_KWH_lalu=$trafo_persen= null;
+                $trafo_lwbp1 = $trafo_lwbp2 = $trafo_wbp = $trafo_t_kwh = $trafo_KW = $trafo_KWH = $trafo_KWH_lalu = $trafo_jual= null;
                 for($j=0;$j< count($penyulang_array);$j++){
                     if($trafo[$i]['id'] == $penyulang_array[$j]['id_trafo']){
                         if($p_trafo_){
@@ -407,13 +407,17 @@ class Laporan extends Controller
                             $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',date('Ym')-1)->first();
 //                            dd($KWH_bulan_lalu);
 
-                            if($KWH_bulan_lalu == null||$KWH_bulan_lalu->data_keluar==null )
-                                $KWH_bulan_lalu=1;
-                            else
+                            if($KWH_bulan_lalu == null||$KWH_bulan_lalu->data_keluar==null ){
+                                $KWH_bulan_lalu = null;
+                                $KWH = $total_kwh - $KWH_bulan_lalu;
+                                $persen = null;
+                            }
+                            else{
                                 $KWH_bulan_lalu= json_decode($KWH_bulan_lalu->data_keluar,true)['total_kwh'];
+                                $KWH = $total_kwh - $KWH_bulan_lalu;
+                                $persen = $KWH/$KWH_bulan_lalu*100;
+                            }
                             //      KOLOM N, O
-                            $KWH = $total_kwh - $KWH_bulan_lalu;
-                            $persen = $KWH/$KWH_bulan_lalu*100;
                             $p_penyulang = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',date('Ym'))->first();
                             $data_keluar = array(
                                 'dev_lwbp1' =>$KWH_salur_lwbp1,
@@ -434,10 +438,10 @@ class Laporan extends Controller
                             $trafo_KWH_lalu += $KWH_bulan_lalu;
                             $jual =   json_decode($penyulang_array[$j]['data_'],true)['jual']['total_kwh_jual'];
                             $susut =   $total_kwh-json_decode($penyulang_array[$j]['data_'],true)['jual']['total_kwh_jual'];
+                            $trafo_jual += $jual;
                             if($total_kwh==0) $losses=0;
                             else $losses =  $susut/$total_kwh*100;
-
-                                $data_keluar = array(
+                            $data_keluar = array(
                                 'id_trafo' => $penyulang_array[$j]['id_trafo'],
                                 'nama_t' => $trafo[$i]['nama_trafo_gi'],
                                 'nama_p' => $penyulang_array[$j]['nama'],
@@ -483,8 +487,11 @@ class Laporan extends Controller
                         }
                     }
                     $trafo_KWH = $trafo_t_kwh - $trafo_KWH_lalu;
-                    if($trafo_KWH_lalu == 0)$trafo_KWH_lalu =1;
-                    $trafo_persen = $trafo_KWH/$trafo_KWH_lalu*100;
+                    if($trafo_KWH_lalu == 0)$trafo_persen=0;
+                    else $trafo_persen = $trafo_KWH/$trafo_KWH_lalu*100;
+                    $trafo_susut = $trafo_t_kwh - $trafo_jual;
+                    if($trafo_t_kwh==0) $trafo_losses = 0;
+                    else $trafo_losses = $trafo_susut / $trafo_t_kwh *100;
 //                    dd($list_p);
 
                     $jumlah_pemakaian =array(
@@ -496,7 +503,10 @@ class Laporan extends Controller
                         'KW' => $trafo_KW,
                         'KWH'   => $trafo_KWH,
                         'KWH_lalu'   => $trafo_KWH_lalu,
-                        'persen' => $trafo_persen
+                        'persen' => $trafo_persen,
+                        'jual'   => $trafo_jual,
+                        'susut'   => $trafo_susut,
+                        'losses'   => $trafo_losses,
                     );
                 }
                 $tot_lwbp1 += $trafo_lwbp1;
@@ -506,11 +516,15 @@ class Laporan extends Controller
                 $tot_KWH_lalu+=$trafo_KWH_lalu;
                 $tot_KW +=$tot_KW;
                 $tot_KWH = $tot_t_kwh - $tot_KWH_lalu;
-                if($tot_KWH_lalu == 0)$tot_KWH_lalu =1;
-                $tot_persen = $tot_KWH/$tot_KWH_lalu*100;
-
+                $tot_jual+=$trafo_jual;
                 array_push($jumlah_trafo,$jumlah_pemakaian);
             }
+
+            if($tot_KWH_lalu == 0)$tot_persen = 0;
+            else $tot_persen = $tot_KWH/$tot_KWH_lalu*100;
+            $tot_susut = $tot_t_kwh -$tot_jual;
+            if($tot_t_kwh==0) $tot_losses = 0;
+            else $tot_losses = $tot_susut / $tot_t_kwh *100;
 
             $jumlah_tot =array(
                 'lwbp1' => $tot_lwbp1,
@@ -520,7 +534,10 @@ class Laporan extends Controller
                 'KW' => $tot_KW,
                 'KWH'   => $tot_KWH,
                 'KWH_lalu'   => $tot_KWH_lalu,
-                'persen' => $tot_persen
+                'persen' => $tot_persen,
+                'jual'   => $tot_jual,
+                'susut'   => $tot_susut,
+                'losses'   => $tot_losses,
             );
 
         }

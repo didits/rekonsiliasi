@@ -112,55 +112,56 @@ class Input extends Controller
         //
     }
 
-    public function input_beli($tpe_jual,$id){
-        $diff =$this->json_dt($awal,$visual,$download,$tipe,$meter,$faktor_kali);
-        $dt = array(
-            'beli'=> $diff[0],
-            'hasil_pengolahan'=> $diff[1]
-        );
-        $update = $dt['beli'];
-        $olah = $dt['hasil_pengolahan'];
-        $akhir = PenyimpananTrafoGI::where('periode', date("Ym"))->where('id_trafo_gi', $id)->first();
-        $dt = array(
-            'beli'=> $diff[0],
-            'hasil_pengolahan'=> $diff[1]
-        );
-        $dt = array(
-            'utama'=>$akhir['beli']['utama'],
-            'pembanding'=>$update,
-            'ps'=>$akhir['beli']['ps']
-        );
-        $dt2 = array(
-            'utama'=>$akhir['hasil_pengolahan']['utama'],
-            'pembanding'=>$olah,
-            'ps'=>$akhir['hasil_pengolahan']['ps']
-        );
-        $dt = array(
-            'beli'=> $dt,
-            'hasil_pengolahan'=> $dt2
-        );
-
-//        dd($akhir);
-    }
-
     public function store(Request $request)
     {
         $date = date('Ym')- "1";
 
-        $input_visual = array(
-            'lwbp1_visual' => $request->lwbp1_visual,
-            'lwbp2_visual' => $request->lwbp2_visual,
-            'wbp_visual' => $request->wbp_visual,
-            'kvarh_visual' => $request->kvarh_visual,
-            'konsiden_visual' => $request->konsiden_visual
-        );
-        $input_download = array(
-            'lwbp1_download' => $request->lwbp1_download,
-            'lwbp2_download' => $request->lwbp2_download,
-            'wbp_download' => $request->wbp_download,
-            'kvarh_download' => $request->kvarh_download,
-            'konsiden_download' => $request->konsiden_download
-        );
+        if($request->tipe=="trafo_gi") {
+            $input_visual = array(
+                'lwbp1_visual' => $request->lwbp1_visual,
+                'lwbp2_visual' => $request->lwbp2_visual,
+                'wbp_visual' => $request->wbp_visual,
+                'kvarh_visual' => $request->kvarh_visual,
+                'konsiden_visual' => $request->konsiden_visual
+            );
+            $input_download = array(
+                'lwbp1_download' => $request->lwbp1_download,
+                'lwbp2_download' => $request->lwbp2_download,
+                'wbp_download' => $request->wbp_download,
+                'kvarh_download' => $request->kvarh_download,
+                'konsiden_download' => $request->konsiden_download
+            );
+        }
+        elseif($request->tipe=="penyulang"){
+            $input_visual = array(
+                'lwbp1_visual' => $request->lwbp1_visual,
+                'lwbp2_visual' => $request->lwbp2_visual,
+                'wbp_visual' => $request->wbp_visual,
+                'kvarh_visual' => $request->kvarh_visual,
+                'tu_visual' => $request->tu_visual
+            );
+            $input_download = array(
+                'lwbp1_download' => $request->lwbp1_download,
+                'lwbp2_download' => $request->lwbp2_download,
+                'wbp_download' => $request->wbp_download,
+                'kvarh_download' => $request->kvarh_download,
+                'tu_download' => $request->tu_download
+            );
+        }
+        else{
+            $input_visual = array(
+                'lwbp1_visual' => $request->lwbp1_visual,
+                'lwbp2_visual' => $request->lwbp2_visual,
+                'wbp_visual' => $request->wbp_visual,
+                'kvarh_visual' => $request->kvarh_visual,
+            );
+            $input_download = array(
+                'lwbp1_download' => $request->lwbp1_download,
+                'lwbp2_download' => $request->lwbp2_download,
+                'wbp_download' => $request->wbp_download,
+                'kvarh_download' => $request->kvarh_download,
+            );
+        }
 
         if($request->tipe=="gi"){
             $data_listrik = PenyimpananGI::where('periode', date('Ym'))->where('id_gi', $request->id)->first();
@@ -217,14 +218,14 @@ class Input extends Controller
                     );
                 }
             }
-            else{
+            elseif($request->tipe=="penyulang"){
                 if($request->visual){
                     $input_download = array(
                         'lwbp1_download' => $decoded['beli']['download']['lwbp1_download'],
                         'lwbp2_download' => $decoded['beli']['download']['lwbp2_download'],
                         'wbp_download' => $decoded['beli']['download']['wbp_download'],
                         'kvarh_download' => $decoded['beli']['download']['kvarh_download'],
-                        'konsiden_download' => $decoded['beli']['download']['konsiden_download']
+                        'tu_download' => $decoded['beli']['download']['tu_download']
                     );
                 }
                 elseif ($request->download){
@@ -233,7 +234,25 @@ class Input extends Controller
                         'lwbp2_visual' => $decoded['beli']['visual']['lwbp2_visual'],
                         'wbp_visual' => $decoded['beli']['visual']['wbp_visual'],
                         'kvarh_visual' => $decoded['beli']['visual']['kvarh_visual'],
-                        'konsiden_visual' => $decoded['beli']['visual']['konsiden_visual']
+                        'tu_visual' => $decoded['beli']['visual']['tu_visual']
+                    );
+                }
+            }
+            else{
+                if($request->visual){
+                    $input_download = array(
+                        'lwbp1_download' => $decoded['beli']['download']['lwbp1_download'],
+                        'lwbp2_download' => $decoded['beli']['download']['lwbp2_download'],
+                        'wbp_download' => $decoded['beli']['download']['wbp_download'],
+                        'kvarh_download' => $decoded['beli']['download']['kvarh_download'],
+                    );
+                }
+                elseif ($request->download){
+                    $input_visual = array(
+                        'lwbp1_visual' => $decoded['beli']['visual']['lwbp1_visual'],
+                        'lwbp2_visual' => $decoded['beli']['visual']['lwbp2_visual'],
+                        'wbp_visual' => $decoded['beli']['visual']['wbp_visual'],
+                        'kvarh_visual' => $decoded['beli']['visual']['kvarh_visual'],
                     );
                 }
             }
@@ -253,7 +272,6 @@ class Input extends Controller
             $data_olah = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter, $request->tpe_jual);
             if($request->tipe=="trafo_gi"){
                 $dt = $data_olah;
-//                dd($dt);
             }
             elseif($request->tipe=="pct"){
                 $visual = array(
@@ -655,30 +673,47 @@ class Input extends Controller
         $lwbp2_visual = $visual['lwbp2_visual'];
         $wbp_visual = $visual['wbp_visual'];
         $kvarh_visual = $visual['kvarh_visual'];
-        $konsiden_visual = $visual['konsiden_visual'];
+        if($tipe == "penyulang") $tu_visual = $visual['tu_visual'];
+        elseif($tipe == "trafo") $konsiden_visual = $visual['konsiden_visual'];
 
-        $data_visual = array(
-            'lwbp1_visual' => $lwbp1_visual,
-            'lwbp2_visual' => $lwbp2_visual,
-            'wbp_visual' => $wbp_visual,
-            'kvarh_visual' => $kvarh_visual,
-            'konsiden_visual' => $konsiden_visual,
-        );
+        if($tipe == "penyulang")
+            $data_visual = array(
+                'lwbp1_visual' => $lwbp1_visual,
+                'lwbp2_visual' => $lwbp2_visual,
+                'wbp_visual' => $wbp_visual,
+                'kvarh_visual' => $kvarh_visual,
+                'tu_visual' => $tu_visual,
+            );
+        elseif($tipe == "trafo")
+            $data_visual = array(
+                'lwbp1_visual' => $lwbp1_visual,
+                'lwbp2_visual' => $lwbp2_visual,
+                'wbp_visual' => $wbp_visual,
+                'kvarh_visual' => $kvarh_visual,
+                'konsiden_visual' => $konsiden_visual,
+            );
+        else
+            $data_visual = array(
+                'lwbp1_visual' => $lwbp1_visual,
+                'lwbp2_visual' => $lwbp2_visual,
+                'wbp_visual' => $wbp_visual,
+                'kvarh_visual' => $kvarh_visual,
+            );
+
         if($boolean){
             if($tipe=="trafo_gi"||$tipe=="pct"){
                 $lwbp1_visual = ($data_visual['lwbp1_visual'] - $data_awal['beli'][$meter]['visual']['lwbp1_visual'])*$faktor_kali;
                 $lwbp2_visual = ($data_visual['lwbp2_visual'] - $data_awal['beli'][$meter]['visual']['lwbp2_visual'])*$faktor_kali;
                 $wbp_visual = ($data_visual['wbp_visual'] - $data_awal['beli'][$meter]['visual']['wbp_visual'])*$faktor_kali;
                 $kvarh_visual = ($data_visual['kvarh_visual'] - $data_awal['beli'][$meter]['visual']['kvarh_visual'])*$faktor_kali;
-                $konsiden_visual = ($data_visual['konsiden_visual'] - $data_awal['beli'][$meter]['visual']['konsiden_visual'])*$faktor_kali;
+//                if($tipe=="trafo_gi") $konsiden_visual = ($data_visual['konsiden_visual'] - $data_awal['beli'][$meter]['visual']['konsiden_visual'])*$faktor_kali;
             }
             else{
-
                 $lwbp1_visual = ($data_visual['lwbp1_visual'] - $data_awal['beli']['visual']['lwbp1_visual'])*$faktor_kali;
                 $lwbp2_visual = ($data_visual['lwbp2_visual'] - $data_awal['beli']['visual']['lwbp2_visual'])*$faktor_kali;
                 $wbp_visual = ($data_visual['wbp_visual'] - $data_awal['beli']['visual']['wbp_visual'])*$faktor_kali;
                 $kvarh_visual = ($data_visual['kvarh_visual'] - $data_awal['beli']['visual']['kvarh_visual'])*$faktor_kali;
-                $konsiden_visual = ($data_visual['konsiden_visual'] - $data_awal['beli']['visual']['konsiden_visual'])*$faktor_kali;
+//                if($tipe=="penyulang")$tu_visual = ($data_visual['tu_visual'] - $data_awal['beli']['visual']['tu_visual'])*$faktor_kali;
             }
         }
         else{
@@ -686,31 +721,67 @@ class Input extends Controller
             $lwbp2_visual=null;
             $wbp_visual=null;
             $kvarh_visual=null;
-            $konsiden_visual=null;
+            if($tipe=="trafo_gi") $konsiden_visual=null;
+            elseif($tipe=="penyulang") $tu_visual=null;
         }
 
-        $data_visual2 = array(
-            'lwbp1_visual' => $lwbp1_visual,
-            'lwbp2_visual' => $lwbp2_visual,
-            'wbp_visual' => $wbp_visual,
-            'kvarh_visual' => $kvarh_visual,
-            'konsiden_visual' => $konsiden_visual,
-            'total_pemakaian_kwh_visual' => $lwbp1_visual + $lwbp2_visual + $wbp_visual
-        );
+        if($tipe=="trafo_gi")
+            $data_visual2 = array(
+                'lwbp1_visual' => $lwbp1_visual,
+                'lwbp2_visual' => $lwbp2_visual,
+                'wbp_visual' => $wbp_visual,
+                'kvarh_visual' => $kvarh_visual,
+                'konsiden_visual' => $konsiden_visual,
+                'total_pemakaian_kwh_visual' => $lwbp1_visual + $lwbp2_visual + $wbp_visual
+            );
+        elseif($tipe=="penyulang")
+            $data_visual2 = array(
+                'lwbp1_visual' => $lwbp1_visual,
+                'lwbp2_visual' => $lwbp2_visual,
+                'wbp_visual' => $wbp_visual,
+                'kvarh_visual' => $kvarh_visual,
+                'tu_visual' => $tu_visual,
+                'total_pemakaian_kwh_visual' => $lwbp1_visual + $lwbp2_visual + $wbp_visual
+            );
+        else
+            $data_visual2 = array(
+                'lwbp1_visual' => $lwbp1_visual,
+                'lwbp2_visual' => $lwbp2_visual,
+                'wbp_visual' => $wbp_visual,
+                'kvarh_visual' => $kvarh_visual,
+                'total_pemakaian_kwh_visual' => $lwbp1_visual + $lwbp2_visual + $wbp_visual
+            );
 
         $lwbp1_download = $download['lwbp1_download'];
         $lwbp2_download = $download['lwbp2_download'];
         $wbp_download =  $download['wbp_download'];
         $kvarh_download = $download['kvarh_download'];
-        $konsiden_download = $download['konsiden_download'];
+        if($tipe == "trafo")  $konsiden_download = $download['konsiden_download'];
+        elseif($tipe == "penyulang") $tu_download = $download['tu_download'];
 
-        $data_download = array(
-            'lwbp1_download' => $lwbp1_download,
-            'lwbp2_download' => $lwbp2_download,
-            'wbp_download' => $wbp_download,
-            'kvarh_download' => $kvarh_download,
-            'konsiden_download' => $konsiden_download,
-        );
+        if($tipe == "penyulang")
+            $data_download = array(
+                'lwbp1_download' => $lwbp1_download,
+                'lwbp2_download' => $lwbp2_download,
+                'wbp_download' => $wbp_download,
+                'kvarh_download' => $kvarh_download,
+                'tu_download' => $tu_download,
+            );
+        elseif($tipe == "trafo")
+            $data_download = array(
+                'lwbp1_download' => $lwbp1_download,
+                'lwbp2_download' => $lwbp2_download,
+                'wbp_download' => $wbp_download,
+                'kvarh_download' => $kvarh_download,
+                'konsiden_download' => $konsiden_download,
+            );
+        else
+            $data_download = array(
+                'lwbp1_download' => $lwbp1_download,
+                'lwbp2_download' => $lwbp2_download,
+                'wbp_download' => $wbp_download,
+                'kvarh_download' => $kvarh_download,
+            );
 
         if($boolean){
             if($tipe=="trafo_gi"||$tipe=="pct"){
@@ -718,13 +789,14 @@ class Input extends Controller
                 $lwbp2_download = ($download['lwbp2_download'] - $data_awal['beli'][$meter]['download']['lwbp2_download']);
                 $wbp_download =  ($download['wbp_download'] - $data_awal['beli'][$meter]['download']['wbp_download']);
                 $kvarh_download = ($download['kvarh_download'] - $data_awal['beli'][$meter]['download']['kvarh_download']);
-//                $konsiden_download = ($download['konsiden_download'] - $data_awal['beli'][$meter]['download']['konsiden_download']);
-            }else{
+//                if($tipe == "trafo_gi") $konsiden_download = ($download['konsiden_download'] - $data_awal['beli'][$meter]['download']['konsiden_download']);
+            }
+            else{
                 $lwbp1_download = ($download['lwbp1_download'] - $data_awal['beli']['download']['lwbp1_download']);
                 $lwbp2_download = ($download['lwbp2_download'] - $data_awal['beli']['download']['lwbp2_download']);
                 $wbp_download =  ($download['wbp_download'] - $data_awal['beli']['download']['wbp_download']);
                 $kvarh_download = ($download['kvarh_download'] - $data_awal['beli']['download']['kvarh_download']);
-                $konsiden_download = ($download['konsiden_download'] - $data_awal['beli']['download']['konsiden_download']);
+//                if($tipe == "penyulang") $tu_download = ($download['tu_download'] - $data_awal['beli']['download']['tu_download']);
             }
         }
         else{
@@ -732,18 +804,37 @@ class Input extends Controller
             $lwbp2_download=null;
             $wbp_download=null;
             $kvarh_download=null;
-            $konsiden_download=null;
+            if($tipe == "trafo") $konsiden_download=null;
+            elseif($tipe == "penyulang") $tu_download=null;
         }
 
-        $data_download2 = array(
-            'lwbp1_download' => $lwbp1_download,
-            'lwbp2_download' => $lwbp2_download,
-            'wbp_download' => $wbp_download,
-            'kvarh_download' => $kvarh_download,
-            'konsiden_download' => $konsiden_download,
-            'total_pemakaian_kwh_download' => $lwbp1_download + $lwbp2_download + $wbp_download
+        if($tipe == "penyulang")
+            $data_download2 = array(
+                'lwbp1_download' => $lwbp1_download,
+                'lwbp2_download' => $lwbp2_download,
+                'wbp_download' => $wbp_download,
+                'kvarh_download' => $kvarh_download,
+                'tu_download' => $tu_download,
+                'total_pemakaian_kwh_download' => $lwbp1_download + $lwbp2_download + $wbp_download
 
-        );
+            );
+        elseif($tipe == "trafo")
+            $data_download2 = array(
+                'lwbp1_download' => $lwbp1_download,
+                'lwbp2_download' => $lwbp2_download,
+                'wbp_download' => $wbp_download,
+                'kvarh_download' => $kvarh_download,
+                'konsiden_download' => $konsiden_download,
+                'total_pemakaian_kwh_download' => $lwbp1_download + $lwbp2_download + $wbp_download
+            );
+        else
+            $data_download2 = array(
+                'lwbp1_download' => $lwbp1_download,
+                'lwbp2_download' => $lwbp2_download,
+                'wbp_download' => $wbp_download,
+                'kvarh_download' => $kvarh_download,
+                'total_pemakaian_kwh_download' => $lwbp1_download + $lwbp2_download + $wbp_download
+            );
 
         $data = array(
             'visual' => $data_visual,
@@ -843,6 +934,7 @@ class Input extends Controller
                 'lwbp2_visual' => null,
                 'wbp_visual' => null,
                 'kvarh_visual' => null,
+                'tu_visual' => null,
                 'konsiden_visual' => null
             );
 
@@ -851,6 +943,7 @@ class Input extends Controller
                 'lwbp2_download' => null,
                 'wbp_download' => null,
                 'kvarh_download' => null,
+                'tu_download' => null,
                 'konsiden_download' => null
             );
 
