@@ -943,6 +943,7 @@
 
                                                                                                     <div class="form-group">
                                                                                                         <label>Tegangan Ujung</label>
+                                                                                                        {{--<input type="number" name="tu_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['tu_visual']}}">--}}
                                                                                                         <input type="number" name="tu_visual" class="form-control" placeholder="" value="">
                                                                                                     </div>
                                                                                                     @endif
