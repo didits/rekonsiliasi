@@ -81,9 +81,7 @@
                                             <th rowspan="3" class="text-center">KWH PENYULANG BULAN LALU</th>
                                             <th colspan="2" rowspan="2" class="text-center">NAIK/TURUN</th>
                                             <th rowspan="3" class="text-center">KWH JUAL</th>
-                                            <th rowspan="3" class="text-center">KWH SUSUT</th>
-                                            <th rowspan="3" class="text-center">LOSSES(%)</th>
-                                            <th rowspan="3" class="text-center">RAYON</th>
+                                            <th colspan="3" class="text-center">SUSUT</th>
                                         </tr>
                                         <tr>
                                             <th rowspan="2" class="text-center">NAMA</th>
@@ -95,6 +93,9 @@
                                             <th rowspan="2" class="text-center">TOTAL KWH</th>
                                             <th rowspan="2" class="text-center">KVARH</th>
                                             <th rowspan="2" class="text-center">KW</th>
+                                            <th rowspan="2" class="text-center">KWH JUAL</th>
+                                            <th rowspan="2" class="text-center">KWH SUSUT</th>
+                                            <th rowspan="2" class="text-center">LOSSES(%)</th>
                                         </tr>
                                         <tr>
                                             <th class="text-center">KWH</th>
@@ -228,8 +229,7 @@
                                                 @endif
                                             </tr>
                                             @endfor
-
-                                            {{--                                        {{dd($data_jumlah)}}--}}
+                                                                                    {{--{{dd($data_jumlah)}}--}}
                                         <tr class="text-right">
                                             <td class="text-center"></td>
                                             <td colspan="4" class="text-center"><b>JUMLAH</b></td>

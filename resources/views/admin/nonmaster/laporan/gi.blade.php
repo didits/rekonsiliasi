@@ -496,11 +496,11 @@
                                         </tr>
                                         <tr class="text-right">
                                             <td colspan="2" class="text-left">PEMAKAIAN KVARH</td>
-                                            <td></td>
-                                            <td class="warning">-</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>13,685</td>
+                                            <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['utama']['visual']['kvarh_visual'])}}</td>
+                                            <td class="warning">{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['utama']['download']['kvarh_download'])}}</td>
+                                            <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['pembanding']['visual']['kvarh_visual'])}}</td>
+                                            <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['pembanding']['download']['kvarh_download'])}}</td>
+                                            <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['ps']['visual']['kvarh_visual'])}}</td>
                                             <td></td>
                                             <td></td>
                                             @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
@@ -512,11 +512,11 @@
                                         </tr>
                                         <tr class="text-right">
                                             <td colspan="2" class="text-left">DAYA KONSIDEN</td>
-                                            <td></td>
-                                            <td class="warning">{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['utama']['download']['konsiden_download'], 2)}}</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['ps']['visual']['konsiden_visual'], 2)}}</td>
+                                            <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['utama']['visual']['konsiden_visual'])}}</td>
+                                            <td class="warning">{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['utama']['download']['konsiden_download'])}}</td>
+                                            <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['pembanding']['visual']['konsiden_visual'])}}</td>
+                                            <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['pembanding']['download']['konsiden_download'])}}</td>
+                                            <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['ps']['visual']['konsiden_visual'])}}</td>
                                             <td></td>
                                             <td></td>
                                             @for ($j=0; $j < count($dt_trafo[$tr]); $j++)

@@ -43,7 +43,7 @@
                                                 <a href="{{route('area.view_beli_deviasi', [$list->id_organisasi, 'rayon',  $list->id])}}" rel="tooltip" title="" data-original-title="View Deviasi" style="margin-left:5pt"  class="btn btn-success btn-fill pull-right">
                                                     <i class="fa fa-pie-chart"></i>
                                                 </a>
-                                                <a href="{{route('area.view_beli_tsa', [$list->id_organisasi, 'rayon', $list->id])}}" rel="tooltip" title="" data-original-title="View TSA Penyulang" style="margin-left:5pt"  class="btn btn-success btn-fill pull-right">
+                                                <a href="{{route('area.view_beli_tsa', [$list->id_organisasi,$list->id,'rayon'])}}" rel="tooltip" title="" data-original-title="View TSA Penyulang" style="margin-left:5pt"  class="btn btn-success btn-fill pull-right">
                                                     <i class="fa fa-folder"></i>
                                                 </a>
                                                 <a href="{{route('area.list_beli_gi', $list->id_organisasi)}}" rel="tooltip" title="" data-original-title="List GI" class="btn btn-info btn-fill pull-right">
@@ -84,14 +84,14 @@
                                             </a>
                                         </div>
                                         <div class="font-icon-list col-md-2">
-                                            <a href="{{route('area.view_beli_tsa_rayon', [Auth::user()->id_organisasi])}}" rel="tooltip" title="" data-original-title="">
+                                            <a href="{{route('area.view_beli_tsa', [Auth::user()->id_organisasi, 'area', 'gi'])}}" rel="tooltip" title="" data-original-title="">
                                                 <button class="font-icon-detail btn btn-info btn-fill btn-wd">
                                                     <i class="pe-7s-albums"></i><br/>Laporan<br/>TSA<br/>Rayon
                                                 </button>
                                             </a>
                                         </div>
                                         <div class="font-icon-list col-md-2">
-                                            <a href="{{route('area.view_beli_tsa', [Auth::user()->id_organisasi, 'area', 0])}}" rel="tooltip" title="" data-original-title="">
+                                            <a href="{{route('area.view_beli_tsa', [Auth::user()->id_organisasi, 'area', 'penyulang'])}}" rel="tooltip" title="" data-original-title="">
                                                 <button class="font-icon-detail btn btn-info btn-fill btn-wd">
                                                     <i class="pe-7s-folder"></i><br/>Laporan<br/>TSA<br/>Penyulang
                                                 </button>

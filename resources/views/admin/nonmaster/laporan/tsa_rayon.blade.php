@@ -113,23 +113,23 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @for($i=0;$i<10;$i++)
+                                        @for($i=0;$i<count($nama_gi);$i++)
                                             <tr class="text-right">
                                                 <td class="text-center">{{$i+1}}</td>
-                                                <td class="text-left">NAMA RAYON</td>
+                                                <td class="text-left">{{$nama_gi[$i]['nama']}}</td>
                                                 <td class="text-center">I</td>
+                                                <td>{{number_format($data_gi[$i]['total_kwh'])}}</td>
+                                                <td>{{number_format($data_gi[$i]['wbp'])}}</td>
+                                                <td>{{number_format($data_gi[$i]['lwbp1'])}}</td>
+                                                <td>{{number_format($data_gi[$i]['lwbp2'])}}</td>
                                                 <td>{{number_format(1)}}</td>
                                                 <td>{{number_format(1)}}</td>
-                                                <td>{{number_format(1)}}</td>
-                                                <td>{{number_format(1)}}</td>
-                                                <td>{{number_format(1)}}</td>
-                                                <td>{{number_format(1)}}</td>
-                                                <td>{{number_format(1)}}</td>
-                                                <td>{{number_format(1)}}</td>
-                                                <td>{{number_format(1)}}</td>
-                                                <td>{{number_format(1)}}</td>
-                                                <td>{{number_format(1)}}</td>
-                                                <td>{{number_format(1)}}</td>
+                                                <td>{{number_format($data_gi[$i]['KWH_lalu'])}}</td>
+                                                <td>{{number_format($data_gi[$i]['KWH'])}}</td>
+                                                <td>{{number_format($data_gi[$i]['persen'])}}</td>
+                                                <td>{{number_format($data_gi[$i]['jual'])}}</td>
+                                                <td>{{number_format($data_gi[$i]['susut'])}}</td>
+                                                <td>{{number_format($data_gi[$i]['losses'])}}</td>
                                             </tr>
                                         @endfor
 
@@ -138,18 +138,18 @@
                                         <thead>
                                         <tr>
                                             <th colspan="3" class="text-left">JUMLAH</th>
-                                            <th class="text-right"><b>{{number_format(310187071)}}</b></th>
-                                            <th class="text-right"><b>{{number_format(56110529)}}</b></th>
-                                            <th class="text-right"><b>{{number_format(96608098)}}</b></th>
-                                            <th class="text-right"><b>{{number_format(157468444)}}</b></th>
+                                            <th class="text-right"><b>{{number_format($total_jumlah['total_kwh'])}}</b></th>
+                                            <th class="text-right"><b>{{number_format($total_jumlah['wbp'])}}</b></th>
+                                            <th class="text-right"><b>{{number_format($total_jumlah['lwbp1'])}}</b></th>
+                                            <th class="text-right"><b>{{number_format($total_jumlah['lwbp2'])}}</b></th>
                                             <th class="text-right"><b>{{number_format(122493)}}</b></th>
                                             <th class="text-right"><b>{{number_format(472471)}}</b></th>
-                                            <th class="text-right"><b>{{number_format(276836412)}}</b></th>
-                                            <th class="text-right"><b>{{number_format(33350659)}}</b></th>
-                                            <th class="text-right"><b>{{number_format(12.05)}}</b></th>
-                                            <th class="text-right"><b>{{number_format(276836412)}}</b></th>
-                                            <th class="text-right"><b>{{number_format(33350659)}}</b></th>
-                                            <th class="text-right"><b>{{number_format(12.05)}}</b></th>
+                                            <th class="text-right"><b>{{number_format($total_jumlah['KWH_lalu'])}}</b></th>
+                                            <th class="text-right"><b>{{number_format($total_jumlah['KWH'])}}</b></th>
+                                            <th class="text-right"><b>{{number_format($total_jumlah['persen'])}}</b></th>
+                                            <th class="text-right"><b>{{number_format($total_jumlah['jual'])}}</b></th>
+                                            <th class="text-right"><b>{{number_format($total_jumlah['susut'])}}</b></th>
+                                            <th class="text-right"><b>{{number_format($total_jumlah['losses'])}}</b></th>
                                         </tr>
                                         </thead>
                                     </table>
