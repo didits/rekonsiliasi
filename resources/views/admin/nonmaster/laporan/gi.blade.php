@@ -535,8 +535,8 @@
                                             <td><i>({{number_format($data_master[$tr]['s_pembanding'], 2)}})</i></td>
                                             <td>{{number_format($data_master[$tr]['p_pembanding'], 2)}}</td>
                                             <td class="text-left"><i>%</i></td>
+                                            <td>Lupa</td>
                                             <td class="text-left"><i>% (inc >&ltout AMR)</i></td>
-                                            <td></td>
                                             @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
                                                 <td></td>
                                                 <td></td>
@@ -551,9 +551,9 @@
                                             <td></td>
                                             <td><i>({{number_format($data_master[$tr]['s_out'], 2)}})</i></td>
                                             <td>{{number_format($data_master[$tr]['p_out'], 2)}}</td>
-                                            <td class="text-left"><i>%</i></td>
-                                            <td><i>100.00</i></td>
                                             <td class="text-left"><i>% (visual >&lt AMR)</i></td>
+                                            <td></td>
+                                            <td></td>
                                             @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
                                                 <td></td>
                                                 <td></td>

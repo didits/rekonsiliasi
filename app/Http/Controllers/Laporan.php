@@ -862,23 +862,13 @@ class Laporan extends Controller
 
                 $excel->sheet($trafo_GI[$tr]['nama'], function($sheet) use($cmb,$penyulang_array,$list_array,$list_data_trafo,$trafo_GI,$deviasi,$sum,$arr_sum_,$gi,$nama_organisasi,$tr) {
 
-                    $sheet->mergeCells('A9:B9');
-                    $sheet->mergeCells('C9:D9');
-                    $sheet->mergeCells('E9:F9');
-                    $sheet->mergeCells('H9:I9');
-
-                    //
-                    $sheet->mergeCells('A10:B10');
-                    $sheet->mergeCells('C10:D10');
-                    $sheet->mergeCells('E10:F10');
-                    $sheet->mergeCells('H10:I10');
-
-                    //
-                    $sheet->mergeCells('A9:A10');
-                    $sheet->mergeCells('C9:C10');
-                    $sheet->mergeCells('E9:E10');
-                    $sheet->mergeCells('G9:G10');
-                    $sheet->mergeCells('H9:H10');
+                    $sheet->mergeCells('A8:B10');
+                    $sheet->mergeCells('C8:D9');
+                    $sheet->mergeCells('E8:F9');
+                    $sheet->mergeCells('H8:I9');
+                    $sheet->getStyle('C8')->getAlignment()->setWrapText(true);
+                    $sheet->getStyle('E8')->getAlignment()->setWrapText(true);
+                    $sheet->getStyle('G8')->getAlignment()->setWrapText(true);
 
                     $sheet->setPageMargin(0.25);
                     $sheet->setOrientation('landscape');
@@ -899,7 +889,7 @@ class Laporan extends Controller
                 });
 
             })
-            ->export('xls');
+            ->download('xls');
 
 
         return view('admin.nonmaster.excel.excelGI',[
