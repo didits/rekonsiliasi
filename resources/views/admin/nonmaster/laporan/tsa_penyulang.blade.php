@@ -128,7 +128,7 @@
                                             <td>{{number_format($data_gi[$i]['lwbp2'],0)}}</td>
                                             <td>{{number_format($data_gi[$i]['wbp'],0)}}</td>
                                             <td>{{number_format($data_gi[$i]['total_kwh'],0)}}</td>
-                                            <td>-</td>
+                                            <td>{{number_format($data_gi[$i]['Kvarh'],0)}}</td>
                                             <td>{{number_format($data_gi[$i]['KW'],0)}}</td>
                                             <td>{{number_format($data_gi[$i]['ujung'],0)}}</td>
                                             <td>{{number_format($data_gi[$i]['KWH_lalu'],0)}}</td>
@@ -148,7 +148,7 @@
                                             <td><b>{{number_format($data_jumlah[$j]['lwbp2'],0)}}</b></td>
                                             <td><b>{{number_format($data_jumlah[$j]['wbp'],0)}}</b></td>
                                             <td><b>{{number_format($data_jumlah[$j]['total_kwh'],0)}}</b></td>
-                                            <td><b>-</b></td>
+                                            <td><b>{{number_format($data_jumlah[$j]['Kvarh'],0)}}</b></td>
                                             <td><b>{{number_format($data_jumlah[$j]['KW'],0)}}</b></td>
                                             <td class="text-left"><b></b></td>
                                             <td><b>{{number_format($data_jumlah[$j]['KWH_lalu'],0)}}</b></td>
@@ -171,7 +171,7 @@
                                             <td class="text-right"><b>{{number_format($total_jumlah['lwbp2'],0)}}</b></td>
                                             <td class="text-right"><b>{{number_format($total_jumlah['wbp'],0)}}</b></td>
                                             <td class="text-right"><b>{{number_format($total_jumlah['total_kwh'],0)}}</b></td>
-                                            <td class="text-right"><b></b></td>
+                                            <td class="text-right"><b>{{number_format($total_jumlah['Kvarh'],0)}}</b></td>
                                             <td class="text-right"><b>{{number_format($total_jumlah['KW'],0)}}</b></td>
                                             <td class="text-center"><b></b></td>
                                             <td class="text-right"><b>{{number_format($total_jumlah['KWH_lalu'],0)}}</b></td>
@@ -215,7 +215,7 @@
                                                     <td>{{number_format($data_gi[$gi][$py]['lwbp2'],0)}}</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['wbp'],0)}}</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['total_kwh'],0)}}</td>
-                                                    <td>-</td>
+                                                    <td>{{number_format($data_gi[$gi][$py]['Kvarh'],0)}}</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['KW'],0)}}</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['ujung'],0)}}</td>
                                                     <td class="text-left">{{$data_gi[$gi][$py]['rayon']}}</td>
@@ -237,7 +237,7 @@
                                             <td><b>{{number_format($data_jumlah[$gi][$tr]['lwbp2'],0)}}</b></td>
                                             <td><b>{{number_format($data_jumlah[$gi][$tr]['wbp'],0)}}</b></td>
                                             <td><b>{{number_format($data_jumlah[$gi][$tr]['total_kwh'],0)}}</b></td>
-                                            <td><b>-</b></td>
+                                            <td><b>{{number_format($data_jumlah[$gi][$tr]['Kvarh'],0)}}</b></td>
                                             <td><b>{{number_format($data_jumlah[$gi][$tr]['KW'],0)}}</b></td>
                                             <td class="text-left"><b></b></td>
                                             <td><b>{{number_format($data_jumlah[$gi][$tr]['KWH_lalu'],0)}}</b></td>
@@ -260,7 +260,7 @@
                                         <th class="text-right"><b>{{number_format($total_jumlah['lwbp2'],0)}}</b></th>
                                         <th class="text-right"><b>{{number_format($total_jumlah['wbp'],0)}}</b></th>
                                         <th class="text-right"><b>{{number_format($total_jumlah['total_kwh'],0)}}</b></th>
-                                        <th class="text-right"><b></b></th>
+                                        <th class="text-right"><b>{{number_format($total_jumlah['Kvarh'],0)}}</b></th>
                                         <th class="text-right"><b>{{number_format($total_jumlah['KW'],0)}}</b></th>
                                         <th class="text-center"><b></b></th>
                                         <th class="text-right"><b>{{number_format($total_jumlah['KWH_lalu'],0)}}</b></th>
