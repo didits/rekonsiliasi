@@ -535,7 +535,7 @@
                                             <td><i>({{number_format($data_master[$tr]['s_pembanding'], 2)}})</i></td>
                                             <td>{{number_format($data_master[$tr]['p_pembanding'], 2)}}</td>
                                             <td class="text-left"><i>%</i></td>
-                                            <td>Lupa</td>
+                                            <td>{{number_format($data_master[$tr]['s_ps'], 2)}}</td>
                                             <td class="text-left"><i>% (inc >&ltout AMR)</i></td>
                                             @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
                                                 <td></td>

@@ -151,6 +151,7 @@ class Laporan extends Controller
                         $hasil_lwbp1_=null; $hasil_lwbp2_=null; $hasil_wbp_=null;
                     }
                     else{
+//                        DOWNLOAD
                         $hasil_lwbp1_ = (json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['visual']['lwbp1_visual'])
                             + (json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['download']['lwbp1_download']);
                         $hasil_lwbp2_ = (json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['visual']['lwbp2_visual'])
@@ -185,7 +186,9 @@ class Laporan extends Controller
                 'total_pemakaian_energi_' => $total_,
             );
             array_push($list_array,$pemakaian_penyulang);
+
         }
+//        dd($list_array);
         return $list_array;
     }
 
@@ -225,6 +228,12 @@ class Laporan extends Controller
                 (json_decode($p_tr_['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']
                     -json_decode($p_tr_['data'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']-$list_array[$i]['total_pemakaian_energi_'])
                 /($zero_s))*100;
+//          download ps =  $list_array[$i]['total_pemakaian_energi_'];
+            $selisih_ps = abs(
+                    (json_decode($p_tr_['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']
+                        -json_decode($p_tr_['data'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']-0)
+                    /($zero_s))*100;
+
             $persen =(json_decode($p_tr_['data'],true)['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual']-json_decode($p_tr_['data'],true)['hasil_pengolahan']['pembanding']['download']['total_pemakaian_kwh_download'])
                 /$zero_p*100;
 
@@ -233,6 +242,7 @@ class Laporan extends Controller
                 'data_master' => $tr[$i]['data_master'],
                 'data' => $dt,
                 'data_' => $dt_,
+                's_ps' => $selisih_ps,
                 's_out' => $selisih,
                 'p_out' => $persen,
                 's_pembanding' => $s_out,
