@@ -570,7 +570,6 @@ class Laporan extends Controller
                     }
                   }
             }
-            dd($jumlah_trafo);
 
             $jumlah_gi = array();
             for($i=0;$i<count($jumlah_trafo);$i++){
@@ -633,6 +632,7 @@ class Laporan extends Controller
                 'wbp' => $tot_wbp,
                 'total_kwh' => $tot_t_kwh,
                 'KW' => $tot_KW,
+                'Kvarh'   => $tot_KWH,
                 'KWH'   => $tot_KWH,
                 'KWH_lalu'   => $tot_KWH_lalu,
                 'persen' => $tot_persen,
