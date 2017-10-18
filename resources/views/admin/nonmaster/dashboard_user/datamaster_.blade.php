@@ -3,7 +3,6 @@
 @section('title', 'Si-Oneng, Rekonsiliasi Energi')
 
 @section('content')
-
     <div class="wrapper">
         @include('admin.master.navbar')
 
@@ -2216,57 +2215,84 @@
                                     <div class="content" id="tambahpenyulang-">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div class="card">
-                                                    <div class="header">EXIM</div>
-                                                    <div class="content">
-                                                        <label>Ekspor ke:</label>
-                                                        <div class="row">
-                                                            <div class="col-md-6">
+                                                <div class="nav-container">
+                                                    <ul class="nav nav-icons" role="tablist">
+                                                        <li class="active">
+                                                            <a href="#ekspor" role="tab" data-toggle="tab">
+                                                                <i class="fa fa-bolt"></i><br>
+                                                                Ekspor
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#impor" role="tab" data-toggle="tab">
+                                                                <i class="fa fa-exchange"></i><br>
+                                                                Impor
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="tab-content">
+                                                    <div class="tab-pane active" id="ekspor">
+                                                        <div class="card">
+                                                            <div class="header">Ekspor</div>
+                                                            <div class="content">
+                                                                <label>Ekspor ke:</label>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label>Area</label>
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Area" value="{{$decoded['lokasi']['ekspor']['area']}}">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label>Rayon</label>
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$decoded['lokasi']['ekspor']['rayon']}}">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                                 <div class="form-group">
-                                                                    <label>Area</label>
-                                                                    <input type="text" class="form-control" disabled="" placeholder="Area" value="{{$decoded['lokasi']['ekspor']['area']}}">
+                                                                    <label class="control-label">Penyulang</label>
+                                                                    <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="{{$decoded['lokasi']['ekspor']['penyulang']}}">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label>Rayon</label>
-                                                                    <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$decoded['lokasi']['ekspor']['rayon']}}">
-                                                                </div>
+                                                            <div class="footer">
+                                                                <div class="clearfix"></div>
                                                             </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label">Penyulang</label>
-                                                            <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="{{$decoded['lokasi']['ekspor']['penyulang']}}">
-                                                        </div>
-
-                                                        <label>Impor dari:</label>
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label>Area</label>
-                                                                    <input type="text" class="form-control" disabled="" placeholder="Area" value="{{$decoded['lokasi']['impor']['area']}}">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label>Rayon</label>
-                                                                    <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$decoded['lokasi']['impor']['rayon']}}">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label">Penyulang</label>
-                                                            <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="{{$decoded['lokasi']['impor']['penyulang']}}">
                                                         </div>
                                                     </div>
-
-                                                    <div class="footer">
-                                                        <div class="clearfix"></div>
+                                                    <div class="tab-pane" id="impor">
+                                                        <div class="card">
+                                                            <div class="header">Impor</div>
+                                                            <div class="content">
+                                                                <label>Impor dari:</label>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label>Area</label>
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Area" value="{{$decoded['lokasi']['ekspor']['area']}}">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label>Rayon</label>
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$decoded['lokasi']['ekspor']['rayon']}}">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Penyulang</label>
+                                                                    <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="{{$decoded['lokasi']['ekspor']['penyulang']}}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="footer">
+                                                                <div class="clearfix"></div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                     <div class="content" id="editEXIM-">
                                         <div class="row">
@@ -2282,26 +2308,19 @@
                                                         <input type="hidden" name="form_gardu" value="{{$gardu->id}}">
                                                         <input type="hidden" name="form_editExim" value="{{$gardu->id}}">
                                                         {{ csrf_field() }}
-                                                        <div class="header">Edit Ekspor</div>
+                                                        <div class="header">Edit EXIM</div>
                                                         <div class="content">
 
-                                                            {{--<label class="control-label">EXIM <star>*</star></label>--}}
-                                                            {{--<div class="form-group">--}}
-                                                                {{--<div class="row">--}}
-                                                                    {{--<div class="col-md-6">--}}
-                                                                        {{--<div class="btn-group bootstrap-select">--}}
-                                                                            {{--<div class="btn-group bootstrap-select">--}}
-                                                                                {{--<select name="selectExim" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">--}}
-                                                                                    {{--<option class="bs-title-option" value="">Pilih EXIM</option>--}}
-                                                                                    {{--<option value="pct_impor">Impor</option>--}}
-                                                                                    {{--<option value="pct_ekspor">Ekspor</option>--}}
-
-                                                                                {{--</select>--}}
-                                                                            {{--</div>--}}
-                                                                        {{--</div>--}}
-                                                                    {{--</div>--}}
-                                                                {{--</div>--}}
-                                                            {{--</div>--}}
+                                                            <label class="control-label">EXIM <star>*</star></label>
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <label class="checkbox">
+                                                                            <input name="cekbos" type="checkbox" data-toggle="checkbox">Penyulang Dipakai Rayon Lain
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 
                                                             <label class="control-label">Tujuan Ekspor <star>*</star></label>
                                                             <div class="form-group">
@@ -2727,34 +2746,39 @@
 @endsection
 
 @section('extra_script')
-
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('select[name="selectareasingle"]').on('change', function () {
-                var id_area = $(this).val();
-                if (id_area) {
-                    $.ajax({
-                        url: '{{ url('populate/rayon/') }}' + '/' + id_area,
-                        type: "GET",
-                        dataType: "json",
-                        success: function (data) {
-//                            console.log(data);
+        function populateRayon() {
+            var id_area = $('select[name="selectareasingle"]').val();
+            if (id_area) {
+                $.ajax({
+                    url: '{{ url('populate/rayon/') }}' + '/' + id_area,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        $('select[name="selectrayonsingle"]').empty().append('<option class="bs-title-option" value="">Rayon</option>');
+                        $.each(data, function (key, value) {
+                            $('select[name="selectrayonsingle"]').append('<option value="' + key + '">' + value + '</option>');
+                        });
+                        $('.selectpicker').selectpicker('refresh');
+                    }
+                });
+            } else {
+                $('select[name="selectrayonsingle"]').empty().append('<option class="bs-title-option" value="">Rayon</option>');
+                $('.selectpicker').selectpicker('refresh');
+            }
+        }
 
-                            $('select[name="selectrayonsingle"]').empty().append('<option class="bs-title-option" value="">Rayon</option>');
-                            ;
-                            $.each(data, function (key, value) {
-                                $('select[name="selectrayonsingle"]').append('<option value="' + key + '">' + value + '</option>');
-                            });
-                            $('.selectpicker').selectpicker('refresh');
-
-                        }
-                    });
-                } else {
-                    $('select[name="selectrayonsingle"]').empty().append('<option class="bs-title-option" value="">Rayon</option>');
-                }
-            });
-            $('select[name="selectrayonsingle"]').on('change', function () {
-                var id_rayon = $(this).val();
+        function populatePenyulang() {
+            if ($('input[name="cekbos"]').prop('checked')) {
+                var key = {{isset($idP)?$idP->id:''}};
+                var value = "{{isset($idP)?$idP->nama_penyulang:"''"}}";
+                $('select[name="selectpenyulangsingle"]').empty()
+                    .append('<option class="bs-title-option" value="">Penyulang</option>')
+                    .append('<option value="' + key + '">' + value + '</option>');
+                $('.selectpicker').selectpicker('refresh');
+            }
+            else {
+                var id_rayon = $('select[name="selectrayonsingle"]').val();
                 console.log(id_rayon);
                 if (id_rayon) {
                     $.ajax({
@@ -2774,29 +2798,21 @@
                     });
                 } else {
                     $('select[name="selectpenyulangsingle"]').empty().append('<option class="bs-title-option" value="">Penyulang</option>');
+                    $('.selectpicker').selectpicker('refresh');
                 }
-            });
-            $('select[name="selectpenyulangsingle"]').on('change', function() {
-                var id_penyulang = $(this).val();
-                console.log(id_penyulang);
-                if(id_penyulang) {
-                        $.ajax({
-                        url: '{{ url('populate/gd/') }}'+'/'+id_penyulang,
-                        type: "GET",
-                        dataType: "json",
-                        success:function(data) {
-//                            console.log(data);
+            }
+        }
 
-                            $('select[name="selectgdsingle"]').empty().append('<option class="bs-title-option" value="">GTT</option>');;
-                            $.each(data, function(key, value) {
-                                $('select[name="selectgdsingle"]').append('<option value="'+ key +'">'+ value +'</option>');
-                            });
-                            $('.selectpicker').selectpicker('refresh');
-                        }
-                    });
-                }else{
-                    $('select[name="selectgdsingle"]').empty().append('<option class="bs-title-option" value="">Penyulang</option>');
-                }
+        $(document).ready(function() {
+            $('select[name="selectareasingle"]').on('change', function () {
+                populateRayon()
+            });
+            $('select[name="selectrayonsingle"]').on('change', function () {
+                populatePenyulang()
+            });
+            $('input[name="cekbos"]').change(function () {
+                populateRayon();
+                populatePenyulang();
             });
         });
     </script>

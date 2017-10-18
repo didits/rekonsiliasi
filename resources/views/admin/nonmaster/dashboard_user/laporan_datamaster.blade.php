@@ -716,7 +716,7 @@
                             <div class="nav-container">
                                 <ul class="nav nav-icons" role="tablist">
                                     <li class="active">
-                                        <a href="#meter-PCT" role="tab" data-toggle="tab">
+                                        <a href="#meter-PCT " role="tab" data-toggle="tab">
                                             <i class="fa fa-exchange"></i><br>
                                             Meter PCT
                                         </a>

@@ -1161,11 +1161,13 @@ class AreaController extends Controller
         $rayon = Organisasi::where('id', $id_organisasi)->first();
         $gardu = Gardu::where('id', $id_gardu)->first();
         $data = Gardu::where('id', $id_gardu)->get();
+        $idP = Penyulang::select('id', 'nama_penyulang')->where('id', $gardu->id_penyulang)->first();
         $decoded = json_decode($gardu->data_master, true);
         if($gardu->tipe_gardu!=1) $meter = null;
         else $meter =1;
         return view('admin.nonmaster.dashboard_user.datamaster_',[
             'data' =>$data,
+            'idP' =>$idP,
             'decoded' =>$decoded,
             'gi'=>null,'trafo_gi'=>null,'gardu'=>$gardu,'penyulang'=>null,
             'id_gi'=>null,'id_trafo_gi'=>null,'id_gardu'=>$id_gardu,'id_penyulang'=>null,

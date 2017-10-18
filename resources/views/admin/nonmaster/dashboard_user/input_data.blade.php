@@ -546,19 +546,19 @@
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
                                                                             <label>Area</label>
-                                                                            <input type="text" class="form-control" disabled="" placeholder="Area" value="{{$decoded['lokasi']['impor']['area']}}">
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Area" value="{{$decoded['lokasi']['ekspor']['area']}}">
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
                                                                             <label>Rayon</label>
-                                                                            <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$decoded['lokasi']['impor']['rayon']}}">
+                                                                            <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$decoded['lokasi']['ekspor']['rayon']}}">
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label class="control-label">Penyulang</label>
-                                                                    <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="{{$decoded['lokasi']['impor']['penyulang']}}">
+                                                                    <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="{{$decoded['lokasi']['ekspor']['penyulang']}}">
                                                                 </div>
                                                             </div>
                                                             <div class="footer">
