@@ -426,6 +426,11 @@ Route::group(['prefix' => 'area/laporan_transaksi', 'middleware' => ['auth', 'ti
         'as'        => 'area.view_excel_beli',
         'uses'      => 'Laporan@excel_beli'
     ]);
+
+    Route::get('/excel_laporan_deviasi/{id_organisasi}/{unit}/{id_unit}', [
+        'as'        => 'area.view_excel_deviasi',
+        'uses'      => 'Laporan@excel_deviasi'
+    ]);
 });
 
 //distribusi

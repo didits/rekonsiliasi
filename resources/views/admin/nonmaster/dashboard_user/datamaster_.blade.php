@@ -2770,8 +2770,8 @@
 
         function populatePenyulang() {
             if ($('input[name="cekbos"]').prop('checked')) {
-                var key = {{isset($idP)?$idP->id:''}};
-                var value = "{{isset($idP)?$idP->nama_penyulang:"''"}}";
+                var key = "{{isset($idP)?$idP->id:''}}";
+                var value = "{{isset($idP)?$idP->nama_penyulang:''}}";
                 $('select[name="selectpenyulangsingle"]').empty()
                     .append('<option class="bs-title-option" value="">Penyulang</option>')
                     .append('<option value="' + key + '">' + value + '</option>');

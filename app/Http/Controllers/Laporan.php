@@ -256,6 +256,7 @@ class Laporan extends Controller
 
     public function view_beli($id_rayon,$tipe,$id){
         $cmb = new MasterLaporan($id_rayon,"tsa",$id);
+        dd($areas);
         $gi = GI::where('id',$id)->first();
         $areas = Organisasi::where('id',$gi->id_organisasi)->first();
         $id_org = substr($areas->id_organisasi, 0, 3) . "%%";
@@ -388,7 +389,6 @@ class Laporan extends Controller
                             $KWH_salur_wbp = intval((($A_wbp/$B*$C/1) + 0.5 )*1);
                             $kvar =$C/$B*json_decode($p_trafo_['data'],true)['beli']['utama']['download']['kvarh_download'];
 
-
                             //      INI DITANYAIN BIKIN FORM ATAU TIDAK??? KALO IYA DIMASUKIN ke Penyimpanan Trafo GI
                             $daya_konsiden_utama = (json_decode($p_trafo_['data'],true)['beli']['utama']['download']['konsiden_download']);
                             $daya_konsiden_ps = (json_decode($p_trafo_['data'],true)['beli']['ps']['visual']['konsiden_visual']);
@@ -435,8 +435,8 @@ class Laporan extends Controller
                             $trafo_Kvarh += $kvar;
                             $trafo_KWH += $KWH;
                             $trafo_KWH_lalu += $KWH_bulan_lalu;
-                            $jual = 20000000;
-//                            $jual =   json_decode($penyulang_array[$j]['data_'],true)['jual']['total_kwh_jual'];
+//                            $jual = 20000000;
+                            $jual =   json_decode($penyulang_array[$j]['data_'],true)['jual']['total_kwh_jual'];
                             $susut =   $total_kwh-$jual;
                             $trafo_jual += $jual;
                             if($total_kwh==0) $losses=0;
@@ -461,6 +461,7 @@ class Laporan extends Controller
                                 'persen' => $persen
                             );
                             array_push($list_p,$data_keluar);
+
 //                            dd(json_decode($penyulang_array[$j]['data_'],true)['jual']['total_kwh_jual']);
                         }
                         else {
@@ -546,6 +547,7 @@ class Laporan extends Controller
             );
 
         }
+//        dd($jumlah_tot);
         return array($trafo,$list_p,$jumlah_trafo,$jumlah_tot);
     }
 
