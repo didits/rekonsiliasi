@@ -10,7 +10,7 @@ use App\TrafoGI;
 use Illuminate\Http\Request;
 use App\Penyulang;
 use App\Gardu;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth; 
 use phpDocumentor\Reflection\Types\Null_;
 use Excel;
 
@@ -780,6 +780,8 @@ class Laporan extends Controller
                 'tipe'      => $tipe,
                 'jumlah'      => $jumlah,
                 'total'      => $total,
+                'id_organisasi' => $id_organisasi,
+                'id'        => $id
 //                'rayon'     => $org->nama_organisasi,
             ]);
         }
@@ -798,11 +800,206 @@ class Laporan extends Controller
                     'tipe'      => $tipe,
                     'jumlah'      => $jumlah,
                     'rayon'     => $org->nama_organisasi,
+                    'id_organisasi' => $id_organisasi,
+                    'id'        => $id
                 ]);
 
             }
             elseif(!$data_gi){
                 return view('admin.nonmaster.laporan.deviasi',[
+                    'area'      => 'null',
+                    'data_GI'   => null,
+                    'tipe'      => $tipe,
+                    'jumlah'      => null,
+                    'rayon'     => $org->nama_organisasi,
+                    'id_organisasi' => $id_organisasi,
+                    'id'        => $id
+                ]);
+            }
+        }
+    }
+
+    public function excel_beli_deviasi($id_organisasi, $tipe, $id){
+        if($tipe == "area"){
+            $data_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
+            $id_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
+            $data_GI = array();
+            $jumlah = array();
+            $tot_D =$tot_E =$tot_F =$tot_G =$tot_H =$tot_I =$tot_J =$tot_K=$tot_L =$tot_M= $tot_N =null;
+            for($i =0 ;$i <count($id_org);$i++){
+                $dt = GI::where('id_organisasi',$id_org[$i])->select('id','id_organisasi','nama_gi')->first();
+                if(!$dt==null){
+                    $data = $this->data_deviasi($dt,$data_org[$i]['id_organisasi']);
+                    if($data[0]){
+                        array_push($data_GI,$data[0]);
+                        array_push($jumlah,$data[1]);
+                        $tot_D +=$data[1]['D']; $tot_E +=$data[1]['E'];$tot_F +=$data[1]['F'];$tot_G +=$data[1]['G'];$tot_H +=$data[1]['H'];$tot_I +=$data[1]['I'];$tot_J +=$data[1]['J'];$tot_K +=$data[1]['K'];$tot_L +=$data[1]['L'];$tot_M +=$data[1]['M'];$tot_N +=$data[1]['N'];
+                    }
+                }
+            }
+            $total = array(
+                'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'I' => $tot_I,
+                'J' => $tot_J, 'K' => $tot_K, 'L' => $tot_L, 'M' => $tot_M, 'N' => $tot_N
+            );
+            Excel::create('laporan Deviasi', function($excel)use($data_GI,$tipe,$jumlah,$total){
+
+                $excel->sheet('Laporan Deviasi', function($sheet) use($data_GI,$tipe,$jumlah,$total) {
+                    $sheet->mergeCells('I9:N9');
+                    $sheet->mergeCells('I10:J10');
+                    $sheet->mergeCells('K10:L10');
+                    $sheet->mergeCells('M10:N10');
+
+                    $sheet->mergeCells('A9:A11');
+                    $sheet->mergeCells('B9:B11');
+                    $sheet->mergeCells('C9:C11');
+                    $sheet->mergeCells('D9:D11');
+                    $sheet->mergeCells('E9:E11');
+                    $sheet->mergeCells('F9:F11');
+                    $sheet->mergeCells('G9:G11');
+                    $sheet->mergeCells('H9:H11');
+                    $sheet->mergeCells('O9:O11');
+                    
+
+                    $sheet->getStyle('A9')->getAlignment()->setWrapText(true);
+                    $sheet->getStyle('B9')->getAlignment()->setWrapText(true);
+                    $sheet->getStyle('C9')->getAlignment()->setWrapText(true);
+                    $sheet->getStyle('D9')->getAlignment()->setWrapText(true);
+                    $sheet->getStyle('E9')->getAlignment()->setWrapText(true);
+                    $sheet->getStyle('F9')->getAlignment()->setWrapText(true);
+                    $sheet->getStyle('G9')->getAlignment()->setWrapText(true);
+                    $sheet->getStyle('H9')->getAlignment()->setWrapText(true);
+                    $sheet->getStyle('O9')->getAlignment()->setWrapText(true);
+
+                    $sheet->setPageMargin(0.25);
+                    $sheet->setOrientation('landscape');
+                    $sheet->loadView('admin.nonmaster.excel.deviasi',[
+                        'area'      => 'area',
+                        'data_GI'   => $data_GI,
+                        'tipe'      => $tipe,
+                        'jumlah'      => $jumlah,
+                        'total'      => $total,
+                    ]);
+
+                });
+
+            })
+            ->download('xls');
+
+            return view('admin.nonmaster.excel.deviasi',[
+                'area'      => 'area',
+                'data_GI'   => $data_GI,
+                'tipe'      => $tipe,
+                'jumlah'      => $jumlah,
+                'total'      => $total,
+            ]);
+        }
+        elseif($tipe == "rayon"){
+            $org = Organisasi::select('tipe_organisasi','nama_organisasi')->where('id_organisasi',$id_organisasi)->first();
+            $data_gi = GI::where('id_organisasi',$id)->select('id','nama_gi')->first();
+            if($data_gi){
+                $data = $this->data_deviasi($data_gi,$id_organisasi);
+                $data_GI =$data[0];
+                $jumlah =$data[1];
+
+                Excel::create('laporan Deviasi', function($excel)use($data_GI,$tipe,$jumlah,$total){
+
+                $excel->sheet('Laporan Deviasi', function($sheet) use($data_GI,$tipe,$jumlah,$total) {
+                    $sheet->mergeCells('I9:N9');
+                    $sheet->mergeCells('I10:J10');
+                    $sheet->mergeCells('K10:L10');
+                    $sheet->mergeCells('M10:N10');
+
+                    $sheet->mergeCells('A9:A11');
+                    $sheet->mergeCells('B9:B11');
+                    $sheet->mergeCells('C9:C11');
+                    $sheet->mergeCells('D9:D11');
+                    $sheet->mergeCells('E9:E11');
+                    $sheet->mergeCells('F9:F11');
+                    $sheet->mergeCells('G9:G11');
+                    $sheet->mergeCells('H9:H11');
+                    $sheet->mergeCells('O9:O11');
+                    
+
+                    $sheet->getStyle('A9')->getAlignment()->setWrapText(true);
+                    $sheet->getStyle('B9')->getAlignment()->setWrapText(true);
+                    $sheet->getStyle('C9')->getAlignment()->setWrapText(true);
+                    $sheet->getStyle('D9')->getAlignment()->setWrapText(true);
+                    $sheet->getStyle('E9')->getAlignment()->setWrapText(true);
+                    $sheet->getStyle('F9')->getAlignment()->setWrapText(true);
+                    $sheet->getStyle('G9')->getAlignment()->setWrapText(true);
+                    $sheet->getStyle('H9')->getAlignment()->setWrapText(true);
+                    $sheet->getStyle('O9')->getAlignment()->setWrapText(true);
+
+                    $sheet->setPageMargin(0.25);
+                    $sheet->setOrientation('landscape');
+                    $sheet->loadView('admin.nonmaster.excel.deviasi',[
+                        'area'      => 'area',
+                        'data_GI'   => $data_GI,
+                        'tipe'      => $tipe,
+                        'jumlah'      => $jumlah,
+                        'total'      => $total,
+                    ]);
+
+                });
+
+            })
+            ->download('xls');
+
+                return view('admin.nonmaster.excel.deviasi',[
+                    'area'      => 'data',
+                    'data_GI'   => $data_GI,
+                    'tipe'      => $tipe,
+                    'jumlah'      => $jumlah,
+                    'rayon'     => $org->nama_organisasi,
+                ]);
+
+            }
+            elseif(!$data_gi){
+                Excel::create('laporan Deviasi', function($excel)use($data_GI,$tipe,$jumlah,$total){
+
+                $excel->sheet('Laporan Deviasi', function($sheet) use($data_GI,$tipe,$jumlah,$total) {
+                    $sheet->mergeCells('I9:N9');
+                    $sheet->mergeCells('I10:J10');
+                    $sheet->mergeCells('K10:L10');
+                    $sheet->mergeCells('M10:N10');
+
+                    $sheet->mergeCells('A9:A11');
+                    $sheet->mergeCells('B9:B11');
+                    $sheet->mergeCells('C9:C11');
+                    $sheet->mergeCells('D9:D11');
+                    $sheet->mergeCells('E9:E11');
+                    $sheet->mergeCells('F9:F11');
+                    $sheet->mergeCells('G9:G11');
+                    $sheet->mergeCells('H9:H11');
+                    $sheet->mergeCells('O9:O11');
+                    
+
+                    $sheet->getStyle('A9')->getAlignment()->setWrapText(true);
+                    $sheet->getStyle('B9')->getAlignment()->setWrapText(true);
+                    $sheet->getStyle('C9')->getAlignment()->setWrapText(true);
+                    $sheet->getStyle('D9')->getAlignment()->setWrapText(true);
+                    $sheet->getStyle('E9')->getAlignment()->setWrapText(true);
+                    $sheet->getStyle('F9')->getAlignment()->setWrapText(true);
+                    $sheet->getStyle('G9')->getAlignment()->setWrapText(true);
+                    $sheet->getStyle('H9')->getAlignment()->setWrapText(true);
+                    $sheet->getStyle('O9')->getAlignment()->setWrapText(true);
+
+                    $sheet->setPageMargin(0.25);
+                    $sheet->setOrientation('landscape');
+                    $sheet->loadView('admin.nonmaster.excel.deviasi',[
+                        'area'      => 'area',
+                        'data_GI'   => $data_GI,
+                        'tipe'      => $tipe,
+                        'jumlah'      => $jumlah,
+                        'total'      => $total,
+                    ]);
+
+                });
+
+            })
+            ->download('xls');
+            
+                return view('admin.nonmaster.excel.deviasi',[
                     'area'      => 'null',
                     'data_GI'   => null,
                     'tipe'      => $tipe,
