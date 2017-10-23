@@ -48,8 +48,28 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Input Awal</h4>
+                                <p class="category">Rayon {{Auth::user()->nama_organisasi}}</p>
+                            </div>
+                            <div class="content all-icons">
+                                <div class="row">
+                                    <div class="font-icon-list col-md-2">
+                                        <a href="{{route('input.input_lalu')}}" rel="tooltip" title="" data-original-title="">
+                                            <button class="font-icon-detail btn btn-info btn-fill btn-wd"><i class="pe-7s-server"></i><br/>Input Awal</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
         @include('admin.master.footer')
 
     </div>
