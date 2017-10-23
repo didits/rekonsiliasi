@@ -185,12 +185,6 @@ Route::group(['prefix' => 'rayon/entry_transaksi', 'middleware' => ['auth', 'tip
         'as'        => 'input.input_data',
         'uses'      => 'Input@input_data'
     ]);
-    Route::get('/input_lalu', [
-        'as'        => 'input.input_lalu',
-        'uses'      => function () {
-            return view('admin.nonmaster.dashboard_user.import_awal');
-        }
-    ]);
 });
 
 //rayon-laporan_transaksi
