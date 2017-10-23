@@ -256,7 +256,7 @@ class Laporan extends Controller
 
     public function view_beli($id_rayon,$tipe,$id){
         $cmb = new MasterLaporan($id_rayon,"tsa",$id);
-        dd($areas);
+//        dd($areas);
         $gi = GI::where('id',$id)->first();
         $areas = Organisasi::where('id',$gi->id_organisasi)->first();
         $id_org = substr($areas->id_organisasi, 0, 3) . "%%";
@@ -403,17 +403,23 @@ class Laporan extends Controller
                             $total_kwh = $KWH_salur_lwbp1+$KWH_salur_lwbp2+$KWH_salur_wbp;
 
                             $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',date('Ym')-1)->first();
+//                            dd(json_decode($bulan_lalu->data,true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download']);
+//                            $KWH_bulan_lalu = json_decode($bulan_lalu->data,true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download'];
 //                            dd($KWH_bulan_lalu);
-
-                            if($KWH_bulan_lalu == null||$KWH_bulan_lalu->data_keluar==null ){
+                            $KWH = null;
+                            if(($KWH_bulan_lalu) == null||$KWH_bulan_lalu->data_keluar==null ){
                                 $KWH_bulan_lalu = null;
                                 $KWH = $total_kwh - $KWH_bulan_lalu;
                                 $persen = null;
                             }
                             else{
                                 $KWH_bulan_lalu= json_decode($KWH_bulan_lalu->data_keluar,true)['total_kwh'];
-                                $KWH = $total_kwh - $KWH_bulan_lalu;
-                                $persen = $KWH/$KWH_bulan_lalu*100;
+                                if($KWH_bulan_lalu==null)
+                                    $persen =0;
+                                else{
+                                    $KWH = $total_kwh - $KWH_bulan_lalu;
+                                    $persen = $KWH/$KWH_bulan_lalu*100;
+                                }
                             }
                             //      KOLOM N, O
                             $p_penyulang = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',date('Ym'))->first();

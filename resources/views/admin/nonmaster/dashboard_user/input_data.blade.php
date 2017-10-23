@@ -943,8 +943,8 @@
 
                                                                                                     <div class="form-group">
                                                                                                         <label>Tegangan Ujung</label>
-                                                                                                        {{--<input type="number" name="tu_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['tu_visual']}}">--}}
-                                                                                                        <input type="number" name="tu_visual" class="form-control" placeholder="" value="">
+                                                                                                        <input type="number" name="tu_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['tu_visual']}}">
+                                                                                                        {{--<input type="number" name="tu_visual" class="form-control" placeholder="" value="">--}}
                                                                                                     </div>
                                                                                                     @endif
 
@@ -994,7 +994,7 @@
 
                                                                                                     <div class="form-group">
                                                                                                         <label>Tegangan Ujung</label>
-                                                                                                        <input type="number" name="tu_download" class="form-control" placeholder="" value="">
+                                                                                                        <input type="number" name="tu_download" class="form-control" placeholder="" value="{{$data['beli']['download']['tu_download']}}">
                                                                                                     </div>
                                                                                                     @endif
 
@@ -1032,8 +1032,8 @@
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label>Total Pemakaian KWH</label>
-                                                                                    <input type="text" name="tpe_jual" class="form-control" placeholder="" value="">
-                                                                                    {{--<input type="text" name="tpe_jual" class="form-control" placeholder="" value="{{$data['jual']['total_kwh_jual']}}">--}}
+                                                                                    {{--<input type="text" name="tpe_jual" class="form-control" placeholder="" value="">--}}
+                                                                                    <input type="text" name="tpe_jual" class="form-control" placeholder="" value="{{$data['jual']['total_kwh_jual']}}">
                                                                                 </div>
                                                                                 <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                 <div class="clearfix"></div>

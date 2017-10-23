@@ -80,8 +80,8 @@
                                             <th rowspan="3" class="text-center">TEGANGAN<br/>UJUNG</th>
                                             <th rowspan="3" class="text-center">KWH PENYULANG BULAN LALU</th>
                                             <th colspan="2" rowspan="2" class="text-center">NAIK/TURUN</th>
-                                            <th rowspan="3" class="text-center">KWH JUAL</th>
                                             <th colspan="3" class="text-center">SUSUT</th>
+                                            <th rowspan="3" class="text-center">UP/UPJ</th>
                                         </tr>
                                         <tr>
                                             <th rowspan="2" class="text-center">NAMA</th>
@@ -218,14 +218,13 @@
                                                     <td>{{number_format($data_gi[$gi][$py]['Kvarh'],0)}}</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['KW'],0)}}</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['ujung'],0)}}</td>
-                                                    <td class="text-left">{{$data_gi[$gi][$py]['rayon']}}</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['KWH_lalu'],0)}}</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['KWH'],0)}}</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['persen'],2)}}</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['jual'],0)}}</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['susut'],0)}}</td>
                                                     <td>{{number_format($data_gi[$gi][$py]['losses'],2)}}</td>
-
+                                                    <td class="text-left">{{$data_gi[$gi][$py]['rayon']}}</td>
                                                 @endif
                                             </tr>
                                             @endfor
