@@ -1173,6 +1173,7 @@
                                                                             <input type="hidden" name="tipe" value="{{$tipe}}">
                                                                             <input type="hidden" name="meter" value="impor">
                                                                             <input type="hidden" name="form_impor" value="1">
+                                                                            <input type="hidden" name="download" value=0>
                                                                             <input type="hidden" name="visual" value="{{$jenis->id}}">
                                                                             {{ csrf_field() }}
 
@@ -1192,11 +1193,11 @@
                                                                                         <div class="col-md-12">
                                                                                             <div class="form-group">
                                                                                                 <label>Stand Awal</label>
-                                                                                                <input type="text" name="awal_visual" class="form-control" placeholder="" value="{{$data['beli']['impor']['visual']['lwbp1_visual']}}">
+                                                                                                <input type="text" name="awal_visual" class="form-control" placeholder="" value="{{$data['beli']['impor']['visual']['awal_visual']}}">
                                                                                             </div>
                                                                                             <div class="form-group">
                                                                                                 <label>Stand Akhir</label>
-                                                                                                <input type="text" name="akhir_visual" class="form-control" placeholder="" value="{{$data['beli']['impor']['visual']['lwbp2_visual']}}">
+                                                                                                <input type="text" name="akhir_visual" class="form-control" placeholder="" value="{{$data['beli']['impor']['visual']['akhir_visual']}}">
                                                                                             </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
@@ -1218,6 +1219,7 @@
                                                                             <input type="hidden" name="tipe" value="{{$tipe}}">
                                                                             <input type="hidden" name="download" value="{{$jenis->id}}">
                                                                             <input type="hidden" name="meter" value="impor">
+                                                                            <input type="hidden" name="visual" value=0>
                                                                             <input type="hidden" name="form_impor" value="1">
                                                                             {{ csrf_field() }}
 
@@ -1237,7 +1239,7 @@
                                                                                         <div class="col-md-12">
                                                                                             <div class="form-group">
                                                                                                 <label>Total KWH Impor</label>
-                                                                                                <input type="text" name="total_kwh_download" class="form-control" placeholder="" value="{{$data['beli']['impor']['download']['lwbp1_download']}}">
+                                                                                                <input type="text" name="total_kwh_download" class="form-control" placeholder="" value="{{$data['beli']['impor']['download']['total_kwh_download']}}">
                                                                                             </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
@@ -1316,7 +1318,9 @@
                                                                             <input type="hidden" name="tipe" value="{{$tipe}}">
                                                                             <input type="hidden" name="meter" value="ekspor">
                                                                             <input type="hidden" name="visual" value="{{$jenis->id}}">
+                                                                            <input type="hidden" name="download" value=0>
                                                                             <input type="hidden" name="form_ekspor" value="1">
+
                                                                             {{ csrf_field() }}
 
                                                                             <div class="card">
@@ -1335,11 +1339,11 @@
                                                                                         <div class="col-md-12">
                                                                                             <div class="form-group">
                                                                                                 <label>Stand Awal</label>
-                                                                                                <input type="text" name="awal_visual" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['visual']['lwbp1_visual']}}">
+                                                                                                <input type="text" name="awal_visual" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['visual']['awal_visual']}}">
                                                                                             </div>
                                                                                             <div class="form-group">
                                                                                                 <label>Stand Akhir</label>
-                                                                                                <input type="text" name="akhir_visual" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['visual']['lwbp2_visual']}}">
+                                                                                                <input type="text" name="akhir_visual" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['visual']['akhir_visual']}}">
                                                                                             </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
@@ -1361,6 +1365,7 @@
                                                                             <input type="hidden" name="tipe" value="{{$tipe}}">
                                                                             <input type="hidden" name="meter" value="ekspor">
                                                                             <input type="hidden" name="download" value="{{$jenis->id}}">
+                                                                            <input type="hidden" name="visual" value=0>
                                                                             <input type="hidden" name="form_ekspor" value="1">
                                                                             {{ csrf_field() }}
 
@@ -1380,7 +1385,7 @@
                                                                                         <div class="col-md-12">
                                                                                             <div class="form-group">
                                                                                                 <label>Total KWH Ekspor</label>
-                                                                                                <input type="text" name="total_kwh_download" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['download']['lwbp1_download']}}">
+                                                                                                <input type="text" name="total_kwh_download" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['download']['total_kwh_download']}}">
                                                                                             </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
