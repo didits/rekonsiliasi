@@ -25,7 +25,8 @@ class MasterLaporan
 
         $MasterPenyulang = Penyulang::whereIn('id_trafo_gi',$id_trafo)->get();
         $id_penyulang = Penyulang::whereIn('id_trafo_gi',$id_trafo)->pluck('id');
-        $p_penyulang = PenyimpananPenyulang::whereIn('id_penyulang',$id_penyulang)->where('periode',$date)->get();
+        $p_penyulang = PenyimpananPenyulang::whereIn('id_penyulang',$id_penyulang)->where('periode',"L".$date)->get();
+        if($p_penyulang == null) $p_penyulang = PenyimpananPenyulang::whereIn('id_penyulang',$id_penyulang)->where('periode',$date)->get();
         $p_penyulang_ = PenyimpananPenyulang::whereIn('id_penyulang',$id_penyulang)->where('periode',date("Ym"))->get();
 
         if($tipe = "tsa"){

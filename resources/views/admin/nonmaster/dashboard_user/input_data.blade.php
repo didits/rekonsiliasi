@@ -1657,6 +1657,7 @@
                                                                                     <input type="hidden" name="id" value="{{$jenis->id}}">
                                                                                     <input type="hidden" name="tipe" value="{{$tipe}}">
                                                                                     <input type="hidden" name="visual" value="{{$jenis->id}}">
+                                                                                    <input type="hidden" name="lalu" value="1">
                                                                                     {{ csrf_field() }}
 
                                                                                     <div class="card">
@@ -1668,19 +1669,43 @@
                                                                                                 <div class="col-md-12">
                                                                                                     <div class="form-group">
                                                                                                         <label>Stand Akhir LWBP1</label>
-                                                                                                        <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$data['beli']['visual']['lwbp1_visual']}}">
+                                                                                                        @if($dt2 == null)
+                                                                                                        <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['visual']['lwbp1_visual']}}">
+                                                                                                        @elseif($dt == null)
+                                                                                                        <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['visual']['lwbp1_visual']}}">
+                                                                                                        @else
+                                                                                                        <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                        @endif
                                                                                                     </div>
                                                                                                     <div class="form-group">
                                                                                                         <label>Stand Akhir LWBP2</label>
-                                                                                                        <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$data['beli']['visual']['lwbp2_visual']}}">
+                                                                                                        @if($dt2 == null)
+                                                                                                        <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['visual']['lwbp2_visual']}}">
+                                                                                                        @elseif($dt == null)
+                                                                                                        <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['visual']['lwbp2_visual']}}">
+                                                                                                        @else
+                                                                                                        <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                        @endif
                                                                                                     </div>
                                                                                                     <div class="form-group">
                                                                                                         <label>Stand Akhir WBP</label>
+                                                                                                        @if($dt2 == null)
                                                                                                         <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$data['beli']['visual']['wbp_visual']}}">
+                                                                                                        @elseif($dt == null)
+                                                                                                        <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['visual']['wbp_visual']}}">
+                                                                                                        @else
+                                                                                                        <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                        @endif
                                                                                                     </div>
                                                                                                     <div class="form-group">
                                                                                                         <label>Total Pemakaian Energi</label>
-                                                                                                        <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$data['beli']['visual']['kvarh_visual']}}">
+                                                                                                        @if($dt2 == null)
+                                                                                                        <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']}}">
+                                                                                                        @elseif($dt == null)
+                                                                                                        <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']}}">
+                                                                                                        @else
+                                                                                                        <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                        @endif
                                                                                                     </div>
 
                                                                                                     <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
@@ -1701,6 +1726,7 @@
                                                                                     <input type="hidden" name="id" value="{{$jenis->id}}">
                                                                                     <input type="hidden" name="tipe" value="{{$tipe}}">
                                                                                     <input type="hidden" name="download" value="{{$jenis->id}}">
+                                                                                    <input type="hidden" name="lalu" value="1">
                                                                                     {{ csrf_field() }}
                                                                                     <div class="card">
                                                                                         <div class="header">
@@ -1711,19 +1737,43 @@
                                                                                                 <div class="col-md-12">
                                                                                                     <div class="form-group">
                                                                                                         <label>Pemakaian KWH LWBP1</label>
-                                                                                                        <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$data['beli']['download']['lwbp1_download']}}">
+                                                                                                        @if($dt2 == null)
+                                                                                                        <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['download']['lwbp1_download']}}">
+                                                                                                        @elseif($dt == null)
+                                                                                                        <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['download']['lwbp1_download']}}">
+                                                                                                        @else
+                                                                                                        <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                        @endif
                                                                                                     </div>
                                                                                                     <div class="form-group">
                                                                                                         <label>Pemakaian KWH LWBP2</label>
-                                                                                                        <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$data['beli']['download']['lwbp2_download']}}">
+                                                                                                        @if($dt2 == null)
+                                                                                                        <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['download']['lwbp2_download']}}">
+                                                                                                        @elseif($dt == null)
+                                                                                                        <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['download']['lwbp2_download']}}">
+                                                                                                        @else
+                                                                                                        <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                        @endif
                                                                                                     </div>
                                                                                                     <div class="form-group">
                                                                                                         <label>Pemakaian KWH WBP</label>
-                                                                                                        <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$data['beli']['download']['wbp_download']}}">
+                                                                                                        @if($dt2 == null)
+                                                                                                        <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['download']['wbp_download']}}">
+                                                                                                        @elseif($dt == null)
+                                                                                                        <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['download']['wbp_download']}}">
+                                                                                                        @else
+                                                                                                        <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                        @endif
                                                                                                     </div>
                                                                                                     <div class="form-group">
                                                                                                         <label>Total Pemakaian Energi</label>
-                                                                                                        <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$data['beli']['download']['kvarh_download']}}">
+                                                                                                        @if($dt2 == null)
+                                                                                                        <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['download']['total_pemakaian_kwh_download']}}">
+                                                                                                        @elseif($dt == null)
+                                                                                                        <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['download']['total_pemakaian_kwh_download']}}">
+                                                                                                        @else
+                                                                                                        <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                        @endif
                                                                                                     </div>
 
                                                                                                     <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
