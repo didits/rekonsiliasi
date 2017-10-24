@@ -197,10 +197,16 @@ class Laporan extends Controller
         $tr = TrafoGI::whereIn('id',$id)->get();
 
         for ($i=0; $i < count($id); $i++) {
+
             $p_tr = PenyimpananTrafoGI::where([
                 ['id_trafo_gi', $tr[$i]['id']],
-                ['periode', date("Ym")-1]
+                ['periode', "L".(date("Ym")-1)]
             ])->first();
+            if($p_tr==null)
+                $p_tr = PenyimpananTrafoGI::where([
+                    ['id_trafo_gi', $tr[$i]['id']],
+                    ['periode', date("Ym")-1]
+                ])->first();
 
             $p_tr_ = PenyimpananTrafoGI::where([
                 ['id_trafo_gi', $tr[$i]['id']],
@@ -326,6 +332,7 @@ class Laporan extends Controller
                 if($p_trafo->save());
             }
         }
+//        dd($trafo_GI);
 
         return view('admin.nonmaster.laporan.gi',[
             'data'      => $cmb,
@@ -402,7 +409,9 @@ class Laporan extends Controller
                             $KW =   intval((($c*$D) + 0.5 )* 1);
                             $total_kwh = $KWH_salur_lwbp1+$KWH_salur_lwbp2+$KWH_salur_wbp;
 
-                            $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',date('Ym')-1)->first();
+                            $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',"L".(date('Ym')-1))->first();
+                            if($KWH_bulan_lalu==null)
+                                $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',date('Ym')-1)->first();
 //                            dd(json_decode($bulan_lalu->data,true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download']);
 //                            $KWH_bulan_lalu = json_decode($bulan_lalu->data,true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download'];
 //                            dd($KWH_bulan_lalu);

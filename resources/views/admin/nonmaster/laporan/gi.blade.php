@@ -240,7 +240,14 @@
                                         <tr class="text-right">
                                             <td class="text-left">STAND AWAL</td>
                                             <td class="text-left">LWBP 1</td>
+                                            @if(json_decode($data_master[$tr]['data'],true)['beli'] == null)
+
+
+
+                                            <td>{{number_format(json_decode($data_master[$tr]['data'],true)['utama']['visual']['lwbp1_visual'], 2)}}</td>
+                                            @else
                                             <td>{{number_format(json_decode($data_master[$tr]['data'],true)['beli']['utama']['visual']['lwbp1_visual'], 2)}}</td>
+                                            @endif
                                             <td>{{number_format(json_decode($data_master[$tr]['data'],true)['beli']['utama']['download']['lwbp1_download'], 2)}}</td>
                                             <td>{{number_format(json_decode($data_master[$tr]['data'],true)['beli']['pembanding']['visual']['lwbp1_visual'], 2)}}</td>
                                             <td>{{number_format(json_decode($data_master[$tr]['data'],true)['beli']['pembanding']['download']['lwbp1_download'], 2)}}</td>

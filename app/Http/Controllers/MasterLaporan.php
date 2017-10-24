@@ -19,7 +19,8 @@ class MasterLaporan
         $date = date("Ym")-1;
         $MasterTrafo = TrafoGI::where('id_gi',$id)->get();
         $id_trafo = TrafoGI::where('id_gi',$id)->pluck('id');
-        $p_trafo = PenyimpananTrafoGI::whereIn('id_trafo_gi',$id_trafo)->where('periode',$date)->get();
+        $p_trafo = PenyimpananTrafoGI::whereIn('id_trafo_gi',$id_trafo)->where('periode',"L".$date)->get();
+        if($p_trafo == null) $p_trafo = PenyimpananTrafoGI::whereIn('id_trafo_gi',$id_trafo)->where('periode',$date)->get();
         $p_trafo_ = PenyimpananTrafoGI::whereIn('id_trafo_gi',$id_trafo)->where('periode',date("Ym"))->get();
 
         $MasterPenyulang = Penyulang::whereIn('id_trafo_gi',$id_trafo)->get();
