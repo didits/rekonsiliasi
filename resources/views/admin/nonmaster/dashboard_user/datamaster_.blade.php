@@ -283,13 +283,19 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Tegangan</label>
-                                                                    <input name="tegangan" type="text" class="form-control" placeholder="Tegangan" value="{{$decoded['kapasitas']['tegangan']}}">
+                                                                    <div class="input-group">
+                                                                        <input name="tegangan" type="text" class="form-control" placeholder="Tegangan" value="{{$decoded['kapasitas']['tegangan']}}">
+                                                                        <span class="input-group-addon">KV</span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Kapasitas</label>
-                                                                    <input name="kapasitas" type="text" class="form-control" placeholder="Kapasitas" value="{{$decoded['kapasitas']['kapasitas']}}">
+                                                                    <div class="input-group">
+                                                                        <input name="kapasitas" type="text" class="form-control" placeholder="Kapasitas" value="{{$decoded['kapasitas']['kapasitas']}}">
+                                                                        <span class="input-group-addon">MVA</span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>

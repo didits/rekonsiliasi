@@ -1146,4 +1146,7 @@ class Laporan extends Controller
         return view('admin.nonmaster.laporan.tsa_area');
     }
 
+    public function view_beli_pct() {
+        return view('admin.nonmaster.laporan.pct');
+    }
 }

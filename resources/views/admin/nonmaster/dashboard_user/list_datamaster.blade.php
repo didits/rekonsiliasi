@@ -76,31 +76,38 @@
                                 </div>
                                 <div class="content all-icons">
                                     <div class="row">
-                                        <div class="font-icon-list col-md-2">
+                                        <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6">
                                             <a href="{{route('area.view_beli_tsa_area', [Auth::user()->id_organisasi])}}" rel="tooltip" title="" data-original-title="">
                                                 <button class="font-icon-detail btn btn-info btn-fill btn-wd">
                                                     <i class="pe-7s-map-2"></i><br/>Laporan<br/>TSA<br/>Area
                                                 </button>
                                             </a>
                                         </div>
-                                        <div class="font-icon-list col-md-2">
+                                        <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6">
                                             <a href="{{route('area.view_beli_tsa', [Auth::user()->id_organisasi, 'area', 'gi'])}}" rel="tooltip" title="" data-original-title="">
                                                 <button class="font-icon-detail btn btn-info btn-fill btn-wd">
                                                     <i class="pe-7s-albums"></i><br/>Laporan<br/>TSA<br/>Rayon
                                                 </button>
                                             </a>
                                         </div>
-                                        <div class="font-icon-list col-md-2">
+                                        <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6">
                                             <a href="{{route('area.view_beli_tsa', [Auth::user()->id_organisasi, 'area', 'penyulang'])}}" rel="tooltip" title="" data-original-title="">
                                                 <button class="font-icon-detail btn btn-info btn-fill btn-wd">
                                                     <i class="pe-7s-folder"></i><br/>Laporan<br/>TSA<br/>Penyulang
                                                 </button>
                                             </a>
                                         </div>
-                                        <div class="font-icon-list col-md-2">
+                                        <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6">
                                             <a href="{{route('area.view_beli_deviasi', [Auth::user()->id_organisasi, 'area', 0])}}" rel="tooltip" title="" data-original-title="">
                                                 <button class="font-icon-detail btn btn-info btn-fill btn-wd">
                                                     <i class="pe-7s-graph"></i><br/>Laporan<br/>Deviasi<br/><br/>
+                                                </button>
+                                            </a>
+                                        </div>
+                                        <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                                            <a href="{{route('area.view_beli_pct')}}" rel="tooltip" title="" data-original-title="">
+                                                <button class="font-icon-detail btn btn-info btn-fill btn-wd">
+                                                    <i class="pe-7s-refresh-2"></i><br/>Laporan<br/>PCT<br/><br/>
                                                 </button>
                                             </a>
                                         </div>
