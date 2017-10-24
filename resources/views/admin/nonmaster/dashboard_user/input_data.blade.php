@@ -1191,20 +1191,12 @@
                                                                                     <div class="row">
                                                                                         <div class="col-md-12">
                                                                                             <div class="form-group">
-                                                                                                <label>Stand Akhir LWBP1</label>
-                                                                                                <input type="text" name="lwbp1_visual" class="form-control" placeholder="" value="{{$data['beli']['impor']['visual']['lwbp1_visual']}}">
+                                                                                                <label>Stand Awal</label>
+                                                                                                <input type="text" name="awal_visual" class="form-control" placeholder="" value="{{$data['beli']['impor']['visual']['lwbp1_visual']}}">
                                                                                             </div>
                                                                                             <div class="form-group">
-                                                                                                <label>Stand Akhir LWBP2</label>
-                                                                                                <input type="text" name="lwbp2_visual" class="form-control" placeholder="" value="{{$data['beli']['impor']['visual']['lwbp2_visual']}}">
-                                                                                            </div>
-                                                                                            <div class="form-group">
-                                                                                                <label>Stand Akhir WBP</label>
-                                                                                                <input type="text" name="wbp_visual" class="form-control" placeholder="" value="{{$data['beli']['impor']['visual']['wbp_visual']}}">
-                                                                                            </div>
-                                                                                            <div class="form-group">
-                                                                                                <label>Stand Akhir KVARH</label>
-                                                                                                <input type="text" name="kvarh_visual" class="form-control" placeholder="" value="{{$data['beli']['impor']['visual']['kvarh_visual']}}">
+                                                                                                <label>Stand Akhir</label>
+                                                                                                <input type="text" name="akhir_visual" class="form-control" placeholder="" value="{{$data['beli']['impor']['visual']['lwbp2_visual']}}">
                                                                                             </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
@@ -1244,20 +1236,8 @@
                                                                                     <div class="row">
                                                                                         <div class="col-md-12">
                                                                                             <div class="form-group">
-                                                                                                <label>Pemakaian KWH LWBP1</label>
-                                                                                                <input type="text" name="lwbp1_download" class="form-control" placeholder="" value="{{$data['beli']['impor']['download']['lwbp1_download']}}">
-                                                                                            </div>
-                                                                                            <div class="form-group">
-                                                                                                <label>Pemakaian KWH LWBP2</label>
-                                                                                                <input type="text" name="lwbp2_download" class="form-control" placeholder="" value="{{$data['beli']['impor']['download']['lwbp2_download']}}">
-                                                                                            </div>
-                                                                                            <div class="form-group">
-                                                                                                <label>Pemakaian KWH WBP</label>
-                                                                                                <input type="text" name="wbp_download" class="form-control" placeholder="" value="{{$data['beli']['impor']['download']['wbp_download']}}">
-                                                                                            </div>
-                                                                                            <div class="form-group">
-                                                                                                <label>Pemakaian KWH KVARH</label>
-                                                                                                <input type="text" name="kvarh_download" class="form-control" placeholder="" value="{{$data['beli']['impor']['download']['kvarh_download']}}">
+                                                                                                <label>Total KWH Impor</label>
+                                                                                                <input type="text" name="total_kwh_download" class="form-control" placeholder="" value="{{$data['beli']['impor']['download']['lwbp1_download']}}">
                                                                                             </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
@@ -1354,20 +1334,12 @@
                                                                                     <div class="row">
                                                                                         <div class="col-md-12">
                                                                                             <div class="form-group">
-                                                                                                <label>Stand Akhir LWBP1</label>
-                                                                                                <input type="text" name="lwbp1_visual" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['visual']['lwbp1_visual']}}">
+                                                                                                <label>Stand Awal</label>
+                                                                                                <input type="text" name="awal_visual" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['visual']['lwbp1_visual']}}">
                                                                                             </div>
                                                                                             <div class="form-group">
-                                                                                                <label>Stand Akhir LWBP2</label>
-                                                                                                <input type="text" name="lwbp2_visual" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['visual']['lwbp2_visual']}}">
-                                                                                            </div>
-                                                                                            <div class="form-group">
-                                                                                                <label>Stand Akhir WBP</label>
-                                                                                                <input type="text" name="wbp_visual" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['visual']['wbp_visual']}}">
-                                                                                            </div>
-                                                                                            <div class="form-group">
-                                                                                                <label>Stand Akhir KVARH</label>
-                                                                                                <input type="text" name="kvarh_visual" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['visual']['kvarh_visual']}}">
+                                                                                                <label>Stand Akhir</label>
+                                                                                                <input type="text" name="akhir_visual" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['visual']['lwbp2_visual']}}">
                                                                                             </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
@@ -1407,20 +1379,8 @@
                                                                                     <div class="row">
                                                                                         <div class="col-md-12">
                                                                                             <div class="form-group">
-                                                                                                <label>Pemakaian KWH LWBP1</label>
-                                                                                                <input type="text" name="lwbp1_download" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['download']['lwbp1_download']}}">
-                                                                                            </div>
-                                                                                            <div class="form-group">
-                                                                                                <label>Pemakaian KWH LWBP2</label>
-                                                                                                <input type="text" name="lwbp2_download" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['download']['lwbp2_download']}}">
-                                                                                            </div>
-                                                                                            <div class="form-group">
-                                                                                                <label>Pemakaian KWH WBP</label>
-                                                                                                <input type="text" name="wbp_download" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['download']['wbp_download']}}">
-                                                                                            </div>
-                                                                                            <div class="form-group">
-                                                                                                <label>Pemakaian KWH KVARH</label>
-                                                                                                <input type="text" name="kvarh_download" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['download']['kvarh_download']}}">
+                                                                                                <label>Total KWH Ekspor</label>
+                                                                                                <input type="text" name="total_kwh_download" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['download']['lwbp1_download']}}">
                                                                                             </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
