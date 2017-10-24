@@ -7,7 +7,7 @@
 @include('admin.master.navbar')
 
     <div class="main-panel">
-    @include('admin.master.top_navbar', ['navbartitle' => "LAPORAN "])
+    @include('admin.master.top_navbar', ['navbartitle' => "LAPORAN TSA PENYULANG"])
         <div class="content">
              <div class="container-fluid">
                 <div class="row">
