@@ -1270,6 +1270,7 @@ class Input extends Controller
         elseif($tipe=="gd" || $tipe=="pct" || $tipe=="tm"){
             $data = PenyimpananGardu::where('periode',date('Ym'))->where('id_gardu', $id)->first();
             $jenis = Gardu::where('id',$id)->first();
+            $data_lalu = $data_lalu2 = null;
         }
 
         if($data_lalu2){
