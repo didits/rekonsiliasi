@@ -496,6 +496,8 @@ class Input extends Controller
                             'akhir_visual' => $decoded['beli'][$meter]['visual']['akhir_visual'],
                         );
                     }
+                    $fk = Gardu::where('id', $request->id)->first();
+                    $fk = json_decode($fk['data_master'],true)['meter']['FK']['faktorkali'];
                     if($meter == "impor"){
                         $dt_impor = array(
                             'visual' => $input_visual,
@@ -512,8 +514,6 @@ class Input extends Controller
                             'visual' => $input_visual,
                             'download' => $input_download,
                         );
-                        $fk = Gardu::where('id', $request->id)->first();
-                        $fk = json_decode($fk['data_master'],true)['meter']['FK']['faktorkali'];
                         if($request->visual)
                             $hasil_impor = array(
                                 'total_kwh_visual' => ($request->akhir_visual -$request->awal_visual)*$fk,
@@ -548,7 +548,7 @@ class Input extends Controller
                         );
                         if($request->visual)
                             $hasil_ekspor = array(
-                                'total_kwh_visual' => $request->akhir_visual -$request->awal_visual,
+                                'total_kwh_visual' => ($request->akhir_visual -$request->awal_visual)*$fk,
                                 'total_kwh_download' => $decoded['hasil_pengolahan']['ekspor']['total_kwh_download'],
                             );
                         else
