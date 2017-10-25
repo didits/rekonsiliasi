@@ -512,10 +512,11 @@ class Input extends Controller
                             'visual' => $input_visual,
                             'download' => $input_download,
                         );
-
+                        $fk = Gardu::where('id', $request->id)->first();
+                        $fk = json_decode($fk['data_master'],true)['meter']['FK']['faktorkali'];
                         if($request->visual)
                             $hasil_impor = array(
-                                'total_kwh_visual' => $request->akhir_visual -$request->awal_visual,
+                                'total_kwh_visual' => ($request->akhir_visual -$request->awal_visual)*$fk,
                                 'total_kwh_download' => $decoded['hasil_pengolahan']['impor']['total_kwh_download'],
                             );
                         else
@@ -1405,12 +1406,18 @@ class Input extends Controller
             $data_lalu2 = PenyimpananPenyulang::where('periode',$date_lalu)->where('id_penyulang', $id)->first();
             $jenis = Penyulang::where('id',$id)->first();
         }
-        elseif($tipe=="gd" || $tipe=="pct" || $tipe=="tm"){
+        elseif($tipe=="pct"){
+            $data = PenyimpananGardu::where('periode',date('Ym'))->where('id_gardu', $id)->first();
+            $jenis = Gardu::where('id',$id)->first();
+            $data_lalu = $data_lalu2 = null;
+        }
+        elseif($tipe=="gd" || $tipe=="tm"){
             $data = PenyimpananGardu::where('periode',date('Ym'))->where('id_gardu', $id)->first();
             $jenis = Gardu::where('id',$id)->first();
             $data_lalu = $data_lalu2 = null;
         }
 
+//        dd($data);
         if($data_lalu2){
             $dt = null;
             $dt2 = json_decode($data_lalu2->data, true);
@@ -1459,23 +1466,50 @@ class Input extends Controller
                 );
             }
             elseif($tipe=="pct"){
-                $data_awal = array(
-                    'impor' => $data_awal,
-                    'ekspor' => $data_awal,
-                    'lokasi' => "",
+                $meter_visual = array(
+                    'awal_visual' => null,
+                    'akhir_visual' => null,
+                );
+                $meter_download = array(
+                    'total_kwh_download' => null,
+                );
+                $dt_m =array(
+                    'visual' => $meter_visual,
+                    'download' => $meter_download,
+                );
+                $dt_meter =array(
+                    'impor' => $dt_m,
+                    'ekspor' => $dt_m,
+                );
+                $dt_h = array(
+                    'total_kwh_visual' => null,
+                    'total_kwh_download' => null,
+                );
+                $dt_hasil = array(
+                    'impor' => $dt_h,
+                    'ekspor' => $dt_h,
+                );
+                $m = array(
+                    'beli' => $dt_meter,
+                    'hasil_pengolahan' => $dt_hasil,
+                );
+
+            }
+            if($tipe=="pct"){
+                $data=$m;
+            }
+            else{
+                $data =array(
+                    'beli'=>$data_awal,
+                    'hasil_pengolahan'=> null,
+                    'jual'=> null,
                 );
             }
-            $data =array(
-                'beli'=>$data_awal,
-                'hasil_pengolahan'=> null,
-                'jual'=> null,
-            );
-
 //            $hasil = json_encode($data);
 //            $data = json_decode($hasil, true);
         }
         $decoded = json_decode($jenis->data_master,true);
-//        dd($jenis);
+//        dd($data);
         return view('admin.nonmaster.dashboard_user.input_data', [
             'data'            => $data,
             'dt'              => $dt,

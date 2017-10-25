@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Gardu;
 use App\GI;
 use App\Organisasi;
+use App\PenyimpananGardu;
 use App\PenyimpananPenyulang;
 use App\PenyimpananTrafoGI;
 use App\Penyulang;
@@ -29,7 +30,7 @@ class MasterLaporan
         if($p_penyulang == null) $p_penyulang = PenyimpananPenyulang::whereIn('id_penyulang',$id_penyulang)->where('periode',$date)->get();
         $p_penyulang_ = PenyimpananPenyulang::whereIn('id_penyulang',$id_penyulang)->where('periode',date("Ym"))->get();
 
-        if($tipe = "tsa"){
+        if($tipe == "tsa"){
             $this->trafo = $MasterTrafo;
             $this->penyulang = $MasterPenyulang;
             $this->p_trafo = $p_trafo;
@@ -38,9 +39,16 @@ class MasterLaporan
             $this->p_penyulang_ = $p_penyulang_;
             $this->id = $id_trafo;
         }
-        elseif($tipe = "deviasi"){
+        elseif($tipe == "deviasi"){
             $this->trafo = $MasterTrafo;
             $this->id = $id_trafo;
+        }
+        elseif($tipe == "pct"){
+            $gardu = Gardu::whereIn('id_organisasi',$id_rayon)->where('tipe_gardu',1)->get()->toArray();
+            $id_gardu = Gardu::whereIn('id_organisasi',$id_rayon)->where('tipe_gardu',1)->pluck('id');
+            $p_gardu = PenyimpananGardu::whereIn('id_gardu',$id_gardu)->get()->toArray();
+            $this ->gardu =$gardu;
+            $this ->p_gardu=$p_gardu;
         }
     }
 }

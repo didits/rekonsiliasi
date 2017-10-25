@@ -14,7 +14,9 @@ class AddColumnTujuanPct extends Migration
     public function up()
     {
         Schema::table('gardu', function($table) {
-            $table->integer('tujuan');
+//            $table->dropColumn('tujuan');
+            $table->Integer('tujuan');
+            $table->text('rincian');
         });//
     }
 

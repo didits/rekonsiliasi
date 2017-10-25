@@ -105,7 +105,7 @@
                                             </a>
                                         </div>
                                         <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6">
-                                            <a href="{{route('area.view_beli_pct')}}" rel="tooltip" title="" data-original-title="">
+                                            <a href="{{route('area.view_beli_pct',[Auth::user()->id_organisasi, 'pct', 0])}}" rel="tooltip" title="" data-original-title="">
                                                 <button class="font-icon-detail btn btn-info btn-fill btn-wd">
                                                     <i class="pe-7s-refresh-2"></i><br/>Laporan<br/>PCT<br/><br/>
                                                 </button>

@@ -417,7 +417,7 @@ Route::group(['prefix' => 'area/laporan_transaksi', 'middleware' => ['auth', 'ti
         'uses'      => 'Laporan@view_beli_deviasi'
     ]);
 
-    Route::get('/view_laporan_pct', [
+    Route::get('/view_laporan_pct/{id_organisasi}/{tipe}/{id_gi}', [
         'as'        => 'area.view_beli_pct',
         'uses'      => 'Laporan@view_beli_pct'
     ]);
