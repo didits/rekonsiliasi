@@ -84,6 +84,11 @@
                                             </td>
                                             <td>{{$list->alamat}}</td>
                                             <td class="td-actions text-right">
+                                                <a href="#" rel="tooltip" title="" class="btn btn-primary btn-fill " data-original-title="Edit Password"
+                                                   onclick="edit_pass.showSwal({{$list->id}})">
+                                                    <i class="fa fa-key"></i>
+                                                </a>
+
                                                 @if ( $list->tipe_organisasi == 2 || $list->tipe_organisasi == 3)
 
                                                 <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Organisasi"
@@ -97,9 +102,9 @@
                                                 @endif
 
                                             </td>
-
                                         </tr>
                                     @endforeach
+
                                     </tbody>
                                 </table>
                             </div>

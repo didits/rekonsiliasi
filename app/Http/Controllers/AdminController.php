@@ -90,7 +90,7 @@ class AdminController extends Controller
         $nama = $request->nama;
         $tipe = $request->tipe;
         $alamat = $request->alamat;
-        $pass = Hash::make($request->alamat);
+        $pass = Hash::make($request->pass);
 
         $org = Organisasi::where('id_organisasi',$id_org)->first();
 
@@ -110,13 +110,20 @@ class AdminController extends Controller
     }
 
     public function edit_org(Request $request){
+        $task = $request->task;
         $id = $request->id;
-        $id_org = $request->id_org;
-        $nama = $request->nama;
-        $tipe = $request->tipe;
-        $alamat = $request->alamat;
+        if($task == 0) {
+            $pass = Hash::make($request->pass);
+            $org = Organisasi::where('id', $id)->update(['password'=> $pass]);
+        }
+        elseif ($task == 1) {
+            $id_org = $request->id_org;
+            $nama = $request->nama;
+            $tipe = $request->tipe;
+            $alamat = $request->alamat;
 
-        $org = Organisasi::where('id', $id)->update(['id_organisasi' => $id_org, 'nama_organisasi' => $nama, 'tipe_organisasi' => $tipe, 'alamat' => $alamat]);
+            $org = Organisasi::where('id', $id)->update(['id_organisasi' => $id_org, 'nama_organisasi' => $nama, 'tipe_organisasi' => $tipe, 'alamat' => $alamat]);
+        }
         return $org;
     }
 
