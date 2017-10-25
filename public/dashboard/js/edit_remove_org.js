@@ -53,7 +53,7 @@ add_org = {
                                 title: "Data telah ditambah",
                                 type: "success"
                             }, location.reload());
-                        if (status == "success" && data == "0")
+                        else
                             swal({
                                 title: "Error",
                                 type: "error"
@@ -101,6 +101,7 @@ edit_org = {
                 });
                 $.post(url_edit,
                     {
+                        task: 1,
                         id: id_,
                         id_org: $('#edit_id_org').val(),
                         nama: $('#edit_nama').val(),
@@ -112,6 +113,11 @@ edit_org = {
                         swal({
                             title: "Data telah diubah",
                             type: "success"
+                        }, location.reload());
+                    else
+                        swal({
+                            title: "Error",
+                            type: "error"
                         }, location.reload());
                 });
             })
@@ -137,6 +143,7 @@ hapus_org = {
                     confirmButtonClass: "btn btn-info btn-fill",
                     confirmButtonText: "Hapus",
                     cancelButtonClass: "btn btn-danger btn-fill",
+                    cancelButtonText: "Batal",
                     closeOnConfirm: false
                 },
                 function () {
@@ -154,7 +161,56 @@ hapus_org = {
                                     title: "Organisasi telah dihapus",
                                     type: "success"
                                 }, location.reload());
+                            else
+                                swal({
+                                    title: "Error",
+                                    type: "error"
+                                }, location.reload());
                         });
                 });
         }
+};
+
+edit_pass = {
+    showSwal: function (id_) {
+        title_ = "Edit Password";
+
+        swal({
+                title: title_,
+                html:
+                '<label>Password</label>' +
+                '<input id="edit_password" class="form-control" type="password" required="required">',
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn btn-info btn-fill",
+                confirmButtonText: "Ganti Password",
+                cancelButtonClass: "btn btn-danger btn-fill",
+                cancelButtonText: "Batal",
+                closeOnConfirm: false
+            },
+            function () {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.post(url_edit,
+                    {
+                        task: 0,
+                        id: id_,
+                        pass: $('#edit_password').val()
+                    }, function(data, status){
+                        if (status == "success" && data == "1")
+                            swal({
+                                title: "Password Telah Diubah",
+                                type: "success"
+                            }, location.reload());
+                        else
+                            swal({
+                                title: "Error",
+                                type: "error"
+                            }, location.reload());
+                    });
+            })
+    }
 };
