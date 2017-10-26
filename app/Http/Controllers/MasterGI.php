@@ -18,7 +18,7 @@ class MasterGI
         $this->data = GI::where('id_organisasi', $id_org)->get();
         $id_ryn = Organisasi::where('id_organisasi', $id_rayon)->first();
         $this->data2 = Transfer::select('transfer.id_organisasi','transfer.id_gi', 'gi.nama_gi', 'gi.alamat_gi')
-            ->join('GI','GI.id','=','transfer.id_gi')->distinct('transfer.id_gi')
+            ->join('gi','gi.id','=','transfer.id_gi')->distinct('transfer.id_gi')
             ->where('transfer.id_organisasi', $id_ryn->id)->get();
     }
 

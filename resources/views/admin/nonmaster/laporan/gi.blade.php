@@ -7,7 +7,7 @@
 @include('admin.master.navbar')
 
     <div class="main-panel">
-    @include('admin.master.top_navbar', ['navbartitle' => "LAPORAN "])
+    @include('admin.master.top_navbar', ['navbartitle' => "LAPORAN GI"])
         @for($tr=0;$tr<count($dt_trafo);$tr++)
         <div class="content">
             <div class="container-fluid">
@@ -40,7 +40,7 @@
                                         <th class="text-center">PEMBACAAN kWh METER {{$gi->nama_gi}}</th>
                                     </tr>
                                     <tr>
-                                        <th class="text-center">{{$data_master[$tr]['nama']}} 150 / 20 KV. 30 MVA</th>
+                                        <th class="text-center">{{$data_master[$tr]['nama']}} {{(json_decode($data_master[$tr]["data_master"],true)['kapasitas']['tegangan'])}} KV. {{(json_decode($data_master[$tr]["data_master"],true)['kapasitas']['kapasitas'])}} MVA</th>
                                     </tr>
                                     <tr>
                                         <th class="text-center">BULAN : {{date('M Y')}}</th>
@@ -240,7 +240,11 @@
                                         <tr class="text-right">
                                             <td class="text-left">STAND AWAL</td>
                                             <td class="text-left">LWBP 1</td>
+                                            {{--@if(json_decode($data_master[$tr]['data'],true)['beli'] == null)--}}
+                                            {{--<td>{{number_format(json_decode($data_master[$tr]['data'],true)['utama']['visual']['lwbp1_visual'], 2)}}</td>--}}
+                                            {{--@else--}}
                                             <td>{{number_format(json_decode($data_master[$tr]['data'],true)['beli']['utama']['visual']['lwbp1_visual'], 2)}}</td>
+                                            {{--@endif--}}
                                             <td>{{number_format(json_decode($data_master[$tr]['data'],true)['beli']['utama']['download']['lwbp1_download'], 2)}}</td>
                                             <td>{{number_format(json_decode($data_master[$tr]['data'],true)['beli']['pembanding']['visual']['lwbp1_visual'], 2)}}</td>
                                             <td>{{number_format(json_decode($data_master[$tr]['data'],true)['beli']['pembanding']['download']['lwbp1_download'], 2)}}</td>

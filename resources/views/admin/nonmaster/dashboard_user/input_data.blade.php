@@ -31,6 +31,12 @@
                                                         Transaksi Jual
                                                     </a>
                                                 </li>
+                                                <li>
+                                                    <a href="#lalu" role="tab" data-toggle="tab">
+                                                        <i class="fa fa-database"></i><br>
+                                                        Input Bulan Lalu
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                         <div class="tab-content">
@@ -511,6 +517,577 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="tab-pane" id="lalu">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="nav-container">
+                                                            <ul class="nav nav-icons" role="tablist">
+                                                                <li class="active">
+                                                                    <a href="#meter-utama-lalu" role="tab" data-toggle="tab">
+                                                                        <i class="fa fa-bolt"></i><br>
+                                                                        KWH Meter Utama
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#meter-pembanding-lalu" role="tab" data-toggle="tab">
+                                                                        <i class="fa fa-exchange"></i><br>
+                                                                        KWH Meter Pembanding
+                                                                    </a>
+                                                                </li>
+                                                                <li class="">
+                                                                    <a href="#pemakaian-sendiri-lalu" role="tab" data-toggle="tab">
+                                                                        <i class="fa fa-building-o"></i><br>
+                                                                        Pemakaian Sendiri
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="tab-content">
+                                                            <div class="tab-pane active" id="meter-utama-lalu">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="nav-container">
+                                                                            <ul class="nav nav-icons" role="tablist">
+                                                                                <li class="active">
+                                                                                    <a href="#utama-visual-lalu" role="tab" data-toggle="tab">
+                                                                                        <i class="fa fa-tachometer"></i><br>
+                                                                                        Visual
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="#utama-download-lalu" role="tab" data-toggle="tab">
+                                                                                        <i class="fa fa-cloud-download"></i><br>
+                                                                                        Download
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="tab-content">
+                                                                            <div class="tab-pane active" id="utama-visual-lalu">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <form action="{{route('input_listrik.store')}}" method="post">
+                                                                                            <input type="hidden" name="_method" value="POST">
+                                                                                            <input type="hidden" name="id" value="{{$jenis->id}}">
+                                                                                            <input type="hidden" name="tipe" value="{{$tipe}}">
+                                                                                            <input type="hidden" name="visual" value="{{$jenis->id}}">
+                                                                                            <input type="hidden" name="meter" value="utama">
+                                                                                            <input type="hidden" name="form_utama" value="1">
+                                                                                            <input type="hidden" name="lalu" value="1">
+                                                                                            {{ csrf_field() }}
+
+                                                                                            <div class="card">
+                                                                                                <div class="header">
+                                                                                                    <h4 class="title">KWH Meter Utama Bulan Lalu</h4>
+                                                                                                </div>
+                                                                                                <div class="content">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="card">
+                                                                                                <div class="header">
+                                                                                                    <h4 class="title">VISUAL</h4>
+                                                                                                </div>
+                                                                                                <div class="content">
+                                                                                                    <div class="row">
+                                                                                                        <div class="col-md-12">
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Stand Akhir LWBP1</label>
+                                                                                                                @if($dt)
+                                                                                                                <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['utama']['visual']['lwbp1_visual']}}">
+                                                                                                                @elseif($dt2)
+                                                                                                                <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['utama']['visual']['lwbp1_visual']}}">
+                                                                                                                @else
+                                                                                                                <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                                @endif
+                                                                                                            </div>
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Stand Akhir LWBP2</label>
+                                                                                                                @if($dt)
+                                                                                                                <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['utama']['visual']['lwbp2_visual']}}">
+                                                                                                                @elseif($dt2)
+                                                                                                                <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['utama']['visual']['lwbp2_visual']}}">
+                                                                                                                @else
+                                                                                                                <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                                @endif
+                                                                                                            </div>
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Stand Akhir WBP</label>
+                                                                                                                @if($dt)
+                                                                                                                <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['utama']['visual']['wbp_visual']}}">
+                                                                                                                @elseif($dt2)
+                                                                                                                <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['utama']['visual']['wbp_visual']}}">
+                                                                                                                @else
+                                                                                                                <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                                @endif
+                                                                                                            </div>
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Total Pemakaian Energi</label>
+                                                                                                                @if($dt)
+                                                                                                                <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['utama']['visual']['total_pemakaian_kwh_visual']}}">
+                                                                                                                @elseif($dt2)
+                                                                                                                <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['utama']['visual']['total_pemakaian_kwh_visual']}}">
+                                                                                                                @else
+                                                                                                                <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                                @endif
+                                                                                                            </div>
+                                                                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
+                                                                                                            <div class="clearfix"></div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div> <!-- end col-md-8 -->
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="tab-pane" id="utama-download-lalu">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <form action="{{route('input_listrik.store')}}" method="post">
+                                                                                            <input type="hidden" name="_method" value="POST">
+                                                                                            <input type="hidden" name="id" value="{{$jenis->id}}">
+                                                                                            <input type="hidden" name="tipe" value="{{$tipe}}">
+                                                                                            <input type="hidden" name="meter" value="utama">
+                                                                                            <input type="hidden" name="download" value="{{$jenis->id}}">
+                                                                                            <input type="hidden" name="form_utama" value="1">
+                                                                                            <input type="hidden" name="lalu" value="1">
+                                                                                            {{ csrf_field() }}
+
+                                                                                            <div class="card">
+                                                                                                <div class="header">
+                                                                                                    <h4 class="title">KWH Meter Utama Bulan Lalu</h4>
+                                                                                                </div>
+                                                                                                <div class="content">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="card">
+                                                                                                <div class="header">
+                                                                                                    <h4 class="title">DOWNLOAD</h4>
+                                                                                                </div>
+                                                                                                <div class="content">
+                                                                                                    <div class="row">
+                                                                                                        <div class="col-md-12">
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Pemakaian KWH LWBP1</label>
+                                                                                                                @if($dt)
+                                                                                                                <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['utama']['download']['lwbp1_download']}}">
+                                                                                                                @elseif($dt2)
+                                                                                                                <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['utama']['download']['lwbp1_download']}}">
+                                                                                                                @else
+                                                                                                                <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                                @endif
+                                                                                                            </div>
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Pemakaian KWH LWBP2</label>
+                                                                                                                @if($dt)
+                                                                                                                <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['utama']['download']['lwbp2_download']}}">
+                                                                                                                @elseif($dt2)
+                                                                                                                <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['utama']['download']['lwbp2_download']}}">
+                                                                                                                @else
+                                                                                                                <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                                @endif
+                                                                                                            </div>
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Pemakaian KWH WBP</label>
+                                                                                                                @if($dt)
+                                                                                                                <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['utama']['download']['wbp_download']}}">
+                                                                                                                @elseif($dt2)
+                                                                                                                <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['utama']['download']['wbp_download']}}">
+                                                                                                                @else
+                                                                                                                <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                                @endif
+                                                                                                            </div>
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Total Pemakaian Energi</label>
+                                                                                                                @if($dt)
+                                                                                                                <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']}}">
+                                                                                                                @elseif($dt2)
+                                                                                                                <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']}}">
+                                                                                                                @else
+                                                                                                                <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                                @endif
+                                                                                                            </div>
+                                                                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
+                                                                                                            <div class="clearfix"></div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div> <!-- end col-md-8 -->
+                                                                                </div>
+                                                                            </div>
+                                                                        </div> <!-- end tab content -->
+                                                                    </div> <!-- end col-md-8 -->
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="tab-pane" id="meter-pembanding-lalu">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="nav-container">
+                                                                            <ul class="nav nav-icons" role="tablist">
+                                                                                <li class="active">
+                                                                                    <a href="#pembanding-visual-lalu" role="tab" data-toggle="tab">
+                                                                                        <i class="fa fa-tachometer"></i><br>
+                                                                                        Visual
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="#pembanding-download-lalu" role="tab" data-toggle="tab">
+                                                                                        <i class="fa fa-cloud-download"></i><br>
+                                                                                        Download
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+
+                                                                        <div class="tab-content">
+                                                                            <div class="tab-pane active" id="pembanding-visual-lalu">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <form action="{{route('input_listrik.store')}}" method="post">
+                                                                                            <input type="hidden" name="_method" value="POST">
+                                                                                            <input type="hidden" name="id" value="{{$jenis->id}}">
+                                                                                            <input type="hidden" name="tipe" value="{{$tipe}}">
+                                                                                            <input type="hidden" name="meter" value="pembanding">
+                                                                                            <input type="hidden" name="visual" value="{{$jenis->id}}">
+                                                                                            <input type="hidden" name="lalu" value="1">
+                                                                                            <input type="hidden" name="form_pembanding" value="1">
+                                                                                            {{ csrf_field() }}
+
+                                                                                            <div class="card">
+                                                                                                <div class="header">
+                                                                                                    <h4 class="title">KWH Meter Pembanding Bulan Lalu</h4>
+                                                                                                </div>
+                                                                                                <div class="content">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="card">
+                                                                                                <div class="header">
+                                                                                                    <h4 class="title">VISUAL</h4>
+                                                                                                </div>
+                                                                                                <div class="content">
+                                                                                                    <div class="row">
+                                                                                                        <div class="col-md-12">
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Stand Akhir LWBP1</label>
+                                                                                                                @if($dt)
+                                                                                                                <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['pembanding']['visual']['lwbp1_visual']}}">
+                                                                                                                @elseif($dt2)
+                                                                                                                <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['pembanding']['visual']['lwbp1_visual']}}">
+                                                                                                                @elseif($dt2)
+                                                                                                                <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                                @endif
+                                                                                                            </div>
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Stand Akhir LWBP2</label>
+                                                                                                                @if($dt)
+                                                                                                                <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['pembanding']['visual']['lwbp2_visual']}}">
+                                                                                                                @elseif($dt2)
+                                                                                                                <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['pembanding']['visual']['lwbp2_visual']}}">
+                                                                                                                @else
+                                                                                                                <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                                @endif
+                                                                                                            </div>
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Stand Akhir WBP</label>
+                                                                                                                @if($dt)
+                                                                                                                <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['pembanding']['visual']['wbp_visual']}}">
+                                                                                                                @elseif($dt2)
+                                                                                                                <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['pembanding']['visual']['wbp_visual']}}">
+                                                                                                                @else
+                                                                                                                <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                                @endif
+                                                                                                            </div>
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Total Pemakaian Energi</label>
+                                                                                                                @if($dt)
+                                                                                                                <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual']}}">
+                                                                                                                @elseif($dt2)
+                                                                                                                <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual']}}">
+                                                                                                                @else
+                                                                                                                <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                                @endif
+                                                                                                            </div>
+                                                                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
+                                                                                                            <div class="clearfix"></div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div> <!-- end col-md-8 -->
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="tab-pane" id="pembanding-download-lalu">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <form action="{{route('input_listrik.store')}}" method="post">
+                                                                                            <input type="hidden" name="_method" value="POST">
+                                                                                            <input type="hidden" name="id" value="{{$jenis->id}}">
+                                                                                            <input type="hidden" name="tipe" value="{{$tipe}}">
+                                                                                            <input type="hidden" name="meter" value="pembanding">
+                                                                                            <input type="hidden" name="download" value="{{$jenis->id}}">
+                                                                                            <input type="hidden" name="form_pembanding" value="1">
+                                                                                            <input type="hidden" name="lalu" value="1">
+                                                                                            {{ csrf_field() }}
+
+                                                                                            <div class="card">
+                                                                                                <div class="header">
+                                                                                                    <h4 class="title">KWH Meter Pembanding Bulan Lalu</h4>
+                                                                                                </div>
+                                                                                                <div class="content">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="card">
+                                                                                                <div class="header">
+                                                                                                    <h4 class="title">DOWNLOAD</h4>
+                                                                                                </div>
+                                                                                                <div class="content">
+                                                                                                    <div class="row">
+                                                                                                        <div class="col-md-12">
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Pemakaian KWH LWBP1</label>
+                                                                                                                @if($dt)
+                                                                                                                <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['pembanding']['download']['lwbp1_download']}}">
+                                                                                                                @elseif($dt2)
+                                                                                                                <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['pembanding']['download']['lwbp1_download']}}">
+                                                                                                                @else
+                                                                                                                <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                                @endif
+                                                                                                            </div>
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Pemakaian KWH LWBP2</label>
+                                                                                                                @if($dt)
+                                                                                                                <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['pembanding']['download']['lwbp2_download']}}">
+                                                                                                                @elseif($dt2)
+                                                                                                                <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['pembanding']['download']['lwbp2_download']}}">
+                                                                                                                @else
+                                                                                                                <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                                @endif
+                                                                                                            </div>
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Pemakaian KWH WBP</label>
+                                                                                                                @if($dt)
+                                                                                                                <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['pembanding']['download']['wbp_download']}}">
+                                                                                                                @elseif($dt2)
+                                                                                                                <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['pembanding']['download']['wbp_download']}}">
+                                                                                                                @else
+                                                                                                                <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                                @endif
+                                                                                                            </div>
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Total Pemakaian Energi</label>
+                                                                                                                @if($dt)
+                                                                                                                <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['pembanding']['download']['total_pemakaian_kwh_download']}}">
+                                                                                                                @elseif($dt2)
+                                                                                                                <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['pembanding']['download']['total_pemakaian_kwh_download']}}">
+                                                                                                                @else
+                                                                                                                <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                                @endif
+                                                                                                            </div>
+                                                                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
+                                                                                                            <div class="clearfix"></div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div> <!-- end col-md-8 -->
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div> <!-- end tab content -->
+                                                                    </div> <!-- end col-md-8 -->
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="tab-pane" id="pemakaian-sendiri-lalu">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="nav-container">
+                                                                            <ul class="nav nav-icons" role="tablist">
+                                                                                <li class="active">
+                                                                                    <a href="#ps-visual-lalu" role="tab" data-toggle="tab">
+                                                                                        <i class="fa fa-tachometer"></i><br>
+                                                                                        Visual
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="#ps-download-lalu" role="tab" data-toggle="tab">
+                                                                                        <i class="fa fa-cloud-download"></i><br>
+                                                                                        Download
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+
+                                                                        <div class="tab-content">
+                                                                            <div class="tab-pane active" id="ps-visual-lalu">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <form action="{{route('input_listrik.store')}}" method="post">
+                                                                                            <input type="hidden" name="_method" value="POST">
+                                                                                            <input type="hidden" name="id" value="{{$jenis->id}}">
+                                                                                            <input type="hidden" name="tipe" value="{{$tipe}}">
+                                                                                            <input type="hidden" name="meter" value="ps">
+                                                                                            <input type="hidden" name="visual" value="{{$jenis->id}}">
+                                                                                            <input type="hidden" name="form_ps" value="1">
+                                                                                            <input type="hidden" name="lalu" value="1">
+                                                                                            {{ csrf_field() }}
+
+                                                                                            <div class="card">
+                                                                                                <div class="header">
+                                                                                                    <h4 class="title">KWH Meter Pemakaian Sendiri Bulan Lalu</h4>
+                                                                                                </div>
+                                                                                                <div class="content">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="card">
+                                                                                                <div class="header">
+                                                                                                    <h4 class="title">VISUAL</h4>
+                                                                                                </div>
+                                                                                                <div class="content">
+                                                                                                    <div class="row">
+                                                                                                        <div class="col-md-12">
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Stand Akhir LWBP1</label>
+                                                                                                                @if($dt)
+                                                                                                                <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['ps']['visual']['lwbp1_visual']}}">
+                                                                                                                @elseif($dt2)
+                                                                                                                <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['ps']['visual']['lwbp1_visual']}}">
+                                                                                                                @else
+                                                                                                                <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                                @endif
+                                                                                                            </div>
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Stand Akhir LWBP2</label>
+                                                                                                                @if($dt)
+                                                                                                                <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['ps']['visual']['lwbp2_visual']}}">
+                                                                                                                @elseif($dt2)
+                                                                                                                <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['ps']['visual']['lwbp2_visual']}}">
+                                                                                                                @else
+                                                                                                                <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                                @endif
+                                                                                                            </div>
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Stand Akhir WBP</label>
+                                                                                                                @if($dt)
+                                                                                                                <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['ps']['visual']['wbp_visual']}}">
+                                                                                                                @elseif($dt2)
+                                                                                                                <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['ps']['visual']['wbp_visual']}}">
+                                                                                                                @else
+                                                                                                                <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                                @endif
+                                                                                                            </div>
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Total Pemakaian Energi</label>
+                                                                                                                @if($dt)
+                                                                                                                <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']}}">
+                                                                                                                @elseif($dt2)
+                                                                                                                <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']}}">
+                                                                                                                @else
+                                                                                                                <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                                @endif
+                                                                                                            </div>
+                                                                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
+                                                                                                            <div class="clearfix"></div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div> <!-- end col-md-8 -->
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="tab-pane" id="ps-download-lalu">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <form action="{{route('input_listrik.store')}}" method="post">
+                                                                                            <input type="hidden" name="_method" value="POST">
+                                                                                            <input type="hidden" name="id" value="{{$jenis->id}}">
+                                                                                            <input type="hidden" name="tipe" value="{{$tipe}}">
+                                                                                            <input type="hidden" name="meter" value="ps">
+                                                                                            <input type="hidden" name="form_ps" value="1">
+                                                                                            <input type="hidden" name="download" value="{{$jenis->id}}">
+                                                                                            <input type="hidden" name="lalu" value="1">
+                                                                                            {{ csrf_field() }}
+
+                                                                                            <div class="card">
+                                                                                                <div class="header">
+                                                                                                    <h4 class="title">KWH Meter Pemakaian Sendiri Bulan Lalu</h4>
+                                                                                                </div>
+                                                                                                <div class="content">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="card">
+                                                                                                <div class="header">
+                                                                                                    <h4 class="title">DOWNLOAD</h4>
+                                                                                                </div>
+                                                                                                <div class="content">
+                                                                                                    <div class="row">
+                                                                                                        <div class="col-md-12">
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Pemakaian KWH LWBP1</label>
+                                                                                                                @if($dt)
+                                                                                                                <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['ps']['download']['lwbp1_download']}}">
+                                                                                                                @elseif($dt2)
+                                                                                                                <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['ps']['download']['lwbp1_download']}}">
+                                                                                                                @else
+                                                                                                                <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                                @endif
+                                                                                                            </div>
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Pemakaian KWH LWBP2</label>
+                                                                                                                @if($dt)
+                                                                                                                <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['ps']['download']['lwbp2_download']}}">
+                                                                                                                @elseif($dt2)
+                                                                                                                <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['ps']['download']['lwbp2_download']}}">
+                                                                                                                @else
+                                                                                                                <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                                @endif
+                                                                                                            </div>
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Pemakaian KWH WBP</label>
+                                                                                                                @if($dt)
+                                                                                                                <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['ps']['download']['wbp_download']}}">
+                                                                                                                @elseif($dt2)
+                                                                                                                <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['ps']['download']['wbp_download']}}">
+                                                                                                                @else
+                                                                                                                <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                                @endif
+                                                                                                            </div>
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Total Pemakaian Energi</label>
+                                                                                                                @if($dt)
+                                                                                                                <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download']}}">
+                                                                                                                @elseif($dt2)
+                                                                                                                <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download']}}">
+                                                                                                                @else
+                                                                                                                <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                                @endif
+                                                                                                            </div>
+                                                                                                            <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
+                                                                                                            <div class="clearfix"></div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -596,6 +1173,7 @@
                                                                             <input type="hidden" name="tipe" value="{{$tipe}}">
                                                                             <input type="hidden" name="meter" value="impor">
                                                                             <input type="hidden" name="form_impor" value="1">
+                                                                            <input type="hidden" name="download" value=0>
                                                                             <input type="hidden" name="visual" value="{{$jenis->id}}">
                                                                             {{ csrf_field() }}
 
@@ -614,20 +1192,12 @@
                                                                                     <div class="row">
                                                                                         <div class="col-md-12">
                                                                                             <div class="form-group">
-                                                                                                <label>Stand Akhir LWBP1</label>
-                                                                                                <input type="text" name="lwbp1_visual" class="form-control" placeholder="" value="{{$data['beli']['impor']['visual']['lwbp1_visual']}}">
+                                                                                                <label>Stand Awal</label>
+                                                                                                <input type="text" name="awal_visual" class="form-control" placeholder="" value="{{$data['beli']['impor']['visual']['awal_visual']}}">
                                                                                             </div>
                                                                                             <div class="form-group">
-                                                                                                <label>Stand Akhir LWBP2</label>
-                                                                                                <input type="text" name="lwbp2_visual" class="form-control" placeholder="" value="{{$data['beli']['impor']['visual']['lwbp2_visual']}}">
-                                                                                            </div>
-                                                                                            <div class="form-group">
-                                                                                                <label>Stand Akhir WBP</label>
-                                                                                                <input type="text" name="wbp_visual" class="form-control" placeholder="" value="{{$data['beli']['impor']['visual']['wbp_visual']}}">
-                                                                                            </div>
-                                                                                            <div class="form-group">
-                                                                                                <label>Stand Akhir KVARH</label>
-                                                                                                <input type="text" name="kvarh_visual" class="form-control" placeholder="" value="{{$data['beli']['impor']['visual']['kvarh_visual']}}">
+                                                                                                <label>Stand Akhir</label>
+                                                                                                <input type="text" name="akhir_visual" class="form-control" placeholder="" value="{{$data['beli']['impor']['visual']['akhir_visual']}}">
                                                                                             </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
@@ -649,6 +1219,7 @@
                                                                             <input type="hidden" name="tipe" value="{{$tipe}}">
                                                                             <input type="hidden" name="download" value="{{$jenis->id}}">
                                                                             <input type="hidden" name="meter" value="impor">
+                                                                            <input type="hidden" name="visual" value=0>
                                                                             <input type="hidden" name="form_impor" value="1">
                                                                             {{ csrf_field() }}
 
@@ -667,20 +1238,8 @@
                                                                                     <div class="row">
                                                                                         <div class="col-md-12">
                                                                                             <div class="form-group">
-                                                                                                <label>Pemakaian KWH LWBP1</label>
-                                                                                                <input type="text" name="lwbp1_download" class="form-control" placeholder="" value="{{$data['beli']['impor']['download']['lwbp1_download']}}">
-                                                                                            </div>
-                                                                                            <div class="form-group">
-                                                                                                <label>Pemakaian KWH LWBP2</label>
-                                                                                                <input type="text" name="lwbp2_download" class="form-control" placeholder="" value="{{$data['beli']['impor']['download']['lwbp2_download']}}">
-                                                                                            </div>
-                                                                                            <div class="form-group">
-                                                                                                <label>Pemakaian KWH WBP</label>
-                                                                                                <input type="text" name="wbp_download" class="form-control" placeholder="" value="{{$data['beli']['impor']['download']['wbp_download']}}">
-                                                                                            </div>
-                                                                                            <div class="form-group">
-                                                                                                <label>Pemakaian KWH KVARH</label>
-                                                                                                <input type="text" name="kvarh_download" class="form-control" placeholder="" value="{{$data['beli']['impor']['download']['kvarh_download']}}">
+                                                                                                <label>Total KWH Impor</label>
+                                                                                                <input type="text" name="total_kwh_download" class="form-control" placeholder="" value="{{$data['beli']['impor']['download']['total_kwh_download']}}">
                                                                                             </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
@@ -759,7 +1318,9 @@
                                                                             <input type="hidden" name="tipe" value="{{$tipe}}">
                                                                             <input type="hidden" name="meter" value="ekspor">
                                                                             <input type="hidden" name="visual" value="{{$jenis->id}}">
+                                                                            <input type="hidden" name="download" value=0>
                                                                             <input type="hidden" name="form_ekspor" value="1">
+
                                                                             {{ csrf_field() }}
 
                                                                             <div class="card">
@@ -777,20 +1338,12 @@
                                                                                     <div class="row">
                                                                                         <div class="col-md-12">
                                                                                             <div class="form-group">
-                                                                                                <label>Stand Akhir LWBP1</label>
-                                                                                                <input type="text" name="lwbp1_visual" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['visual']['lwbp1_visual']}}">
+                                                                                                <label>Stand Awal</label>
+                                                                                                <input type="text" name="awal_visual" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['visual']['awal_visual']}}">
                                                                                             </div>
                                                                                             <div class="form-group">
-                                                                                                <label>Stand Akhir LWBP2</label>
-                                                                                                <input type="text" name="lwbp2_visual" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['visual']['lwbp2_visual']}}">
-                                                                                            </div>
-                                                                                            <div class="form-group">
-                                                                                                <label>Stand Akhir WBP</label>
-                                                                                                <input type="text" name="wbp_visual" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['visual']['wbp_visual']}}">
-                                                                                            </div>
-                                                                                            <div class="form-group">
-                                                                                                <label>Stand Akhir KVARH</label>
-                                                                                                <input type="text" name="kvarh_visual" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['visual']['kvarh_visual']}}">
+                                                                                                <label>Stand Akhir</label>
+                                                                                                <input type="text" name="akhir_visual" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['visual']['akhir_visual']}}">
                                                                                             </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
@@ -812,6 +1365,7 @@
                                                                             <input type="hidden" name="tipe" value="{{$tipe}}">
                                                                             <input type="hidden" name="meter" value="ekspor">
                                                                             <input type="hidden" name="download" value="{{$jenis->id}}">
+                                                                            <input type="hidden" name="visual" value=0>
                                                                             <input type="hidden" name="form_ekspor" value="1">
                                                                             {{ csrf_field() }}
 
@@ -830,20 +1384,8 @@
                                                                                     <div class="row">
                                                                                         <div class="col-md-12">
                                                                                             <div class="form-group">
-                                                                                                <label>Pemakaian KWH LWBP1</label>
-                                                                                                <input type="text" name="lwbp1_download" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['download']['lwbp1_download']}}">
-                                                                                            </div>
-                                                                                            <div class="form-group">
-                                                                                                <label>Pemakaian KWH LWBP2</label>
-                                                                                                <input type="text" name="lwbp2_download" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['download']['lwbp2_download']}}">
-                                                                                            </div>
-                                                                                            <div class="form-group">
-                                                                                                <label>Pemakaian KWH WBP</label>
-                                                                                                <input type="text" name="wbp_download" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['download']['wbp_download']}}">
-                                                                                            </div>
-                                                                                            <div class="form-group">
-                                                                                                <label>Pemakaian KWH KVARH</label>
-                                                                                                <input type="text" name="kvarh_download" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['download']['kvarh_download']}}">
+                                                                                                <label>Total KWH Ekspor</label>
+                                                                                                <input type="text" name="total_kwh_download" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['download']['total_kwh_download']}}">
                                                                                             </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
@@ -880,6 +1422,12 @@
                                                         <a href="#jual" role="tab" data-toggle="tab">
                                                             <i class="fa fa-upload"></i><br>
                                                             Transaksi Jual
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#lalu" role="tab" data-toggle="tab">
+                                                            <i class="fa fa-database"></i><br>
+                                                            Input Bulan Lalu
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -943,8 +1491,8 @@
 
                                                                                                     <div class="form-group">
                                                                                                         <label>Tegangan Ujung</label>
-                                                                                                        {{--<input type="number" name="tu_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['tu_visual']}}">--}}
-                                                                                                        <input type="number" name="tu_visual" class="form-control" placeholder="" value="">
+                                                                                                        <input type="number" name="tu_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['tu_visual']}}">
+                                                                                                        {{--<input type="number" name="tu_visual" class="form-control" placeholder="" value="">--}}
                                                                                                     </div>
                                                                                                     @endif
 
@@ -994,7 +1542,7 @@
 
                                                                                                     <div class="form-group">
                                                                                                         <label>Tegangan Ujung</label>
-                                                                                                        <input type="number" name="tu_download" class="form-control" placeholder="" value="">
+                                                                                                        <input type="number" name="tu_download" class="form-control" placeholder="" value="{{$data['beli']['download']['tu_download']}}">
                                                                                                     </div>
                                                                                                     @endif
 
@@ -1032,8 +1580,8 @@
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label>Total Pemakaian KWH</label>
-                                                                                    <input type="text" name="tpe_jual" class="form-control" placeholder="" value="">
-                                                                                    {{--<input type="text" name="tpe_jual" class="form-control" placeholder="" value="{{$data['jual']['total_kwh_jual']}}">--}}
+                                                                                    {{--<input type="text" name="tpe_jual" class="form-control" placeholder="" value="">--}}
+                                                                                    <input type="text" name="tpe_jual" class="form-control" placeholder="" value="{{$data['jual']['total_kwh_jual']}}">
                                                                                 </div>
                                                                                 <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                 <div class="clearfix"></div>
@@ -1042,6 +1590,169 @@
                                                                     </div>
                                                                 </div>
                                                             </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane" id="lalu">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="col-md-12">
+                                                                <div class="nav-container">
+                                                                    <ul class="nav nav-icons" role="tablist">
+                                                                        <li class="active">
+                                                                            <a href="#visual-lalu" role="tab" data-toggle="tab">
+                                                                                <i class="fa fa-tachometer"></i><br>
+                                                                                Visual
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#download-lalu" role="tab" data-toggle="tab">
+                                                                                <i class="fa fa-cloud-download"></i><br>
+                                                                                Download
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="tab-content">
+                                                                    <div class="tab-pane active" id="visual-lalu">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <form action="{{route('input_listrik.store')}}" method="post">
+                                                                                    <input type="hidden" name="_method" value="POST">
+                                                                                    <input type="hidden" name="id" value="{{$jenis->id}}">
+                                                                                    <input type="hidden" name="tipe" value="{{$tipe}}">
+                                                                                    <input type="hidden" name="visual" value="{{$jenis->id}}">
+                                                                                    <input type="hidden" name="lalu" value="1">
+                                                                                    {{ csrf_field() }}
+
+                                                                                    <div class="card">
+                                                                                        <div class="header">
+                                                                                            <h4 class="title">VISUAL</h4>
+                                                                                        </div>
+                                                                                        <div class="content">
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-12">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Stand Akhir LWBP1</label>
+                                                                                                        @if($dt2 == null)
+                                                                                                        <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['visual']['lwbp1_visual']}}">
+                                                                                                        @elseif($dt == null)
+                                                                                                        <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['visual']['lwbp1_visual']}}">
+                                                                                                        @else
+                                                                                                        <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                        @endif
+                                                                                                    </div>
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Stand Akhir LWBP2</label>
+                                                                                                        @if($dt2 == null)
+                                                                                                        <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['visual']['lwbp2_visual']}}">
+                                                                                                        @elseif($dt == null)
+                                                                                                        <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['visual']['lwbp2_visual']}}">
+                                                                                                        @else
+                                                                                                        <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                        @endif
+                                                                                                    </div>
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Stand Akhir WBP</label>
+                                                                                                        @if($dt2 == null)
+                                                                                                        <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$data['beli']['visual']['wbp_visual']}}">
+                                                                                                        @elseif($dt == null)
+                                                                                                        <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['visual']['wbp_visual']}}">
+                                                                                                        @else
+                                                                                                        <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                        @endif
+                                                                                                    </div>
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Total Pemakaian Energi</label>
+                                                                                                        @if($dt2 == null)
+                                                                                                        <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']}}">
+                                                                                                        @elseif($dt == null)
+                                                                                                        <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']}}">
+                                                                                                        @else
+                                                                                                        <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                        @endif
+                                                                                                    </div>
+
+                                                                                                    <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
+                                                                                                    <div class="clearfix"></div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="tab-pane" id="download-lalu">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <form action="{{route('input_listrik.store')}}" method="post">
+                                                                                    <input type="hidden" name="_method" value="POST">
+                                                                                    <input type="hidden" name="id" value="{{$jenis->id}}">
+                                                                                    <input type="hidden" name="tipe" value="{{$tipe}}">
+                                                                                    <input type="hidden" name="download" value="{{$jenis->id}}">
+                                                                                    <input type="hidden" name="lalu" value="1">
+                                                                                    {{ csrf_field() }}
+                                                                                    <div class="card">
+                                                                                        <div class="header">
+                                                                                            <h4 class="title">DOWNLOAD</h4>
+                                                                                        </div>
+                                                                                        <div class="content">
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-12">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Pemakaian KWH LWBP1</label>
+                                                                                                        @if($dt2 == null)
+                                                                                                        <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['download']['lwbp1_download']}}">
+                                                                                                        @elseif($dt == null)
+                                                                                                        <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['download']['lwbp1_download']}}">
+                                                                                                        @else
+                                                                                                        <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                        @endif
+                                                                                                    </div>
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Pemakaian KWH LWBP2</label>
+                                                                                                        @if($dt2 == null)
+                                                                                                        <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['download']['lwbp2_download']}}">
+                                                                                                        @elseif($dt == null)
+                                                                                                        <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['download']['lwbp2_download']}}">
+                                                                                                        @else
+                                                                                                        <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                        @endif
+                                                                                                    </div>
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Pemakaian KWH WBP</label>
+                                                                                                        @if($dt2 == null)
+                                                                                                        <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['download']['wbp_download']}}">
+                                                                                                        @elseif($dt == null)
+                                                                                                        <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['download']['wbp_download']}}">
+                                                                                                        @else
+                                                                                                        <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                        @endif
+                                                                                                    </div>
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Total Pemakaian Energi</label>
+                                                                                                        @if($dt2 == null)
+                                                                                                        <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['download']['total_pemakaian_kwh_download']}}">
+                                                                                                        @elseif($dt == null)
+                                                                                                        <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['download']['total_pemakaian_kwh_download']}}">
+                                                                                                        @else
+                                                                                                        <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                        @endif
+                                                                                                    </div>
+
+                                                                                                    <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
+                                                                                                    <div class="clearfix"></div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

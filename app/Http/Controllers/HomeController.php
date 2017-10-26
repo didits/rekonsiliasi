@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Organisasi;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Facades\Hash;
+use PhpParser\Node\Expr\Array_;
 
 class HomeController extends Controller
 {

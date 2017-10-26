@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\GI;
 use App\Organisasi;
+use App\PenyimpananGardu;
 use App\PenyimpananPenyulang;
 use App\PenyimpananTrafoGI;
 use App\TrafoGI;
@@ -197,10 +198,16 @@ class Laporan extends Controller
         $tr = TrafoGI::whereIn('id',$id)->get();
 
         for ($i=0; $i < count($id); $i++) {
+
             $p_tr = PenyimpananTrafoGI::where([
                 ['id_trafo_gi', $tr[$i]['id']],
-                ['periode', date("Ym")-1]
+                ['periode', "L".(date("Ym")-1)]
             ])->first();
+            if($p_tr==null)
+                $p_tr = PenyimpananTrafoGI::where([
+                    ['id_trafo_gi', $tr[$i]['id']],
+                    ['periode', date("Ym")-1]
+                ])->first();
 
             $p_tr_ = PenyimpananTrafoGI::where([
                 ['id_trafo_gi', $tr[$i]['id']],
@@ -256,7 +263,7 @@ class Laporan extends Controller
 
     public function view_beli($id_rayon,$tipe,$id){
         $cmb = new MasterLaporan($id_rayon,"tsa",$id);
-        dd($areas);
+//        dd($areas);
         $gi = GI::where('id',$id)->first();
         $areas = Organisasi::where('id',$gi->id_organisasi)->first();
         $id_org = substr($areas->id_organisasi, 0, 3) . "%%";
@@ -326,6 +333,7 @@ class Laporan extends Controller
                 if($p_trafo->save());
             }
         }
+//        dd($trafo_GI);
 
         return view('admin.nonmaster.laporan.gi',[
             'data'      => $cmb,
@@ -402,18 +410,26 @@ class Laporan extends Controller
                             $KW =   intval((($c*$D) + 0.5 )* 1);
                             $total_kwh = $KWH_salur_lwbp1+$KWH_salur_lwbp2+$KWH_salur_wbp;
 
-                            $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',date('Ym')-1)->first();
+                            $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',"L".(date('Ym')-1))->first();
+                            if($KWH_bulan_lalu==null)
+                                $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',date('Ym')-1)->first();
+//                            dd(json_decode($bulan_lalu->data,true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download']);
+//                            $KWH_bulan_lalu = json_decode($bulan_lalu->data,true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download'];
 //                            dd($KWH_bulan_lalu);
-
-                            if($KWH_bulan_lalu == null||$KWH_bulan_lalu->data_keluar==null ){
+                            $KWH = null;
+                            if(($KWH_bulan_lalu) == null||$KWH_bulan_lalu->data_keluar==null ){
                                 $KWH_bulan_lalu = null;
                                 $KWH = $total_kwh - $KWH_bulan_lalu;
                                 $persen = null;
                             }
                             else{
                                 $KWH_bulan_lalu= json_decode($KWH_bulan_lalu->data_keluar,true)['total_kwh'];
-                                $KWH = $total_kwh - $KWH_bulan_lalu;
-                                $persen = $KWH/$KWH_bulan_lalu*100;
+                                if($KWH_bulan_lalu==null)
+                                    $persen =0;
+                                else{
+                                    $KWH = $total_kwh - $KWH_bulan_lalu;
+                                    $persen = $KWH/$KWH_bulan_lalu*100;
+                                }
                             }
                             //      KOLOM N, O
                             $p_penyulang = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',date('Ym'))->first();
@@ -421,6 +437,8 @@ class Laporan extends Controller
                                 'dev_lwbp1' =>$KWH_salur_lwbp1,
                                 'dev_lwbp2' =>$KWH_salur_lwbp2,
                                 'dev_wbp' =>$KWH_salur_wbp,
+                                'dev_kvar' =>$kvar,
+                                'dev_kw' =>$KW,
                                 'total_kwh' =>$total_kwh,
                             );
                             if($p_penyulang){
@@ -436,7 +454,9 @@ class Laporan extends Controller
                             $trafo_KWH += $KWH;
                             $trafo_KWH_lalu += $KWH_bulan_lalu;
                             $jual = 20000000;
-                            //$jual =   json_decode($penyulang_array[$j]['data_'],true)['jual']['total_kwh_jual'];
+
+                            $jual =   json_decode($penyulang_array[$j]['data_'],true)['jual']['total_kwh_jual'];
+
                             $susut =   $total_kwh-$jual;
                             $trafo_jual += $jual;
                             if($total_kwh==0) $losses=0;
@@ -1413,4 +1433,160 @@ class Laporan extends Controller
         return view('admin.nonmaster.laporan.tsa_area');
     }
 
+    public function view_beli_pct($id_organisasi, $tipe, $id) {
+        $id_rayon = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id');
+        $nama_rayon = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('nama_organisasi');
+        $cmb = new MasterLaporan($id_rayon,$tipe,$id);
+        $gardu    = $cmb->gardu;$p_penyulang    = $cmb  ->p_penyulang;   $p_gardu  = $cmb->p_gardu;
+        $dp_gardu = array();
+        $idrayon = $id_rayon->toArray();
+//        Stand Expor Impor
+        for($i=0;$i<count($p_gardu);$i++){
+            for($j=0;$j<count($gardu);$j++) {
+                if(in_array($gardu[$j]['id_organisasi'],$idrayon)) $tipe = true;
+                else $tipe=false;
+                if($p_gardu[$i]['id_gardu']==$gardu[$j]['id']){
+                    $data = array(
+                        'tipe' => $tipe,
+                        'nama_gardu' => $gardu[$j]['nama_gardu'],
+                        'id_gardu' => $gardu[$j]['id'],
+                        'id_penyulang' => $gardu[$j]['id_penyulang'],
+                        'id_rayon' => $gardu[$j]['id_organisasi'],
+                        'rincian' => $gardu[$j]['rincian'],
+                        'tujuan' => $gardu[$j]['tujuan'],
+                        'data_master'=> $gardu[$j]['data_master'],
+                        'data'=> $p_gardu[$i]['data'],
+                        'data_keluar'=> $p_gardu[$i]['data_keluar'],
+                    );
+                    array_push($dp_gardu,$data);
+                    break;
+                }
+            }
+        }
+        $total_ekspor = $total_impor = null;
+        for($i=0;$i<count($dp_gardu);$i++){
+            if($dp_gardu[$i]['tipe']) {
+                if (json_decode($dp_gardu[$i]['data'], true)['hasil_pengolahan']['impor']['total_kwh_download'] == 0)
+                    $total_impor += json_decode($dp_gardu[$i]['data'], true)['hasil_pengolahan']['impor']['total_kwh_visual'];
+                else  $total_impor += json_decode($dp_gardu[$i]['data'], true)['hasil_pengolahan']['impor']['total_kwh_download'];
+                if (json_decode($dp_gardu[$i]['data'], true)['hasil_pengolahan']['ekspor']['total_kwh_download'] == 0)
+                    $total_ekspor += json_decode($dp_gardu[$i]['data'], true)['hasil_pengolahan']['ekspor']['total_kwh_visual'];
+                else $total_ekspor += json_decode($dp_gardu[$i]['data'], true)['hasil_pengolahan']['ekspor']['total_kwh_download'];
+            }
+            else {
+                if (json_decode($dp_gardu[$i]['data'], true)['hasil_pengolahan']['impor']['total_kwh_download'] == 0)
+                    $total_ekspor += json_decode($dp_gardu[$i]['data'], true)['hasil_pengolahan']['impor']['total_kwh_visual'];
+                else  $total_ekspor += json_decode($dp_gardu[$i]['data'], true)['hasil_pengolahan']['impor']['total_kwh_download'];
+                if (json_decode($dp_gardu[$i]['data'], true)['hasil_pengolahan']['ekspor']['total_kwh_download'] == 0)
+                    $total_impor += json_decode($dp_gardu[$i]['data'], true)['hasil_pengolahan']['ekspor']['total_kwh_visual'];
+                else $total_impor += json_decode($dp_gardu[$i]['data'], true)['hasil_pengolahan']['ekspor']['total_kwh_download'];
+            }
+        }
+        $wbp_e =$lwbp1_e =$lwbp2_e=$kvar_e=$kh_e =$wbp_i =$lwbp1_i =$lwbp2_i=$kvar_i=$kh_i = null;
+        $hasil_e =$hasil_i = null;
+//        Data Urai
+        $data_urai = array();
+        for($i=0;$i<count($dp_gardu);$i++) {
+            for($j=0;$j<count($p_penyulang);$j++){
+                if($dp_gardu[$i]['tipe']){
+                    if(json_decode($dp_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_download']==0)
+                        $hasil_i =json_decode($dp_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_visual'];
+                    else  $hasil_i =json_decode($dp_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_download'];
+
+                    if(json_decode($dp_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_download']==0)
+                        $hasil_e =json_decode($dp_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_visual'];
+                    else $hasil_e =json_decode($dp_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_download'];
+                }
+                else{
+                    if(json_decode($dp_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_download']==0)
+                        $hasil_e =json_decode($dp_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_visual'];
+                    else  $hasil_e =json_decode($dp_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_download'];
+                    if(json_decode($dp_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_download']==0)
+                        $hasil_i =json_decode($dp_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_visual'];
+                    else $hasil_i =json_decode($dp_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_download'];
+//                    dd($hasil_e);
+                }
+
+
+                $total = json_decode($p_penyulang[$j]['data_keluar'],true)['total_kwh'];
+                if($total ==0) $total =1;
+
+                if($dp_gardu[$i]['id_penyulang'] ==$p_penyulang[$j]['id_penyulang']){
+                    $wbp_e = intval(($hasil_e*(json_decode($p_penyulang[$j]['data_keluar'],true)['dev_wbp']/$total))/1+0.5);
+                    $lwbp1_e = intval(($hasil_e*(json_decode($p_penyulang[$j]['data_keluar'],true)['dev_lwbp1']/$total))/1+0.5);
+                    $lwbp2_e = intval(($hasil_e*(json_decode($p_penyulang[$j]['data_keluar'],true)['dev_lwbp2']/$total))/1+0.5);
+                    $kvar_e = intval(($hasil_e*(json_decode($p_penyulang[$j]['data_keluar'],true)['dev_kvar']/$total))/1+0.5);
+                    $kw_e = intval(($hasil_e*(json_decode($p_penyulang[$j]['data_keluar'],true)['dev_kw']/$total))/1+0.5);
+
+                    $wbp_i = intval(($hasil_i*(json_decode($p_penyulang[$j]['data_keluar'],true)['dev_wbp']/$total))/1+0.5);
+                    $lwbp1_i = intval(($hasil_i*(json_decode($p_penyulang[$j]['data_keluar'],true)['dev_lwbp1']/$total))/1+0.5);
+                    $lwbp2_i = intval(($hasil_i*(json_decode($p_penyulang[$j]['data_keluar'],true)['dev_lwbp2']/$total))/1+0.5);
+                    $kvar_i = intval(($hasil_i*(json_decode($p_penyulang[$j]['data_keluar'],true)['dev_kvar']/$total))/1+0.5);
+                    $kw_i = intval(($hasil_i*(json_decode($p_penyulang[$j]['data_keluar'],true)['dev_kw']/$total))/1+0.5);
+                    $dt_urai = array(
+                        'id_rayon' => $dp_gardu[$i]['id_rayon'],
+                        'id_penyulang' => $p_penyulang[$j]['id_penyulang'],
+                        'pct' => $dp_gardu[$i]['nama_gardu'],
+                        'rincian' => $dp_gardu[$i]['rincian'],
+                        'id_pct' => $dp_gardu[$i]['id_gardu'],
+                        'lwbp1_e' => $lwbp1_e,
+                        'lwbp2_e' => $lwbp2_e,
+                        'wbp_e' => $wbp_e,
+                        'kvar_e' => $kvar_e,
+                        'kw_e' => $kw_e,
+                        'lwbp1_i' => $lwbp1_i,
+                        'lwbp2_i' => $lwbp2_i,
+                        'wbp_i' => $wbp_i,
+                        'kvar_i' => $kvar_i,
+                        'kw_i' => $kw_i,
+                    );
+                    array_push($data_urai,$dt_urai);
+                    break;
+                }
+            }
+        }
+//        Rayon
+        $rayon = array();
+        for($i=0;$i<count($nama_rayon);$i++) {
+            $total_lwbp1_e =$total_lwbp2_e =$total_wbp_e =$total_lwbp1_i =$total_lwbp2_i =$total_wbp_i = $total_kvar_e =$total_kw_e =$total_kvar_i =$total_kw_i =null;
+            for($j=0;$j<count($data_urai);$j++) {
+                if($data_urai[$j]['id_rayon']==$id_rayon[$i]){
+                    $total_lwbp1_e +=$data_urai[$j]['lwbp1_e'];
+                    $total_lwbp2_e +=$data_urai[$j]['lwbp2_e'];
+                    $total_wbp_e +=$data_urai[$j]['wbp_e'];
+                    $total_kvar_e +=$data_urai[$j]['kvar_e'];
+                    $total_kw_e +=$data_urai[$j]['kw_e'];
+                    $total_lwbp1_i +=$data_urai[$j]['lwbp1_i'];
+                    $total_lwbp2_i +=$data_urai[$j]['lwbp2_i'];
+                    $total_wbp_i +=$data_urai[$j]['wbp_i'];
+                    $total_kvar_i +=$data_urai[$j]['kvar_i'];
+                    $total_kw_i +=$data_urai[$j]['kw_i'];
+                }
+            }
+            $data_rayon = array(
+                'nama_rayon' => $nama_rayon[$i],
+                'lwbp1_e' => $lwbp1_e,
+                'lwbp2_e' => $total_lwbp2_e,
+                'wbp_e' => $total_wbp_e,
+                'kvar_e' => $total_kvar_e,
+                'kw_e' => $total_kw_e,
+                'lwbp1_i' => $total_lwbp1_i,
+                'lwbp2_i' => $total_lwbp2_i,
+                'wbp_i' => $total_wbp_i,
+                'kvar_i' => $total_kvar_i,
+                'kw_i' => $total_kw_i,
+            );
+            array_push($rayon,$data_rayon);
+        }
+//        dd($rayon);
+//
+        return view('admin.nonmaster.laporan.pct',[
+            'gardu'      => $gardu,
+            'p_gardu'   => $dp_gardu,
+            'total_i'   => $total_impor,
+            'total_e'   => $total_ekspor,
+            'dt_urai'   => $data_urai,
+            'dt_rayon'   => $rayon,
+        ]);
+    }
 }

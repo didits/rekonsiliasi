@@ -283,13 +283,19 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Tegangan</label>
-                                                                    <input name="tegangan" type="text" class="form-control" placeholder="Tegangan" value="{{$decoded['kapasitas']['tegangan']}}">
+                                                                    <div class="input-group">
+                                                                        <input name="tegangan" type="text" class="form-control" placeholder="Tegangan" value="{{$decoded['kapasitas']['tegangan']}}">
+                                                                        <span class="input-group-addon">KV</span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Kapasitas</label>
-                                                                    <input name="kapasitas" type="text" class="form-control" placeholder="Kapasitas" value="{{$decoded['kapasitas']['kapasitas']}}">
+                                                                    <div class="input-group">
+                                                                        <input name="kapasitas" type="text" class="form-control" placeholder="Kapasitas" value="{{$decoded['kapasitas']['kapasitas']}}">
+                                                                        <span class="input-group-addon">MVA</span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1194,42 +1200,42 @@
                                     </div>
                                     @else
 
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="card">
-                                                <div class="header">
-                                                    <h4 class="title">Tegangan Ujung</h4>
-                                                </div>
-                                                <div class="content">
+                                    {{--<div class="row">--}}
+                                        {{--<div class="col-md-12">--}}
+                                            {{--<div class="card">--}}
+                                                {{--<div class="header">--}}
+                                                    {{--<h4 class="title">Tegangan Ujung</h4>--}}
+                                                {{--</div>--}}
+                                                {{--<div class="content">--}}
                                                     {{--KAPASITAS LAM--}}
-                                                    <form action="{{route('input_datamaster.store')}}" method="post">
-                                                        <input type="hidden" name="_method" value="POST">
-                                                        <input type="hidden" name="tipe" value="penyulang">
-                                                        <input type="hidden" name="form_penyulang" value="{{$penyulang->id}}">
-                                                        <input type="hidden" name="form_ujung" value="{{$penyulang->id}}">
-                                                        {{ csrf_field() }}
+                                                    {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
+                                                        {{--<input type="hidden" name="_method" value="POST">--}}
+                                                        {{--<input type="hidden" name="tipe" value="penyulang">--}}
+                                                        {{--<input type="hidden" name="form_penyulang" value="{{$penyulang->id}}">--}}
+                                                        {{--<input type="hidden" name="form_ujung" value="{{$penyulang->id}}">--}}
+                                                        {{--{{ csrf_field() }}--}}
 
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label>Tegangan Ujung</label>
-                                                                    <input name="tegangan" type="text" class="form-control" placeholder="Tegangan" value="{{$decoded['Tegangan']['tegangan']}}">
-                                                                </div>
-                                                            </div>
+                                                        {{--<div class="row">--}}
+                                                            {{--<div class="col-md-12">--}}
+                                                                {{--<div class="form-group">--}}
+                                                                    {{--<label>Tegangan Ujung</label>--}}
+                                                                    {{--<input name="tegangan" type="text" class="form-control" placeholder="Tegangan" value="{{$decoded['Tegangan']['tegangan']}}">--}}
+                                                                {{--</div>--}}
+                                                            {{--</div>--}}
                                                             {{--<div class="col-md-6">--}}
                                                                 {{--<div class="form-group">--}}
                                                                     {{--<label>Kapasitas</label>--}}
                                                                     {{--<input name="kapasitas" type="text" class="form-control" placeholder="Kapasitas" value="">--}}
                                                                 {{--</div>--}}
                                                             {{--</div>--}}
-                                                        </div>
-                                                        <button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>
-                                                        <div class="clearfix"></div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                                        {{--</div>--}}
+                                                        {{--<button type="submit" class="btn btn-info btn-fill pull-right">Update Data Master</button>--}}
+                                                        {{--<div class="clearfix"></div>--}}
+                                                    {{--</form>--}}
+                                                {{--</div>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="content" id="kwhmeter">
@@ -2300,7 +2306,7 @@
                                                 <div class="card">
                                                     <form action="{{route('input_datamaster.store')}}" method="post">
                                                         <input type="hidden" name="_method" value="POST">
-                                                        <input type="hidden" name="tipe" value="all">
+                                                        <input type="hidden" name="tipe" value="tegangan">
                                                         <input type="hidden" name="pct" value={{$gardu->id}}>
                                                         <input type="hidden" name="area" value={{Auth::user()->nama_organisasi}}>
                                                         <input type="hidden" name="rayon" value={{$rayon->nama_organisasi}}>
