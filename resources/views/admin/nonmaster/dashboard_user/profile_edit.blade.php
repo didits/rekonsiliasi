@@ -16,7 +16,7 @@
                                 <hr>
                             </div>
                             <div class="content">
-                                <form id="registerFormValidation" novalidate="" role="form" method="POST" action="{{ url('/profil') }}">
+                                <form id="editProfile" novalidate="" role="form" method="POST" action="{{route('editProfile')}}">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="id_user" value="{{Auth::id()}}">
                                     <div class="row">
@@ -39,7 +39,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Daerah</label>
-                                                <input name="nama" type="text" class="form-control" value="@if (Auth::guest())nama
+                                                <input name="daerah" type="text" class="form-control" value="@if (Auth::guest())nama
                                                 @else{{ Auth::user()->nama_organisasi }}@endif" disabled="">
                                             </div>
                                         </div>                                       
@@ -53,35 +53,63 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">UBAH PASSWORD</h4>
+                                <hr>
+                            </div>
+                            <div class="content">
+                                <form id="editPassword" novalidate="" role="form" method="POST" action="{{route('ubahPassword')}}">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="id_user" value="{{Auth::id()}}">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-group">
-                                                <label class="control-label">Password</label>
+                                                <label class="control-label">Password Sekarang</label>
                                                 <input class="form-control"
-                                                       name="password"
-                                                       id="registerPassword"
+                                                       name="password_old"
+                                                       id="password_old"
                                                        type="password"
-                                                       required="true"
                                                        minLength="4"
-                                                       value="1234"
+                                                       required
                                                 />
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Password Baru</label>
+                                                <input class="form-control"
+                                                       name="password_new"
+                                                       id="password_new"
+                                                       type="password"
+                                                       minLength="4"
+                                                       required
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label class="control-label">Konfirmasi Password</label>
                                                 <input class="form-control"
                                                        name="password_confirmation"
-                                                       id="registerPasswordConfirmation"
+                                                       id="password_confirmation"
                                                        type="password"
-                                                       required="true"
-                                                       value="1234"
-                                                       equalTo="#registerPassword"
+                                                       equalTo="#password_new"
+                                                       required
                                                 />
                                             </div>
                                         </div>
-                                    </div> 
-                                    <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
+                                    </div>
+                                    <button type="submit" class="btn btn-info btn-fill pull-right">Ubah Password</button>
                                     <div class="clearfix"></div>
                                 </form>
                             </div>
@@ -95,4 +123,51 @@
 
     </div>
 </div>
+@endsection
+
+@section('extra_plugin')
+
+{{--<!--  Forms Validations Plugin -->--}}
+<script src="{{ URL::asset('dashboard/js/jquery.validate.min.js') }}"></script>
+
+{{--<!--  Notifications Plugin    -->--}}
+<script src="{{ URL::asset('dashboard/js/bootstrap-notify.js') }}"></script>
+@endsection
+
+@section('extra_script')
+
+<script>
+    notif ={
+        statusPassword: function () {
+            status_ = "{{isset($status)?$status[0]:""}}";
+            if(status_ === "success")
+                icon_ = "pe-7s-check";
+            else if (status_ === "warning")
+                icon_ = "pe-7s-close-circle";
+            else
+                icon_ = "";
+
+            $.notify({
+                icon: icon_,
+                message: "<b>{{isset($status)?$status[1]:""}}</b>"
+
+            }, {
+                type: status_,
+                timer: 4000
+            });
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    $().ready(function(){
+        $('#editProfile').validate();
+        $('#editPassword').validate();
+        @if($status)
+        notif.statusPassword();
+
+        @endif
+    });
+</script>
+
 @endsection

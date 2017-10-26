@@ -17,8 +17,19 @@ Route::get('/profil', function () {
 }); 
  
 Route::get('/edit_profil', function () {
-    return view('admin.nonmaster.dashboard_user.profile_edit');
+    return view('admin.nonmaster.dashboard_user.profile_edit', ['status' => false]);
 });
+
+Route::post('/editProfile', [
+    'as'        => 'editProfile',
+    'uses'      => 'ProfileController@editProfil'
+]);
+
+Route::post('/ubahPassword', [
+    'as'        => 'ubahPassword',
+    'uses'      => 'ProfileController@ubahPassword'
+]);
+
 
 Route::get('/gardu', function () {
     return view('admin.nonmaster.dashboard_user.gardu');

@@ -38,17 +38,11 @@
     <script src="{{ URL::asset('dashboard/js/jquery-ui.min.js') }}" type="text/javascript"></script>
     <script src="{{ URL::asset('dashboard/js/bootstrap.min.js') }}" type="text/javascript"></script>
 
-    {{--<!--  Forms Validations Plugin -->--}}
-    <script src="{{ URL::asset('dashboard/js/jquery.validate.min.js') }}"></script>
-
     {{--<!--  Checkbox, Radio & Switch Plugins -->--}}
     <script src="{{ URL::asset('dashboard/js/bootstrap-checkbox-radio-switch.js') }}"></script>
 
     {{--<!--  Charts Plugin -->--}}
     <script src="{{ URL::asset('dashboard/js/chartist.min.js') }}"></script>
-
-    {{--<!--  Notifications Plugin    -->--}}
-    <script src="{{ URL::asset('dashboard/js/bootstrap-notify.js') }}"></script>
 
     {{--<!--  Select Picker Plugin -->--}}
     <script src="{{ URL::asset('dashboard/js/bootstrap-selectpicker.js') }}"></script>
@@ -63,14 +57,6 @@
 
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
     <script src="{{ URL::asset('dashboard/js/light-bootstrap-dashboard.js') }}"></script>
-
-    <script type="text/javascript">
-        $().ready(function(){
-
-            $('#registerFormValidation').validate();
-
-        });
-    </script>
 
     <script type="text/javascript">
         var $table = $('#bootstrap-table');
