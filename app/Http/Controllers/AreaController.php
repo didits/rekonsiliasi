@@ -117,7 +117,7 @@ class AreaController extends Controller
             $inputGardu->alamat_gardu = $request->tambahalamatgardu;
             $inputGardu->data_master = "";
             $inputGardu->tipe_gardu=$request->tipe_;
-            $inputGardu->tujuan="";
+            $inputGardu->tujuan=0;
             $inputGardu->rincian="";
             if($inputGardu->save());
             return back();
@@ -145,7 +145,6 @@ class AreaController extends Controller
 
 
             if($request->form_trafogi){
-
 //                dd(json_decode($data['data_master'],true));
                 if($request->form_kapasitas) {
                     $data_tk = array(
@@ -198,7 +197,7 @@ class AreaController extends Controller
                     $rayon_tujuan = Organisasi::where('id_organisasi', $request->selectrayonsingle)->first();
                     $penyulang = Penyulang::where('id', $request->selectpenyulangsingle)->first();
                     $penyulang2 = Penyulang::where('id', $request->gardu)->first();
-                    $trafo = TrafoGI::where('id',$penyulang->id_trafo_gi)->first();
+                    $trafo = TrafoGI::where('id',$penyulang2->id_trafo_gi)->first();
                     $GI = GI::where('id',$trafo->id_gi)->first();
                     $antar_unit = $request->rayon ." - ".  $rayon_tujuan->nama_organisasi;
                     $rincian = array(
@@ -220,7 +219,9 @@ class AreaController extends Controller
                         'impor' => $lok_d,
                         'ekspor' => $lok_t
                     );
+                    $dat = $this->json_datamaster($request, $data, "meter",0);
                     $data_master->rincian = json_encode($rincian);
+                    $data_master->tujuan = $rayon_tujuan->id;
                 }
                 else{
                     $decoded = json_decode($data->data_master, true);
@@ -239,13 +240,12 @@ class AreaController extends Controller
                         'ekspor' => $lok_t
                     );
                 }
+
                 $dat = $this->json_datamaster($request, $data, "meter",1);
-//                dd($dat);
                 $data = array(
                     'meter' => $dat,
                     'lokasi'=> $lok
                 );
-
 
             }
             else{

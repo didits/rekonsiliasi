@@ -96,11 +96,12 @@
                                             <tr class="text-right">
                                                 <td class="text-center">{{$i+1}}</td>
                                                 {{--{{dd(json_decode($gardu[$i]['data_master'],true)['meter']['FK']['faktorkali'])}}--}}
-                                                <td class="text-left">{{$gardu[$i]['nama_gardu']}}</td>
-                                                <td class="text-left">{{json_decode($gardu[$i]['rincian'],true)['gi']}}</td>
-                                                <td class="text-left">{{json_decode($gardu[$i]['rincian'],true)['penyulang']}}</td>
-                                                <td class="text-left">{{json_decode($gardu[$i]['rincian'],true)['antar_unit']}}</td>
-                                                <td class="text-left">{{json_decode($gardu[$i]['data_master'],true)['meter']['FK']['faktorkali']}}</td>
+                                                <td class="text-left">{{$p_gardu[$i]['nama_gardu']}}</td>
+                                                <td class="text-left">{{json_decode($p_gardu[$i]['rincian'],true)['gi']}}</td>
+                                                <td class="text-left">{{json_decode($p_gardu[$i]['rincian'],true)['penyulang']}}</td>
+                                                <td class="text-left">{{json_decode($p_gardu[$i]['rincian'],true)['antar_unit']}}</td>
+                                                <td class="text-left">{{json_decode($p_gardu[$i]['data_master'],true)['meter']['FK']['faktorkali']}}</td>
+                                                @if($p_gardu[$i]['tipe'])
                                                 @if(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_download']==0)
                                                 <td>{{json_decode($p_gardu[$i]['data'],true)['beli']['ekspor']['visual']['awal_visual']}}</td>
                                                 <td>{{json_decode($p_gardu[$i]['data'],true)['beli']['ekspor']['visual']['akhir_visual']}}</td>
@@ -110,6 +111,7 @@
                                                 <td>-</td>
                                                 <td>{{json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_download']}}</td>
                                                 @endif
+                                                @else
                                                 @if(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_download']==0)
                                                 <td>{{json_decode($p_gardu[$i]['data'],true)['beli']['impor']['visual']['awal_visual']}}</td>
                                                 <td>{{json_decode($p_gardu[$i]['data'],true)['beli']['impor']['visual']['akhir_visual']}}</td>
@@ -119,7 +121,30 @@
                                                 <td>-</td>
                                                 <td>{{json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_download']}}</td>
                                                 @endif
-                                                 </tr>
+                                                @endif
+
+                                                @if($p_gardu[$i]['tipe'])
+                                                @if(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_download']==0)
+                                                <td>{{json_decode($p_gardu[$i]['data'],true)['beli']['impor']['visual']['awal_visual']}}</td>
+                                                <td>{{json_decode($p_gardu[$i]['data'],true)['beli']['impor']['visual']['akhir_visual']}}</td>
+                                                <td>{{json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_visual']}}</td>
+                                                @else
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>{{json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_download']}}</td>
+                                                @endif
+                                                @else
+                                                @if(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_download']==0)
+                                                <td>{{json_decode($p_gardu[$i]['data'],true)['beli']['ekspor']['visual']['awal_visual']}}</td>
+                                                <td>{{json_decode($p_gardu[$i]['data'],true)['beli']['ekspor']['visual']['akhir_visual']}}</td>
+                                                <td>{{json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_visual']}}</td>
+                                                @else
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>{{json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_download']}}</td>
+                                                @endif
+                                                @endif
+                                            </tr>
                                         @endfor
 
                                         </tbody>
@@ -232,26 +257,26 @@
                                         </thead>
                                         <tbody>
                                             <tr></tr>
-                                        @for($i=0; $i<10 ;$i++)
+                                        @for($i=0; $i<count($dt_urai) ;$i++)
 
                                             <tr class="text-right">
                                                 <td class="text-center">{{$i+1}}</td>
-                                                <td class="text-left">NAMA PCT</td>
-                                                <td class="text-left">NAMA GI</td>
-                                                <td class="text-left">NAMA PENYULANG</td>
-                                                <td class="text-left">RAYON{{$i+1}}-RAYON{{$i+2}}</td>
+                                                <td class="text-left">{{$dt_urai[$i]['pct']}}</td>
+                                                <td class="text-left">{{json_decode($dt_urai[$i]['rincian'],true)['gi']}}</td>
+                                                <td class="text-left">{{json_decode($dt_urai[$i]['rincian'],true)['penyulang']}}</td>
+                                                <td class="text-left">{{json_decode($dt_urai[$i]['rincian'],true)['antar_unit']}}</td>
                                                 {{--EKSPOR--}}
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>{{$dt_urai[$i]['wbp_e']}}</td>
+                                                <td>{{$dt_urai[$i]['lwbp1_e']}}</td>
+                                                <td>{{$dt_urai[$i]['lwbp2_e']}}</td>
+                                                <td>{{$dt_urai[$i]['kvar_e']}}</td>
+                                                <td>{{$dt_urai[$i]['kw_e']}}</td>
                                                 {{--IMPOR--}}
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>{{$dt_urai[$i]['wbp_i']}}</td>
+                                                <td>{{$dt_urai[$i]['lwbp1_i']}}</td>
+                                                <td>{{$dt_urai[$i]['lwbp2_i']}}</td>
+                                                <td>{{$dt_urai[$i]['kvar_i']}}</td>
+                                                <td>{{$dt_urai[$i]['kw_i']}}</td>
                                             </tr>
                                         @endfor
 
@@ -348,22 +373,22 @@
                                         </thead>
                                         <tbody>
                                             <tr></tr>
-                                        @for($i=0; $i<10 ;$i++)
+                                        @for($i=0; $i<count($dt_rayon) ;$i++)
 
                                             <tr class="text-right">
-                                                <td class="text-left">RAYON {{$i+1}}</td>
+                                                <td class="text-left">{{$dt_rayon[$i]['nama_rayon']}}</td>
                                                 {{--EKSPOR--}}
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>{{$dt_rayon[$i]['wbp_e']}}</td>
+                                                <td>{{$dt_rayon[$i]['lwbp1_e']}}</td>
+                                                <td>{{$dt_rayon[$i]['lwbp2_e']}}</td>
+                                                <td>{{$dt_rayon[$i]['kvar_e']}}</td>
+                                                <td>{{$dt_rayon[$i]['kw_e']}}</td>
                                                 {{--IMPOR--}}
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>{{$dt_rayon[$i]['wbp_i']}}</td>
+                                                <td>{{$dt_rayon[$i]['lwbp1_i']}}</td>
+                                                <td>{{$dt_rayon[$i]['lwbp2_i']}}</td>
+                                                <td>{{$dt_rayon[$i]['kvar_i']}}</td>
+                                                <td>{{$dt_rayon[$i]['kw_i']}}</td>
                                             </tr>
                                         @endfor
 

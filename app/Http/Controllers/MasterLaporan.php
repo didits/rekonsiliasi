@@ -44,11 +44,21 @@ class MasterLaporan
             $this->id = $id_trafo;
         }
         elseif($tipe == "pct"){
-            $gardu = Gardu::whereIn('id_organisasi',$id_rayon)->where('tipe_gardu',1)->get()->toArray();
+            $gardu = Gardu::whereIn('id_organisasi',$id_rayon)
+                ->where('tipe_gardu',1)->get()->toArray();
+            $gardu = Gardu::wherein('tujuan',$id_rayon)
+                ->where('tipe_gardu',1)->get()->union($gardu)->toArray();
             $id_gardu = Gardu::whereIn('id_organisasi',$id_rayon)->where('tipe_gardu',1)->pluck('id');
-            $p_gardu = PenyimpananGardu::whereIn('id_gardu',$id_gardu)->get()->toArray();
+            $id_gardu = Gardu::whereIn('tujuan',$id_rayon)->where('tipe_gardu',1)->pluck('id')->union($id_gardu);
+
+            $id_penyulang = Gardu::whereIn('id_organisasi',$id_rayon)->where('tipe_gardu',1)->pluck('id_penyulang');
+            $id_penyulang = Gardu::whereIn('tujuan',$id_rayon)->where('tipe_gardu',1)->pluck('id_penyulang')->union($id_penyulang);
+            $p_gardu = PenyimpananGardu::whereIn('id_gardu',$id_gardu)->where('periode',date("Ym"))->get()->toArray();
+            $p_penyulang = PenyimpananPenyulang::whereIn('id_penyulang',$id_penyulang)->where('periode',date("Ym"))->get()->toArray();
+//            dd($id_penyulang);
             $this ->gardu =$gardu;
             $this ->p_gardu=$p_gardu;
+            $this ->p_penyulang =$p_penyulang;
         }
     }
 }

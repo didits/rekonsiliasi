@@ -2306,7 +2306,7 @@
                                                 <div class="card">
                                                     <form action="{{route('input_datamaster.store')}}" method="post">
                                                         <input type="hidden" name="_method" value="POST">
-                                                        <input type="hidden" name="tipe" value="all">
+                                                        <input type="hidden" name="tipe" value="tegangan">
                                                         <input type="hidden" name="pct" value={{$gardu->id}}>
                                                         <input type="hidden" name="area" value={{Auth::user()->nama_organisasi}}>
                                                         <input type="hidden" name="rayon" value={{$rayon->nama_organisasi}}>
