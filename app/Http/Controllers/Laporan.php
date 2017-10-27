@@ -453,10 +453,8 @@ class Laporan extends Controller
                             $trafo_Kvarh += $kvar;
                             $trafo_KWH += $KWH;
                             $trafo_KWH_lalu += $KWH_bulan_lalu;
-                            $jual = 20000000;
-
-                            $jual =   json_decode($penyulang_array[$j]['data_'],true)['jual']['total_kwh_jual'];
-
+                            $jual = 1000000;
+//                            $jual =   json_decode($penyulang_array[$j]['data_'],true)['jual']['total_kwh_jual'];
                             $susut =   $total_kwh-$jual;
                             $trafo_jual += $jual;
                             if($total_kwh==0) $losses=0;
@@ -698,7 +696,7 @@ class Laporan extends Controller
                             if ($jumlah_gi[$i]['KWH_lalu'] == 0) $jumlah_gi[$i]['persen'] = 0;
                             else $jumlah_gi[$i]['persen'] = $jumlah_gi[$i]['KWH'] / $jumlah_gi[$i]['KWH_lalu'] * 100;
                             $jumlah_gi[$i]['susut'] = $jumlah_gi[$i]['total_kwh'] - $jumlah_gi[$i]['jual'];
-                            if($jumlah_gi[$i]['total_kwh']) $jumlah_gi[$i]['losses'] = 0;
+                            if($jumlah_gi[$i]['total_kwh']==0) $jumlah_gi[$i]['losses'] = 0;
                             else $jumlah_gi[$i]['losses'] = $jumlah_gi[$i]['susut'] / $jumlah_gi[$i]['total_kwh'] *100;
                         }
                     }
