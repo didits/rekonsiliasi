@@ -10,7 +10,7 @@ use App\PenyimpananPenyulang;
 use App\PenyimpananTrafoGI;
 use App\TrafoGI;
 use Illuminate\Http\Request;
-use App\Penyulang;
+use App\Penyulang; 
 use App\Gardu;
 use Illuminate\Support\Facades\Auth; 
 use phpDocumentor\Reflection\Types\Null_;
@@ -454,7 +454,9 @@ class Laporan extends Controller
                             $trafo_KWH += $KWH;
                             $trafo_KWH_lalu += $KWH_bulan_lalu;
                             $jual = 20000000;
-//                            $jual =   json_decode($penyulang_array[$j]['data_'],true)['jual']['total_kwh_jual'];
+
+                            $jual =   json_decode($penyulang_array[$j]['data_'],true)['jual']['total_kwh_jual'];
+
                             $susut =   $total_kwh-$jual;
                             $trafo_jual += $jual;
                             if($total_kwh==0) $losses=0;
@@ -570,6 +572,7 @@ class Laporan extends Controller
     }
 
     public function view_beli_tsa($id_organisasi, $tsa, $tipe){
+        $id_tsa = $tsa;
         if($tipe =="gi"||$tipe =="penyulang"){
             $data_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
 //            dd($tipe);
@@ -714,6 +717,9 @@ class Laporan extends Controller
                     'data_jumlah'      => $jumlah_trafo,
                     'total_jumlah'      => $jumlah_tot,
                     'tipe'      => "area",
+                    'tipe_organisasi' => "penyulang",
+                    'id_organisasi' => $id_organisasi,
+                    'tsa' => $id_tsa
                 ]);
             elseif($tipe =="penyulang")
                 return view('admin.nonmaster.laporan.tsa_penyulang',[
@@ -722,7 +728,10 @@ class Laporan extends Controller
                     'data_gi'      => $list_p,
                     'data_jumlah'      => $jumlah_trafo,
                     'total_jumlah'      => $jumlah_tot,
+                    'tipe_organisasi' => "penyulang",
                     'tipe'      => "area",
+                    'id_organisasi' => $id_organisasi,
+                    'tsa' => $id_tsa
                 ]);
         }
         elseif($tipe = "rayon"){
@@ -734,6 +743,281 @@ class Laporan extends Controller
                 $list_p =$data[1];
                 $jumlah_trafo =$data[2];
                 $jumlah_tot =$data[3];
+                return view('admin.nonmaster.laporan.tsa_penyulang',[
+                    'trafo'      => $trafo,
+                    'gi'      => $data_gi->nama_gi,
+                    'area'      => $org->nama_organisasi,
+                    'data_gi'      => $list_p,
+                    'data_jumlah'      => $jumlah_trafo,
+                    'total_jumlah'      => $jumlah_tot,
+                    'tipe'      => "rayon",
+                    'tipe_organisasi' => "penyulang",
+                    'id_organisasi' => $id_organisasi,
+                    'tsa' => $id_tsa
+                ]);
+            }
+            else {
+                return view('admin.nonmaster.laporan.tsa_penyulang',[
+                    'trafo'      => null,
+                    'gi'      => null,
+                    'area'      => $org->nama_organisasi,
+                    'data_gi'      => null,
+                    'data_jumlah'      => null,
+                    'total_jumlah'      => null,
+                    'tipe'      => "rayon",
+                    'tipe_organisasi' => "penyulang",
+                    'id_organisasi' => $id_organisasi,
+                    'tsa' => $id_tsa
+                ]);
+            }
+        }
+    }
+
+        public function excel_beli_tsa($id_organisasi, $tsa, $tipe){
+        if($tipe =="gi"||$tipe =="penyulang"){
+            $data_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
+//            dd($data_org);
+            $id_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
+            $tsa = array();$trafo = array();$list_p = array();$nama_gi = array();$jumlah_trafo = array();$jumlah_tot = array();
+            for($i =0 ;$i <count($id_org);$i++) {
+                $data_gi = GI::where('id_organisasi', $id_org[$i])->select('id', 'nama_gi')->first();
+                if ($data_gi) {
+                    $data = $this->data_tsa($id_organisasi, "tsa", $data_gi);
+                    if($data[2]){
+                        if($data[0])
+                            array_push($trafo,$data[0]);
+                        if($data[1])
+                            array_push($list_p,$data[1]);
+                        if($data[2])
+                            array_push($jumlah_trafo,$data[2]);
+                        if($data[3])
+                            array_push($jumlah_tot,$data[3]);
+                        $dt = array(
+                            'nama' => $data[1][0]['rayon'],
+                            'trafo' => $data[0],
+                            'list_p' => $data[1],
+                            'jumlah_trafo' => $data[2],
+                            'jumlah_tot' => $data[3],
+                        );
+                        array_push($nama_gi,$data_gi);
+                        array_push($tsa,$dt);
+                    }
+                  }
+            }
+
+            $jumlah_gi = array();
+            for($i=0;$i<count($jumlah_trafo);$i++){
+                $lwbp1_gi = $lwbp2_gi = $wbp_gi =$tpe_kwh_gi = $Kvarh_gi =$KW_gi = $KWH_gi = $KWH_lalu_gi=$jual_gi= null;
+                for($j=0;$j<count($jumlah_trafo[$i]);$j++){
+                    $lwbp1_gi +=$jumlah_trafo[$i][$j]['lwbp1'];
+                    $lwbp2_gi +=$jumlah_trafo[$i][$j]['lwbp2'];
+                    $wbp_gi +=$jumlah_trafo[$i][$j]['wbp'];
+                    $tpe_kwh_gi +=$jumlah_trafo[$i][$j]['total_kwh'];
+                    $Kvarh_gi +=$jumlah_trafo[$i][$j]['Kvarh'];
+                    $KW_gi +=$jumlah_trafo[$i][$j]['KW'];
+                    $KWH_gi +=$jumlah_trafo[$i][$j]['KWH'];
+                    $KWH_lalu_gi+=$jumlah_trafo[$i][$j]['KWH_lalu'];
+                    $jual_gi+=$jumlah_trafo[$i][$j]['jual'];
+                }
+
+                if($KWH_lalu_gi == 0)$persen_gi =0;
+                else $persen_gi = $KWH_gi/$KWH_lalu_gi*100;
+                $susut_gi = $tpe_kwh_gi -$jual_gi;
+                if($tpe_kwh_gi==0) $losses_gi = 0;
+                else $losses_gi = $susut_gi / $tpe_kwh_gi *100;
+                $dt_gi =array(
+                    'lwbp1' => $lwbp1_gi,
+                    'lwbp2' => $lwbp2_gi,
+                    'wbp' => $wbp_gi,
+                    'total_kwh' => $tpe_kwh_gi,
+                    'KW' => $KW_gi,
+                    'Kvarh'   => $Kvarh_gi,
+                    'KWH'   => $KWH_gi,
+                    'KWH_lalu'   => $KWH_lalu_gi,
+                    'persen' => $persen_gi,
+                    'jual'   => $jual_gi,
+                    'susut'   => $susut_gi,
+                    'losses'   => $losses_gi
+                );
+                array_push($jumlah_gi,$dt_gi);
+            }
+
+            $tot_lwbp1 = $tot_lwbp2 = $tot_wbp =$tot_t_kwh = $tot_KW = $tot_KWH = $tot_KWH_lalu=$tot_jual= null;
+            for($i=0;$i < count($jumlah_gi);$i++){
+                $tot_lwbp1 += $jumlah_gi[$i]['lwbp1'];
+                $tot_lwbp2 += $jumlah_gi[$i]['lwbp2'];
+                $tot_wbp += $jumlah_gi[$i]['wbp'];
+                $tot_t_kwh += $jumlah_gi[$i]['total_kwh'];
+                $tot_KWH_lalu+=$jumlah_gi[$i]['KWH_lalu'];
+                $tot_KW +=$jumlah_gi[$i]['KW'];
+                $tot_KWH += $jumlah_gi[$i]['KWH'];
+                $tot_jual += $jumlah_gi[$i]['jual'];
+            }
+
+            if($tot_KWH_lalu == 0)$tot_persen =0;
+            else $tot_persen = $tot_KWH/$tot_KWH_lalu*100;
+            $tot_susut = $tot_t_kwh -$tot_jual;
+            if($tot_t_kwh==0) $tot_losses = 0;
+            else $tot_losses = $tot_susut / $tot_t_kwh *100;
+
+            $jumlah_tot =array(
+                'lwbp1' => $tot_lwbp1,
+                'lwbp2' => $tot_lwbp2,
+                'wbp' => $tot_wbp,
+                'total_kwh' => $tot_t_kwh,
+                'KW' => $tot_KW,
+                'Kvarh'   => $tot_KWH,
+                'KWH'   => $tot_KWH,
+                'KWH_lalu'   => $tot_KWH_lalu,
+                'persen' => $tot_persen,
+                'jual'   => $tot_jual,
+                'susut'   => $tot_susut,
+                'losses'   => $tot_losses
+            );
+//            dd($tsa);
+            if($tipe =="gi")
+                return view('admin.nonmaster.laporan.tsa_rayon',[
+                    'nama_gi'      => $tsa,
+                    'data_gi'      => $jumlah_gi,
+                    'total_jumlah' => $jumlah_tot,
+                ]);
+            elseif($tipe =="area"){
+                Excel::create('laporan TSA Penyulang', function($excel)use($trafo,$nama_gi,$list_p,$jumlah_trafo,$jumlah_tot){
+
+                    $excel->sheet('Laporan TSA Penyulang', function($sheet) use($trafo,$nama_gi,$list_p,$jumlah_trafo,$jumlah_tot) {
+                        $sheet->mergeCells('A9:A11');
+                        $sheet->mergeCells('B9:D9');
+                        $sheet->mergeCells('E9:E11');
+                        $sheet->mergeCells('F9:K9');
+                        $sheet->mergeCells('L9:L11');
+                        $sheet->mergeCells('M9:M11');
+                        $sheet->mergeCells('N9:O10');
+                        $sheet->mergeCells('P9:P11');
+
+                        $sheet->mergeCells('B10:B11');
+                        $sheet->mergeCells('C10:C11');
+                        $sheet->mergeCells('D10:D11');
+                        $sheet->mergeCells('F10:F11');
+                        $sheet->mergeCells('G10:G11');
+                        $sheet->mergeCells('H10:H11');
+                        $sheet->mergeCells('I10:I11');
+                        $sheet->mergeCells('J10:J11');
+                        $sheet->mergeCells('K10:K11');
+
+
+
+                        $sheet->setPageMargin(0.25);
+                        $sheet->setOrientation('landscape');
+                        $sheet->loadView('admin.nonmaster.excel.tsa_penyulang',[
+                            'trafo'      => $trafo,
+                            'nama_gi'      => $nama_gi,
+                            'data_gi'      => $list_p,
+                            'data_jumlah'      => $jumlah_trafo,
+                            'total_jumlah'      => $jumlah_tot,
+                            'tipe'      => "area",
+                        ]);
+                    });
+                })
+                ->download('xls');
+        
+                return view('admin.nonmaster.excel.tsa_penyulang',[
+                    'trafo'      => $trafo,
+                    'nama_gi'      => $nama_gi,
+                    'data_gi'      => $list_p,
+                    'data_jumlah'      => $jumlah_trafo,
+                    'total_jumlah'      => $jumlah_tot,
+                    'tipe'      => "area",
+                ]);
+            }elseif($tipe =="penyulang"){
+                Excel::create('laporan TSA Penyulang', function($excel)use($trafo,$nama_gi,$list_p,$jumlah_trafo,$jumlah_tot){
+
+                    $excel->sheet('Laporan TSA Penyulang', function($sheet) use($trafo,$nama_gi,$list_p,$jumlah_trafo,$jumlah_tot) {
+                        $sheet->mergeCells('A9:A11');
+                        $sheet->mergeCells('B9:D9');
+                        $sheet->mergeCells('E9:E11');
+                        $sheet->mergeCells('F9:K9');
+                        $sheet->mergeCells('L9:L11');
+                        $sheet->mergeCells('M9:M11');
+                        $sheet->mergeCells('N9:O10');
+                        $sheet->mergeCells('P9:P11');
+
+                        $sheet->mergeCells('B10:B11');
+                        $sheet->mergeCells('C10:C11');
+                        $sheet->mergeCells('D10:D11');
+                        $sheet->mergeCells('F10:F11');
+                        $sheet->mergeCells('G10:G11');
+                        $sheet->mergeCells('H10:H11');
+                        $sheet->mergeCells('I10:I11');
+                        $sheet->mergeCells('J10:J11');
+                        $sheet->mergeCells('K10:K11');
+
+
+
+                        $sheet->setPageMargin(0.25);
+                        $sheet->setOrientation('landscape');
+                        $sheet->loadView('admin.nonmaster.excel.tsa_penyulang',[
+                            'trafo'      => $trafo,
+                            'nama_gi'      => $nama_gi,
+                            'data_gi'      => $list_p,
+                            'data_jumlah'      => $jumlah_trafo,
+                            'total_jumlah'      => $jumlah_tot,
+                            'tipe'      => "area",
+                        ]);
+                    });
+                })
+                ->download('xls');
+            }
+        }
+        elseif($tipe = "rayon"){
+            $org = Organisasi::select('tipe_organisasi','nama_organisasi')->where('id_organisasi',$id_organisasi)->first();
+            $data_gi = GI::where('id_organisasi',$tsa)->select('id','nama_gi')->first();
+            if($data_gi){
+                $data = $this->data_tsa($id_organisasi, "tsa", $data_gi);
+                $trafo =$data[0];
+                $list_p =$data[1];
+                $jumlah_trafo =$data[2];
+                $jumlah_tot =$data[3];
+                $nama_gi = $data_gi->nama_gi;
+                $nama_organisasi = $org->nama_organisasi;
+                Excel::create('laporan TSA Penyulang', function($excel)use($trafo,$nama_gi,$nama_organisasi,$list_p,$jumlah_trafo, $jumlah_tot){
+
+                    $excel->sheet('Laporan TSA Penyulang', function($sheet) use($trafo,$nama_gi,$nama_organisasi,$list_p,$jumlah_trafo, $jumlah_tot) {
+                        $sheet->mergeCells('A9:A11');
+                        $sheet->mergeCells('B9:D9');
+                        $sheet->mergeCells('E9:E11');
+                        $sheet->mergeCells('F9:K9');
+                        $sheet->mergeCells('L9:L11');
+                        $sheet->mergeCells('M9:M11');
+                        $sheet->mergeCells('N9:O10');
+                        $sheet->mergeCells('P9:P11');
+
+                        $sheet->mergeCells('B10:B11');
+                        $sheet->mergeCells('C10:C11');
+                        $sheet->mergeCells('D10:D11');
+                        $sheet->mergeCells('F10:F11');
+                        $sheet->mergeCells('G10:G11');
+                        $sheet->mergeCells('H10:H11');
+                        $sheet->mergeCells('I10:I11');
+                        $sheet->mergeCells('J10:J11');
+                        $sheet->mergeCells('K10:K11');
+
+
+
+                        $sheet->setPageMargin(0.25);
+                        $sheet->setOrientation('landscape');
+                        $sheet->loadView('admin.nonmaster.excel.tsa_penyulang',[
+                            'trafo'      => $trafo,
+                            'gi'      => $nama_gi,
+                            'area'      => $nama_organisasi,
+                            'data_gi'      => $list_p,
+                            'data_jumlah'      => $jumlah_trafo,
+                            'total_jumlah'      => $jumlah_tot,
+                            'tipe'      => "rayon",
+                        ]);
+                    });
+                })
+                ->download('xls');
+
                 return view('admin.nonmaster.laporan.tsa_penyulang',[
                     'trafo'      => $trafo,
                     'gi'      => $data_gi->nama_gi,

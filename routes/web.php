@@ -17,8 +17,19 @@ Route::get('/profil', function () {
 }); 
  
 Route::get('/edit_profil', function () {
-    return view('admin.nonmaster.dashboard_user.profile_edit');
+    return view('admin.nonmaster.dashboard_user.profile_edit', ['status' => false]);
 });
+
+Route::post('/editProfile', [
+    'as'        => 'editProfile',
+    'uses'      => 'ProfileController@editProfil'
+]);
+
+Route::post('/ubahPassword', [
+    'as'        => 'ubahPassword',
+    'uses'      => 'ProfileController@ubahPassword'
+]);
+
 
 Route::get('/gardu', function () {
     return view('admin.nonmaster.dashboard_user.gardu');
@@ -399,10 +410,17 @@ Route::group(['prefix' => 'area/laporan_transaksi', 'middleware' => ['auth', 'ti
         'as'        => 'area.view_beli_tsa_trafo_gi',
         'uses'      => 'Laporan@view_beli_tsa_trafo_gi'
     ]);
+
     Route::get('/view_laporan_tsa/{id_organisasi}/{tsa}/{tipe}', [
         'as'        => 'area.view_beli_tsa',
         'uses'      => 'Laporan@view_beli_tsa'
     ]);
+
+    Route::get('/excel_laporan_tsa/{id_organisasi}/{tsa}/{tipe}', [
+        'as'        => 'area.excel_beli_tsa',
+        'uses'      => 'Laporan@excel_beli_tsa'
+    ]);
+
 //    Route::get('/view_laporan_tsa_rayon/{id_organisasi}', [
 //        'as'        => 'area.view_beli_tsa_rayon',
 //        'uses'      => 'Laporan@view_beli_tsa_rayon'
@@ -410,6 +428,11 @@ Route::group(['prefix' => 'area/laporan_transaksi', 'middleware' => ['auth', 'ti
     Route::get('/view_laporan_tsa_area/{id_organisasi}', [
         'as'        => 'area.view_beli_tsa_area',
         'uses'      => 'Laporan@view_beli_tsa_area'
+    ]);
+
+    Route::get('/excel_laporan_tsa_area/{id_organisasi}', [
+        'as'        => 'area.view_excel_beli_tsa_area',
+        'uses'      => 'Laporan@excel_beli_tsa_area'
     ]);
 
     Route::get('/view_laporan_deviasi/{id_organisasi}/{tipe}/{id_gi}', [
