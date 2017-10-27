@@ -77,7 +77,8 @@
                                             <th colspan="6" class="text-center">KWH SALUR</th>
                                             <th rowspan="3" class="text-center">TSA BULAN LALU</th>
                                             <th colspan="2" rowspan="2" class="text-center">NAIK/TURUN</th>
-                                            <th colspan="3" rowspan="2" class="text-center">SUSUT</th>
+                                            <th rowspan="3" class="text-center">KWH JUAL</th>
+                                            <th colspan="2" rowspan="2" class="text-center">SUSUT</th>
                                         </tr>
                                         <tr>
                                             <th rowspan="2" class="text-center">TOTAL</th>
@@ -90,7 +91,6 @@
                                         <tr>
                                             <th class="text-center">KWH</th>
                                             <th class="text-center">%</th>
-                                            <th class="text-center">KWH JUAL</th>
                                             <th class="text-center">KWH SUSUT</th>
                                             <th class="text-center">LOSSES(%)</th>
                                         </tr>

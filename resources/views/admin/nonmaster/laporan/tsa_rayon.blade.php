@@ -77,7 +77,8 @@
                                             <th colspan="6" class="text-center">KWH SALUR</th>
                                             <th rowspan="3" class="text-center">TSA BULAN LALU</th>
                                             <th colspan="2" rowspan="2" class="text-center">NAIK/TURUN</th>
-                                            <th colspan="3" rowspan="2" class="text-center">SUSUT</th>
+                                            <th rowspan="3" class="text-center">KWH JUAL</th>
+                                            <th colspan="2" rowspan="2" class="text-center">SUSUT</th>
                                         </tr>
                                         <tr>
                                             <th rowspan="2" class="text-center">TOTAL</th>
@@ -90,7 +91,6 @@
                                         <tr>
                                             <th class="text-center">KWH</th>
                                             <th class="text-center">%</th>
-                                            <th class="text-center">KWH JUAL</th>
                                             <th class="text-center">KWH SUSUT</th>
                                             <th class="text-center">LOSSES(%)</th>
                                         </tr>
@@ -116,14 +116,14 @@
                                         @for($i=0;$i<count($nama_gi);$i++)
                                             <tr class="text-right">
                                                 <td class="text-center">{{$i+1}}</td>
-                                                <td class="text-left">{{$nama_gi[$i]['nama']}}</td>
+                                                <td class="text-left">{{$nama_gi[$i]['nama_gi']}}</td>
                                                 <td class="text-center">I</td>
                                                 <td>{{number_format($data_gi[$i]['total_kwh'])}}</td>
                                                 <td>{{number_format($data_gi[$i]['wbp'])}}</td>
                                                 <td>{{number_format($data_gi[$i]['lwbp1'])}}</td>
                                                 <td>{{number_format($data_gi[$i]['lwbp2'])}}</td>
-                                                <td>{{number_format(1)}}</td>
-                                                <td>{{number_format(1)}}</td>
+                                                <td>{{number_format($data_gi[$i]['Kvarh'])}}</td>
+                                                <td>{{number_format($data_gi[$i]['KW'])}}</td>
                                                 <td>{{number_format($data_gi[$i]['KWH_lalu'])}}</td>
                                                 <td>{{number_format($data_gi[$i]['KWH'])}}</td>
                                                 <td>{{number_format($data_gi[$i]['persen'])}}</td>
