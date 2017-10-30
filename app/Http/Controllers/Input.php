@@ -480,7 +480,6 @@ class Input extends Controller
             elseif($request->tipe=="gd"||  $request->tipe=="tm"){
                 $data_listrik = PenyimpananGardu::where('periode', date('Ym'))->where('id_gardu', $request->id)->first();
             }
-
             if($data_listrik){
                 $decoded = json_decode($data_listrik->data,true);
                 if($request->tipe=="pct") {
@@ -639,9 +638,11 @@ class Input extends Controller
                         );
                     }
                 }
-
-                $data = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter, $request->tpe_jual);
-//            dd($data);
+                $jual= $request->tpe_jual;
+//                        dd($decoded);
+                $data = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter, $jual);
+//                dd($data);
+                if(!$request->tpe_jual)  $data['jual']['total_kwh_jual']=$decoded['jual']['total_kwh_jual'];
                 $data_listrik->data = json_encode($data);
                 if($data_listrik->save());
 //            dd($data_listrik->data);

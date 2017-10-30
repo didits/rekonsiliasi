@@ -113,23 +113,23 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @for($i=0;$i<count($nama_gi);$i++)
+                                        @for($i=0;$i<count($rayon);$i++)
                                             <tr class="text-right">
                                                 <td class="text-center">{{$i+1}}</td>
-                                                <td class="text-left">{{$nama_gi[$i]['nama_gi']}}</td>
+                                                <td class="text-left">{{$rayon[$i]['nama_rayon']}}</td>
                                                 <td class="text-center">I</td>
-                                                <td>{{number_format($data_gi[$i]['total_kwh'])}}</td>
-                                                <td>{{number_format($data_gi[$i]['wbp'])}}</td>
-                                                <td>{{number_format($data_gi[$i]['lwbp1'])}}</td>
-                                                <td>{{number_format($data_gi[$i]['lwbp2'])}}</td>
-                                                <td>{{number_format($data_gi[$i]['Kvarh'])}}</td>
-                                                <td>{{number_format($data_gi[$i]['KW'])}}</td>
-                                                <td>{{number_format($data_gi[$i]['KWH_lalu'])}}</td>
-                                                <td>{{number_format($data_gi[$i]['KWH'])}}</td>
-                                                <td>{{number_format($data_gi[$i]['persen'])}}</td>
-                                                <td>{{number_format($data_gi[$i]['jual'])}}</td>
-                                                <td>{{number_format($data_gi[$i]['susut'])}}</td>
-                                                <td>{{number_format($data_gi[$i]['losses'])}}</td>
+                                                <td>{{number_format($rayon[$i]['total_kwh'])}}</td>
+                                                <td>{{number_format($rayon[$i]['wbp'])}}</td>
+                                                <td>{{number_format($rayon[$i]['lwbp1'])}}</td>
+                                                <td>{{number_format($rayon[$i]['lwbp2'])}}</td>
+                                                <td>{{number_format($rayon[$i]['Kvarh'])}}</td>
+                                                <td>{{number_format($rayon[$i]['KW'])}}</td>
+                                                <td>{{number_format($rayon[$i]['KWH_lalu'])}}</td>
+                                                <td>{{number_format($rayon[$i]['KWH'])}}</td>
+                                                <td>{{number_format($rayon[$i]['persen'])}}</td>
+                                                <td>{{number_format($rayon[$i]['jual'])}}</td>
+                                                <td>{{number_format($rayon[$i]['susut'])}}</td>
+                                                <td>{{number_format($rayon[$i]['losses'])}}</td>
                                             </tr>
                                         @endfor
 
@@ -142,8 +142,8 @@
                                             <th class="text-right"><b>{{number_format($total_jumlah['wbp'])}}</b></th>
                                             <th class="text-right"><b>{{number_format($total_jumlah['lwbp1'])}}</b></th>
                                             <th class="text-right"><b>{{number_format($total_jumlah['lwbp2'])}}</b></th>
-                                            <th class="text-right"><b>{{number_format(122493)}}</b></th>
-                                            <th class="text-right"><b>{{number_format(472471)}}</b></th>
+                                            <th class="text-right"><b>{{number_format($total_jumlah['Kvarh'])}}</b></th>
+                                            <th class="text-right"><b>{{number_format($total_jumlah['KW'])}}</b></th>
                                             <th class="text-right"><b>{{number_format($total_jumlah['KWH_lalu'])}}</b></th>
                                             <th class="text-right"><b>{{number_format($total_jumlah['KWH'])}}</b></th>
                                             <th class="text-right"><b>{{number_format($total_jumlah['persen'])}}</b></th>
