@@ -574,7 +574,7 @@ class Laporan extends Controller
             $data_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
 //            dd($tipe);
             $id_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
-            $tsa = array();$trafo = array();$list_p = array();$nama_gi = array();$jumlah_trafo = array();$jumlah_tot = array();
+            $tsa_ = array();$trafo = array();$list_p = array();$nama_gi = array();$jumlah_trafo = array();$jumlah_tot = array();
             for($i =0 ;$i <count($id_org);$i++) {
                 $data_gi = GI::where('id_organisasi', $id_org[$i])->select('id', 'nama_gi','id_organisasi')->get();
 //                dd($data_gi);
@@ -598,7 +598,7 @@ class Laporan extends Controller
                                 'jumlah_tot' => $data[3],
                             );
                             array_push($nama_gi,$data_gi[$j]);
-                            array_push($tsa,$dt);
+                            array_push($tsa_,$dt);
                         }
                     }
                 }
@@ -640,7 +640,7 @@ class Laporan extends Controller
                 );
                 array_push($jumlah_gi,$dt_gi);
             }
-//
+
             $tot_lwbp1 = $tot_lwbp2 = $tot_wbp = $tot_Kvarh =$tot_t_kwh = $tot_KW = $tot_KWH = $tot_KWH_lalu=$tot_jual= null;
             for($i=0;$i < count($jumlah_gi);$i++){
                 $tot_lwbp1 += $jumlah_gi[$i]['lwbp1'];
@@ -808,12 +808,16 @@ class Laporan extends Controller
                 );
 
 //                dd($rayon);
-
-
-                return view('admin.nonmaster.laporan.tsa_rayon',[
+                if($tsa=="area")
+                    return view('admin.nonmaster.laporan.tsa_rayon',[
                         'rayon'      => $rayon,
                         'total_jumlah' => $jumlah_tot,
-                ]);
+                    ]);
+                elseif($tsa=="tsa_area")
+                    return view('admin.nonmaster.laporan.tsa_area',[
+                        'rayon'      => $rayon,
+                        'total_jumlah' => $jumlah_tot,
+                    ]);
             }
             elseif($tipe =="area")
                 return view('admin.nonmaster.laporan.tsa_penyulang',[
@@ -842,7 +846,7 @@ class Laporan extends Controller
         }
         elseif($tipe = "rayon"){
             $org = Organisasi::select('tipe_organisasi','nama_organisasi')->where('id_organisasi',$id_organisasi)->first();
-            $data_gi = GI::where('id_organisasi',$tsa)->select('id','nama_gi','id_organisasi')->get();
+            $data_gi = GI::where('id_organisasi',$tsa_)->select('id','nama_gi','id_organisasi')->get();
             $gi = array();
             if($data_gi){
                 for($i =0 ;$i <count($data_gi);$i++) {

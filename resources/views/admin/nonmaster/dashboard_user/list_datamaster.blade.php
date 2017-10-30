@@ -77,7 +77,7 @@
                                 <div class="content all-icons">
                                     <div class="row">
                                         <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6">
-                                            <a href="{{route('area.view_beli_tsa_area', [Auth::user()->id_organisasi])}}" rel="tooltip" title="" data-original-title="">
+                                            <a href="{{route('area.view_beli_tsa',  [Auth::user()->id_organisasi, 'tsa_area', 'gi'])}}" rel="tooltip" title="" data-original-title="">
                                                 <button class="font-icon-detail btn btn-info btn-fill btn-wd">
                                                     <i class="pe-7s-map-2"></i><br/>Laporan<br/>TSA<br/>Area
                                                 </button>
