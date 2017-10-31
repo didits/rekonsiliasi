@@ -1373,13 +1373,6 @@ class Input extends Controller
         //
     }
 
-    public function list_data(){
-        $data = Gardu::where('id_organisasi', Auth::user()->id_organisasi)->get();
-        return view('admin.nonmaster.dashboard_user.list_gardu_laporan',[
-            'data' =>$data
-        ]);
-    }
-
     public function list_laporan_gardu($id_gardu){
         $data = PenyimpananGI::where('id_gi', $id_gardu)->get();
         return view('admin.nonmaster.listrik.hasil_pengolahan', [
@@ -1520,57 +1513,4 @@ class Input extends Controller
             'tipe'            => $tipe
         ]);
     }
-
-    public function input_data_keluar($id,$tipe){
-
-        if($tipe=="gi"){
-            $data = PenyimpananGI::where('periode',date('Ym'))->where('id_gi', $id)->first();
-            $jenis = GI::where('id',$id)->first();
-        }
-        else{
-            $data = PenyimpananTrafoGI::where('periode',date('Ym'))->where('id_trafo_gi', $id)->first();
-            $jenis = TrafoGI::where('id',$id)->first();
-        }
-
-        if($data){
-            $data = json_decode($data->data, true);
-        }
-        else {
-            $data_visual = array(
-                'lwbp1_visual' => null,
-                'lwbp2_visual' => null,
-                'wbp_visual' => null,
-                'kvarh_visual' => null
-            );
-
-            $data_download = array(
-                'lwbp1_download' => null,
-                'lwbp2_download' => null,
-                'wbp_download' => null,
-                'kvarh_download' => null
-            );
-
-            $data_awal = array(
-                'visual' => $data_visual,
-                'download' => $data_download );
-
-            $data =array(
-                'beli'=>$data_awal,
-                'hasil_pengolahan'=> null
-            );
-            $hasil = json_encode($data);
-
-            $data = json_decode($hasil, true);
-        }
-
-//        dd($data);
-        return view('admin.nonmaster.dashboard_user.input_data_dummy1', [
-            'data'            => $data,
-            'jenis'           => $jenis,
-            'tipe'            => $tipe
-        ]);
-    }
-
-
-
 }
