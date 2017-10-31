@@ -30,41 +30,6 @@ Route::post('/ubahPassword', [
     'uses'      => 'ProfileController@ubahPassword'
 ]);
 
-
-Route::get('/gardu', function () {
-    return view('admin.nonmaster.dashboard_user.gardu');
-}); 
-
-Route::get('/input_rayon', function () {
-    return view('admin.nonmaster.dashboard_user.list_gardu');
-});
-
-
-Route::get('/pemakaiansendiri', function () {
-    return view('admin.nonmaster.dashboard_user.pemakaiansendiri');
-});
-
-
-Route::get('/laporan', function () {
-    return view('admin.nonmaster.laporan.ktt');
-});
-
-Route::get('/laporan_area', function () {
-    return view('admin.nonmaster.laporan.area');
-});
-
-Route::get('/laporan_rayon', function () {
-    return view('admin.nonmaster.laporan.rayon');
-});
-
-Route::get('/laporan_GI', function () {
-    return view('admin.nonmaster.laporan.gi');
-});
-
-Route::get('/input_dummy', function () {
-    return view('admin.nonmaster.dashboard_user.input_data_dummy1');
-});
-
 Route::resource('input_listrik', 'Input');
 Route::resource('input_datamaster', 'AreaController');
 
