@@ -1358,8 +1358,12 @@ class AreaController extends Controller
         return $table;
     }
 
-    public function hapus_datamaster($id_organisasi,$tipe, $id)
+    public function hapus_datamaster(Request $request)
     {
+        $id_organisasi = $request->id_org;
+        $tipe = $request->tipe;
+        $id = $request->id;
+
         if ($tipe == "t_gi")
             $table = TrafoGI::where('id',$id)->delete();
         elseif ($tipe == "penyulang")

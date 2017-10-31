@@ -277,7 +277,12 @@ Route::group(['prefix' => 'area', 'middleware' => ['auth', 'tipe:2']], function 
         'uses'      => 'AreaController@edit_datamaster'
     ]);
 
-    Route::get('/hapus_datamaster/{id_organisasi}/{tipe}/{id}', [
+//    Route::get('/hapus_datamaster/{id_organisasi}/{tipe}/{id}', [
+//        'as'        => 'area.hapus_datamaster',
+//        'uses'      => 'AreaController@hapus_datamaster'
+//    ]);
+
+    Route::post('/hapus_datamaster', [
         'as'        => 'area.hapus_datamaster',
         'uses'      => 'AreaController@hapus_datamaster'
     ]);
