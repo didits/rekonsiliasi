@@ -1344,7 +1344,9 @@ class AreaController extends Controller
 
 //        return $request->task;
 
-        if ($edit == "t_gi")
+        if ($edit == "gi")
+            $table = GI::where('id', $id)->update(['nama_gi' => $nama, 'alamat_gi' => $alamat]);
+        elseif ($edit == "t_gi")
             $table = TrafoGI::where('id', $id)->update(['nama_trafo_gi' => $nama, 'alamat_trafo_gi' => $alamat]);
         elseif ($edit == "penyulang")
             $table = Penyulang::where('id', $id)->update(['nama_penyulang' => $nama, 'alamat_penyulang' => $alamat]);
@@ -1364,16 +1366,18 @@ class AreaController extends Controller
         $tipe = $request->tipe;
         $id = $request->id;
 
-        if ($tipe == "t_gi")
-            $table = TrafoGI::where('id',$id)->delete();
+        if ($tipe == "gi")
+            $table = GI::where('id', $id)->delete();
+        elseif ($tipe == "t_gi")
+            $table = TrafoGI::where('id', $id)->delete();
         elseif ($tipe == "penyulang")
-            $table = Penyulang::where('id',$id)->delete();
+            $table = Penyulang::where('id', $id)->delete();
         elseif ($tipe == "gd")
-            $table = Gardu::where('id',$id)->delete();
+            $table = Gardu::where('id', $id)->delete();
         elseif ($tipe == "pct")
-            $table = Gardu::where('id',$id)->delete();
+            $table = Gardu::where('id', $id)->delete();
         elseif ($tipe == "p_tm")
-            $table = Gardu::where('id',$id)->delete();
+            $table = Gardu::where('id', $id)->delete();
 
         return $table;
     }

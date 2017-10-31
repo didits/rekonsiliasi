@@ -8,7 +8,11 @@ var task_;
 
 edit_datamaster = {
     showSwal: function (type, id_, nama_, alamat_) {
-        if (type === 'trafo_gi') {
+        if (type === 'gi') {
+            title_ = "Edit " + datamaster[0];
+            task_ = tasks[0];
+
+        } else if (type === 'trafo_gi') {
             title_ = "Edit " + datamaster[1];
             task_ = tasks[1];
 
@@ -66,7 +70,11 @@ edit_datamaster = {
 
 hapus_datamaster = {
     showSwal: function (type, id_org_, id_, nama_) {
-        if (type === 'trafo_gi') {
+        if (type === 'gi') {
+            title_ = "Hapus " + datamaster[0];
+            task_ = tasks[0];
+
+        } else if (type === 'trafo_gi') {
             title_ = "Hapus " + datamaster[1];
             task_ = tasks[1];
 
