@@ -32,19 +32,18 @@
                             {{--<br>--}}
                             <div class="nav-container">
                                 <ul class="nav nav-icons" role="tablist">
-                                    @if($gi)
+                                @if($gi)
 
-                                        <li class="active">
-                                            <a href="#description-logo" role="tab" data-toggle="tab" aria-expanded="true">
-                                                <i class="fa fa-info-circle"></i><br>GI {{$gi->nama_trafo_gi}}
-                                            </a>
-                                        </li>
-                                    @else
+                                    <li class="active">
+                                        <a href="#description-logo" role="tab" data-toggle="tab" aria-expanded="true">
+                                            <i class="fa fa-info-circle"></i><br>GI {{$gi->nama_trafo_gi}}
+                                        </a>
+                                    </li>
+                                @else
 
                                     <li class="active">
                                         <a href="#description-logo" role="tab" data-toggle="tab" aria-expanded="true">
                                             <i class="fa fa-info-circle"></i><br>
-
 
                                             @if($trafo_gi)
 
@@ -194,6 +193,7 @@
                                     </div>
                                 </div>
                                 @else
+
                                 <div class="tab-pane active" id="description-logo">
                                     <div class="content" id="trafoheader">
                                         <div class="row">
@@ -259,8 +259,8 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
+
                                     @if($id_trafo_gi)
 
                                     <div class="row">
@@ -308,7 +308,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="nav-container">
@@ -948,10 +947,9 @@
 
                                         </div> <!-- end col-md-8 -->
 
-                                    </div>
-
                                     @elseif($gi)
                                     @elseif($gardu)
+
                                     <div class="row">
                                         <div class="col-md-12">
                                             {{--<div class="tab-content">--}}
@@ -1154,6 +1152,7 @@
                                         </div> <!-- end col-md-8 -->
                                     </div>
                                     @else
+
                                     <div class="row">
                                         <div class="col-md-12">
                                             <form action="{{route('input_datamaster.store')}}" method="post">
@@ -1391,6 +1390,8 @@
                                         </div>
                                     </div>
                                     @endif
+
+                                </div>
                                 @endif
 {{--DISINI PUNYA FORM.BLADE--}}
                                 @if($penyulang)
