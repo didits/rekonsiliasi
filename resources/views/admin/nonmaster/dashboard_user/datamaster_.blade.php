@@ -2450,7 +2450,7 @@
                                                                                 <i class="fa fa-user"></i>
                                                                             </a>
                                                                         @endif
-                                                                        {{--                                                                        {{dd($key)}}--}}
+                                                                        {{--{{dd($key)}}--}}
 
                                                                         <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Profile"
                                                                            @if($id_gi)
