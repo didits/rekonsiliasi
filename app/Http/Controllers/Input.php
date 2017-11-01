@@ -1277,7 +1277,7 @@ class Input extends Controller
                     $lwbp2_download = ($download['lwbp2_download'] - $data_awal['beli']['download']['lwbp2_download']);
                     $wbp_download =  ($download['wbp_download'] - $data_awal['beli']['download']['wbp_download']);
                     $kvarh_download = ($download['kvarh_download'] - $data_awal['beli']['download']['kvarh_download']);
-                    if($tipe == "penyulang") $tu_download = ($download['tu_download'] - $data_awal['beli']['download']['tu_download']);
+//                    if($tipe == "penyulang") $tu_download = ($download['tu_download'] - $data_awal['beli']['download']['tu_download']);
                 }
 
             }
@@ -1297,7 +1297,6 @@ class Input extends Controller
                 'lwbp2_download' => $lwbp2_download,
                 'wbp_download' => $wbp_download,
                 'kvarh_download' => $kvarh_download,
-                'tu_download' => $tu_download,
                 'total_pemakaian_kwh_download' => $lwbp1_download + $lwbp2_download + $wbp_download
 
             );

@@ -454,6 +454,9 @@ class Laporan extends Controller
                             $trafo_KWH_lalu += $KWH_bulan_lalu;
                             $jual = 1000000;
 //                            $jual =   json_decode($penyulang_array[$j]['data_'],true)['jual']['total_kwh_jual'];
+                            if(json_decode($penyulang_array[$j]['data_'],true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download'])
+                                $ujung =json_decode($penyulang_array[$j]['data_'],true)['beli']['tu_download'];
+                            else $ujung =json_decode($penyulang_array[$j]['data_'],true)['beli']['tu_visual'];
                             $susut =   $total_kwh-$jual;
                             $trafo_jual += $jual;
                             if($total_kwh==0) $losses=0;
@@ -462,7 +465,7 @@ class Laporan extends Controller
                                 'id_trafo' => $penyulang_array[$j]['id_trafo'],
                                 'nama_t' => $trafo[$i]['nama_trafo_gi'],
                                 'nama_p' => $penyulang_array[$j]['nama'],
-                                'ujung' => json_decode($penyulang_array[$j]['data_master'],true)['Tegangan']['tegangan'],
+                                'ujung' => $ujung,
                                 'lwbp1' => $KWH_salur_lwbp1,
                                 'lwbp2' => $KWH_salur_lwbp2,
                                 'wbp'   => $KWH_salur_wbp,
@@ -488,7 +491,7 @@ class Laporan extends Controller
                                 'id_trafo' => $penyulang_array[$j]['id_trafo'],
                                 'nama_t' => $trafo[$i]['nama_trafo_gi'],
                                 'nama_p' => $penyulang_array[$j]['nama'],
-                                'ujung' => json_decode($penyulang_array[0]['data_master'],true)['Tegangan']['tegangan'],
+                                'ujung' => null,
                                 'lwbp1' => null,
                                 'lwbp2' => null,
                                 'wbp'   => null,
