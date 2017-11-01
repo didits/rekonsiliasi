@@ -9,6 +9,7 @@ use App\PenyimpananGI;
 use App\PenyimpananPenyulang;
 use App\PenyimpananTrafoGI;
 use App\TrafoGI;
+use App\Transfer;
 use Illuminate\Http\Request;
 use App\Penyulang; 
 use App\Gardu;
@@ -103,6 +104,14 @@ class Laporan extends Controller
                     ['id_penyulang', $py[$j]['id']],
                     ['periode', date("Ym")]
                 ])->get();
+                $transfer = Transfer::where([
+                    ['id_penyulang', $py[$j]['id']],
+                ])->first();
+                if($transfer==null) $nama_rayon =$org->nama_organisasi;
+                else {
+                    $nama_rayon = Organisasi::select('nama_organisasi')->where('id',$transfer['id_organisasi'])->first();
+                    $nama_rayon=$nama_rayon->nama_organisasi;
+                }
                 if(count($penyulang) >0)
                     $dt = $penyulang[0]['data'];
                 else $dt = "";
@@ -115,7 +124,7 @@ class Laporan extends Controller
                     'data' => $dt,
                     'data_' => $dt_,
                     'id_penyulang' => $py[$j]['id'],
-                    'nama_org' => $org->nama_organisasi,
+                    'nama_org' => $nama_rayon,
                     'id_trafo' => $py[$j]['id_trafo_gi'],
                 );
                 array_push($penyulang_array,$dtpenyulang);
@@ -359,7 +368,6 @@ class Laporan extends Controller
             $list_p = array();
             $jumlah_trafo = array();
             $trafo = TrafoGI::select('nama_trafo_gi','id','id_gi')->where('id_gi',$data_gi->id)->get()->toArray();
-
             $tot_lwbp1 = $tot_lwbp2 = $tot_wbp =$tot_t_kwh = $tot_Kvarh = $tot_KW = $tot_KWH = $tot_KWH_lalu=$tot_jual = null;
             for ($i=0;$i<count($cmb->trafo);$i++){
                 $p_trafo_ = PenyimpananTrafoGI::select('data','id_trafo_gi')->where('id_trafo_gi',$trafo[$i]['id'])->where('periode', date('Ym'))->first();
@@ -452,11 +460,12 @@ class Laporan extends Controller
                             $trafo_Kvarh += $kvar;
                             $trafo_KWH += $KWH;
                             $trafo_KWH_lalu += $KWH_bulan_lalu;
-//                            $jual = 1000000;
-                            $jual =   json_decode($penyulang_array[$j]['data_'],true)['jual']['total_kwh_jual'];
-                            if(json_decode($penyulang_array[$j]['data_'],true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download']==0)
-                                $ujung =json_decode($penyulang_array[$j]['data_'],true)['beli']['visual']['tu_visual'];
-                            else $ujung =json_decode($penyulang_array[$j]['data_'],true)['beli']['download']['tu_download'];
+                            $jual = 1000000;
+//                            $jual =   json_decode($penyulang_array[$j]['data_'],true)['jual']['total_kwh_jual'];
+//                            if(json_decode($penyulang_array[$j]['data_'],true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download']==0)
+//                                $ujung =json_decode($penyulang_array[$j]['data_'],true)['beli']['visual']['tu_visual'];
+//                            else $ujung =json_decode($penyulang_array[$j]['data_'],true)['beli']['download']['tu_download'];
+                            $ujung =null;
                             $susut =   $total_kwh-$jual;
                             $trafo_jual += $jual;
                             if($total_kwh==0) $losses=0;
@@ -678,7 +687,6 @@ class Laporan extends Controller
                 'losses'   => $tot_losses
             );
 
-//                dd($jumlah_gi);
             if($tipe =="gi"){
 
                 $data_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
@@ -1713,7 +1721,7 @@ class Laporan extends Controller
                 }
             }
         }
-
+        dd($data_urai);
         //        Rayon
         $rayon = array();
         for($i=0;$i<count($nama_rayon);$i++) {
