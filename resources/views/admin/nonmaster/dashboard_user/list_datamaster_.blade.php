@@ -160,3 +160,23 @@
         </div>
     </div>
 @endsection
+
+@section('extra_plugin')
+
+    <!--  Notifications Plugin    -->
+    <script src="{{ URL::asset('dashboard/js/bootstrap-notify.js') }}"></script>
+
+    <!-- Sweet Alert 2 plugin -->
+    <script src="{{ URL::asset('dashboard/js/sweetalert2.js') }}"></script>
+
+    <!-- Sweet Alert 2 plugin -->
+    <script src="{{ URL::asset('dashboard/js/edit_remove_listrik.js') }}"></script>
+
+@endsection
+
+@section('extra_script')
+    <script type="text/javascript">
+        url_edit = "{{route('area.edit_datamaster')}}";
+        url_delete = "{{route('area.hapus_datamaster')}}";
+    </script>
+@endsection

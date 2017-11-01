@@ -2760,6 +2760,6 @@
 
     <script type="text/javascript">
         url_edit = "{{route('area.edit_datamaster')}}";
-        url_delete = "{{url('area/hapus_datamaster')}}";
+        url_delete = "{{route('area.hapus_datamaster')}}";
     </script>
 @endsection

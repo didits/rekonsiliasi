@@ -11,11 +11,6 @@
 |
 */
 
-
-Route::get('/profil', function () { 
-    return view('admin.nonmaster.dashboard_user.profile');
-}); 
- 
 Route::get('/edit_profil', function () {
     return view('admin.nonmaster.dashboard_user.profile_edit', ['status' => false]);
 });
@@ -29,41 +24,6 @@ Route::post('/ubahPassword', [
     'as'        => 'ubahPassword',
     'uses'      => 'ProfileController@ubahPassword'
 ]);
-
-
-Route::get('/gardu', function () {
-    return view('admin.nonmaster.dashboard_user.gardu');
-}); 
-
-Route::get('/input_rayon', function () {
-    return view('admin.nonmaster.dashboard_user.list_gardu');
-});
-
-
-Route::get('/pemakaiansendiri', function () {
-    return view('admin.nonmaster.dashboard_user.pemakaiansendiri');
-});
-
-
-Route::get('/laporan', function () {
-    return view('admin.nonmaster.laporan.ktt');
-});
-
-Route::get('/laporan_area', function () {
-    return view('admin.nonmaster.laporan.area');
-});
-
-Route::get('/laporan_rayon', function () {
-    return view('admin.nonmaster.laporan.rayon');
-});
-
-Route::get('/laporan_GI', function () {
-    return view('admin.nonmaster.laporan.gi');
-});
-
-Route::get('/input_dummy', function () {
-    return view('admin.nonmaster.dashboard_user.input_data_dummy1');
-});
 
 Route::resource('input_listrik', 'Input');
 Route::resource('input_datamaster', 'AreaController');
@@ -98,16 +58,6 @@ Route::group(['prefix' => 'rayon', 'middleware' => ['auth', 'tipe:3']], function
         'as'        => 'listrik.olah_data',
         'uses'      => 'Input@olah_data'
     ]);
-
-//    Route::get('/input_data/{tipe}', [
-//        'as'        => 'input_listrik.tambah',
-//        'uses'      => 'Input@create'
-//    ]);
-
-//    Route::get('/input_data_keluar/{id}/{nama}', [
-//        'as'        => 'input.input_data_keluar',
-//        'uses'      => 'Input@input_data_keluar'
-//    ]);
 
     Route::get('/input_gardu/{id_gardu}', [
         'as'        => 'input.input_gardu',
@@ -242,24 +192,9 @@ Route::group(['prefix' => 'area', 'middleware' => ['auth', 'tipe:2']], function 
         'uses'      => 'AreaController@list_rayon'
     ]);
 
-    Route::get('delete/{id_organisasi}/{tipe}/{id}', [
-        'as'        => 'area.delete',
-        'uses'      => 'AreaController@delete'
-    ]);
-
     Route::get('/profil', [
         'as'        => 'area.profil',
         'uses'      => 'AreaController@profil'
-    ]);
- 
-    Route::get('/datamaster', [
-        'as'        => 'area.datamaster',
-        'uses'      => 'AreaController@datamaster'
-    ]);
-
-    Route::get('/pemakaiansendiri', [
-        'as'        => 'area.pemakaiansendiri',
-        'uses'      => 'AreaController@pemakaiansendiri'
     ]);
 
     Route::get('/list_rayon', [
@@ -267,17 +202,12 @@ Route::group(['prefix' => 'area', 'middleware' => ['auth', 'tipe:2']], function 
         'uses'      => 'AreaController@list_rayon'
     ]);
 
-    Route::post('/input_gardu', [
-        'as'        => 'area.create',
-        'uses'      => 'AreaController@create'
-    ]);
-
     Route::post('/edit_datamaster', [
         'as'        => 'area.edit_datamaster',
         'uses'      => 'AreaController@edit_datamaster'
     ]);
 
-    Route::get('/hapus_datamaster/{id_organisasi}/{tipe}/{id}', [
+    Route::post('/hapus_datamaster', [
         'as'        => 'area.hapus_datamaster',
         'uses'      => 'AreaController@hapus_datamaster'
     ]);
@@ -321,37 +251,11 @@ Route::group(['prefix' => 'area/entry_master', 'middleware' => ['auth', 'tipe:2'
         'uses'      => 'AreaController@lihat_gardu'
     ]);
 
-    Route::get('/list_datamaster_gardu_distribusi/{id_organisasi}/{id_trafo}', [
-        'as'        => 'area.trafo_gi',
-        'uses'      => 'AreaController@lihat_trafo_gi'
-    ]);
-
-
     Route::get('/list_datamaster_rayon/{id_organisasi}', [
 //        'as'        => 'area.list_gardu_induk',
 //        'uses'      => 'AreaController@list_gardu_induk'
         'as'        => 'area.list_datamaster',
         'uses'      => 'AreaController@list_datamaster'
-    ]);
-
-    Route::get('/list_datamaster_list_trafo_gi/{id_organisasi}/{id_gardu_induk}', [
-        'as'        => 'area.list_trafo_gi',
-        'uses'      => 'AreaController@list_trafo_gi'
-    ]);
-
-    Route::get('/list_datamaster_list_trafo_gi_transfer/{id_organisasi}/{id_gi}', [
-        'as'        => 'area.list_trafo_gi_transfer',
-        'uses'      => 'AreaController@list_trafo_gi_transfer'
-    ]);
-
-    Route::get('/list_datamaster_list_penyulang/{id_organisasi}/{id_trafo_gi}', [
-        'as'        => 'area.list_penyulang',
-        'uses'      => 'AreaController@list_penyulang'
-    ]);
-
-    Route::get('/list_datamaster_list_penyulang_transfer/{id_organisasi}/{id_trafo_gi}', [
-        'as'        => 'area.list_penyulang_transfer',
-        'uses'      => 'AreaController@list_penyulang_transfer'
     ]);
 });
 
