@@ -766,7 +766,7 @@ class AreaController extends Controller
         $rayon = Organisasi::where('id_organisasi', $id_organisasi)->first();
         $trafo_gi = TrafoGI::where('id', $id_trafo_gi)->first();
         $transfer = Transfer::where('id_trafo_gi',$id_trafo_gi)->pluck('id_penyulang');
-        $data = Penyulang::select('id','nama_penyulang','data_master')
+        $data = Penyulang::select('id','nama_penyulang', 'alamat_penyulang','data_master')
 //            ->whereNotIn('id',$transfer)
             ->where('id_trafo_gi',$id_trafo_gi)
             ->get();
