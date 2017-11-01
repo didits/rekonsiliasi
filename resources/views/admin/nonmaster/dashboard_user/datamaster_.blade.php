@@ -3,7 +3,7 @@
 @section('title', 'Si-Oneng, Rekonsiliasi Energi')
 
 @section('content')
-    <div class="wrapper">
+    <form class="wrapper">
         @include('admin.master.navbar')
 
         <div class="main-panel">
@@ -1391,8 +1391,6 @@
                                         </div>
                                     </div>
                                     @endif
-
-                                </div>
                                 @endif
 {{--DISINI PUNYA FORM.BLADE--}}
                                 @if($penyulang)
@@ -2661,9 +2659,8 @@
                             </div> <!-- end tab content -->
 
                         </div> <!-- end col-md-8 -->
-
                     </div>
-                </div>
+                </form>
             </div>
 
             @include('admin.master.footer')
