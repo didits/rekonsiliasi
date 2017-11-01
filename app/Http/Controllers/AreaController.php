@@ -251,7 +251,7 @@ class AreaController extends Controller
             else{
                 $data = $this->json_dm($request, $data);
             }
-
+//            dd($data);
             $data_master->data_master = json_encode($data);
             if($data_master->save());
             return back()->withInput();
@@ -280,229 +280,18 @@ class AreaController extends Controller
                     'faktorkali' => $request->faktorkali
                 );
             }
-            elseif($request->form_ujung){
-                $data_KWH = array(
-                    'merk' => $decoded['KWH']['merk'],
-                    'nomorseri' => $decoded['KWH']['nomorseri'],
-                    'konstanta' => $decoded['KWH']['konstanta'],
-                    'teganganarus' => $decoded['KWH']['teganganarus']
-                );
-                $data_TA = array(
-                    'ratioct' => $decoded['TA']['ratioct'],
-                    'burdenct' => $decoded['TA']['burdenct']
-                );
-                $data_TT = array(
-                    'ratiopt' => $decoded['TT']['ratiopt'],
-                    'burdenpt' => $decoded['TT']['burdenpt']
-                );
-                $data_FK = array(
-                    'faktorkali' => $decoded['FK']['faktorkali']
-                );
-                $data_ujung = array(
-                    'tegangan' => $request->tegangan
-                );
-//                dd($data_ujung);
-            }
-            elseif($request->form_penyulang){
-                if($request->tipe == 'KWH'){
-                    $data_KWH = array(
-                        'merk' => $request->merk,
-                        'nomorseri' => $request->noseri,
-                        'konstanta' => $request->konstanta,
-                        'teganganarus' => $request->teganganarus
-                    );
-                    $data_TA = array(
-                        'ratioct' => $decoded['TA']['ratioct'],
-                        'burdenct' => $decoded['TA']['burdenct']
-                    );
-                    $data_TT = array(
-                        'ratiopt' => $decoded['TT']['ratiopt'],
-                        'burdenpt' => $decoded['TT']['burdenpt']
-                    );
-                    $data_FK = array(
-                        'faktorkali' => $decoded['FK']['faktorkali']
-                    );
-                    $data_ujung = array(
-                        'tegangan' => $request->tegangan
-                    );
-                }
-                else if($request->tipe == 'TA'){
-                    $data_KWH = array(
-                        'merk' => $decoded['KWH']['merk'],
-                        'nomorseri' => $decoded['KWH']['nomorseri'],
-                        'konstanta' => $decoded['KWH']['konstanta'],
-                        'teganganarus' => $decoded['KWH']['teganganarus']
-                    );
-
-                    $data_TA = array(
-                        'ratioct' => $request->ratioct,
-                        'burdenct' => $request->burdenct
-                    );
-                    $data_TT = array(
-                        'ratiopt' => $decoded['TT']['ratiopt'],
-                        'burdenpt' => $decoded['TT']['burdenpt']
-                    );
-
-                    $data_FK = array(
-                        'faktorkali' => $decoded['FK']['faktorkali']
-                    );
-                    $data_ujung = array(
-                        'tegangan' => $decoded['Tegangan']['tegangan']
-                    );
-                }
-                else if($request->tipe == 'TT'){
-                    $data_KWH = array(
-                        'merk' => $decoded['KWH']['merk'],
-                        'nomorseri' => $decoded['KWH']['nomorseri'],
-                        'konstanta' => $decoded['KWH']['konstanta'],
-                        'teganganarus' => $decoded['KWH']['teganganarus']
-                    );
-
-                    $data_TA = array(
-                        'ratioct' => $decoded['TA']['ratioct'],
-                        'burdenct' => $decoded['TA']['burdenct']
-                    );
-                    $data_TT = array(
-                        'ratiopt' => $request->ratiopt,
-                        'burdenpt' => $request->burdenpt
-                    );
-
-                    $data_FK = array(
-                        'faktorkali' => $decoded['FK']['faktorkali']
-                    );
-                    $data_ujung = array(
-                        'tegangan' => $decoded['Tegangan']['tegangan']
-                    );
-                }
-                else if($request->tipe == 'FK'){
-                    $data_KWH = array(
-                        'merk' => $decoded['KWH']['merk'],
-                        'nomorseri' => $decoded['KWH']['nomorseri'],
-                        'konstanta' => $decoded['KWH']['konstanta'],
-                        'teganganarus' => $decoded['KWH']['teganganarus']
-                    );
-
-                    $data_TA = array(
-                        'ratioct' => $decoded['TA']['ratioct'],
-                        'burdenct' => $decoded['TA']['burdenct']
-                    );
-                    $data_TT = array(
-                        'ratiopt' => $decoded['TT']['ratiopt'],
-                        'burdenpt' => $decoded['TT']['burdenpt']
-                    );
-
-                    $data_FK = array(
-                        'faktorkali' => $request->faktorkali
-                    );
-                    $data_ujung = array(
-                        'tegangan' => $decoded['Tegangan']['tegangan']
-                    );
-                }
-            }
-            elseif($request->tipe == 'KWH'){
-                $data_KWH = array(
-                    'merk' => $request->merk,
-                    'nomorseri' => $request->noseri,
-                    'konstanta' => $request->konstanta,
-                    'teganganarus' => $request->teganganarus
-                );
-                $data_TA = array(
-                    'ratioct' => $decoded['TA']['ratioct'],
-                    'burdenct' => $decoded['TA']['burdenct']
-                );
-                $data_TT = array(
-                    'ratiopt' => $decoded['TT']['ratiopt'],
-                    'burdenpt' => $decoded['TT']['burdenpt']
-                );
-                $data_FK = array(
-                    'faktorkali' => $decoded['FK']['faktorkali']
-                );
-            }
-            elseif($request->tipe == 'TA'){
-                $data_KWH = array(
-                    'merk' => $decoded['KWH']['merk'],
-                    'nomorseri' => $decoded['KWH']['nomorseri'],
-                    'konstanta' => $decoded['KWH']['konstanta'],
-                    'teganganarus' => $decoded['KWH']['teganganarus']
-                );
-
-                $data_TA = array(
-                    'ratioct' => $request->ratioct,
-                    'burdenct' => $request->burdenct
-                );
-                $data_TT = array(
-                    'ratiopt' => $decoded['TT']['ratiopt'],
-                    'burdenpt' => $decoded['TT']['burdenpt']
-                );
-
-                $data_FK = array(
-                    'faktorkali' => $decoded['FK']['faktorkali']
-                );
-            }
-            elseif($request->tipe == 'TT'){
-                $data_KWH = array(
-                    'merk' => $decoded['KWH']['merk'],
-                    'nomorseri' => $decoded['KWH']['nomorseri'],
-                    'konstanta' => $decoded['KWH']['konstanta'],
-                    'teganganarus' => $decoded['KWH']['teganganarus']
-                );
-
-                $data_TA = array(
-                    'ratioct' => $decoded['TA']['ratioct'],
-                    'burdenct' => $decoded['TA']['burdenct']
-                );
-                $data_TT = array(
-                    'ratiopt' => $request->ratiopt,
-                    'burdenpt' => $request->burdenpt
-                );
-
-                $data_FK = array(
-                    'faktorkali' => $decoded['FK']['faktorkali']
-                );
-            }
-            elseif($request->tipe == 'FK'){
-                $data_KWH = array(
-                    'merk' => $decoded['KWH']['merk'],
-                    'nomorseri' => $decoded['KWH']['nomorseri'],
-                    'konstanta' => $decoded['KWH']['konstanta'],
-                    'teganganarus' => $decoded['KWH']['teganganarus']
-                );
-
-                $data_TA = array(
-                    'ratioct' => $decoded['TA']['ratioct'],
-                    'burdenct' => $decoded['TA']['burdenct']
-                );
-                $data_TT = array(
-                    'ratiopt' => $decoded['TT']['ratiopt'],
-                    'burdenpt' => $decoded['TT']['burdenpt']
-                );
-
-                $data_FK = array(
-                    'faktorkali' => $request->faktorkali
-                );
-            }
-
-//            dd($request->tipe);
-            if($request->tipe == 'GI') {
+            if($request->tipe == 'GI')
                 $data = array(
                     'APP' => $request->APP,
-                    'kapasitas' => $request->kapasitas);
-            }
-            elseif($request->form_penyulang ||$request->form_ujung) {
+                    'kapasitas' => $request->kapasitas
+                );
+            else
                 $data = array(
                     'KWH' => $data_KWH,
                     'TA' => $data_TA,
                     'TT' => $data_TT,
-                    'FK' => $data_FK,
-                    'Tegangan' => $data_ujung );
-            }
-            else{
-                $data = array(
-                    'KWH' => $data_KWH,
-                    'TA' => $data_TA,
-                    'TT' => $data_TT,
-                    'FK' => $data_FK );
-            }
+                    'FK' => $data_FK
+                );
 
         }
         else {
@@ -615,42 +404,10 @@ class AreaController extends Controller
                     'faktorkali' => $request->faktorkali
                 );
             }
-            elseif($request->tipe == 'penyulang'){
-                $data_KWH = array(
-                    'merk' => null,
-                    'nomorseri' => null,
-                    'konstanta' => null,
-                    'teganganarus' => null
-                );
-
-                $data_TA = array(
-                    'ratioct' => null,
-                    'burdenct' => null
-                );
-                $data_TT = array(
-                    'ratiopt' => null,
-                    'burdenpt' => null
-                );
-
-                $data_FK = array(
-                    'faktorkali' => null
-                );
-                $data_ujung = array(
-                    'tegangan' => null
-                );
-            }
             if($request->tipe == 'GI') {
                 $data = array(
                     'APP' => $request->APP,
                     'kapasitas' => $request->kapasitas);
-            }
-            elseif($request->tipe == 'penyulang') {
-                $data = array(
-                    'KWH' => $data_KWH,
-                    'TA' => $data_TA,
-                    'TT' => $data_TT,
-                    'FK' => $data_FK,
-                    'Tegangan' => $data_ujung, );
             }
             else{
                 $data = array(
