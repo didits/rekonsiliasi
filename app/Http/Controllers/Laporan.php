@@ -452,8 +452,8 @@ class Laporan extends Controller
                             $trafo_Kvarh += $kvar;
                             $trafo_KWH += $KWH;
                             $trafo_KWH_lalu += $KWH_bulan_lalu;
-                            $jual = 1000000;
-//                            $jual =   json_decode($penyulang_array[$j]['data_'],true)['jual']['total_kwh_jual'];
+//                            $jual = 1000000;
+                            $jual =   json_decode($penyulang_array[$j]['data_'],true)['jual']['total_kwh_jual'];
                             if(json_decode($penyulang_array[$j]['data_'],true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download']==0)
                                 $ujung =json_decode($penyulang_array[$j]['data_'],true)['beli']['visual']['tu_visual'];
                             else $ujung =json_decode($penyulang_array[$j]['data_'],true)['beli']['download']['tu_download'];
