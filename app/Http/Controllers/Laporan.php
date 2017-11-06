@@ -395,20 +395,33 @@ class Laporan extends Controller
                 for($j=0;$j< count($penyulang_array);$j++){
                     if($trafo[$i]['id'] == $penyulang_array[$j]['id_trafo']){
                         if($p_trafo_){
+
+                            if(json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download']==0){
+                                $lwbp1 = json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['lwbp1_visual'];
+                                $lwbp2 = json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['lwbp2_visual'];
+                                $wbp = json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['wbp_visual'];
+                                $ps = json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual'];
+                            }
+                            else {
+                                $lwbp1 = json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['download']['lwbp1_download'];
+                                $lwbp2 = json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['download']['lwbp2_download'];
+                                $wbp = json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['download']['wbp_download'];
+                                $ps = json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download'];
+                            }
+
                             if(json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']>0){
-                                $A_lwbp1 = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['download']['lwbp1_download']-json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['lwbp1_visual']);
-                                $A_lwbp2 = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['download']['lwbp2_download']-json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['lwbp2_visual']);
-                                $A_wbp   = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['download']['wbp_download']-json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['wbp_visual']);
-                                $B = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']
-                                    -json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']);
+                                $A_lwbp1 = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['download']['lwbp1_download']-$lwbp1);
+                                $A_lwbp2 = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['download']['lwbp2_download']-$lwbp2);
+                                $A_wbp   = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['download']['wbp_download']-$wbp);
+                                $B = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']-$ps);
                             }
                             else{
-                                $A_lwbp1 = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['visual']['lwbp1_visual']-json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['lwbp1_visual']);
-                                $A_lwbp2 = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['visual']['lwbp2_visual']-json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['lwbp2_visual']);
-                                $A_wbp   = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['visual']['wbp_visual']-json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['wbp_visual']);
-                                $B = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['visual']['total_pemakaian_kwh_visual']
-                                    -json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']);
+                                $A_lwbp1 = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['visual']['lwbp1_visual']-$lwbp1);
+                                $A_lwbp2 = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['visual']['lwbp2_visual']-$lwbp2);
+                                $A_wbp   = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['visual']['wbp_visual']-$wbp);
+                                $B = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['visual']['total_pemakaian_kwh_visual']-$ps);
                             }
+//                            dd(json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']);
                             $var =($list_array[$i]['total_pemakaian_energi_']);
                             if($var==0)$var=1;
                             if($B==0)$B=1;
@@ -424,10 +437,14 @@ class Laporan extends Controller
                             $KWH_salur_wbp = intval((($A_wbp/$B*$C/1) + 0.5 )*1);
                             $kvar =$C/$B*json_decode($p_trafo_['data'],true)['beli']['utama']['download']['kvarh_download'];
 
-                            //      INI DITANYAIN BIKIN FORM ATAU TIDAK??? KALO IYA DIMASUKIN ke Penyimpanan Trafo GI
                             $daya_konsiden_utama = (json_decode($p_trafo_['data'],true)['beli']['utama']['download']['konsiden_download']);
-                            $daya_konsiden_ps = (json_decode($p_trafo_['data'],true)['beli']['ps']['visual']['konsiden_visual']);
+
+                            if(json_decode($p_trafo_['data'],true)['beli']['ps']['download']['konsiden_download']==0)
+                                $daya_konsiden_ps = (json_decode($p_trafo_['data'],true)['beli']['ps']['visual']['konsiden_visual']);
+                            else
+                                $daya_konsiden_ps = (json_decode($p_trafo_['data'],true)['beli']['ps']['download']['konsiden_download']);
                             $D = $daya_konsiden_utama -$daya_konsiden_ps;
+
                             //        $i = (json_decode($cmb->p_trafo_[0]->data,true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']
                             //            - json_decode($cmb->p_trafo_[0]->data,true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']);
                             //        $c = $i / ($list_array[0]['total_pemakaian_energi_'])*(json_decode($penyulang_array[0]['data_'],true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']);
@@ -706,6 +723,7 @@ class Laporan extends Controller
                 'susut'   => $tot_susut,
                 'losses'   => $tot_losses
             );
+//            dd($list_p);
 
             if($tipe =="gi"){
 
