@@ -236,9 +236,13 @@ class Laporan extends Controller
                 $dt_ = $p_tr_['data'];
             else $dt_ = "";
 
+            if(json_decode($p_tr_['data'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download']==0)
+                $ps =json_decode($p_tr_['data'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual'];
+            else $ps =json_decode($p_tr_['data'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download'];
+
             $zero = json_decode($p_tr_['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download'];
             $zero_p =json_decode($p_tr_['data'],true)['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual'];
-            $zero_s =(json_decode($p_tr_['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']-json_decode($p_tr_['data'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']);
+            $zero_s =(json_decode($p_tr_['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']-$ps);
             if($zero==0)$zero=1;
             if($zero_s==0)$zero_s=1;
             if($zero_p==0)$zero_p=1;
@@ -249,12 +253,12 @@ class Laporan extends Controller
                 /$zero*100;
             $selisih = abs(
                 (json_decode($p_tr_['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']
-                    -json_decode($p_tr_['data'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']-$list_array[$i]['total_pemakaian_energi_'])
+                    -$ps-$list_array[$i]['total_pemakaian_energi_'])
                 /($zero_s))*100;
 //          download ps =  $list_array[$i]['total_pemakaian_energi_'];
             $selisih_ps = abs(
                     (json_decode($p_tr_['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']
-                        -json_decode($p_tr_['data'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']-0)
+                        -$ps-0)
                     /($zero_s))*100;
 
             $persen =(json_decode($p_tr_['data'],true)['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual']-json_decode($p_tr_['data'],true)['hasil_pengolahan']['pembanding']['download']['total_pemakaian_kwh_download'])
@@ -341,7 +345,7 @@ class Laporan extends Controller
             if($p_trafo){
                 //        TPE Penyulang
                 $A = $list_array[0]['total_pemakaian_energi_'];
-//        Selisih TPE Trafo (Utama -Utama PS)
+                //        Selisih TPE Trafo (Utama -Utama PS)
                 if(json_decode($trafo_GI[$tr]['data_'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download']==0){
                     $visual = json_decode($trafo_GI[$tr]['data_'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual'];
                     $visual_cek = 1;
@@ -895,7 +899,7 @@ class Laporan extends Controller
         }
         elseif($tipe = "rayon"){
             $org = Organisasi::select('tipe_organisasi','nama_organisasi')->where('id_organisasi',$id_organisasi)->first();
-            $data_gi = GI::where('id_organisasi',$tsa_)->select('id','nama_gi','id_organisasi')->get();
+            $data_gi = GI::where('id_organisasi',$id_tsa)->select('id','nama_gi','id_organisasi')->get();
             $gi = array();
             if($data_gi){
                 for($i =0 ;$i <count($data_gi);$i++) {
@@ -1222,7 +1226,9 @@ class Laporan extends Controller
         $tot_D =$tot_E =$tot_F =$tot_G =$tot_H =$tot_I =$tot_J =$tot_K=$tot_L =$tot_M= $tot_N =null;
         for($i=0;$i<count($trafo_GI);$i++){
             $D =(json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']);
+            if(json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download']==0)
             $E =(json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']);
+            else $E = (json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download']);
             $F = $D-$E;
             $G =(json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual']);
             $H = $total_pemakaian_penyulang[$i]['total_pemakaian_energi_'];
