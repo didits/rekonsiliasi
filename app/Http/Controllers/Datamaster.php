@@ -14,12 +14,24 @@ class Datamaster
 {
     public function list_master_rayon()
     {
-        $data = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3) . '%')
+        return $this->list_rayon(Auth::user()->id_organisasi);
+    }
+
+    public function list_master_rayons($id_org)
+    {
+        return $this->list_rayon($id_org);
+    }
+
+    public function list_rayon($id_org)
+    {
+        $data = Organisasi::where('id_organisasi', 'like', substr($id_org, 0, 3) . '%')
             ->where('tipe_organisasi', '3')
             ->get();
         $list_dist = new AreaController;
+        $data_org = Organisasi::select('id', 'id_organisasi', 'nama_organisasi')->where('id_organisasi', Auth::user()->id_organisasi)->first();
         return view('admin.nonmaster.dashboard_user.list_datamaster', [
             'data' => $data,
+            'data_org' => $data_org,
             'list_distribusi' => $list_dist->list_distribusi(),
             'laporan' => true, 'transaksi' => false]);
     }

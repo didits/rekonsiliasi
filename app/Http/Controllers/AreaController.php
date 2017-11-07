@@ -718,16 +718,29 @@ class AreaController extends Controller
     public function list_rayon(){
         $data = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get();
 //        dd($data);
+        $data_org = Organisasi::select('id', 'id_organisasi', 'nama_organisasi')->where('id_organisasi', Auth::user()->id_organisasi)->first();
         return view('admin.nonmaster.dashboard_user.list_datamaster',[
             'data' => $data,
+            'data_org' => $data_org,
             'list_distribusi' => $this->list_distribusi(),
             'laporan' => false, 'transaksi' => false]);
     }
 
     public function laporan_beli() {
-        $data = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get();
+        return $this->list_rayon_laporan_beli(Auth::user()->id_organisasi);
+    }
+
+    public function laporan_belis($id_org) {
+        return $this->list_rayon_laporan_beli($id_org);
+    }
+
+    public function list_rayon_laporan_beli($id_org)
+    {
+        $data = Organisasi::where('id_organisasi', 'like', substr($id_org, 0, 3).'%')->where('tipe_organisasi', '3')->get();
+        $data_org = Organisasi::select('id', 'id_organisasi', 'nama_organisasi')->where('id_organisasi', $id_org)->first();
         return view('admin.nonmaster.dashboard_user.list_datamaster',[
             'data' => $data,
+            'data_org' => $data_org,
             'list_distribusi' => $this->list_distribusi(),
             'laporan' => false, 'transaksi' => true]);
     }

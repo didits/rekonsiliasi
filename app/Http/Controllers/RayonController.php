@@ -46,9 +46,10 @@ class RayonController extends Controller
     public function list_master_rayon() {
         //dd(Auth::user()->id_organisasi);
         $data = Organisasi::where('id_organisasi', 'like', Auth::user()->id_organisasi.'%')->where('tipe_organisasi', '3')->get();
-//        dd($data);
+        $data_org = Organisasi::select('id', 'id_organisasi', 'nama_organisasi')->where('id_organisasi', Auth::user()->id_organisasi);
         return view('admin.nonmaster.dashboard_user.list_datamaster',[
             'data' => $data,
+            'data_org' => $data_org,
             'list_distribusi' => $this->list_distribusi(),
             'laporan' => true, 'transaksi' => false]);
     }
