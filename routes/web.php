@@ -98,11 +98,6 @@ Route::group(['prefix' => 'rayon/laporan_master', 'middleware' => ['auth', 'tipe
         'uses'      => 'Datamaster@getStructureKelistrikan'
     ]);
 
-    Route::get('/', [
-        'as'        => 'rayon.laporan_master',
-        'uses'      => 'Datamaster@list_master_rayon'
-    ]);
-
     Route::get('/list_gi/{id_organisasi}', [
         'as'        => 'rayon.list_master_gi',
         'uses'      => 'Datamaster@list_master_gi'
@@ -370,13 +365,130 @@ Route::group(['prefix' => 'area/laporan_transaksi', 'middleware' => ['auth', 'ti
 Route::group(['prefix' => 'distribusi', 'middleware' => ['auth', 'tipe:1']], function () {
 
     Route::get('/', [
-        'as'        => 'distribusi.index',
-        'uses'      => 'DistribusiController@list_area'
+        'as'        => 'distribusi.indexlaporanmaster',
+        'uses'      => 'DistribusiController@list_area_master'
     ]);
 
     Route::get('/list_rayon/{id_organisasi}', [
         'as'        => 'distribusi.list_rayon',
         'uses'      => 'DistribusiController@list_rayon'
+    ]);
+});
+
+//distribusi-laporan_master
+Route::group(['prefix' => 'distribusi/laporan_master', 'middleware' => ['auth', 'tipe:1']], function () {
+
+    Route::get('/getStructure/{id}', [
+        'as'        => 'distribusi.get_structure',
+        'uses'      => 'Datamaster@getStructureKelistrikan'
+    ]);
+
+    Route::get('/', [
+        'as'        => 'distribusi.indexLaporanMaster',
+        'uses'      => 'DistribusiController@list_area_master'
+    ]);
+
+    Route::get('/{id_org}', [
+        'as'        => 'distribusi.laporan_master',
+        'uses'      => 'Datamaster@list_master_rayons'
+    ]);
+
+    Route::get('/list_gi/{id_organisasi}', [
+        'as'        => 'distribusi.list_master_gi',
+        'uses'      => 'Datamaster@list_master_gi'
+    ]);
+
+    Route::get('/list/{id_organisasi}/{tipe}/{id}', [
+        'as'        => 'distribusi.list_master',
+        'uses'      => 'Datamaster@list_master'
+    ]);
+
+    Route::get('/view_datamaster/{id_organisasi}/{unit}/{id_unit}', [
+        'as'        => 'distribusi.view_datamaster',
+        'uses'      => 'Datamaster@view_datamaster'
+    ]);
+});
+
+//distribusi-laporan_transaksi
+Route::group(['prefix' => 'distribusi/laporan_transaksi', 'middleware' => ['auth', 'tipe:1']], function () {
+
+    Route::get('/', [
+        'as'        => 'distribusi.indexLaporanTransaksi',
+        'uses'      => 'DistribusiController@list_area_transaksi'
+    ]);
+
+    Route::get('/{id_org}', [
+        'as'        => 'distribusi.laporan_beli',
+        'uses'      => 'AreaController@laporan_belis'
+    ]);
+
+    Route::get('/gi/{id_organisasi}', [
+        'as'        => 'distribusi.list_beli_gi',
+        'uses'      => 'Laporan@list_beli_gi'
+    ]);
+
+    Route::get('/list/{id_organisasi}/{tipe}/{id}', [
+        'as'        => 'distribusi.list_beli',
+        'uses'      => 'Laporan@list_beli'
+    ]);
+
+    Route::get('/view_laporan_transaksi/{id_organisasi}/{unit}/{id_unit}', [
+        'as'        => 'distribusi.view_beli',
+        'uses'      => 'Laporan@view_beli'
+    ]);
+    Route::get('/view_laporan_tsa_trafo_gi/{id_organisasi}/{id_gi}', [
+        'as'        => 'distribusi.view_beli_tsa_trafo_gi',
+        'uses'      => 'Laporan@view_beli_tsa_trafo_gi'
+    ]);
+
+    Route::get('/view_laporan_tsa/{id_organisasi}/{tsa}/{tipe}', [
+        'as'        => 'distribusi.view_beli_tsa',
+        'uses'      => 'Laporan@view_beli_tsa'
+    ]);
+
+    Route::get('/excel_laporan_tsa/{id_organisasi}/{tsa}/{tipe}', [
+        'as'        => 'distribusi.excel_beli_tsa',
+        'uses'      => 'Laporan@excel_beli_tsa'
+    ]);
+
+    Route::get('/view_laporan_tsa_rayon/{id_organisasi}/{tsa}/{tipe}', [
+        'as'        => 'distribusi.view_beli_tsa_rayon',
+        'uses'      => 'Laporan@view_beli_tsa_rayon'
+    ]);
+
+    Route::get('/view_laporan_tsa_area/{id_organisasi}', [
+        'as'        => 'distribusi.view_beli_tsa_area',
+        'uses'      => 'Laporan@view_beli_tsa_area'
+    ]);
+
+    Route::get('/excel_laporan_tsa_area/{id_organisasi}', [
+        'as'        => 'distribusi.view_excel_beli_tsa_area',
+        'uses'      => 'Laporan@excel_beli_tsa_area'
+    ]);
+
+    Route::get('/view_laporan_deviasi/{id_organisasi}/{tipe}/{id_gi}', [
+        'as'        => 'distribusi.view_beli_deviasi',
+        'uses'      => 'Laporan@view_beli_deviasi'
+    ]);
+
+    Route::get('/view_laporan_pct/{id_organisasi}/{tipe}/{id_gi}', [
+        'as'        => 'distribusi.view_beli_pct',
+        'uses'      => 'Laporan@view_beli_pct'
+    ]);
+
+    Route::get('/excel_laporan_deviasi/{id_organisasi}/{tipe}/{id_gi}', [
+        'as'        => 'distribusi.view_excel_beli_deviasi',
+        'uses'      => 'Laporan@excel_beli_deviasi'
+    ]);
+
+    Route::get('/excel_laporan_transaksi/{id_organisasi}/{unit}/{id_unit}/{tr}', [
+        'as'        => 'distribusi.view_excel_beli',
+        'uses'      => 'Laporan@excel_beli'
+    ]);
+
+    Route::get('/excel_laporan_deviasi/{id_organisasi}/{unit}/{id_unit}', [
+        'as'        => 'distribusi.view_excel_deviasi',
+        'uses'      => 'Laporan@excel_deviasi'
     ]);
 });
 

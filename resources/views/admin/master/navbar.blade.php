@@ -257,7 +257,7 @@
                         <div class="collapse" id="dataMaster">
                             <ul class="nav">
                                 <li>
-                                    <a href="#">Laporan Data Master</a>
+                                    <a href="{{route('distribusi.indexLaporanMaster')}}">Laporan Data Master</a>
                                 </li>
                             </ul>
                         </div>
@@ -273,7 +273,7 @@
                         <div class="collapse" id="dataTransaksiEnergi">
                             <ul class="nav">
                                 <li>
-                                    <a href="#">Laporan Data Master</a>
+                                    <a href="{{route('distribusi.indexLaporanTransaksi')}}">Laporan Data Master</a>
                                 </li>
                             </ul>
                         </div>

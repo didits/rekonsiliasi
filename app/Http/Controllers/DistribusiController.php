@@ -30,10 +30,21 @@ class DistribusiController extends Controller
 
     public function list_area(){
         $data = Organisasi::where('tipe_organisasi', '2')->get();
-//        dd($data);
+        return $data;
+    }
+
+    public function list_area_master(){
         return view('admin.nonmaster.dashboard_user.list_area',[
-            'data' => $data]);
-//            'id' => $data->id_organisasi]);
+            'data' => $this->list_area(),
+            'master' => true
+        ]);
+    }
+
+    public function list_area_transaksi(){
+        return view('admin.nonmaster.dashboard_user.list_area',[
+            'data' => $this->list_area(),
+            'master' => false
+        ]);
     }
 
     public function list_rayon($id_organisasi){

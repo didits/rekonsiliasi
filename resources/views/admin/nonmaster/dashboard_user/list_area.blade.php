@@ -18,16 +18,33 @@
                                 <div class="content table-responsive table-full-width">
                                     <table class="table table-hover table-striped">
                                         <thead>
-                                        <th>ID AREA</th>
-                                        <th>AREA</th>
+                                            <th>ID AREA</th>
+                                            <th>AREA</th>
+                                            <th></th>
                                         </thead>
                                         <tbody>
                                         @foreach($data as $list)
+
                                             <tr>
                                                 <td>{{$list->id_organisasi}}</td>
-                                                <td><a href="{{route('distribusi.list_rayon', $list->id_organisasi)}}">{{$list->nama_organisasi}}</a></td>
+                                                <td>{{$list->nama_organisasi}}</td>
+                                                <td>
+                                                    @if($master)
+
+                                                    <a href="{{route('distribusi.laporan_master', $list->id_organisasi)}}" rel="tooltip" title="" data-original-title="List Rayon" class="btn btn-info btn-fill pull-right" >
+                                                        <i class="fa fa-th-list"></i>
+                                                    </a>
+                                                    @else
+
+                                                    <a href="{{route('distribusi.laporan_beli', $list->id_organisasi)}}" rel="tooltip" title="" data-original-title="List Rayon" class="btn btn-info btn-fill pull-right" >
+                                                        <i class="fa fa-th-list"></i>
+                                                    </a>
+                                                    @endif
+
+                                                </td>
                                             </tr>
                                         @endforeach
+
                                         </tbody>
                                     </table>
 
