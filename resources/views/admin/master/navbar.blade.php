@@ -247,32 +247,72 @@
                     @endif
                     @if(Auth::user()->tipe_organisasi==1)
 
+                    @if(Request::is('distribusi', 'distribusi/laporan_master', 'distribusi/laporan_master/*'))
+                    <li class="active">
+
+                    @else
                     <li>
+
+                    @endif
+                        @if(Request::is('distribusi', 'distribusi/laporan_master', 'distribusi/laporan_master/*'))
+                        <a data-toggle="collapse" href="#dataMaster" aria-expanded="true">
+
+                        @else
+
                         <a data-toggle="collapse" href="#dataMaster">
+                        @endif
+
                             <i class="pe-7s-gleam"></i>
                             <p>Data Master
                                 <b class="caret"></b>
                             </p>
                         </a>
+                        @if(Request::is('distribusi', 'distribusi/laporan_master', 'distribusi/laporan_master/*'))
+
+                        <div class="collapse in" id="dataMaster">
+                        @else
+
                         <div class="collapse" id="dataMaster">
+                        @endif
+
                             <ul class="nav">
-                                <li>
+                                <li @if(Request::is('distribusi', 'distribusi/laporan_master', 'distribusi/laporan_master/*'))class="active"@endif>
                                     <a href="{{route('distribusi.indexLaporanMaster')}}">Laporan Data Master</a>
                                 </li>
                             </ul>
                         </div>
                     </li>
 
+                    @if(Request::is('distribusi/laporan_transaksi', 'distribusi/laporan_transaksi/*'))
+                    <li class="active">
+
+                    @else
                     <li>
+
+                    @endif
+                        @if(Request::is('distribusi/laporan_transaksi', 'distribusi/laporan_transaksi/*'))
+                        <a data-toggle="collapse" href="#dataTransaksiEnergi" aria-expanded="true">
+
+                        @else
                         <a data-toggle="collapse" href="#dataTransaksiEnergi">
+
+                        @endif
+
                             <i class="pe-7s-notebook"></i>
                             <p>Data Transaksi Energi
                                 <b class="caret"></b>
                             </p>
                         </a>
+                        @if(Request::is('distribusi/laporan_transaksi', 'distribusi/laporan_transaksi/*'))
+                        <div class="collapse in" id="dataTransaksiEnergi">
+
+                        @else
                         <div class="collapse" id="dataTransaksiEnergi">
+
+                        @endif
+
                             <ul class="nav">
-                                <li>
+                                <li @if(Request::is('distribusi/laporan_transaksi', 'distribusi/laporan_transaksi/*'))class="active"@endif>
                                     <a href="{{route('distribusi.indexLaporanTransaksi')}}">Laporan Data Master</a>
                                 </li>
                             </ul>
