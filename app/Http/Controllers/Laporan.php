@@ -339,7 +339,7 @@ class Laporan extends Controller
             }
             array_push($sum,$sum_);
         }
-
+        $visual_cek = 0;
         for($tr=0;$tr<count($trafo_GI);$tr++){
             $p_trafo = PenyimpananTrafoGI::where('id_trafo_gi', $trafo_GI[$tr]['id_trafo'])->where('periode',date('Ym'))->first();
             if($p_trafo){
