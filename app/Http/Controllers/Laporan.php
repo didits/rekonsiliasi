@@ -219,11 +219,14 @@ class Laporan extends Controller
                 ['id_trafo_gi', $tr[$i]['id']],
                 ['periode', "L".(date("Ym")-1)]
             ])->first();
-            if($p_tr==null)
+            if($p_tr)$L=json_decode($p_tr['data_keluar'],true)['Selisih_TPE'];
+            else {
+                $L=0;
                 $p_tr = PenyimpananTrafoGI::where([
                     ['id_trafo_gi', $tr[$i]['id']],
                     ['periode', date("Ym")-1]
                 ])->first();
+            }
 
             $p_tr_ = PenyimpananTrafoGI::where([
                 ['id_trafo_gi', $tr[$i]['id']],
@@ -267,6 +270,7 @@ class Laporan extends Controller
             $dttrafo = array(
                 'nama' => $tr[$i]['nama_trafo_gi'],
                 'data_master' => $tr[$i]['data_master'],
+                'L' => $L,
                 'data' => $dt,
                 'data_' => $dt_,
                 's_ps' => $selisih_ps,
@@ -364,7 +368,6 @@ class Laporan extends Controller
                 if($p_trafo->save());
             }
         }
-//        dd($list_data_trafo);
 
         return view('admin.nonmaster.laporan.gi',[
             'data'      => $cmb,
@@ -459,26 +462,27 @@ class Laporan extends Controller
                             $total_kwh = $KWH_salur_lwbp1+$KWH_salur_lwbp2+$KWH_salur_wbp;
 
                             $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',"L".(date('Ym')-1))->first();
-                            if($KWH_bulan_lalu==null)
+                            if($KWH_bulan_lalu){
+                                $cek_bulan_lalu = json_decode($KWH_bulan_lalu->data,true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download'];
+                                if($cek_bulan_lalu) $KWH_bulan_lalu = $cek_bulan_lalu;
+                                else $KWH_bulan_lalu = json_decode($KWH_bulan_lalu->data,true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual'];
+                            }
+                            else {
                                 $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',date('Ym')-1)->first();
+                                $KWH_bulan_lalu= json_decode($KWH_bulan_lalu->data_keluar,true)['total_kwh'];
+                            }
 //                            dd(json_decode($bulan_lalu->data,true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download']);
-//                            $KWH_bulan_lalu = json_decode($bulan_lalu->data,true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download'];
-//                            dd($KWH_bulan_lalu);
                             $KWH = null;
-                            if(($KWH_bulan_lalu) == null||$KWH_bulan_lalu->data_keluar==null ){
-                                $KWH_bulan_lalu = null;
+                            $KWH_bulan_lalu = intval($KWH_bulan_lalu);
+                            if($KWH_bulan_lalu){
+                                $KWH = $total_kwh - $KWH_bulan_lalu;
+                                $persen = $KWH/$KWH_bulan_lalu*100;
+                            }
+                            else{
                                 $KWH = $total_kwh - $KWH_bulan_lalu;
                                 $persen = null;
                             }
-                            else{
-                                $KWH_bulan_lalu= json_decode($KWH_bulan_lalu->data_keluar,true)['total_kwh'];
-                                if($KWH_bulan_lalu==null)
-                                    $persen =0;
-                                else{
-                                    $KWH = $total_kwh - $KWH_bulan_lalu;
-                                    $persen = $KWH/$KWH_bulan_lalu*100;
-                                }
-                            }
+
                             //      KOLOM N, O
                             $p_penyulang = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',date('Ym'))->first();
                             $data_keluar = array(
@@ -1095,7 +1099,7 @@ class Laporan extends Controller
                     });
                 })
                 ->download('xls');
-        
+
                 return view('admin.nonmaster.excel.tsa_penyulang',[
                     'trafo'      => $trafo,
                     'nama_gi'      => $nama_gi,
@@ -1105,6 +1109,7 @@ class Laporan extends Controller
                     'tipe'      => "area",
                 ]);
             }elseif($tipe =="penyulang"){
+
                 Excel::create('laporan TSA Penyulang', function($excel)use($trafo,$nama_gi,$list_p,$jumlah_trafo,$jumlah_tot){
 
                     $excel->sheet('Laporan TSA Penyulang', function($sheet) use($trafo,$nama_gi,$list_p,$jumlah_trafo,$jumlah_tot) {
@@ -1116,6 +1121,7 @@ class Laporan extends Controller
                         $sheet->mergeCells('M9:M11');
                         $sheet->mergeCells('N9:O10');
                         $sheet->mergeCells('P9:P11');
+                        $sheet->mergeCells('S9:S11');
 
                         $sheet->mergeCells('B10:B11');
                         $sheet->mergeCells('C10:C11');

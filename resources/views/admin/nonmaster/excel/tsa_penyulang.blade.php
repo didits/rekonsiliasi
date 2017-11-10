@@ -97,25 +97,26 @@
             <td class="text-center">GARDU INDUK (GI)</td>
             <td></td>
             <td></td>
-            <td class="text-center" width="40">NAMA PENYULANG</td >
+            <td class="text-center" width="30">NAMA PENYULANG</td >
             <td class="text-center">KWH SALUR</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td class="text-center" width="20">TEGANGAN<br>UJUNG</td>
+            <td class="text-center" width="20">TEGANGAN UJUNG</td>
             <td class="text-center" width="30">KWH PENYULANG BULAN LALU</td>
             <td class="text-center">NAIK/TURUN</td>
             <td></td>
             <td class="text-center" width="15">KWH JUAL</td>
-            <td colspan="3" class="text-center">SUSUT</td>
+            <td colspan="2" class="text-center">SUSUT</td>
+            <td class="text-center" width="20">RAYON</td >
         </tr>
         <tr class="table-header">
             <td></td>
             <td class="text-center">NAMA</td>
-            <td class="text-center" width="20">TRAFO</td>
-            <td class="text-center" width="20">DAYA<br/>(MVA)</td>
+            <td class="text-center" width="15">TRAFO</td>
+            <td class="text-center" width="15">DAYA<br/>(MVA)</td>
             <td></td>
             <td class="text-center" width="10">LWBP1</td>
             <td class="text-center">LWBP2</td>
@@ -128,9 +129,8 @@
             <td></td>
             <td></td>
             <td></td>
-            <td rowspan="2" class="text-center" width="10">KWH JUAL</td>
-            <td rowspan="2" class="text-center" width="10">KWH SUSUT</td>
-            <td rowspan="2" class="text-center" width="10">LOSSES(%)</td>
+            <td rowspan="2" class="text-center" width="15">KWH SUSUT</td>
+            <td rowspan="2" class="text-center" width="15">LOSSES(%)</td>
         </tr>
         <tr class="table-header">
             <td></td>
@@ -256,13 +256,13 @@
             <td>{{$data_gi[$gi][$py]['Kvarh']}}</td>
             <td>{{$data_gi[$gi][$py]['KW']}}</td>
             <td>{{$data_gi[$gi][$py]['ujung']}}</td>
-            <td class="text-left">{{$data_gi[$gi][$py]['rayon']}}</td>
             <td>{{$data_gi[$gi][$py]['KWH_lalu']}}</td>
             <td>{{$data_gi[$gi][$py]['KWH']}}</td>
             <td>{{$data_gi[$gi][$py]['persen']}}</td>
             <td>{{$data_gi[$gi][$py]['jual']}}</td>
             <td>{{$data_gi[$gi][$py]['susut']}}</td>
             <td>{{$data_gi[$gi][$py]['losses']}}</td>
+            <td class="text-left">{{$data_gi[$gi][$py]['rayon']}}</td>
         </tr>
         @endif
         @endfor
@@ -282,7 +282,7 @@
             <td><b>{{$data_jumlah[$gi][$tr]['jual']}}</b></td>
             <td><b>{{$data_jumlah[$gi][$tr]['susut']}}</b></td>
             <td><b>{{$data_jumlah[$gi][$tr]['losses']}}</b></td>
-
+            <td>-</td>
         </tr>
         @endfor
         @endfor
@@ -305,6 +305,7 @@
             <td class="text-right"><b>{{$total_jumlah['jual']}}</b></td>
             <td class="text-right"><b>{{$total_jumlah['susut']}}</b></td>
             <td class="text-right"><b>{{$total_jumlah['losses']}}</b></td>
+            <td>-</td>
         </tr>
     </thead>
     @endif
