@@ -60,24 +60,24 @@
     </style>
 </head>
 <body>
-<table style="widtd: 100%">
-        <tr>
-            <td colspan="19"><i>PT PLN ( PERSERO )</i></td>
-        </tr>
-        <tr>
-            <td colspan="19"><i>DISTRIBUSI JAWA TIMUR</i></td>
-        </tr>
-        <tr>
-            @if($tipe == "rayon")
-            <td colspan="19"><i>RAYON {{$area}}</i></td>
-            @elseif($tipe == "area")
-            <td colspan="19"><i>AREA {{Auth::user()->nama_organisasi}}</i></td>
-            @endif
-        </tr>
+<table>
+    <tr>
+        <td colspan="19"><i>PT PLN ( PERSERO )</i></td>
+    </tr>
+    <tr>
+        <td colspan="19"><i>DISTRIBUSI JAWA TIMUR</i></td>
+    </tr>
+    <tr>
+        @if($tipe == "rayon")
+        <td colspan="19"><i>RAYON {{$area}}</i></td>
+        @elseif($tipe == "area")
+        <td colspan="19"><i>AREA {{Auth::user()->nama_organisasi}}</i></td>
+        @endif
+    </tr>
 </table>
 
-<table style="widtd: 100%">
-    <tdead>
+<table>
+    <thead>
         <tr>
             <td colspan="19"><br/></td>
         </tr>
@@ -87,50 +87,50 @@
         <tr>
             <td colspan="19" class="text-center">BULAN : {{date('M Y')}}</td>
         </tr>
-    </tdead>
+    </thead>
 </table>
 
-<table style="widtd: 100%">
+<table>
     <div class="border-kotak">
         <tr class="table-header">
-            <td class="text-center" style="width: 5px">NO</td>
+            <td class="text-center" width="5">NO</td>
             <td class="text-center">GARDU INDUK (GI)</td>
             <td></td>
             <td></td>
-            <td class="text-center" style="width: 40px">NAMA PENYULANG</td >
+            <td class="text-center" width="40">NAMA PENYULANG</td >
             <td class="text-center">KWH SALUR</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td class="text-center" style="width: 20px">TEGANGAN<br>UJUNG</td>
-            <td class="text-center" style="width: 30px">KWH PENYULANG BULAN LALU</td>
+            <td class="text-center" width="20">TEGANGAN<br>UJUNG</td>
+            <td class="text-center" width="30">KWH PENYULANG BULAN LALU</td>
             <td class="text-center">NAIK/TURUN</td>
             <td></td>
-            <td class="text-center">KWH JUAL</td>
+            <td class="text-center" width="15">KWH JUAL</td>
             <td colspan="3" class="text-center">SUSUT</td>
         </tr>
         <tr class="table-header">
             <td></td>
             <td class="text-center">NAMA</td>
-            <td class="text-center" style="width: 20px">TRAFO</td>
-            <td class="text-center" style="width: 20px">DAYA<br/>(MVA)</td>
+            <td class="text-center" width="20">TRAFO</td>
+            <td class="text-center" width="20">DAYA<br/>(MVA)</td>
             <td></td>
-            <td class="text-center" style="width: 10px">LWBP1</td>
+            <td class="text-center" width="10">LWBP1</td>
             <td class="text-center">LWBP2</td>
-            <td class="text-center" style="width: 10px">WBP</td>
-            <td class="text-center" style="width: 10px">TOTAL KWH</td>
-            <td class="text-center" style="width: 10px">KVARH</td>
-            <td class="text-center" style="width: 10px">KW</td>
+            <td class="text-center" width="10">WBP</td>
+            <td class="text-center" width="10">TOTAL KWH</td>
+            <td class="text-center" width="10">KVARH</td>
+            <td class="text-center" width="10">KW</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td rowspan="2" class="text-center" style="width: 10px">KWH JUAL</td>
-            <td rowspan="2" class="text-center" style="width: 10px">KWH SUSUT</td>
-            <td rowspan="2" class="text-center" style="width: 10px">LOSSES(%)</td>
+            <td rowspan="2" class="text-center" width="10">KWH JUAL</td>
+            <td rowspan="2" class="text-center" width="10">KWH SUSUT</td>
+            <td rowspan="2" class="text-center" width="10">LOSSES(%)</td>
         </tr>
         <tr class="table-header">
             <td></td>
@@ -146,8 +146,8 @@
             <td></td>
             <td></td>
             <td></td>
-            <td class="text-center" style="width: 10px">KWH</td>
-            <td class="text-center" style="width: 10px">%</td>
+            <td class="text-center" width="10">KWH</td>
+            <td class="text-center" width="10">%</td>
         </tr>
     @if($tipe=="rayon")
 
@@ -289,7 +289,7 @@
         {{--JUMLAH--}}
     </tbody>
     {{-----------}}
-    <tdead>
+    <thead>
         <tr>
             <td colspan="5" class="text-center">JUMLAH</td>
             <td class="text-right"><b>{{$total_jumlah['lwbp1']}}</b></td>
@@ -306,7 +306,7 @@
             <td class="text-right"><b>{{$total_jumlah['susut']}}</b></td>
             <td class="text-right"><b>{{$total_jumlah['losses']}}</b></td>
         </tr>
-    </tdead>
+    </thead>
     @endif
 
     @endif
