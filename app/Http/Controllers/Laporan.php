@@ -949,6 +949,7 @@ class Laporan extends Controller
     }
 
     public function excel_beli_tsa($id_organisasi, $tsa, $tipe){
+        $id_tsa = $tsa;
         if($tipe =="gi"||$tipe =="penyulang"){
             $data_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
 //            dd($data_org);
@@ -1145,7 +1146,7 @@ class Laporan extends Controller
         }
         elseif($tipe = "rayon"){
             $org = Organisasi::select('tipe_organisasi','nama_organisasi')->where('id_organisasi',$id_organisasi)->first();
-            $data_gi = GI::where('id_organisasi',$tsa)->select('id','nama_gi')->first();
+            $data_gi = GI::where('id_organisasi',$id_tsa)->select('id','nama_gi','id_organisasi')->get();
             if($data_gi){
                 $data = $this->data_tsa($id_organisasi, "tsa", $data_gi);
                 $trafo =$data[0];
