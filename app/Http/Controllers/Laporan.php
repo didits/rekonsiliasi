@@ -1581,10 +1581,10 @@ class Laporan extends Controller
         }
 
         $visual_cek = 0;
-        for($tr=0;$tr<count($trafo_GI);$tr++){
-            $p_trafo = PenyimpananTrafoGI::where('id_trafo_gi', $trafo_GI[$tr]['id_trafo'])->where('periode',date('Ym'))->first();
+        for($p=0;$p<count($trafo_GI);$p++){
+            $p_trafo = PenyimpananTrafoGI::where('id_trafo_gi', $trafo_GI[$p]['id_trafo'])->where('periode',date('Ym'))->first();
             if($p_trafo){
-                if(json_decode($trafo_GI[$tr]['data_'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download']==0){
+                if(json_decode($trafo_GI[$p]['data_'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download']==0){
                     $visual_cek = 1;
                 }
                 else {
@@ -1610,18 +1610,18 @@ class Laporan extends Controller
                     $sheet->setPageMargin(0.25);
                     $sheet->setOrientation('landscape');
                     $sheet->loadView('admin.nonmaster.excel.excelGI',[
-                        'data'      => $cmb,
-                        'penyulang' => $penyulang_array,
-                        'pemakaian' => $list_array,
-                        'dt_trafo' => $list_data_trafo,
-                        'data_master' => $trafo_GI,
-                        'deviasi' => $deviasi,
-                        'sum'       => $sum,
-                        'sum_'       => $arr_sum_,
-                        'gi'        => $gi,
-                        'area'      => $nama_organisasi,
+                        'data'          => $cmb,
+                        'penyulang'     => $penyulang_array,
+                        'pemakaian'     => $list_array,
+                        'dt_trafo'      => $list_data_trafo,
+                        'data_master'   => $trafo_GI,
+                        'deviasi'       => $deviasi,
+                        'sum'           => $sum,
+                        'sum_'          => $arr_sum_,
+                        'gi'            => $gi,
+                        'area'          => $nama_organisasi,
                         'visual'        =>$visual_cek,
-                        'tr'        => $tr,
+                        'tr'            => $tr,
                     ]);
 
                 });
@@ -1629,23 +1629,20 @@ class Laporan extends Controller
             })
             ->download('xls');
 
-
-        return view('admin.nonmaster.excel.excelGI',[
-            'data'      => $cmb,
-            'penyulang' => $penyulang_array,
-            'pemakaian' => $list_array,
-            'dt_trafo' => $list_data_trafo,
-            'data_master' => $trafo_GI,
-            'deviasi' => $deviasi,
-            'sum'       => $sum,
-            'sum_'       => $arr_sum_,
-            'gi'        => $gi,
-            'area'      => $area->nama_organisasi,
-            'visual'      => $visual_cek,
-            'tr'        => $tr
-        ]);
-
-        
+//        return view('admin.nonmaster.excel.excelGI',[
+//            'data'          => $cmb,
+//            'penyulang'     => $penyulang_array,
+//            'pemakaian'     => $list_array,
+//            'dt_trafo'      => $list_data_trafo,
+//            'data_master'   => $trafo_GI,
+//            'deviasi'       => $deviasi,
+//            'sum'           => $sum,
+//            'sum_'          => $arr_sum_,
+//            'gi'            => $gi,
+//            'area'          => $area->nama_organisasi,
+//            'visual'        => $visual_cek,
+//            'tr'            => $tr
+//        ]);
     }
 
     public function view_beli_tsa_trafo_gi($id_organisasi, $id_gi) {
