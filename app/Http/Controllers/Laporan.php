@@ -1523,7 +1523,7 @@ class Laporan extends Controller
     }
 
     public function excel_beli($id_rayon,$tipe,$id,$tr){
-        $cmb = new MasterLaporan($id_rayon,$tipe,$id);
+        $cmb = new MasterLaporan($id_rayon,"tsa",$id);
         $gi = GI::where('id',$id)->first();
         $areas = Organisasi::where('id',$gi->id_organisasi)->first();
         $id_org = substr($areas->id_organisasi, 0, 3) . "%%";
@@ -1533,7 +1533,6 @@ class Laporan extends Controller
         $list_array = $this->total_pemakaian_energi($cmb->id, $penyulang_array);
 
         $trafo_GI = $this->data_trafo($cmb->id,$list_array);
-
 
         $list_data_trafo = array();
         $trafo = array();
@@ -1550,36 +1549,54 @@ class Laporan extends Controller
         for ($i=0; $i < count($list_data_trafo); $i++) {
             $tot_penyulang =0;
             $a =$list_array[$i]['total_pemakaian_energi_'];
-            if($list_array[$i]['total_pemakaian_energi_']==0)$a =1;
+            if($a==0)$a =1;
+            if(json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download']==0)
+                $visual = json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual'];
+            else $visual = json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download'];
             $C = (json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']
-                - json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual'])/$a;
+                    - $visual)/$a;
             for ($j=0; $j < count($list_data_trafo[$i]); $j++) {
                 $dev = $C *(json_decode($list_data_trafo[$i][$j]['data_'],true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']);
                 $tot_penyulang+=$dev;
                 $ar =array(
                     'deviasi' => $dev,
                     'id_trafo' => $list_data_trafo[$i][$j]['id_trafo']
-
                 );
                 array_push($deviasi, $ar);
             }
             array_push($arr_sum_,$tot_penyulang);
         }
 
-        $sum =0; $sum_ =0;
-        for ($j=0; $j < count($penyulang_array); $j++){
-            if($penyulang_array[$j]['id_trafo']== $cmb->trafo[0]->id){
-                $sum +=(json_decode($penyulang_array[$j]['data'],true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual'])+(json_decode($penyulang_array[$j]['data'],true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download']);
-                $sum_ +=(json_decode($cmb->p_trafo_[0]->data,true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']-json_decode($cmb->p_trafo_[0]->data,true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual'])
-                /($list_array[0]['total_pemakaian_energi_'])*(json_decode($penyulang_array[$j]['data_'],true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']);
+        $sum = array();
+        for($i=0;$i<count($trafo_GI);$i++){
+            $sum_=0;
+            for ($j=0; $j < count($penyulang_array); $j++){
+                if($penyulang_array[$j]['id_trafo']== $cmb->trafo[$i]->id){
+                    $sum_ +=(json_decode($penyulang_array[$j]['data'],true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual'])+
+                        (json_decode($penyulang_array[$j]['data'],true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download']);
+                }
+            }
+            array_push($sum,$sum_);
+        }
+
+        $visual_cek = 0;
+        for($tr=0;$tr<count($trafo_GI);$tr++){
+            $p_trafo = PenyimpananTrafoGI::where('id_trafo_gi', $trafo_GI[$tr]['id_trafo'])->where('periode',date('Ym'))->first();
+            if($p_trafo){
+                if(json_decode($trafo_GI[$tr]['data_'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download']==0){
+                    $visual_cek = 1;
+                }
+                else {
+                    $visual_cek = 0;
+                }
             }
         }
 
         $nama_organisasi = $area->nama_organisasi;
 
-        Excel::create('laporan GI', function($excel)use($cmb,$penyulang_array,$list_array,$list_data_trafo,$trafo_GI,$deviasi,$sum,$arr_sum_,$gi,$nama_organisasi,$tr){
+        Excel::create('laporan GI', function($excel)use($cmb,$penyulang_array,$list_array,$list_data_trafo,$trafo_GI,$deviasi,$sum,$arr_sum_,$gi,$nama_organisasi,$visual_cek,$tr){
 
-                $excel->sheet($trafo_GI[$tr]['nama'], function($sheet) use($cmb,$penyulang_array,$list_array,$list_data_trafo,$trafo_GI,$deviasi,$sum,$arr_sum_,$gi,$nama_organisasi,$tr) {
+                $excel->sheet($trafo_GI[$tr]['nama'], function($sheet) use($cmb,$penyulang_array,$list_array,$list_data_trafo,$trafo_GI,$deviasi,$sum,$arr_sum_,$gi,$nama_organisasi,$visual_cek,$tr) {
 
                     $sheet->mergeCells('A8:B10');
                     $sheet->mergeCells('C8:D9');
@@ -1602,7 +1619,8 @@ class Laporan extends Controller
                         'sum_'       => $arr_sum_,
                         'gi'        => $gi,
                         'area'      => $nama_organisasi,
-                        'tr'        => $tr
+                        'visual'        =>$visual_cek,
+                        'tr'        => $tr,
                     ]);
 
                 });
@@ -1622,6 +1640,7 @@ class Laporan extends Controller
             'sum_'       => $arr_sum_,
             'gi'        => $gi,
             'area'      => $area->nama_organisasi,
+            'visual'      => $visual_cek,
             'tr'        => $tr
         ]);
 
