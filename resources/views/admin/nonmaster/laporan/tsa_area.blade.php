@@ -55,7 +55,7 @@
                                     <h4 class="title">Download Laporan</h4>
                                 </div>
                                 <div class="content">
-                                    <a href="" rel="tooltip" title="" data-original-title="">
+                                    <a href="{{route('area.excel_beli_tsa' , [$id_organisasi, $tsa, $tipe_organisasi])}}" rel="tooltip" title="" data-original-title="">
                                         <button class="btn btn-info btn-fill btn-wd">
                                             <i class="pe-7s-diskette"></i><br/>Download Laporan
                                         </button>
