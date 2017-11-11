@@ -884,7 +884,7 @@ class Laporan extends Controller
                     'data_jumlah'      => $jumlah_trafo,
                     'total_jumlah'      => $jumlah_tot,
                     'tipe'      => "area",
-                    'tipe_organisasi' => "penyulang",
+                    'tipe_organisasi' => "area",
                     'id_organisasi' => $id_organisasi,
                     'tsa' => $id_tsa
                 ]);
@@ -905,6 +905,7 @@ class Laporan extends Controller
             $org = Organisasi::select('tipe_organisasi','nama_organisasi')->where('id_organisasi',$id_organisasi)->first();
             $data_gi = GI::where('id_organisasi',$id_tsa)->select('id','nama_gi','id_organisasi')->get();
             $gi = array();
+//            dd($tipe);
             if($data_gi){
                 for($i =0 ;$i <count($data_gi);$i++) {
                     $data = $this->data_tsa($id_organisasi, "tsa", $data_gi[$i]);
@@ -930,7 +931,7 @@ class Laporan extends Controller
 //                    'data_jumlah'      => $jumlah_trafo,
 //                    'total_jumlah'      => $jumlah_tot,
                     'tipe'      => "rayon",
-                    'tipe_organisasi' => "penyulang",
+                    'tipe_organisasi' => "rayon",
                     'id_organisasi' => $id_organisasi,
                     'tsa' => $id_tsa
                 ]);
@@ -944,7 +945,7 @@ class Laporan extends Controller
                     'data_jumlah'      => null,
                     'total_jumlah'      => null,
                     'tipe'      => "rayon",
-                    'tipe_organisasi' => "penyulang",
+                    'tipe_organisasi' => "rayon",
                     'id_organisasi' => $id_organisasi,
                     'tsa' => $id_tsa
                 ]);
@@ -1152,7 +1153,7 @@ class Laporan extends Controller
         }
         elseif($tipe = "rayon"){
             $org = Organisasi::select('tipe_organisasi','nama_organisasi')->where('id_organisasi',$id_organisasi)->first();
-            $data_gi = GI::where('id_organisasi',$id_tsa)->select('id','nama_gi','id_organisasi')->get();
+            $data_gi = GI::where('id_organisasi',$id_tsa)->select('id','nama_gi','id_organisasi')->first();
             if($data_gi){
                 $data = $this->data_tsa($id_organisasi, "tsa", $data_gi);
                 $trafo =$data[0];
@@ -1172,6 +1173,7 @@ class Laporan extends Controller
                         $sheet->mergeCells('M9:M11');
                         $sheet->mergeCells('N9:O10');
                         $sheet->mergeCells('P9:P11');
+                        $sheet->mergeCells('S9:S11');
 
                         $sheet->mergeCells('B10:B11');
                         $sheet->mergeCells('C10:C11');
@@ -1182,6 +1184,8 @@ class Laporan extends Controller
                         $sheet->mergeCells('I10:I11');
                         $sheet->mergeCells('J10:J11');
                         $sheet->mergeCells('K10:K11');
+
+
 
 
 

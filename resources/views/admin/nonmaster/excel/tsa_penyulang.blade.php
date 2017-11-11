@@ -155,8 +155,8 @@
         @for($j=0;$j<count($trafo);$j++)
         <div style="display: none;">{{$flag=true}}</div>
         @for($i=0;$i<count($data_gi);$i++)
-        <tr class="text-right">
             @if($data_gi[$i]['id_trafo']==$trafo[$j]['id'])
+            <tr class="text-right">
             @if($flag==1)
             <td class="text-center">{{$j+1}}</td>
             <td class="text-left">{{$gi}}</td>
@@ -184,8 +184,8 @@
             <td>{{$data_gi[$i]['susut']}}</td>
             <td>{{$data_gi[$i]['losses']}}</td>
             <td class="text-left">{{$data_gi[$i]['rayon']}}</td>
+            </tr>
             @endif
-        </tr>
         @endfor
         <tr class="text-right">
             <td class="text-center"></td>
