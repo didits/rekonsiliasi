@@ -100,48 +100,48 @@
                                                 <td class="text-left">{{json_decode($p_gardu[$i]['rincian'],true)['gi']}}</td>
                                                 <td class="text-left">{{json_decode($p_gardu[$i]['rincian'],true)['penyulang']}}</td>
                                                 <td class="text-left">{{json_decode($p_gardu[$i]['rincian'],true)['antar_unit']}}</td>
-                                                <td class="text-left">{{json_decode($p_gardu[$i]['data_master'],true)['meter']['FK']['faktorkali']}}</td>
+                                                <td class="text-left">{{number_format(json_decode($p_gardu[$i]['data_master'],true)['meter']['FK']['faktorkali'],0)}}</td>
                                                 @if($p_gardu[$i]['tipe'])
                                                 @if(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_download']==0)
-                                                <td>{{json_decode($p_gardu[$i]['data'],true)['beli']['ekspor']['visual']['awal_visual']}}</td>
-                                                <td>{{json_decode($p_gardu[$i]['data'],true)['beli']['ekspor']['visual']['akhir_visual']}}</td>
-                                                <td>{{json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_visual']}}</td>
+                                                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['beli']['ekspor']['visual']['awal_visual'],2)}}</td>
+                                                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['beli']['ekspor']['visual']['akhir_visual'],2)}}</td>
+                                                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_visual'],2)}}</td>
                                                 @else
                                                 <td>-</td>
                                                 <td>-</td>
-                                                <td>{{json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_download']}}</td>
+                                                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_download'],2)}}</td>
                                                 @endif
                                                 @else
                                                 @if(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_download']==0)
-                                                <td>{{json_decode($p_gardu[$i]['data'],true)['beli']['impor']['visual']['awal_visual']}}</td>
-                                                <td>{{json_decode($p_gardu[$i]['data'],true)['beli']['impor']['visual']['akhir_visual']}}</td>
-                                                <td>{{json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_visual']}}</td>
+                                                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['beli']['impor']['visual']['awal_visual'],2)}}</td>
+                                                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['beli']['impor']['visual']['akhir_visual'],2)}}</td>
+                                                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_visual'],2)}}</td>
                                                 @else
                                                 <td>-</td>
                                                 <td>-</td>
-                                                <td>{{json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_download']}}</td>
+                                                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_download'],2)}}</td>
                                                 @endif
                                                 @endif
 
                                                 @if($p_gardu[$i]['tipe'])
                                                 @if(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_download']==0)
-                                                <td>{{json_decode($p_gardu[$i]['data'],true)['beli']['impor']['visual']['awal_visual']}}</td>
-                                                <td>{{json_decode($p_gardu[$i]['data'],true)['beli']['impor']['visual']['akhir_visual']}}</td>
-                                                <td>{{json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_visual']}}</td>
+                                                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['beli']['impor']['visual']['awal_visual'],2)}}</td>
+                                                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['beli']['impor']['visual']['akhir_visual'],2)}}</td>
+                                                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_visual'],2)}}</td>
                                                 @else
                                                 <td>-</td>
                                                 <td>-</td>
-                                                <td>{{json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_download']}}</td>
+                                                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_download'],2)}}</td>
                                                 @endif
                                                 @else
                                                 @if(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_download']==0)
-                                                <td>{{json_decode($p_gardu[$i]['data'],true)['beli']['ekspor']['visual']['awal_visual']}}</td>
-                                                <td>{{json_decode($p_gardu[$i]['data'],true)['beli']['ekspor']['visual']['akhir_visual']}}</td>
-                                                <td>{{json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_visual']}}</td>
+                                                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['beli']['ekspor']['visual']['awal_visual'],2)}}</td>
+                                                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['beli']['ekspor']['visual']['akhir_visual'],2)}}</td>
+                                                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_visual'],2)}}</td>
                                                 @else
                                                 <td>-</td>
                                                 <td>-</td>
-                                                <td>{{json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_download']}}</td>
+                                                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_download'],2)}}</td>
                                                 @endif
                                                 @endif
                                             </tr>
@@ -156,13 +156,13 @@
                                                 <td class="text-right"><b></b></td>
                                                 @endfor
 
-                                                <td class="text-right"><b>{{$total_e}}</b></td>
+                                                <td class="text-right"><b>{{number_format($total_e,2)}}</b></td>
                                                 @for($i=0; $i<2; $i++)
 
                                                 <td class="text-right"><b></b></td>
                                                 @endfor
 
-                                                <td class="text-right"><b>{{$total_i}}</b></td>
+                                                <td class="text-right"><b>{{number_format($total_i,2)}}</b></td>
                                             </tr>
                                         </thead>
                                     </table>
@@ -266,17 +266,17 @@
                                                 <td class="text-left">{{json_decode($dt_urai[$i]['rincian'],true)['penyulang']}}</td>
                                                 <td class="text-left">{{json_decode($dt_urai[$i]['rincian'],true)['antar_unit']}}</td>
                                                 {{--EKSPOR--}}
-                                                <td>{{$dt_urai[$i]['wbp_e']}}</td>
-                                                <td>{{$dt_urai[$i]['lwbp1_e']}}</td>
-                                                <td>{{$dt_urai[$i]['lwbp2_e']}}</td>
-                                                <td>{{$dt_urai[$i]['kvar_e']}}</td>
-                                                <td>{{$dt_urai[$i]['kw_e']}}</td>
+                                                <td>{{number_format($dt_urai[$i]['wbp_e'],0)}}</td>
+                                                <td>{{number_format($dt_urai[$i]['lwbp1_e'],0)}}</td>
+                                                <td>{{number_format($dt_urai[$i]['lwbp2_e'],0)}}</td>
+                                                <td>{{number_format($dt_urai[$i]['kvar_e'],0)}}</td>
+                                                <td>{{number_format($dt_urai[$i]['kw_e'],0)}}</td>
                                                 {{--IMPOR--}}
-                                                <td>{{$dt_urai[$i]['wbp_i']}}</td>
-                                                <td>{{$dt_urai[$i]['lwbp1_i']}}</td>
-                                                <td>{{$dt_urai[$i]['lwbp2_i']}}</td>
-                                                <td>{{$dt_urai[$i]['kvar_i']}}</td>
-                                                <td>{{$dt_urai[$i]['kw_i']}}</td>
+                                                <td>{{number_format($dt_urai[$i]['wbp_i'],0)}}</td>
+                                                <td>{{number_format($dt_urai[$i]['lwbp1_i'],0)}}</td>
+                                                <td>{{number_format($dt_urai[$i]['lwbp2_i'],0)}}</td>
+                                                <td>{{number_format($dt_urai[$i]['kvar_i'],0)}}</td>
+                                                <td>{{number_format($dt_urai[$i]['kw_i'],0)}}</td>
                                             </tr>
                                         @endfor
 
@@ -378,17 +378,17 @@
                                             <tr class="text-right">
                                                 <td class="text-left">{{$dt_rayon[$i]['nama_rayon']}}</td>
                                                 {{--EKSPOR--}}
-                                                <td>{{$dt_rayon[$i]['wbp_e']}}</td>
-                                                <td>{{$dt_rayon[$i]['lwbp1_e']}}</td>
-                                                <td>{{$dt_rayon[$i]['lwbp2_e']}}</td>
-                                                <td>{{$dt_rayon[$i]['kvar_e']}}</td>
-                                                <td>{{$dt_rayon[$i]['kw_e']}}</td>
+                                                <td>{{number_format($dt_rayon[$i]['wbp_e'],0)}}</td>
+                                                <td>{{number_format($dt_rayon[$i]['lwbp1_e'],0)}}</td>
+                                                <td>{{number_format($dt_rayon[$i]['lwbp2_e'],0)}}</td>
+                                                <td>{{number_format($dt_rayon[$i]['kvar_e'],0)}}</td>
+                                                <td>{{number_format($dt_rayon[$i]['kw_e'],0)}}</td>
                                                 {{--IMPOR--}}
-                                                <td>{{$dt_rayon[$i]['wbp_i']}}</td>
-                                                <td>{{$dt_rayon[$i]['lwbp1_i']}}</td>
-                                                <td>{{$dt_rayon[$i]['lwbp2_i']}}</td>
-                                                <td>{{$dt_rayon[$i]['kvar_i']}}</td>
-                                                <td>{{$dt_rayon[$i]['kw_i']}}</td>
+                                                <td>{{number_format($dt_rayon[$i]['wbp_i'],0)}}</td>
+                                                <td>{{number_format($dt_rayon[$i]['lwbp1_i'],0)}}</td>
+                                                <td>{{number_format($dt_rayon[$i]['lwbp2_i'],0)}}</td>
+                                                <td>{{number_format($dt_rayon[$i]['kvar_i'],0)}}</td>
+                                                <td>{{number_format($dt_rayon[$i]['kw_i'],0)}}</td>
                                             </tr>
                                         @endfor
 

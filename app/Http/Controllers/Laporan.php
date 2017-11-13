@@ -348,7 +348,7 @@ class Laporan extends Controller
             $p_trafo = PenyimpananTrafoGI::where('id_trafo_gi', $trafo_GI[$tr]['id_trafo'])->where('periode',date('Ym'))->first();
             if($p_trafo){
                 //        TPE Penyulang
-                $A = $list_array[0]['total_pemakaian_energi_'];
+                $A = $list_array[$tr]['total_pemakaian_energi_'];
                 //        Selisih TPE Trafo (Utama -Utama PS)
                 if(json_decode($trafo_GI[$tr]['data_'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download']==0){
                     $visual = json_decode($trafo_GI[$tr]['data_'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual'];
@@ -1976,7 +1976,7 @@ class Laporan extends Controller
                 'id_rayon' => $id_rayon[$i],
                 'nama_rayon' => $nama_rayon[$i],
                 'nama_rayon' => $nama_rayon[$i],
-                'lwbp1_e' => $lwbp1_e,
+                'lwbp1_e' => $total_lwbp1_e,
                 'lwbp2_e' => $total_lwbp2_e,
                 'wbp_e' => $total_wbp_e,
                 'kvar_e' => $total_kvar_e,
