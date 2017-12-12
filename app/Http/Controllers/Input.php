@@ -1251,49 +1251,65 @@ class Input extends Controller
         if($boolean){
             if($tipe=="trafo_gi"||$tipe=="pct"){
                 if($lalu){
-//                    $lwbp1_download = ($download['lwbp1_download']);
-//                    $lwbp2_download = ($download['lwbp2_download']);
-//                    $wbp_download =  ($download['wbp_download']);
-//                    $kvarh_download = ($download['kvarh_download']);
-                    $lwbp1_download = ($download['lwbp1_download'] - $data_awal['beli'][$meter]['download']['lwbp1_download']);
-                    $lwbp2_download = ($download['lwbp2_download'] - $data_awal['beli'][$meter]['download']['lwbp2_download']);
-                    $wbp_download =  ($download['wbp_download'] - $data_awal['beli'][$meter]['download']['wbp_download']);
-                    $kvarh_download = ($download['kvarh_download']);
+                    if($meter=="utama"){
+                        $lwbp1_download = ($download['lwbp1_download']);
+                        $lwbp2_download = ($download['lwbp2_download']);
+                        $wbp_download =  ($download['wbp_download']);
+                        $kvarh_download = ($download['kvarh_download']);
+                    }
+                    else{
+                        $lwbp1_download = ($download['lwbp1_download'] - $data_awal['beli'][$meter]['download']['lwbp1_download']);
+                        $lwbp2_download = ($download['lwbp2_download'] - $data_awal['beli'][$meter]['download']['lwbp2_download']);
+                        $wbp_download =  ($download['wbp_download'] - $data_awal['beli'][$meter]['download']['wbp_download']);
+                        $kvarh_download = ($download['kvarh_download']);
 //                  if($tipe == "trafo_gi") $konsiden_download = ($download['konsiden_download'] - $data_awal['beli'][$meter]['download']['konsiden_download']);
+                    }
                 }
                 else{
-//                    $lwbp1_download = ($download['lwbp1_download']);
-//                    $lwbp2_download = ($download['lwbp2_download']);
-//                    $wbp_download =  ($download['wbp_download']);
-//                    $kvarh_download = ($download['kvarh_download']);
-                    $lwbp1_download = ($download['lwbp1_download'] - $data_awal['beli'][$meter]['download']['lwbp1_download']);
-                    $lwbp2_download = ($download['lwbp2_download'] - $data_awal['beli'][$meter]['download']['lwbp2_download']);
-                    $wbp_download =  ($download['wbp_download'] - $data_awal['beli'][$meter]['download']['wbp_download']);
-                    $kvarh_download = ($download['kvarh_download'] - $data_awal['beli'][$meter]['download']['kvarh_download']);
+                    if($meter=="utama"){
+                        $lwbp1_download = ($download['lwbp1_download']);
+                        $lwbp2_download = ($download['lwbp2_download']);
+                        $wbp_download =  ($download['wbp_download']);
+                        $kvarh_download = ($download['kvarh_download']);
+                    }
+                    else{
+                        $lwbp1_download = ($download['lwbp1_download'] - $data_awal['beli'][$meter]['download']['lwbp1_download']);
+                        $lwbp2_download = ($download['lwbp2_download'] - $data_awal['beli'][$meter]['download']['lwbp2_download']);
+                        $wbp_download =  ($download['wbp_download'] - $data_awal['beli'][$meter]['download']['wbp_download']);
+                        $kvarh_download = ($download['kvarh_download'] - $data_awal['beli'][$meter]['download']['kvarh_download']);
 //                  if($tipe == "trafo_gi") $konsiden_download = ($download['konsiden_download'] - $data_awal['beli'][$meter]['download']['konsiden_download']);
+                    }
                 }
             }
             else{
                 if($lalu) {
-//                    $lwbp1_download = ($download['lwbp1_download']);
-//                    $lwbp2_download = ($download['lwbp2_download']);
-//                    $wbp_download = ($download['wbp_download']);
-//                    $kvarh_download = ($download['kvarh_download']);
-                    $lwbp1_download = ($download['lwbp1_download'] - $data_awal['beli']['download']['lwbp1_download']);
-                    $lwbp2_download = ($download['lwbp2_download'] - $data_awal['beli']['download']['lwbp2_download']);
-                    $wbp_download = ($download['wbp_download'] - $data_awal['beli']['download']['wbp_download']);
-                    $kvarh_download = ($download['kvarh_download']);
+                    if($meter=="utama"){
+                        $lwbp1_download = ($download['lwbp1_download']);
+                        $lwbp2_download = ($download['lwbp2_download']);
+                        $wbp_download = ($download['wbp_download']);
+                        $kvarh_download = ($download['kvarh_download']);
+                    }
+                    else{
+                        $lwbp1_download = ($download['lwbp1_download'] - $data_awal['beli']['download']['lwbp1_download']);
+                        $lwbp2_download = ($download['lwbp2_download'] - $data_awal['beli']['download']['lwbp2_download']);
+                        $wbp_download = ($download['wbp_download'] - $data_awal['beli']['download']['wbp_download']);
+                        $kvarh_download = ($download['kvarh_download']);
+                    }
                 }
                 else{
-//                    $lwbp1_download = ($download['lwbp1_download']);
-//                    $lwbp2_download = ($download['lwbp2_download']);
-//                    $wbp_download =  ($download['wbp_download']);
-//                    $kvarh_download = ($download['kvarh_download']);
-                    $lwbp1_download = ($download['lwbp1_download'] - $data_awal['beli']['download']['lwbp1_download']);
-                    $lwbp2_download = ($download['lwbp2_download'] - $data_awal['beli']['download']['lwbp2_download']);
-                    $wbp_download =  ($download['wbp_download'] - $data_awal['beli']['download']['wbp_download']);
-                    $kvarh_download = ($download['kvarh_download'] - $data_awal['beli']['download']['kvarh_download']);
+                    if($meter=="utama"){
+                        $lwbp1_download = ($download['lwbp1_download']);
+                        $lwbp2_download = ($download['lwbp2_download']);
+                        $wbp_download =  ($download['wbp_download']);
+                        $kvarh_download = ($download['kvarh_download']);
+                    }
+                    else{
+                        $lwbp1_download = ($download['lwbp1_download'] - $data_awal['beli']['download']['lwbp1_download']);
+                        $lwbp2_download = ($download['lwbp2_download'] - $data_awal['beli']['download']['lwbp2_download']);
+                        $wbp_download =  ($download['wbp_download'] - $data_awal['beli']['download']['wbp_download']);
+                        $kvarh_download = ($download['kvarh_download'] - $data_awal['beli']['download']['kvarh_download']);
 //                    if($tipe == "penyulang") $tu_download = ($download['tu_download'] - $data_awal['beli']['download']['tu_download']);
+                    }
                 }
 
             }
