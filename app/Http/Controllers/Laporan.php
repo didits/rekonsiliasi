@@ -469,7 +469,9 @@ class Laporan extends Controller
                             }
                             else {
                                 $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',date('Ym')-1)->first();
-                                $KWH_bulan_lalu= json_decode($KWH_bulan_lalu->data_keluar,true)['total_kwh'];
+                                if($KWH_bulan_lalu)
+                                    $KWH_bulan_lalu= json_decode($KWH_bulan_lalu->data_keluar,true)['total_kwh'];
+                                else $KWH_bulan_lalu =0;
                             }
 //                            dd(json_decode($bulan_lalu->data,true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download']);
                             $KWH = null;
@@ -539,8 +541,23 @@ class Laporan extends Controller
 //                            dd(json_decode($penyulang_array[$j]['data_'],true)['jual']['total_kwh_jual']);
                         }
                         else {
+
 //                      Query
-                            $KWH_bulan_lalu = 0;
+                            $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',"L".(date('Ym')-1))->first();
+                            if($KWH_bulan_lalu){
+                                $cek_bulan_lalu = json_decode($KWH_bulan_lalu->data,true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download'];
+                                if($cek_bulan_lalu) $KWH_bulan_lalu = $cek_bulan_lalu;
+                                else $KWH_bulan_lalu = json_decode($KWH_bulan_lalu->data,true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual'];
+                            }
+                            else {
+                                $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',date('Ym')-1)->first();
+                                if($KWH_bulan_lalu)
+                                    $KWH_bulan_lalu= json_decode($KWH_bulan_lalu->data_keluar,true)['total_kwh'];
+                                else $KWH_bulan_lalu =0;
+
+                            }
+
+                            $trafo_KWH_lalu += $KWH_bulan_lalu;
                             $data_keluar = array(
                                 'id_trafo' => $penyulang_array[$j]['id_trafo'],
                                 'nama_t' => $trafo[$i]['nama_trafo_gi'],
@@ -563,13 +580,14 @@ class Laporan extends Controller
                             array_push($list_p,$data_keluar);
                         }
                     }
+                    if($trafo_t_kwh)
                     $trafo_KWH = $trafo_t_kwh - $trafo_KWH_lalu;
+                    else $trafo_KWH =0;
                     if($trafo_KWH_lalu == 0)$trafo_persen=0;
                     else $trafo_persen = $trafo_KWH/$trafo_KWH_lalu*100;
                     $trafo_susut = $trafo_t_kwh - $trafo_jual;
                     if($trafo_t_kwh==0) $trafo_losses = 0;
                     else $trafo_losses = $trafo_susut / $trafo_t_kwh *100;
-//                    dd($list_p);
 
                     $jumlah_pemakaian =array(
                         'id_trafo' => $trafo[$i]['id'],
@@ -586,6 +604,8 @@ class Laporan extends Controller
                         'susut'   => $trafo_susut,
                         'losses'   => $trafo_losses,
                     );
+//                    if($data_gi["id"]==1)dd($jumlah_pemakaian);
+
                 }
                 $tot_lwbp1 += $trafo_lwbp1;
                 $tot_lwbp2 += $trafo_lwbp2;
@@ -597,8 +617,12 @@ class Laporan extends Controller
                 $tot_KWH = $tot_t_kwh - $tot_KWH_lalu;
                 $tot_jual+=$trafo_jual;
                 array_push($jumlah_trafo,$jumlah_pemakaian);
+
             }
 
+            if($tot_t_kwh)
+                $tot_KWH = $tot_t_kwh - $tot_KWH_lalu;
+            else $tot_KWH =0;
             if($tot_KWH_lalu == 0)$tot_persen = 0;
             else $tot_persen = $tot_KWH/$tot_KWH_lalu*100;
             $tot_susut = $tot_t_kwh -$tot_jual;
@@ -634,11 +658,11 @@ class Laporan extends Controller
             $tsa_ = array();$trafo = array();$list_p = array();$nama_gi = array();$jumlah_trafo = array();$jumlah_tot = array();
             for($i =0 ;$i <count($id_org);$i++) {
                 $data_gi = GI::where('id_organisasi', $id_org[$i])->select('id', 'nama_gi','id_organisasi')->get();
-//                dd($data_gi);
                 if ($data_gi) {
                     for($j =0 ;$j <count($data_gi);$j++) {
                         $data = $this->data_tsa($id_organisasi, "tsa", $data_gi[$j]);
                         if($data[2]){
+
                             if($data[0])
                                 array_push($trafo,$data[0]);
                             if($data[1])
@@ -656,10 +680,14 @@ class Laporan extends Controller
                             );
                             array_push($nama_gi,$data_gi[$j]);
                             array_push($tsa_,$dt);
+//                            if($data_gi[$j]["id"]==1)dd($dt);
+
                         }
                     }
                 }
             }
+//            dd($jumlah_trafo);
+
 
             $jumlah_gi = array();
             for($i=0;$i<count($jumlah_trafo);$i++){
@@ -960,7 +988,9 @@ class Laporan extends Controller
     }
 
     public function excel_beli_tsa($id_organisasi, $tsa, $tipe){
-                $id_tsa = $tsa;
+//        echo $tsa. " ".$tipe;
+//        dd("sad");
+        $id_tsa = $tsa;
         if($tipe =="gi"||$tipe =="penyulang"){
             $data_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
 //            dd($tipe);
@@ -1405,11 +1435,11 @@ class Laporan extends Controller
             $G =(json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual']);
             $H = $total_pemakaian_penyulang[$i]['total_pemakaian_energi_'];
             $I = abs($D-$G);
-            if($D==0)$D =1;
-            $J = abs($I/$D*100);
+            if($D==0)$J =0;
+            else $J = abs($I/$D*100);
             $K = abs($D-$E-$H);
-            if($F==0)$F =1;
-            $L = abs($K/$F*100);
+            if($F==0)$L = 0;
+            else  $L = abs($K/$F*100);
             $G_E =$G-$E;
             $M = abs($G -$H);
             if($G-$E==0)$G_E = 1;
