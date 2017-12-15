@@ -19,6 +19,7 @@ use Excel;
 
 class Laporan extends Controller
 {
+
     public function list_hasil_laporan_semua_penyulang($id_gardu){
     	$penyulang = Penyulang::where('id_gardu', $id_gardu)
     	->join('penyimpanan_penyulang', 'penyulang.id', '=', 'penyimpanan_penyulang.id_penyulang')->get();
@@ -60,6 +61,7 @@ class Laporan extends Controller
     public function list_beli_gi($id_rayon){
         $master_gi = new MasterGI($id_rayon);
         Auth::user()->tipe_organisasi == 3 ? $rayon = true : $rayon = false;
+//        dd($rayon);
         return view('admin.nonmaster.dashboard_user.list_datamaster2_',[
             'data' =>$master_gi->data,
             'data2' =>$master_gi->data2,

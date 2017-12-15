@@ -27,6 +27,10 @@ Route::post('/ubahPassword', [
 
 Route::resource('input_listrik', 'Input');
 Route::resource('input_datamaster', 'AreaController');
+Route::post('auth_user', [
+    'as' => 'auth_user',
+    'uses' => 'AuthController@changePassword'
+]);
 
 Route::get('populate/area',array('as'=>'populate.area','uses'=>'AjaxController@populateArea'));
 Route::get('populate/rayon/{id_area}',array('as'=>'populate.rayon','uses'=>'AjaxController@populateRayon'));
@@ -142,6 +146,7 @@ Route::group(['prefix' => 'rayon/entry_transaksi', 'middleware' => ['auth', 'tip
         'uses'      => 'Input@input_data'
     ]);
 });
+
 
 //rayon-laporan_transaksi
 Route::group(['prefix' => 'rayon/laporan_transaksi', 'middleware' => ['auth', 'tipe:3']], function () {

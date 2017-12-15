@@ -13,6 +13,7 @@ class AdminController extends Controller
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
+
             $this->id_role = Auth::user()->tipe_organisasi;
             if(!$this->id_role==0)
                 return redirect('/login')->with('status', [
@@ -39,6 +40,7 @@ class AdminController extends Controller
     }
 
     public function importOrganisasi(Request $request){
+        dd("sdad");
 
         ini_set('max_execution_time',5000);
         if(count($request->file()) > 0)

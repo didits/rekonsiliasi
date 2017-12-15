@@ -101,7 +101,9 @@ class Datamaster
 
     public function getStructureKelistrikan($id_organisasi)
     {
-        $nama_rayon = Organisasi::find($id_organisasi);
+        if(strlen($id_organisasi)==5)
+            $nama_rayon = Organisasi::where("id_organisasi",$id_organisasi)->first();
+        else $nama_rayon = Organisasi::find($id_organisasi);
         $area = array('name' => $nama_rayon->nama_organisasi, 'title' => '', 'children' => '', 'office' => 'Rayon ');
         for ($h = 0; $h < 1; $h++) {
             $gi = GI::where('id_organisasi', $id_organisasi)->get(array('nama_gi as name', 'alamat_gi as title', 'id as id'))->toArray();
