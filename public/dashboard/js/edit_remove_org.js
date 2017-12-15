@@ -173,8 +173,8 @@ edit_pass = {
 
         swal({
                 title: title_,
-                input: password,
-                inputPlaceHolder: Password,
+                input: 'password',
+                inputPlaceHolder: 'Password',
                 html:
                 '<label>Password</label>' +
                 '<input id="edit_password" class="form-control" type="password" required>',
@@ -185,29 +185,32 @@ edit_pass = {
                 cancelButtonClass: "btn btn-danger btn-fill",
                 cancelButtonText: "Batal",
                 closeOnConfirm: false
-            }).then(function (password) {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.post(url_edit,
-                    {
-                        task: 0,
-                        id: id_,
-                        pass: password
-                    }, function(data, status){
-                        if (status === "success" && data === "1")
-                            swal({
-                                title: "Password Telah Diubah",
-                                type: "success"
-                            }, location.reload());
-                        else
-                            swal({
-                                title: "Error",
-                                type: "error"
-                            }, location.reload());
+            },function (isConfirm) {
+                if (isConfirm)
+                {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
                     });
+                    $.post(url_edit,
+                        {
+                            task: 0,
+                            id: id_,
+                            pass: $('#edit_password').val()
+                        }, function (data, status) {
+                            if (status === "success" && data === "1")
+                                swal({
+                                    title: "Password Telah Diubah",
+                                    type: "success"
+                                }, location.reload());
+                            else
+                                swal({
+                                    title: "Error",
+                                    type: "error"
+                                }, location.reload());
+                        });
+                }
             })
     }
 };
