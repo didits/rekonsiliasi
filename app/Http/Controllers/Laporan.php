@@ -1253,9 +1253,9 @@ class Laporan extends Controller
                 ->download('xls');
                 }
                 elseif($tsa=="tsa_area"){
-                    Excel::create('laporan TSA Rayon', function($excel)use($rayon,$jumlah_tot){
+                    Excel::create('laporan TSA Area', function($excel)use($rayon,$jumlah_tot){
 
-                    $excel->sheet('Laporan TSA Rayon', function($sheet) use($rayon,$jumlah_tot) {
+                    $excel->sheet('Laporan TSA Area', function($sheet) use($rayon,$jumlah_tot) {
                         $sheet->mergeCells('A9:A10');
                         $sheet->mergeCells('B9:B10');
                         $sheet->mergeCells('C9:C10');
@@ -1615,9 +1615,11 @@ class Laporan extends Controller
                 $data_GI =$data[0];
                 $jumlah =$data[1];
 
-                Excel::create('laporan Deviasi', function($excel)use($data_GI,$tipe,$jumlah,$total){
 
-                $excel->sheet('Laporan Deviasi', function($sheet) use($data_GI,$tipe,$jumlah,$total) {
+
+                Excel::create('laporan Deviasi', function($excel)use($data_GI,$tipe,$jumlah, $org){
+
+                $excel->sheet('Laporan Deviasi', function($sheet) use($data_GI,$tipe,$jumlah, $org) {
                     $sheet->mergeCells('I9:N9');
                     $sheet->mergeCells('I10:J10');
                     $sheet->mergeCells('K10:L10');
@@ -1647,11 +1649,11 @@ class Laporan extends Controller
                     $sheet->setPageMargin(0.25);
                     $sheet->setOrientation('landscape');
                     $sheet->loadView('admin.nonmaster.excel.deviasi',[
-                        'area'      => 'area',
+                        'area'      => 'data',
                         'data_GI'   => $data_GI,
                         'tipe'      => $tipe,
                         'jumlah'      => $jumlah,
-                        'total'      => $total,
+                        'rayon'     => $org->nama_organisasi
                     ]);
 
                 });
@@ -1659,12 +1661,16 @@ class Laporan extends Controller
             })
             ->download('xls');
 
+
+
                 return view('admin.nonmaster.excel.deviasi',[
                     'area'      => 'data',
                     'data_GI'   => $data_GI,
                     'tipe'      => $tipe,
                     'jumlah'      => $jumlah,
                     'rayon'     => $org->nama_organisasi,
+                    'id_organisasi' => $id_organisasi,
+                    'id'        => $id
                 ]);
 
             }
@@ -2031,6 +2037,96 @@ class Laporan extends Controller
         $gardu    = $cmb->gardu;$p_penyulang    = $cmb  ->p_penyulang;   $p_gardu  = $cmb->p_gardu;
         $data = $this->data_pct($id_rayon,$p_penyulang,$p_gardu,$gardu,$nama_rayon);
         return view('admin.nonmaster.laporan.pct',[
+            'gardu'      => $data[0],
+            'p_gardu'   => $data[1],
+            'total_i'   => $data[2],
+            'total_e'   => $data[3],
+            'dt_urai'   => $data[4],
+            'dt_rayon'   => $data[5],
+            'id_organisasi' => $id_organisasi,
+            'id'        => $id,
+            'tipe'      => $tipe
+        ]);
+    }
+
+    public function excel_beli_pct($id_organisasi, $tipe, $id) {
+        $id_rayon = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id');
+        $nama_rayon = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('nama_organisasi');
+        $cmb = new MasterLaporan($id_rayon,$tipe,$id);
+        $gardu    = $cmb->gardu;$p_penyulang    = $cmb  ->p_penyulang;   $p_gardu  = $cmb->p_gardu;
+        $data = $this->data_pct($id_rayon,$p_penyulang,$p_gardu,$gardu,$nama_rayon);
+
+
+
+        Excel::create('laporan PCT', function($excel)use($data){
+
+                $excel->sheet('Laporan PCT', function($sheet) use($data) {
+                    $sheet->mergeCells('A9:A10');
+                    $sheet->mergeCells('B9:B10');
+                    $sheet->mergeCells('C9:C10');
+                    $sheet->mergeCells('D9:D10');
+                    $sheet->mergeCells('E9:E10');
+                    $sheet->mergeCells('F9:F10');
+                    $sheet->mergeCells('G9:H9');
+                    $sheet->mergeCells('I9:I10');
+                    $sheet->mergeCells('J9:K9');
+                    $sheet->mergeCells('L9:L10');
+                    $sheet->setPageMargin(0.25);
+                    $sheet->setOrientation('landscape');
+                    $sheet->loadView('admin.nonmaster.excel.pct',[
+                        'gardu'      => $data[0],
+                        'p_gardu'   => $data[1],
+                        'total_i'   => $data[2],
+                        'total_e'   => $data[3],
+                        'dt_urai'   => $data[4],
+                        'dt_rayon'   => $data[5],
+                    ]);
+
+                });
+
+                $excel->sheet('Laporan PCT Terurai', function($sheet) use($data) {
+                    $sheet->mergeCells('F9:J9');
+                    $sheet->mergeCells('K9:O9');
+                    $sheet->mergeCells('A9:A10');
+                    $sheet->mergeCells('B9:B10');
+                    $sheet->mergeCells('B9:B10');
+                    $sheet->mergeCells('D9:D10');
+                    $sheet->mergeCells('E9:E10');
+                    $sheet->setPageMargin(0.25);
+                    $sheet->setOrientation('landscape');
+                    $sheet->loadView('admin.nonmaster.excel.pct_terurai',[
+                        'gardu'      => $data[0],
+                        'p_gardu'   => $data[1],
+                        'total_i'   => $data[2],
+                        'total_e'   => $data[3],
+                        'dt_urai'   => $data[4],
+                        'dt_rayon'   => $data[5],
+                    ]);
+
+                });
+
+                $excel->sheet('Laporan PCT Terurai Rayon', function($sheet) use($data) {
+                    $sheet->mergeCells('A9:A10');
+                    $sheet->mergeCells('B9:F9');
+                    $sheet->mergeCells('G9:K9');
+                    $sheet->setPageMargin(0.25);
+                    $sheet->setOrientation('landscape');
+                    $sheet->loadView('admin.nonmaster.excel.pct_terurai_rayon',[
+                        'gardu'      => $data[0],
+                        'p_gardu'   => $data[1],
+                        'total_i'   => $data[2],
+                        'total_e'   => $data[3],
+                        'dt_urai'   => $data[4],
+                        'dt_rayon'   => $data[5],
+                    ]);
+
+                });
+
+            })
+            ->download('xls');
+
+
+        return view('admin.nonmaster.excel.pct',[
             'gardu'      => $data[0],
             'p_gardu'   => $data[1],
             'total_i'   => $data[2],

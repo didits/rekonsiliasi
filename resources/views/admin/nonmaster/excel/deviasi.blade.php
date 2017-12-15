@@ -25,7 +25,7 @@
             text-align: left;
         }
 
-        .text-right {
+        .text-right { 
             text-align: right;
         }
 

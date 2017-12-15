@@ -168,7 +168,7 @@
                                             <th class="text-center">({{number_format($jumlah['L'],2)}})</th>
                                             <th class="text-center">({{number_format($jumlah['M'],0)}})</th>
                                             <th class="text-center">({{number_format($jumlah['N'],2)}})</th>
-                                        </tr>
+                                        </tr> 
                                     </thead>
                                     @elseif($area == "area")
                                     <tbody>
