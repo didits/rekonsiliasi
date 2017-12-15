@@ -107,3 +107,61 @@
         </div>
     </div>
 </div>
+
+{{--Add Org--}}
+<div class="modal fade" id="addOrgModal" tabindex="-1" role="dialog" aria-labelledby="addOrgLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addOrgLabel">Tambah Organisasi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" id="id_">
+                    <div class="form-group">
+                        <div class="idOrg">
+                            <label for="idOrg" class="control-label">ID Organisasi <star>*</star></label>
+                            <input type="number" class="form-control" id="idOrg" name="idOrg" required="true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="namaOrg">
+                            <label for="namaOrg" class="control-label">Nama Organisasi <star>*</star></label>
+                            <input type="text" class="form-control" id="namaOrg" name="namaOrg" required="true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="tipeOrg">
+                            <label for="tipeOrg" class="control-label">Tipe Organisasi <star>*</star></label>
+                            <select class="form-control" id="tipeOrg" name="tipeOrg" required="true">
+                                <option value="2">Area</option>
+                                <option value="3">Rayon</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="alamatOrg">
+                            <label for="alamatOrg" class="control-label">Alamat Organisasi <star>*</star></label>
+                            <input type="text" class="form-control" id="alamatOrg" name="alamatOrg" required="true">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pass" class="control-label">Password <star>*</star></label>
+                        <input type="password" class="form-control" id="pass" name="pass" required="true">
+                    </div>
+
+                    <div class="category"><star>*</star> Required fields</div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-primary">Tambah Organisasi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
