@@ -27,19 +27,17 @@ class AdminController extends Controller
 
     public function index()
     {
-        $data = Organisasi::all();
-         return view('admin.nonmaster.admin.management_rayon',[
-            'data'=>$data,
-             'status' => 1
-         ]);
+        return $this->managementRayon();
     }
 
     public function managementRayon()
     {
          $data = Organisasi::all();
+         $dropdown_data = new AjaxController();
          return view('admin.nonmaster.admin.management_rayon',[
-            'data'=>$data,
-             'status' => 1]);
+             'dropdown_area' => $dropdown_data->populateArea(),
+             'data'     => $data,
+             'status'   => 1]);
     }
 
     public function importOrganisasi(Request $request){

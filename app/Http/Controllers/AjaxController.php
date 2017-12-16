@@ -8,6 +8,12 @@ use App\Penyulang;
 
 class AjaxController extends Controller
 {
+    public function populateArea()
+    {
+        $dropdown_area = Organisasi::select('id_organisasi', 'nama_organisasi')->where('tipe_organisasi', '=', 2)->get();
+        return $dropdown_area;
+    }
+
     public function populateRayon($id_area)
     {
         $subarea    = substr($id_area, 0, 3) . "%%";

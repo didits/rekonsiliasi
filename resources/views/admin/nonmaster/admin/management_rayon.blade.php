@@ -237,11 +237,27 @@
 
     <script type="text/javascript">
         $().ready(function(){
+            var selAr = $('#toHide');
+            selAr.hide();
             $('#editPass').validate();
             $('#editOrganisasi').validate();
+            $('#addOrganisasi').validate();
             @if($status)
                 notif.statusPassword();
             @endif
+
+            var selTip = $('#tipeOrgAdd');
+            selTip.on('change', function () {
+                alert(selTip.val());
+                if(selTip .val() == 3) {
+                    selAr.show();
+                }
+                else {
+                    selAr.hide();
+                }
+            });
+
+
         });
     </script>
 

@@ -52,31 +52,23 @@
                 <div class="modal-body">
                     <input type="hidden" id="id_">
                     <div class="form-group">
-                        <div class="idOrg">
-                            <label for="idOrg" class="control-label">ID Organisasi <star>*</star></label>
-                            <input type="number" class="form-control" id="idOrg" name="idOrg" required="true">
-                        </div>
+                        <label for="idOrg" class="control-label">ID Organisasi <star>*</star></label>
+                        <input type="number" class="form-control" id="idOrg" name="idOrg" required="true">
                     </div>
                     <div class="form-group">
-                        <div class="namaOrg">
-                            <label for="namaOrg" class="control-label">Nama Organisasi <star>*</star></label>
-                            <input type="text" class="form-control" id="namaOrg" name="namaOrg" required="true">
-                        </div>
+                        <label for="namaOrg" class="control-label">Nama Organisasi <star>*</star></label>
+                        <input type="text" class="form-control" id="namaOrg" name="namaOrg" required="true">
                     </div>
                     <div class="form-group">
-                        <div class="tipeOrg">
-                            <label for="tipeOrg" class="control-label">Tipe Organisasi <star>*</star></label>
-                            <select class="form-control" id="tipeOrg" name="tipeOrg" required="true">
-                                <option value="2">Area</option>
-                                <option value="3">Rayon</option>
-                            </select>
-                        </div>
+                        <label for="tipeOrg" class="control-label">Tipe Organisasi <star>*</star></label>
+                        <select class="form-control" id="tipeOrg" name="tipeOrg" required="true">
+                            <option value="2">Area</option>
+                            <option value="3">Rayon</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <div class="alamatOrg">
-                            <label for="alamatOrg" class="control-label">Alamat Organisasi <star>*</star></label>
-                            <input type="text" class="form-control" id="alamatOrg" name="alamatOrg" required="true">
-                        </div>
+                        <label for="alamatOrg" class="control-label">Alamat Organisasi <star>*</star></label>
+                        <input type="text" class="form-control" id="alamatOrg" name="alamatOrg" required="true">
                     </div>
 
                     <div class="category"><star>*</star> Required fields</div>
@@ -125,49 +117,51 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form>
+
+            <form id="addOrganisasi">
+                <div class="modal-body">
                     <input type="hidden" id="id_">
                     <div class="form-group">
-                        <div class="tipeOrg">
-                            <label for="tipeOrg" class="control-label">Tipe Organisasi <star>*</star></label>
-                            <select class="form-control" id="tipeOrg" name="tipeOrg" required="true">
-                                <option value="2">Area</option>
-                                <option value="3">Rayon</option>
+                        <label for="tipeOrg" class="control-label">Tipe Organisasi <star>*</star></label>
+                        <select class="form-control" id="tipeOrgAdd" name="tipeOrg" required="true">
+                            <option value="0" disabled selected>Pilih Tipe</option>
+                            <option value="2">Area</option>
+                            <option value="3">Rayon</option>
+                        </select>
+                    </div>
+                    <div {{--style="display: none"--}} id="toHide">
+                        <div class="form-group">
+                            <label for="selArea" class="control-label">Pilih Area <star>*</star></label>
+                            <select class="form-control" id="selAreaAdd" name="selArea" required="true">
+                                <option value="0" disabled selected>Pilih Area</option>
+                                @foreach ($dropdown_area as $areas)
+
+                                    <option value="{{ $areas->id_organisasi }}">{{ $areas->nama_organisasi }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="idOrg">
-                            <label for="idOrg" class="control-label">ID Organisasi <star>*</star></label>
-                            <input type="number" class="form-control" id="idOrg" name="idOrg" required="true">
-                        </div>
+                        <label for="namaOrg" class="control-label">Nama Organisasi <star>*</star></label>
+                        <input type="text" class="form-control" id="namaOrg" name="namaOrg" required="true">
                     </div>
                     <div class="form-group">
-                        <div class="namaOrg">
-                            <label for="namaOrg" class="control-label">Nama Organisasi <star>*</star></label>
-                            <input type="text" class="form-control" id="namaOrg" name="namaOrg" required="true">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="alamatOrg">
-                            <label for="alamatOrg" class="control-label">Alamat Organisasi <star>*</star></label>
-                            <input type="text" class="form-control" id="alamatOrg" name="alamatOrg" required="true">
-                        </div>
+                        <label for="alamatOrg" class="control-label">Alamat Organisasi <star>*</star></label>
+                        <input type="text" class="form-control" id="alamatOrg" name="alamatOrg" required="true">
                     </div>
 
                     <div class="form-group">
                         <label for="pass" class="control-label">Password <star>*</star></label>
-                        <input type="password" class="form-control" id="pass" name="pass" required="true">
+                        <input type="password" class="form-control" id="pass" name="pass" minLength="4" required="true">
                     </div>
 
                     <div class="category"><star>*</star> Required fields</div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-primary">Tambah Organisasi</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Tambah Organisasi</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
