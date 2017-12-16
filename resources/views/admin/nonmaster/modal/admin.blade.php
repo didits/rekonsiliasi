@@ -10,22 +10,20 @@
                 </button>
             </div>
             <form method="POST" action="{{url('admin/change_pass')}}" enctype="multipart/form-data"  id="editPass">
-                <input type="hidden" name="id" value="{{$list->id}}">
                 {{csrf_field()}}
                 <div class="modal-body">
-                    {{--<form id="valPass">--}}
-                    <input name="id" type="hidden" id="id_" value="{{$list->id}}">
+                    <input name="id" type="hidden" id="id_">
                     <div class="form-group">
                         <label for="old-pass" class="control-label">Password Lama <star>*</star></label>
-                        <input name="old_pass" type="password" class="form-control" id="old-pass" required="true">
+                        <input name="old_pass" type="password" class="form-control" id="old-pass" minLength="4" required="true">
                     </div>
                     <div class="form-group">
                         <label for="new-pass" class="control-label">Password Baru <star>*</star></label>
-                        <input name="new_pass" type="password" class="form-control" id="new-pass" required="true">
+                        <input name="new_pass" type="password" class="form-control" id="new-pass" minLength="4" required="true">
                     </div>
                     <div class="form-group">
                         <label for="new2-pass" class="control-label">Konfirmasi Password<star>*</star></label>
-                        <input type="password" class="form-control" id="new2-pass" required="true" equalTo="#new-pass">
+                        <input type="password" class="form-control" id="new2-pass" minLength="4" required="true" equalTo="#new-pass">
                     </div>
 
                     <div class="category"><star>*</star> Required fields</div>
@@ -50,8 +48,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form>
+            <form id="editOrganisasi">
+                <div class="modal-body">
                     <input type="hidden" id="id_">
                     <div class="form-group">
                         <div class="idOrg">
@@ -82,12 +80,12 @@
                     </div>
 
                     <div class="category"><star>*</star> Required fields</div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-primary">Edit Organisasi</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Edit Organisasi</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -131,6 +129,15 @@
                 <form>
                     <input type="hidden" id="id_">
                     <div class="form-group">
+                        <div class="tipeOrg">
+                            <label for="tipeOrg" class="control-label">Tipe Organisasi <star>*</star></label>
+                            <select class="form-control" id="tipeOrg" name="tipeOrg" required="true">
+                                <option value="2">Area</option>
+                                <option value="3">Rayon</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <div class="idOrg">
                             <label for="idOrg" class="control-label">ID Organisasi <star>*</star></label>
                             <input type="number" class="form-control" id="idOrg" name="idOrg" required="true">
@@ -140,15 +147,6 @@
                         <div class="namaOrg">
                             <label for="namaOrg" class="control-label">Nama Organisasi <star>*</star></label>
                             <input type="text" class="form-control" id="namaOrg" name="namaOrg" required="true">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="tipeOrg">
-                            <label for="tipeOrg" class="control-label">Tipe Organisasi <star>*</star></label>
-                            <select class="form-control" id="tipeOrg" name="tipeOrg" required="true">
-                                <option value="2">Area</option>
-                                <option value="3">Rayon</option>
-                            </select>
                         </div>
                     </div>
                     <div class="form-group">

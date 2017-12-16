@@ -3,9 +3,11 @@
 
 @section('content')
 <div class="wrapper">
-@include('admin.master.navbar')
+    @include('admin.master.top_navbar', ['navbartitle' => Auth::user()->nama_organisasi])
+
+    @include('admin.master.navbar')
+    
     <div class="main-panel">
-@include('admin.master.top_navbar', ['navbartitle' => Auth::user()->nama_organisasi])
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -126,8 +128,6 @@
                                             </td>
                                         </tr>
 
-                                        @include('admin.nonmaster.modal.admin')
-
                                     @endforeach
 
                                     </tbody>
@@ -140,6 +140,8 @@
         </div>
 
         @include('admin.master.footer')
+
+        @include('admin.nonmaster.modal.admin')
 
     </div>
 </div>
@@ -163,11 +165,6 @@
 @endsection
 
 @section('extra_script')
-    <script type="text/javascript">
-        $().ready(function(){
-            $('#valPass').validate();
-        });
-    </script>
 
     <script type="text/javascript">
         $('#editPassModal').on('show.bs.modal', function (event) {
@@ -241,6 +238,7 @@
     <script type="text/javascript">
         $().ready(function(){
             $('#editPass').validate();
+            $('#editOrganisasi').validate();
             @if($status)
                 notif.statusPassword();
             @endif

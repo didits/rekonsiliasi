@@ -5,20 +5,20 @@
 @section('content')
 
     <div class="wrapper">
+        @if($tipe=="gi")
+            @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER GARDU INDUK: " . $nama_rayon])
+        @elseif($tipe=="tgi")
+            @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER TRAFO GI: " . $nama['nama_gi']])
+        @elseif($tipe=="penyulang")
+            @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER PENYULANG: " . $nama['nama_trafo_gi']])
+        @elseif($tipe=="gd")
+            @include('admin.master.top_navbar',  ['navbartitle' => "DATAMASTER GD/PCT/TM: " . $nama['nama_penyulang']])
+            {{--{{dd($data)}}--}}
+        @endif
+
         @include('admin.master.navbar')
 
         <div class="main-panel">
-            @if($tipe=="gi")
-                @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER GARDU INDUK: " . $nama_rayon])
-            @elseif($tipe=="tgi")
-                @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER TRAFO GI: " . $nama['nama_gi']])
-            @elseif($tipe=="penyulang")
-                @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER PENYULANG: " . $nama['nama_trafo_gi']])
-            @elseif($tipe=="gd")
-                @include('admin.master.top_navbar',  ['navbartitle' => "DATAMASTER GD/PCT/TM: " . $nama['nama_penyulang']])
-                {{--{{dd($data)}}--}}
-            @endif
-
             <div class="content">
                 <div class="container-fluid">
 

@@ -4,10 +4,11 @@
 @section('content')
 
 <div class="wrapper">
-@include('admin.master.navbar')
+    @include('admin.master.top_navbar', ['navbartitle' => "LAPORAN GI"])
+
+    @include('admin.master.navbar')
 
     <div class="main-panel">
-    @include('admin.master.top_navbar', ['navbartitle' => "LAPORAN GI"])
         @for($tr=0;$tr<count($dt_trafo);$tr++)
         <div class="content">
             <div class="container-fluid">
