@@ -1887,11 +1887,12 @@ class Laporan extends Controller
     public function data_pct($id_rayon,$p_penyulang ,$p_gardu,$gardu,$nama_rayon){
         $dp_gardu = array();
         $idrayon = $id_rayon->toArray();
+//        dd($gardu[1]['asal']);
 
         //        Stand Expor Impor
         for($i=0;$i<count($p_gardu);$i++){
             for($j=0;$j<count($gardu);$j++) {
-                if(in_array($gardu[$j]['id_organisasi'],$idrayon)) $tipe = true;
+                if(in_array($gardu[$j]['asal'],$idrayon)) $tipe = true;
                 else $tipe=false;
                 if($p_gardu[$i]['id_gardu']==$gardu[$j]['id']){
                     $data = array(
@@ -1901,6 +1902,7 @@ class Laporan extends Controller
                         'id_penyulang' => $gardu[$j]['id_penyulang'],
                         'id_rayon' => $gardu[$j]['id_organisasi'],
                         'rincian' => $gardu[$j]['rincian'],
+                        'asal' => $gardu[$j]['asal'],
                         'tujuan' => $gardu[$j]['tujuan'],
                         'data_master'=> $gardu[$j]['data_master'],
                         'data'=> $p_gardu[$i]['data'],
@@ -1911,6 +1913,7 @@ class Laporan extends Controller
                 }
             }
         }
+        // Hitung total
         $total_ekspor = $total_impor = null;
         for($i=0;$i<count($dp_gardu);$i++){
             if($dp_gardu[$i]['tipe']) {
@@ -1930,10 +1933,11 @@ class Laporan extends Controller
                 else $total_impor += json_decode($dp_gardu[$i]['data'], true)['hasil_pengolahan']['ekspor']['total_kwh_download'];
             }
         }
-        $wbp_e =$lwbp1_e =$lwbp2_e=$kvar_e=$kh_e =$wbp_i =$lwbp1_i =$lwbp2_i=$kvar_i=$kh_i = null;
-        $hasil_e =$hasil_i = null;
+
 
         //        Data Urai
+        $wbp_e =$lwbp1_e =$lwbp2_e=$kvar_e=$kh_e =$wbp_i =$lwbp1_i =$lwbp2_i=$kvar_i=$kh_i = null;
+        $hasil_e =$hasil_i = null;
         $data_urai = array();
         for($i=0;$i<count($dp_gardu);$i++) {
             for($j=0;$j<count($p_penyulang);$j++){
@@ -1970,6 +1974,8 @@ class Laporan extends Controller
                     $kw_i = intval(($hasil_i*(json_decode($p_penyulang[$j]['data_keluar'],true)['dev_kw']/$total))/1+0.5);
                     $dt_urai = array(
                         'id_rayon' => $dp_gardu[$i]['id_rayon'],
+                        'asal' => $dp_gardu[$i]['asal'],
+                        'tujuan' => $dp_gardu[$i]['tujuan'],
                         'id_penyulang' => $p_penyulang[$j]['id_penyulang'],
                         'pct' => $dp_gardu[$i]['nama_gardu'],
                         'rincian' => $dp_gardu[$i]['rincian'],
@@ -1997,22 +2003,23 @@ class Laporan extends Controller
         for($i=0;$i<count($nama_rayon);$i++) {
             $total_lwbp1_e =$total_lwbp2_e =$total_wbp_e =$total_lwbp1_i =$total_lwbp2_i =$total_wbp_i = $total_kvar_e =$total_kw_e =$total_kvar_i =$total_kw_i =null;
             for($j=0;$j<count($data_urai);$j++) {
-                if($data_urai[$j]['id_rayon']==$id_rayon[$i]){
-                    $total_lwbp1_e +=$data_urai[$j]['lwbp1_e'];
-                    $total_lwbp2_e +=$data_urai[$j]['lwbp2_e'];
-                    $total_wbp_e +=$data_urai[$j]['wbp_e'];
-                    $total_kvar_e +=$data_urai[$j]['kvar_e'];
-                    $total_kw_e +=$data_urai[$j]['kw_e'];
+                if($data_urai[$j]['asal']==$id_rayon[$i]){
                     $total_lwbp1_i +=$data_urai[$j]['lwbp1_i'];
                     $total_lwbp2_i +=$data_urai[$j]['lwbp2_i'];
                     $total_wbp_i +=$data_urai[$j]['wbp_i'];
                     $total_kvar_i +=$data_urai[$j]['kvar_i'];
                     $total_kw_i +=$data_urai[$j]['kw_i'];
                 }
+                if($data_urai[$j]['tujuan']==$id_rayon[$i]){
+                    $total_lwbp1_e +=$data_urai[$j]['lwbp1_e'];
+                    $total_lwbp2_e +=$data_urai[$j]['lwbp2_e'];
+                    $total_wbp_e +=$data_urai[$j]['wbp_e'];
+                    $total_kvar_e +=$data_urai[$j]['kvar_e'];
+                    $total_kw_e +=$data_urai[$j]['kw_e'];
+                }
             }
             $data_rayon = array(
                 'id_rayon' => $id_rayon[$i],
-                'nama_rayon' => $nama_rayon[$i],
                 'nama_rayon' => $nama_rayon[$i],
                 'lwbp1_e' => $total_lwbp1_e,
                 'lwbp2_e' => $total_lwbp2_e,
@@ -2038,6 +2045,7 @@ class Laporan extends Controller
         $cmb = new MasterLaporan($id_rayon,$tipe,$id);
         $gardu    = $cmb->gardu;$p_penyulang    = $cmb  ->p_penyulang;   $p_gardu  = $cmb->p_gardu;
         $data = $this->data_pct($id_rayon,$p_penyulang,$p_gardu,$gardu,$nama_rayon);
+//        dd($p_penyulang);
         return view('admin.nonmaster.laporan.pct',[
             'gardu'      => $data[0],
             'p_gardu'   => $data[1],
