@@ -184,7 +184,7 @@
             var alamatOrg = button.data('alamatorg');
             // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
             // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-            $('#id_').val(idd);
+            $('#id_edit').val(idd);
             $('#idOrg').val(idOrg);
             $('#namaOrg').val(namaOrg);
             $('#tipeOrg').val(tipeOrg);
@@ -198,7 +198,7 @@
             var tipeOrg = button.data('tipeorg');
             // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
             // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-            $('#id_').val(idd);
+            $('#id_del').val(idd);
             if(tipeOrg===2)
                 $('#toDelete').text("Area " + namaOrg + " akan dihapus!");
             else if(tipeOrg===3)

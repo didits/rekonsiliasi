@@ -14,10 +14,6 @@
                 <div class="modal-body">
                     <input name="id" type="hidden" id="id_">
                     <div class="form-group">
-                        <label for="old-pass" class="control-label">Password Lama <star>*</star></label>
-                        <input name="old_pass" type="password" class="form-control" id="old-pass" minLength="4" required="true">
-                    </div>
-                    <div class="form-group">
                         <label for="new-pass" class="control-label">Password Baru <star>*</star></label>
                         <input name="new_pass" type="password" class="form-control" id="new-pass" minLength="4" required="true">
                     </div>
@@ -48,23 +44,13 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="editOrganisasi">
+            <form method="POST" action="{{url('admin/edit_org')}}" enctype="multipart/form-data"  id="editOrganisasi">
+                {{csrf_field()}}
                 <div class="modal-body">
-                    <input type="hidden" id="id_">
-                    <div class="form-group">
-                        <label for="idOrg" class="control-label">ID Organisasi <star>*</star></label>
-                        <input type="number" class="form-control" id="idOrg" name="idOrg" required="true">
-                    </div>
+                    <input type="hidden" id="id_edit" name="id_">
                     <div class="form-group">
                         <label for="namaOrg" class="control-label">Nama Organisasi <star>*</star></label>
                         <input type="text" class="form-control" id="namaOrg" name="namaOrg" required="true">
-                    </div>
-                    <div class="form-group">
-                        <label for="tipeOrg" class="control-label">Tipe Organisasi <star>*</star></label>
-                        <select class="form-control" id="tipeOrg" name="tipeOrg" required="true">
-                            <option value="2">Area</option>
-                            <option value="3">Rayon</option>
-                        </select>
                     </div>
                     <div class="form-group">
                         <label for="alamatOrg" class="control-label">Alamat Organisasi <star>*</star></label>
@@ -86,23 +72,24 @@
 <div class="modal fade" id="deleteOrgModal" tabindex="-1" role="dialog" aria-labelledby="deleteOrgLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteOrgLabel">Hapus Organisasi</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <h4>Hapus Organisasi</h4>
-                <h3 id="toDelete"></h3>
-                <form>
-                    <input type="hidden" id="id_">
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-danger">Hapus</button>
-            </div>
+            <form method="POST" action="{{url('admin/delete_org')}}" enctype="multipart/form-data"  id="delOrganisasi">
+                {{csrf_field()}}
+                <input type="hidden" id="id_del" name="id_">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteOrgLabel">Hapus Organisasi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4>Hapus Organisasi</h4>
+                    <h3 id="toDelete"></h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-danger">Hapus</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -118,7 +105,8 @@
                 </button>
             </div>
 
-            <form id="addOrganisasi">
+            <form method="POST" action="{{url('admin/add_org')}}" enctype="multipart/form-data"  id="addOrganisasi">
+                {{csrf_field()}}
                 <div class="modal-body">
                     <input type="hidden" id="id_">
                     <div class="form-group">
