@@ -4,11 +4,11 @@
 @section('content')
 
 <div class="wrapper">
-@include('admin.master.navbar')
+    @include('admin.master.top_navbar', ['navbartitle' => "RAYON " .    Auth::user()->nama_organisasi])
+
+    @include('admin.master.navbar')
 
     <div class="main-panel">
-        @include('admin.master.top_navbar', ['navbartitle' => "RAYON " .    Auth::user()->nama_organisasi])
-
         <div class="content">
             <div class="container-fluid">
                 @if(!$gi)

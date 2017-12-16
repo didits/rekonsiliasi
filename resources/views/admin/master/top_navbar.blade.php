@@ -2,7 +2,7 @@
 <div class="{{ session('color') }}">{{ session('key') }}</div>
 @endif
 
-            <nav class="navbar navbar-default navbar">
+            <nav class="navbar navbar-default navbar-fixed">
                 <div class="container-fluid">
                     <div class="navbar-minimize">
                         <button id="minimizeSidebar" class="btn btn-info btn-fill btn-round btn-icon">

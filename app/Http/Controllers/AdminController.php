@@ -43,7 +43,6 @@ class AdminController extends Controller
     }
 
     public function importOrganisasi(Request $request){
-        dd("sdad");
 
         ini_set('max_execution_time',5000);
         if(count($request->file()) > 0)

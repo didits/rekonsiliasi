@@ -5,11 +5,11 @@
 @section('content')
 
     <div class="wrapper">
+        @include('admin.master.top_navbar', ['navbartitle' => "LIST GARDU INDUK RAYON " . $nama_rayon])
+
         @include('admin.master.navbar')
 
         <div class="main-panel">
-            @include('admin.master.top_navbar', ['navbartitle' => "LIST GARDU INDUK RAYON " . $nama_rayon])
-
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
