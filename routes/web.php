@@ -534,5 +534,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'tipe:0']], function
         'uses'      => 'AdminController@delete_org'
     ]);
 
+    Route::post('/change_pass', [
+        'as'        => 'admin.change_pass',
+        'uses'      => 'AdminController@change_pass'
+    ]);
+
     Route::post('/import_organisasi', 'AdminController@importOrganisasi');
 });

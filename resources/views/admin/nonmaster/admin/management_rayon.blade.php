@@ -125,6 +125,9 @@
 
                                             </td>
                                         </tr>
+
+                                        @include('admin.nonmaster.modal.admin')
+
                                     @endforeach
 
                                     </tbody>
@@ -140,7 +143,6 @@
 
     </div>
 </div>
-@include('admin.nonmaster.modal.admin')
 
 @endsection
 
@@ -212,4 +214,37 @@
         url_edit = "{{route('admin.edit_org')}}";
         url_delete = "{{route('admin.delete_org')}}";
     </script>
+
+    <script>
+        notif ={
+            statusPassword: function () {
+                status_ = "{{isset($status)?$status[0]:""}}";
+                if(status_ === "success")
+                    icon_ = "pe-7s-check";
+                else if (status_ === "warning")
+                    icon_ = "pe-7s-close-circle";
+                else
+                    icon_ = "";
+
+                $.notify({
+                    icon: icon_,
+                    message: "<b>{{isset($status)?$status[1]:""}}</b>"
+
+                }, {
+                    type: status_,
+                    timer: 4000
+                });
+            }
+        }
+    </script>
+
+    <script type="text/javascript">
+        $().ready(function(){
+            $('#editPass').validate();
+            @if($status)
+                notif.statusPassword();
+            @endif
+        });
+    </script>
+
 @endsection

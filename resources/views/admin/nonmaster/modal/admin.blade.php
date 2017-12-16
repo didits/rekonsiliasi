@@ -1,3 +1,4 @@
+
 {{--Edit Pass--}}
 <div class="modal fade" id="editPassModal" tabindex="-1" role="dialog" aria-labelledby="editPassLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -8,28 +9,36 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form id="valPass">
-                    <input type="hidden" id="id_">
+            <form method="POST" action="{{url('admin/change_pass')}}" enctype="multipart/form-data"  id="editPass">
+                <input type="hidden" name="id" value="{{$list->id}}">
+                {{csrf_field()}}
+                <div class="modal-body">
+                    {{--<form id="valPass">--}}
+                    <input name="id" type="hidden" id="id_" value="{{$list->id}}">
                     <div class="form-group">
                         <label for="old-pass" class="control-label">Password Lama <star>*</star></label>
-                        <input type="password" class="form-control" id="old-pass" required="true">
+                        <input name="old_pass" type="password" class="form-control" id="old-pass" required="true">
                     </div>
                     <div class="form-group">
                         <label for="new-pass" class="control-label">Password Baru <star>*</star></label>
-                        <input type="password" class="form-control" id="new-pass" required="true" equalTo="#old-pass">
+                        <input name="new_pass" type="password" class="form-control" id="new-pass" required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="new2-pass" class="control-label">Konfirmasi Password<star>*</star></label>
+                        <input type="password" class="form-control" id="new2-pass" required="true" equalTo="#new-pass">
                     </div>
 
                     <div class="category"><star>*</star> Required fields</div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-primary">Ganti Password</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Ganti Password</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
 
 {{--Edit Org--}}
 <div class="modal fade" id="editOrgModal" tabindex="-1" role="dialog" aria-labelledby="editOrgLabel" aria-hidden="true">

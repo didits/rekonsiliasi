@@ -29,14 +29,17 @@ class AdminController extends Controller
     {
         $data = Organisasi::all();
          return view('admin.nonmaster.admin.management_rayon',[
-            'data'=>$data]);
+            'data'=>$data,
+             'status' => 1
+         ]);
     }
 
     public function managementRayon()
     {
          $data = Organisasi::all();
          return view('admin.nonmaster.admin.management_rayon',[
-            'data'=>$data]);
+            'data'=>$data,
+             'status' => 1]);
     }
 
     public function importOrganisasi(Request $request){
@@ -133,5 +136,31 @@ class AdminController extends Controller
         $id = $request->id;
         $org = Organisasi::where('id',$id)->delete();
         return $org;
+    }
+
+    public function change_pass(Request $request){
+        $user = Organisasi::where("id",$request->id)->first();
+        if($user){
+            $curPassword = $request->old_pass;
+            $newPassword = $request->new_pass;
+
+            if (Hash::check($curPassword, $user->password)) {
+                $user->password = Hash::make($newPassword);
+                $user->save();
+                $status = ["success" ,"Password Berhasil Diubah"];
+                $data = Organisasi::all();
+                return view('admin.nonmaster.admin.management_rayon',[
+                    'data'=>$data,
+                    'status' => $status]);
+            }
+            else {
+                $data = Organisasi::all();
+                $status = ["danger", "Password Salah"];
+                return view('admin.nonmaster.admin.management_rayon',[
+                    'data'=>$data,
+                    'status' => $status]);
+            }
+        }
+        else return response()->json("user not found");
     }
 }

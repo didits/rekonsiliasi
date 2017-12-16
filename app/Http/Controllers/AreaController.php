@@ -85,6 +85,7 @@ class AreaController extends Controller
             $inputGardu->data_master = "";
             $inputGardu->tipe_gardu=$request->tipe_;
             $inputGardu->tujuan=0;
+            $inputGardu->asal=0;
             $inputGardu->rincian="";
             if($inputGardu->save());
             return back();
@@ -186,6 +187,7 @@ class AreaController extends Controller
                         'impor' => $lok_d,
                         'ekspor' => $lok_t
                     );
+                    dd($lok);
                     $dat = $this->json_datamaster($request, $data, "meter",0);
                     $data_master->rincian = json_encode($rincian);
                     $data_master->tujuan = $rayon_tujuan->id;

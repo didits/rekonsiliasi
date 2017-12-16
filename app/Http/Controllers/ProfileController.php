@@ -29,7 +29,7 @@ class ProfileController extends Controller
             $status = ["success" ,"Password Berhasil Diubah"];
         }
         else {
-            $status = ["warning", "Password Salah"];
+            $status = ["danger", "Password Salah"];
         }
         return view('admin.nonmaster.dashboard_user.profile_edit', ['status' => $status]);
     }
