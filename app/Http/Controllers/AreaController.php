@@ -163,25 +163,20 @@ class AreaController extends Controller
                 if($request->form_editExim){
                     $area = Organisasi::where('id_organisasi', $request->selectareasingle)->first();
                     $rayon_tujuan = Organisasi::where('id_organisasi', $request->selectrayonsingle)->first();
-                    $id_asal = Transfer::select('id_organisasi as id_org')->where('id_penyulang',$request->gardu)->first();
+                    $id_asal = Transfer::select('id_organisasi as id_org','id')->where('id_penyulang',$request->gardu)->first();
                     if($id_asal);
                     else{
-                        $id_asal = Penyulang::select('id_organisasi as id_org')->where('id',$request->gardu)->first();
+                        $id_asal = Penyulang::select('id_organisasi as id_org','id')->where('id',$request->gardu)->first();
                     }
                     $asal_rayon = Organisasi::where('id',$id_asal->id_org)->first();
                     $asal_area = Organisasi::where('id_organisasi', 'like', substr($asal_rayon->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '2')->first();
                     $asal_area = $asal_area;
 
                     $penyulang = Penyulang::where('id', $request->selectpenyulangsingle)->first();
-                    $penyulang2 = Penyulang::where('id', $request->gardu)->first();
+                    $penyulang2 = Penyulang::where('id', $id_asal->id)->first();
                     $trafo = TrafoGI::where('id',$penyulang2->id_trafo_gi)->first();
                     $GI = GI::where('id',$trafo->id_gi)->first();
                     $antar_unit = $asal_rayon->nama_organisasi ." - ".  $rayon_tujuan->nama_organisasi;
-                    $rincian = array(
-                        'gi' => $GI->nama_gi,
-                        'penyulang' => $penyulang->nama_penyulang,
-                        'antar_unit' =>$antar_unit,
-                    );
                     $lok_d = array(
                         'area' => $asal_area->nama_organisasi,
                         'rayon' => $asal_rayon->nama_organisasi,
@@ -196,13 +191,19 @@ class AreaController extends Controller
                         'impor' => $lok_d,
                         'ekspor' => $lok_t
                     );
-//                    dd($lok);
-                    $dat = $this->json_datamaster($request, $data, "meter",0);
+                    $rincian = array(
+                        'gi' => $GI->nama_gi,
+                        'penyulang' => $penyulang2->nama_penyulang,
+                        'antar_unit' =>$antar_unit,
+                        'lokasi_antar_unit' =>$lok,
+                    );
+
                     $data_master->rincian = json_encode($rincian);
                     $data_master->tujuan = $rayon_tujuan->id;
                     $data_master->asal = $id_asal->id_org;
                 }
                 else{
+//                    dd("dsad");
                     $decoded = json_decode($data->data_master, true);
                     $lok_d = array(
                         'area' => $decoded['lokasi']['impor']['area'],

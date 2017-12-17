@@ -2045,7 +2045,6 @@ class Laporan extends Controller
         $cmb = new MasterLaporan($id_rayon,$tipe,$id);
         $gardu    = $cmb->gardu;$p_penyulang    = $cmb  ->p_penyulang;   $p_gardu  = $cmb->p_gardu;
         $data = $this->data_pct($id_rayon,$p_penyulang,$p_gardu,$gardu,$nama_rayon);
-//        dd($p_penyulang);
         return view('admin.nonmaster.laporan.pct',[
             'gardu'      => $data[0],
             'p_gardu'   => $data[1],
