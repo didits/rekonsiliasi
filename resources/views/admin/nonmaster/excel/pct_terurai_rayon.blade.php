@@ -101,11 +101,11 @@
                 <td></td>
                 @for($i=0; $i<2; $i++)
 
-                <td class="text-center" style="width: 10px">WBP</td>
-                <td class="text-center" style="width: 10px">LWBP1</td>
-                <td class="text-center" style="width: 10px">LWBP2</td>
-                <td class="text-center" style="width: 10px">KVARH</td>
-                <td class="text-center" style="width: 10px">KW</td>
+                <td class="text-center" width="10px">WBP</td>
+                <td class="text-center" width="10px">LWBP1</td>
+                <td class="text-center" width="10px">LWBP2</td>
+                <td class="text-center" width="10px">KVARH</td>
+                <td class="text-center" width="10px">KW</td>
                 @endfor
 
             </tr>
