@@ -2946,7 +2946,7 @@
                                                                         <div class="tab-content">
                                                                             <div class="tab-pane active" id="ekspor">
                                                                                 <div class="card">
-                                                                                    <div class="header">Ekspor</div>
+                                                                                    <div class="header">Meter Ekspor PCT {{$gardu->nama_gardu}}</div>
                                                                                     <div class="content">
                                                                                         <label>Ekspor ke:</label>
                                                                                         <div class="row">
@@ -2987,7 +2987,7 @@
                                                                             </div>
                                                                             <div class="tab-pane" id="impor">
                                                                                 <div class="card">
-                                                                                    <div class="header">Impor</div>
+                                                                                    <div class="header">Meter Impor PCT {{$gardu->nama_gardu}}</div>
                                                                                     <div class="content">
                                                                                         <label>Impor dari:</label>
                                                                                         <div class="row">
@@ -3054,10 +3054,10 @@
                                                                                        name="form_editExim"
                                                                                        value="{{$gardu->id}}">
                                                                                 {{ csrf_field() }}
-                                                                                <div class="header">Edit EXIM</div>
+                                                                                <div class="header">Edit Unit Tujuan PCT</div>
                                                                                 <div class="content">
 
-                                                                                    <label class="control-label">EXIM
+                                                                                    <label class="control-label">Unit Tujuan
                                                                                         <star>*</star>
                                                                                     </label>
                                                                                     <div class="form-group">
@@ -3066,15 +3066,12 @@
                                                                                                 <label class="checkbox">
                                                                                                     <input name="cekbos"
                                                                                                            type="checkbox"
-                                                                                                           data-toggle="checkbox">Penyulang
-                                                                                                    Dipakai Rayon Lain
-                                                                                                </label>
+                                                                                                           data-toggle="checkbox">Unit Tujuan Tidak Memiliki Penyulang
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
 
-                                                                                    <label class="control-label">Tujuan
-                                                                                        Ekspor
+                                                                                    <label class="control-label">Unit Tujuan
                                                                                         <star>*</star>
                                                                                     </label>
                                                                                     <div class="form-group">
