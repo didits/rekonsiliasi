@@ -63,26 +63,26 @@
     <table>
         <tdead>
             <tr>
-                <td colspan="15"><i>PT PLN ( PERSERO )</i></td>
+                <td colspan="12"><i>PT PLN ( PERSERO )</i></td>
             </tr>
             <tr>
-                <td colspan="15"><i>DISTRIBUSI JAWA TIMUR</i></td>
+                <td colspan="12"><i>DISTRIBUSI JAWA TIMUR</i></td>
             </tr>
             <tr>
-                <td colspan="15"><i>AREA {{Auth::user()->nama_organisasi}}</i></td>
+                <td colspan="12"><i>AREA {{Auth::user()->nama_organisasi}}</i></td>
             </tr>
         </tdead>
     </table>
     <table class="table table-hover table-striped">
         <tdead>
             <tr>
-                <td colspan="15"><br/></td>
+                <td colspan="12"><br/></td>
             </tr>
             <tr>
-                <td colspan="15" class="text-center">TOTAL PEMAKAIAN KWH PCT/EXIM</td>
+                <td colspan="12" class="text-center">TOTAL PEMAKAIAN KWH PCT/EXIM</td>
             </tr>
             <tr>
-                <td colspan="15" class="text-center">BULAN : {{date('M Y')}}</td>
+                <td colspan="12" class="text-center">BULAN : {{date('M Y')}}</td>
             </tr>
         </tdead>
     </table>
@@ -125,48 +125,48 @@
                 <td class="text-left">{{json_decode($p_gardu[$i]['rincian'],true)['gi']}}</td>
                 <td class="text-left">{{json_decode($p_gardu[$i]['rincian'],true)['penyulang']}}</td>
                 <td class="text-left">{{json_decode($p_gardu[$i]['rincian'],true)['antar_unit']}}</td>
-                <td class="text-left">{{number_format(json_decode($p_gardu[$i]['data_master'],true)['meter']['FK']['faktorkali'],0)}}</td>
+                <td class="text-left">{{json_decode($p_gardu[$i]['data_master'],true)['meter']['FK']['faktorkali']}}</td>
                 @if($p_gardu[$i]['tipe'])
                 @if(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_download']==0)
-                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['beli']['ekspor']['visual']['awal_visual'],2)}}</td>
-                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['beli']['ekspor']['visual']['akhir_visual'],2)}}</td>
-                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_visual'],2)}}</td>
+                <td>{{json_decode($p_gardu[$i]['data'],true)['beli']['ekspor']['visual']['awal_visual']}}</td>
+                <td>{{json_decode($p_gardu[$i]['data'],true)['beli']['ekspor']['visual']['akhir_visual']}}</td>
+                <td>{{json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_visual']}}</td>
                 @else
                 <td>-</td>
                 <td>-</td>
-                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_download'],2)}}</td>
+                <td>{{json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_download']}}</td>
                 @endif
                 @else
                 @if(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_download']==0)
-                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['beli']['impor']['visual']['awal_visual'],2)}}</td>
-                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['beli']['impor']['visual']['akhir_visual'],2)}}</td>
-                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_visual'],2)}}</td>
+                <td>{{json_decode($p_gardu[$i]['data'],true)['beli']['impor']['visual']['awal_visual']}}</td>
+                <td>{{json_decode($p_gardu[$i]['data'],true)['beli']['impor']['visual']['akhir_visual']}}</td>
+                <td>{{json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_visual']}}</td>
                 @else
                 <td>-</td>
                 <td>-</td>
-                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_download'],2)}}</td>
+                <td>{{json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_download']}}</td>
                 @endif
                 @endif
 
                 @if($p_gardu[$i]['tipe'])
                 @if(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_download']==0)
-                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['beli']['impor']['visual']['awal_visual'],2)}}</td>
-                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['beli']['impor']['visual']['akhir_visual'],2)}}</td>
-                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_visual'],2)}}</td>
+                <td>{{json_decode($p_gardu[$i]['data'],true)['beli']['impor']['visual']['awal_visual']}}</td>
+                <td>{{json_decode($p_gardu[$i]['data'],true)['beli']['impor']['visual']['akhir_visual']}}</td>
+                <td>{{json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_visual']}}</td>
                 @else
                 <td>-</td>
                 <td>-</td>
-                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_download'],2)}}</td>
+                <td>{{json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['impor']['total_kwh_download']}}</td>
                 @endif
                 @else
                 @if(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_download']==0)
-                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['beli']['ekspor']['visual']['awal_visual'],2)}}</td>
-                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['beli']['ekspor']['visual']['akhir_visual'],2)}}</td>
-                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_visual'],2)}}</td>
+                <td>{{json_decode($p_gardu[$i]['data'],true)['beli']['ekspor']['visual']['awal_visual']}}</td>
+                <td>{{json_decode($p_gardu[$i]['data'],true)['beli']['ekspor']['visual']['akhir_visual']}}</td>
+                <td>{{json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_visual']}}</td>
                 @else
                 <td>-</td>
                 <td>-</td>
-                <td>{{number_format(json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_download'],2)}}</td>
+                <td>{{json_decode($p_gardu[$i]['data'],true)['hasil_pengolahan']['ekspor']['total_kwh_download']}}</td>
                 @endif
                 @endif
             </tr>
@@ -181,13 +181,13 @@
                 <td class="text-right"><b></b></td>
                 @endfor
 
-                <td class="text-right"><b>{{number_format($total_e,2)}}</b></td>
+                <td class="text-right"><b>{{$total_e}}</b></td>
                 @for($i=0; $i<2; $i++)
 
                 <td class="text-right"><b></b></td>
                 @endfor
 
-                <td class="text-right"><b>{{number_format($total_i,2)}}</b></td>
+                <td class="text-right"><b>{{$total_i}}</b></td>
             </tr>
         </tdead>
     </table>

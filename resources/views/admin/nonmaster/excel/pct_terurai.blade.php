@@ -114,7 +114,6 @@
                 @endfor
 
             </tr>
-            <tr></tr>
             @for($i=0; $i<count($dt_urai) ;$i++)
 
             <tr class="text-right">
@@ -124,17 +123,17 @@
                 <td class="text-left">{{json_decode($dt_urai[$i]['rincian'],true)['penyulang']}}</td>
                 <td class="text-left">{{json_decode($dt_urai[$i]['rincian'],true)['antar_unit']}}</td>
                 {{--EKSPOR--}}
-                <td>{{number_format($dt_urai[$i]['wbp_e'],0)}}</td>
-                <td>{{number_format($dt_urai[$i]['lwbp1_e'],0)}}</td>
-                <td>{{number_format($dt_urai[$i]['lwbp2_e'],0)}}</td>
-                <td>{{number_format($dt_urai[$i]['kvar_e'],0)}}</td>
-                <td>{{number_format($dt_urai[$i]['kw_e'],0)}}</td>
+                <td>{{$dt_urai[$i]['wbp_e']}}</td>
+                <td>{{$dt_urai[$i]['lwbp1_e']}}</td>
+                <td>{{$dt_urai[$i]['lwbp2_e']}}</td>
+                <td>{{$dt_urai[$i]['kvar_e']}}</td>
+                <td>{{$dt_urai[$i]['kw_e']}}</td>
                 {{--IMPOR--}}
-                <td>{{number_format($dt_urai[$i]['wbp_i'],0)}}</td>
-                <td>{{number_format($dt_urai[$i]['lwbp1_i'],0)}}</td>
-                <td>{{number_format($dt_urai[$i]['lwbp2_i'],0)}}</td>
-                <td>{{number_format($dt_urai[$i]['kvar_i'],0)}}</td>
-                <td>{{number_format($dt_urai[$i]['kw_i'],0)}}</td>
+                <td>{{$dt_urai[$i]['wbp_i']}}</td>
+                <td>{{$dt_urai[$i]['lwbp1_i']}}</td>
+                <td>{{$dt_urai[$i]['lwbp2_i']}}</td>
+                <td>{{$dt_urai[$i]['kvar_i']}}</td>
+                <td>{{$dt_urai[$i]['kw_i']}}</td>
             </tr>
             @endfor
 

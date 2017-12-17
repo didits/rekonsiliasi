@@ -65,27 +65,27 @@
     <table class="table table-hover table-striped">
         <tdead>
             <tr>
-                <td colspan="15"><i>PT PLN ( PERSERO )</i></td>
+                <td colspan="11"><i>PT PLN ( PERSERO )</i></td>
             </tr>
             <tr>
-                <td colspan="15"><i>DISTRIBUSI JAWA TIMUR</i></td>
+                <td colspan="11"><i>DISTRIBUSI JAWA TIMUR</i></td>
             </tr>
             <tr>
-                <td colspan="15"><i>AREA {{Auth::user()->nama_organisasi}}</i></td>
+                <td colspan="11"><i>AREA {{Auth::user()->nama_organisasi}}</i></td>
             </tr>
         </tdead>
     </table>
-    
+     
     <table class="table table-hover table-striped">
         <tdead>
             <tr>
-                <td colspan="15" class="text-center">TOTAL PEMAKAIAN KWH PCT/EXIM</td>
+                <td colspan="11" class="text-center">TOTAL PEMAKAIAN KWH PCT/EXIM</td>
             </tr>
             <tr>
-                <td colspan="15" class="text-center">PEMAKAIAN RAYON</td>
+                <td colspan="11" class="text-center">PEMAKAIAN RAYON</td>
             </tr>
             <tr>
-                <td colspan="15" class="text-center">BULAN : {{date('M Y')}}</td>
+                <td colspan="11" class="text-center">BULAN : {{date('M Y')}}</td>
             </tr>
         </tdead>
     </table>
@@ -115,17 +115,17 @@
             <tr class="text-right">
                 <td class="text-left">{{$dt_rayon[$i]['nama_rayon']}}</td>
                 {{--EKSPOR--}}
-                <td>{{number_format($dt_rayon[$i]['wbp_e'],0)}}</td>
-                <td>{{number_format($dt_rayon[$i]['lwbp1_e'],0)}}</td>
-                <td>{{number_format($dt_rayon[$i]['lwbp2_e'],0)}}</td>
-                <td>{{number_format($dt_rayon[$i]['kvar_e'],0)}}</td>
-                <td>{{number_format($dt_rayon[$i]['kw_e'],0)}}</td>
+                <td>{{$dt_rayon[$i]['wbp_e']}}</td>
+                <td>{{$dt_rayon[$i]['lwbp1_e']}}</td>
+                <td>{{$dt_rayon[$i]['lwbp2_e']}}</td>
+                <td>{{$dt_rayon[$i]['kvar_e']}}</td>
+                <td>{{$dt_rayon[$i]['kw_e']}}</td>
                 {{--IMPOR--}}
-                <td>{{number_format($dt_rayon[$i]['wbp_i'],0)}}</td>
-                <td>{{number_format($dt_rayon[$i]['lwbp1_i'],0)}}</td>
-                <td>{{number_format($dt_rayon[$i]['lwbp2_i'],0)}}</td>
-                <td>{{number_format($dt_rayon[$i]['kvar_i'],0)}}</td>
-                <td>{{number_format($dt_rayon[$i]['kw_i'],0)}}</td>
+                <td>{{$dt_rayon[$i]['wbp_i']}}</td>
+                <td>{{$dt_rayon[$i]['lwbp1_i']}}</td>
+                <td>{{$dt_rayon[$i]['lwbp2_i']}}</td>
+                <td>{{$dt_rayon[$i]['kvar_i']}}</td>
+                <td>{{$dt_rayon[$i]['kw_i']}}</td>
             </tr>
             @endfor
 
