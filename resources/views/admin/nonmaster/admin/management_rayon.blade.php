@@ -107,7 +107,9 @@
                                                 </a>
                                             @endif
                                                 <button type="button" class="btn btn-primary btn-fill" data-toggle="modal" data-target="#editPassModal" title="Edit Password"
-                                                        data-idd = "{{$list->id}}">
+                                                        data-idd        = "{{$list->id}}"
+                                                        data-namaOrg    = "{{$list->nama_organisasi}}"
+                                                        data-tipeOrg    = "{{$list->tipe_organisasi}}">
                                                     <i class="fa fa-key"></i>
                                                 </button>
                                                 <button type="button" class="btn btn-success btn-fill" data-toggle="modal" data-target="#editOrgModal" title="Edit Organisasi"
@@ -173,6 +175,17 @@
             // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
             // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
             $('#id_').val(idd);
+            var namaOrg = button.data('namaorg');
+            var tipeOrg = button.data('tipeorg');
+            if(tipeOrg===2) {
+                $('#editPassLabel').text("Edit Password: Area " + namaOrg);
+            }
+            else if(tipeOrg===3) {
+                $('#editPassLabel').text("Edit Password: Rayon " + namaOrg);
+            }
+            else {
+                $('#editPassLabel').text("Edit Password: " + namaOrg);
+            }
         });
 
         $('#editOrgModal').on('show.bs.modal', function (event) {
@@ -189,6 +202,10 @@
             $('#namaOrg').val(namaOrg);
             $('#tipeOrg').val(tipeOrg);
             $('#alamatOrg').val(alamatOrg);
+            if(tipeOrg===2)
+                $('#editOrgLabel').text("Edit Organisasi: Area " + namaOrg);
+            else if(tipeOrg===3)
+                $('#editOrgLabel').text("Edit Organisasi: Rayon " + namaOrg);
         });
 
         $('#deleteOrgModal').on('show.bs.modal', function (event) {
@@ -199,10 +216,14 @@
             // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
             // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
             $('#id_del').val(idd);
-            if(tipeOrg===2)
+            if(tipeOrg===2) {
+                $('#deleteOrgLabel').text("Hapus Organisasi: Area " + namaOrg);
                 $('#toDelete').text("Area " + namaOrg + " akan dihapus!");
-            else if(tipeOrg===3)
+            }
+            else if(tipeOrg===3) {
+                $('#deleteOrgLabel').text("Hapus Organisasi: Area " + namaOrg);
                 $('#toDelete').text("Rayon " + namaOrg + " akan dihapus!");
+            }
         });
     </script>
 

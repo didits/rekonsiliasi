@@ -83,7 +83,7 @@
                 </div>
                 <div class="modal-body">
                     <h4>Hapus Organisasi</h4>
-                    <h3 id="toDelete"></h3>
+                    <h5 id="toDelete"></h5>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>

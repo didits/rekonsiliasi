@@ -14,7 +14,13 @@
 @section('content')
 
     <div class="wrapper">
-        @include('admin.master.top_navbar', ['navbartitle' => $go .    Auth::user()->nama_organisasi])
+        @if(Auth::user()->tipe_organisasi == 2)
+            @include('admin.master.top_navbar', ['navbartitle' => "AREA " . Auth::user()->nama_organisasi])
+
+        @else(Auth::user()->tipe_organisasi == 3)
+            @include('admin.master.top_navbar', ['navbartitle' => "RAYON " . Auth::user()->nama_organisasi])
+
+        @endif
 
         @include('admin.master.navbar')
 
