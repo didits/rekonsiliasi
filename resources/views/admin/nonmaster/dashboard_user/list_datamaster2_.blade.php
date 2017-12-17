@@ -5,20 +5,20 @@
 @section('content')
 
     <div class="wrapper">
+        @if($tipe=="gi")
+            @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER GARDU INDUK: " . $nama_rayon])
+        @elseif($tipe=="tgi")
+            @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER TRAFO GI: " . $nama['nama_gi']])
+        @elseif($tipe=="penyulang")
+            @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER PENYULANG: " . $nama['nama_trafo_gi']])
+        @elseif($tipe=="gd")
+            @include('admin.master.top_navbar',  ['navbartitle' => "DATAMASTER GD/PCT/TM: " . $nama['nama_penyulang']])
+            {{--{{dd($data)}}--}}
+        @endif
+
         @include('admin.master.navbar')
 
         <div class="main-panel">
-            @if($tipe=="gi")
-                @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER GARDU INDUK: " . $nama_rayon])
-            @elseif($tipe=="tgi")
-                @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER TRAFO GI: " . $nama['nama_gi']])
-            @elseif($tipe=="penyulang")
-                @include('admin.master.top_navbar', ['navbartitle' => "DATAMASTER PENYULANG: " . $nama['nama_trafo_gi']])
-            @elseif($tipe=="gd")
-                @include('admin.master.top_navbar',  ['navbartitle' => "DATAMASTER GD/PCT/TM: " . $nama['nama_penyulang']])
-                {{--{{dd($data)}}--}}
-            @endif
-
             <div class="content">
                 <div class="container-fluid">
 
@@ -128,7 +128,7 @@
                                             <div class="col-md-12">
                                                 <div class="card">
                                                     <div class="header">
-                                                        <h4 class="title">Dafta PCT</h4>
+                                                        <h4 class="title">Daftar PCT</h4>
                                                         <p class="category">Daftar PCT {{$nama_rayon}} </p>
                                                     </div>
                                                     <div class="content table-responsive table-full-width">
@@ -421,18 +421,17 @@
                                                         {{--</a>--}}
                                                     </td>
                                                 @elseif($rayon)
-
                                                     <td class="td-actions text-right">
                                                         <a href="{{route('rayon.view_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Laporan Beli">
                                                             <i class="fa fa-info"></i>
                                                         </a>
                                                         @if($tipe=="gi")
-                                                            <a href="{{route('rayon.list_beli', [$id_organisasi, 'tgi', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List Trafo GI">
-                                                                <i class="fa fa-th-list"></i>
-                                                            </a>
-                                                            <a href="{{route('rayon.view_beli_tsa_trafo_gi', [$list->id_organisasi, $list->id])}}" rel="tooltip" title="" class="btn btn-warning btn-fill" data-original-title="View TSA Trafo GI">
-                                                            <i class="fa fa-folder"></i>
-                                                            </a>
+                                                            {{--<a href="{{route('rayon.list_beli', [$id_organisasi, 'tgi', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List Trafo GI">--}}
+                                                                {{--<i class="fa fa-th-list"></i>--}}
+                                                            {{--</a>--}}
+                                                            {{--<a href="{{route('rayon.view_beli_tsa_trafo_gi', [$list->id_organisasi, $list->id])}}" rel="tooltip" title="" class="btn btn-warning btn-fill" data-original-title="View TSA Trafo GI">--}}
+                                                            {{--<i class="fa fa-folder"></i>--}}
+                                                            {{--</a>--}}
                                                             {{--<a href="{{route('rayon.view_beli_tsa', [$list->id_organisasi, 'gi', $list->id])}}" rel="tooltip" title="" class="btn btn-warning btn-fill" data-original-title="View TSA Penyulang">--}}
                                                                 {{--<i class="fa fa-folder"></i>--}}
                                                             {{--</a>--}}
@@ -440,6 +439,7 @@
                                                                 {{--<i class="fa fa-pie-chart"></i>--}}
                                                             {{--</a>--}}
                                                         @elseif($tipe=="tgi")
+{{--                                                            {{dd($list->id)}}--}}
 
                                                             <a href="{{route('rayon.list_beli', [$id_organisasi, 'penyulang', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List Penyulang">
                                                                 <i class="fa fa-th-list"></i>
@@ -459,12 +459,12 @@
                                                             <i class="fa fa-info"></i>
                                                         </a>
                                                         @if($tipe=="gi")
-                                                            <a href="{{(Auth::user()->tipe_organisasi == 1)?route('distribusi.list_beli', [$id_organisasi, 'tgi', $list->id]):route('area.list_beli', [$id_organisasi, 'tgi', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List Trafo GI">
-                                                                <i class="fa fa-th-list"></i>
-                                                            </a>
-                                                            <a href="{{(Auth::user()->tipe_organisasi == 1)?route('distribusi.view_beli_tsa_trafo_gi', [$list->id_organisasi, $list->id]):route('area.view_beli_tsa_trafo_gi', [$list->id_organisasi, $list->id])}}" rel="tooltip" title="" class="btn btn-warning btn-fill" data-original-title="View TSA Trafo GI">
-                                                                <i class="fa fa-folder"></i>
-                                                            </a>
+                                                            {{--<a href="{{(Auth::user()->tipe_organisasi == 1)?route('distribusi.list_beli', [$id_organisasi, 'tgi', $list->id]):route('area.list_beli', [$id_organisasi, 'tgi', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List Trafo GI">--}}
+                                                                {{--<i class="fa fa-th-list"></i>--}}
+                                                            {{--</a>--}}
+                                                            {{--<a href="{{(Auth::user()->tipe_organisasi == 1)?route('distribusi.view_beli_tsa_trafo_gi', [$list->id_organisasi, $list->id]):route('area.view_beli_tsa_trafo_gi', [$list->id_organisasi, $list->id])}}" rel="tooltip" title="" class="btn btn-warning btn-fill" data-original-title="View TSA Trafo GI">--}}
+                                                                {{--<i class="fa fa-folder"></i>--}}
+                                                            {{--</a>--}}
                                                             {{--<a href="{{route('area.view_beli_tsa', [$list->id_organisasi, 'gi', $list->id])}}" rel="tooltip" title="" class="btn btn-warning btn-fill" data-original-title="View TSA Penyulang">--}}
                                                                 {{--<i class="fa fa-folder"></i>--}}
                                                             {{--</a>--}}

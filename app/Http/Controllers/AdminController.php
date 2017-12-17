@@ -13,6 +13,7 @@ class AdminController extends Controller
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
+
             $this->id_role = Auth::user()->tipe_organisasi;
             if(!$this->id_role==0)
                 return redirect('/login')->with('status', [
@@ -26,16 +27,17 @@ class AdminController extends Controller
 
     public function index()
     {
-        $data = Organisasi::all();
-         return view('admin.nonmaster.admin.management_rayon',[
-            'data'=>$data]);
+        return $this->managementRayon(1);
     }
 
-    public function managementRayon()
+    public function managementRayon($status)
     {
          $data = Organisasi::all();
+         $dropdown_data = new AjaxController();
          return view('admin.nonmaster.admin.management_rayon',[
-            'data'=>$data]);
+             'dropdown_area' => $dropdown_data->populateArea(),
+             'data'     => $data,
+             'status'   => $status]);
     }
 
     public function importOrganisasi(Request $request){
@@ -86,14 +88,16 @@ class AdminController extends Controller
     }
 
     public function add_org(Request $request){
-        $id_org = $request->id_org;
-        $nama = $request->nama;
-        $tipe = $request->tipe;
-        $alamat = $request->alamat;
+        $user = $request->selArea;
+        $user = Organisasi::where('id_organisasi', 'like', substr($request->selArea, 0, 3).'%')->where('tipe_organisasi', '3')->orderBy('id_organisasi','desc')->first();
+        $id_org = intval($user->id_organisasi)+1;
+        $nama = $request->namaOrg;
+        $tipe = $request->tipeOrg;
+        $alamat = $request->alamatOrg;
         $pass = Hash::make($request->pass);
-
         $org = Organisasi::where('id_organisasi',$id_org)->first();
-
+        $data = Organisasi::all();
+        $dropdown_data = new AjaxController();
         if(!$org){
             $organisasi = New Organisasi();
             $organisasi->id_organisasi = $id_org;
@@ -102,34 +106,93 @@ class AdminController extends Controller
             $organisasi->password = $pass;
             $organisasi->alamat = $alamat;
             $organisasi->save();
-            return 1;
+            $status = ["success" ,"Data Organisasi Berhasil Ditambah"];
+            return view('admin.nonmaster.admin.management_rayon',[
+                'dropdown_area' => $dropdown_data->populateArea(),
+                'data'=> $data,
+                'status' => $status]);
         }
 
-        else
-            return 0;
+        else{
+            $status = ["danger" ,"Data Organisasi Gagal Ditambah!"];
+            return view('admin.nonmaster.admin.management_rayon',[
+                'dropdown_area' => $dropdown_data->populateArea(),
+                'data'=> $data,
+                'status' => $status]);
+
+        }
     }
 
     public function edit_org(Request $request){
-        $task = $request->task;
-        $id = $request->id;
-        if($task == 0) {
-            $pass = Hash::make($request->pass);
-            $org = Organisasi::where('id', $id)->update(['password'=> $pass]);
+        $org = Organisasi::where('id',$request->id_)->first();
+        $dropdown_data = new AjaxController();
+        $data = Organisasi::all();
+        if($org){
+            $org->nama_organisasi = $request->namaOrg;
+            $org->alamat = $request->alamatOrg;
+            $org->save();
+            $status = ["success", "Berhasil diubah"];
+            return view('admin.nonmaster.admin.management_rayon',[
+                'dropdown_area' => $dropdown_data->populateArea(),
+                'data'=>$data,
+                'status' => $status]);
         }
-        elseif ($task == 1) {
-            $id_org = $request->id_org;
-            $nama = $request->nama;
-            $tipe = $request->tipe;
-            $alamat = $request->alamat;
+        else {
+            $status = ["danger", "Gagal diubah"];
+            return view('admin.nonmaster.admin.management_rayon',[
+                'dropdown_area' => $dropdown_data->populateArea(),
+                'data'=>$data,
+                'status' => $status]);
+        }
 
-            $org = Organisasi::where('id', $id)->update(['id_organisasi' => $id_org, 'nama_organisasi' => $nama, 'tipe_organisasi' => $tipe, 'alamat' => $alamat]);
-        }
-        return $org;
     }
 
     public function delete_org(Request $request){
-        $id = $request->id;
+        $id = $request->id_;
         $org = Organisasi::where('id',$id)->delete();
+        $dropdown_data = new AjaxController();
+        $data = Organisasi::all();
+        if($org){
+            $status = ["success", "Data berhasil dihapus"];
+            return view('admin.nonmaster.admin.management_rayon',[
+                'dropdown_area' => $dropdown_data->populateArea(),
+                'data'=>$data,
+                'status' => $status]);
+        }
+        else{
+            $status = ["danger", "Data gagal dihapus"];
+            return view('admin.nonmaster.admin.management_rayon',[
+                'dropdown_area' => $dropdown_data->populateArea(),
+                'data'=>$data,
+                'status' => $status]);
+        }
+
+
+
         return $org;
+    }
+
+    public function change_pass(Request $request){
+        $user = Organisasi::where("id",$request->id)->first();
+        $data = Organisasi::all();
+        $dropdown_data = new AjaxController();
+
+        if($user){
+            $newPassword = $request->new_pass;
+            $user->password = Hash::make($newPassword);
+            $user->save();
+            $status = ["success" ,"Password Berhasil Diubah"];
+            return view('admin.nonmaster.admin.management_rayon',[
+                'dropdown_area' => $dropdown_data->populateArea(),
+                'data'=>$data,
+                'status' => $status]);
+        }
+        else {
+            $status = ["danger", "Password gagal diubah"];
+            return view('admin.nonmaster.admin.management_rayon',[
+                'dropdown_area' => $dropdown_data->populateArea(),
+                'data'=>$data,
+                'status' => $status]);
+        }
     }
 }

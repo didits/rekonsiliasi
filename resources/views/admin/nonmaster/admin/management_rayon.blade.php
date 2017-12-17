@@ -3,9 +3,11 @@
 
 @section('content')
 <div class="wrapper">
-@include('admin.master.navbar')
+    @include('admin.master.top_navbar', ['navbartitle' => Auth::user()->nama_organisasi])
+
+    @include('admin.master.navbar')
+    
     <div class="main-panel">
-@include('admin.master.top_navbar', ['navbartitle' => Auth::user()->nama_organisasi])
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -35,7 +37,11 @@
                                         <hr>
 
                                         <button class="btn btn-fill btn-primary"
-                                                onclick="add_org.showSwal()">Tambah Data Organisasi</button>
+                                                onclick="add_org.showSwal()">Tambah Data Organisasi
+                                        </button>
+                                        <button type="button" class="btn btn-primary btn-fill" data-toggle="modal" data-target="#addOrgModal" title="Tambah Organisasi">
+                                            <i class="pe-7s-add-user"></i>
+                                        </button>
                                         {{--<div class="row">--}}
                                             {{--<div class="col-md-6">--}}
                                                 {{--<p>Tambah Data Organisasi</p>--}}
@@ -89,7 +95,7 @@
                                                     <i class="fa fa-key"></i>
                                                 </a>
 
-                                                @if ( $list->tipe_organisasi == 2 || $list->tipe_organisasi == 3)
+                                            @if ( $list->tipe_organisasi == 2 || $list->tipe_organisasi == 3)
 
                                                 <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Organisasi"
                                                    onclick="edit_org.showSwal({{$list->id}}, '{{$list->id_organisasi}}', '{{$list->nama_organisasi}}', {{$list->tipe_organisasi}}, '{{$list->alamat}}')">
@@ -99,10 +105,31 @@
                                                    onclick="hapus_org.showSwal({{$list->id}}, '{{$list->nama_organisasi}}', {{$list->tipe_organisasi}})">
                                                     <i class="fa fa-times"></i>
                                                 </a>
-                                                @endif
+                                            @endif
+                                                <button type="button" class="btn btn-primary btn-fill" data-toggle="modal" data-target="#editPassModal" title="Edit Password"
+                                                        data-idd        = "{{$list->id}}"
+                                                        data-namaOrg    = "{{$list->nama_organisasi}}"
+                                                        data-tipeOrg    = "{{$list->tipe_organisasi}}">
+                                                    <i class="fa fa-key"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-success btn-fill" data-toggle="modal" data-target="#editOrgModal" title="Edit Organisasi"
+                                                        data-idd        = "{{$list->id}}"
+                                                        data-idOrg      = "{{$list->id_organisasi}}"
+                                                        data-namaOrg    = "{{$list->nama_organisasi}}"
+                                                        data-tipeOrg    = "{{$list->tipe_organisasi}}"
+                                                        data-alamatOrg  = "{{$list->alamat}}">
+                                                    <i class="fa fa-edit"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-fill" data-toggle="modal" data-target="#deleteOrgModal" title="Hapus Organisasi"
+                                                        data-idd        = "{{$list->id}}"
+                                                        data-namaOrg    = "{{$list->nama_organisasi}}"
+                                                        data-tipeOrg    = "{{$list->tipe_organisasi}}">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
 
                                             </td>
                                         </tr>
+
                                     @endforeach
 
                                     </tbody>
@@ -116,11 +143,17 @@
 
         @include('admin.master.footer')
 
+        @include('admin.nonmaster.modal.admin')
+
     </div>
 </div>
+
 @endsection
 
 @section('extra_plugin')
+
+    <!--  Forms Validations Plugin -->
+    <script src="{{ URL::asset('dashboard/js/jquery.validate.min.js') }}"></script>
 
     <!--  Notifications Plugin    -->
     <script src="{{ URL::asset('dashboard/js/bootstrap-notify.js') }}"></script>
@@ -134,9 +167,119 @@
 @endsection
 
 @section('extra_script')
+
+    <script type="text/javascript">
+        $('#editPassModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var idd = button.data('idd');
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            $('#id_').val(idd);
+            var namaOrg = button.data('namaorg');
+            var tipeOrg = button.data('tipeorg');
+            if(tipeOrg===2) {
+                $('#editPassLabel').text("Edit Password: Area " + namaOrg);
+            }
+            else if(tipeOrg===3) {
+                $('#editPassLabel').text("Edit Password: Rayon " + namaOrg);
+            }
+            else {
+                $('#editPassLabel').text("Edit Password: " + namaOrg);
+            }
+        });
+
+        $('#editOrgModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var idd = button.data('idd');
+            var idOrg = button.data('idorg');
+            var namaOrg = button.data('namaorg');
+            var tipeOrg = button.data('tipeorg');
+            var alamatOrg = button.data('alamatorg');
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            $('#id_edit').val(idd);
+            $('#idOrg').val(idOrg);
+            $('#namaOrg').val(namaOrg);
+            $('#tipeOrg').val(tipeOrg);
+            $('#alamatOrg').val(alamatOrg);
+            if(tipeOrg===2)
+                $('#editOrgLabel').text("Edit Organisasi: Area " + namaOrg);
+            else if(tipeOrg===3)
+                $('#editOrgLabel').text("Edit Organisasi: Rayon " + namaOrg);
+        });
+
+        $('#deleteOrgModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var idd = button.data('idd');
+            var namaOrg = button.data('namaorg');
+            var tipeOrg = button.data('tipeorg');
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            $('#id_del').val(idd);
+            if(tipeOrg===2) {
+                $('#deleteOrgLabel').text("Hapus Organisasi: Area " + namaOrg);
+                $('#toDelete').text("Area " + namaOrg + " akan dihapus!");
+            }
+            else if(tipeOrg===3) {
+                $('#deleteOrgLabel').text("Hapus Organisasi: Area " + namaOrg);
+                $('#toDelete').text("Rayon " + namaOrg + " akan dihapus!");
+            }
+        });
+    </script>
+
     <script type="text/javascript">
         url_add = "{{route('admin.add_org')}}";
         url_edit = "{{route('admin.edit_org')}}";
         url_delete = "{{route('admin.delete_org')}}";
     </script>
+
+    <script>
+        notif ={
+            statusPassword: function () {
+                status_ = "{{isset($status)?$status[0]:""}}";
+                if(status_ === "success")
+                    icon_ = "pe-7s-check";
+                else if (status_ === "warning")
+                    icon_ = "pe-7s-close-circle";
+                else
+                    icon_ = "";
+
+                $.notify({
+                    icon: icon_,
+                    message: "<b>{{isset($status)?$status[1]:""}}</b>"
+
+                }, {
+                    type: status_,
+                    timer: 4000
+                });
+            }
+        }
+    </script>
+
+    <script type="text/javascript">
+        $().ready(function(){
+            var selAr = $('#toHide');
+            selAr.hide();
+            $('#editPass').validate();
+            $('#editOrganisasi').validate();
+            $('#addOrganisasi').validate();
+            @if($status)
+                notif.statusPassword();
+            @endif
+
+            var selTip = $('#tipeOrgAdd');
+            selTip.on('change', function () {
+                alert(selTip.val());
+                if(selTip .val() == 3) {
+                    selAr.show();
+                }
+                else {
+                    selAr.hide();
+                }
+            });
+
+
+        });
+    </script>
+
 @endsection

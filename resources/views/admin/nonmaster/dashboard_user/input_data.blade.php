@@ -3,9 +3,12 @@
 
 @section('content')
 <div class="wrapper">
+
+    @include('admin.master.top_navbar', ['navbartitle' => 'Input Data'])
+
     @include('admin.master.navbar')
+
     <div class="main-panel">
-        @include('admin.master.top_navbar', ['navbartitle' => 'Input Data'])
         <div class="content">
 
             <div class="container-fluid">

@@ -4,10 +4,11 @@
 @section('content')
 
 <div class="wrapper">
-@include('admin.master.navbar')
+    @include('admin.master.top_navbar', ['navbartitle' => "LAPORAN DEVIASI"])
+
+    @include('admin.master.navbar')
 
     <div class="main-panel">
-    @include('admin.master.top_navbar', ['navbartitle' => "LAPORAN DEVIASI"])
 
         <div class="content">
             <div class="container-fluid">

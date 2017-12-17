@@ -13,6 +13,7 @@ class Gardu extends Model
         'id_organisasi',
         'id_penyulang',
         'nama_gardu',
+        'tujuan',
         'alamat_gardu',
         'data_master'
     ];

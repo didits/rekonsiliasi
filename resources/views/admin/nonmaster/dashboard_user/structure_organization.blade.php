@@ -14,10 +14,18 @@
 @section('content')
 
     <div class="wrapper">
+        @if(Auth::user()->tipe_organisasi == 2)
+            @include('admin.master.top_navbar', ['navbartitle' => "AREA " . Auth::user()->nama_organisasi])
+
+        @else(Auth::user()->tipe_organisasi == 3)
+            @include('admin.master.top_navbar', ['navbartitle' => "RAYON " . Auth::user()->nama_organisasi])
+
+        @endif
+
         @include('admin.master.navbar')
+
         <div class="main-panel">
             <div style="display: none">{{Auth::user()->tipe_organisasi == 2 ? $go = "AREA ": $go = "RAYON "}}</div>
-            @include('admin.master.top_navbar', ['navbartitle' => $go .    Auth::user()->nama_organisasi])
 
             <div class="content">
                 <div class="container-fluid">
