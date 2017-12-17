@@ -310,905 +310,115 @@
                                                 </div>
                                             </div>
 
-                                            @if($id_trafo_gi)
+                                        @if($id_trafo_gi)
 
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="card">
-                                                            <div class="header">
-                                                                <h4 class="title">Tegangan & Kapasitas</h4>
-                                                            </div>
-                                                            <div class="content">
-                                                                {{--KAPASITAS LAM--}}
-                                                                <form action="{{route('input_datamaster.store')}}"
-                                                                      method="post">
-                                                                    <input type="hidden" name="_method" value="POST">
-                                                                    <input type="hidden" name="tipe" value="tegangan">
-                                                                    <input type="hidden" name="idtrafo_gi"
-                                                                           value={{$trafo_gi->id}}>
-                                                                    <input type="hidden" name="form_trafogi"
-                                                                           value="{{$trafo_gi->id}}">
-                                                                    <input type="hidden" name="form_kapasitas"
-                                                                           value="{{$trafo_gi->id}}">
-                                                                    {{ csrf_field() }}
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="card">
+                                                        <div class="header">
+                                                            <h4 class="title">Tegangan & Kapasitas</h4>
+                                                        </div>
+                                                        <div class="content">
+                                                            {{--KAPASITAS LAM--}}
+                                                            <form action="{{route('input_datamaster.store')}}"
+                                                                  method="post">
+                                                                <input type="hidden" name="_method" value="POST">
+                                                                <input type="hidden" name="tipe" value="tegangan">
+                                                                <input type="hidden" name="idtrafo_gi"
+                                                                       value={{$trafo_gi->id}}>
+                                                                <input type="hidden" name="form_trafogi"
+                                                                       value="{{$trafo_gi->id}}">
+                                                                <input type="hidden" name="form_kapasitas"
+                                                                       value="{{$trafo_gi->id}}">
+                                                                {{ csrf_field() }}
 
-                                                                    <div class="row">
-                                                                        <div class="col-md-6">
-                                                                            <div class="form-group">
-                                                                                <label>Tegangan</label>
-                                                                                <div class="input-group">
-                                                                                    <input name="tegangan" type="text"
-                                                                                           class="form-control"
-                                                                                           placeholder="Tegangan"
-                                                                                           value="{{$decoded['kapasitas']['tegangan']}}">
-                                                                                    <span class="input-group-addon">KV</span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <div class="form-group">
-                                                                                <label>Kapasitas</label>
-                                                                                <div class="input-group">
-                                                                                    <input name="kapasitas" type="text"
-                                                                                           class="form-control"
-                                                                                           placeholder="Kapasitas"
-                                                                                           value="{{$decoded['kapasitas']['kapasitas']}}">
-                                                                                    <span class="input-group-addon">MVA</span>
-                                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label>Tegangan</label>
+                                                                            <div class="input-group">
+                                                                                <input name="tegangan" type="text"
+                                                                                       class="form-control"
+                                                                                       placeholder="Tegangan"
+                                                                                       value="{{$decoded['kapasitas']['tegangan']}}">
+                                                                                <span class="input-group-addon">KV</span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label>Kapasitas</label>
+                                                                            <div class="input-group">
+                                                                                <input name="kapasitas" type="text"
+                                                                                       class="form-control"
+                                                                                       placeholder="Kapasitas"
+                                                                                       value="{{$decoded['kapasitas']['kapasitas']}}">
+                                                                                <span class="input-group-addon">MVA</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
 
 
-                                                                    <button type="submit"
-                                                                            class="btn btn-info btn-fill pull-right">
-                                                                        Update Data Master
-                                                                    </button>
-                                                                    <div class="clearfix"></div>
-                                                                </form>
-                                                            </div>
+                                                                <button type="submit"
+                                                                        class="btn btn-info btn-fill pull-right">
+                                                                    Update Data Master
+                                                                </button>
+                                                                <div class="clearfix"></div>
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="nav-container">
-                                                            <ul class="nav nav-icons" role="tablist">
-                                                                <li class="active">
-                                                                    <a href="#meter-utama" role="tab" data-toggle="tab">
-                                                                        <i class="fa fa-bolt"></i><br>
-                                                                        KWH Meter Utama
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#meter-pembanding" role="tab"
-                                                                       data-toggle="tab">
-                                                                        <i class="fa fa-exchange"></i><br>
-                                                                        KWH Meter Pembanding
-                                                                    </a>
-                                                                </li>
-                                                                <li class="">
-                                                                    <a href="#pemakaian-sendiri" role="tab"
-                                                                       data-toggle="tab">
-                                                                        <i class="fa fa-building-o"></i><br>
-                                                                        Pemakaian Sendiri
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="nav-container">
+                                                        <ul class="nav nav-icons" role="tablist">
+                                                            <li class="active">
+                                                                <a href="#meter-utama" role="tab" data-toggle="tab">
+                                                                    <i class="fa fa-bolt"></i><br>
+                                                                    KWH Meter Utama
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#meter-pembanding" role="tab"
+                                                                   data-toggle="tab">
+                                                                    <i class="fa fa-exchange"></i><br>
+                                                                    KWH Meter Pembanding
+                                                                </a>
+                                                            </li>
+                                                            <li class="">
+                                                                <a href="#pemakaian-sendiri" role="tab"
+                                                                   data-toggle="tab">
+                                                                    <i class="fa fa-building-o"></i><br>
+                                                                    Pemakaian Sendiri
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
 
-                                                        <div class="tab-content">
-                                                            <div class="tab-pane active" id="meter-utama">
-                                                                <div class="card">
-                                                                    <div class="header">
-                                                                        <h4 class="title">KWH Meter Utama</h4>
-
-                                                                        <p class="category">TRAFO
-                                                                            GI {{$trafo_gi->nama_trafo_gi}}</p>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                    </div>
-                                                                </div>
-                                                                <form action="{{route('input_datamaster.store')}}"
-                                                                      method="post">
-                                                                    <input type="hidden" name="_method" value="POST">
-                                                                    <input type="hidden" name="tipe" value="all">
-                                                                    <input type="hidden" name="idtrafo_gi"
-                                                                           value={{$trafo_gi->id}}>
-                                                                    <input type="hidden" name="form_trafogi"
-                                                                           value="{{$trafo_gi->id}}">
-                                                                    <input type="hidden" name="form_utama"
-                                                                           value="{{$trafo_gi->id}}">
-                                                                    {{ csrf_field() }}
-
-                                                                    <div class="content" id="kwhmeter">
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="card">
-                                                                                    <div class="header">
-                                                                                        <h4 class="title">KWH Meter</h4>
-                                                                                    </div>
-                                                                                    <div class="content">
-                                                                                        {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
-                                                                                        {{--<input type="hidden" name="_method" value="POST">--}}
-                                                                                        {{--<input type="hidden" name="tipe" value="KWH">--}}
-                                                                                        {{--<input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>--}}
-                                                                                        {{--<input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">--}}
-                                                                                        {{--<input type="hidden" name="form_utama" value="{{$trafo_gi->id}}">--}}
-
-                                                                                        {{--{{dd($gardu)}}--}}
-                                                                                        {{--{{ csrf_field() }}--}}
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Merk</label>
-                                                                                                    <input type="text"
-                                                                                                           name="merk"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Merk"
-                                                                                                           value="{{$decoded['utama']['KWH']['merk']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Nomor
-                                                                                                        Seri</label>
-                                                                                                    <input type="text"
-                                                                                                           name="noseri"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Nomor Seri"
-                                                                                                           value="{{$decoded['utama']['KWH']['nomorseri']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Konstanta</label>
-                                                                                                    <input type="text"
-                                                                                                           name="konstanta"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Konstanta"
-                                                                                                           value="{{$decoded['utama']['KWH']['konstanta']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Tegangan
-                                                                                                        Arus</label>
-                                                                                                    <input type="text"
-                                                                                                           name="teganganarus"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Tegangan Arus"
-                                                                                                           value="{{$decoded['utama']['KWH']['teganganarus']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <button type="submit"
-                                                                                                class="btn btn-info btn-fill pull-right">
-                                                                                            Update Data Master
-                                                                                        </button>
-                                                                                        <div class="clearfix"></div>
-                                                                                        {{--</form>--}}
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="content" id="trafoarus">
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="card">
-                                                                                    <div class="header">
-                                                                                        <h4 class="title">Trafo Arus
-                                                                                            (CT)</h4>
-                                                                                        {{--<p class="category">Data KWH Meter</p>--}}
-                                                                                    </div>
-                                                                                    {{--{{dd($decoded)}}--}}
-                                                                                    <div class="content">
-                                                                                        {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
-                                                                                        {{--<input type="hidden" name="_method" value="POST">--}}
-                                                                                        {{--<input type="hidden" name="tipe" value="TA">--}}
-                                                                                        {{--<input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>--}}
-                                                                                        {{--<input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">--}}
-                                                                                        {{--<input type="hidden" name="form_utama" value="{{$trafo_gi->id}}">--}}
-                                                                                        {{--{{ csrf_field() }}--}}
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Ratio</label>
-                                                                                                    <input type="text"
-                                                                                                           name="ratioct"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Ratio"
-                                                                                                           value="{{$decoded['utama']['TA']['ratioct']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Burden
-                                                                                                        (VA)</label>
-                                                                                                    <input type="text"
-                                                                                                           name="burdenct"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Burden (VA)"
-                                                                                                           value="{{$decoded['utama']['TA']['burdenct']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <button type="submit"
-                                                                                                class="btn btn-info btn-fill pull-right">
-                                                                                            Update Data Master
-                                                                                        </button>
-                                                                                        <div class="clearfix"></div>
-                                                                                        {{--</form>--}}
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="content" id="trafotegangan">
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="card">
-                                                                                    <div class="header">
-                                                                                        <h4 class="title">Trafo Tegangan
-                                                                                            (PT)</h4>
-                                                                                        {{--<p class="category">Data KWH Meter</p>--}}
-                                                                                    </div>
-                                                                                    <div class="content">
-                                                                                        {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
-                                                                                        {{--<input type="hidden" name="_method" value="POST">--}}
-                                                                                        {{--<input type="hidden" name="tipe" value="TT">--}}
-                                                                                        {{--<input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>--}}
-                                                                                        {{--<input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">--}}
-                                                                                        {{--<input type="hidden" name="form_utama" value="{{$trafo_gi->id}}">--}}
-                                                                                        {{--{{ csrf_field() }}--}}
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Ratio</label>
-                                                                                                    <input type="text"
-                                                                                                           name="ratiopt"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Ratio"
-                                                                                                           value="{{$decoded['utama']['TT']['ratiopt']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Burden
-                                                                                                        (VA)</label>
-                                                                                                    <input type="text"
-                                                                                                           name="burdenpt"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Burden (VA)"
-                                                                                                           value="{{$decoded['utama']['TT']['burdenpt']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <button type="submit"
-                                                                                                class="btn btn-info btn-fill pull-right">
-                                                                                            Update Data Master
-                                                                                        </button>
-                                                                                        <div class="clearfix"></div>
-                                                                                        {{--</form>--}}
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="content" id="faktorkalimeter">
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="card">
-                                                                                    <div class="header">
-                                                                                        <h4 class="title">Faktor Kali
-                                                                                            Meter</h4>
-                                                                                        {{--<p class="category">Data KWH Meter</p>--}}
-                                                                                    </div>
-                                                                                    <div class="content">
-                                                                                        {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
-                                                                                        {{--<input type="hidden" name="_method" value="POST">--}}
-                                                                                        {{--<input type="hidden" name="tipe" value="FK">--}}
-                                                                                        {{--<input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>--}}
-                                                                                        {{--<input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">--}}
-                                                                                        {{--<input type="hidden" name="form_utama" value="{{$trafo_gi->id}}">--}}
-                                                                                        {{--{{ csrf_field() }}--}}
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Faktor Kali
-                                                                                                        Meter</label>
-                                                                                                    <input type="number"
-                                                                                                           name="faktorkali"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Faktor Kali"
-                                                                                                           value="{{$decoded['utama']['FK']['faktorkali']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <button type="submit"
-                                                                                                class="btn btn-info btn-fill pull-right">
-                                                                                            Update Data Master
-                                                                                        </button>
-                                                                                        <div class="clearfix"></div>
-                                                                                        {{--</form>--}}
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-
-                                                            <div class="tab-pane" id="meter-pembanding">
-                                                                <div class="card">
-                                                                    <div class="header">
-                                                                        <h4 class="title">KWH Meter Pembanding</h4>
-                                                                        <p class="category">TRAFO
-                                                                            GI {{$trafo_gi->nama_trafo_gi}}</p>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                    </div>
-                                                                </div>
-                                                                <form action="{{route('input_datamaster.store')}}"
-                                                                      method="post">
-                                                                    <input type="hidden" name="_method" value="POST">
-                                                                    <input type="hidden" name="tipe" value="all">
-                                                                    <input type="hidden" name="idtrafo_gi"
-                                                                           value={{$trafo_gi->id}}>
-                                                                    <input type="hidden" name="form_trafogi"
-                                                                           value="{{$trafo_gi->id}}">
-                                                                    <input type="hidden" name="form_pembanding"
-                                                                           value="{{$trafo_gi->id}}">
-                                                                    {{ csrf_field() }}
-
-                                                                    <div class="content" id="kwhmeter">
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="card">
-                                                                                    <div class="header">
-                                                                                        <h4 class="title">KWH Meter</h4>
-                                                                                        {{--<p class="category">Data KWH Meter</p>--}}
-                                                                                    </div>
-                                                                                    <div class="content">
-                                                                                        {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
-                                                                                        {{--<input type="hidden" name="_method" value="POST">--}}
-                                                                                        {{--<input type="hidden" name="tipe" value="KWH">--}}
-                                                                                        {{--<input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>--}}
-                                                                                        {{--<input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">--}}
-                                                                                        {{--<input type="hidden" name="form_pembanding" value="{{$trafo_gi->id}}">--}}
-                                                                                        {{--{{dd($gardu)}}--}}
-                                                                                        {{--{{ csrf_field() }}--}}
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Merk</label>
-                                                                                                    <input type="text"
-                                                                                                           name="merk"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Merk"
-                                                                                                           value="{{$decoded['pembanding']['KWH']['merk']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Nomor
-                                                                                                        Seri</label>
-                                                                                                    <input type="text"
-                                                                                                           name="noseri"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Nomor Seri"
-                                                                                                           value="{{$decoded['pembanding']['KWH']['nomorseri']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Konstanta</label>
-                                                                                                    <input type="text"
-                                                                                                           name="konstanta"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Konstanta"
-                                                                                                           value="{{$decoded['pembanding']['KWH']['konstanta']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Tegangan
-                                                                                                        Arus</label>
-                                                                                                    <input type="text"
-                                                                                                           name="teganganarus"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Tegangan Arus"
-                                                                                                           value="{{$decoded['pembanding']['KWH']['teganganarus']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <button type="submit"
-                                                                                                class="btn btn-info btn-fill pull-right">
-                                                                                            Update Data Master
-                                                                                        </button>
-                                                                                        <div class="clearfix"></div>
-                                                                                        {{--</form>--}}
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="content" id="trafoarus">
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="card">
-                                                                                    <div class="header">
-                                                                                        <h4 class="title">Trafo Arus
-                                                                                            (CT)</h4>
-                                                                                        {{--<p class="category">Data KWH Meter</p>--}}
-                                                                                    </div>
-                                                                                    {{--{{dd($decoded)}}--}}
-                                                                                    <div class="content">
-                                                                                        {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
-                                                                                        {{--<input type="hidden" name="_method" value="POST">--}}
-                                                                                        {{--<input type="hidden" name="tipe" value="TA">--}}
-                                                                                        {{--<input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>--}}
-                                                                                        {{--<input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">--}}
-                                                                                        {{--<input type="hidden" name="form_pembanding" value="{{$trafo_gi->id}}">--}}
-                                                                                        {{--{{ csrf_field() }}--}}
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Ratio</label>
-                                                                                                    <input type="text"
-                                                                                                           name="ratioct"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Ratio"
-                                                                                                           value="{{$decoded['pembanding']['TA']['ratioct']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Burden
-                                                                                                        (VA)</label>
-                                                                                                    <input type="text"
-                                                                                                           name="burdenct"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Burden (VA)"
-                                                                                                           value="{{$decoded['pembanding']['TA']['burdenct']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <button type="submit"
-                                                                                                class="btn btn-info btn-fill pull-right">
-                                                                                            Update Data Master
-                                                                                        </button>
-                                                                                        <div class="clearfix"></div>
-                                                                                        {{--</form>--}}
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="content" id="trafotegangan">
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="card">
-                                                                                    <div class="header">
-                                                                                        <h4 class="title">Trafo Tegangan
-                                                                                            (PT)</h4>
-                                                                                        {{--<p class="category">Data KWH Meter</p>--}}
-                                                                                    </div>
-                                                                                    <div class="content">
-                                                                                        {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
-                                                                                        {{--<input type="hidden" name="_method" value="POST">--}}
-                                                                                        {{--<input type="hidden" name="tipe" value="TT">--}}
-                                                                                        {{--<input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>--}}
-                                                                                        {{--<input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">--}}
-                                                                                        {{--<input type="hidden" name="form_pembanding" value="{{$trafo_gi->id}}">--}}
-                                                                                        {{--{{ csrf_field() }}--}}
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Ratio</label>
-                                                                                                    <input type="text"
-                                                                                                           name="ratiopt"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Ratio"
-                                                                                                           value="{{$decoded['pembanding']['TT']['ratiopt']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Burden
-                                                                                                        (VA)</label>
-                                                                                                    <input type="text"
-                                                                                                           name="burdenpt"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Burden (VA)"
-                                                                                                           value="{{$decoded['pembanding']['TT']['burdenpt']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <button type="submit"
-                                                                                                class="btn btn-info btn-fill pull-right">
-                                                                                            Update Data Master
-                                                                                        </button>
-                                                                                        <div class="clearfix"></div>
-                                                                                        {{--</form>--}}
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="content" id="faktorkalimeter">
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="card">
-                                                                                    <div class="header">
-                                                                                        <h4 class="title">Faktor Kali
-                                                                                            Meter</h4>
-                                                                                        {{--<p class="category">Data KWH Meter</p>--}}
-                                                                                    </div>
-                                                                                    <div class="content">
-                                                                                        {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
-                                                                                        {{--<input type="hidden" name="_method" value="POST">--}}
-                                                                                        {{--<input type="hidden" name="tipe" value="FK">--}}
-                                                                                        {{--<input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>--}}
-                                                                                        {{--<input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">--}}
-                                                                                        {{--<input type="hidden" name="form_pembanding" value="{{$trafo_gi->id}}">--}}
-                                                                                        {{--{{ csrf_field() }}--}}
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Faktor Kali
-                                                                                                        Meter</label>
-                                                                                                    <input type="number"
-                                                                                                           name="faktorkali"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Faktor Kali"
-                                                                                                           value="{{$decoded['pembanding']['FK']['faktorkali']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <button type="submit"
-                                                                                                class="btn btn-info btn-fill pull-right">
-                                                                                            Update Data Master
-                                                                                        </button>
-                                                                                        <div class="clearfix"></div>
-                                                                                        {{--</form>--}}
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-
-                                                            <div class="tab-pane" id="pemakaian-sendiri">
-                                                                <div class="card">
-                                                                    <div class="header">
-                                                                        <h4 class="title">Pemakaian Sendiri</h4>
-                                                                        <p class="category">TRAFO
-                                                                            GI {{$trafo_gi->nama_trafo_gi}}</p>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                    </div>
-                                                                </div>
-                                                                <form action="{{route('input_datamaster.store')}}"
-                                                                      method="post">
-                                                                    <input type="hidden" name="_method" value="POST">
-                                                                    <input type="hidden" name="tipe" value="all">
-                                                                    <input type="hidden" name="idtrafo_gi"
-                                                                           value={{$trafo_gi->id}}>
-                                                                    <input type="hidden" name="form_trafogi"
-                                                                           value="{{$trafo_gi->id}}">
-                                                                    <input type="hidden" name="form_ps"
-                                                                           value="{{$trafo_gi->id}}">
-                                                                    {{ csrf_field() }}
-                                                                    <div class="content" id="kwhmeter">
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="card">
-                                                                                    <div class="header">
-                                                                                        <h4 class="title">KWH Meter</h4>
-                                                                                        {{--<p class="category">Data KWH Meter</p>--}}
-                                                                                    </div>
-                                                                                    <div class="content">
-                                                                                        {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
-                                                                                        {{--<input type="hidden" name="_method" value="POST">--}}
-                                                                                        {{--<input type="hidden" name="tipe" value="KWH">--}}
-                                                                                        {{--<input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>--}}
-                                                                                        {{--<input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">--}}
-                                                                                        {{--<input type="hidden" name="form_ps" value="{{$trafo_gi->id}}">--}}
-                                                                                        {{--{{dd($gardu)}}--}}
-                                                                                        {{--{{ csrf_field() }}--}}
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Merk</label>
-                                                                                                    <input type="text"
-                                                                                                           name="merk"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Merk"
-                                                                                                           value="{{$decoded['ps']['KWH']['merk']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Nomor
-                                                                                                        Seri</label>
-                                                                                                    <input type="text"
-                                                                                                           name="noseri"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Nomor Seri"
-                                                                                                           value="{{$decoded['ps']['KWH']['nomorseri']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Konstanta</label>
-                                                                                                    <input type="text"
-                                                                                                           name="konstanta"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Konstanta"
-                                                                                                           value="{{$decoded['ps']['KWH']['konstanta']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Tegangan
-                                                                                                        Arus</label>
-                                                                                                    <input type="text"
-                                                                                                           name="teganganarus"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Tegangan Arus"
-                                                                                                           value="{{$decoded['ps']['KWH']['teganganarus']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <button type="submit"
-                                                                                                class="btn btn-info btn-fill pull-right">
-                                                                                            Update Data Master
-                                                                                        </button>
-                                                                                        <div class="clearfix"></div>
-                                                                                        {{--</form>--}}
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="content" id="trafoarus">
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="card">
-                                                                                    <div class="header">
-                                                                                        <h4 class="title">Trafo Arus
-                                                                                            (CT)</h4>
-                                                                                        {{--<p class="category">Data KWH Meter</p>--}}
-                                                                                    </div>
-                                                                                    {{--{{dd($decoded)}}--}}
-                                                                                    <div class="content">
-                                                                                        {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
-                                                                                        {{--<input type="hidden" name="_method" value="POST">--}}
-                                                                                        {{--<input type="hidden" name="tipe" value="TA">--}}
-                                                                                        {{--<input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>--}}
-                                                                                        {{--<input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">--}}
-                                                                                        {{--<input type="hidden" name="form_ps" value="{{$trafo_gi->id}}">--}}
-                                                                                        {{--{{ csrf_field() }}--}}
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Ratio</label>
-                                                                                                    <input type="text"
-                                                                                                           name="ratioct"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Ratio"
-                                                                                                           value="{{$decoded['ps']['TA']['ratioct']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Burden
-                                                                                                        (VA)</label>
-                                                                                                    <input type="text"
-                                                                                                           name="burdenct"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Burden (VA)"
-                                                                                                           value="{{$decoded['ps']['TA']['burdenct']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <button type="submit"
-                                                                                                class="btn btn-info btn-fill pull-right">
-                                                                                            Update Data Master
-                                                                                        </button>
-                                                                                        <div class="clearfix"></div>
-                                                                                        {{--</form>--}}
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="content" id="trafotegangan">
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="card">
-                                                                                    <div class="header">
-                                                                                        <h4 class="title">Trafo Tegangan
-                                                                                            (PT)</h4>
-                                                                                        {{--<p class="category">Data KWH Meter</p>--}}
-                                                                                    </div>
-                                                                                    <div class="content">
-                                                                                        {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
-                                                                                        {{--<input type="hidden" name="_method" value="POST">--}}
-                                                                                        {{--<input type="hidden" name="tipe" value="TT">--}}
-                                                                                        {{--<input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>--}}
-                                                                                        {{--<input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">--}}
-                                                                                        {{--<input type="hidden" name="form_ps" value="{{$trafo_gi->id}}">--}}
-                                                                                        {{--{{ csrf_field() }}--}}
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Ratio</label>
-                                                                                                    <input type="text"
-                                                                                                           name="ratiopt"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Ratio"
-                                                                                                           value="{{$decoded['ps']['TT']['ratiopt']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Burden
-                                                                                                        (VA)</label>
-                                                                                                    <input type="text"
-                                                                                                           name="burdenpt"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Burden (VA)"
-                                                                                                           value="{{$decoded['ps']['TT']['burdenpt']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <button type="submit"
-                                                                                                class="btn btn-info btn-fill pull-right">
-                                                                                            Update Data Master
-                                                                                        </button>
-                                                                                        <div class="clearfix"></div>
-                                                                                        {{--</form>--}}
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="content" id="faktorkalimeter">
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="card">
-                                                                                    <div class="header">
-                                                                                        <h4 class="title">Faktor Kali
-                                                                                            Meter</h4>
-                                                                                        {{--<p class="category">Data KWH Meter</p>--}}
-                                                                                    </div>
-                                                                                    <div class="content">
-                                                                                        {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
-                                                                                        {{--<input type="hidden" name="_method" value="POST">--}}
-                                                                                        {{--<input type="hidden" name="tipe" value="FK">--}}
-                                                                                        {{--<input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>--}}
-                                                                                        {{--<input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">--}}
-                                                                                        {{--<input type="hidden" name="form_ps" value="{{$trafo_gi->id}}">--}}
-                                                                                        {{--{{ csrf_field() }}--}}
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Faktor Kali
-                                                                                                        Meter</label>
-                                                                                                    <input type="number"
-                                                                                                           name="faktorkali"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Faktor Kali"
-                                                                                                           value="{{$decoded['ps']['FK']['faktorkali']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <button type="submit"
-                                                                                                class="btn btn-info btn-fill pull-right">
-                                                                                            Update Data Master
-                                                                                        </button>
-                                                                                        <div class="clearfix"></div>
-                                                                                        {{--</form>--}}
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div> <!-- end tab content -->
-
-                                                </div> <!-- end col-md-8 -->
-
-                                            @elseif($gi)
-                                            @elseif($gardu)
-
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        {{--<div class="tab-content">--}}
+                                                    <div class="tab-content">
                                                         <div class="tab-pane active" id="meter-utama">
+                                                            <div class="card">
+                                                                <div class="header">
+                                                                    <h4 class="title">KWH Meter Utama</h4>
+
+                                                                    <p class="category">TRAFO
+                                                                        GI {{$trafo_gi->nama_trafo_gi}}</p>
+                                                                </div>
+                                                                <div class="content">
+                                                                </div>
+                                                            </div>
                                                             <form action="{{route('input_datamaster.store')}}"
                                                                   method="post">
                                                                 <input type="hidden" name="_method" value="POST">
                                                                 <input type="hidden" name="tipe" value="all">
-                                                                <input type="hidden" name="idgardu"
-                                                                       value={{$gardu->id}}>
-                                                                <input type="hidden" name="form_gardu"
-                                                                       value={{$gardu->id}}>
+                                                                <input type="hidden" name="idtrafo_gi"
+                                                                       value={{$trafo_gi->id}}>
+                                                                <input type="hidden" name="form_trafogi"
+                                                                       value="{{$trafo_gi->id}}">
+                                                                <input type="hidden" name="form_utama"
+                                                                       value="{{$trafo_gi->id}}">
                                                                 {{ csrf_field() }}
 
                                                                 <div class="content" id="kwhmeter">
@@ -1217,26 +427,27 @@
                                                                             <div class="card">
                                                                                 <div class="header">
                                                                                     <h4 class="title">KWH Meter</h4>
-                                                                                    {{--<p class="category">Data KWH Meter</p>--}}
                                                                                 </div>
                                                                                 <div class="content">
+                                                                                    {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
+                                                                                    {{--<input type="hidden" name="_method" value="POST">--}}
+                                                                                    {{--<input type="hidden" name="tipe" value="KWH">--}}
+                                                                                    {{--<input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>--}}
+                                                                                    {{--<input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">--}}
+                                                                                    {{--<input type="hidden" name="form_utama" value="{{$trafo_gi->id}}">--}}
+
+                                                                                    {{--{{dd($gardu)}}--}}
+                                                                                    {{--{{ csrf_field() }}--}}
+
                                                                                     <div class="row">
                                                                                         <div class="col-md-12">
                                                                                             <div class="form-group">
                                                                                                 <label>Merk</label>
-                                                                                                @if($meter)
-                                                                                                    <input type="text"
-                                                                                                           name="merk"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Merk"
-                                                                                                           value="{{$decoded['meter']['KWH']['merk']}}">
-                                                                                                @else
-                                                                                                    <input type="text"
-                                                                                                           name="merk"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Merk"
-                                                                                                           value="{{$decoded['KWH']['merk']}}">
-                                                                                                @endif
+                                                                                                <input type="text"
+                                                                                                       name="merk"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Merk"
+                                                                                                       value="{{$decoded['utama']['KWH']['merk']}}">
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -1246,19 +457,11 @@
                                                                                             <div class="form-group">
                                                                                                 <label>Nomor
                                                                                                     Seri</label>
-                                                                                                @if($meter)
-                                                                                                    <input type="text"
-                                                                                                           name="noseri"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Nomor Seri"
-                                                                                                           value="{{$decoded['meter']['KWH']['nomorseri']}}">
-                                                                                                @else
-                                                                                                    <input type="text"
-                                                                                                           name="noseri"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Nomor Seri"
-                                                                                                           value="{{$decoded['KWH']['nomorseri']}}">
-                                                                                                @endif
+                                                                                                <input type="text"
+                                                                                                       name="noseri"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Nomor Seri"
+                                                                                                       value="{{$decoded['utama']['KWH']['nomorseri']}}">
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -1267,19 +470,11 @@
                                                                                         <div class="col-md-12">
                                                                                             <div class="form-group">
                                                                                                 <label>Konstanta</label>
-                                                                                                @if($meter)
-                                                                                                    <input type="text"
-                                                                                                           name="konstanta"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Konstanta"
-                                                                                                           value="{{$decoded['meter']['KWH']['konstanta']}}">
-                                                                                                @else
-                                                                                                    <input type="text"
-                                                                                                           name="konstanta"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Konstanta"
-                                                                                                           value="{{$decoded['KWH']['konstanta']}}">
-                                                                                                @endif
+                                                                                                <input type="text"
+                                                                                                       name="konstanta"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Konstanta"
+                                                                                                       value="{{$decoded['utama']['KWH']['konstanta']}}">
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -1289,19 +484,11 @@
                                                                                             <div class="form-group">
                                                                                                 <label>Tegangan
                                                                                                     Arus</label>
-                                                                                                @if($meter)
-                                                                                                    <input type="text"
-                                                                                                           name="teganganarus"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Tegangan Arus"
-                                                                                                           value="{{$decoded['meter']['KWH']['teganganarus']}}">
-                                                                                                @else
-                                                                                                    <input type="text"
-                                                                                                           name="teganganarus"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Tegangan Arus"
-                                                                                                           value="{{$decoded['KWH']['teganganarus']}}">
-                                                                                                @endif
+                                                                                                <input type="text"
+                                                                                                       name="teganganarus"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Tegangan Arus"
+                                                                                                       value="{{$decoded['utama']['KWH']['teganganarus']}}">
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -1311,7 +498,7 @@
                                                                                         Update Data Master
                                                                                     </button>
                                                                                     <div class="clearfix"></div>
-
+                                                                                    {{--</form>--}}
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -1328,23 +515,23 @@
                                                                                 </div>
                                                                                 {{--{{dd($decoded)}}--}}
                                                                                 <div class="content">
+                                                                                    {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
+                                                                                    {{--<input type="hidden" name="_method" value="POST">--}}
+                                                                                    {{--<input type="hidden" name="tipe" value="TA">--}}
+                                                                                    {{--<input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>--}}
+                                                                                    {{--<input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">--}}
+                                                                                    {{--<input type="hidden" name="form_utama" value="{{$trafo_gi->id}}">--}}
+                                                                                    {{--{{ csrf_field() }}--}}
+
                                                                                     <div class="row">
                                                                                         <div class="col-md-12">
                                                                                             <div class="form-group">
                                                                                                 <label>Ratio</label>
-                                                                                                @if($meter)
-                                                                                                    <input type="text"
-                                                                                                           name="ratioct"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Ratio"
-                                                                                                           value="{{$decoded['meter']['TA']['ratioct']}}">
-                                                                                                @else
-                                                                                                    <input type="text"
-                                                                                                           name="ratioct"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Ratio"
-                                                                                                           value="{{$decoded['TA']['ratioct']}}">
-                                                                                                @endif
+                                                                                                <input type="text"
+                                                                                                       name="ratioct"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Ratio"
+                                                                                                       value="{{$decoded['utama']['TA']['ratioct']}}">
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -1354,19 +541,11 @@
                                                                                             <div class="form-group">
                                                                                                 <label>Burden
                                                                                                     (VA)</label>
-                                                                                                @if($meter)
-                                                                                                    <input type="text"
-                                                                                                           name="burdenct"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Burden (VA)"
-                                                                                                           value="{{$decoded['meter']['TA']['burdenct']}}">
-                                                                                                @else
-                                                                                                    <input type="text"
-                                                                                                           name="burdenct"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Burden (VA)"
-                                                                                                           value="{{$decoded['TA']['burdenct']}}">
-                                                                                                @endif
+                                                                                                <input type="text"
+                                                                                                       name="burdenct"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Burden (VA)"
+                                                                                                       value="{{$decoded['utama']['TA']['burdenct']}}">
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -1376,6 +555,7 @@
                                                                                         Update Data Master
                                                                                     </button>
                                                                                     <div class="clearfix"></div>
+                                                                                    {{--</form>--}}
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -1391,23 +571,23 @@
                                                                                     {{--<p class="category">Data KWH Meter</p>--}}
                                                                                 </div>
                                                                                 <div class="content">
+                                                                                    {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
+                                                                                    {{--<input type="hidden" name="_method" value="POST">--}}
+                                                                                    {{--<input type="hidden" name="tipe" value="TT">--}}
+                                                                                    {{--<input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>--}}
+                                                                                    {{--<input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">--}}
+                                                                                    {{--<input type="hidden" name="form_utama" value="{{$trafo_gi->id}}">--}}
+                                                                                    {{--{{ csrf_field() }}--}}
+
                                                                                     <div class="row">
                                                                                         <div class="col-md-12">
                                                                                             <div class="form-group">
                                                                                                 <label>Ratio</label>
-                                                                                                @if($meter)
-                                                                                                    <input type="text"
-                                                                                                           name="ratiopt"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Ratio"
-                                                                                                           value="{{$decoded['meter']['TT']['ratiopt']}}">
-                                                                                                @else
-                                                                                                    <input type="text"
-                                                                                                           name="ratiopt"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Ratio"
-                                                                                                           value="{{$decoded['TT']['ratiopt']}}">
-                                                                                                @endif
+                                                                                                <input type="text"
+                                                                                                       name="ratiopt"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Ratio"
+                                                                                                       value="{{$decoded['utama']['TT']['ratiopt']}}">
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -1417,19 +597,11 @@
                                                                                             <div class="form-group">
                                                                                                 <label>Burden
                                                                                                     (VA)</label>
-                                                                                                @if($meter)
-                                                                                                    <input type="text"
-                                                                                                           name="burdenpt"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Burden (VA)"
-                                                                                                           value="{{$decoded['meter']['TT']['burdenpt']}}">
-                                                                                                @else
-                                                                                                    <input type="text"
-                                                                                                           name="burdenpt"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Burden (VA)"
-                                                                                                           value="{{$decoded['TT']['burdenpt']}}">
-                                                                                                @endif
+                                                                                                <input type="text"
+                                                                                                       name="burdenpt"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Burden (VA)"
+                                                                                                       value="{{$decoded['utama']['TT']['burdenpt']}}">
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -1439,6 +611,7 @@
                                                                                         Update Data Master
                                                                                     </button>
                                                                                     <div class="clearfix"></div>
+                                                                                    {{--</form>--}}
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -1453,26 +626,25 @@
                                                                                         Meter</h4>
                                                                                     {{--<p class="category">Data KWH Meter</p>--}}
                                                                                 </div>
-
                                                                                 <div class="content">
+                                                                                    {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
+                                                                                    {{--<input type="hidden" name="_method" value="POST">--}}
+                                                                                    {{--<input type="hidden" name="tipe" value="FK">--}}
+                                                                                    {{--<input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>--}}
+                                                                                    {{--<input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">--}}
+                                                                                    {{--<input type="hidden" name="form_utama" value="{{$trafo_gi->id}}">--}}
+                                                                                    {{--{{ csrf_field() }}--}}
+
                                                                                     <div class="row">
                                                                                         <div class="col-md-12">
                                                                                             <div class="form-group">
                                                                                                 <label>Faktor Kali
                                                                                                     Meter</label>
-                                                                                                @if($meter)
-                                                                                                    <input type="number"
-                                                                                                           name="faktorkali"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Faktor Kali"
-                                                                                                           value="{{$decoded['meter']['FK']['faktorkali']}}">
-                                                                                                @else
-                                                                                                    <input type="number"
-                                                                                                           name="faktorkali"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Faktor Kali"
-                                                                                                           value="{{$decoded['FK']['faktorkali']}}">
-                                                                                                @endif
+                                                                                                <input type="number"
+                                                                                                       name="faktorkali"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Faktor Kali"
+                                                                                                       value="{{$decoded['utama']['FK']['faktorkali']}}">
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -1482,322 +654,1148 @@
                                                                                         Update Data Master
                                                                                     </button>
                                                                                     <div class="clearfix"></div>
+                                                                                    {{--</form>--}}
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </form>
-
-                                                            {{--</div> <!-- end tab content -->--}}
-
-                                                        </div> <!-- end col-md-8 -->
-                                                    </div>
-                                                    @else
-
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <form action="{{route('input_datamaster.store')}}"
-                                                                      method="post">
-                                                                    <input type="hidden" name="_method" value="POST">
-                                                                    <input type="hidden" name="tipe" value="all">
-                                                                    @if($id_gi)
-                                                                        <input type="hidden" name="idgardu"
-                                                                               value={{$gi->id}}>
-                                                                        <input type="hidden" name="form_gi"
-                                                                               value={{$gi->id}}>
-                                                                    @elseif($id_penyulang)
-                                                                        <input type="hidden" name="idpenyulang"
-                                                                               value={{$penyulang->id}}>
-                                                                        <input type="hidden" name="form_penyulang"
-                                                                               value={{$penyulang->id}}>
-                                                                        <input type="hidden" name="form_ujung"
-                                                                               value={{$penyulang->id}}>
-                                                                    @elseif($id_gardu)
-                                                                        <input type="hidden" name="idgardu"
-                                                                               value={{$gardu->id}}>
-                                                                        <input type="hidden" name="form_gardu"
-                                                                               value={{$gardu->id}}>
-                                                                    @endif
-                                                                    {{ csrf_field() }}
-
-                                                                    <div class="content" id="kwhmeter">
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="card">
-                                                                                    <div class="header">
-                                                                                        <h4 class="title">KWH Meter</h4>
-                                                                                        {{--<p class="category">Data KWH Meter</p>--}}
-                                                                                    </div>
-                                                                                    <div class="content">
-                                                                                        {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
-                                                                                        {{--<input type="hidden" name="_method" value="POST">--}}
-                                                                                        {{--<input type="hidden" name="tipe" value="KWH">--}}
-                                                                                        {{--@if($id_gi)--}}
-                                                                                        {{--@elif($id_trafo_gi)--}}
-                                                                                        {{--@endif--}}
-                                                                                        {{--@if($id_gi)--}}
-                                                                                        {{--<input type="hidden" name="idgardu" value={{$gi->id}}>--}}
-                                                                                        {{--<input type="hidden" name="form_gi" value={{$gi->id}}>--}}
-                                                                                        {{--@elseif($id_penyulang)--}}
-                                                                                        {{--<input type="hidden" name="idpenyulang" value={{$penyulang->id}}>--}}
-                                                                                        {{--<input type="hidden" name="form_penyulang" value={{$penyulang->id}}>--}}
-                                                                                        {{--@elseif($id_gardu)--}}
-                                                                                        {{--<input type="hidden" name="idgardu" value={{$gardu->id}}>--}}
-                                                                                        {{--<input type="hidden" name="form_gardu" value={{$gardu->id}}>--}}
-                                                                                        {{--@endif--}}
-                                                                                        {{--{{dd($gardu)}}--}}
-                                                                                        {{--{{ csrf_field() }}--}}
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Merk</label>
-                                                                                                    <input type="text"
-                                                                                                           name="merk"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Merk"
-                                                                                                           value="{{$decoded['KWH']['merk']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Nomor
-                                                                                                        Seri</label>
-                                                                                                    <input type="text"
-                                                                                                           name="noseri"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Nomor Seri"
-                                                                                                           value="{{$decoded['KWH']['nomorseri']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Konstanta</label>
-                                                                                                    <input type="text"
-                                                                                                           name="konstanta"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Konstanta"
-                                                                                                           value="{{$decoded['KWH']['konstanta']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Tegangan
-                                                                                                        Arus</label>
-                                                                                                    <input type="text"
-                                                                                                           name="teganganarus"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Tegangan Arus"
-                                                                                                           value="{{$decoded['KWH']['teganganarus']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <button type="submit"
-                                                                                                class="btn btn-info btn-fill pull-right">
-                                                                                            Update Data Master
-                                                                                        </button>
-                                                                                        <div class="clearfix"></div>
-                                                                                        {{--</form>--}}
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="content" id="trafoarus">
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="card">
-                                                                                    <div class="header">
-                                                                                        <h4 class="title">Trafo Arus
-                                                                                            (CT)</h4>
-                                                                                        {{--<p class="category">Data KWH Meter</p>--}}
-                                                                                    </div>
-                                                                                    {{--{{dd($decoded)}}--}}
-                                                                                    <div class="content">
-                                                                                        {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
-                                                                                        {{--<input type="hidden" name="_method" value="POST">--}}
-                                                                                        {{--<input type="hidden" name="tipe" value="TA">--}}
-                                                                                        {{--@if($id_gi)--}}
-                                                                                        {{--<input type="hidden" name="idgardu" value={{$gi->id}}>--}}
-                                                                                        {{--<input type="hidden" name="form_gi" value="{{$gi->id}}">--}}
-                                                                                        {{--@elseif($id_penyulang)--}}
-                                                                                        {{--<input type="hidden" name="idpenyulang" value={{$penyulang->id}}>--}}
-                                                                                        {{--<input type="hidden" name="form_penyulang" value={{$penyulang->id}}>--}}
-                                                                                        {{--@elseif($id_gardu)--}}
-                                                                                        {{--<input type="hidden" name="idgardu" value={{$gardu->id}}>--}}
-                                                                                        {{--<input type="hidden" name="form_gardu" value={{$gardu->id}}>--}}
-                                                                                        {{--@endif--}}
-                                                                                        {{--{{ csrf_field() }}--}}
-                                                                                        {{----}}
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Ratio</label>
-                                                                                                    <input type="text"
-                                                                                                           name="ratioct"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Ratio"
-                                                                                                           value="{{$decoded['TA']['ratioct']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Burden
-                                                                                                        (VA)</label>
-                                                                                                    <input type="text"
-                                                                                                           name="burdenct"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Burden (VA)"
-                                                                                                           value="{{$decoded['TA']['burdenct']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <button type="submit"
-                                                                                                class="btn btn-info btn-fill pull-right">
-                                                                                            Update Data Master
-                                                                                        </button>
-                                                                                        <div class="clearfix"></div>
-                                                                                        {{--</form>--}}
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="content" id="trafotegangan">
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="card">
-                                                                                    <div class="header">
-                                                                                        <h4 class="title">Trafo Tegangan
-                                                                                            (PT)</h4>
-                                                                                        {{--<p class="category">Data KWH Meter</p>--}}
-                                                                                    </div>
-                                                                                    <div class="content">
-                                                                                        {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
-                                                                                        {{--<input type="hidden" name="_method" value="POST">--}}
-                                                                                        {{--<input type="hidden" name="tipe" value="TT">--}}
-                                                                                        {{--@if($id_gi)--}}
-                                                                                        {{--<input type="hidden" name="idgardu" value={{$gi->id}}>--}}
-                                                                                        {{--<input type="hidden" name="form_gi" value="{{$gi->id}}">--}}
-                                                                                        {{--@elseif($id_penyulang)--}}
-                                                                                        {{--<input type="hidden" name="idpenyulang" value={{$penyulang->id}}>--}}
-                                                                                        {{--<input type="hidden" name="form_penyulang" value={{$penyulang->id}}>--}}
-                                                                                        {{--@elseif($id_gardu)--}}
-                                                                                        {{--<input type="hidden" name="idgardu" value={{$gardu->id}}>--}}
-                                                                                        {{--<input type="hidden" name="form_gardu" value={{$gardu->id}}>--}}
-                                                                                        {{--@endif--}}
-                                                                                        {{--{{ csrf_field() }}--}}
-                                                                                        {{----}}
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Ratio</label>
-                                                                                                    <input type="text"
-                                                                                                           name="ratiopt"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Ratio"
-                                                                                                           value="{{$decoded['TT']['ratiopt']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Burden
-                                                                                                        (VA)</label>
-                                                                                                    <input type="text"
-                                                                                                           name="burdenpt"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Burden (VA)"
-                                                                                                           value="{{$decoded['TT']['burdenpt']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <button type="submit"
-                                                                                                class="btn btn-info btn-fill pull-right">
-                                                                                            Update Data Master
-                                                                                        </button>
-                                                                                        <div class="clearfix"></div>
-                                                                                        {{--</form>--}}
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="content" id="faktorkalimeter">
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="card">
-                                                                                    <div class="header">
-                                                                                        <h4 class="title">Faktor Kali
-                                                                                            Meter</h4>
-                                                                                        {{--<p class="category">Data KWH Meter</p>--}}
-                                                                                    </div>
-
-                                                                                    <div class="content">
-                                                                                        {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
-                                                                                        {{--<input type="hidden" name="_method" value="POST">--}}
-                                                                                        {{--<input type="hidden" name="tipe" value="FK">--}}
-                                                                                        {{--@if($id_gi)--}}
-                                                                                        {{--<input type="hidden" name="idgardu" value={{$gi->id}}>--}}
-                                                                                        {{--<input type="hidden" name="form_gi" value="{{$gi->id}}">--}}
-                                                                                        {{--@elseif($id_penyulang)--}}
-                                                                                        {{--<input type="hidden" name="idpenyulang" value={{$penyulang->id}}>--}}
-                                                                                        {{--<input type="hidden" name="form_penyulang" value={{$penyulang->id}}>--}}
-                                                                                        {{--@elseif($id_gardu)--}}
-                                                                                        {{--<input type="hidden" name="idgardu" value={{$gardu->id}}>--}}
-                                                                                        {{--<input type="hidden" name="form_gardu" value={{$gardu->id}}>--}}
-                                                                                        {{--@endif--}}
-                                                                                        {{--{{ csrf_field() }}--}}
-
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label>Faktor Kali
-                                                                                                        Meter</label>
-                                                                                                    <input type="number"
-                                                                                                           name="faktorkali"
-                                                                                                           class="form-control"
-                                                                                                           placeholder="Faktor Kali"
-                                                                                                           value="{{$decoded['FK']['faktorkali']}}">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <button type="submit"
-                                                                                                class="btn btn-info btn-fill pull-right">
-                                                                                            Update Data Master
-                                                                                        </button>
-                                                                                        <div class="clearfix"></div>
-                                                                                        {{--</form>--}}
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
                                                         </div>
-                                                    @endif
 
+                                                        <div class="tab-pane" id="meter-pembanding">
+                                                            <div class="card">
+                                                                <div class="header">
+                                                                    <h4 class="title">KWH Meter Pembanding</h4>
+                                                                    <p class="category">TRAFO
+                                                                        GI {{$trafo_gi->nama_trafo_gi}}</p>
+                                                                </div>
+                                                                <div class="content">
+                                                                </div>
+                                                            </div>
+                                                            <form action="{{route('input_datamaster.store')}}"
+                                                                  method="post">
+                                                                <input type="hidden" name="_method" value="POST">
+                                                                <input type="hidden" name="tipe" value="all">
+                                                                <input type="hidden" name="idtrafo_gi"
+                                                                       value={{$trafo_gi->id}}>
+                                                                <input type="hidden" name="form_trafogi"
+                                                                       value="{{$trafo_gi->id}}">
+                                                                <input type="hidden" name="form_pembanding"
+                                                                       value="{{$trafo_gi->id}}">
+                                                                {{ csrf_field() }}
+
+                                                                <div class="content" id="kwhmeter">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="card">
+                                                                                <div class="header">
+                                                                                    <h4 class="title">KWH Meter</h4>
+                                                                                    {{--<p class="category">Data KWH Meter</p>--}}
+                                                                                </div>
+                                                                                <div class="content">
+                                                                                    {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
+                                                                                    {{--<input type="hidden" name="_method" value="POST">--}}
+                                                                                    {{--<input type="hidden" name="tipe" value="KWH">--}}
+                                                                                    {{--<input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>--}}
+                                                                                    {{--<input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">--}}
+                                                                                    {{--<input type="hidden" name="form_pembanding" value="{{$trafo_gi->id}}">--}}
+                                                                                    {{--{{dd($gardu)}}--}}
+                                                                                    {{--{{ csrf_field() }}--}}
+
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Merk</label>
+                                                                                                <input type="text"
+                                                                                                       name="merk"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Merk"
+                                                                                                       value="{{$decoded['pembanding']['KWH']['merk']}}">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Nomor
+                                                                                                    Seri</label>
+                                                                                                <input type="text"
+                                                                                                       name="noseri"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Nomor Seri"
+                                                                                                       value="{{$decoded['pembanding']['KWH']['nomorseri']}}">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Konstanta</label>
+                                                                                                <input type="text"
+                                                                                                       name="konstanta"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Konstanta"
+                                                                                                       value="{{$decoded['pembanding']['KWH']['konstanta']}}">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Tegangan
+                                                                                                    Arus</label>
+                                                                                                <input type="text"
+                                                                                                       name="teganganarus"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Tegangan Arus"
+                                                                                                       value="{{$decoded['pembanding']['KWH']['teganganarus']}}">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <button type="submit"
+                                                                                            class="btn btn-info btn-fill pull-right">
+                                                                                        Update Data Master
+                                                                                    </button>
+                                                                                    <div class="clearfix"></div>
+                                                                                    {{--</form>--}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="content" id="trafoarus">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="card">
+                                                                                <div class="header">
+                                                                                    <h4 class="title">Trafo Arus
+                                                                                        (CT)</h4>
+                                                                                    {{--<p class="category">Data KWH Meter</p>--}}
+                                                                                </div>
+                                                                                {{--{{dd($decoded)}}--}}
+                                                                                <div class="content">
+                                                                                    {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
+                                                                                    {{--<input type="hidden" name="_method" value="POST">--}}
+                                                                                    {{--<input type="hidden" name="tipe" value="TA">--}}
+                                                                                    {{--<input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>--}}
+                                                                                    {{--<input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">--}}
+                                                                                    {{--<input type="hidden" name="form_pembanding" value="{{$trafo_gi->id}}">--}}
+                                                                                    {{--{{ csrf_field() }}--}}
+
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Ratio</label>
+                                                                                                <input type="text"
+                                                                                                       name="ratioct"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Ratio"
+                                                                                                       value="{{$decoded['pembanding']['TA']['ratioct']}}">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Burden
+                                                                                                    (VA)</label>
+                                                                                                <input type="text"
+                                                                                                       name="burdenct"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Burden (VA)"
+                                                                                                       value="{{$decoded['pembanding']['TA']['burdenct']}}">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <button type="submit"
+                                                                                            class="btn btn-info btn-fill pull-right">
+                                                                                        Update Data Master
+                                                                                    </button>
+                                                                                    <div class="clearfix"></div>
+                                                                                    {{--</form>--}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="content" id="trafotegangan">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="card">
+                                                                                <div class="header">
+                                                                                    <h4 class="title">Trafo Tegangan
+                                                                                        (PT)</h4>
+                                                                                    {{--<p class="category">Data KWH Meter</p>--}}
+                                                                                </div>
+                                                                                <div class="content">
+                                                                                    {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
+                                                                                    {{--<input type="hidden" name="_method" value="POST">--}}
+                                                                                    {{--<input type="hidden" name="tipe" value="TT">--}}
+                                                                                    {{--<input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>--}}
+                                                                                    {{--<input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">--}}
+                                                                                    {{--<input type="hidden" name="form_pembanding" value="{{$trafo_gi->id}}">--}}
+                                                                                    {{--{{ csrf_field() }}--}}
+
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Ratio</label>
+                                                                                                <input type="text"
+                                                                                                       name="ratiopt"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Ratio"
+                                                                                                       value="{{$decoded['pembanding']['TT']['ratiopt']}}">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Burden
+                                                                                                    (VA)</label>
+                                                                                                <input type="text"
+                                                                                                       name="burdenpt"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Burden (VA)"
+                                                                                                       value="{{$decoded['pembanding']['TT']['burdenpt']}}">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <button type="submit"
+                                                                                            class="btn btn-info btn-fill pull-right">
+                                                                                        Update Data Master
+                                                                                    </button>
+                                                                                    <div class="clearfix"></div>
+                                                                                    {{--</form>--}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="content" id="faktorkalimeter">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="card">
+                                                                                <div class="header">
+                                                                                    <h4 class="title">Faktor Kali
+                                                                                        Meter</h4>
+                                                                                    {{--<p class="category">Data KWH Meter</p>--}}
+                                                                                </div>
+                                                                                <div class="content">
+                                                                                    {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
+                                                                                    {{--<input type="hidden" name="_method" value="POST">--}}
+                                                                                    {{--<input type="hidden" name="tipe" value="FK">--}}
+                                                                                    {{--<input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>--}}
+                                                                                    {{--<input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">--}}
+                                                                                    {{--<input type="hidden" name="form_pembanding" value="{{$trafo_gi->id}}">--}}
+                                                                                    {{--{{ csrf_field() }}--}}
+
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Faktor Kali
+                                                                                                    Meter</label>
+                                                                                                <input type="number"
+                                                                                                       name="faktorkali"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Faktor Kali"
+                                                                                                       value="{{$decoded['pembanding']['FK']['faktorkali']}}">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <button type="submit"
+                                                                                            class="btn btn-info btn-fill pull-right">
+                                                                                        Update Data Master
+                                                                                    </button>
+                                                                                    <div class="clearfix"></div>
+                                                                                    {{--</form>--}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+
+                                                        <div class="tab-pane" id="pemakaian-sendiri">
+                                                            <div class="card">
+                                                                <div class="header">
+                                                                    <h4 class="title">Pemakaian Sendiri</h4>
+                                                                    <p class="category">TRAFO
+                                                                        GI {{$trafo_gi->nama_trafo_gi}}</p>
+                                                                </div>
+                                                                <div class="content">
+                                                                </div>
+                                                            </div>
+                                                            <form action="{{route('input_datamaster.store')}}"
+                                                                  method="post">
+                                                                <input type="hidden" name="_method" value="POST">
+                                                                <input type="hidden" name="tipe" value="all">
+                                                                <input type="hidden" name="idtrafo_gi"
+                                                                       value={{$trafo_gi->id}}>
+                                                                <input type="hidden" name="form_trafogi"
+                                                                       value="{{$trafo_gi->id}}">
+                                                                <input type="hidden" name="form_ps"
+                                                                       value="{{$trafo_gi->id}}">
+                                                                {{ csrf_field() }}
+                                                                <div class="content" id="kwhmeter">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="card">
+                                                                                <div class="header">
+                                                                                    <h4 class="title">KWH Meter</h4>
+                                                                                    {{--<p class="category">Data KWH Meter</p>--}}
+                                                                                </div>
+                                                                                <div class="content">
+                                                                                    {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
+                                                                                    {{--<input type="hidden" name="_method" value="POST">--}}
+                                                                                    {{--<input type="hidden" name="tipe" value="KWH">--}}
+                                                                                    {{--<input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>--}}
+                                                                                    {{--<input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">--}}
+                                                                                    {{--<input type="hidden" name="form_ps" value="{{$trafo_gi->id}}">--}}
+                                                                                    {{--{{dd($gardu)}}--}}
+                                                                                    {{--{{ csrf_field() }}--}}
+
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Merk</label>
+                                                                                                <input type="text"
+                                                                                                       name="merk"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Merk"
+                                                                                                       value="{{$decoded['ps']['KWH']['merk']}}">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Nomor
+                                                                                                    Seri</label>
+                                                                                                <input type="text"
+                                                                                                       name="noseri"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Nomor Seri"
+                                                                                                       value="{{$decoded['ps']['KWH']['nomorseri']}}">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Konstanta</label>
+                                                                                                <input type="text"
+                                                                                                       name="konstanta"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Konstanta"
+                                                                                                       value="{{$decoded['ps']['KWH']['konstanta']}}">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Tegangan
+                                                                                                    Arus</label>
+                                                                                                <input type="text"
+                                                                                                       name="teganganarus"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Tegangan Arus"
+                                                                                                       value="{{$decoded['ps']['KWH']['teganganarus']}}">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <button type="submit"
+                                                                                            class="btn btn-info btn-fill pull-right">
+                                                                                        Update Data Master
+                                                                                    </button>
+                                                                                    <div class="clearfix"></div>
+                                                                                    {{--</form>--}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="content" id="trafoarus">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="card">
+                                                                                <div class="header">
+                                                                                    <h4 class="title">Trafo Arus
+                                                                                        (CT)</h4>
+                                                                                    {{--<p class="category">Data KWH Meter</p>--}}
+                                                                                </div>
+                                                                                {{--{{dd($decoded)}}--}}
+                                                                                <div class="content">
+                                                                                    {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
+                                                                                    {{--<input type="hidden" name="_method" value="POST">--}}
+                                                                                    {{--<input type="hidden" name="tipe" value="TA">--}}
+                                                                                    {{--<input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>--}}
+                                                                                    {{--<input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">--}}
+                                                                                    {{--<input type="hidden" name="form_ps" value="{{$trafo_gi->id}}">--}}
+                                                                                    {{--{{ csrf_field() }}--}}
+
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Ratio</label>
+                                                                                                <input type="text"
+                                                                                                       name="ratioct"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Ratio"
+                                                                                                       value="{{$decoded['ps']['TA']['ratioct']}}">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Burden
+                                                                                                    (VA)</label>
+                                                                                                <input type="text"
+                                                                                                       name="burdenct"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Burden (VA)"
+                                                                                                       value="{{$decoded['ps']['TA']['burdenct']}}">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <button type="submit"
+                                                                                            class="btn btn-info btn-fill pull-right">
+                                                                                        Update Data Master
+                                                                                    </button>
+                                                                                    <div class="clearfix"></div>
+                                                                                    {{--</form>--}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="content" id="trafotegangan">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="card">
+                                                                                <div class="header">
+                                                                                    <h4 class="title">Trafo Tegangan
+                                                                                        (PT)</h4>
+                                                                                    {{--<p class="category">Data KWH Meter</p>--}}
+                                                                                </div>
+                                                                                <div class="content">
+                                                                                    {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
+                                                                                    {{--<input type="hidden" name="_method" value="POST">--}}
+                                                                                    {{--<input type="hidden" name="tipe" value="TT">--}}
+                                                                                    {{--<input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>--}}
+                                                                                    {{--<input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">--}}
+                                                                                    {{--<input type="hidden" name="form_ps" value="{{$trafo_gi->id}}">--}}
+                                                                                    {{--{{ csrf_field() }}--}}
+
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Ratio</label>
+                                                                                                <input type="text"
+                                                                                                       name="ratiopt"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Ratio"
+                                                                                                       value="{{$decoded['ps']['TT']['ratiopt']}}">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Burden
+                                                                                                    (VA)</label>
+                                                                                                <input type="text"
+                                                                                                       name="burdenpt"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Burden (VA)"
+                                                                                                       value="{{$decoded['ps']['TT']['burdenpt']}}">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <button type="submit"
+                                                                                            class="btn btn-info btn-fill pull-right">
+                                                                                        Update Data Master
+                                                                                    </button>
+                                                                                    <div class="clearfix"></div>
+                                                                                    {{--</form>--}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="content" id="faktorkalimeter">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="card">
+                                                                                <div class="header">
+                                                                                    <h4 class="title">Faktor Kali
+                                                                                        Meter</h4>
+                                                                                    {{--<p class="category">Data KWH Meter</p>--}}
+                                                                                </div>
+                                                                                <div class="content">
+                                                                                    {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
+                                                                                    {{--<input type="hidden" name="_method" value="POST">--}}
+                                                                                    {{--<input type="hidden" name="tipe" value="FK">--}}
+                                                                                    {{--<input type="hidden" name="idtrafo_gi" value={{$trafo_gi->id}}>--}}
+                                                                                    {{--<input type="hidden" name="form_trafogi" value="{{$trafo_gi->id}}">--}}
+                                                                                    {{--<input type="hidden" name="form_ps" value="{{$trafo_gi->id}}">--}}
+                                                                                    {{--{{ csrf_field() }}--}}
+
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Faktor Kali
+                                                                                                    Meter</label>
+                                                                                                <input type="number"
+                                                                                                       name="faktorkali"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Faktor Kali"
+                                                                                                       value="{{$decoded['ps']['FK']['faktorkali']}}">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <button type="submit"
+                                                                                            class="btn btn-info btn-fill pull-right">
+                                                                                        Update Data Master
+                                                                                    </button>
+                                                                                    <div class="clearfix"></div>
+                                                                                    {{--</form>--}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div> <!-- end tab content -->
+
+                                            </div> <!-- end col-md-8 -->
+
+                                        @elseif($gi)
+                                        @elseif($gardu)
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                {{--<div class="tab-content">--}}
+                                                    <div class="tab-pane active" id="meter-utama">
+                                                        <form action="{{route('input_datamaster.store')}}"
+                                                              method="post">
+                                                            <input type="hidden" name="_method" value="POST">
+                                                            <input type="hidden" name="tipe" value="all">
+                                                            <input type="hidden" name="idgardu"
+                                                                   value={{$gardu->id}}>
+                                                            <input type="hidden" name="form_gardu"
+                                                                   value={{$gardu->id}}>
+                                                            {{ csrf_field() }}
+
+                                                            <div class="content" id="kwhmeter">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="card">
+                                                                            <div class="header">
+                                                                                <h4 class="title">KWH Meter</h4>
+                                                                                {{--<p class="category">Data KWH Meter</p>--}}
+                                                                            </div>
+                                                                            <div class="content">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Merk</label>
+                                                                                            @if($meter)
+                                                                                                <input type="text"
+                                                                                                       name="merk"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Merk"
+                                                                                                       value="{{$decoded['meter']['KWH']['merk']}}">
+                                                                                            @else
+                                                                                                <input type="text"
+                                                                                                       name="merk"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Merk"
+                                                                                                       value="{{$decoded['KWH']['merk']}}">
+                                                                                            @endif
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Nomor
+                                                                                                Seri</label>
+                                                                                            @if($meter)
+                                                                                                <input type="text"
+                                                                                                       name="noseri"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Nomor Seri"
+                                                                                                       value="{{$decoded['meter']['KWH']['nomorseri']}}">
+                                                                                            @else
+                                                                                                <input type="text"
+                                                                                                       name="noseri"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Nomor Seri"
+                                                                                                       value="{{$decoded['KWH']['nomorseri']}}">
+                                                                                            @endif
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Konstanta</label>
+                                                                                            @if($meter)
+                                                                                                <input type="text"
+                                                                                                       name="konstanta"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Konstanta"
+                                                                                                       value="{{$decoded['meter']['KWH']['konstanta']}}">
+                                                                                            @else
+                                                                                                <input type="text"
+                                                                                                       name="konstanta"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Konstanta"
+                                                                                                       value="{{$decoded['KWH']['konstanta']}}">
+                                                                                            @endif
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Tegangan
+                                                                                                Arus</label>
+                                                                                            @if($meter)
+                                                                                                <input type="text"
+                                                                                                       name="teganganarus"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Tegangan Arus"
+                                                                                                       value="{{$decoded['meter']['KWH']['teganganarus']}}">
+                                                                                            @else
+                                                                                                <input type="text"
+                                                                                                       name="teganganarus"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Tegangan Arus"
+                                                                                                       value="{{$decoded['KWH']['teganganarus']}}">
+                                                                                            @endif
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <button type="submit"
+                                                                                        class="btn btn-info btn-fill pull-right">
+                                                                                    Update Data Master
+                                                                                </button>
+                                                                                <div class="clearfix"></div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="content" id="trafoarus">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="card">
+                                                                            <div class="header">
+                                                                                <h4 class="title">Trafo Arus
+                                                                                    (CT)</h4>
+                                                                                {{--<p class="category">Data KWH Meter</p>--}}
+                                                                            </div>
+                                                                            {{--{{dd($decoded)}}--}}
+                                                                            <div class="content">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Ratio</label>
+                                                                                            @if($meter)
+                                                                                                <input type="text"
+                                                                                                       name="ratioct"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Ratio"
+                                                                                                       value="{{$decoded['meter']['TA']['ratioct']}}">
+                                                                                            @else
+                                                                                                <input type="text"
+                                                                                                       name="ratioct"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Ratio"
+                                                                                                       value="{{$decoded['TA']['ratioct']}}">
+                                                                                            @endif
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Burden
+                                                                                                (VA)</label>
+                                                                                            @if($meter)
+                                                                                                <input type="text"
+                                                                                                       name="burdenct"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Burden (VA)"
+                                                                                                       value="{{$decoded['meter']['TA']['burdenct']}}">
+                                                                                            @else
+                                                                                                <input type="text"
+                                                                                                       name="burdenct"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Burden (VA)"
+                                                                                                       value="{{$decoded['TA']['burdenct']}}">
+                                                                                            @endif
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <button type="submit"
+                                                                                        class="btn btn-info btn-fill pull-right">
+                                                                                    Update Data Master
+                                                                                </button>
+                                                                                <div class="clearfix"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="content" id="trafotegangan">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="card">
+                                                                            <div class="header">
+                                                                                <h4 class="title">Trafo Tegangan
+                                                                                    (PT)</h4>
+                                                                                {{--<p class="category">Data KWH Meter</p>--}}
+                                                                            </div>
+                                                                            <div class="content">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Ratio</label>
+                                                                                            @if($meter)
+                                                                                                <input type="text"
+                                                                                                       name="ratiopt"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Ratio"
+                                                                                                       value="{{$decoded['meter']['TT']['ratiopt']}}">
+                                                                                            @else
+                                                                                                <input type="text"
+                                                                                                       name="ratiopt"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Ratio"
+                                                                                                       value="{{$decoded['TT']['ratiopt']}}">
+                                                                                            @endif
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Burden
+                                                                                                (VA)</label>
+                                                                                            @if($meter)
+                                                                                                <input type="text"
+                                                                                                       name="burdenpt"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Burden (VA)"
+                                                                                                       value="{{$decoded['meter']['TT']['burdenpt']}}">
+                                                                                            @else
+                                                                                                <input type="text"
+                                                                                                       name="burdenpt"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Burden (VA)"
+                                                                                                       value="{{$decoded['TT']['burdenpt']}}">
+                                                                                            @endif
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <button type="submit"
+                                                                                        class="btn btn-info btn-fill pull-right">
+                                                                                    Update Data Master
+                                                                                </button>
+                                                                                <div class="clearfix"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="content" id="faktorkalimeter">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="card">
+                                                                            <div class="header">
+                                                                                <h4 class="title">Faktor Kali
+                                                                                    Meter</h4>
+                                                                                {{--<p class="category">Data KWH Meter</p>--}}
+                                                                            </div>
+
+                                                                            <div class="content">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Faktor Kali
+                                                                                                Meter</label>
+                                                                                            @if($meter)
+                                                                                                <input type="number"
+                                                                                                       name="faktorkali"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Faktor Kali"
+                                                                                                       value="{{$decoded['meter']['FK']['faktorkali']}}">
+                                                                                            @else
+                                                                                                <input type="number"
+                                                                                                       name="faktorkali"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Faktor Kali"
+                                                                                                       value="{{$decoded['FK']['faktorkali']}}">
+                                                                                            @endif
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <button type="submit"
+                                                                                        class="btn btn-info btn-fill pull-right">
+                                                                                    Update Data Master
+                                                                                </button>
+                                                                                <div class="clearfix"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div> <!-- end tab content -->
+                                                </div> <!-- end col-md-8 -->
+                                            </div>
+                                        @else
+
+                                            <div class="row">
+                                                    <div class="col-md-12">
+                                                        <form action="{{route('input_datamaster.store')}}"
+                                                              method="post">
+                                                            <input type="hidden" name="_method" value="POST">
+                                                            <input type="hidden" name="tipe" value="all">
+                                                            @if($id_gi)
+                                                                <input type="hidden" name="idgardu"
+                                                                       value={{$gi->id}}>
+                                                                <input type="hidden" name="form_gi"
+                                                                       value={{$gi->id}}>
+                                                            @elseif($id_penyulang)
+                                                                <input type="hidden" name="idpenyulang"
+                                                                       value={{$penyulang->id}}>
+                                                                <input type="hidden" name="form_penyulang"
+                                                                       value={{$penyulang->id}}>
+                                                                <input type="hidden" name="form_ujung"
+                                                                       value={{$penyulang->id}}>
+                                                            @elseif($id_gardu)
+                                                                <input type="hidden" name="idgardu"
+                                                                       value={{$gardu->id}}>
+                                                                <input type="hidden" name="form_gardu"
+                                                                       value={{$gardu->id}}>
+                                                            @endif
+                                                            {{ csrf_field() }}
+
+                                                            <div class="content" id="kwhmeter">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="card">
+                                                                            <div class="header">
+                                                                                <h4 class="title">KWH Meter</h4>
+                                                                                {{--<p class="category">Data KWH Meter</p>--}}
+                                                                            </div>
+                                                                            <div class="content">
+                                                                                {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
+                                                                                {{--<input type="hidden" name="_method" value="POST">--}}
+                                                                                {{--<input type="hidden" name="tipe" value="KWH">--}}
+                                                                                {{--@if($id_gi)--}}
+                                                                                {{--@elif($id_trafo_gi)--}}
+                                                                                {{--@endif--}}
+                                                                                {{--@if($id_gi)--}}
+                                                                                {{--<input type="hidden" name="idgardu" value={{$gi->id}}>--}}
+                                                                                {{--<input type="hidden" name="form_gi" value={{$gi->id}}>--}}
+                                                                                {{--@elseif($id_penyulang)--}}
+                                                                                {{--<input type="hidden" name="idpenyulang" value={{$penyulang->id}}>--}}
+                                                                                {{--<input type="hidden" name="form_penyulang" value={{$penyulang->id}}>--}}
+                                                                                {{--@elseif($id_gardu)--}}
+                                                                                {{--<input type="hidden" name="idgardu" value={{$gardu->id}}>--}}
+                                                                                {{--<input type="hidden" name="form_gardu" value={{$gardu->id}}>--}}
+                                                                                {{--@endif--}}
+                                                                                {{--{{dd($gardu)}}--}}
+                                                                                {{--{{ csrf_field() }}--}}
+
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Merk</label>
+                                                                                            <input type="text"
+                                                                                                   name="merk"
+                                                                                                   class="form-control"
+                                                                                                   placeholder="Merk"
+                                                                                                   value="{{$decoded['KWH']['merk']}}">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Nomor
+                                                                                                Seri</label>
+                                                                                            <input type="text"
+                                                                                                   name="noseri"
+                                                                                                   class="form-control"
+                                                                                                   placeholder="Nomor Seri"
+                                                                                                   value="{{$decoded['KWH']['nomorseri']}}">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Konstanta</label>
+                                                                                            <input type="text"
+                                                                                                   name="konstanta"
+                                                                                                   class="form-control"
+                                                                                                   placeholder="Konstanta"
+                                                                                                   value="{{$decoded['KWH']['konstanta']}}">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Tegangan
+                                                                                                Arus</label>
+                                                                                            <input type="text"
+                                                                                                   name="teganganarus"
+                                                                                                   class="form-control"
+                                                                                                   placeholder="Tegangan Arus"
+                                                                                                   value="{{$decoded['KWH']['teganganarus']}}">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <button type="submit"
+                                                                                        class="btn btn-info btn-fill pull-right">
+                                                                                    Update Data Master
+                                                                                </button>
+                                                                                <div class="clearfix"></div>
+                                                                                {{--</form>--}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="content" id="trafoarus">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="card">
+                                                                            <div class="header">
+                                                                                <h4 class="title">Trafo Arus
+                                                                                    (CT)</h4>
+                                                                                {{--<p class="category">Data KWH Meter</p>--}}
+                                                                            </div>
+                                                                            {{--{{dd($decoded)}}--}}
+                                                                            <div class="content">
+                                                                                {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
+                                                                                {{--<input type="hidden" name="_method" value="POST">--}}
+                                                                                {{--<input type="hidden" name="tipe" value="TA">--}}
+                                                                                {{--@if($id_gi)--}}
+                                                                                {{--<input type="hidden" name="idgardu" value={{$gi->id}}>--}}
+                                                                                {{--<input type="hidden" name="form_gi" value="{{$gi->id}}">--}}
+                                                                                {{--@elseif($id_penyulang)--}}
+                                                                                {{--<input type="hidden" name="idpenyulang" value={{$penyulang->id}}>--}}
+                                                                                {{--<input type="hidden" name="form_penyulang" value={{$penyulang->id}}>--}}
+                                                                                {{--@elseif($id_gardu)--}}
+                                                                                {{--<input type="hidden" name="idgardu" value={{$gardu->id}}>--}}
+                                                                                {{--<input type="hidden" name="form_gardu" value={{$gardu->id}}>--}}
+                                                                                {{--@endif--}}
+                                                                                {{--{{ csrf_field() }}--}}
+                                                                                {{----}}
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Ratio</label>
+                                                                                            <input type="text"
+                                                                                                   name="ratioct"
+                                                                                                   class="form-control"
+                                                                                                   placeholder="Ratio"
+                                                                                                   value="{{$decoded['TA']['ratioct']}}">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Burden
+                                                                                                (VA)</label>
+                                                                                            <input type="text"
+                                                                                                   name="burdenct"
+                                                                                                   class="form-control"
+                                                                                                   placeholder="Burden (VA)"
+                                                                                                   value="{{$decoded['TA']['burdenct']}}">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <button type="submit"
+                                                                                        class="btn btn-info btn-fill pull-right">
+                                                                                    Update Data Master
+                                                                                </button>
+                                                                                <div class="clearfix"></div>
+                                                                                {{--</form>--}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="content" id="trafotegangan">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="card">
+                                                                            <div class="header">
+                                                                                <h4 class="title">Trafo Tegangan
+                                                                                    (PT)</h4>
+                                                                                {{--<p class="category">Data KWH Meter</p>--}}
+                                                                            </div>
+                                                                            <div class="content">
+                                                                                {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
+                                                                                {{--<input type="hidden" name="_method" value="POST">--}}
+                                                                                {{--<input type="hidden" name="tipe" value="TT">--}}
+                                                                                {{--@if($id_gi)--}}
+                                                                                {{--<input type="hidden" name="idgardu" value={{$gi->id}}>--}}
+                                                                                {{--<input type="hidden" name="form_gi" value="{{$gi->id}}">--}}
+                                                                                {{--@elseif($id_penyulang)--}}
+                                                                                {{--<input type="hidden" name="idpenyulang" value={{$penyulang->id}}>--}}
+                                                                                {{--<input type="hidden" name="form_penyulang" value={{$penyulang->id}}>--}}
+                                                                                {{--@elseif($id_gardu)--}}
+                                                                                {{--<input type="hidden" name="idgardu" value={{$gardu->id}}>--}}
+                                                                                {{--<input type="hidden" name="form_gardu" value={{$gardu->id}}>--}}
+                                                                                {{--@endif--}}
+                                                                                {{--{{ csrf_field() }}--}}
+                                                                                {{----}}
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Ratio</label>
+                                                                                            <input type="text"
+                                                                                                   name="ratiopt"
+                                                                                                   class="form-control"
+                                                                                                   placeholder="Ratio"
+                                                                                                   value="{{$decoded['TT']['ratiopt']}}">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Burden
+                                                                                                (VA)</label>
+                                                                                            <input type="text"
+                                                                                                   name="burdenpt"
+                                                                                                   class="form-control"
+                                                                                                   placeholder="Burden (VA)"
+                                                                                                   value="{{$decoded['TT']['burdenpt']}}">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <button type="submit"
+                                                                                        class="btn btn-info btn-fill pull-right">
+                                                                                    Update Data Master
+                                                                                </button>
+                                                                                <div class="clearfix"></div>
+                                                                                {{--</form>--}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="content" id="faktorkalimeter">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="card">
+                                                                            <div class="header">
+                                                                                <h4 class="title">Faktor Kali
+                                                                                    Meter</h4>
+                                                                                {{--<p class="category">Data KWH Meter</p>--}}
+                                                                            </div>
+
+                                                                            <div class="content">
+                                                                                {{--<form action="{{route('input_datamaster.store')}}" method="post">--}}
+                                                                                {{--<input type="hidden" name="_method" value="POST">--}}
+                                                                                {{--<input type="hidden" name="tipe" value="FK">--}}
+                                                                                {{--@if($id_gi)--}}
+                                                                                {{--<input type="hidden" name="idgardu" value={{$gi->id}}>--}}
+                                                                                {{--<input type="hidden" name="form_gi" value="{{$gi->id}}">--}}
+                                                                                {{--@elseif($id_penyulang)--}}
+                                                                                {{--<input type="hidden" name="idpenyulang" value={{$penyulang->id}}>--}}
+                                                                                {{--<input type="hidden" name="form_penyulang" value={{$penyulang->id}}>--}}
+                                                                                {{--@elseif($id_gardu)--}}
+                                                                                {{--<input type="hidden" name="idgardu" value={{$gardu->id}}>--}}
+                                                                                {{--<input type="hidden" name="form_gardu" value={{$gardu->id}}>--}}
+                                                                                {{--@endif--}}
+                                                                                {{--{{ csrf_field() }}--}}
+
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label>Faktor Kali
+                                                                                                Meter</label>
+                                                                                            <input type="number"
+                                                                                                   name="faktorkali"
+                                                                                                   class="form-control"
+                                                                                                   placeholder="Faktor Kali"
+                                                                                                   value="{{$decoded['FK']['faktorkali']}}">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <button type="submit"
+                                                                                        class="btn btn-info btn-fill pull-right">
+                                                                                    Update Data Master
+                                                                                </button>
+                                                                                <div class="clearfix"></div>
+                                                                                {{--</form>--}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
                                                 </div>
+                                        @endif
+
+                                        </div>
                                             @endif
                                             {{--DISINI PUNYA FORM.BLADE--}}
                                             @if($penyulang)
