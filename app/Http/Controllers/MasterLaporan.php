@@ -30,7 +30,7 @@ class MasterLaporan
         if($p_penyulang == null) $p_penyulang = PenyimpananPenyulang::whereIn('id_penyulang',$id_penyulang)->where('periode',$date)->get();
         $p_penyulang_ = PenyimpananPenyulang::whereIn('id_penyulang',$id_penyulang)->where('periode',date("Ym"))->get();
 
-        if($tipe == "tsa"){
+        if($tipe == "tsa_area"){
             $this->trafo = $MasterTrafo;
             $this->penyulang = $MasterPenyulang;
             $this->p_trafo = $p_trafo;
@@ -39,6 +39,16 @@ class MasterLaporan
             $this->p_penyulang_ = $p_penyulang_;
             $this->id = $id_trafo;
         }
+        elseif($tipe == "tsa"){
+            $this->trafo = $MasterTrafo;
+            $this->penyulang = $MasterPenyulang;
+            $this->p_trafo = $p_trafo;
+            $this->p_penyulang = $p_penyulang;
+            $this->p_trafo_ = $p_trafo_;
+            $this->p_penyulang_ = $p_penyulang_;
+            $this->id = $id_trafo;
+        }
+
         elseif($tipe == "deviasi"){
             $this->trafo = $MasterTrafo;
             $this->id = $id_trafo;
