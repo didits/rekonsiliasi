@@ -90,16 +90,16 @@
     <table>
         <div class="border-kotak">
             <tr class="table-header">
-                <td rowspan="2" class="text-center" width="5px">NO</td>
-                <td rowspan="2" class="text-center" width="15px">LOKASI</td>
-                <td rowspan="2" class="text-center" width="10px">GI</td>
-                <td rowspan="2" class="text-center" width="20px">PENYULANG</td>
-                <td rowspan="2" class="text-center" width="20px">ANTAR UNIT</td>
-                <td rowspan="2" class="text-center" width="20px">FAKTOR KALI</td>
+                <td rowspan="2" class="text-center" width="5">NO</td>
+                <td rowspan="2" class="text-center" width="15">LOKASI</td>
+                <td rowspan="2" class="text-center" width="10">GI</td>
+                <td rowspan="2" class="text-center" width="20">PENYULANG</td>
+                <td rowspan="2" class="text-center" width="20">ANTAR UNIT</td>
+                <td rowspan="2" class="text-center" width="20">FAKTOR KALI</td>
                 <td colspan="2" class="text-center">STAND EKSPOR</td>
-                <td rowspan="2" class="text-center" width="20px">TOTAL KWH<br/>EXPORT</td>
+                <td rowspan="2" class="text-center" width="20">TOTAL KWH<br/>EXPORT</td>
                 <td colspan="2" class="text-center">STAND IMPOR</td>
-                <td rowspan="2" class="text-center" width="20px">TOTAL KWH<br/>IMPORT</td>
+                <td rowspan="2" class="text-center" width="20">TOTAL KWH<br/>IMPORT</td>
             </tr>
             <tr>
                 <td></td>
@@ -108,11 +108,11 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td class="text-center" width="10px">AWAL</td>
-                <td class="text-center" width="10px">AKHIR</td>
+                <td class="text-center" width="10">AWAL</td>
+                <td class="text-center" width="10">AKHIR</td>
                 <td></td>
-                <td class="text-center" width="10px">AWAL</td>
-                <td class="text-center" width="10px">AKHIR</td>
+                <td class="text-center" width="10">AWAL</td>
+                <td class="text-center" width="10">AKHIR</td>
             </tr>
         
         <tbody>
