@@ -89,7 +89,7 @@
 <table style="width: 100%">
     <div class="border-kotak">
         <tr class="table-header">
-            <td style="width: 5px" class="text-center">NO</td>
+            <td width="5" class="text-center">NO</td>
             <td class="text-center">GARDU INDUK</td>
             <td class="text-center">NO.<br>TRF</td>
             <td class="text-center">INCOMING<br>UTAMA</td>

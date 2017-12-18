@@ -93,8 +93,8 @@
                 <td rowspan="2" class="text-center">NO</td>
                 <td rowspan="2" class="text-center">LOKASI</td>
                 <td rowspan="2" class="text-center">GI</td>
-                <td rowspan="2" class="text-center" width="20px">PENYULANG</td>
-                <td rowspan="2" class="text-center" width="20px">ANTAR UNIT</td>
+                <td rowspan="2" class="text-center" width="20">PENYULANG</td>
+                <td rowspan="2" class="text-center" width="20">ANTAR UNIT</td>
                 <td colspan="5" class="text-center">EKSPOR</td>
                 <td colspan="5" class="text-center">IMPOR</td>
             </tr>
@@ -106,11 +106,11 @@
                 <td></td>
                 @for($i=0; $i<2; $i++)
 
-                <td class="text-center" width="10px">WBP</td>
-                <td class="text-center" width="10px">LWBP1</td>
-                <td class="text-center" width="10px">LWBP2</td>
-                <td class="text-center" width="10px">KVARH</td>
-                <td class="text-center" width="10px">KW</td>
+                <td class="text-center" width="10">WBP</td>
+                <td class="text-center" width="10">LWBP1</td>
+                <td class="text-center" width="10">LWBP2</td>
+                <td class="text-center" width="10">KVARH</td>
+                <td class="text-center" width="10">KW</td>
                 @endfor
 
             </tr>
