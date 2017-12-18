@@ -138,7 +138,7 @@
                                         {{--JUMLAH--}}
                                         <thead>
                                         <tr>
-                                            <th colspan="3" class="text-left">JUMLAH</th>
+                                            <th colspan="3" class="text-center">JUMLAH</th>
                                             <th class="text-right"><b>{{number_format($total_jumlah['total_kwh'])}}</b></th>
                                             <th class="text-right"><b>{{number_format($total_jumlah['wbp'])}}</b></th>
                                             <th class="text-right"><b>{{number_format($total_jumlah['lwbp1'])}}</b></th>

@@ -401,6 +401,23 @@ class Laporan extends Controller
             for ($i=0;$i<count($cmb->trafo);$i++){
                 $p_trafo_ = PenyimpananTrafoGI::select('data','id_trafo_gi')->where('id_trafo_gi',$trafo[$i]['id'])->where('periode', date('Ym'))->first();
                 $trafo_lwbp1 = $trafo_lwbp2 = $trafo_wbp = $trafo_t_kwh = $trafo_Kvarh = $trafo_KW = $trafo_KWH = $trafo_KWH_lalu = $trafo_jual= null;
+                if(count($penyulang_array)==0){
+                    $jumlah_pemakaian =array(
+                        'id_trafo' => $trafo[$i]['id'],
+                        'lwbp1' => $trafo_lwbp1,
+                        'lwbp2' => $trafo_lwbp2,
+                        'wbp' => $trafo_wbp,
+                        'total_kwh' => $trafo_t_kwh,
+                        'Kvarh' => $trafo_Kvarh,
+                        'KW' => $trafo_KW,
+                        'KWH'   => $trafo_KWH,
+                        'KWH_lalu'   => $trafo_KWH_lalu,
+                        'persen' => null,
+                        'jual'   => $trafo_jual,
+                        'susut'   => null,
+                        'losses'   => null,
+                    );
+                }
                 for($j=0;$j< count($penyulang_array);$j++){
                     if($trafo[$i]['id'] == $penyulang_array[$j]['id_trafo']){
                         if($p_trafo_){
@@ -622,6 +639,7 @@ class Laporan extends Controller
 
             }
 
+
             if($tot_t_kwh)
                 $tot_KWH = $tot_t_kwh - $tot_KWH_lalu;
             else $tot_KWH =0;
@@ -646,25 +664,26 @@ class Laporan extends Controller
                 'losses'   => $tot_losses,
             );
 
+//            dd($jumlah_pemakaian);
+
         }
-//        dd($jumlah_tot);
         return array($trafo,$list_p,$jumlah_trafo,$jumlah_tot);
     }
 
     public function view_beli_tsa($id_organisasi, $tsa, $tipe){
         $id_tsa = $tsa;
+//            dd($tipe);
         if($tipe =="gi"||$tipe =="penyulang"){
             $data_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
-//            dd($tipe);
             $id_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
             $tsa_ = array();$trafo = array();$list_p = array();$nama_gi = array();$jumlah_trafo = array();$jumlah_tot = array();
+//            dd($id_org);
             for($i =0 ;$i <count($id_org);$i++) {
                 $data_gi = GI::where('id_organisasi', $id_org[$i])->select('id', 'nama_gi','id_organisasi')->get();
-                if ($data_gi) {
-                    for($j =0 ;$j <count($data_gi);$j++) {
-                        $data = $this->data_tsa($id_organisasi, "tsa", $data_gi[$j]);
-                        if($data[2]){
-
+                for($j=0 ;$j <count($data_gi);$j++) {
+                    $data = $this->data_tsa($id_organisasi, "tsa", $data_gi[$j]);
+                    if(count($data[1])>0){
+                        if(count($data[2])>0){
                             if($data[0])
                                 array_push($trafo,$data[0]);
                             if($data[1])
@@ -680,11 +699,11 @@ class Laporan extends Controller
                                 'jumlah_trafo' => $data[2],
                                 'jumlah_tot' => $data[3],
                             );
+
                             array_push($nama_gi,$data_gi[$j]);
                             array_push($tsa_,$dt);
-//                            if($data_gi[$j]["id"]==1)dd($dt);
-
                         }
+//                              if($data_gi[$j]["id"]==1)dd($dt);
                     }
                 }
             }
@@ -1004,24 +1023,26 @@ class Laporan extends Controller
                 if ($data_gi) {
                     for($j =0 ;$j <count($data_gi);$j++) {
                         $data = $this->data_tsa($id_organisasi, "tsa", $data_gi[$j]);
-                        if($data[2]){
-                            if($data[0])
-                                array_push($trafo,$data[0]);
-                            if($data[1])
-                                array_push($list_p,$data[1]);
-                            if($data[2])
-                                array_push($jumlah_trafo,$data[2]);
-                            if($data[3])
-                                array_push($jumlah_tot,$data[3]);
-                            $dt = array(
-                                'nama' => $data[1][0]['rayon'],
-                                'trafo' => $data[0],
-                                'list_p' => $data[1],
-                                'jumlah_trafo' => $data[2],
-                                'jumlah_tot' => $data[3],
-                            );
-                            array_push($nama_gi,$data_gi[$j]);
-                            array_push($tsa_,$dt);
+                        if(count($data[1])>0){
+                            if(count($data[2])>0) {
+                                if ($data[0])
+                                    array_push($trafo, $data[0]);
+                                if ($data[1])
+                                    array_push($list_p, $data[1]);
+                                if ($data[2])
+                                    array_push($jumlah_trafo, $data[2]);
+                                if ($data[3])
+                                    array_push($jumlah_tot, $data[3]);
+                                $dt = array(
+                                    'nama' => $data[1][0]['rayon'],
+                                    'trafo' => $data[0],
+                                    'list_p' => $data[1],
+                                    'jumlah_trafo' => $data[2],
+                                    'jumlah_tot' => $data[3],
+                                );
+                                array_push($nama_gi, $data_gi[$j]);
+                                array_push($tsa_, $dt);
+                            }
                         }
                     }
                 }
