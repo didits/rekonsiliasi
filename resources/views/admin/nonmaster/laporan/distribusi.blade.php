@@ -99,48 +99,47 @@
                                         <th class="text-center">%</th>
                                     </tr>
                                     </thead>
-                                    @if($tipe=="rayon")
 
-                                        @if($data_gi)
+                                        @if($data)
                                             <tbody>
-                                            @for($j=0;$j<count($data_gi);$j++)
-                                                @for($k=0;$k<count($data_gi[$j]['trafo']);$k++)
-                                                    <div style="display: none;">{{$flag=true}}</div>
-                                                    @for($i=0;$i<count($data_gi[$j]['data_gi']);$i++)
-                                                        <tr class="text-right">
-                                                            {{--                                                {{dd(count($data_gi[$j]['trafo']))}}--}}
-                                                            @if($data_gi[$j]['data_gi'][$i]['id_trafo']==$data_gi[$j]['trafo'][$k]['id'])
-                                                                @if($flag==1)
-                                                                    <td class="text-center">{{$j+1}}</td>
-                                                                    <td class="text-left">{{$data_gi[$j]['gi']}}</td>
-                                                                    <td class="text-center">{{$data_gi[$j]['trafo'][$k]['nama_trafo_gi']}}</td>
-                                                                    <td class="text-center">40</td>
-                                                                    <div style="display: none;">{{$flag=false}}</div>
-                                                                @else
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                @endif
-                                                                <td class="text-center">{{$data_gi[$j]['data_gi'][$i]['nama_p']}}</td>
-                                                                <td>{{number_format($data_gi[$j]['data_gi'][$i]['lwbp1'],0)}}</td>
-                                                                <td>{{number_format($data_gi[$j]['data_gi'][$i]['lwbp2'],0)}}</td>
-                                                                <td>{{number_format($data_gi[$j]['data_gi'][$i]['wbp'],0)}}</td>
-                                                                <td>{{number_format($data_gi[$j]['data_gi'][$i]['total_kwh'],0)}}</td>
-                                                                <td>{{number_format($data_gi[$j]['data_gi'][$i]['Kvarh'],0)}}</td>
-                                                                <td>{{number_format($data_gi[$j]['data_gi'][$i]['KW'],0)}}</td>
-                                                                <td>{{number_format($data_gi[$j]['data_gi'][$i]['ujung'],0)}}</td>
-                                                                <td>{{number_format($data_gi[$j]['data_gi'][$i]['KWH_lalu'],0)}}</td>
-                                                                <td>{{number_format($data_gi[$j]['data_gi'][$i]['KWH'],0)}}</td>
-                                                                <td>{{number_format($data_gi[$j]['data_gi'][$i]['persen'],2)}}</td>
-                                                                <td>{{number_format($data_gi[$j]['data_gi'][$i]['jual'],0)}}</td>
-                                                                <td>{{number_format($data_gi[$j]['data_gi'][$i]['susut'],0)}}</td>
-                                                                <td>{{number_format($data_gi[$j]['data_gi'][$i]['losses'],2)}}</td>
-                                                                <td class="text-left">{{$data_gi[$j]['data_gi'][$i]['rayon']}}</td>
-                                                            @endif
-                                                        </tr>
-                                                    @endfor
-                                                @endfor
+                                            {{--@for($j=0;$j<count($data);$j++)--}}
+                                                {{--@for($k=0;$k<count($data[$j]['gi']);$k++)--}}
+                                                    {{--<div style="display: none;">{{$flag=true}}</div>--}}
+                                                    {{--@for($i=0;$i<count($data[$j]['gi'][$k]['data_gi']);$i++)--}}
+                                                        {{--<tr class="text-right">--}}
+                                                            {{--                                                {{dd(count($data[$j]['gi']))}}--}}
+                                                            {{--@if($data[$j]['gi'][$k]['data_gi'][$i]['id_trafo']==$data[$j]['gi'][$k]['id'])--}}
+                                                                {{--@if($flag==1)--}}
+                                                                    {{--<td class="text-center">{{$j+1}}</td>--}}
+                                                                    {{--<td class="text-left">{{$data[$j]['gi']}}</td>--}}
+                                                                    {{--<td class="text-center">{{$data[$j]['gi'][$k]['nama_trafo_gi']}}</td>--}}
+                                                                    {{--<td class="text-center">40</td>--}}
+                                                                    {{--<div style="display: none;">{{$flag=false}}</div>--}}
+                                                                {{--@else--}}
+                                                                    {{--<td></td>--}}
+                                                                    {{--<td></td>--}}
+                                                                    {{--<td></td>--}}
+                                                                    {{--<td></td>--}}
+                                                                {{--@endif--}}
+                                                                {{--<td class="text-center">{{$data[$j]['gi'][$k]['data_gi'][$i]['nama_p']}}</td>--}}
+                                                                {{--<td>{{number_format($data[$j]['gi'][$k]['data_gi'][$i]['lwbp1'],0)}}</td>--}}
+                                                                {{--<td>{{number_format($data[$j]['gi'][$k]['data_gi'][$i]['lwbp2'],0)}}</td>--}}
+                                                                {{--<td>{{number_format($data[$j]['gi'][$k]['data_gi'][$i]['wbp'],0)}}</td>--}}
+                                                                {{--<td>{{number_format($data[$j]['gi'][$k]['data_gi'][$i]['total_kwh'],0)}}</td>--}}
+                                                                {{--<td>{{number_format($data[$j]['gi'][$k]['data_gi'][$i]['Kvarh'],0)}}</td>--}}
+                                                                {{--<td>{{number_format($data[$j]['gi'][$k]['data_gi'][$i]['KW'],0)}}</td>--}}
+                                                                {{--<td>{{number_format($data[$j]['gi'][$k]['data_gi'][$i]['ujung'],0)}}</td>--}}
+                                                                {{--<td>{{number_format($data[$j]['gi'][$k]['data_gi'][$i]['KWH_lalu'],0)}}</td>--}}
+                                                                {{--<td>{{number_format($data[$j]['gi'][$k]['data_gi'][$i]['KWH'],0)}}</td>--}}
+                                                                {{--<td>{{number_format($data[$j]['gi'][$k]['data_gi'][$i]['persen'],2)}}</td>--}}
+                                                                {{--<td>{{number_format($data[$j]['gi'][$k]['data_gi'][$i]['jual'],0)}}</td>--}}
+                                                                {{--<td>{{number_format($data[$j]['gi'][$k]['data_gi'][$i]['susut'],0)}}</td>--}}
+                                                                {{--<td>{{number_format($data[$j]['gi'][$k]['data_gi'][$i]['losses'],2)}}</td>--}}
+                                                                {{--<td class="text-left">{{$data[$j]['gi'][$k]['data_gi'][$i]['rayon']}}</td>--}}
+                                                            {{--@endif--}}
+                                                        {{--</tr>--}}
+                                                    {{--@endfor--}}
+                                                {{--@endfor--}}
                                                 <tr class="text-right">
                                                     {{--<td class="text-center"></td>--}}
                                                     {{--<td><b></b></td>--}}
@@ -149,28 +148,27 @@
                                             </tbody>
                                             {{-----------}}
                                             {{--JUMLAH--}}
-                                            <thead>
-                                            <tr>
-                                                <td colspan="5" class="text-center"><b>JUMLAH</b></td>
-                                                {{--{{dd($data_gi[$j]['total_jumlah'])}}--}}
-                                                <td class="text-right"><b>{{number_format($data_gi[$j]['total_jumlah']['lwbp1'],0)}}</b></td>
-                                                <td class="text-right"><b>{{number_format($data_gi[$j]['total_jumlah']['lwbp2'],0)}}</b></td>
-                                                <td class="text-right"><b>{{number_format($data_gi[$j]['total_jumlah']['wbp'],0)}}</b></td>
-                                                <td class="text-right"><b>{{number_format($data_gi[$j]['total_jumlah']['total_kwh'],0)}}</b></td>
-                                                <td class="text-right"><b>{{number_format($data_gi[$j]['total_jumlah']['Kvarh'],0)}}</b></td>
-                                                <td class="text-right"><b>{{number_format($data_gi[$j]['total_jumlah']['KW'],0)}}</b></td>
-                                                <td class="text-center"><b></b></td>
-                                                <td class="text-right"><b>{{number_format($data_gi[$j]['total_jumlah']['KWH_lalu'],0)}}</b></td>
-                                                <td class="text-right"><b>{{number_format($data_gi[$j]['total_jumlah']['KWH'],0)}}</b></td>
-                                                <td class="text-right"><b>{{number_format($data_gi[$j]['total_jumlah']['persen'],2)}}</b></td>
-                                                <td class="text-right"><b>{{number_format($data_gi[$j]['total_jumlah']['jual'],0)}}</b></td>
-                                                <td class="text-right"><b>{{number_format($data_gi[$j]['total_jumlah']['susut'],0)}}</b></td>
-                                                <td class="text-right"><b>{{number_format($data_gi[$j]['total_jumlah']['losses'],2)}}</b></td>
-                                                <td><b></b></td>
-                                            </tr>
-                                            </thead>
+                                            {{--<thead>--}}
+                                            {{--<tr>--}}
+                                                {{--<td colspan="5" class="text-center"><b>JUMLAH</b></td>--}}
+                                                {{--{{dd($data[$j]['total_jumlah'])}}--}}
+                                                {{--<td class="text-right"><b>{{number_format($data[$j]['total_jumlah']['lwbp1'],0)}}</b></td>--}}
+                                                {{--<td class="text-right"><b>{{number_format($data[$j]['total_jumlah']['lwbp2'],0)}}</b></td>--}}
+                                                {{--<td class="text-right"><b>{{number_format($data[$j]['total_jumlah']['wbp'],0)}}</b></td>--}}
+                                                {{--<td class="text-right"><b>{{number_format($data[$j]['total_jumlah']['total_kwh'],0)}}</b></td>--}}
+                                                {{--<td class="text-right"><b>{{number_format($data[$j]['total_jumlah']['Kvarh'],0)}}</b></td>--}}
+                                                {{--<td class="text-right"><b>{{number_format($data[$j]['total_jumlah']['KW'],0)}}</b></td>--}}
+                                                {{--<td class="text-center"><b></b></td>--}}
+                                                {{--<td class="text-right"><b>{{number_format($data[$j]['total_jumlah']['KWH_lalu'],0)}}</b></td>--}}
+                                                {{--<td class="text-right"><b>{{number_format($data[$j]['total_jumlah']['KWH'],0)}}</b></td>--}}
+                                                {{--<td class="text-right"><b>{{number_format($data[$j]['total_jumlah']['persen'],2)}}</b></td>--}}
+                                                {{--<td class="text-right"><b>{{number_format($data[$j]['total_jumlah']['jual'],0)}}</b></td>--}}
+                                                {{--<td class="text-right"><b>{{number_format($data[$j]['total_jumlah']['susut'],0)}}</b></td>--}}
+                                                {{--<td class="text-right"><b>{{number_format($data[$j]['total_jumlah']['losses'],2)}}</b></td>--}}
+                                                {{--<td><b></b></td>--}}
+                                            {{--</tr>--}}
+                                            {{--</thead>--}}
                                             @endfor
-                                        @endif
                                         @endif
                                 </table>
                             </div>
