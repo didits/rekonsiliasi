@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="wrapper">
-        @include('admin.master.top_navbar', ['navbartitle' => "AREA " .    Auth::user()->nama_organisasi])
+        @include('admin.master.top_navbar', ['navbartitle' => Auth::user()->nama_organisasi])
 
         @include('admin.master.navbar')
 
