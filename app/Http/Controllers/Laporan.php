@@ -669,6 +669,25 @@ class Laporan extends Controller
         }
         return array($trafo,$list_p,$jumlah_trafo,$jumlah_tot);
     }
+    public function data_rayon($data_gi,$id_organisasi){
+        $gi = array();
+        for($i =0 ;$i <count($data_gi);$i++) {
+            $data = $this->data_tsa($id_organisasi, "tsa", $data_gi[$i]);
+            $trafo = $data[0];
+            $list_p = $data[1];
+            $jumlah_trafo = $data[2];
+            $jumlah_tot = $data[3];
+            $dt_GI = array(
+                'gi' => $data_gi[$i]['nama_gi'],
+                'trafo' => $trafo,
+                'data_gi' => $list_p,
+                'data_jumlah' => $jumlah_trafo,
+                'total_jumlah' => $jumlah_tot,
+            );
+            array_push($gi,$dt_GI);
+        }
+        return $gi;
+    }
 
     public function view_beli_tsa($id_organisasi, $tsa, $tipe){
         $id_tsa = $tsa;
@@ -956,11 +975,11 @@ class Laporan extends Controller
 
         }
         elseif($tipe = "rayon"){
+            //TSA PER RAYON
             $org = Organisasi::select('tipe_organisasi','nama_organisasi')->where('id_organisasi',$id_organisasi)->first();
             $data_gi = GI::where('id_organisasi',$id_tsa)->select('id','nama_gi','id_organisasi')->get();
             $gi = array();
-//            dd($tipe);
-            if($data_gi){
+            if(count($data_gi)>0){
                 for($i =0 ;$i <count($data_gi);$i++) {
                     $data = $this->data_tsa($id_organisasi, "tsa", $data_gi[$i]);
                     $trafo = $data[0];
@@ -1500,16 +1519,28 @@ class Laporan extends Controller
                         if($data[0]){
                             array_push($data_GI,$data[0]);
                             array_push($jumlah,$data[1]);
-                            $tot_D +=$data[1]['D']; $tot_E +=$data[1]['E'];$tot_F +=$data[1]['F'];$tot_G +=$data[1]['G'];$tot_H +=$data[1]['H'];$tot_I +=$data[1]['I'];$tot_J +=$data[1]['J'];$tot_K +=$data[1]['K'];$tot_L +=$data[1]['L'];$tot_M +=$data[1]['M'];$tot_N +=$data[1]['N'];
+                            $tot_D +=$data[1]['D']; $tot_E +=$data[1]['E'];$tot_G +=$data[1]['G'];$tot_H +=$data[1]['H'];
                         }
                     }
                 }
             }
+            $tot_F = abs($tot_D-$tot_E);
+            $tot_I = abs($tot_D-$tot_G);
+            if($tot_D== 0)$tot_J=0;
+            else $tot_J = abs($tot_I/$tot_D)*100;
+            $tot_K = abs($tot_D-$tot_E-$tot_H);
+            if($tot_F==0)$tot_L = 0;
+            else  $tot_L = abs($tot_K/$tot_F*100);
+            $G_E =$tot_G-$tot_E;
+            $tot_M = abs($tot_G -$tot_H);
+            if($tot_G-$tot_E==0)$G_E = 1;
+            $tot_N = abs($tot_M / ($G_E)*100);
+
             $total = array(
                 'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'I' => $tot_I,
                 'J' => $tot_J, 'K' => $tot_K, 'L' => $tot_L, 'M' => $tot_M, 'N' => $tot_N
             );
-//            dd(count($data_GI));
+//            dd(($data_GI));
             return view('admin.nonmaster.laporan.deviasi',[
                 'area'      => 'area',
                 'data_GI'   => $data_GI,
@@ -1523,25 +1554,59 @@ class Laporan extends Controller
         }
         elseif($tipe == "rayon"){
             $org = Organisasi::select('tipe_organisasi','nama_organisasi')->where('id_organisasi',$id_organisasi)->first();
-            $data_gi = GI::where('id_organisasi',$id)->select('id','nama_gi')->first();
-            if($data_gi){
-                $data = $this->data_deviasi($data_gi,$id_organisasi);
-                $data_GI =$data[0];
-                $jumlah =$data[1];
-//                dd($jumlah);
+            $data_gi = GI::where('id_organisasi',$id)->select('id','nama_gi')->get();
+            if(count($data_gi)>0){
+                $dt_dev = array();
+                for($i=0;$i<count($data_gi);$i++){
+                    $data = $this->data_deviasi($data_gi[$i],$id_organisasi);
+                    $data_GI =$data[0];
+                    $jumlah =$data[1];
+                    $dt = array(
+                        'data' => $data_GI,
+                        'jumlah'=> $jumlah,
+                    );
+                    array_push($dt_dev,$dt);
+                }
+
+                $tot_D =$tot_E =$tot_F =$tot_G =$tot_H =$tot_I =$tot_J =$tot_K=$tot_L =$tot_M= $tot_N =null;
+                for($i=0;$i<count($dt_dev);$i++){
+                    $tot_D += $dt_dev[$i]['jumlah']['D'];
+                    $tot_E += $dt_dev[$i]['jumlah']['E'];
+                    $tot_G += $dt_dev[$i]['jumlah']['G'];
+                    $tot_H += $dt_dev[$i]['jumlah']['H'];
+                }
+                $tot_F = abs($tot_D-$tot_E);
+                $tot_I = abs($tot_D-$tot_G);
+                if($tot_D== 0)$tot_J=0;
+                else $tot_J = abs($tot_I/$tot_D)*100;
+                $tot_K = abs($tot_D-$tot_E-$tot_H);
+                if($tot_F==0)$tot_L = 0;
+                else  $tot_L = abs($tot_K/$tot_F*100);
+                $G_E =$tot_G-$tot_E;
+                $tot_M = abs($tot_G -$tot_H);
+                if($tot_G-$tot_E==0)$G_E = 1;
+                $tot_N = abs($tot_M / ($G_E)*100);
+
+
+                $total = array(
+                    'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'I' => $tot_I,
+                    'J' => $tot_J, 'K' => $tot_K, 'L' => $tot_L, 'M' => $tot_M, 'N' => $tot_N
+                );
 
                 return view('admin.nonmaster.laporan.deviasi',[
                     'area'      => 'data',
                     'data_GI'   => $data_GI,
+                    'data2_GI'   => $dt_dev,
                     'tipe'      => $tipe,
-                    'jumlah'      => $jumlah,
+                    'jumlah'      => $total,
+                    'total'      => $total,
                     'rayon'     => $org->nama_organisasi,
                     'id_organisasi' => $id_organisasi,
                     'id'        => $id
                 ]);
 
             }
-            elseif(!$data_gi){
+            else{
                 return view('admin.nonmaster.laporan.deviasi',[
                     'area'      => 'null',
                     'data_GI'   => null,
@@ -2208,4 +2273,71 @@ class Laporan extends Controller
             'dt_rayon'   => $data[5],
         ]);
     }
+
+    public function distribusi(){
+        //LAPORAN AREA SUSUT DEVIASI
+        $org_area = Organisasi::where('tipe_organisasi', '2')->get()->toArray();
+        $array_ryn = array();
+        $data_RD = array();
+        for($i =0 ;$i <count($org_area);$i++) {
+            $org_rayon = Organisasi::where('id_organisasi', 'like', substr($org_area[$i]['id_organisasi'], 0, 3) . '%')->where('tipe_organisasi', '3')->get()->toArray();
+            $id_ryn = Organisasi::where('id_organisasi', 'like', substr($org_area[$i]['id_organisasi'], 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
+            $data_GI = array();
+            $jumlah = array();
+            $tot_D =$tot_E =$tot_F =$tot_G =$tot_H =$tot_I =$tot_J =$tot_K=$tot_L =$tot_M= $tot_N =null;
+            for($j =0 ;$j <count($org_rayon);$j++) {
+                $data_gi_rayon = GI::where('id_organisasi', $id_ryn[$j])->select('id', 'nama_gi', 'id_organisasi')->get();
+                if(count($data_gi_rayon) > 0) {
+                    $dt_GI = array();
+                    for($k=0;$k<count($data_gi_rayon);$k++){
+                        $gi = $this->data_rayon($data_gi_rayon, $org_rayon[$j]['id_organisasi']);
+                        $data = $this->data_deviasi($data_gi_rayon[$k],$org_rayon[$j]['id_organisasi']);
+                        if(count($gi)>0 && count($data[0])>0){
+//                                if(count($gi)>0)
+                            array_push($array_ryn, $gi);
+
+//                                    if(count($data[0])>0){
+//                                    if($)>0){
+//                                        dd($data);
+//                                    }
+                            array_push($data_GI,$data[0]);
+                            array_push($jumlah,$data[1]);
+                            array_push($dt_GI,$data[1]);
+                            $tot_D +=$data[1]['D']; $tot_E +=$data[1]['E'];$tot_G +=$data[1]['G'];$tot_H +=$data[1]['H'];
+                            if(count($gi)==count($dt_GI)){
+                                $array_data = array(
+                                    'gi' => $gi,
+                                    'dev' => $dt_GI,
+                                );
+                                array_push($data_RD,$array_data);
+
+                            }
+                        }
+                    }
+
+                    $tot_F = abs($tot_D-$tot_E);
+                    $tot_I = abs($tot_D-$tot_G);
+                    if($tot_D== 0)$tot_J=0;
+                    else $tot_J = abs($tot_I/$tot_D)*100;
+                    $tot_K = abs($tot_D-$tot_E-$tot_H);
+                    if($tot_F==0)$tot_L = 0;
+                    else  $tot_L = abs($tot_K/$tot_F*100);
+                    $G_E =$tot_G-$tot_E;
+                    $tot_M = abs($tot_G -$tot_H);
+                    if($tot_G-$tot_E==0)$G_E = 1;
+                    $tot_N = abs($tot_M / ($G_E)*100);
+
+                    $total = array(
+                        'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'I' => $tot_I,
+                        'J' => $tot_J, 'K' => $tot_K, 'L' => $tot_L, 'M' => $tot_M, 'N' => $tot_N
+                    );
+                }
+            }
+        }
+//        dd($data_RD);
+        return view('admin.nonmaster.laporan.distribusi',[
+            'data'      => $data_RD
+        ]);
+    }
 }
+

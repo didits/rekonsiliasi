@@ -403,6 +403,8 @@ Route::group(['prefix' => 'distribusi/laporan_master', 'middleware' => ['auth', 
         'uses'      => 'Datamaster@list_master_rayons'
     ]);
 
+
+
     Route::get('/list_gi/{id_organisasi}', [
         'as'        => 'distribusi.list_master_gi',
         'uses'      => 'Datamaster@list_master_gi'
@@ -425,6 +427,10 @@ Route::group(['prefix' => 'distribusi/laporan_transaksi', 'middleware' => ['auth
     Route::get('/', [
         'as'        => 'distribusi.indexLaporanTransaksi',
         'uses'      => 'DistribusiController@list_area_transaksi'
+    ]);
+    Route::get('/jatim', [
+        'as'        => 'distribusi.jatim',
+        'uses'      => 'Laporan@distribusi'
     ]);
 
     Route::get('/{id_org}', [

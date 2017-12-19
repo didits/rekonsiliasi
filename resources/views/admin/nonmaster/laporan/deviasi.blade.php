@@ -124,34 +124,36 @@
                                     @if($area == "data")
                                     <tbody>
                                         <div style="display: none;">{{$flag=true}}</div>
-                                        @for($i=0;$i<count($data_GI);$i++)
-                                        <tr class="text-right">
+                                        @for($i=0;$i<count($data2_GI);$i++)
+                                            @for($j=0;$j<count($data2_GI[$i]['data']);$j++)
+                                                <tr class="text-right">
                                             @if($flag)
                                             <td class="text-center">1</td>
-                                            <td class="text-left">{{$data_GI[$i]['gi']}}</td>
+                                            <td class="text-left">{{$data2_GI[$i]['data'][$j]['gi']}}</td>
                                             <div style="display: none;">{{$flag=false}}</div>
                                             @else
                                             <td class="text-center"></td>
                                             <td class="text-left"></td>
                                             @endif
-                                            <td class="text-center">{{$data_GI[$i]['trafo']}}</td>
-                                            <td>{{number_format($data_GI[$i]['D'],0)}}</td>
-                                            <td>{{number_format($data_GI[$i]['E'],0)}}</td>
-                                            <td>{{number_format($data_GI[$i]['F'],0)}}</td>
-                                            <td>{{number_format($data_GI[$i]['G'],0)}}</td>
-                                            <td>{{number_format($data_GI[$i]['H'],0)}}</td>
-                                            <td>({{number_format($data_GI[$i]['I']),0}})</td>
-                                            <td>({{number_format($data_GI[$i]['J'],2)}})</td>
-                                            <td>({{number_format($data_GI[$i]['K'],0)}})</td>
-                                            <td>({{number_format($data_GI[$i]['L'],2)}})</td>
-                                            <td>({{number_format($data_GI[$i]['M'],0)}})</td>
-                                            <td>({{number_format($data_GI[$i]['N'],2)}})</td>
-                                            @if(number_format($data_GI[$i]['N'],2)> 2)
+                                            <td class="text-center">{{$data2_GI[$i]['data'][$j]['trafo']}}</td>
+                                            <td>{{number_format($data2_GI[$i]['data'][$j]['D'],0)}}</td>
+                                            <td>{{number_format($data2_GI[$i]['data'][$j]['E'],0)}}</td>
+                                            <td>{{number_format($data2_GI[$i]['data'][$j]['F'],0)}}</td>
+                                            <td>{{number_format($data2_GI[$i]['data'][$j]['G'],0)}}</td>
+                                            <td>{{number_format($data2_GI[$i]['data'][$j]['H'],0)}}</td>
+                                            <td>({{number_format($data2_GI[$i]['data'][$j]['I']),0}})</td>
+                                            <td>({{number_format($data2_GI[$i]['data'][$j]['J'],2)}})</td>
+                                            <td>({{number_format($data2_GI[$i]['data'][$j]['K'],0)}})</td>
+                                            <td>({{number_format($data2_GI[$i]['data'][$j]['L'],2)}})</td>
+                                            <td>({{number_format($data2_GI[$i]['data'][$j]['M'],0)}})</td>
+                                            <td>({{number_format($data2_GI[$i]['data'][$j]['N'],2)}})</td>
+                                            @if(number_format($data2_GI[$i]['data'][$j]['N'],2)> 2)
                                             <td class="text-center">TIDAK NORMAL</td>
-                                            @elseif(number_format($data_GI[$i]['N'],2)< 2)
+                                            @elseif(number_format($data2_GI[$i]['data'][$j]['N'],2)< 2)
                                             <td class="text-center">NORMAL</td>
                                             @endif
                                         </tr>
+                                            @endfor
                                         @endfor
                                     </tbody>
                                     {{-----------}}

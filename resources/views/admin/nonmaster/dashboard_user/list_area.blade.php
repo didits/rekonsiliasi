@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="wrapper">
-        @include('admin.master.top_navbar', ['navbartitle' => Auth::user()->nama_organisasi])
+        @include('admin.master.top_navbar', ['navbartitle' => "AREA " .    Auth::user()->nama_organisasi])
 
         @include('admin.master.navbar')
 
@@ -54,55 +54,30 @@
                             </div>
                         </div>
                     </div>
+
+                    {{--@if($transaksi)--}}
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="header">
-                                    <h4 class="title">Laporan TSA</h4>
-                                    <p class="category">{{Auth::user()->nama_organisasi}}</p>
-                                </div>
-                                <div class="content all-icons">
-                                    <div class="row">
-                                        <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6">
-                                            <a href="" rel="tooltip" title="" data-original-title="">
-                                                <button class="font-icon-detail btn btn-info btn-fill btn-wd">
-                                                    <i class="pe-7s-map-2"></i><br/>Laporan<br/>TSA<br/>Area
-                                                </button>
-                                            </a>
-                                        </div>
-                                        <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6">
-                                            <a href="" rel="tooltip" title="" data-original-title="">
-                                                <button class="font-icon-detail btn btn-info btn-fill btn-wd">
-                                                    <i class="pe-7s-albums"></i><br/>Laporan<br/>TSA<br/>Rayon
-                                                </button>
-                                            </a>
-                                        </div>
-                                        <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6">
-                                            <a href="" rel="tooltip" title="" data-original-title="">
-                                                <button class="font-icon-detail btn btn-info btn-fill btn-wd">
-                                                    <i class="pe-7s-folder"></i><br/>Laporan<br/>TSA<br/>Penyulang
-                                                </button>
-                                            </a>
-                                        </div>
-                                        <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6">
-                                            <a href="" rel="tooltip" title="" data-original-title="">
-                                                <button class="font-icon-detail btn btn-info btn-fill btn-wd">
-                                                    <i class="pe-7s-graph"></i><br/>Laporan<br/>Deviasi<br/><br/>
-                                                </button>
-                                            </a>
-                                        </div>
-                                        <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6">
-                                            <a href="" rel="tooltip" title="" data-original-title="">
-                                                <button class="font-icon-detail btn btn-info btn-fill btn-wd">
-                                                    <i class="pe-7s-refresh-2"></i><br/>Laporan<br/>PCT<br/><br/>
-                                                </button>
-                                            </a>
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="header">
+                                        <h4 class="title">Laporan Distribusi</h4>
+                                        <p class="category">JAWA TIMUR</p>
+                                    </div>
+                                    <div class="content all-icons">
+                                        <div class="row">
+                                            <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                                                <a href={{route('distribusi.jatim', "area")}} rel="tooltip" title="" data-original-title="">
+                                                    <button class="font-icon-detail btn btn-info btn-fill btn-wd">
+                                                        <i class="pe-7s-map-2"></i><br/>Laporan<br/>Distribusi<br/> JAWA TIMUR
+                                                    </button>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    {{--@endif--}}
                 </div>
             </div>
 
