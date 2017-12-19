@@ -7,7 +7,6 @@
     @include('admin.master.top_navbar', ['navbartitle' => "LAPORAN TSA PENYULANG"])
 
     @include('admin.master.navbar')
-    {{dd($data)}}
     <div class="main-panel">
         <div class="content">
             <div class="container-fluid">
@@ -71,46 +70,64 @@
                                     <thead>
                                     <tr>
                                         <th rowspan="3" class="text-center">NO</th>
-                                        <th colspan="3" class="text-center">GARDU INDUK (GI)</th>
+                                        <th rowspan="3" class="text-center">GI</th>
                                         <th colspan="6" class="text-center">KWH SALUR</th>
-                                        <th rowspan="3" class="text-center">TEGANGAN<br/>UJUNG</th>
+                                        <th rowspan="3" class="text-center">TSA BULAN LALU</th>
                                         <th colspan="2" rowspan="2" class="text-center">NAIK/TURUN</th>
-                                        <th colspan="2" class="text-center">DEVIASI</th>
-                                        <th colspan="2" class="text-center">SUSUT</th>
-                                        <th rowspan="3" class="text-center">UP/UPJ</th>
+                                        <th rowspan="3" class="text-center">KWH JUAL</th>
+                                        <th colspan="2" rowspan="2" class="text-center">SUSUT</th>
+                                        <th colspan="2" rowspan="2" class="text-center">DEVIASI</th>
+                                        {{--<th rowspan="3" class="text-center">AREA</th>--}}
+                                        {{--<th rowspan="3" class="text-center">DEVIASI</th >--}}
                                     </tr>
                                     <tr>
-                                        <th rowspan="2" class="text-center">NAMA</th>
-                                        <th rowspan="2" class="text-center">TRAFO</th>
-                                        <th rowspan="2" class="text-center">DAYA<br/>(MVA)</th>
+                                        <th rowspan="2" class="text-center">TOTAL</th>
+                                        <th rowspan="2" class="text-center">WBP</th>
                                         <th rowspan="2" class="text-center">LWBP1</th>
                                         <th rowspan="2" class="text-center">LWBP2</th>
-                                        <th rowspan="2" class="text-center">WBP</th>
-                                        <th rowspan="2" class="text-center">TOTAL KWH</th>
-                                        <th rowspan="2" class="text-center">KVARH</th>
-                                        <th rowspan="2" class="text-center">KW</th>
-                                        <th rowspan="2" class="text-center">DEVIASI(%)</th>
-                                        <th rowspan="2" class="text-center">KETERANGAN</th>
-                                        <th rowspan="2" class="text-center">KWH SUSUT</th>
-                                        <th rowspan="2" class="text-center">LOSSES(%)</th>
+                                        <th rowspan="2" class="text-center">KEL. KVARH<br/>(KVARH)</th>
+                                        <th rowspan="2" class="text-center">KAPASITAS<br/>(KW)</th>
                                     </tr>
                                     <tr>
                                         <th class="text-center">KWH</th>
                                         <th class="text-center">%</th>
+                                        <th class="text-center">KWH SUSUT</th>
+                                        <th class="text-center">LOSSES(%)</th>
+                                        <th class="text-center">%</th>
+                                        <th class="text-center">KETERA</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">1</th>
+                                        <th class="text-center">2</th>
+                                        <th class="text-center">3</th>
+                                        <th class="text-center">4=5+6+7</th>
+                                        <th class="text-center">5</th>
+                                        <th class="text-center">6</th>
+                                        <th class="text-center">7</th>
+                                        <th class="text-center">13</th>
+                                        <th class="text-center">14</th>
+                                        <th class="text-center">16</th>
+                                        <th class="text-center">17=9-16</th>
+                                        <th class="text-center">18=17/16*100</th>
+                                        <th class="text-center">19</th>
+                                        <th class="text-center">20</th>
+                                        <th class="text-center">21</th>
                                     </tr>
                                     </thead>
 
                                         @if($data)
                                             <tbody>
-                                            {{--@for($j=0;$j<count($data);$j++)--}}
-                                                {{--@for($k=0;$k<count($data[$j]['gi']);$k++)--}}
+                                            @for($i=0;$i<count($data);$i++)
+                                                @for($j=0;$j<count($data[$i]['gi']);$j++)
                                                     {{--<div style="display: none;">{{$flag=true}}</div>--}}
                                                     {{--@for($i=0;$i<count($data[$j]['gi'][$k]['data_gi']);$i++)--}}
-                                                        {{--<tr class="text-right">--}}
+                                                        <tr class="text-right">
+                                                            {{--{{dd($data[0]['gi'][0]['gi'])}}--}}
+
                                                             {{--                                                {{dd(count($data[$j]['gi']))}}--}}
                                                             {{--@if($data[$j]['gi'][$k]['data_gi'][$i]['id_trafo']==$data[$j]['gi'][$k]['id'])--}}
                                                                 {{--@if($flag==1)--}}
-                                                                    {{--<td class="text-center">{{$j+1}}</td>--}}
+                                                                    <td class="text-center">{{$i+1}}</td>
                                                                     {{--<td class="text-left">{{$data[$j]['gi']}}</td>--}}
                                                                     {{--<td class="text-center">{{$data[$j]['gi'][$k]['nama_trafo_gi']}}</td>--}}
                                                                     {{--<td class="text-center">40</td>--}}
@@ -121,7 +138,7 @@
                                                                     {{--<td></td>--}}
                                                                     {{--<td></td>--}}
                                                                 {{--@endif--}}
-                                                                {{--<td class="text-center">{{$data[$j]['gi'][$k]['data_gi'][$i]['nama_p']}}</td>--}}
+                                                                <td class="text-center">{{$data[$i]['gi'][$j]['gi']}}</td>
                                                                 {{--<td>{{number_format($data[$j]['gi'][$k]['data_gi'][$i]['lwbp1'],0)}}</td>--}}
                                                                 {{--<td>{{number_format($data[$j]['gi'][$k]['data_gi'][$i]['lwbp2'],0)}}</td>--}}
                                                                 {{--<td>{{number_format($data[$j]['gi'][$k]['data_gi'][$i]['wbp'],0)}}</td>--}}
@@ -137,9 +154,9 @@
                                                                 {{--<td>{{number_format($data[$j]['gi'][$k]['data_gi'][$i]['losses'],2)}}</td>--}}
                                                                 {{--<td class="text-left">{{$data[$j]['gi'][$k]['data_gi'][$i]['rayon']}}</td>--}}
                                                             {{--@endif--}}
-                                                        {{--</tr>--}}
-                                                    {{--@endfor--}}
-                                                {{--@endfor--}}
+                                                        </tr>
+                                                    @endfor
+                                                @endfor
                                                 <tr class="text-right">
                                                     {{--<td class="text-center"></td>--}}
                                                     {{--<td><b></b></td>--}}
@@ -148,8 +165,8 @@
                                             </tbody>
                                             {{-----------}}
                                             {{--JUMLAH--}}
-                                            {{--<thead>--}}
-                                            {{--<tr>--}}
+                                            <thead>
+                                            <tr>
                                                 {{--<td colspan="5" class="text-center"><b>JUMLAH</b></td>--}}
                                                 {{--{{dd($data[$j]['total_jumlah'])}}--}}
                                                 {{--<td class="text-right"><b>{{number_format($data[$j]['total_jumlah']['lwbp1'],0)}}</b></td>--}}
@@ -168,7 +185,7 @@
                                                 {{--<td><b></b></td>--}}
                                             {{--</tr>--}}
                                             {{--</thead>--}}
-                                            @endfor
+                                            {{--@endfor--}}
                                         @endif
                                 </table>
                             </div>
