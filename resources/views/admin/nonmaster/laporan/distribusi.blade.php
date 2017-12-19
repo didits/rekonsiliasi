@@ -168,7 +168,7 @@
                                                 {{--<td><b></b></td>--}}
                                             {{--</tr>--}}
                                             {{--</thead>--}}
-                                            @endfor
+                                            {{--@endfor--}}
                                         @endif
                                 </table>
                             </div>
