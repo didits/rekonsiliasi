@@ -171,6 +171,11 @@
                                             <th class="text-center">({{number_format($jumlah['L'],2)}})</th>
                                             <th class="text-center">({{number_format($jumlah['M'],0)}})</th>
                                             <th class="text-center">({{number_format($jumlah['N'],2)}})</th>
+                                            @if(number_format($data2_GI[$i]['data'][$j]['N'],2)> 2)
+                                                <th class="text-center">TIDAK NORMAL</th>
+                                            @elseif(number_format($data2_GI[$i]['data'][$j]['N'],2)< 2)
+                                                <th class="text-center">NORMAL</th>
+                                            @endif
                                         </tr> 
                                     </thead>
                                     @elseif($area == "area")
