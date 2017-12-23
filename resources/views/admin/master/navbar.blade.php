@@ -108,21 +108,21 @@
                         </div>
                     </li>
 
-                    <li>
-                        <a data-toggle="collapse" href="#histori">
-                            <i class="pe-7s-timer"></i>
-                            <p>Histori
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <div class="collapse" id="histori">
-                            <ul class="nav">
-                                <li>
-                                    <a href="#">Rekap</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
+                    {{--<li>--}}
+                        {{--<a data-toggle="collapse" href="#histori">--}}
+                            {{--<i class="pe-7s-timer"></i>--}}
+                            {{--<p>Histori--}}
+                                {{--<b class="caret"></b>--}}
+                            {{--</p>--}}
+                        {{--</a>--}}
+                        {{--<div class="collapse" id="histori">--}}
+                            {{--<ul class="nav">--}}
+                                {{--<li>--}}
+                                    {{--<a href="#">Rekap</a>--}}
+                                {{--</li>--}}
+                            {{--</ul>--}}
+                        {{--</div>--}}
+                    {{--</li>--}}
 
                     {{--<li>--}}
                         {{--<a href="{{route('listrik.hasil_pengolahan')}}">--}}
@@ -213,21 +213,21 @@
                         </div>
                     </li>
 
-                    <li>
-                        <a data-toggle="collapse" href="#histori">
-                            <i class="pe-7s-timer"></i>
-                            <p>Histori
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <div class="collapse" id="histori">
-                            <ul class="nav">
-                                <li>
-                                    <a href="#">Rekap</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
+                    {{--<li>--}}
+                        {{--<a data-toggle="collapse" href="#histori">--}}
+                            {{--<i class="pe-7s-timer"></i>--}}
+                            {{--<p>Histori--}}
+                                {{--<b class="caret"></b>--}}
+                            {{--</p>--}}
+                        {{--</a>--}}
+                        {{--<div class="collapse" id="histori">--}}
+                            {{--<ul class="nav">--}}
+                                {{--<li>--}}
+                                    {{--<a href="#">Rekap</a>--}}
+                                {{--</li>--}}
+                            {{--</ul>--}}
+                        {{--</div>--}}
+                    {{--</li>--}}
 
                     <li @if(Request::is('area/profil'))class="active"@endif>
                         <a href="{{route('area.profil')}}">
@@ -319,21 +319,21 @@
                         </div>
                     </li>
 
-                    <li>
-                        <a data-toggle="collapse" href="#histori">
-                            <i class="pe-7s-timer"></i>
-                            <p>Histori
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <div class="collapse" id="histori">
-                            <ul class="nav">
-                                <li>
-                                    <a href="#">Rekap</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
+                    {{--<li>--}}
+                        {{--<a data-toggle="collapse" href="#histori">--}}
+                            {{--<i class="pe-7s-timer"></i>--}}
+                            {{--<p>Histori--}}
+                                {{--<b class="caret"></b>--}}
+                            {{--</p>--}}
+                        {{--</a>--}}
+                        {{--<div class="collapse" id="histori">--}}
+                            {{--<ul class="nav">--}}
+                                {{--<li>--}}
+                                    {{--<a href="#">Rekap</a>--}}
+                                {{--</li>--}}
+                            {{--</ul>--}}
+                        {{--</div>--}}
+                    {{--</li>--}}
                     @endif
 
                 </ul>
