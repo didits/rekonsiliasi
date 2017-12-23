@@ -1034,6 +1034,24 @@ class AreaController extends Controller
     }
 
     public function dashboard(){
+        $Laporan = new Laporan;
+        $dev = $Laporan->deviasi_area(Auth::user()->id_organisasi, 'area', 0);
+        $sumDev = count($dev['jumlah']);
+        $devNorm = $devAbnorm = 0;
+        for($i=0; $i<$sumDev; $i++){
+            if($dev['jumlah'][$i]['L'] > 2) $devNorm++;
+            elseif($dev['jumlah'][$i]['L'] < 2) $devAbnorm++;
+        }
+        $deviasi = array();
+        $deviasi[] = [intval(($devNorm/$sumDev)*100), $devNorm];
+        $deviasi[] = [intval(($devAbnorm/$sumDev)*100), $devAbnorm];
+        $deviasi[] = $sumDev;
+
+        $sut = $Laporan->tsa_gi_peny(Auth::user()->id_organisasi, 'area', 'penyulang');
+        $data_gi = $sut['list_p'];
+        $py = 0;
+
+        dd($deviasi);
         return view('admin.nonmaster.dashboard_user.dashboard');
     }
 }

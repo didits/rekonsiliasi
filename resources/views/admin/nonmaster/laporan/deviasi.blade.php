@@ -147,9 +147,9 @@
                                             <td>({{number_format($data2_GI[$i]['data'][$j]['L'],2)}})</td>
                                             <td>({{number_format($data2_GI[$i]['data'][$j]['M'],0)}})</td>
                                             <td>({{number_format($data2_GI[$i]['data'][$j]['N'],2)}})</td>
-                                            @if(number_format($data2_GI[$i]['data'][$j]['N'],2)> 2)
+                                            @if(number_format($data2_GI[$i]['data'][$j]['L'],2)> 2)
                                             <td class="text-center">TIDAK NORMAL</td>
-                                            @elseif(number_format($data2_GI[$i]['data'][$j]['N'],2)< 2)
+                                            @elseif(number_format($data2_GI[$i]['data'][$j]['L'],2)< 2)
                                             <td class="text-center">NORMAL</td>
                                             @endif
                                         </tr>
@@ -171,9 +171,9 @@
                                             <th class="text-center">({{number_format($jumlah['L'],2)}})</th>
                                             <th class="text-center">({{number_format($jumlah['M'],0)}})</th>
                                             <th class="text-center">({{number_format($jumlah['N'],2)}})</th>
-                                            @if(number_format($data2_GI[$i]['data'][$j]['N'],2)> 2)
+                                            @if(number_format($jumlah['L'],2)> 2)
                                                 <th class="text-center">TIDAK NORMAL</th>
-                                            @elseif(number_format($data2_GI[$i]['data'][$j]['N'],2)< 2)
+                                            @elseif(number_format($jumlah['L'],2)< 2)
                                                 <th class="text-center">NORMAL</th>
                                             @endif
                                         </tr> 
@@ -205,9 +205,9 @@
                                             <td>({{number_format($data_GI[$i][$j]['L'],2)}})</td>
                                             <td>({{number_format($data_GI[$i][$j]['M'],0)}})</td>
                                             <td>({{number_format($data_GI[$i][$j]['N'],2)}})</td>
-                                            @if(number_format($data_GI[$i][$j]['N'],2)> 2)
+                                            @if(number_format($data_GI[$i][$j]['L'],2)> 2)
                                             <td>TIDAK NORMAL</td>
-                                            @elseif(number_format($data_GI[$i][$j]['N'],2)< 2)
+                                            @elseif(number_format($data_GI[$i][$j]['L'],2)< 2)
                                             <td>NORMAL</td>
                                             @endif
                                             {{--<td></td>--}}
@@ -229,7 +229,11 @@
                                             <th class="text-center">({{number_format($jumlah[$i]['L'],2)}})</th>
                                             <th class="text-center">({{number_format($jumlah[$i]['M'],0)}})</th>
                                             <th class="text-center">({{number_format($jumlah[$i]['N'],2)}})</th>
-                                            <th></th>
+                                            @if(number_format($jumlah[$i]['L'],2)> 2)
+                                                <th class="text-center">TIDAK NORMAL</th>
+                                            @elseif(number_format($jumlah[$i]['L'],2)< 2)
+                                                <th class="text-center">NORMAL</th>
+                                            @endif
                                             {{--<th></th>--}}
                                         </tr>
                                         </thead>
@@ -237,7 +241,7 @@
                                         {{-----------}}
                                         <thead>
                                         <tr>
-                                            <td class="text-center" colspan="3" class="text-center"><b></b>JUMLAH</td>
+                                            <td class="text-center" colspan="3" class="text-center"><b></b>JUMLAHTOT</td>
                                             <td class="text-center"><b>{{number_format($total['D'],0)}}</b></td>
                                             <td class="text-center"><b>{{number_format($total['E'],0)}}</b></td>
                                             <td class="text-center"><b>{{number_format($total['F'],0)}}</b></td>
@@ -247,14 +251,22 @@
                                             <td class="text-center"><b>({{number_format($total['J'],2)}})</b></td>
                                             <td class="text-center"><b>({{number_format($total['K'],0)}})</b></td>
                                             <td class="text-center"><b>({{number_format($total['L'],2)}})</b></td>
+                                            {{--<td></td>--}}
                                             <td class="text-center"><b>({{number_format($total['M'],0)}})</b></td>
                                             <td class="text-center"><b>({{number_format($total['N'],2)}})</b></td>
-                                            <td></td>
+                                            @if($total['L'] > 2)
+
+                                            <td class="text-center"><b>TIDAK NORMAL</b></td>
+                                            @elseif($total['L']< 2)
+
+                                            <td class="text-center"><b>NORMAL</b></td>
+                                            @endif
                                             {{--<td></td>--}}
                                         </tr>
                                         </thead>
                                     </tbody>
                                     @endif
+
                                 </table>
                             </div>
                         </div>

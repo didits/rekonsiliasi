@@ -689,121 +689,136 @@ class Laporan extends Controller
         return $gi;
     }
 
-    public function view_beli_tsa($id_organisasi, $tsa, $tipe){
-        $id_tsa = $tsa;
-//            dd($tipe);
-        if($tipe =="gi"||$tipe =="penyulang"){
-            $data_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
-            $id_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
-            $tsa_ = array();$trafo = array();$list_p = array();$nama_gi = array();$jumlah_trafo = array();$jumlah_tot = array();
+    public function tsa_gi_peny($id_organisasi, $tsa, $tipe){
+        $data_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
+        $id_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
+        $tsa_ = array();$trafo = array();$list_p = array();$nama_gi = array();$jumlah_trafo = array();$jumlah_tot = array();
 //            dd($id_org);
-            for($i =0 ;$i <count($id_org);$i++) {
-                $data_gi = GI::where('id_organisasi', $id_org[$i])->select('id', 'nama_gi','id_organisasi')->get();
-                for($j=0 ;$j <count($data_gi);$j++) {
-                    $data = $this->data_tsa($id_organisasi, "tsa", $data_gi[$j]);
-                    if(count($data[1])>0){
-                        if(count($data[2])>0){
-                            if($data[0])
-                                array_push($trafo,$data[0]);
-                            if($data[1])
-                                array_push($list_p,$data[1]);
-                            if($data[2])
-                                array_push($jumlah_trafo,$data[2]);
-                            if($data[3])
-                                array_push($jumlah_tot,$data[3]);
-                            $dt = array(
-                                'nama' => $data[1][0]['rayon'],
-                                'trafo' => $data[0],
-                                'list_p' => $data[1],
-                                'jumlah_trafo' => $data[2],
-                                'jumlah_tot' => $data[3],
-                            );
+        for($i =0 ;$i <count($id_org);$i++) {
+            $data_gi = GI::where('id_organisasi', $id_org[$i])->select('id', 'nama_gi','id_organisasi')->get();
+            for($j=0 ;$j <count($data_gi);$j++) {
+                $data = $this->data_tsa($id_organisasi, "tsa", $data_gi[$j]);
+                if(count($data[1])>0){
+                    if(count($data[2])>0){
+                        if($data[0])
+                            array_push($trafo,$data[0]);
+                        if($data[1])
+                            array_push($list_p,$data[1]);
+                        if($data[2])
+                            array_push($jumlah_trafo,$data[2]);
+                        if($data[3])
+                            array_push($jumlah_tot,$data[3]);
+                        $dt = array(
+                            'nama' => $data[1][0]['rayon'],
+                            'trafo' => $data[0],
+                            'list_p' => $data[1],
+                            'jumlah_trafo' => $data[2],
+                            'jumlah_tot' => $data[3],
+                        );
 
-                            array_push($nama_gi,$data_gi[$j]);
-                            array_push($tsa_,$dt);
-                        }
-//                              if($data_gi[$j]["id"]==1)dd($dt);
+                        array_push($nama_gi,$data_gi[$j]);
+                        array_push($tsa_,$dt);
                     }
+//                              if($data_gi[$j]["id"]==1)dd($dt);
                 }
             }
+        }
 //            dd($jumlah_trafo);
 
 
-            $jumlah_gi = array();
-            for($i=0;$i<count($jumlah_trafo);$i++){
-                $lwbp1_gi = $lwbp2_gi = $wbp_gi =$tpe_kwh_gi = $Kvarh_gi =$KW_gi = $KWH_gi = $KWH_lalu_gi=$jual_gi= null;
-                for($j=0;$j<count($jumlah_trafo[$i]);$j++){
-                    $lwbp1_gi +=$jumlah_trafo[$i][$j]['lwbp1'];
-                    $lwbp2_gi +=$jumlah_trafo[$i][$j]['lwbp2'];
-                    $wbp_gi +=$jumlah_trafo[$i][$j]['wbp'];
-                    $tpe_kwh_gi +=$jumlah_trafo[$i][$j]['total_kwh'];
-                    $Kvarh_gi +=$jumlah_trafo[$i][$j]['Kvarh'];
-                    $KW_gi +=$jumlah_trafo[$i][$j]['KW'];
-                    $KWH_gi +=$jumlah_trafo[$i][$j]['KWH'];
-                    $KWH_lalu_gi+=$jumlah_trafo[$i][$j]['KWH_lalu'];
-                    $jual_gi+=$jumlah_trafo[$i][$j]['jual'];
-                }
-
-                if($KWH_lalu_gi == 0)$persen_gi =0;
-                else $persen_gi = $KWH_gi/$KWH_lalu_gi*100;
-                $susut_gi = $tpe_kwh_gi -$jual_gi;
-                if($tpe_kwh_gi==0) $losses_gi = 0;
-                else $losses_gi = $susut_gi / $tpe_kwh_gi *100;
-                $dt_gi =array(
-                    'lwbp1' => $lwbp1_gi,
-                    'lwbp2' => $lwbp2_gi,
-                    'wbp' => $wbp_gi,
-                    'total_kwh' => $tpe_kwh_gi,
-                    'KW' => $KW_gi,
-                    'Kvarh'   => $Kvarh_gi,
-                    'KWH'   => $KWH_gi,
-                    'KWH_lalu'   => $KWH_lalu_gi,
-                    'persen' => $persen_gi,
-                    'jual'   => $jual_gi,
-                    'susut'   => $susut_gi,
-                    'losses'   => $losses_gi
-                );
-                array_push($jumlah_gi,$dt_gi);
+        $jumlah_gi = array();
+        for($i=0;$i<count($jumlah_trafo);$i++){
+            $lwbp1_gi = $lwbp2_gi = $wbp_gi =$tpe_kwh_gi = $Kvarh_gi =$KW_gi = $KWH_gi = $KWH_lalu_gi=$jual_gi= null;
+            for($j=0;$j<count($jumlah_trafo[$i]);$j++){
+                $lwbp1_gi +=$jumlah_trafo[$i][$j]['lwbp1'];
+                $lwbp2_gi +=$jumlah_trafo[$i][$j]['lwbp2'];
+                $wbp_gi +=$jumlah_trafo[$i][$j]['wbp'];
+                $tpe_kwh_gi +=$jumlah_trafo[$i][$j]['total_kwh'];
+                $Kvarh_gi +=$jumlah_trafo[$i][$j]['Kvarh'];
+                $KW_gi +=$jumlah_trafo[$i][$j]['KW'];
+                $KWH_gi +=$jumlah_trafo[$i][$j]['KWH'];
+                $KWH_lalu_gi+=$jumlah_trafo[$i][$j]['KWH_lalu'];
+                $jual_gi+=$jumlah_trafo[$i][$j]['jual'];
             }
 
-            $tot_lwbp1 = $tot_lwbp2 = $tot_wbp = $tot_Kvarh =$tot_t_kwh = $tot_KW = $tot_KWH = $tot_KWH_lalu=$tot_jual= null;
-            for($i=0;$i < count($jumlah_gi);$i++){
-                $tot_lwbp1 += $jumlah_gi[$i]['lwbp1'];
-                $tot_lwbp2 += $jumlah_gi[$i]['lwbp2'];
-                $tot_wbp += $jumlah_gi[$i]['wbp'];
-                $tot_Kvarh += $jumlah_gi[$i]['Kvarh'];
-                $tot_t_kwh += $jumlah_gi[$i]['total_kwh'];
-                $tot_KWH_lalu+=$jumlah_gi[$i]['KWH_lalu'];
-                $tot_KW +=$jumlah_gi[$i]['KW'];
-                $tot_KWH += $jumlah_gi[$i]['KWH'];
-                $tot_jual += $jumlah_gi[$i]['jual'];
-            }
-
-            if($tot_KWH_lalu == 0)$tot_persen =0;
-            else $tot_persen = $tot_KWH/$tot_KWH_lalu*100;
-            $tot_susut = $tot_t_kwh -$tot_jual;
-            if($tot_t_kwh==0) $tot_losses = 0;
-            else $tot_losses = $tot_susut / $tot_t_kwh *100;
-
-            $jumlah_tot =array(
-                'lwbp1' => $tot_lwbp1,
-                'lwbp2' => $tot_lwbp2,
-                'wbp' => $tot_wbp,
-                'total_kwh' => $tot_t_kwh,
-                'KW' => $tot_KW,
-                'Kvarh'   => $tot_Kvarh,
-                'KWH'   => $tot_KWH,
-                'KWH_lalu'   => $tot_KWH_lalu,
-                'persen' => $tot_persen,
-                'jual'   => $tot_jual,
-                'susut'   => $tot_susut,
-                'losses'   => $tot_losses
+            if($KWH_lalu_gi == 0)$persen_gi =0;
+            else $persen_gi = $KWH_gi/$KWH_lalu_gi*100;
+            $susut_gi = $tpe_kwh_gi -$jual_gi;
+            if($tpe_kwh_gi==0) $losses_gi = 0;
+            else $losses_gi = $susut_gi / $tpe_kwh_gi *100;
+            $dt_gi =array(
+                'lwbp1' => $lwbp1_gi,
+                'lwbp2' => $lwbp2_gi,
+                'wbp' => $wbp_gi,
+                'total_kwh' => $tpe_kwh_gi,
+                'KW' => $KW_gi,
+                'Kvarh'   => $Kvarh_gi,
+                'KWH'   => $KWH_gi,
+                'KWH_lalu'   => $KWH_lalu_gi,
+                'persen' => $persen_gi,
+                'jual'   => $jual_gi,
+                'susut'   => $susut_gi,
+                'losses'   => $losses_gi
             );
+            array_push($jumlah_gi,$dt_gi);
+        }
+
+        $tot_lwbp1 = $tot_lwbp2 = $tot_wbp = $tot_Kvarh =$tot_t_kwh = $tot_KW = $tot_KWH = $tot_KWH_lalu=$tot_jual= null;
+        for($i=0;$i < count($jumlah_gi);$i++){
+            $tot_lwbp1 += $jumlah_gi[$i]['lwbp1'];
+            $tot_lwbp2 += $jumlah_gi[$i]['lwbp2'];
+            $tot_wbp += $jumlah_gi[$i]['wbp'];
+            $tot_Kvarh += $jumlah_gi[$i]['Kvarh'];
+            $tot_t_kwh += $jumlah_gi[$i]['total_kwh'];
+            $tot_KWH_lalu+=$jumlah_gi[$i]['KWH_lalu'];
+            $tot_KW +=$jumlah_gi[$i]['KW'];
+            $tot_KWH += $jumlah_gi[$i]['KWH'];
+            $tot_jual += $jumlah_gi[$i]['jual'];
+        }
+
+        if($tot_KWH_lalu == 0)$tot_persen =0;
+        else $tot_persen = $tot_KWH/$tot_KWH_lalu*100;
+        $tot_susut = $tot_t_kwh -$tot_jual;
+        if($tot_t_kwh==0) $tot_losses = 0;
+        else $tot_losses = $tot_susut / $tot_t_kwh *100;
+
+        $jumlah_tot =array(
+            'lwbp1' => $tot_lwbp1,
+            'lwbp2' => $tot_lwbp2,
+            'wbp' => $tot_wbp,
+            'total_kwh' => $tot_t_kwh,
+            'KW' => $tot_KW,
+            'Kvarh'   => $tot_Kvarh,
+            'KWH'   => $tot_KWH,
+            'KWH_lalu'   => $tot_KWH_lalu,
+            'persen' => $tot_persen,
+            'jual'   => $tot_jual,
+            'susut'   => $tot_susut,
+            'losses'   => $tot_losses
+        );
+
+        $data = array();
+        $data['jumlah_gi']      = $jumlah_gi;
+        $data['trafo']          = $trafo;
+        $data['nama_gi']        = $nama_gi;
+        $data['list_p']         = $list_p;
+        $data['jumlah_trafo']   = $jumlah_trafo;
+        $data['jumlah_tot']     = $jumlah_tot;
+
+        return $data;
+    }
+
+    public function view_beli_tsa($id_organisasi, $tsa, $tipe){
+        $id_tsa = $tsa;
+//            dd($id_organisasi);
+        if($tipe =="gi"||$tipe =="penyulang"){
+
+            $data = $this->tsa_gi_peny($id_organisasi, $tsa, $tipe);
 
             if($tipe =="gi"){
 
-                $data_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
-                $id_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
+                $data_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
+                $id_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
                 $gi = GI::whereIn('id_organisasi',$id_org)->get()->toArray();
 
                 $arr_rayon = array();
@@ -836,17 +851,17 @@ class Laporan extends Controller
                         );
                     }
                     else{
-                        for($j=0;$j<count($jumlah_gi);$j++){
-                            if($arr_rayon[$i][$stop]['id_organisasi']==$nama_gi[$j]['id_organisasi']){
-                                $lwbp1 += $jumlah_gi[$j]['lwbp1'];
-                                $lwbp2 += $jumlah_gi[$j]['lwbp2'];
-                                $wbp += $jumlah_gi[$j]['wbp'];
-                                $total_kwh += $jumlah_gi[$j]['total_kwh'];
-                                $Kvarh += $jumlah_gi[$j]['Kvarh'];
-                                $KW += $jumlah_gi[$j]['KW'];
-                                $KWH += $jumlah_gi[$j]['KWH'];
-                                $KWH_lalu += $jumlah_gi[$j]['KWH_lalu'];
-                                $jual += $jumlah_gi[$j]['jual'];
+                        for($j=0;$j<count($data['jumlah_gi']);$j++){
+                            if($arr_rayon[$i][$stop]['id_organisasi']==$data['nama_gi'][$j]['id_organisasi']){
+                                $lwbp1 += $data['jumlah_gi'][$j]['lwbp1'];
+                                $lwbp2 += $data['jumlah_gi'][$j]['lwbp2'];
+                                $wbp += $data['jumlah_gi'][$j]['wbp'];
+                                $total_kwh += $data['jumlah_gi'][$j]['total_kwh'];
+                                $Kvarh += $data['jumlah_gi'][$j]['Kvarh'];
+                                $KW += $data['jumlah_gi'][$j]['KW'];
+                                $KWH += $data['jumlah_gi'][$j]['KWH'];
+                                $KWH_lalu += $data['jumlah_gi'][$j]['KWH_lalu'];
+                                $jual += $data['jumlah_gi'][$j]['jual'];
                                 $stop+=1;
                                 if($stop == count($arr_rayon[$i]))break;
                             }
@@ -876,8 +891,8 @@ class Laporan extends Controller
                     array_push($rayon,$dt);
                 }
 
-                $id_rayon = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id');
-                $nama_rayon = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('nama_organisasi');
+                $id_rayon = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id');
+                $nama_rayon = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('nama_organisasi');
                 $cmb = new MasterLaporan($id_rayon,"pct",1);
                 $gardu    = $cmb->gardu; $p_penyulang    = $cmb  ->p_penyulang;   $p_gardu  = $cmb->p_gardu;
                 $data = $this->data_pct($id_rayon,$p_penyulang,$p_gardu,$gardu,$nama_rayon);
@@ -932,44 +947,45 @@ class Laporan extends Controller
                 );
                 if($tsa=="area")
                     return view('admin.nonmaster.laporan.tsa_rayon',[
-                        'rayon'      => $rayon,
-                        'total_jumlah' => $jumlah_tot,
-                        'id_organisasi' => $id_organisasi,
-                        'tsa' => $id_tsa,
-                        'tipe_organisasi' => "gi",
+                        'rayon'             => $rayon,
+                        'total_jumlah'      => $jumlah_tot,
+                        'id_organisasi'     => $id_organisasi,
+                        'tsa'               => $id_tsa,
+                        'tipe_organisasi'   => "gi",
                     ]);
                 elseif($tsa=="tsa_area")
                     return view('admin.nonmaster.laporan.tsa_area',[
-                        'rayon'      => $rayon,
-                        'total_jumlah' => $jumlah_tot,
-                        'id_organisasi' => $id_organisasi,
-                        'tsa' => $id_tsa,
-                        'tipe_organisasi' => "gi",
+                        'rayon'             => $rayon,
+                        'total_jumlah'      => $jumlah_tot,
+                        'id_organisasi'     => $id_organisasi,
+                        'tsa'               => $id_tsa,
+                        'tipe_organisasi'   => "gi",
                     ]);
             }
             elseif($tipe =="area")
                 return view('admin.nonmaster.laporan.tsa_penyulang',[
-                    'trafo'      => $trafo,
-                    'nama_gi'      => $nama_gi,
-                    'data_gi'      => $list_p,
-                    'data_jumlah'      => $jumlah_trafo,
-                    'total_jumlah'      => $jumlah_tot,
-                    'tipe'      => "area",
-                    'tipe_organisasi' => "area",
-                    'id_organisasi' => $id_organisasi,
-                    'tsa' => $id_tsa
+                    'trafo'             => $data['trafo'],
+                    'nama_gi'           => $data['nama_gi'],
+                    'data_gi'           => $data['list_p'],
+                    'data_jumlah'       => $data['jumlah_trafo'],
+                    'total_jumlah'      => $data['jumlah_tot'],
+                    'tipe'              => "area",
+                    'tipe_organisasi'   => "area",
+                    'id_organisasi'     => $id_organisasi,
+                    'tsa'               => $id_tsa
                 ]);
             elseif($tipe =="penyulang"){
+                dd($data['list_p']);
                 return view('admin.nonmaster.laporan.tsa_penyulang',[
-                    'trafo'      => $trafo,
-                    'nama_gi'      => $nama_gi,
-                    'data_gi'      => $list_p,
-                    'data_jumlah'      => $jumlah_trafo,
-                    'total_jumlah'      => $jumlah_tot,
-                    'tipe_organisasi' => "penyulang",
-                    'tipe'      => "area",
-                    'id_organisasi' => $id_organisasi,
-                    'tsa' => $id_tsa
+                    'trafo'             => $data['trafo'],
+                    'nama_gi'           => $data['nama_gi'],
+                    'data_gi'           => $data['list_p'],
+                    'data_jumlah'       => $data['jumlah_trafo'],
+                    'total_jumlah'      => $data['jumlah_tot'],
+                    'tipe_organisasi'   => "penyulang",
+                    'tipe'              => "area",
+                    'id_organisasi'     => $id_organisasi,
+                    'tsa'               => $id_tsa
                 ]);
             }
 
@@ -1031,9 +1047,9 @@ class Laporan extends Controller
 //        dd("sad");
         $id_tsa = $tsa;
         if($tipe =="gi"||$tipe =="penyulang"){
-            $data_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
+            $data_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
 //            dd($tipe);
-            $id_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
+            $id_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
             $tsa_ = array();$trafo = array();$list_p = array();$nama_gi = array();$jumlah_trafo = array();$jumlah_tot = array();
             for($i =0 ;$i <count($id_org);$i++) {
                 $data_gi = GI::where('id_organisasi', $id_org[$i])->select('id', 'nama_gi','id_organisasi')->get();
@@ -1140,8 +1156,8 @@ class Laporan extends Controller
 
             if($tipe =="gi"){
 
-                $data_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
-                $id_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
+                $data_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
+                $id_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
                 $gi = GI::whereIn('id_organisasi',$id_org)->get()->toArray();
 
                 $arr_rayon = array();
@@ -1214,8 +1230,8 @@ class Laporan extends Controller
                     array_push($rayon,$dt);
                 }
 
-                $id_rayon = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id');
-                $nama_rayon = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('nama_organisasi');
+                $id_rayon = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id');
+                $nama_rayon = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('nama_organisasi');
                 $cmb = new MasterLaporan($id_rayon,"pct",1);
                 $gardu    = $cmb->gardu; $p_penyulang    = $cmb  ->p_penyulang;   $p_gardu  = $cmb->p_gardu;
                 $data = $this->data_pct($id_rayon,$p_penyulang,$p_gardu,$gardu,$nama_rayon);
@@ -1504,51 +1520,65 @@ class Laporan extends Controller
         return array ($data_GI, $jumlah);
     }
 
-    public function view_beli_deviasi($id_organisasi, $tipe, $id){
-        if($tipe == "area"){
-            $data_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
-            $id_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
-            $data_GI = array();
-            $jumlah = array();
-            $tot_D =$tot_E =$tot_F =$tot_G =$tot_H =$tot_I =$tot_J =$tot_K=$tot_L =$tot_M= $tot_N =null;
-            for($i =0 ;$i <count($id_org);$i++){
-                $dt = GI::where('id_organisasi',$id_org[$i])->select('id','id_organisasi','nama_gi')->get();
-                if(!$dt==null){
-                    for($j=0;$j<count($dt);$j++){
-                        $data = $this->data_deviasi($dt[$j],$data_org[$i]['id_organisasi']);
-                        if($data[0]){
-                            array_push($data_GI,$data[0]);
-                            array_push($jumlah,$data[1]);
-                            $tot_D +=$data[1]['D']; $tot_E +=$data[1]['E'];$tot_G +=$data[1]['G'];$tot_H +=$data[1]['H'];
-                        }
+    public function deviasi_area($id_organisasi, $tipe, $id){
+        $data_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
+        $id_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
+        $data_GI = array();
+        $jumlah = array();
+        $tot_D =$tot_E =$tot_F =$tot_G =$tot_H =$tot_I =$tot_J =$tot_K=$tot_L =$tot_M= $tot_N =null;
+        for($i =0 ;$i <count($id_org);$i++){
+            $dt = GI::where('id_organisasi',$id_org[$i])->select('id','id_organisasi','nama_gi')->get();
+            if(!$dt==null){
+                for($j=0;$j<count($dt);$j++){
+                    $data = $this->data_deviasi($dt[$j],$data_org[$i]['id_organisasi']);
+                    if($data[0]){
+                        array_push($data_GI,$data[0]);
+                        array_push($jumlah,$data[1]);
+                        $tot_D +=$data[1]['D']; $tot_E +=$data[1]['E'];$tot_G +=$data[1]['G'];$tot_H +=$data[1]['H'];
                     }
                 }
             }
-            $tot_F = abs($tot_D-$tot_E);
-            $tot_I = abs($tot_D-$tot_G);
-            if($tot_D== 0)$tot_J=0;
-            else $tot_J = abs($tot_I/$tot_D)*100;
-            $tot_K = abs($tot_D-$tot_E-$tot_H);
-            if($tot_F==0)$tot_L = 0;
-            else  $tot_L = abs($tot_K/$tot_F*100);
-            $G_E =$tot_G-$tot_E;
-            $tot_M = abs($tot_G -$tot_H);
-            if($tot_G-$tot_E==0)$G_E = 1;
-            $tot_N = abs($tot_M / ($G_E)*100);
+        }
+        $tot_F = abs($tot_D-$tot_E);
+        $tot_I = abs($tot_D-$tot_G);
+        if($tot_D== 0)$tot_J=0;
+        else $tot_J = abs($tot_I/$tot_D)*100;
+        $tot_K = abs($tot_D-$tot_E-$tot_H);
+        if($tot_F==0)$tot_L = 0;
+        else  $tot_L = abs($tot_K/$tot_F*100);
+        $G_E =$tot_G-$tot_E;
+        $tot_M = abs($tot_G -$tot_H);
+        if($tot_G-$tot_E==0)$G_E = 1;
+        $tot_N = abs($tot_M / ($G_E)*100);
 
-            $total = array(
-                'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'I' => $tot_I,
-                'J' => $tot_J, 'K' => $tot_K, 'L' => $tot_L, 'M' => $tot_M, 'N' => $tot_N
-            );
+        $total = array(
+            'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'I' => $tot_I,
+            'J' => $tot_J, 'K' => $tot_K, 'L' => $tot_L, 'M' => $tot_M, 'N' => $tot_N
+        );
 //            dd(($data_GI));
+
+        $data = array();
+        $data['data_GI'] = $data_GI;
+        $data['tipe'] = $tipe;
+        $data['jumlah'] = $jumlah;
+        $data['total'] = $total;
+        $data['id_organisasi'] = $id_organisasi;
+        $data['id'] = $id;
+
+        return $data;
+    }
+
+    public function view_beli_deviasi($id_organisasi, $tipe, $id){
+        if($tipe == "area"){
+            $data = $this->deviasi_area($id_organisasi, $tipe, $id);
             return view('admin.nonmaster.laporan.deviasi',[
                 'area'      => 'area',
-                'data_GI'   => $data_GI,
-                'tipe'      => $tipe,
-                'jumlah'      => $jumlah,
-                'total'      => $total,
-                'id_organisasi' => $id_organisasi,
-                'id'        => $id
+                'data_GI'   => $data['data_GI'],
+                'tipe'      => $data['tipe'],
+                'jumlah'      => $data['jumlah'],
+                'total'      => $data['total'],
+                'id_organisasi' => $data['id_organisasi'],
+                'id'        => $data['id']
 //                'rayon'     => $org->nama_organisasi,
             ]);
         }
@@ -1622,8 +1652,8 @@ class Laporan extends Controller
 
     public function excel_beli_deviasi($id_organisasi, $tipe, $id){
         if($tipe == "area"){
-            $data_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
-            $id_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
+            $data_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
+            $id_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
             $data_GI = array();
             $jumlah = array();
             $tot_D =$tot_E =$tot_F =$tot_G =$tot_H =$tot_I =$tot_J =$tot_K=$tot_L =$tot_M= $tot_N =null;
@@ -1945,8 +1975,8 @@ class Laporan extends Controller
 
     public function view_beli_tsa_rayon($id_organisasi, $tsa, $tipe) {
 
-        $data_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
-        $id_org = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
+        $data_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
+        $id_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
         $gi = GI::whereIn('id_organisasi',$id_org)->get()->toArray();
 
         $arr_rayon = array();
@@ -2184,8 +2214,8 @@ class Laporan extends Controller
     }
 
     public function view_beli_pct($id_organisasi, $tipe, $id) {
-        $id_rayon = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id');
-        $nama_rayon = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('nama_organisasi');
+        $id_rayon = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id');
+        $nama_rayon = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('nama_organisasi');
         $cmb = new MasterLaporan($id_rayon,$tipe,$id);
         $gardu    = $cmb->gardu;$p_penyulang    = $cmb  ->p_penyulang;   $p_gardu  = $cmb->p_gardu;
         $data = $this->data_pct($id_rayon,$p_penyulang,$p_gardu,$gardu,$nama_rayon);
@@ -2203,8 +2233,8 @@ class Laporan extends Controller
     }
 
     public function excel_beli_pct($id_organisasi, $tipe, $id) {
-        $id_rayon = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id');
-        $nama_rayon = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('nama_organisasi');
+        $id_rayon = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id');
+        $nama_rayon = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('nama_organisasi');
         $cmb = new MasterLaporan($id_rayon,$tipe,$id);
         $gardu    = $cmb->gardu;$p_penyulang    = $cmb  ->p_penyulang;   $p_gardu  = $cmb->p_gardu;
         $data = $this->data_pct($id_rayon,$p_penyulang,$p_gardu,$gardu,$nama_rayon);
