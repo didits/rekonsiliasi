@@ -1874,13 +1874,13 @@
                                                                             </tr>
                                                                             </thead>
                                                                             <tbody>
-                                                                            <div class="{{$list = 0}}"
+                                                                            <div class="{{$list = 1}}"
                                                                                  style="display: none"></div>
                                                                             @foreach($data as $key)
                                                                                 @if($key->tipe_gardu == 0)
 
                                                                                     <tr>
-                                                                                        <td class="text-center">{{$list+1}}</td>
+                                                                                        <td class="text-center">{{$list++}}</td>
                                                                                         <td>{{$key->nama_gardu}}</td>
                                                                                         <td>{{$rayon->nama_organisasi}}</td>
                                                                                         <td class="td-actions text-right">
@@ -2088,13 +2088,13 @@
                                                                             </tr>
                                                                             </thead>
                                                                             <tbody>
-                                                                            <div class="{{$list = 0}}"
+                                                                            <div class="{{$list = 1}}"
                                                                                  style="display: none"></div>
                                                                             @foreach($data as $key)
                                                                                 @if($key->tipe_gardu == 1)
 
                                                                                     <tr>
-                                                                                        <td class="text-center">{{$list+1}}</td>
+                                                                                        <td class="text-center">{{$list++}}</td>
                                                                                         <td>{{$key->nama_gardu}}</td>
                                                                                         <td>{{$rayon->nama_organisasi}}</td>
                                                                                         <td class="td-actions text-right">
@@ -2286,13 +2286,13 @@
                                                                             </tr>
                                                                             </thead>
                                                                             <tbody>
-                                                                            <div class="{{$list = 0}}"
+                                                                            <div class="{{$list = 1}}"
                                                                                  style="display: none"></div>
                                                                             @foreach($data as $key)
                                                                                 @if($key->tipe_gardu == 2)
 
                                                                                     <tr>
-                                                                                        <td class="text-center">{{$list+1}}</td>
+                                                                                        <td class="text-center">{{$list++}}</td>
                                                                                         <td>{{$key->nama_gardu}}</td>
                                                                                         <td>{{$rayon->nama_organisasi}}</td>
                                                                                         <td class="td-actions text-right">
@@ -3353,15 +3353,11 @@
                                                                                                @if($id_gi)
                                                                                                onclick="edit_datamaster.showSwal('trafo_gi', {{$key->id}},'{{$key->nama_trafo_gi}}','{{$key->alamat_trafo_gi}}')">
                                                                                                 @elseif($id_trafo_gi)
-                                                                                                    onclick="edit_datamaster.showSwal('penyulang', {{$key->id}}
-                                                                                                    ,'{{$key->nama_penyulang}}
-                                                                                                    ','{{$key->alamat_penyulang}}
-                                                                                                    ')">
+
+                                                                                                onclick="edit_datamaster.showSwal('penyulang', {{$key->id}}, '{{$key->nama_penyulang}}', '{{$key->alamat_penyulang}}')">
                                                                                                 @elseif($id_penyulang)
-                                                                                                    onclick="edit_datamaster.showSwal('gardu', {{$key->id}}
-                                                                                                    ,'{{$key->nama_gardu}}
-                                                                                                    ','{{$key->alamat_gardu}}
-                                                                                                    ')">
+
+                                                                                                onclick="edit_datamaster.showSwal('gardu', {{$key->id}}, '{{$key->nama_gardu}}', '{{$key->alamat_gardu}}')">
                                                                                                 @endif
 
                                                                                                 <i class="fa fa-edit"></i>
@@ -3376,15 +3372,9 @@
                                                                                                @if($id_gi)
                                                                                                onclick="hapus_datamaster.showSwal('trafo_gi', {{$id_org}}, {{$key->id}},'{{$key->nama_trafo_gi}}')">
                                                                                                 @elseif($id_trafo_gi)
-                                                                                                    onclick="hapus_datamaster.showSwal('penyulang', {{$id_org}}
-                                                                                                    , {{$key->id}}
-                                                                                                    ,'{{$key->nama_penyulang}}
-                                                                                                    ')">
+                                                                                                onclick="hapus_datamaster.showSwal('penyulang', {{$id_org}}, {{$key->id}}, '{{$key->nama_penyulang}}')">
                                                                                                 @elseif($id_penyulang)
-                                                                                                    onclick="hapus_datamaster.showSwal('gd', {{$id_org}}
-                                                                                                    , {{$key->id}}
-                                                                                                    ,'{{$key->nama_gardu}}
-                                                                                                    ')">
+                                                                                                onclick="hapus_datamaster.showSwal('gd', {{$id_org}}, {{$key->id}}, '{{$key->nama_gardu}}')">
                                                                                                 @endif
 
                                                                                                 <i class="fa fa-times"></i>
