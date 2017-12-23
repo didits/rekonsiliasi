@@ -57,4 +57,8 @@ class DistribusiController extends Controller
         ]);
 //            'id' => $data->id_organisasi]);
     }
+
+    public function dashboard(){
+        return view('admin.nonmaster.dashboard_user.dashboard');
+    }
 }

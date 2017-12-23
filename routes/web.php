@@ -216,6 +216,11 @@ Route::group(['prefix' => 'area', 'middleware' => ['auth', 'tipe:2']], function 
         'as'        => 'area.tabel_master',
         'uses'      => 'AreaController@tabel_master'
     ]);
+
+    Route::get('/dashboard', [
+        'as'        => 'area.dashboard',
+        'uses'      => 'AreaController@dashboard'
+    ]);
 });
 
 //area-entry_master
@@ -383,6 +388,12 @@ Route::group(['prefix' => 'distribusi', 'middleware' => ['auth', 'tipe:1']], fun
         'as'        => 'distribusi.list_rayon',
         'uses'      => 'DistribusiController@list_rayon'
     ]);
+
+    Route::get('/dashboard', [
+        'as'        => 'distribusi.dashboard',
+        'uses'      => 'DistribusiController@dashboard'
+    ]);
+
 });
 
 //distribusi-laporan_master

@@ -139,6 +139,14 @@
                     </li>
                     @endif
                     @if(Auth::user()->tipe_organisasi==2)
+
+                    <li @if(Request::is('area/dashboard'))class="active"@endif>
+                        <a href="{{route('area.dashboard')}}">
+                            <i class="pe-7s-display1"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+
                     @if(Request::is('area/entry_master/*', 'area', 'area/laporan_master', 'area/tabel_master', 'area/laporan_master/*'))
                     <li class="active">
 
@@ -247,6 +255,12 @@
                     @endif
                     @if(Auth::user()->tipe_organisasi==1)
 
+                    <li @if(Request::is('area/dashboard'))class="active"@endif>
+                        <a href="{{route('area.dashboard')}}">
+                            <i class="pe-7s-display1"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
                     @if(Request::is('distribusi', 'distribusi/laporan_master', 'distribusi/laporan_master/*'))
                     <li class="active">
 

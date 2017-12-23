@@ -1032,4 +1032,8 @@ class AreaController extends Controller
 
         return $table;
     }
+
+    public function dashboard(){
+        return view('admin.nonmaster.dashboard_user.dashboard');
+    }
 }
