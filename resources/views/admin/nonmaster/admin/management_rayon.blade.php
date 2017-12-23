@@ -90,42 +90,42 @@
                                             </td>
                                             <td>{{$list->alamat}}</td>
                                             <td class="td-actions text-right">
-                                                <a href="#" rel="tooltip" title="" class="btn btn-primary btn-fill " data-original-title="Edit Password"
-                                                   onclick="edit_pass.showSwal({{$list->id}})">
-                                                    <i class="fa fa-key"></i>
-                                                </a>
-
-                                            @if ( $list->tipe_organisasi == 2 || $list->tipe_organisasi == 3)
-
-                                                <a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Organisasi"
-                                                   onclick="edit_org.showSwal({{$list->id}}, '{{$list->id_organisasi}}', '{{$list->nama_organisasi}}', {{$list->tipe_organisasi}}, '{{$list->alamat}}')">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                                <a href="#" rel="tooltip" title="" class="btn btn-danger btn-fill " data-original-title="Hapus Organisasi"
-                                                   onclick="hapus_org.showSwal({{$list->id}}, '{{$list->nama_organisasi}}', {{$list->tipe_organisasi}})">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            @endif
                                                 <button type="button" class="btn btn-primary btn-fill" data-toggle="modal" data-target="#editPassModal" title="Edit Password"
                                                         data-idd        = "{{$list->id}}"
                                                         data-namaOrg    = "{{$list->nama_organisasi}}"
                                                         data-tipeOrg    = "{{$list->tipe_organisasi}}">
                                                     <i class="fa fa-key"></i>
                                                 </button>
-                                                <button type="button" class="btn btn-success btn-fill" data-toggle="modal" data-target="#editOrgModal" title="Edit Organisasi"
-                                                        data-idd        = "{{$list->id}}"
-                                                        data-idOrg      = "{{$list->id_organisasi}}"
-                                                        data-namaOrg    = "{{$list->nama_organisasi}}"
-                                                        data-tipeOrg    = "{{$list->tipe_organisasi}}"
-                                                        data-alamatOrg  = "{{$list->alamat}}">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-danger btn-fill" data-toggle="modal" data-target="#deleteOrgModal" title="Hapus Organisasi"
-                                                        data-idd        = "{{$list->id}}"
-                                                        data-namaOrg    = "{{$list->nama_organisasi}}"
-                                                        data-tipeOrg    = "{{$list->tipe_organisasi}}">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
+                                                {{--<a href="#" rel="tooltip" title="" class="btn btn-primary btn-fill " data-original-title="Edit Password"--}}
+                                                   {{--onclick="edit_pass.showSwal({{$list->id}})">--}}
+                                                    {{--<i class="fa fa-key"></i>--}}
+                                                {{--</a>--}}
+
+                                            @if ( $list->tipe_organisasi == 2 || $list->tipe_organisasi == 3)
+
+                                                {{--<a href="#" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Edit Organisasi"--}}
+                                                   {{--onclick="edit_org.showSwal({{$list->id}}, '{{$list->id_organisasi}}', '{{$list->nama_organisasi}}', {{$list->tipe_organisasi}}, '{{$list->alamat}}')">--}}
+                                                    {{--<i class="fa fa-edit"></i>--}}
+                                                {{--</a>--}}
+                                                {{--<a href="#" rel="tooltip" title="" class="btn btn-danger btn-fill " data-original-title="Hapus Organisasi"--}}
+                                                   {{--onclick="hapus_org.showSwal({{$list->id}}, '{{$list->nama_organisasi}}', {{$list->tipe_organisasi}})">--}}
+                                                    {{--<i class="fa fa-times"></i>--}}
+                                                {{--</a>--}}
+                                                    <button type="button" class="btn btn-success btn-fill" data-toggle="modal" data-target="#editOrgModal" title="Edit Organisasi"
+                                                            data-idd        = "{{$list->id}}"
+                                                            data-idOrg      = "{{$list->id_organisasi}}"
+                                                            data-namaOrg    = "{{$list->nama_organisasi}}"
+                                                            data-tipeOrg    = "{{$list->tipe_organisasi}}"
+                                                            data-alamatOrg  = "{{$list->alamat}}">
+                                                        <i class="fa fa-edit"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-danger btn-fill" data-toggle="modal" data-target="#deleteOrgModal" title="Hapus Organisasi"
+                                                            data-idd        = "{{$list->id}}"
+                                                            data-namaOrg    = "{{$list->nama_organisasi}}"
+                                                            data-tipeOrg    = "{{$list->tipe_organisasi}}">
+                                                        <i class="fa fa-times"></i>
+                                                    </button>
+                                            @endif
 
                                             </td>
                                         </tr>
