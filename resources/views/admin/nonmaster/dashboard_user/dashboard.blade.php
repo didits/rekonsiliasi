@@ -43,6 +43,13 @@
                                         <i class="fa fa-circle text-info"></i> Normal
                                         <i class="fa fa-circle text-danger"></i> Tidak Normal
                                     </div>
+                                    <div class="legend">
+                                        <i class="fa fa-circle text-info"></i> GI Normal: {{isset($deviasi)?$deviasi[0][1]:0}}
+                                        <br/>
+                                        <i class="fa fa-circle text-danger"></i> GI Tidak Normal: {{isset($deviasi)?$deviasi[1][1]:0}}
+                                        <br/>
+                                        <i class="fa fa-circle text-success"></i> Total GI: {{isset($deviasi)?$deviasi[2]:0}}
+                                    </div>
                                     <hr>
                                     <div class="stats">
                                         <i class="fa fa-history"></i> Terupdate
@@ -87,6 +94,13 @@
                                     <div class="legend">
                                         <i class="fa fa-circle text-info"></i> < 6%
                                         <i class="fa fa-circle text-danger"></i> > 6%
+                                    </div>
+                                    <div class="legend">
+                                        <i class="fa fa-circle text-info"></i> < 6%: {{isset($susut)?$susut[0][1]:0}}
+                                        <br/>
+                                        <i class="fa fa-circle text-danger"></i> > 6%: {{isset($susut)?$susut[1][1]:0}}
+                                        <br/>
+                                        <i class="fa fa-circle text-success"></i> Total GI: {{isset($susut)?$susut[2]:0}}
                                     </div>
                                     <hr>
                                     <div class="stats">
@@ -138,36 +152,14 @@
 <script type="text/javascript">
     function initDashboardPageCharts(){
 
-
-        /*   **************** Email Statistics - Pie Chart ********************    */
-
-        var dataPreferences = {
-            series: [
-                [25, 30, 20, 25]
-            ]
-        };
-
-        var optionsPreferences = {
-            donut: true,
-            donutWidth: 40,
-            startAngle: 0,
-            height: "245px",
-            total: 100,
-            showLabel: false,
-            axisX: {
-                showGrid: false
-            }
-        };
-
-//        Chartist.Pie('#lingkDev', dataPreferences, optionsPreferences);
-
+        // Pie Chart
         Chartist.Pie('#lingkDev', {
-            labels: ['62%','32%','6%'],
-            series: [62, 32, 6]
+            labels: ['{{isset($deviasi)?$deviasi[0][0]:0}}%','{{isset($deviasi)?$deviasi[1][0]:0}}%'],
+            series: [{{isset($deviasi)?$deviasi[0][0]:0}}, {{isset($deviasi)?$deviasi[1][0]:0}}]
         });
         Chartist.Pie('#lingkSusut', {
-            labels: ['62%','32%','6%'],
-            series: [62, 32, 6]
+            labels: ['{{isset($susut)?$susut[0][0]:0}}%','{{isset($susut)?$susut[1][0]:0}}%'],
+            series: [{{isset($susut)?$susut[0][0]:0}}, {{isset($susut)?$susut[1][0]:0}}]
         });
 
         /*   **************** 2014 Sales - Bar Chart ********************    */

@@ -975,7 +975,7 @@ class Laporan extends Controller
                     'tsa'               => $id_tsa
                 ]);
             elseif($tipe =="penyulang"){
-                dd($data['list_p']);
+//                dd($data['nama_gi']);
                 return view('admin.nonmaster.laporan.tsa_penyulang',[
                     'trafo'             => $data['trafo'],
                     'nama_gi'           => $data['nama_gi'],
