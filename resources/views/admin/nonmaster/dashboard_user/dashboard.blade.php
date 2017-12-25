@@ -92,13 +92,13 @@
                                 </div>
                                 <div class="footer">
                                     <div class="legend">
-                                        <i class="fa fa-circle text-info"></i> < 6%
-                                        <i class="fa fa-circle text-danger"></i> > 6%
+                                        <i class="fa fa-circle text-info"></i> Susut < 6%
+                                        <i class="fa fa-circle text-danger"></i> Susut > 6%
                                     </div>
                                     <div class="legend">
-                                        <i class="fa fa-circle text-info"></i> < 6%: {{isset($susut)?$susut[0][1]:0}}
+                                        <i class="fa fa-circle text-info"></i> GI dgn Susut < 6%: {{isset($susut)?$susut[0][1]:0}}
                                         <br/>
-                                        <i class="fa fa-circle text-danger"></i> > 6%: {{isset($susut)?$susut[1][1]:0}}
+                                        <i class="fa fa-circle text-danger"></i> GI dgn Susut > 6%: {{isset($susut)?$susut[1][1]:0}}
                                         <br/>
                                         <i class="fa fa-circle text-success"></i> Total GI: {{isset($susut)?$susut[2]:0}}
                                     </div>
