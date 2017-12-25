@@ -1556,8 +1556,8 @@ class Laporan extends Controller
         else  $tot_L = ($tot_K/$tot_F*100);
         $G_E =$tot_G-$tot_E;
         $tot_M = ($tot_G -$tot_H);
-        if($tot_G-$tot_E==0)$G_E = 1;
-        $tot_N = ($tot_M / ($G_E)*100);
+        if($G_E==0)$tot_N = 0;
+        else   $tot_N = ($tot_M / ($G_E)*100);
 
         $total = array(
             'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'I' => $tot_I,

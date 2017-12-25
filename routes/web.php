@@ -185,7 +185,7 @@ Route::group(['prefix' => 'rayon/laporan_transaksi', 'middleware' => ['auth', 't
 });
 
 //area
-Route::group(['prefix' => 'area', 'middleware' => ['auth', 'tipe:2']], function () {
+Route::group(['prefix' => 'area', 'middleware' => ['auth', 'tipe:2'||'tipe:1']], function () {
 
     Route::get('/', [
         'as'        => 'area.index',
