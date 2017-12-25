@@ -1035,23 +1035,53 @@ class AreaController extends Controller
 
     public function dashboard(){
         $Laporan = new Laporan;
-        $dev = $Laporan->deviasi_area(Auth::user()->id_organisasi, 'area', 0);
-        $sumDev = count($dev['jumlah']);
+        $data = $Laporan->deviasi_area(Auth::user()->id_organisasi, 'area', 0);
+        $sumDev = count($data['jumlah']);
         $devNorm = $devAbnorm = 0;
         for($i=0; $i<$sumDev; $i++){
-            if($dev['jumlah'][$i]['L'] > 2) $devNorm++;
-            elseif($dev['jumlah'][$i]['L'] < 2) $devAbnorm++;
+            if($data['jumlah'][$i]['L'] > 2) $devAbnorm++;
+            elseif($data['jumlah'][$i]['L'] < 2) $devNorm++;
         }
         $deviasi = array();
         $deviasi[] = [intval(($devNorm/$sumDev)*100), $devNorm];
         $deviasi[] = [intval(($devAbnorm/$sumDev)*100), $devAbnorm];
         $deviasi[] = $sumDev;
 
-        $sut = $Laporan->tsa_gi_peny(Auth::user()->id_organisasi, 'area', 'penyulang');
-        $data_gi = $sut['list_p'];
-        $py = 0;
+        $data = $Laporan->tsa_gi_peny(Auth::user()->id_organisasi, 'area', 'penyulang');
+        $trafo      = $data['trafo'];
+        $nama_gi    = $data['nama_gi'];
+        $data_jumlah= $data['jumlah_trafo'];
+        $loss_gi    = array();
+        for($gi=0;$gi<count($trafo);$gi++){
+            $totKwh     = 0;
+            $totJual    = 0;
+            for($tr=0;$tr<count($trafo[$gi]);$tr++){
+                $totKwh     += $data_jumlah[$gi][$tr]['total_kwh'];
+                $totJual    += $data_jumlah[$gi][$tr]['jual'];
+            }
+            if($totKwh === 0) $losses = 0;
+            else $losses = ($totKwh-$totJual)/$totKwh*100;
 
-        dd($deviasi);
-        return view('admin.nonmaster.dashboard_user.dashboard');
+            $loss_gi[] = [  "id"        => $nama_gi[$gi]['id'],
+                            "nama_gi"   => $nama_gi[$gi]['nama_gi'],
+                            "losses"    => $losses];
+        }
+
+        $sumSut = count($loss_gi);
+        $susutNorm = $susutAbnorm = 0;
+        for($i=0; $i<$sumSut; $i++){
+            if($loss_gi[$i]['losses'] > 6) $susutAbnorm++;
+            elseif($loss_gi[$i]['losses'] < 6) $susutNorm++;
+        }
+        $susut = array();
+        $susut[] = [intval(($susutNorm/$sumSut)*100), $susutNorm];
+        $susut[] = [intval(($susutAbnorm/$sumSut)*100), $susutAbnorm];
+        $susut[] = $sumSut;
+
+//        dd($deviasi);
+        return view('admin.nonmaster.dashboard_user.dashboard', [
+            'deviasi'   => $deviasi,
+            'susut'     => $susut
+        ]);
     }
 }
