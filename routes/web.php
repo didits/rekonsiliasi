@@ -149,7 +149,7 @@ Route::group(['prefix' => 'rayon/entry_transaksi', 'middleware' => ['auth', 'tip
 
 
 //rayon-laporan_transaksi
-Route::group(['prefix' => 'rayon/laporan_transaksi', 'middleware' => ['auth', 'tipe:3']], function () {
+Route::group(['prefix' => 'rayon/laporan_transaksi', 'middleware' => ['auth', 'tipe:3'||'tipe:1']], function () {
 
     Route::get('/gi/{id_organisasi}', [
         'as'        => 'rayon.list_beli_gi',
@@ -294,7 +294,7 @@ Route::group(['prefix' => 'area/laporan_master', 'middleware' => ['auth', 'tipe:
 });
 
 //area-laporan_transaksi
-Route::group(['prefix' => 'area/laporan_transaksi', 'middleware' => ['auth', 'tipe:2']], function () {
+Route::group(['prefix' => 'area/laporan_transaksi', 'middleware' => ['auth', 'tipe:2'||'tipe:2']], function () {
 
     Route::get('/', [
         'as'        => 'area.laporan_beli',

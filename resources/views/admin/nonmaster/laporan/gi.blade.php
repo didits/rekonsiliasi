@@ -563,7 +563,7 @@
                                             <td class="text-left">PEMBANDING</td>
                                             <td></td>
                                             <td></td>
-                                            <td><i>({{number_format($data_master[$tr]['s_pembanding'], 2)}})</i></td>
+                                            <td><i>{{number_format($data_master[$tr]['s_pembanding'], 2)}}</i></td>
                                             <td>{{number_format($data_master[$tr]['p_pembanding'], 2)}}</td>
                                             <td class="text-left"><i>%</i></td>
                                             <td>{{number_format($data_master[$tr]['s_ps'], 2)}}</td>
@@ -580,7 +580,7 @@
                                             <td class="text-left">OUT GOING</td>
                                             <td></td>
                                             <td></td>
-                                            <td><i>({{number_format($data_master[$tr]['s_out'], 2)}})</i></td>
+                                            <td><i>{{number_format($data_master[$tr]['s_out'], 2)}}</i></td>
                                             <td>{{number_format($data_master[$tr]['p_out'], 2)}}</td>
                                             <td class="text-left"><i>% (visual >&lt AMR)</i></td>
                                             <td></td>

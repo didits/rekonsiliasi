@@ -883,46 +883,112 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="card">
-                                                <div class="header">Lihat EXIM</div>
-                                                <div class="content">
-                                                    <label>Ekspor ke:</label>
+                                                <div class="content" id="tambahpenyulang-">
                                                     <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label>Area</label>
-                                                                <input type="text" class="form-control" disabled="" placeholder="Area" value="{{$decoded['lokasi']['ekspor']['area']}}">
+                                                        <div class="col-md-12">
+                                                            <div class="nav-container">
+                                                                <ul class="nav nav-icons" role="tablist">
+                                                                    <li class="active">
+                                                                        <a href="#ekspor" role="tab"
+                                                                           data-toggle="tab">
+                                                                            <i class="fa fa-bolt"></i><br>
+                                                                            Ekspor
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#impor" role="tab"
+                                                                           data-toggle="tab">
+                                                                            <i class="fa fa-exchange"></i><br>
+                                                                            Impor
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="tab-content">
+                                                                <div class="tab-pane active" id="ekspor">
+                                                                    <div class="card">
+                                                                        <div class="header">Meter Ekspor PCT {{$master->nama_gardu}} </div>
+                                                                        <div class="content">
+                                                                            <label>Ekspor ke:</label>
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label>Area</label>
+                                                                                        <input type="text"
+                                                                                               class="form-control"
+                                                                                               disabled=""
+                                                                                               placeholder="Area"
+                                                                                               value="{{$decoded['lokasi']['ekspor']['area']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label>Rayon</label>
+                                                                                        <input type="text"
+                                                                                               class="form-control"
+                                                                                               disabled=""
+                                                                                               placeholder="Rayon"
+                                                                                               value="{{$decoded['lokasi']['ekspor']['rayon']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Penyulang</label>
+                                                                                <input type="text"
+                                                                                       class="form-control"
+                                                                                       disabled=""
+                                                                                       placeholder="Penyulang"
+                                                                                       value="{{$decoded['lokasi']['ekspor']['penyulang']}}">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="footer">
+                                                                            <div class="clearfix"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="tab-pane" id="impor">
+                                                                    <div class="card">
+                                                                        <div class="header">Meter Impor PCT  {{$master->nama_gardu}} </div>
+                                                                        <div class="content">
+                                                                            <label>Impor dari:</label>
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label>Area</label>
+                                                                                        <input type="text"
+                                                                                               class="form-control"
+                                                                                               disabled=""
+                                                                                               placeholder="Area"
+                                                                                               value="{{$decoded['lokasi']['ekspor']['area']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group">
+                                                                                        <label>Rayon</label>
+                                                                                        <input type="text"
+                                                                                               class="form-control"
+                                                                                               disabled=""
+                                                                                               placeholder="Rayon"
+                                                                                               value="{{$decoded['lokasi']['ekspor']['rayon']}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Penyulang</label>
+                                                                                <input type="text"
+                                                                                       class="form-control"
+                                                                                       disabled=""
+                                                                                       placeholder="Penyulang"
+                                                                                       value="{{$decoded['lokasi']['ekspor']['penyulang']}}">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="footer">
+                                                                            <div class="clearfix"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label>Rayon</label>
-                                                                <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$decoded['lokasi']['ekspor']['rayon']}}">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label">Penyulang</label>
-                                                        <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="{{$decoded['lokasi']['ekspor']['penyulang']}}">
-                                                    </div>
-
-                                                    <label>Impor dari:</label>
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label>Area</label>
-                                                                <input type="text" class="form-control" disabled="" placeholder="Area" value="{{$decoded['lokasi']['impor']['area']}}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label>Rayon</label>
-                                                                <input type="text" class="form-control" disabled="" placeholder="Rayon" value="{{$decoded['lokasi']['impor']['rayon']}}">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label">Penyulang</label>
-                                                        <input type="text" class="form-control" disabled="" placeholder="Penyulang" value="{{$decoded['lokasi']['impor']['penyulang']}}">
                                                     </div>
                                                 </div>
                                                 <div class="footer">

@@ -15,6 +15,7 @@ class TipePengguna
      */
     public function handle($request, Closure $next, $tipe)
     {
+//        dd($tipe);
         if ($request->user()->tipe_organisasi != $tipe) {
             return response('Forbidden', '403');
         }

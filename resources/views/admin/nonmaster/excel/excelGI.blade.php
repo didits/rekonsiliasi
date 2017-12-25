@@ -562,7 +562,7 @@
             <td class="text-left" id="tebal-atas">PEMBANDING</td>
             <td id="tebal-atas"></td>
             <td id="tebal-atas"></td>
-            <td id="tebal-atas"><i>({{number_format($data_master[$tr]['s_pembanding'],2)}})</i></td>
+            <td id="tebal-atas"><i>{{number_format($data_master[$tr]['s_pembanding'],2)}}</i></td>
             <td id="tebal-atas">{{number_format($data_master[$tr]['p_pembanding'],2)}}</td>
             <td class="text-left" id="tebal-atas"><i>%</i></td>
             <td id="tebal-atas">{{number_format($data_master[$tr]['s_ps'],2)}}</td>
@@ -575,7 +575,7 @@
             <td class="text-left">OUT GOING</td>
             <td></td>
             <td></td>
-            <td><i>({{number_format($data_master[$tr]['s_out'],2)}})</i></td>
+            <td><i>{{number_format($data_master[$tr]['s_out'],2)}}</i></td>
             <td>{{number_format($data_master[$tr]['p_out'],2)}}</td>
             <td colspan="{{$colspan-7}}" class="text-left">% (visual >&lt AMR)</td>
 

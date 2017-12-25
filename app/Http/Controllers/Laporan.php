@@ -252,16 +252,16 @@ class Laporan extends Controller
             if($zero_s==0)$zero_s=1;
             if($zero_p==0)$zero_p=1;
 
-            $s_out= abs(json_decode($p_tr_['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']-json_decode($p_tr_['data'],true)['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual'])
+            $s_out= (json_decode($p_tr_['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']-json_decode($p_tr_['data'],true)['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual'])
                 /$zero*100;
             $p_out =(json_decode($p_tr_['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']-json_decode($p_tr_['data'],true)['hasil_pengolahan']['pembanding']['download']['total_pemakaian_kwh_download'])
                 /$zero*100;
-            $selisih = abs(
+            $selisih = (
                 (json_decode($p_tr_['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']
                     -$ps-$list_array[$i]['total_pemakaian_energi_'])
                 /($zero_s))*100;
 //          download ps =  $list_array[$i]['total_pemakaian_energi_'];
-            $selisih_ps = abs(
+            $selisih_ps = (
                     (json_decode($p_tr_['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']
                         -$ps-0)
                     /($zero_s))*100;
@@ -1491,16 +1491,16 @@ class Laporan extends Controller
             $F = $D-$E;
             $G =(json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual']);
             $H = $total_pemakaian_penyulang[$i]['total_pemakaian_energi_'];
-            $I = abs($D-$G);
+            $I = ($D-$G);
             if($D==0)$J =0;
-            else $J = abs($I/$D*100);
-            $K = abs($D-$E-$H);
+            else $J = ($I/$D*100);
+            $K = ($D-$E-$H);
             if($F==0)$L = 0;
-            else  $L = abs($K/$F*100);
+            else  $L = ($K/$F*100);
             $G_E =$G-$E;
-            $M = abs($G -$H);
-            if($G-$E==0)$G_E = 1;
-            $N = abs($M / ($G_E)*100);
+            $M = ($G -$H);
+            if($G-$E==0)$N = 0;
+            else $N = ($M / ($G_E)*100);
             $data = array(
                 'gi' =>$data_gi->nama_gi,
                 'trafo' =>$trafo_GI[$i]['nama'],
@@ -1509,8 +1509,16 @@ class Laporan extends Controller
                 'J' => $J, 'K' => $K, 'L' => $L, 'M' => $M, 'N' => $N
             );
             array_push($data_GI,$data);
-            $tot_D +=$D; $tot_E +=$E;$tot_F +=$F;$tot_G +=$G;$tot_H +=$H;$tot_I +=$I;$tot_J +=$J;$tot_K +=$K;$tot_L +=$L;$tot_M +=$M;$tot_N +=$N;
+            $tot_D +=$D; $tot_E +=$E;$tot_F +=$F;$tot_G +=$G;$tot_H +=$H;$tot_I +=$I;$tot_K +=$K;$tot_M +=$M;
         }
+        if($tot_D==0)$tot_J =0;
+        else $tot_J = ($tot_I/$tot_D*100);
+        if($tot_F==0)$tot_L = 0;
+        else  $tot_L = ($tot_K/$tot_F*100);
+        $tot_G_E =$tot_G-$tot_E;
+        if($tot_G_E==0)$N = 0;
+        else $tot_N = ($tot_M / ($tot_G_E)*100);
+
         $jumlah = array(
             'gi' =>$data_gi->nama_gi,
             'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'I' => $tot_I,
@@ -1539,17 +1547,17 @@ class Laporan extends Controller
                 }
             }
         }
-        $tot_F = abs($tot_D-$tot_E);
-        $tot_I = abs($tot_D-$tot_G);
+        $tot_F = ($tot_D-$tot_E);
+        $tot_I = ($tot_D-$tot_G);
         if($tot_D== 0)$tot_J=0;
-        else $tot_J = abs($tot_I/$tot_D)*100;
-        $tot_K = abs($tot_D-$tot_E-$tot_H);
+        else $tot_J = ($tot_I/$tot_D)*100;
+        $tot_K = ($tot_D-$tot_E-$tot_H);
         if($tot_F==0)$tot_L = 0;
-        else  $tot_L = abs($tot_K/$tot_F*100);
+        else  $tot_L = ($tot_K/$tot_F*100);
         $G_E =$tot_G-$tot_E;
-        $tot_M = abs($tot_G -$tot_H);
+        $tot_M = ($tot_G -$tot_H);
         if($tot_G-$tot_E==0)$G_E = 1;
-        $tot_N = abs($tot_M / ($G_E)*100);
+        $tot_N = ($tot_M / ($G_E)*100);
 
         $total = array(
             'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'I' => $tot_I,
@@ -1605,17 +1613,17 @@ class Laporan extends Controller
                     $tot_G += $dt_dev[$i]['jumlah']['G'];
                     $tot_H += $dt_dev[$i]['jumlah']['H'];
                 }
-                $tot_F = abs($tot_D-$tot_E);
-                $tot_I = abs($tot_D-$tot_G);
+                $tot_F = ($tot_D-$tot_E);
+                $tot_I = ($tot_D-$tot_G);
                 if($tot_D== 0)$tot_J=0;
-                else $tot_J = abs($tot_I/$tot_D)*100;
-                $tot_K = abs($tot_D-$tot_E-$tot_H);
+                else $tot_J = ($tot_I/$tot_D)*100;
+                $tot_K = ($tot_D-$tot_E-$tot_H);
                 if($tot_F==0)$tot_L = 0;
-                else  $tot_L = abs($tot_K/$tot_F*100);
+                else  $tot_L = ($tot_K/$tot_F*100);
                 $G_E =$tot_G-$tot_E;
-                $tot_M = abs($tot_G -$tot_H);
+                $tot_M = ($tot_G -$tot_H);
                 if($tot_G-$tot_E==0)$G_E = 1;
-                $tot_N = abs($tot_M / ($G_E)*100);
+                $tot_N = ($tot_M / ($G_E)*100);
 
 
                 $total = array(
@@ -2360,17 +2368,17 @@ class Laporan extends Controller
                         }
                     }
 
-                    $tot_F = abs($tot_D-$tot_E);
-                    $tot_I = abs($tot_D-$tot_G);
+                    $tot_F = ($tot_D-$tot_E);
+                    $tot_I = ($tot_D-$tot_G);
                     if($tot_D== 0)$tot_J=0;
-                    else $tot_J = abs($tot_I/$tot_D)*100;
-                    $tot_K = abs($tot_D-$tot_E-$tot_H);
+                    else $tot_J = ($tot_I/$tot_D)*100;
+                    $tot_K = ($tot_D-$tot_E-$tot_H);
                     if($tot_F==0)$tot_L = 0;
-                    else  $tot_L = abs($tot_K/$tot_F*100);
+                    else  $tot_L = ($tot_K/$tot_F*100);
                     $G_E =$tot_G-$tot_E;
-                    $tot_M = abs($tot_G -$tot_H);
+                    $tot_M = ($tot_G -$tot_H);
                     if($tot_G-$tot_E==0)$G_E = 1;
-                    $tot_N = abs($tot_M / ($G_E)*100);
+                    $tot_N = ($tot_M / ($G_E)*100);
 
                     $total = array(
                         'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'I' => $tot_I,
@@ -2380,8 +2388,51 @@ class Laporan extends Controller
             }
         }
 //        dd($data_RD);
+        $tot_lwbp1 =$tot_lwbp2 =$tot_wbp =$tot_kwh =$tot_Kvarh =$tot_KW =$tot_KWH =$tot_KWH_lalu  =$tot_jual =$tot_susut =null;
+        $tot_D =$tot_E =$tot_G =$tot_H =$tot_K =null;
+
+        for($i=0;$i<count($data_RD);$i++){
+            for($j=0;$j<count($data_RD[$i]['gi']);$j++){
+                $tot_lwbp1 +=$data_RD[$i]['gi'][$j]['total_jumlah']['lwbp1'];
+                $tot_lwbp2 +=$data_RD[$i]['gi'][$j]['total_jumlah']['lwbp2'];
+                $tot_wbp +=$data_RD[$i]['gi'][$j]['total_jumlah']['wbp'];
+                $tot_kwh +=$data_RD[$i]['gi'][$j]['total_jumlah']['total_kwh'];
+                $tot_Kvarh +=$data_RD[$i]['gi'][$j]['total_jumlah']['Kvarh'];
+                $tot_KW +=$data_RD[$i]['gi'][$j]['total_jumlah']['KW'];
+                $tot_KWH_lalu +=$data_RD[$i]['gi'][$j]['total_jumlah']['KWH_lalu'];
+                $tot_jual +=$data_RD[$i]['gi'][$j]['total_jumlah']['jual'];
+                $tot_D+=$data_RD[$i]['dev'][$j]['D'];
+                $tot_E+=$data_RD[$i]['dev'][$j]['E'];
+                $tot_H+=$data_RD[$i]['dev'][$j]['H'];
+            }
+        }
+        $tot_F = $tot_D-$tot_E;
+        $tot_K = ($tot_D-$tot_E-$tot_H);
+        if($tot_F==0)$tot_L = 0;
+        else  $tot_L = ($tot_K/$tot_F*100);
+        $tot_susut =   $tot_kwh-$tot_jual;
+        if($tot_KWH_lalu){
+            $tot_KWH = $tot_kwh - $tot_KWH_lalu;
+            $tot_persen = $tot_KWH/$tot_KWH_lalu*100;
+        }
+        else{
+            $tot_KWH = $tot_kwh - $tot_KWH_lalu;
+            $tot_persen = null;
+        }
+        if($tot_kwh==0) $tot_losses=0;
+        else $tot_losses =  $tot_susut/$tot_kwh*100;
+
+        $jumlah = array(
+            "lwbp1" => $tot_lwbp1, "lwbp2" => $tot_lwbp2, "wbp" => $tot_wbp,
+            "total_kwh" => $tot_kwh, "Kvarh" => $tot_Kvarh,
+            "KW" => $tot_KW,"KWH" => $tot_KWH,
+            "KWH_lalu" => $tot_KWH_lalu, "persen" => $tot_persen,
+            "jual" => $tot_jual,"susut" => $tot_susut,
+            "losses" => $tot_losses, 'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'K' => $tot_K, 'L' => $tot_L,
+        );
         return view('admin.nonmaster.laporan.distribusi',[
-            'data'      => $data_RD
+            'data'      => $data_RD,
+            'jumlah'      => $jumlah
         ]);
     }
 }

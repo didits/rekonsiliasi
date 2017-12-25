@@ -141,12 +141,36 @@
                                             <td>{{number_format($data2_GI[$i]['data'][$j]['F'],0)}}</td>
                                             <td>{{number_format($data2_GI[$i]['data'][$j]['G'],0)}}</td>
                                             <td>{{number_format($data2_GI[$i]['data'][$j]['H'],0)}}</td>
-                                            <td>({{number_format($data2_GI[$i]['data'][$j]['I']),0}})</td>
-                                            <td>({{number_format($data2_GI[$i]['data'][$j]['J'],2)}})</td>
-                                            <td>({{number_format($data2_GI[$i]['data'][$j]['K'],0)}})</td>
-                                            <td>({{number_format($data2_GI[$i]['data'][$j]['L'],2)}})</td>
-                                            <td>({{number_format($data2_GI[$i]['data'][$j]['M'],0)}})</td>
-                                            <td>({{number_format($data2_GI[$i]['data'][$j]['N'],2)}})</td>
+                                                @if(($data2_GI[$i]['data'][$j]['I'])> 0)
+                                                    <td class="text-center">{{number_format($data2_GI[$i]['data'][$j]['I'],0)}}</td>
+                                                @else
+                                                    <td class="text-center">({{number_format(abs($data2_GI[$i]['data'][$j]['I']),0)}})</td>
+                                                @endif
+                                                @if(($data2_GI[$i]['data'][$j]['J'])> 0)
+                                                    <td class="text-center">{{number_format($data2_GI[$i]['data'][$j]['J'],2)}}</td>
+                                                @else
+                                                    <td class="text-center">({{number_format(abs($data2_GI[$i]['data'][$j]['J']),2)}})</td>
+                                                @endif
+                                                @if(($data2_GI[$i]['data'][$j]['K'])> 0)
+                                                    <td class="text-center">{{number_format($data2_GI[$i]['data'][$j]['K'],0)}}</td>
+                                                @else
+                                                    <td class="text-center">({{number_format(abs($data2_GI[$i]['data'][$j]['K']),0)}})</td>
+                                                @endif
+                                                @if(($data2_GI[$i]['data'][$j]['L'])> 0)
+                                                    <td class="text-center">{{number_format($data2_GI[$i]['data'][$j]['L'],2)}}</td>
+                                                @else
+                                                    <td class="text-center">({{number_format(abs($data2_GI[$i]['data'][$j]['L']),2)}})</td>
+                                                @endif
+                                                @if(($data2_GI[$i]['data'][$j]['M'])> 0)
+                                                    <td class="text-center">{{number_format($data2_GI[$i]['data'][$j]['M'],0)}}</td>
+                                                @else
+                                                    <td class="text-center">({{number_format(abs($data2_GI[$i]['data'][$j]['M']),0)}})</td>
+                                                @endif
+                                                @if(($data2_GI[$i]['data'][$j]['N'])> 0)
+                                                    <td class="text-center">{{number_format($data2_GI[$i]['data'][$j]['N'],2)}}</td>
+                                                @else
+                                                    <td class="text-center">({{number_format(abs($data2_GI[$i]['data'][$j]['N']),2)}})</td>
+                                                @endif
                                             @if(number_format($data2_GI[$i]['data'][$j]['L'],2)> 2)
                                             <td class="text-center">TIDAK NORMAL</td>
                                             @elseif(number_format($data2_GI[$i]['data'][$j]['L'],2)< 2)
@@ -165,12 +189,36 @@
                                             <th class="text-center">{{number_format($jumlah['F'],0)}}</th>
                                             <th class="text-center">{{number_format($jumlah['G'],0)}}</th>
                                             <th class="text-center">{{number_format($jumlah['H'],0)}}</th>
-                                            <th class="text-center">({{number_format($jumlah['I']),0}})</th>
-                                            <th class="text-center">({{number_format($jumlah['J'],2)}})</th>
-                                            <th class="text-center">({{number_format($jumlah['K'],0)}})</th>
-                                            <th class="text-center">({{number_format($jumlah['L'],2)}})</th>
-                                            <th class="text-center">({{number_format($jumlah['M'],0)}})</th>
-                                            <th class="text-center">({{number_format($jumlah['N'],2)}})</th>
+                                            @if(($jumlah['I'])> 0)
+                                                <th class="text-center">{{number_format($jumlah['I']),0}}</th>
+                                            @else
+                                                <th class="text-center">({{number_format(abs($jumlah['I']),0)}})</th>
+                                            @endif
+                                            @if(($jumlah['J'])> 0)
+                                                <th class="text-center">{{number_format($jumlah['J']),2}}</th>
+                                            @else
+                                                <th class="text-center">({{number_format(abs($jumlah['J']),2)}})</th>
+                                            @endif
+                                            @if(($jumlah['K'])> 0)
+                                                <th class="text-center">{{number_format($jumlah['K']),0}}</th>
+                                            @else
+                                                <th class="text-center">({{number_format(abs($jumlah['K']),0)}})</th>
+                                            @endif
+                                            @if(($jumlah['L'])> 0)
+                                                <th class="text-center">{{number_format($jumlah['L']),2}}</th>
+                                            @else
+                                                <th class="text-center">({{number_format(abs($jumlah['L']),2)}})</th>
+                                            @endif
+                                            @if(($jumlah['M'])> 0)
+                                                <th class="text-center">{{number_format($jumlah['M']),0}}</th>
+                                            @else
+                                                <th class="text-center">({{number_format(abs($jumlah['M']),0)}})</th>
+                                            @endif
+                                            @if(($jumlah['N'])> 0)
+                                                <th class="text-center">{{number_format($jumlah['N'],2)}}</th>
+                                            @else
+                                                <th class="text-center">({{number_format(abs($jumlah['N']),2)}})</th>
+                                            @endif
                                             @if(number_format($jumlah['L'],2)> 2)
                                                 <th class="text-center">TIDAK NORMAL</th>
                                             @elseif(number_format($jumlah['L'],2)< 2)
@@ -199,12 +247,36 @@
                                             <td>{{number_format($data_GI[$i][$j]['F'],0)}}</td>
                                             <td>{{number_format($data_GI[$i][$j]['G'],0)}}</td>
                                             <td>{{number_format($data_GI[$i][$j]['H'],0)}}</td>
-                                            <td>({{number_format($data_GI[$i][$j]['I']),0}})</td>
-                                            <td>({{number_format($data_GI[$i][$j]['J'],2)}})</td>
-                                            <td>({{number_format($data_GI[$i][$j]['K'],0)}})</td>
-                                            <td>({{number_format($data_GI[$i][$j]['L'],2)}})</td>
-                                            <td>({{number_format($data_GI[$i][$j]['M'],0)}})</td>
-                                            <td>({{number_format($data_GI[$i][$j]['N'],2)}})</td>
+                                        @if(($data_GI[$i][$j]['I'])> 0)
+                                            <td class="text-center">{{number_format($data_GI[$i][$j]['I'],0)}}</td>
+                                        @else
+                                            <td class="text-center">({{number_format(abs($data_GI[$i][$j]['I']),0)}})</td>
+                                        @endif
+                                        @if(($data_GI[$i][$j]['J'])> 0)
+                                            <td class="text-center">{{number_format($data_GI[$i][$j]['J'],2)}}</td>
+                                        @else
+                                            <td class="text-center">({{number_format(abs($data_GI[$i][$j]['J']),2)}})</td>
+                                        @endif
+                                        @if(($data_GI[$i][$j]['K'])> 0)
+                                            <td class="text-center">{{number_format($data_GI[$i][$j]['K'],0)}}</td>
+                                        @else
+                                            <td class="text-center">({{number_format(abs($data_GI[$i][$j]['K']),0)}})</td>
+                                        @endif
+                                        @if(($data_GI[$i][$j]['L'])> 0)
+                                            <td class="text-center">{{number_format($data_GI[$i][$j]['L'],2)}}</td>
+                                        @else
+                                            <td class="text-center">({{number_format(abs($data_GI[$i][$j]['L']),2)}})</td>
+                                        @endif
+                                        @if(($data_GI[$i][$j]['M'])> 0)
+                                            <td class="text-center">{{number_format($data_GI[$i][$j]['M'],0)}}</td>
+                                        @else
+                                            <td class="text-center">({{number_format(abs($data_GI[$i][$j]['M']),0)}})</td>
+                                        @endif
+                                        @if(($data_GI[$i][$j]['N'])> 0)
+                                            <td class="text-center">{{number_format($data_GI[$i][$j]['N'],2)}}</td>
+                                        @else
+                                            <td class="text-center">({{number_format(abs($data_GI[$i][$j]['N']),2)}})</td>
+                                        @endif
                                             @if(number_format($data_GI[$i][$j]['L'],2)> 2)
                                             <td>TIDAK NORMAL</td>
                                             @elseif(number_format($data_GI[$i][$j]['L'],2)< 2)
@@ -223,16 +295,40 @@
                                             <th class="text-center">{{number_format($jumlah[$i]['F'],0)}}</th>
                                             <th class="text-center">{{number_format($jumlah[$i]['G'],0)}}</th>
                                             <th class="text-center">{{number_format($jumlah[$i]['H'],0)}}</th>
-                                            <th class="text-center">({{number_format($jumlah[$i]['I']),0}})</th>
-                                            <th class="text-center">({{number_format($jumlah[$i]['J'],2)}})</th>
-                                            <th class="text-center">({{number_format($jumlah[$i]['K'],0)}})</th>
-                                            <th class="text-center">({{number_format($jumlah[$i]['L'],2)}})</th>
-                                            <th class="text-center">({{number_format($jumlah[$i]['M'],0)}})</th>
-                                            <th class="text-center">({{number_format($jumlah[$i]['N'],2)}})</th>
+                                            @if(($jumlah[$i]['I'])> 0)
+                                            <th class="text-center">{{number_format($jumlah[$i]['I']),0}}</th>
+                                            @else
+                                            <th class="text-center">({{number_format(abs($jumlah[$i]['I']),0)}})</th>
+                                            @endif
+                                            @if(($jumlah[$i]['J'])> 0)
+                                            <th class="text-center">{{number_format($jumlah[$i]['J']),2}}</th>
+                                            @else
+                                            <th class="text-center">({{number_format(abs($jumlah[$i]['J']),2)}})</th>
+                                            @endif
+                                            @if(($jumlah[$i]['K'])> 0)
+                                            <th class="text-center">{{number_format($jumlah[$i]['K']),0}}</th>
+                                            @else
+                                            <th class="text-center">({{number_format(abs($jumlah[$i]['K']),0)}})</th>
+                                            @endif
+                                            @if(($jumlah[$i]['L'])> 0)
+                                            <th class="text-center">{{number_format($jumlah[$i]['L']),2}}</th>
+                                            @else
+                                            <th class="text-center">({{number_format(abs($jumlah[$i]['L']),2)}})</th>
+                                            @endif
+                                            @if(($jumlah[$i]['M'])> 0)
+                                            <th class="text-center">{{number_format($jumlah[$i]['M']),0}}</th>
+                                            @else
+                                            <th class="text-center">({{number_format(abs($jumlah[$i]['M']),0)}})</th>
+                                            @endif
+                                            @if(($jumlah[$i]['N'])> 0)
+                                            <th class="text-center"><b>{{number_format($jumlah[$i]['N'],2)}}</b></th>
+                                            @else
+                                            <th class="text-center">({{number_format(abs($jumlah[$i]['N']),2)}})</th>
+                                            @endif
                                             @if(number_format($jumlah[$i]['L'],2)> 2)
-                                                <th class="text-center">TIDAK NORMAL</th>
+                                            <th class="text-center">TIDAK NORMAL</th>
                                             @elseif(number_format($jumlah[$i]['L'],2)< 2)
-                                                <th class="text-center">NORMAL</th>
+                                            <th class="text-center">NORMAL</th>
                                             @endif
                                             {{--<th></th>--}}
                                         </tr>
@@ -241,19 +337,42 @@
                                         {{-----------}}
                                         <thead>
                                         <tr>
-                                            <td class="text-center" colspan="3" class="text-center"><b></b>JUMLAHTOT</td>
+                                            <td class="text-center" colspan="3" class="text-center"><b></b>JUMLAH</td>
                                             <td class="text-center"><b>{{number_format($total['D'],0)}}</b></td>
                                             <td class="text-center"><b>{{number_format($total['E'],0)}}</b></td>
                                             <td class="text-center"><b>{{number_format($total['F'],0)}}</b></td>
                                             <td class="text-center"><b>{{number_format($total['G'],0)}}</b></td>
                                             <td class="text-center"><b>{{number_format($total['H'],0)}}</b></td>
-                                            <td class="text-center"><b>({{number_format($total['I']),0}})</b></td>
-                                            <td class="text-center"><b>({{number_format($total['J'],2)}})</b></td>
-                                            <td class="text-center"><b>({{number_format($total['K'],0)}})</b></td>
-                                            <td class="text-center"><b>({{number_format($total['L'],2)}})</b></td>
-                                            {{--<td></td>--}}
-                                            <td class="text-center"><b>({{number_format($total['M'],0)}})</b></td>
-                                            <td class="text-center"><b>({{number_format($total['N'],2)}})</b></td>
+                                            @if(($total['I'])> 0)
+                                                <td class="text-center"><b>{{number_format($total['I'],0)}}</b></td>
+                                            @else
+                                            <td class="text-center"><b>({{number_format(abs($total['I']),0)}})</b></td>
+                                            @endif
+                                            @if(($total['J'])> 0)
+                                            <td class="text-center"><b>{{number_format($total['J'],2)}}</b></td>
+                                            @else
+                                            <td class="text-center"><b>({{number_format(abs($total['J']),2)}})</b></td>
+                                            @endif
+                                            @if(($total['K'])> 0)
+                                            <td class="text-center"><b>{{number_format($total['K'],0)}}</b></td>
+                                            @else
+                                            <td class="text-center"><b>({{number_format(abs($total['K']),0)}})</b></td>
+                                            @endif
+                                            @if(($total['L'])> 0)
+                                            <td class="text-center"><b>{{number_format($total['L'],2)}}</b></td>
+                                            @else
+                                            <td class="text-center"><b>({{number_format(abs($total['L']),2)}})</b></td>
+                                            @endif
+                                            @if(($total['M'])> 0)
+                                            <td class="text-center"><b>{{number_format($total['M'],0)}}</b></td>
+                                            @else
+                                            <td class="text-center"><b>({{number_format(abs($total['M']),0)}})</b></td>
+                                            @endif
+                                            @if(($total['N'])> 0)
+                                            <td class="text-center"><b>{{number_format($total['N'],2)}}</b></td>
+                                            @else
+                                            <td class="text-center"><b>({{number_format(abs($total['N']),2)}})</b></td>
+                                            @endif
                                             @if($total['L'] > 2)
 
                                             <td class="text-center"><b>TIDAK NORMAL</b></td>
