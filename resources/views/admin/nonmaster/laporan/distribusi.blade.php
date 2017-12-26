@@ -154,9 +154,9 @@
                                                             <td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['losses'],2)}}</td>
                                                             <td>{{number_format($data[$i]['dev'][$j]['K'],2)}}</td>
                                                             <td>{{number_format($data[$i]['dev'][$j]['L'],2)}}</td>
-                                                            @if(number_format($data[$i]['dev'][$j]['L'],0)> 2)
+                                                            @if($data[$i]['dev'][$j]['L'] > 2)
                                                                 <td class="text-center">TIDAK NORMAL</td>
-                                                            @elseif(number_format($data[$i]['dev'][$j]['L'],0) < 2)
+                                                            @elseif($data[$i]['dev'][$j]['L'] < 2)
                                                                 <td class="text-center">NORMAL</td>
                                                             @endif
                                                         </tr>
@@ -211,9 +211,9 @@
                                         @else <td><b>({{number_format(abs($jumlah['K']))}}</b>)</td>
                                         @endif
                                         <td><b>{{number_format($jumlah['L'],2)}}</b></td>
-                                        @if(number_format($jumlah['L'],0)> 2)
+                                        @if($jumlah['L'] > 2)
                                             <td class="text-center">TIDAK NORMAL</td>
-                                        @elseif(number_format($jumlah['L'],0) < 2)
+                                        @elseif($jumlah['L'] < 2)
                                             <td class="text-center">NORMAL</td>
                                         @endif
                                     <tr>

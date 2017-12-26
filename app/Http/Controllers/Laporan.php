@@ -2335,7 +2335,7 @@ class Laporan extends Controller
         ]);
     }
 
-    public function distribusi(){
+    public function data_dist(){
         //LAPORAN AREA SUSUT DEVIASI
         $org_area = Organisasi::where('tipe_organisasi', '2')->get()->toArray();
         $array_ryn = array();
@@ -2440,9 +2440,18 @@ class Laporan extends Controller
             "jual" => $tot_jual,"susut" => $tot_susut,
             "losses" => $tot_losses, 'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'K' => $tot_K, 'L' => $tot_L,
         );
+        $data = array();
+        $data['data_RD'] = $data_RD;
+        $data['jumlah'] = $jumlah;
+        return $data;
+    }
+
+    public function distribusi(){
+        $data = $this->data_dist();
+//        dd($data);
         return view('admin.nonmaster.laporan.distribusi',[
-            'data'      => $data_RD,
-            'jumlah'      => $jumlah
+            'data'      => $data['data_RD'],
+            'jumlah'      => $data['jumlah']
         ]);
     }
 }

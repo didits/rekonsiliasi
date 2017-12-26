@@ -60,38 +60,61 @@ class DistribusiController extends Controller
 
     public function dashboard(){
         $Laporan = new Laporan;
-        $data = $Laporan->deviasi_area(Auth::user()->id_organisasi, 'area', 0);
+//        $data = $Laporan->deviasi_area(Auth::user()->id_organisasi, 'area', 0);
 //        dd(Auth::user()->id_organisasi);
-        $sumDev = count($data['jumlah']);
+//        $sumDev = count($data['jumlah']);
+//        $devNorm = $devAbnorm = 0;
+//        for($i=0; $i<$sumDev; $i++){
+//            if($data['jumlah'][$i]['L'] > 2) $devAbnorm++;
+//            elseif($data['jumlah'][$i]['L'] < 2) $devNorm++;
+//        }
+//        $deviasi = array();
+//        $deviasi[] = [($sumDev === 0 ? 0:intval(($devNorm/$sumDev)*100)), $devNorm];
+//        $deviasi[] = [($sumDev === 0 ? 0:intval(($devAbnorm/$sumDev)*100)), $devAbnorm];
+//        $deviasi[] = $sumDev;
+
+//        $data = $Laporan->tsa_gi_peny(Auth::user()->id_organisasi, 'area', 'penyulang');
+//        $trafo      = $data['trafo'];
+//        $nama_gi    = $data['nama_gi'];
+//        $data_jumlah= $data['jumlah_trafo'];
+        $loss_gi    = array();
+//        for($gi=0;$gi<count($trafo);$gi++){
+//            $totKwh     = 0;
+//            $totJual    = 0;
+//            for($tr=0;$tr<count($trafo[$gi]);$tr++){
+//                $totKwh     += $data_jumlah[$gi][$tr]['total_kwh'];
+//                $totJual    += $data_jumlah[$gi][$tr]['jual'];
+//            }
+//            if($totKwh === 0) $losses = 0;
+//            else $losses = ($totKwh-$totJual)/$totKwh*100;
+//
+//            $loss_gi[] = [  "id"        => $nama_gi[$gi]['id'],
+//                "nama_gi"   => $nama_gi[$gi]['nama_gi'],
+//                "losses"    => $losses];
+//        }
+
+        $dataa = $Laporan->data_dist();
+        $data = $dataa['data_RD'];
+        for($i=0;$i<count($data);$i++){
+            for($j=0;$j<count($data[$i]['gi']);$j++){
+                $data[$i]['gi'][$j]['gi'];
+                $data[$i]['gi'][$j]['total_jumlah']['losses'];
+                $loss_gi[] = [  "nama_gi"   => $data[$i]['gi'][$j]['gi'],
+                                "losses"    => $data[$i]['gi'][$j]['total_jumlah']['losses'],
+                                "deviasi"   => $data[$i]['dev'][$j]['L']];
+            }
+        }
+
+        $sumDev = count($loss_gi);
         $devNorm = $devAbnorm = 0;
         for($i=0; $i<$sumDev; $i++){
-            if($data['jumlah'][$i]['L'] > 2) $devAbnorm++;
-            elseif($data['jumlah'][$i]['L'] < 2) $devNorm++;
+            if($loss_gi[$i]['deviasi'] > 2) $devAbnorm++;
+            elseif($loss_gi[$i]['deviasi'] < 2) $devNorm++;
         }
         $deviasi = array();
         $deviasi[] = [($sumDev === 0 ? 0:intval(($devNorm/$sumDev)*100)), $devNorm];
         $deviasi[] = [($sumDev === 0 ? 0:intval(($devAbnorm/$sumDev)*100)), $devAbnorm];
         $deviasi[] = $sumDev;
-
-        $data = $Laporan->tsa_gi_peny(Auth::user()->id_organisasi, 'area', 'penyulang');
-        $trafo      = $data['trafo'];
-        $nama_gi    = $data['nama_gi'];
-        $data_jumlah= $data['jumlah_trafo'];
-        $loss_gi    = array();
-        for($gi=0;$gi<count($trafo);$gi++){
-            $totKwh     = 0;
-            $totJual    = 0;
-            for($tr=0;$tr<count($trafo[$gi]);$tr++){
-                $totKwh     += $data_jumlah[$gi][$tr]['total_kwh'];
-                $totJual    += $data_jumlah[$gi][$tr]['jual'];
-            }
-            if($totKwh === 0) $losses = 0;
-            else $losses = ($totKwh-$totJual)/$totKwh*100;
-
-            $loss_gi[] = [  "id"        => $nama_gi[$gi]['id'],
-                "nama_gi"   => $nama_gi[$gi]['nama_gi'],
-                "losses"    => $losses];
-        }
 
         $sumSut = count($loss_gi);
         $susutNorm = $susutAbnorm = 0;
