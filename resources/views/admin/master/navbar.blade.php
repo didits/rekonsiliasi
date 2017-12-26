@@ -256,7 +256,7 @@
                     @if(Auth::user()->tipe_organisasi==1)
 
                     <li @if(Request::is('area/dashboard'))class="active"@endif>
-                        <a href="{{route('area.dashboard')}}">
+                        <a href="{{route('distribusi.dashboard')}}">
                             <i class="pe-7s-display1"></i>
                             <p>Dashboard</p>
                         </a>

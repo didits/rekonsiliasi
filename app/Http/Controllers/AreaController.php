@@ -1043,8 +1043,8 @@ class AreaController extends Controller
             elseif($data['jumlah'][$i]['L'] < 2) $devNorm++;
         }
         $deviasi = array();
-        $deviasi[] = [intval(($devNorm/$sumDev)*100), $devNorm];
-        $deviasi[] = [intval(($devAbnorm/$sumDev)*100), $devAbnorm];
+        $deviasi[] = [($sumDev === 0 ? 0:intval(($devNorm/$sumDev)*100)), $devNorm];
+        $deviasi[] = [($sumDev === 0 ? 0:intval(($devAbnorm/$sumDev)*100)), $devAbnorm];
         $deviasi[] = $sumDev;
 
         $data = $Laporan->tsa_gi_peny(Auth::user()->id_organisasi, 'area', 'penyulang');
@@ -1074,8 +1074,8 @@ class AreaController extends Controller
             elseif($loss_gi[$i]['losses'] < 6) $susutNorm++;
         }
         $susut = array();
-        $susut[] = [intval(($susutNorm/$sumSut)*100), $susutNorm];
-        $susut[] = [intval(($susutAbnorm/$sumSut)*100), $susutAbnorm];
+        $susut[] = [($sumSut === 0 ? 0:intval(($susutNorm/$sumSut)*100)), $susutNorm];
+        $susut[] = [($sumSut === 0 ? 0:intval(($susutAbnorm/$sumSut)*100)), $susutAbnorm];
         $susut[] = $sumSut;
 
 //        dd($deviasi);

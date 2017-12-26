@@ -18,12 +18,12 @@
                                     <p class="category">Dashboard Bulan {{date("F")}}</p>
                                 </div>
                                 <div class="content">
-                                    <p>Update</p>
-                                    <span>
-                                        <button type="button" class="btn btn-primary btn-fill">
-                                            <i class="fa fa-history"></i>
-                                        </button>
-                                    </span>
+                                    {{--<p>Update</p>--}}
+                                    {{--<span>--}}
+                                        {{--<button type="button" class="btn btn-primary btn-fill">--}}
+                                            {{--<i class="fa fa-history"></i>--}}
+                                        {{--</button>--}}
+                                    {{--</span>--}}
                                 </div>
                             </div>
                         </div>
@@ -51,36 +51,12 @@
                                         <i class="fa fa-circle text-success"></i> Total GI: {{isset($deviasi)?$deviasi[2]:0}}
                                     </div>
                                     <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-history"></i> Terupdate
-                                    </div>
+                                    {{--<div class="stats">--}}
+                                        {{--<i class="fa fa-history"></i> Terupdate--}}
+                                    {{--</div>--}}
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-md-8">
-                            <div class="card ">
-                                <div class="header">
-                                    <h4 class="title">Statistik Deviasi</h4>
-                                    <p class="category">Deviasi Bulan {{date("F")}}</p>
-                                </div>
-                                <div class="content">
-                                    <div id="barDev" class="ct-chart"></div>
-                                </div>
-                                <div class="footer">
-                                    <div class="legend">
-                                        <i class="fa fa-circle text-info"></i> Normal
-                                        <i class="fa fa-circle text-danger"></i> Tidak Normal
-                                    </div>
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-history"></i> Terupdate
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-4">
                             <div class="card">
                                 <div class="header">
@@ -103,31 +79,9 @@
                                         <i class="fa fa-circle text-success"></i> Total GI: {{isset($susut)?$susut[2]:0}}
                                     </div>
                                     <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-history"></i> Terupdate
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-8">
-                            <div class="card ">
-                                <div class="header">
-                                    <h4 class="title">Statistik Susut</h4>
-                                    <p class="category">Deviasi Bulan {{date("F")}}</p>
-                                </div>
-                                <div class="content">
-                                    <div id="barSusut" class="ct-chart"></div>
-                                </div>
-                                <div class="footer">
-                                    <div class="legend">
-                                        <i class="fa fa-circle text-info"></i> < 6%
-                                        <i class="fa fa-circle text-danger"></i> > 6%
-                                    </div>
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-history"></i> Terupdate
-                                    </div>
+                                    {{--<div class="stats">--}}
+                                        {{--<i class="fa fa-history"></i> Terupdate--}}
+                                    {{--</div>--}}
                                 </div>
                             </div>
                         </div>

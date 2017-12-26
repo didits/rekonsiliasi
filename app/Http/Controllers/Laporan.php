@@ -690,8 +690,12 @@ class Laporan extends Controller
     }
 
     public function tsa_gi_peny($id_organisasi, $tsa, $tipe){
-        $data_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
-        $id_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
+        if($id_organisasi == '10000')
+            $query = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 2).'%')->where('tipe_organisasi', '3');
+        else
+            $query = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3');
+        $data_org = $query->get()->toArray();
+        $id_org = $query->pluck('id')->toArray();
         $tsa_ = array();$trafo = array();$list_p = array();$nama_gi = array();$jumlah_trafo = array();$jumlah_tot = array();
 //            dd($id_org);
         for($i =0 ;$i <count($id_org);$i++) {
@@ -1529,8 +1533,12 @@ class Laporan extends Controller
     }
 
     public function deviasi_area($id_organisasi, $tipe, $id){
-        $data_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
-        $id_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
+        if($id_organisasi == '10000')
+            $query = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 2).'%')->where('tipe_organisasi', '3');
+        else
+            $query = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3');
+        $data_org = $query->get()->toArray();
+        $id_org = $query->pluck('id')->toArray();
         $data_GI = array();
         $jumlah = array();
         $tot_D =$tot_E =$tot_F =$tot_G =$tot_H =$tot_I =$tot_J =$tot_K=$tot_L =$tot_M= $tot_N =null;
@@ -2377,8 +2385,10 @@ class Laporan extends Controller
                     else  $tot_L = ($tot_K/$tot_F*100);
                     $G_E =$tot_G-$tot_E;
                     $tot_M = ($tot_G -$tot_H);
-                    if($G_E==0)$tot_N = 0;
-                    $tot_N = ($tot_M / ($G_E)*100);
+                    if($G_E==0)
+                        $tot_N = 0;
+                    else
+                        $tot_N = ($tot_M / ($G_E)*100);
 
                     $total = array(
                         'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'I' => $tot_I,
