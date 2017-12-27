@@ -98,59 +98,84 @@
 @section('extra_plugin')
 
 <!--  Charts Plugin -->
-<script src="{{ URL::asset('dashboard/js/chartist.min.js') }}"></script>
+<script src="{{ URL::asset('dashboard/js/canvasjs.min.js') }}"></script>
 @endsection
 
 @section('extra_script')
 
 <script type="text/javascript">
-    function initDashboardPageCharts(){
+    {{--function initDashboardPageCharts(){--}}
 
-        // Pie Chart
-        Chartist.Pie('#lingkDev', {
-            labels: ['{{isset($deviasi)?$deviasi[0][0]:0}}%','{{isset($deviasi)?$deviasi[1][0]:0}}%'],
-            series: [{{isset($deviasi)?$deviasi[0][0]:0}}, {{isset($deviasi)?$deviasi[1][0]:0}}]
-        });
-        Chartist.Pie('#lingkSusut', {
-            labels: ['{{isset($susut)?$susut[0][0]:0}}%','{{isset($susut)?$susut[1][0]:0}}%'],
-            series: [{{isset($susut)?$susut[0][0]:0}}, {{isset($susut)?$susut[1][0]:0}}]
-        });
+        {{--// Pie Chart--}}
+        {{--Chartist.Pie('#lingkDev', {--}}
+            {{--labels: ['{{isset($deviasi)?$deviasi[0][0]:0}}% GI NORMAL','{{isset($deviasi)?$deviasi[1][0]:0}}% GI TIDAK NORMAL'],--}}
+            {{--series: [{{isset($deviasi)?$deviasi[0][0]:0}}, {{isset($deviasi)?$deviasi[1][0]:0}}]--}}
+        {{--});--}}
+        {{--Chartist.Pie('#lingkSusut', {--}}
+            {{--labels: ['{{isset($susut)?$susut[0][0]:0}}% SUSUT NORMAL','{{isset($susut)?$susut[1][0]:0}}% SUSUT TIDAK NORMAL'],--}}
+            {{--series: [{{isset($susut)?$susut[0][0]:0}}, {{isset($susut)?$susut[1][0]:0}}]--}}
+        {{--});--}}
+    {{--}--}}
+    {{--$(document).ready(function(){--}}
+        {{--initDashboardPageCharts();--}}
+    {{--});--}}
+    window.onload = function () {
 
-        /*   **************** 2014 Sales - Bar Chart ********************    */
-
-        var data = {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            series: [
-                [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
-                [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695]
-            ]
-        };
-
-        var options = {
-            seriesBarDistance: 10,
-            axisX: {
-                showGrid: false
+        var chartDev = new CanvasJS.Chart("lingkDev", {
+            exportEnabled: true,
+            animationEnabled: true,
+            title:{
+                text: "Statistik Deviasi"
             },
-            height: "245px"
-        };
-
-        var responsiveOptions = [
-            ['screen and (max-width: 640px)', {
-                seriesBarDistance: 5,
-                axisX: {
-                    labelInterpolationFnc: function (value) {
-                        return value[0];
-                    }
-                }
+            legend:{
+                cursor: "pointer",
+                itemclick: explodePie
+            },
+            data: [{
+                type: "pie",
+                showInLegend: true,
+                toolTipContent: "{name}: <strong>{y}%</strong>",
+                indexLabel: "{name} - {y}%",
+                dataPoints: [
+                    { y: {{isset($deviasi)?$deviasi[0][0]:0}}, name: "GI Normal" },
+                    { y: {{isset($deviasi)?$deviasi[1][0]:0}}, name: "GI Tidak Normal", exploded: true }
+                ]
             }]
-        ];
+        });
+        chartDev.render();
 
-        Chartist.Bar('#barDev', data, options, responsiveOptions);
-        Chartist.Bar('#barSusut', data, options, responsiveOptions);
+        var chartSut = new CanvasJS.Chart("lingkSusut", {
+            exportEnabled: true,
+            animationEnabled: true,
+            title:{
+                text: "Statistik Susut"
+            },
+            legend:{
+                cursor: "pointer",
+                itemclick: explodePie
+            },
+            data: [{
+                type: "pie",
+                showInLegend: true,
+                toolTipContent: "{name}: <strong>{y}%</strong>",
+                indexLabel: "{name} - {y}%",
+                dataPoints: [
+                    { y: {{isset($susut)?$susut[0][0]:0}}, name: "Susut Normal" },
+                    { y: {{isset($susut)?$susut[1][0]:0}}, name: "Susut Tidak Normal", exploded: true }
+                ]
+            }]
+        });
+        chartSut.render();
+    };
+
+    function explodePie (e) {
+        if(typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
+            e.dataSeries.dataPoints[e.dataPointIndex].exploded = true;
+        } else {
+            e.dataSeries.dataPoints[e.dataPointIndex].exploded = false;
+        }
+        e.chart.render();
 
     }
-    $(document).ready(function(){
-        initDashboardPageCharts();
-    });
 </script>
 @endsection
