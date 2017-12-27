@@ -4,7 +4,7 @@
 @section('content')
 
 <div class="wrapper">
-    @include('admin.master.top_navbar', ['navbartitle' => "LAPORAN TSA PENYULANG"])
+    @include('admin.master.top_navbar', ['navbartitle' => "LAPORAN DISTRIBUSI"])
 
     @include('admin.master.navbar')
     <div class="main-panel">
@@ -36,10 +36,10 @@
                                 <table class="table table-hover table-striped">
                                     <thead>
                                     <tr>
-                                        <th><br/></th>
+                                        <th class="text-center">REKAPITULASI TRANSFER TENAGA LISTRIK (TSA TERURAI)</th>
                                     </tr>
                                     <tr>
-                                        <th class="text-center">KWH SALUR PER PENYULANG</th>
+                                        <th class="text-center">KE PT PLN (PERSERO) DISTRIBUSI JAWA TIMUR</th>
                                     </tr>
                                     <tr>
                                         <th class="text-center">BULAN : {{date('M Y')}}</th>
