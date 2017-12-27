@@ -29,16 +29,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="card">
                                 <div class="header">
-                                    <h4 class="title" style="text-align: center;">Deviasi Meter Utama</h4>
-                                    <p class="category" style="text-align: center;">Deviasi Bulan {{date("F")}}</p>
+                                    <h4 class="title" style="text-align: center;">Deviasi Meter Utama</h4><!-- 
+                                    <p class="category" style="text-align: center;">Bulan {{date("F")}}</p> -->
                                 </div>
                                 <div class="content">
                                     <div id="lingkDev" class="ct-chart "></div>
                                 </div>
-                                <div class="footer">
+                                <!-- <div class="footer">
                                     <div class="legend">
                                         <i class="fa fa-circle text-info"></i> Normal
                                         <i class="fa fa-circle text-danger"></i> Tidak Normal
@@ -54,19 +54,19 @@
                                     {{--<div class="stats">--}}
                                         {{--<i class="fa fa-history"></i> Terupdate--}}
                                     {{--</div>--}}
-                                </div>
+                                </div> -->
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="card">
                                 <div class="header">
-                                    <h4 class="title" style="text-align: center;">Susut GI</h4>
-                                    <p class="category" style="text-align: center;">Deviasi Bulan {{date("F")}}</p>
+                                    <h4 class="title" style="text-align: center;">Susut GI</h4><!-- 
+                                    <p class="category" style="text-align: center;">Bulan {{date("F")}}</p> -->
                                 </div>
                                 <div class="content">
                                     <div id="lingkSusut" class="ct-chart "></div>
                                 </div>
-                                <div class="footer">
+                                <!-- <div class="footer">
                                     <div class="legend">
                                         <i class="fa fa-circle text-info"></i> Susut < 6%
                                         <i class="fa fa-circle text-danger"></i> Susut > 6%
@@ -82,7 +82,7 @@
                                     {{--<div class="stats">--}}
                                         {{--<i class="fa fa-history"></i> Terupdate--}}
                                     {{--</div>--}}
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -125,7 +125,7 @@
             exportEnabled: true,
             animationEnabled: true,
             title:{
-                text: "Statistik Deviasi"
+                text: "{{date("F Y")}}"
             },
             legend:{
                 cursor: "pointer",
@@ -133,12 +133,12 @@
             },
             data: [{
                 type: "pie",
-                showInLegend: true,
+                showInLegend: false,
                 toolTipContent: "{name}: <strong>{y}%</strong>",
                 indexLabel: "{name} - {y}%",
                 dataPoints: [
-                    { y: {{isset($deviasi)?$deviasi[0][0]:0}}, name: "GI Normal" },
-                    { y: {{isset($deviasi)?$deviasi[1][0]:0}}, name: "GI Tidak Normal", exploded: true }
+                    { y: {{isset($deviasi)?$deviasi[0][0]:0}}, name: "GI Normal: {{isset($deviasi)?$deviasi[0][1]:0}}"  },
+                    { y: {{isset($deviasi)?$deviasi[1][0]:0}}, name: "GI Tidak Normal: {{isset($deviasi)?$deviasi[1][1]:0}}", exploded: true }
                 ]
             }]
         });
@@ -148,7 +148,7 @@
             exportEnabled: true,
             animationEnabled: true,
             title:{
-                text: "Statistik Susut"
+                text: "{{date("F Y")}}"
             },
             legend:{
                 cursor: "pointer",
@@ -156,12 +156,12 @@
             },
             data: [{
                 type: "pie",
-                showInLegend: true,
+                showInLegend: false,
                 toolTipContent: "{name}: <strong>{y}%</strong>",
                 indexLabel: "{name} - {y}%",
                 dataPoints: [
-                    { y: {{isset($susut)?$susut[0][0]:0}}, name: "Susut Normal" },
-                    { y: {{isset($susut)?$susut[1][0]:0}}, name: "Susut Tidak Normal", exploded: true }
+                    { y: {{isset($susut)?$susut[0][0]:0}}, name: "Susut Normal: {{isset($susut)?$susut[0][1]:0}}" },
+                    { y: {{isset($susut)?$susut[1][0]:0}}, name: "Susut Tidak Normal: {{isset($susut)?$susut[1][1]:0}}", exploded: true }
                 ]
             }]
         });
