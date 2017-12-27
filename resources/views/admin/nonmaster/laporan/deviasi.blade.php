@@ -171,9 +171,9 @@
                                                 @else
                                                     <td class="text-center">({{number_format(abs($data2_GI[$i]['data'][$j]['N']),2)}})</td>
                                                 @endif
-                                            @if(number_format($data2_GI[$i]['data'][$j]['L'],2)> 2)
+                                            @if(($data2_GI[$i]['data'][$j]['L'])> 2)
                                             <td class="text-center">TIDAK NORMAL</td>
-                                            @elseif(number_format($data2_GI[$i]['data'][$j]['L'],2)< 2)
+                                            @elseif(($data2_GI[$i]['data'][$j]['L'])< 2)
                                             <td class="text-center">NORMAL</td>
                                             @endif
                                         </tr>
@@ -219,9 +219,9 @@
                                             @else
                                                 <th class="text-center">({{number_format(abs($jumlah['N']),2)}})</th>
                                             @endif
-                                            @if(number_format($jumlah['L'],2)> 2)
+                                            @if(($jumlah['L'])> 2)
                                                 <th class="text-center">TIDAK NORMAL</th>
-                                            @elseif(number_format($jumlah['L'],2)< 2)
+                                            @elseif(($jumlah['L'])< 2)
                                                 <th class="text-center">NORMAL</th>
                                             @endif
                                         </tr> 
@@ -277,9 +277,9 @@
                                         @else
                                             <td class="text-center">({{number_format(abs($data_GI[$i][$j]['N']),2)}})</td>
                                         @endif
-                                            @if(number_format($data_GI[$i][$j]['L'],2)> 2)
+                                            @if(($data_GI[$i][$j]['L'])> 2)
                                             <td>TIDAK NORMAL</td>
-                                            @elseif(number_format($data_GI[$i][$j]['L'],2)< 2)
+                                            @elseif(($data_GI[$i][$j]['L'])< 2)
                                             <td>NORMAL</td>
                                             @endif
                                             {{--<td></td>--}}
@@ -325,9 +325,9 @@
                                             @else
                                             <th class="text-center">({{number_format(abs($jumlah[$i]['N']),2)}})</th>
                                             @endif
-                                            @if(number_format($jumlah[$i]['L'],2)> 2)
+                                            @if(($jumlah[$i]['L'])> 2)
                                             <th class="text-center">TIDAK NORMAL</th>
-                                            @elseif(number_format($jumlah[$i]['L'],2)< 2)
+                                            @elseif(($jumlah[$i]['L'])< 2)
                                             <th class="text-center">NORMAL</th>
                                             @endif
                                             {{--<th></th>--}}
