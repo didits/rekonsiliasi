@@ -730,7 +730,6 @@ class AreaController extends Controller
 
     public function list_rayon(){
         $data = Organisasi::where('id_organisasi', 'like', substr(Auth::user()->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get();
-//        dd($data);
         $data_org = Organisasi::select('id', 'id_organisasi', 'nama_organisasi')->where('id_organisasi', Auth::user()->id_organisasi)->first();
         return view('admin.nonmaster.dashboard_user.list_datamaster',[
             'data' => $data,
@@ -1077,9 +1076,11 @@ class AreaController extends Controller
         $susut[] = [($sumSut === 0 ? 0:intval(($susutNorm/$sumSut)*100)), $susutNorm];
         $susut[] = [($sumSut === 0 ? 0:intval(($susutAbnorm/$sumSut)*100)), $susutAbnorm];
         $susut[] = $sumSut;
+        $home = new HomeController;
+        $date = $home->MonthShifter(-1)->format(('F Y'));
 
-//        dd($deviasi);
         return view('admin.nonmaster.dashboard_user.dashboard', [
+            'date' => $date,
             'deviasi'   => $deviasi,
             'susut'     => $susut
         ]);
