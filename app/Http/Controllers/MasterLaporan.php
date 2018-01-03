@@ -17,18 +17,30 @@ class MasterLaporan
 {
     public function __construct($id_rayon,$tipe,$id)
     {
-        $date = date("Ym")-1;
+        if(date("m")<3){
+            if(date("m")==1){
+                $date_prev = (date("Y")-1)."11";
+                $date_now =  (date("Y")-1)."12";
+            }
+            else{
+                $date_prev = (date("Y") - 1) . "12";
+                $date_now = date("Ym") - 1;}
+        }else{
+            $date_prev = (date("Ym")-2);
+            $date_now = date("Ym")-1;
+        }
+
         $MasterTrafo = TrafoGI::where('id_gi',$id)->get();
         $id_trafo = TrafoGI::where('id_gi',$id)->pluck('id');
-        $p_trafo = PenyimpananTrafoGI::whereIn('id_trafo_gi',$id_trafo)->where('periode',"L".$date)->get();
-        if($p_trafo == null) $p_trafo = PenyimpananTrafoGI::whereIn('id_trafo_gi',$id_trafo)->where('periode',$date)->get();
-        $p_trafo_ = PenyimpananTrafoGI::whereIn('id_trafo_gi',$id_trafo)->where('periode',date("Ym"))->get();
+        $p_trafo = PenyimpananTrafoGI::whereIn('id_trafo_gi',$id_trafo)->where('periode',"L".$date_prev)->get();
+        if($p_trafo == null) $p_trafo = PenyimpananTrafoGI::whereIn('id_trafo_gi',$id_trafo)->where('periode',$date_prev)->get();
+        $p_trafo_ = PenyimpananTrafoGI::whereIn('id_trafo_gi',$id_trafo)->where('periode',$date_now)->get();
 
         $MasterPenyulang = Penyulang::whereIn('id_trafo_gi',$id_trafo)->get();
         $id_penyulang = Penyulang::whereIn('id_trafo_gi',$id_trafo)->pluck('id');
-        $p_penyulang = PenyimpananPenyulang::whereIn('id_penyulang',$id_penyulang)->where('periode',"L".$date)->get();
-        if($p_penyulang == null) $p_penyulang = PenyimpananPenyulang::whereIn('id_penyulang',$id_penyulang)->where('periode',$date)->get();
-        $p_penyulang_ = PenyimpananPenyulang::whereIn('id_penyulang',$id_penyulang)->where('periode',date("Ym"))->get();
+        $p_penyulang = PenyimpananPenyulang::whereIn('id_penyulang',$id_penyulang)->where('periode',"L".$date_prev)->get();
+        if($p_penyulang == null) $p_penyulang = PenyimpananPenyulang::whereIn('id_penyulang',$id_penyulang)->where('periode',$date_prev)->get();
+        $p_penyulang_ = PenyimpananPenyulang::whereIn('id_penyulang',$id_penyulang)->where('periode',$date_now)->get();
 
         if($tipe == "tsa_area"){
             $this->trafo = $MasterTrafo;
@@ -65,8 +77,8 @@ class MasterLaporan
             $id_gardu = array_column($gardu,'id');
             $id_penyulang = array_column($gardu,'id_penyulang');
 
-            $p_gardu = PenyimpananGardu::whereIn('id_gardu',$id_gardu)->where('periode',date("Ym"))->get()->toArray();
-            $p_penyulang = PenyimpananPenyulang::whereIn('id_penyulang',$id_penyulang)->where('periode',date("Ym"))->get()->toArray();
+            $p_gardu = PenyimpananGardu::whereIn('id_gardu',$id_gardu)->where('periode',$date_now)->get()->toArray();
+            $p_penyulang = PenyimpananPenyulang::whereIn('id_penyulang',$id_penyulang)->where('periode',$date_now)->get()->toArray();
             $this ->gardu =$gardu;
             $this ->p_gardu=$p_gardu;
             $this ->p_penyulang =$p_penyulang;

@@ -94,27 +94,39 @@ class Laporan extends Controller
 
     public function data_penyulang($trafo){
         $penyulang_array = array();
+        if(date("m")<3){
+            if(date("m")==1){
+                $date_prev = (date("Y")-1)."11";
+                $date_now =  (date("Y")-1)."12";
+            }
+            else{
+                $date_prev = (date("Y") - 1) . "12";
+                $date_now = date("Ym") - 1;}
+        }else{
+            $date_prev = (date("Ym")-2);
+            $date_now = date("Ym")-1;
+        }
+
         for ($i=0; $i < count($trafo); $i++) {
             $py = Penyulang::select('nama_penyulang','id_organisasi as id_org' ,'data_master','id','id_trafo_gi')->where('id_trafo_gi',$trafo[$i]['id'])->get();
             for ($j=0; $j < count($py); $j++) {
                 $org = Organisasi::select('nama_organisasi')->where('id',$py[$j]['id_org'])->first();
-                $date = date("Ym")-1;
                 $penyulang = PenyimpananPenyulang::where([
                     ['id_penyulang', $py[$j]['id']],
-                    ['periode', "L".$date]
+                    ['periode', "L".$date_prev]
                 ])->first();
                 if($penyulang)
                     $dt = $penyulang['data'];
                 else{
                     $penyulang = PenyimpananPenyulang::where([
                         ['id_penyulang', $py[$j]['id']],
-                        ['periode', date("Ym")-1]
+                        ['periode', $date_prev]
                     ])->first();
                     $dt = $penyulang['data'];
                 }
                 $penyulang_ = PenyimpananPenyulang::where([
                     ['id_penyulang', $py[$j]['id']],
-                    ['periode', date("Ym")]
+                    ['periode', $date_now]
                 ])->get();
                 $transfer = Transfer::where([
                     ['id_penyulang', $py[$j]['id']],
@@ -216,23 +228,34 @@ class Laporan extends Controller
         $tr = TrafoGI::whereIn('id',$id)->get();
 
         for ($i=0; $i < count($id); $i++) {
-
+            if(date("m")<3){
+                if(date("m")==1){
+                    $date_prev = (date("Y")-1)."11";
+                    $date_now =  (date("Y")-1)."12";
+                }
+                else{
+                    $date_prev = (date("Y") - 1) . "12";
+                    $date_now = date("Ym") - 1;}
+            }else{
+                $date_prev = (date("Ym")-2);
+                $date_now = date("Ym")-1;
+            }
             $p_tr = PenyimpananTrafoGI::where([
                 ['id_trafo_gi', $tr[$i]['id']],
-                ['periode', "L".(date("Ym")-1)]
+                ['periode', "L".$date_prev]
             ])->first();
             if($p_tr)$L=json_decode($p_tr['data_keluar'],true)['Selisih_TPE'];
             else {
                 $L=0;
                 $p_tr = PenyimpananTrafoGI::where([
                     ['id_trafo_gi', $tr[$i]['id']],
-                    ['periode', date("Ym")-1]
+                    ['periode', $date_prev]
                 ])->first();
             }
 
             $p_tr_ = PenyimpananTrafoGI::where([
                 ['id_trafo_gi', $tr[$i]['id']],
-                ['periode', date("Ym")]
+                ['periode', $date_now]
             ])->first();
             if(count($p_tr) >0)
                 $dt = $p_tr['data'];
@@ -288,6 +311,19 @@ class Laporan extends Controller
     }
 
     public function view_beli($id_rayon,$tipe,$id){
+        if(date("m")<3){
+            if(date("m")==1){
+                $date_prev = (date("Y")-1)."11";
+                $date_now =  (date("Y")-1)."12";
+            }
+            else{
+                $date_prev = (date("Y") - 1) . "12";
+                $date_now = date("Ym") - 1;}
+        }else{
+            $date_prev = (date("Ym")-2);
+            $date_now = date("Ym")-1;
+        }
+
         $cmb = new MasterLaporan($id_rayon,"tsa",$id);
         $gi = GI::where('id',$id)->first();
         $areas = Organisasi::where('id',$gi->id_organisasi)->first();
@@ -347,7 +383,7 @@ class Laporan extends Controller
         }
         $visual_cek = 0;
         for($tr=0;$tr<count($trafo_GI);$tr++){
-            $p_trafo = PenyimpananTrafoGI::where('id_trafo_gi', $trafo_GI[$tr]['id_trafo'])->where('periode',date('Ym'))->first();
+            $p_trafo = PenyimpananTrafoGI::where('id_trafo_gi', $trafo_GI[$tr]['id_trafo'])->where('periode',$date_now)->first();
             if($p_trafo){
                 //        TPE Penyulang
                 $A = $list_array[$tr]['total_pemakaian_energi_'];
@@ -390,6 +426,19 @@ class Laporan extends Controller
     }
 
     public function data_tsa($id_organisasi,$tipe,$data_gi){
+        if(date("m")<3){
+            if(date("m")==1){
+                $date_prev = (date("Y")-1)."11";
+                $date_now =  (date("Y")-1)."12";
+            }
+            else{
+                $date_prev = (date("Y") - 1) . "12";
+                $date_now = date("Ym") - 1;}
+        }else{
+            $date_prev = (date("Ym")-2);
+            $date_now = date("Ym")-1;
+        }
+
         $cmb = new MasterLaporan($id_organisasi,$tipe,$data_gi->id);
         if($cmb){
             $penyulang_array =$this->data_penyulang($cmb->trafo);
@@ -399,7 +448,7 @@ class Laporan extends Controller
             $trafo = TrafoGI::select('nama_trafo_gi','id','id_gi')->where('id_gi',$data_gi->id)->get()->toArray();
             $tot_lwbp1 = $tot_lwbp2 = $tot_wbp =$tot_t_kwh = $tot_Kvarh = $tot_KW = $tot_KWH = $tot_KWH_lalu=$tot_jual = null;
             for ($i=0;$i<count($cmb->trafo);$i++){
-                $p_trafo_ = PenyimpananTrafoGI::select('data','id_trafo_gi')->where('id_trafo_gi',$trafo[$i]['id'])->where('periode', date('Ym'))->first();
+                $p_trafo_ = PenyimpananTrafoGI::select('data','id_trafo_gi')->where('id_trafo_gi',$trafo[$i]['id'])->where('periode',$date_now)->first();
                 $trafo_lwbp1 = $trafo_lwbp2 = $trafo_wbp = $trafo_t_kwh = $trafo_Kvarh = $trafo_KW = $trafo_KWH = $trafo_KWH_lalu = $trafo_jual= null;
                 if(count($penyulang_array)==0){
                     $jumlah_pemakaian =array(
@@ -480,14 +529,14 @@ class Laporan extends Controller
                             $KW =   intval((($c*$D) + 0.5 )* 1);
                             $total_kwh = $KWH_salur_lwbp1+$KWH_salur_lwbp2+$KWH_salur_wbp;
 
-                            $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',"L".(date('Ym')-1))->first();
+                            $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',"L".$date_prev)->first();
                             if($KWH_bulan_lalu){
                                 $cek_bulan_lalu = json_decode($KWH_bulan_lalu->data,true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download'];
                                 if($cek_bulan_lalu) $KWH_bulan_lalu = $cek_bulan_lalu;
                                 else $KWH_bulan_lalu = json_decode($KWH_bulan_lalu->data,true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual'];
                             }
                             else {
-                                $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',date('Ym')-1)->first();
+                                $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',$date_prev)->first();
                                 if($KWH_bulan_lalu)
                                     $KWH_bulan_lalu= json_decode($KWH_bulan_lalu->data_keluar,true)['total_kwh'];
                                 else $KWH_bulan_lalu =0;
@@ -505,7 +554,7 @@ class Laporan extends Controller
                             }
 
                             //      KOLOM N, O
-                            $p_penyulang = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',date('Ym'))->first();
+                            $p_penyulang = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',$date_now)->first();
                             $data_keluar = array(
                                 'dev_lwbp1' =>$KWH_salur_lwbp1,
                                 'dev_lwbp2' =>$KWH_salur_lwbp2,
@@ -562,14 +611,14 @@ class Laporan extends Controller
                         else {
 
 //                      Query
-                            $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',"L".(date('Ym')-1))->first();
+                            $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',"L".$date_prev)->first();
                             if($KWH_bulan_lalu){
                                 $cek_bulan_lalu = json_decode($KWH_bulan_lalu->data,true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download'];
                                 if($cek_bulan_lalu) $KWH_bulan_lalu = $cek_bulan_lalu;
                                 else $KWH_bulan_lalu = json_decode($KWH_bulan_lalu->data,true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual'];
                             }
                             else {
-                                $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',date('Ym')-1)->first();
+                                $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',$date_prev)->first();
                                 if($KWH_bulan_lalu)
                                     $KWH_bulan_lalu= json_decode($KWH_bulan_lalu->data_keluar,true)['total_kwh'];
                                 else $KWH_bulan_lalu =0;
@@ -1047,8 +1096,18 @@ class Laporan extends Controller
     }
 
     public function excel_beli_tsa($id_organisasi, $tsa, $tipe){
-//        echo $tsa. " ".$tipe;
-//        dd("sad");
+        if(date("m")<3){
+            if(date("m")==1){
+                $date_prev = (date("Y")-1)."11";
+                $date_now =  (date("Y")-1)."12";
+            }
+            else{
+                $date_prev = (date("Y") - 1) . "12";
+                $date_now = date("Ym") - 1;}
+        }else{
+            $date_prev = (date("Ym")-2);
+            $date_now = date("Ym")-1;
+        }
         $id_tsa = $tsa;
         if($tipe =="gi"||$tipe =="penyulang"){
             $data_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
@@ -1864,6 +1923,19 @@ class Laporan extends Controller
     }
 
     public function excel_beli($id_rayon,$tipe,$id,$tr){
+        if(date("m")<3){
+            if(date("m")==1){
+                $date_prev = (date("Y")-1)."11";
+                $date_now =  (date("Y")-1)."12";
+            }
+            else{
+                $date_prev = (date("Y") - 1) . "12";
+                $date_now = date("Ym") - 1;}
+        }else{
+            $date_prev = (date("Ym")-2);
+            $date_now = date("Ym")-1;
+        }
+
         $cmb = new MasterLaporan($id_rayon,"tsa",$id);
         $gi = GI::where('id',$id)->first();
         $areas = Organisasi::where('id',$gi->id_organisasi)->first();
@@ -1922,7 +1994,7 @@ class Laporan extends Controller
 
         $visual_cek = 0;
         for($p=0;$p<count($trafo_GI);$p++){
-            $p_trafo = PenyimpananTrafoGI::where('id_trafo_gi', $trafo_GI[$p]['id_trafo'])->where('periode',date('Ym'))->first();
+            $p_trafo = PenyimpananTrafoGI::where('id_trafo_gi', $trafo_GI[$p]['id_trafo'])->where('periode',$date_now)->first();
             if($p_trafo){
                 if(json_decode($trafo_GI[$p]['data_'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download']==0){
                     $visual_cek = 1;
