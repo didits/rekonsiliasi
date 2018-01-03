@@ -117,23 +117,23 @@
                                                                                                         <div class="col-md-12">
                                                                                                             <div class="form-group">
                                                                                                                 <label>Stand Akhir LWBP1</label>
-                                                                                                                <input type="text" name="lwbp1_visual" class="form-control" placeholder="" value="{{$data['beli']['utama']['visual']['lwbp1_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_visual" class="form-control" placeholder="" value="{{$data['beli']['utama']['visual']['lwbp1_visual']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Stand Akhir LWBP2</label>
-                                                                                                                <input type="text" name="lwbp2_visual" class="form-control" placeholder="" value="{{$data['beli']['utama']['visual']['lwbp2_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_visual" class="form-control" placeholder="" value="{{$data['beli']['utama']['visual']['lwbp2_visual']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Stand Akhir WBP</label>
-                                                                                                                <input type="text" name="wbp_visual" class="form-control" placeholder="" value="{{$data['beli']['utama']['visual']['wbp_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_visual" class="form-control" placeholder="" value="{{$data['beli']['utama']['visual']['wbp_visual']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Stand Akhir KVARH</label>
-                                                                                                                <input type="text" name="kvarh_visual" class="form-control" placeholder="" value="{{$data['beli']['utama']['visual']['kvarh_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="kvarh_visual" class="form-control" placeholder="" value="{{$data['beli']['utama']['visual']['kvarh_visual']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Daya Konsiden</label>
-                                                                                                                <input type="text" name="konsiden_visual" class="form-control" placeholder="" value="{{$data['beli']['utama']['visual']['konsiden_visual']}}">
+                                                                                                                <input type="text" style="" pattern="(\d+\.?\d{0,})?(\d+)" name="konsiden_visual" class="form-control" placeholder="" value="{{$data['beli']['utama']['visual']['konsiden_visual']}}">
                                                                                                             </div>
                                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                                             <div class="clearfix"></div>
@@ -173,23 +173,23 @@
                                                                                                         <div class="col-md-12">
                                                                                                             <div class="form-group">
                                                                                                                 <label>Pemakaian KWH LWBP1</label>
-                                                                                                                <input type="text" name="lwbp1_download" class="form-control" placeholder="" value="{{$data['beli']['utama']['download']['lwbp1_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_download" class="form-control" placeholder="" value="{{$data['beli']['utama']['download']['lwbp1_download']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Pemakaian KWH LWBP2</label>
-                                                                                                                <input type="text" name="lwbp2_download" class="form-control" placeholder="" value="{{$data['beli']['utama']['download']['lwbp2_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_download" class="form-control" placeholder="" value="{{$data['beli']['utama']['download']['lwbp2_download']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Pemakaian KWH WBP</label>
-                                                                                                                <input type="text" name="wbp_download" class="form-control" placeholder="" value="{{$data['beli']['utama']['download']['wbp_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_download" class="form-control" placeholder="" value="{{$data['beli']['utama']['download']['wbp_download']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Pemakaian KWH KVARH</label>
-                                                                                                                <input type="text" name="kvarh_download" class="form-control" placeholder="" value="{{$data['beli']['utama']['download']['kvarh_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="kvarh_download" class="form-control" placeholder="" value="{{$data['beli']['utama']['download']['kvarh_download']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Daya Konsiden</label>
-                                                                                                                <input type="text" name="konsiden_download" class="form-control" placeholder="" value="{{$data['beli']['utama']['download']['konsiden_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="konsiden_download" class="form-control" placeholder="" value="{{$data['beli']['utama']['download']['konsiden_download']}}">
                                                                                                             </div>
                                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                                             <div class="clearfix"></div>
@@ -255,23 +255,23 @@
                                                                                                         <div class="col-md-12">
                                                                                                             <div class="form-group">
                                                                                                                 <label>Stand Akhir LWBP1</label>
-                                                                                                                <input type="text" name="lwbp1_visual" class="form-control" placeholder="" value="{{$data['beli']['pembanding']['visual']['lwbp1_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_visual" class="form-control" placeholder="" value="{{$data['beli']['pembanding']['visual']['lwbp1_visual']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Stand Akhir LWBP2</label>
-                                                                                                                <input type="text" name="lwbp2_visual" class="form-control" placeholder="" value="{{$data['beli']['pembanding']['visual']['lwbp2_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_visual" class="form-control" placeholder="" value="{{$data['beli']['pembanding']['visual']['lwbp2_visual']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Stand Akhir WBP</label>
-                                                                                                                <input type="text" name="wbp_visual" class="form-control" placeholder="" value="{{$data['beli']['pembanding']['visual']['wbp_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_visual" class="form-control" placeholder="" value="{{$data['beli']['pembanding']['visual']['wbp_visual']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Stand Akhir KVARH</label>
-                                                                                                                <input type="text" name="kvarh_visual" class="form-control" placeholder="" value="{{$data['beli']['pembanding']['visual']['kvarh_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="kvarh_visual" class="form-control" placeholder="" value="{{$data['beli']['pembanding']['visual']['kvarh_visual']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Daya Konsiden</label>
-                                                                                                                <input type="text" name="konsiden_visual" class="form-control" placeholder="" value="{{$data['beli']['pembanding']['visual']['konsiden_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="konsiden_visual" class="form-control" placeholder="" value="{{$data['beli']['pembanding']['visual']['konsiden_visual']}}">
                                                                                                             </div>
                                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                                             <div class="clearfix"></div>
@@ -312,23 +312,23 @@
                                                                                                         <div class="col-md-12">
                                                                                                             <div class="form-group">
                                                                                                                 <label>Pemakaian KWH LWBP1</label>
-                                                                                                                <input type="text" name="lwbp1_download" class="form-control" placeholder="" value="{{$data['beli']['pembanding']['download']['lwbp1_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_download" class="form-control" placeholder="" value="{{$data['beli']['pembanding']['download']['lwbp1_download']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Pemakaian KWH LWBP2</label>
-                                                                                                                <input type="text" name="lwbp2_download" class="form-control" placeholder="" value="{{$data['beli']['pembanding']['download']['lwbp2_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_download" class="form-control" placeholder="" value="{{$data['beli']['pembanding']['download']['lwbp2_download']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Pemakaian KWH WBP</label>
-                                                                                                                <input type="text" name="wbp_download" class="form-control" placeholder="" value="{{$data['beli']['pembanding']['download']['wbp_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_download" class="form-control" placeholder="" value="{{$data['beli']['pembanding']['download']['wbp_download']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Pemakaian KWH KVARH</label>
-                                                                                                                <input type="text" name="kvarh_download" class="form-control" placeholder="" value="{{$data['beli']['pembanding']['download']['kvarh_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="kvarh_download" class="form-control" placeholder="" value="{{$data['beli']['pembanding']['download']['kvarh_download']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Daya Konsiden</label>
-                                                                                                                <input type="text" name="konsiden_download" class="form-control" placeholder="" value="{{$data['beli']['pembanding']['download']['konsiden_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="konsiden_download" class="form-control" placeholder="" value="{{$data['beli']['pembanding']['download']['konsiden_download']}}">
                                                                                                             </div>
                                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                                             <div class="clearfix"></div>
@@ -395,23 +395,23 @@
                                                                                                         <div class="col-md-12">
                                                                                                             <div class="form-group">
                                                                                                                 <label>Stand Akhir LWBP1</label>
-                                                                                                                <input type="text" name="lwbp1_visual" class="form-control" placeholder="" value="{{$data['beli']['ps']['visual']['lwbp1_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_visual" class="form-control" placeholder="" value="{{$data['beli']['ps']['visual']['lwbp1_visual']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Stand Akhir LWBP2</label>
-                                                                                                                <input type="text" name="lwbp2_visual" class="form-control" placeholder="" value="{{$data['beli']['ps']['visual']['lwbp2_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_visual" class="form-control" placeholder="" value="{{$data['beli']['ps']['visual']['lwbp2_visual']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Stand Akhir WBP</label>
-                                                                                                                <input type="text" name="wbp_visual" class="form-control" placeholder="" value="{{$data['beli']['ps']['visual']['wbp_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_visual" class="form-control" placeholder="" value="{{$data['beli']['ps']['visual']['wbp_visual']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Stand Akhir KVARH</label>
-                                                                                                                <input type="text" name="kvarh_visual" class="form-control" placeholder="" value="{{$data['beli']['ps']['visual']['kvarh_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="kvarh_visual" class="form-control" placeholder="" value="{{$data['beli']['ps']['visual']['kvarh_visual']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Daya Konsiden</label>
-                                                                                                                <input type="text" name="konsiden_visual" class="form-control" placeholder="" value="{{$data['beli']['ps']['visual']['konsiden_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="konsiden_visual" class="form-control" placeholder="" value="{{$data['beli']['ps']['visual']['konsiden_visual']}}">
                                                                                                             </div>
                                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                                             <div class="clearfix"></div>
@@ -452,23 +452,23 @@
                                                                                                         <div class="col-md-12">
                                                                                                             <div class="form-group">
                                                                                                                 <label>Pemakaian KWH LWBP1</label>
-                                                                                                                <input type="text" name="lwbp1_download" class="form-control" placeholder="" value="{{$data['beli']['ps']['download']['lwbp1_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_download" class="form-control" placeholder="" value="{{$data['beli']['ps']['download']['lwbp1_download']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Pemakaian KWH LWBP2</label>
-                                                                                                                <input type="text" name="lwbp2_download" class="form-control" placeholder="" value="{{$data['beli']['ps']['download']['lwbp2_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_download" class="form-control" placeholder="" value="{{$data['beli']['ps']['download']['lwbp2_download']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Pemakaian KWH WBP</label>
-                                                                                                                <input type="text" name="wbp_download" class="form-control" placeholder="" value="{{$data['beli']['ps']['download']['wbp_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_download" class="form-control" placeholder="" value="{{$data['beli']['ps']['download']['wbp_download']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Pemakaian KWH KVARH</label>
-                                                                                                                <input type="text" name="kvarh_download" class="form-control" placeholder="" value="{{$data['beli']['ps']['download']['kvarh_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="kvarh_download" class="form-control" placeholder="" value="{{$data['beli']['ps']['download']['kvarh_download']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Daya Konsiden</label>
-                                                                                                                <input type="text" name="konsiden_download" class="form-control" placeholder="" value="{{$data['beli']['ps']['download']['konsiden_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="konsiden_download" class="form-control" placeholder="" value="{{$data['beli']['ps']['download']['konsiden_download']}}">
                                                                                                             </div>
                                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                                             <div class="clearfix"></div>
@@ -508,7 +508,7 @@
                                                                             <div class="form-group">
                                                                                 <label>Total Pemakaian KWH</label>
                                                                                 {{--<input type="text" name="tpe_jual" class="form-control" placeholder="" value="">--}}
-                                                                                <input type="text" name="tpe_jual" class="form-control" placeholder="" value="{{$data['jual']['total_kwh_jual']}}">
+                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_jual" class="form-control" placeholder="" value="{{$data['jual']['total_kwh_jual']}}">
                                                                             </div>
                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                             <div class="clearfix"></div>
@@ -596,41 +596,41 @@
                                                                                                             <div class="form-group">
                                                                                                                 <label>Stand Akhir LWBP1</label>
                                                                                                                 @if($dt)
-                                                                                                                <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['utama']['visual']['lwbp1_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['utama']['visual']['lwbp1_visual']}}">
                                                                                                                 @elseif($dt2)
-                                                                                                                <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['utama']['visual']['lwbp1_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['utama']['visual']['lwbp1_visual']}}">
                                                                                                                 @else
-                                                                                                                <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="">
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Stand Akhir LWBP2</label>
                                                                                                                 @if($dt)
-                                                                                                                <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['utama']['visual']['lwbp2_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['utama']['visual']['lwbp2_visual']}}">
                                                                                                                 @elseif($dt2)
-                                                                                                                <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['utama']['visual']['lwbp2_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['utama']['visual']['lwbp2_visual']}}">
                                                                                                                 @else
-                                                                                                                <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="">
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Stand Akhir WBP</label>
                                                                                                                 @if($dt)
-                                                                                                                <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['utama']['visual']['wbp_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['utama']['visual']['wbp_visual']}}">
                                                                                                                 @elseif($dt2)
-                                                                                                                <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['utama']['visual']['wbp_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['utama']['visual']['wbp_visual']}}">
                                                                                                                 @else
-                                                                                                                <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_visual_lalu" class="form-control" placeholder="" value="">
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Total Pemakaian Energi</label>
                                                                                                                 @if($dt)
-                                                                                                                <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['utama']['visual']['total_pemakaian_kwh_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['utama']['visual']['total_pemakaian_kwh_visual']}}">
                                                                                                                 @elseif($dt2)
-                                                                                                                <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['utama']['visual']['total_pemakaian_kwh_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['utama']['visual']['total_pemakaian_kwh_visual']}}">
                                                                                                                 @else
-                                                                                                                <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_visual_lalu" class="form-control" placeholder="" value="">
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
@@ -673,41 +673,41 @@
                                                                                                             <div class="form-group">
                                                                                                                 <label>Pemakaian KWH LWBP1</label>
                                                                                                                 @if($dt)
-                                                                                                                <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['utama']['download']['lwbp1_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['utama']['download']['lwbp1_download']}}">
                                                                                                                 @elseif($dt2)
-                                                                                                                <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['utama']['download']['lwbp1_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['utama']['download']['lwbp1_download']}}">
                                                                                                                 @else
-                                                                                                                <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_download_lalu" class="form-control" placeholder="" value="">
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Pemakaian KWH LWBP2</label>
                                                                                                                 @if($dt)
-                                                                                                                <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['utama']['download']['lwbp2_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['utama']['download']['lwbp2_download']}}">
                                                                                                                 @elseif($dt2)
-                                                                                                                <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['utama']['download']['lwbp2_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['utama']['download']['lwbp2_download']}}">
                                                                                                                 @else
-                                                                                                                <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_download_lalu" class="form-control" placeholder="" value="">
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Pemakaian KWH WBP</label>
                                                                                                                 @if($dt)
-                                                                                                                <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['utama']['download']['wbp_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['utama']['download']['wbp_download']}}">
                                                                                                                 @elseif($dt2)
-                                                                                                                <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['utama']['download']['wbp_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['utama']['download']['wbp_download']}}">
                                                                                                                 @else
-                                                                                                                <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_download_lalu" class="form-control" placeholder="" value="">
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Total Pemakaian Energi</label>
                                                                                                                 @if($dt)
-                                                                                                                <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']}}">
                                                                                                                 @elseif($dt2)
-                                                                                                                <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']}}">
                                                                                                                 @else
-                                                                                                                <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_download_lalu" class="form-control" placeholder="" value="">
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
@@ -776,41 +776,41 @@
                                                                                                             <div class="form-group">
                                                                                                                 <label>Stand Akhir LWBP1</label>
                                                                                                                 @if($dt)
-                                                                                                                <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['pembanding']['visual']['lwbp1_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['pembanding']['visual']['lwbp1_visual']}}">
                                                                                                                 @elseif($dt2)
-                                                                                                                <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['pembanding']['visual']['lwbp1_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['pembanding']['visual']['lwbp1_visual']}}">
                                                                                                                 @elseif($dt2)
-                                                                                                                <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="">
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Stand Akhir LWBP2</label>
                                                                                                                 @if($dt)
-                                                                                                                <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['pembanding']['visual']['lwbp2_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['pembanding']['visual']['lwbp2_visual']}}">
                                                                                                                 @elseif($dt2)
-                                                                                                                <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['pembanding']['visual']['lwbp2_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['pembanding']['visual']['lwbp2_visual']}}">
                                                                                                                 @else
-                                                                                                                <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="">
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Stand Akhir WBP</label>
                                                                                                                 @if($dt)
-                                                                                                                <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['pembanding']['visual']['wbp_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['pembanding']['visual']['wbp_visual']}}">
                                                                                                                 @elseif($dt2)
-                                                                                                                <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['pembanding']['visual']['wbp_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['pembanding']['visual']['wbp_visual']}}">
                                                                                                                 @else
-                                                                                                                <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_visual_lalu" class="form-control" placeholder="" value="">
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Total Pemakaian Energi</label>
                                                                                                                 @if($dt)
-                                                                                                                <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual']}}">
                                                                                                                 @elseif($dt2)
-                                                                                                                <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual']}}">
                                                                                                                 @else
-                                                                                                                <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_visual_lalu" class="form-control" placeholder="" value="">
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
@@ -854,41 +854,41 @@
                                                                                                             <div class="form-group">
                                                                                                                 <label>Pemakaian KWH LWBP1</label>
                                                                                                                 @if($dt)
-                                                                                                                <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['pembanding']['download']['lwbp1_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['pembanding']['download']['lwbp1_download']}}">
                                                                                                                 @elseif($dt2)
-                                                                                                                <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['pembanding']['download']['lwbp1_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['pembanding']['download']['lwbp1_download']}}">
                                                                                                                 @else
-                                                                                                                <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_download_lalu" class="form-control" placeholder="" value="">
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Pemakaian KWH LWBP2</label>
                                                                                                                 @if($dt)
-                                                                                                                <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['pembanding']['download']['lwbp2_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['pembanding']['download']['lwbp2_download']}}">
                                                                                                                 @elseif($dt2)
-                                                                                                                <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['pembanding']['download']['lwbp2_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['pembanding']['download']['lwbp2_download']}}">
                                                                                                                 @else
-                                                                                                                <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_download_lalu" class="form-control" placeholder="" value="">
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Pemakaian KWH WBP</label>
                                                                                                                 @if($dt)
-                                                                                                                <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['pembanding']['download']['wbp_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['pembanding']['download']['wbp_download']}}">
                                                                                                                 @elseif($dt2)
-                                                                                                                <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['pembanding']['download']['wbp_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['pembanding']['download']['wbp_download']}}">
                                                                                                                 @else
-                                                                                                                <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_download_lalu" class="form-control" placeholder="" value="">
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Total Pemakaian Energi</label>
                                                                                                                 @if($dt)
-                                                                                                                <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['pembanding']['download']['total_pemakaian_kwh_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['pembanding']['download']['total_pemakaian_kwh_download']}}">
                                                                                                                 @elseif($dt2)
-                                                                                                                <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['pembanding']['download']['total_pemakaian_kwh_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['pembanding']['download']['total_pemakaian_kwh_download']}}">
                                                                                                                 @else
-                                                                                                                <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_download_lalu" class="form-control" placeholder="" value="">
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
@@ -958,41 +958,41 @@
                                                                                                             <div class="form-group">
                                                                                                                 <label>Stand Akhir LWBP1</label>
                                                                                                                 @if($dt)
-                                                                                                                <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['ps']['visual']['lwbp1_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['ps']['visual']['lwbp1_visual']}}">
                                                                                                                 @elseif($dt2)
-                                                                                                                <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['ps']['visual']['lwbp1_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['ps']['visual']['lwbp1_visual']}}">
                                                                                                                 @else
-                                                                                                                <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="">
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Stand Akhir LWBP2</label>
                                                                                                                 @if($dt)
-                                                                                                                <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['ps']['visual']['lwbp2_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['ps']['visual']['lwbp2_visual']}}">
                                                                                                                 @elseif($dt2)
-                                                                                                                <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['ps']['visual']['lwbp2_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['ps']['visual']['lwbp2_visual']}}">
                                                                                                                 @else
-                                                                                                                <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="">
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Stand Akhir WBP</label>
                                                                                                                 @if($dt)
-                                                                                                                <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['ps']['visual']['wbp_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['ps']['visual']['wbp_visual']}}">
                                                                                                                 @elseif($dt2)
-                                                                                                                <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['ps']['visual']['wbp_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['ps']['visual']['wbp_visual']}}">
                                                                                                                 @else
-                                                                                                                <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_visual_lalu" class="form-control" placeholder="" value="">
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Total Pemakaian Energi</label>
                                                                                                                 @if($dt)
-                                                                                                                <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']}}">
                                                                                                                 @elseif($dt2)
-                                                                                                                <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']}}">
                                                                                                                 @else
-                                                                                                                <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_visual_lalu" class="form-control" placeholder="" value="">
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
@@ -1036,41 +1036,41 @@
                                                                                                             <div class="form-group">
                                                                                                                 <label>Pemakaian KWH LWBP1</label>
                                                                                                                 @if($dt)
-                                                                                                                <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['ps']['download']['lwbp1_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['ps']['download']['lwbp1_download']}}">
                                                                                                                 @elseif($dt2)
-                                                                                                                <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['ps']['download']['lwbp1_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['ps']['download']['lwbp1_download']}}">
                                                                                                                 @else
-                                                                                                                <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_download_lalu" class="form-control" placeholder="" value="">
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Pemakaian KWH LWBP2</label>
                                                                                                                 @if($dt)
-                                                                                                                <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['ps']['download']['lwbp2_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['ps']['download']['lwbp2_download']}}">
                                                                                                                 @elseif($dt2)
-                                                                                                                <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['ps']['download']['lwbp2_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['ps']['download']['lwbp2_download']}}">
                                                                                                                 @else
-                                                                                                                <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_download_lalu" class="form-control" placeholder="" value="">
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Pemakaian KWH WBP</label>
                                                                                                                 @if($dt)
-                                                                                                                <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['ps']['download']['wbp_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['ps']['download']['wbp_download']}}">
                                                                                                                 @elseif($dt2)
-                                                                                                                <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['ps']['download']['wbp_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['ps']['download']['wbp_download']}}">
                                                                                                                 @else
-                                                                                                                <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_download_lalu" class="form-control" placeholder="" value="">
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Total Pemakaian Energi</label>
                                                                                                                 @if($dt)
-                                                                                                                <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download']}}">
                                                                                                                 @elseif($dt2)
-                                                                                                                <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download']}}">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download']}}">
                                                                                                                 @else
-                                                                                                                <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_download_lalu" class="form-control" placeholder="" value="">
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
@@ -1196,11 +1196,11 @@
                                                                                         <div class="col-md-12">
                                                                                             <div class="form-group">
                                                                                                 <label>Stand Awal</label>
-                                                                                                <input type="text" name="awal_visual" class="form-control" placeholder="" value="{{$data['beli']['impor']['visual']['awal_visual']}}">
+                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="awal_visual" class="form-control" placeholder="" value="{{$data['beli']['impor']['visual']['awal_visual']}}">
                                                                                             </div>
                                                                                             <div class="form-group">
                                                                                                 <label>Stand Akhir</label>
-                                                                                                <input type="text" name="akhir_visual" class="form-control" placeholder="" value="{{$data['beli']['impor']['visual']['akhir_visual']}}">
+                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="akhir_visual" class="form-control" placeholder="" value="{{$data['beli']['impor']['visual']['akhir_visual']}}">
                                                                                             </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
@@ -1242,7 +1242,7 @@
                                                                                         <div class="col-md-12">
                                                                                             <div class="form-group">
                                                                                                 <label>Total KWH Impor</label>
-                                                                                                <input type="text" name="total_kwh_download" class="form-control" placeholder="" value="{{$data['beli']['impor']['download']['total_kwh_download']}}">
+                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="total_kwh_download" class="form-control" placeholder="" value="{{$data['beli']['impor']['download']['total_kwh_download']}}">
                                                                                             </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
@@ -1342,11 +1342,11 @@
                                                                                         <div class="col-md-12">
                                                                                             <div class="form-group">
                                                                                                 <label>Stand Awal</label>
-                                                                                                <input type="text" name="awal_visual" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['visual']['awal_visual']}}">
+                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="awal_visual" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['visual']['awal_visual']}}">
                                                                                             </div>
                                                                                             <div class="form-group">
                                                                                                 <label>Stand Akhir</label>
-                                                                                                <input type="text" name="akhir_visual" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['visual']['akhir_visual']}}">
+                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="akhir_visual" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['visual']['akhir_visual']}}">
                                                                                             </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
@@ -1388,7 +1388,7 @@
                                                                                         <div class="col-md-12">
                                                                                             <div class="form-group">
                                                                                                 <label>Total KWH Ekspor</label>
-                                                                                                <input type="text" name="total_kwh_download" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['download']['total_kwh_download']}}">
+                                                                                                <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="total_kwh_download" class="form-control" placeholder="" value="{{$data['beli']['ekspor']['download']['total_kwh_download']}}">
                                                                                             </div>
                                                                                             <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                             <div class="clearfix"></div>
@@ -1476,19 +1476,19 @@
                                                                                                 <div class="col-md-12">
                                                                                                     <div class="form-group">
                                                                                                         <label>Stand Akhir LWBP1</label>
-                                                                                                        <input type="text" name="lwbp1_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['lwbp1_visual']}}">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['lwbp1_visual']}}">
                                                                                                     </div>
                                                                                                     <div class="form-group">
                                                                                                         <label>Stand Akhir LWBP2</label>
-                                                                                                        <input type="text" name="lwbp2_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['lwbp2_visual']}}">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['lwbp2_visual']}}">
                                                                                                     </div>
                                                                                                     <div class="form-group">
                                                                                                         <label>Stand Akhir WBP</label>
-                                                                                                        <input type="text" name="wbp_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['wbp_visual']}}">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['wbp_visual']}}">
                                                                                                     </div>
                                                                                                     <div class="form-group">
                                                                                                         <label>Stand Akhir KVARH</label>
-                                                                                                        <input type="text" name="kvarh_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['kvarh_visual']}}">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="kvarh_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['kvarh_visual']}}">
                                                                                                     </div>
                                                                                                     @if($tipe=="penyulang")
 
@@ -1527,19 +1527,19 @@
                                                                                                 <div class="col-md-12">
                                                                                                     <div class="form-group">
                                                                                                         <label>Pemakaian KWH LWBP1</label>
-                                                                                                        <input type="text" name="lwbp1_download" class="form-control" placeholder="" value="{{$data['beli']['download']['lwbp1_download']}}">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_download" class="form-control" placeholder="" value="{{$data['beli']['download']['lwbp1_download']}}">
                                                                                                     </div>
                                                                                                     <div class="form-group">
                                                                                                         <label>Pemakaian KWH LWBP2</label>
-                                                                                                        <input type="text" name="lwbp2_download" class="form-control" placeholder="" value="{{$data['beli']['download']['lwbp2_download']}}">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_download" class="form-control" placeholder="" value="{{$data['beli']['download']['lwbp2_download']}}">
                                                                                                     </div>
                                                                                                     <div class="form-group">
                                                                                                         <label>Pemakaian KWH WBP</label>
-                                                                                                        <input type="text" name="wbp_download" class="form-control" placeholder="" value="{{$data['beli']['download']['wbp_download']}}">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_download" class="form-control" placeholder="" value="{{$data['beli']['download']['wbp_download']}}">
                                                                                                     </div>
                                                                                                     <div class="form-group">
                                                                                                         <label>Pemakaian KWH KVARH</label>
-                                                                                                        <input type="text" name="kvarh_download" class="form-control" placeholder="" value="{{$data['beli']['download']['kvarh_download']}}">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="kvarh_download" class="form-control" placeholder="" value="{{$data['beli']['download']['kvarh_download']}}">
                                                                                                     </div>
                                                                                                     @if($tipe=="penyulang")
 
@@ -1584,7 +1584,7 @@
                                                                                 <div class="form-group">
                                                                                     <label>Total Pemakaian KWH</label>
                                                                                     {{--<input type="text" name="tpe_jual" class="form-control" placeholder="" value="">--}}
-                                                                                    <input type="text" name="tpe_jual" class="form-control" placeholder="" value="{{$data['jual']['total_kwh_jual']}}">
+                                                                                    <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_jual" class="form-control" placeholder="" value="{{$data['jual']['total_kwh_jual']}}">
                                                                                 </div>
                                                                                 <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                                                 <div class="clearfix"></div>
@@ -1638,41 +1638,41 @@
                                                                                                     <div class="form-group">
                                                                                                         <label>Stand Akhir LWBP1</label>
                                                                                                         @if($dt2 == null)
-                                                                                                        <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['visual']['lwbp1_visual']}}">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['visual']['lwbp1_visual']}}">
                                                                                                         @elseif($dt == null)
-                                                                                                        <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['visual']['lwbp1_visual']}}">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['visual']['lwbp1_visual']}}">
                                                                                                         @else
-                                                                                                        <input type="text" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="">
                                                                                                         @endif
                                                                                                     </div>
                                                                                                     <div class="form-group">
                                                                                                         <label>Stand Akhir LWBP2</label>
                                                                                                         @if($dt2 == null)
-                                                                                                        <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['visual']['lwbp2_visual']}}">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['visual']['lwbp2_visual']}}">
                                                                                                         @elseif($dt == null)
-                                                                                                        <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['visual']['lwbp2_visual']}}">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['visual']['lwbp2_visual']}}">
                                                                                                         @else
-                                                                                                        <input type="text" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_visual_lalu" class="form-control" placeholder="" value="">
                                                                                                         @endif
                                                                                                     </div>
                                                                                                     <div class="form-group">
                                                                                                         <label>Stand Akhir WBP</label>
                                                                                                         @if($dt2 == null)
-                                                                                                        <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$data['beli']['visual']['wbp_visual']}}">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$data['beli']['visual']['wbp_visual']}}">
                                                                                                         @elseif($dt == null)
-                                                                                                        <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['visual']['wbp_visual']}}">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['visual']['wbp_visual']}}">
                                                                                                         @else
-                                                                                                        <input type="text" name="wbp_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_visual_lalu" class="form-control" placeholder="" value="">
                                                                                                         @endif
                                                                                                     </div>
                                                                                                     <div class="form-group">
                                                                                                         <label>Total Pemakaian Energi</label>
                                                                                                         @if($dt2 == null)
-                                                                                                        <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']}}">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']}}">
                                                                                                         @elseif($dt == null)
-                                                                                                        <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']}}">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']}}">
                                                                                                         @else
-                                                                                                        <input type="text" name="tpe_visual_lalu" class="form-control" placeholder="" value="">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_visual_lalu" class="form-control" placeholder="" value="">
                                                                                                         @endif
                                                                                                     </div>
 
@@ -1706,41 +1706,41 @@
                                                                                                     <div class="form-group">
                                                                                                         <label>Pemakaian KWH LWBP1</label>
                                                                                                         @if($dt2 == null)
-                                                                                                        <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['download']['lwbp1_download']}}">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['download']['lwbp1_download']}}">
                                                                                                         @elseif($dt == null)
-                                                                                                        <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['download']['lwbp1_download']}}">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['download']['lwbp1_download']}}">
                                                                                                         @else
-                                                                                                        <input type="text" name="lwbp1_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_download_lalu" class="form-control" placeholder="" value="">
                                                                                                         @endif
                                                                                                     </div>
                                                                                                     <div class="form-group">
                                                                                                         <label>Pemakaian KWH LWBP2</label>
                                                                                                         @if($dt2 == null)
-                                                                                                        <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['download']['lwbp2_download']}}">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['download']['lwbp2_download']}}">
                                                                                                         @elseif($dt == null)
-                                                                                                        <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['download']['lwbp2_download']}}">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['download']['lwbp2_download']}}">
                                                                                                         @else
-                                                                                                        <input type="text" name="lwbp2_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_download_lalu" class="form-control" placeholder="" value="">
                                                                                                         @endif
                                                                                                     </div>
                                                                                                     <div class="form-group">
                                                                                                         <label>Pemakaian KWH WBP</label>
                                                                                                         @if($dt2 == null)
-                                                                                                        <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['download']['wbp_download']}}">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$dt['beli']['download']['wbp_download']}}">
                                                                                                         @elseif($dt == null)
-                                                                                                        <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['download']['wbp_download']}}">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_download_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['download']['wbp_download']}}">
                                                                                                         @else
-                                                                                                        <input type="text" name="wbp_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_download_lalu" class="form-control" placeholder="" value="">
                                                                                                         @endif
                                                                                                     </div>
                                                                                                     <div class="form-group">
                                                                                                         <label>Total Pemakaian Energi</label>
                                                                                                         @if($dt2 == null)
-                                                                                                        <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['download']['total_pemakaian_kwh_download']}}">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['download']['total_pemakaian_kwh_download']}}">
                                                                                                         @elseif($dt == null)
-                                                                                                        <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['download']['total_pemakaian_kwh_download']}}">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['download']['total_pemakaian_kwh_download']}}">
                                                                                                         @else
-                                                                                                        <input type="text" name="tpe_download_lalu" class="form-control" placeholder="" value="">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_download_lalu" class="form-control" placeholder="" value="">
                                                                                                         @endif
                                                                                                     </div>
 

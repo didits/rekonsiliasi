@@ -29,19 +29,19 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label>Stand Akhir LWBP1</label>
-                                                            <input type="text" name="lwbp1_visual" class="form-control" placeholder="" value="">
+                                                            <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_visual" class="form-control" placeholder="" value="">
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Stand Akhir LWBP2</label>
-                                                            <input type="text" name="lwbp2_visual" class="form-control" placeholder="" value="">
+                                                            <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_visual" class="form-control" placeholder="" value="">
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Stand Akhir WBP</label>
-                                                            <input type="text" name="wbp_visual" class="form-control" placeholder="" value="">
+                                                            <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_visual" class="form-control" placeholder="" value="">
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Stand Akhir KVARH</label>
-                                                            <input type="text" name="kvarh_visual" class="form-control" placeholder="" value="">
+                                                            <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="kvarh_visual" class="form-control" placeholder="" value="">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -57,19 +57,19 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label>Stand Akhir LWBP1</label>
-                                                            <input type="text" name="lwbp1_download" class="form-control" placeholder="" value="">
+                                                            <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_download" class="form-control" placeholder="" value="">
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Stand Akhir LWBP2</label>
-                                                            <input type="text" name="lwbp2_download" class="form-control" placeholder="" value="">
+                                                            <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp2_download" class="form-control" placeholder="" value="">
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Stand Akhir WBP</label>
-                                                            <input type="text" name="wbp_download" class="form-control" placeholder="" value="">
+                                                            <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_download" class="form-control" placeholder="" value="">
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Stand Akhir KVARH</label>
-                                                            <input type="text" name="kvarh_download" class="form-control" placeholder="" value="">
+                                                            <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="kvarh_download" class="form-control" placeholder="" value="">
                                                         </div>
                                                         <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                                                         <div class="clearfix"></div>
