@@ -60,7 +60,7 @@
                                 <table id="bootstrap-table" class="table table-hover table-striped">
                                     <thead>
                                         <th data-field="no" data-sortable="true" class="text-center">No</th>
-                                        <th data-field="idorg" data-sortable="true">ID ORGANISASI</th>
+                                        {{--<th data-field="idorg" data-sortable="true">ID ORGANISASI</th>--}}
                                         <th data-field="namaorg" data-sortable="true">NAMA ORGANISASI</th>
                                         <th data-field="tipeorg" data-sortable="true">TIPE ORGANISASI</th>
                                         <th data-field="alamat">ALAMAT</th>
@@ -70,7 +70,7 @@
                                     @foreach($data as $key => $list)
                                         <tr>
                                             <td>{{$key+1}}</td>
-                                            <td>{{$list->id_organisasi}}</td>
+                                            {{--<td>{{$list->id_organisasi}}</td>--}}
                                             <td>{{$list->nama_organisasi}}</td>
                                             <td>
                                             @if ( $list->tipe_organisasi == 0)

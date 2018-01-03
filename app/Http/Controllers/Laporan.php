@@ -2576,5 +2576,53 @@ class Laporan extends Controller
             'jumlah'      => $data['jumlah']
         ]);
     }
+
+    public function excel_distribusi(){
+        $home = new HomeController;
+        $date = $home->MonthShifter(-1)->format(('F Y'));
+        $data = $this->data_dist();
+//        dd("sdad");
+        Excel::create('laporan Distribusi', function($excel)use($date,$data){
+
+            $excel->sheet('Laporan Distribusi', function($sheet) use($date,$data) {
+                $sheet->mergeCells('A9:A11');
+                $sheet->mergeCells('B9:B11');
+                $sheet->mergeCells('C9:H9');
+                $sheet->mergeCells('C10:C11');
+                $sheet->mergeCells('D10:D11');
+                $sheet->mergeCells('E10:E11');
+                $sheet->mergeCells('F10:F11');
+                $sheet->mergeCells('G10:G11');
+                $sheet->mergeCells('H10:H11');
+                $sheet->mergeCells('I9:I11');
+                $sheet->mergeCells('J9:K9');
+                $sheet->mergeCells('J10:J11');
+                $sheet->mergeCells('K10:K11');
+                $sheet->mergeCells('L9:L11');
+                $sheet->mergeCells('M9:N9');
+                $sheet->mergeCells('M10:M11');
+                $sheet->mergeCells('N10:N11');
+                $sheet->mergeCells('O10:O11');
+                $sheet->mergeCells('P10:P11');
+                $sheet->mergeCells('Q10:Q11');
+                $sheet->mergeCells('O9:Q9');
+                $sheet->setPageMargin(0.25);
+                $sheet->setOrientation('landscape');
+                $sheet->loadView('admin.nonmaster.excel.distribusi',[
+                    'data'      => $data['data_RD'],
+                    'date'      => $date,
+                    'jumlah'      => $data['jumlah']
+                ]);
+
+            });
+        })
+            ->download('xls');
+
+        return view('admin.nonmaster.excel.distribusi',[
+            'data'      => $data['data_RD'],
+            'date'      => $date,
+            'jumlah'      => $data['jumlah']
+        ]);
+    }
 }
 
