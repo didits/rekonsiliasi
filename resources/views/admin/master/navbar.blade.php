@@ -327,7 +327,7 @@
 
                             <ul class="nav">
                                 <li @if(Request::is('distribusi/laporan_transaksi', 'distribusi/laporan_transaksi/*'))class="active"@endif>
-                                    <a href="{{route('distribusi.indexLaporanTransaksi')}}">Laporan Data Master</a>
+                                    <a href="{{route('distribusi.indexLaporanTransaksi')}}">Laporan Transaksi Beli</a>
                                 </li>
                             </ul>
                         </div>
