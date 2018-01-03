@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use Illuminate\Http\Request;
 use Auth;
 use App\Organisasi;
@@ -127,8 +128,10 @@ class DistribusiController extends Controller
         $susut[] = [($sumSut === 0 ? 0:intval(($susutAbnorm/$sumSut)*100)), $susutAbnorm];
         $susut[] = $sumSut;
 
-//        dd($deviasi);
+        $home = new HomeController;
+        $date = $home->MonthShifter(-1)->format(('F Y'));
         return view('admin.nonmaster.dashboard_user.dashboard', [
+            'date'   => $date,
             'deviasi'   => $deviasi,
             'susut'     => $susut
         ]);

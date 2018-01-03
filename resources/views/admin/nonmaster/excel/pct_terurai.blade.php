@@ -82,7 +82,7 @@
                 <td colspan="15" class="text-center">TERURAI</td>
             </tr>
             <tr>
-                <td colspan="15" class="text-center">BULAN : {{date('M Y')}}</td>
+                <td colspan="15" class="text-center">BULAN : {{$date}}</td>
             </tr>
 
     </table>

@@ -42,7 +42,7 @@
                                         <th class="text-center">KE PT PLN (PERSERO) DISTRIBUSI JAWA TIMUR</th>
                                     </tr>
                                     <tr>
-                                        <th class="text-center">BULAN : {{date('M Y')}}</th>
+                                        <th class="text-center">BULAN : {{$date}}</th>
                                     </tr>
                                     </thead>
                                 </table>

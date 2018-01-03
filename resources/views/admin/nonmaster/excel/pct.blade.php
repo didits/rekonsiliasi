@@ -82,7 +82,7 @@
                 <td colspan="12" class="text-center">TOTAL PEMAKAIAN KWH PCT/EXIM</td>
             </tr>
             <tr>
-                <td colspan="12" class="text-center">BULAN : {{date('M Y')}}</td>
+                <td colspan="12" class="text-center">BULAN : {{$date}}</td>
             </tr>
         </tdead>
     </table>

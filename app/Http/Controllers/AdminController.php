@@ -89,8 +89,14 @@ class AdminController extends Controller
 
     public function add_org(Request $request){
         $user = $request->selArea;
-        $user = Organisasi::where('id_organisasi', 'like', substr($request->selArea, 0, 3).'%')->where('tipe_organisasi', '3')->orderBy('id_organisasi','desc')->first();
-        $id_org = intval($user->id_organisasi)+1;
+        if($user==null){
+            $user = Organisasi::where('tipe_organisasi', '2')->orderBy('id_organisasi','desc')->first();
+            $id_org = intval($user->id_organisasi)+100;
+        }
+        else{
+            $user = Organisasi::where('id_organisasi', 'like', substr($request->selArea, 0, 3).'%')->where('tipe_organisasi', '3')->orderBy('id_organisasi','desc')->first();
+            $id_org = intval($user->id_organisasi)+1;
+        }
         $nama = $request->namaOrg;
         $tipe = $request->tipeOrg;
         $alamat = $request->alamatOrg;

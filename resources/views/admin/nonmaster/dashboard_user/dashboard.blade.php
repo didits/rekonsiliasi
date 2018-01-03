@@ -15,7 +15,7 @@
                             <div class="card">
                                 <div class="header">
                                     <h4 class="title">Dashboard</h4>
-                                    <p class="category">Dashboard Bulan {{date("F")}}</p>
+                                    <p class="category">Dashboard Bulan {{$date}}</p>
                                 </div>
                                 <div class="content">
                                     {{--<p>Update</p>--}}
@@ -33,7 +33,7 @@
                             <div class="card">
                                 <div class="header">
                                     <h4 class="title" style="text-align: center;">Deviasi Meter Utama</h4>
-                                    <p class="category" style="text-align: center;">Deviasi Bulan {{date("F")}}</p>
+                                    <p class="category" style="text-align: center;">Deviasi Bulan {{$date}}</p>
                                 </div>
                                 <div class="content">
                                     <div id="lingkDev" class="ct-chart "></div>
@@ -83,7 +83,7 @@
                             <div class="card">
                                 <div class="header">
                                     <h4 class="title" style="text-align: center;">Susut GI</h4>
-                                    <p class="category" style="text-align: center;">Deviasi Bulan {{date("F")}}</p>
+                                    <p class="category" style="text-align: center;">Deviasi Bulan {{$date}}</p>
                                 </div>
                                 <div class="content">
                                     <div id="lingkSusut" class="ct-chart "></div>

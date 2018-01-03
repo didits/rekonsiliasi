@@ -406,9 +406,12 @@ class Laporan extends Controller
                 if($p_trafo->save());
             }
         }
+        $home = new HomeController;
+        $date = $home->MonthShifter(-1)->format(('F Y'));
 
         return view('admin.nonmaster.laporan.gi',[
             'data'      => $cmb,
+            'date'      => $date,
             'penyulang' => $penyulang_array,
             'pemakaian' => $list_array,
             'dt_trafo' => $list_data_trafo,
@@ -863,7 +866,9 @@ class Laporan extends Controller
 
     public function view_beli_tsa($id_organisasi, $tsa, $tipe){
         $id_tsa = $tsa;
-//            dd($id_organisasi);
+        $home = new HomeController;
+        $date = $home->MonthShifter(-1)->format(('F Y'));
+
         if($tipe =="gi"||$tipe =="penyulang"){
 
             $data = $this->tsa_gi_peny($id_organisasi, $tsa, $tipe);
@@ -1000,6 +1005,7 @@ class Laporan extends Controller
                 );
                 if($tsa=="area")
                     return view('admin.nonmaster.laporan.tsa_rayon',[
+                        'date'             => $date,
                         'rayon'             => $rayon,
                         'total_jumlah'      => $jumlah_tot,
                         'id_organisasi'     => $id_organisasi,
@@ -1008,6 +1014,7 @@ class Laporan extends Controller
                     ]);
                 elseif($tsa=="tsa_area")
                     return view('admin.nonmaster.laporan.tsa_area',[
+                        'date'             => $date,
                         'rayon'             => $rayon,
                         'total_jumlah'      => $jumlah_tot,
                         'id_organisasi'     => $id_organisasi,
@@ -1017,6 +1024,7 @@ class Laporan extends Controller
             }
             elseif($tipe =="area")
                 return view('admin.nonmaster.laporan.tsa_penyulang',[
+                    'date'             => $date,
                     'trafo'             => $data['trafo'],
                     'nama_gi'           => $data['nama_gi'],
                     'data_gi'           => $data['list_p'],
@@ -1030,6 +1038,7 @@ class Laporan extends Controller
             elseif($tipe =="penyulang"){
 //                dd($data['nama_gi']);
                 return view('admin.nonmaster.laporan.tsa_penyulang',[
+                    'date'             => $date,
                     'trafo'             => $data['trafo'],
                     'nama_gi'           => $data['nama_gi'],
                     'data_gi'           => $data['list_p'],
@@ -1066,6 +1075,7 @@ class Laporan extends Controller
                 }
 //                dd($gi);
                 return view('admin.nonmaster.laporan.tsa_penyulang',[
+                    'date'             => $date,
                     'area'      => $org->nama_organisasi,
 //                    'gi'      => $data_gi->nama_gi,
 //                    'trafo'      => $trafo,
@@ -1080,6 +1090,7 @@ class Laporan extends Controller
             }
             else {
                 return view('admin.nonmaster.laporan.tsa_penyulang',[
+                    'date'             => $date,
                     'trafo'      => null,
                     'gi'      => null,
                     'area'      => $org->nama_organisasi,
@@ -1096,6 +1107,8 @@ class Laporan extends Controller
     }
 
     public function excel_beli_tsa($id_organisasi, $tsa, $tipe){
+        $home = new HomeController;
+        $date = $home->MonthShifter(-1)->format(('F Y'));
         if(date("m")<3){
             if(date("m")==1){
                 $date_prev = (date("Y")-1)."11";
@@ -1351,9 +1364,9 @@ class Laporan extends Controller
 //                dd($rayon);
                 if($tsa=="area"){
                     
-                    Excel::create('laporan TSA Rayon', function($excel)use($rayon,$jumlah_tot){
+                    Excel::create('laporan TSA Rayon', function($excel)use($date,$rayon,$jumlah_tot){
 
-                    $excel->sheet('Laporan TSA Rayon', function($sheet) use($rayon,$jumlah_tot) {
+                    $excel->sheet('Laporan TSA Rayon', function($sheet) use($date,$rayon,$jumlah_tot) {
                         $sheet->mergeCells('A9:A10');
                         $sheet->mergeCells('B9:B10');
                         $sheet->mergeCells('C9:C10');
@@ -1365,6 +1378,7 @@ class Laporan extends Controller
                         $sheet->setPageMargin(0.25);
                         $sheet->setOrientation('landscape');
                         $sheet->loadView('admin.nonmaster.excel.tsa_rayon',[
+                            'date'             => $date,
                             'rayon'      => $rayon,
                             'total_jumlah' => $jumlah_tot,
                         ]);
@@ -1373,9 +1387,9 @@ class Laporan extends Controller
                 ->download('xls');
                 }
                 elseif($tsa=="tsa_area"){
-                    Excel::create('laporan TSA Area', function($excel)use($rayon,$jumlah_tot){
+                    Excel::create('laporan TSA Area', function($excel)use($date,$rayon,$jumlah_tot){
 
-                    $excel->sheet('Laporan TSA Area', function($sheet) use($rayon,$jumlah_tot) {
+                    $excel->sheet('Laporan TSA Area', function($sheet) use($date,$rayon,$jumlah_tot) {
                         $sheet->mergeCells('A9:A10');
                         $sheet->mergeCells('B9:B10');
                         $sheet->mergeCells('C9:C10');
@@ -1387,6 +1401,7 @@ class Laporan extends Controller
                         $sheet->setPageMargin(0.25);
                         $sheet->setOrientation('landscape');
                         $sheet->loadView('admin.nonmaster.excel.tsa_area',[
+                            'date'             => $date,
                             'rayon'      => $rayon,
                             'total_jumlah' => $jumlah_tot,
                         ]);
@@ -1398,6 +1413,7 @@ class Laporan extends Controller
             }
             elseif($tipe =="area")
                 return view('admin.nonmaster.laporan.tsa_penyulang',[
+                    'date'             => $date,
                     'trafo'      => $trafo,
                     'nama_gi'      => $nama_gi,
                     'data_gi'      => $list_p,
@@ -1409,9 +1425,9 @@ class Laporan extends Controller
                     'tsa' => $id_tsa
                 ]);
             elseif($tipe =="penyulang")
-                Excel::create('laporan TSA Penyulang', function($excel)use($trafo,$nama_gi,$list_p,$jumlah_trafo,$jumlah_tot){
+                Excel::create('laporan TSA Penyulang', function($excel)use($date,$trafo,$nama_gi,$list_p,$jumlah_trafo,$jumlah_tot){
 
-                    $excel->sheet('Laporan TSA Penyulang', function($sheet) use($trafo,$nama_gi,$list_p,$jumlah_trafo,$jumlah_tot) {
+                    $excel->sheet('Laporan TSA Penyulang', function($sheet) use($date,$trafo,$nama_gi,$list_p,$jumlah_trafo,$jumlah_tot) {
                         $sheet->mergeCells('A9:A11');
                         $sheet->mergeCells('B9:D9');
                         $sheet->mergeCells('E9:E11');
@@ -1437,6 +1453,7 @@ class Laporan extends Controller
                         $sheet->setPageMargin(0.25);
                         $sheet->setOrientation('landscape');
                         $sheet->loadView('admin.nonmaster.excel.tsa_penyulang',[
+                            'date'             => $date,
                             'trafo'      => $trafo,
                             'nama_gi'      => $nama_gi,
                             'data_gi'      => $list_p,
@@ -1470,9 +1487,9 @@ class Laporan extends Controller
                     array_push($gi,$dt_GI);
                 }
 //                dd($gi);
-                Excel::create('laporan TSA Penyulang', function($excel)use($org,$gi,$id_organisasi,$id_tsa){
+                Excel::create('laporan TSA Penyulang', function($excel)use($date,$org,$gi,$id_organisasi,$id_tsa){
 
-                    $excel->sheet('Laporan TSA Penyulang', function($sheet) use($org,$gi,$id_organisasi,$id_tsa) {
+                    $excel->sheet('Laporan TSA Penyulang', function($sheet) use($date,$org,$gi,$id_organisasi,$id_tsa) {
                         $sheet->mergeCells('A9:A11');
                         $sheet->mergeCells('B9:D9');
                         $sheet->mergeCells('E9:E11');
@@ -1498,6 +1515,7 @@ class Laporan extends Controller
                         $sheet->setPageMargin(0.25);
                         $sheet->setOrientation('landscape');
                         $sheet->loadView('admin.nonmaster.excel.tsa_penyulang',[
+                            'date'             => $date,
                             'area'      => $org->nama_organisasi,
                             'data_gi'      => $gi,
                             'tipe'      => "rayon",
@@ -1510,6 +1528,7 @@ class Laporan extends Controller
                 ->download('xls');
 
                 return view('admin.nonmaster.excel.tsa_penyulang',[
+                    'date'             => $date,
                     'area'      => $org->nama_organisasi,
 //                    'gi'      => $data_gi->nama_gi,
 //                    'trafo'      => $trafo,
@@ -1524,6 +1543,7 @@ class Laporan extends Controller
             }
             else {
                 return view('admin.nonmaster.laporan.tsa_penyulang',[
+                    'date'             => $date,
                     'trafo'      => null,
                     'gi'      => null,
                     'area'      => $org->nama_organisasi,
@@ -1644,10 +1664,14 @@ class Laporan extends Controller
     }
 
     public function view_beli_deviasi($id_organisasi, $tipe, $id){
+        $home = new HomeController;
+        $date = $home->MonthShifter(-1)->format(('F Y'));
+
         if($tipe == "area"){
             $data = $this->deviasi_area($id_organisasi, $tipe, $id);
             return view('admin.nonmaster.laporan.deviasi',[
                 'area'      => 'area',
+                'date'      => $date,
                 'data_GI'   => $data['data_GI'],
                 'tipe'      => $data['tipe'],
                 'jumlah'      => $data['jumlah'],
@@ -1700,6 +1724,7 @@ class Laporan extends Controller
 
                 return view('admin.nonmaster.laporan.deviasi',[
                     'area'      => 'data',
+                    'date'      => $date,
                     'data_GI'   => $data_GI,
                     'data2_GI'   => $dt_dev,
                     'tipe'      => $tipe,
@@ -1714,6 +1739,7 @@ class Laporan extends Controller
             else{
                 return view('admin.nonmaster.laporan.deviasi',[
                     'area'      => 'null',
+                    'date'      => $date,
                     'data_GI'   => null,
                     'tipe'      => $tipe,
                     'jumlah'      => null,
@@ -1726,6 +1752,9 @@ class Laporan extends Controller
     }
 
     public function excel_beli_deviasi($id_organisasi, $tipe, $id){
+        $home = new HomeController;
+        $date = $home->MonthShifter(-1)->format(('F Y'));
+
         if($tipe == "area"){
             $data_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
             $id_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
@@ -1747,9 +1776,9 @@ class Laporan extends Controller
                 'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'I' => $tot_I,
                 'J' => $tot_J, 'K' => $tot_K, 'L' => $tot_L, 'M' => $tot_M, 'N' => $tot_N
             );
-            Excel::create('laporan Deviasi', function($excel)use($data_GI,$tipe,$jumlah,$total){
+            Excel::create('laporan Deviasi', function($excel)use($data_GI,$tipe,$jumlah,$total,$date){
 
-                $excel->sheet('Laporan Deviasi', function($sheet) use($data_GI,$tipe,$jumlah,$total) {
+                $excel->sheet('Laporan Deviasi', function($sheet) use($data_GI,$tipe,$jumlah,$total,$date) {
                     $sheet->mergeCells('I9:N9');
                     $sheet->mergeCells('I10:J10');
                     $sheet->mergeCells('K10:L10');
@@ -1780,6 +1809,7 @@ class Laporan extends Controller
                     $sheet->setOrientation('landscape');
                     $sheet->loadView('admin.nonmaster.excel.deviasi',[
                         'area'      => 'area',
+                        'date'      => $date,
                         'data_GI'   => $data_GI,
                         'tipe'      => $tipe,
                         'jumlah'      => $jumlah,
@@ -1793,6 +1823,7 @@ class Laporan extends Controller
 
             return view('admin.nonmaster.excel.deviasi',[
                 'area'      => 'area',
+                'date'      => $date,
                 'data_GI'   => $data_GI,
                 'tipe'      => $tipe,
                 'jumlah'      => $jumlah,
@@ -1842,6 +1873,7 @@ class Laporan extends Controller
                     $sheet->setOrientation('landscape');
                     $sheet->loadView('admin.nonmaster.excel.deviasi',[
                         'area'      => 'data',
+                        'date'      => $date,
                         'data_GI'   => $data_GI,
                         'tipe'      => $tipe,
                         'jumlah'      => $jumlah,
@@ -1857,6 +1889,7 @@ class Laporan extends Controller
 
                 return view('admin.nonmaster.excel.deviasi',[
                     'area'      => 'data',
+                    'date'      => $date,
                     'data_GI'   => $data_GI,
                     'tipe'      => $tipe,
                     'jumlah'      => $jumlah,
@@ -1900,6 +1933,7 @@ class Laporan extends Controller
                     $sheet->setOrientation('landscape');
                     $sheet->loadView('admin.nonmaster.excel.deviasi',[
                         'area'      => 'area',
+                        'date'      => $date,
                         'data_GI'   => $data_GI,
                         'tipe'      => $tipe,
                         'jumlah'      => $jumlah,
@@ -1913,6 +1947,7 @@ class Laporan extends Controller
             
                 return view('admin.nonmaster.excel.deviasi',[
                     'area'      => 'null',
+                    'date'      => $date,
                     'data_GI'   => null,
                     'tipe'      => $tipe,
                     'jumlah'      => null,
@@ -1923,6 +1958,9 @@ class Laporan extends Controller
     }
 
     public function excel_beli($id_rayon,$tipe,$id,$tr){
+        $home = new HomeController;
+        $date = $home->MonthShifter(-1)->format(('F Y'));
+
         if(date("m")<3){
             if(date("m")==1){
                 $date_prev = (date("Y")-1)."11";
@@ -2007,9 +2045,9 @@ class Laporan extends Controller
 
         $nama_organisasi = $area->nama_organisasi;
 
-        Excel::create('laporan GI', function($excel)use($cmb,$penyulang_array,$list_array,$list_data_trafo,$trafo_GI,$deviasi,$sum,$arr_sum_,$gi,$nama_organisasi,$visual_cek,$tr){
+        Excel::create('laporan GI', function($excel)use($date,$cmb,$penyulang_array,$list_array,$list_data_trafo,$trafo_GI,$deviasi,$sum,$arr_sum_,$gi,$nama_organisasi,$visual_cek,$tr){
 
-                $excel->sheet($trafo_GI[$tr]['nama'], function($sheet) use($cmb,$penyulang_array,$list_array,$list_data_trafo,$trafo_GI,$deviasi,$sum,$arr_sum_,$gi,$nama_organisasi,$visual_cek,$tr) {
+                $excel->sheet($trafo_GI[$tr]['nama'], function($sheet) use($date,$cmb,$penyulang_array,$list_array,$list_data_trafo,$trafo_GI,$deviasi,$sum,$arr_sum_,$gi,$nama_organisasi,$visual_cek,$tr) {
 
                     $sheet->mergeCells('A8:B10');
                     $sheet->mergeCells('C8:D9');
@@ -2023,6 +2061,7 @@ class Laporan extends Controller
                     $sheet->setOrientation('landscape');
                     $sheet->loadView('admin.nonmaster.excel.excelGI',[
                         'data'          => $cmb,
+                        'date'      => $date,
                         'penyulang'     => $penyulang_array,
                         'pemakaian'     => $list_array,
                         'dt_trafo'      => $list_data_trafo,
@@ -2307,7 +2346,10 @@ class Laporan extends Controller
         $cmb = new MasterLaporan($id_rayon,$tipe,$id);
         $gardu    = $cmb->gardu;$p_penyulang    = $cmb  ->p_penyulang;   $p_gardu  = $cmb->p_gardu;
         $data = $this->data_pct($id_rayon,$p_penyulang,$p_gardu,$gardu,$nama_rayon);
+        $home = new HomeController;
+        $date = $home->MonthShifter(-1)->format(('F Y'));
         return view('admin.nonmaster.laporan.pct',[
+            'date'      => $date,
             'gardu'      => $data[0],
             'p_gardu'   => $data[1],
             'total_i'   => $data[2],
@@ -2326,12 +2368,13 @@ class Laporan extends Controller
         $cmb = new MasterLaporan($id_rayon,$tipe,$id);
         $gardu    = $cmb->gardu;$p_penyulang    = $cmb  ->p_penyulang;   $p_gardu  = $cmb->p_gardu;
         $data = $this->data_pct($id_rayon,$p_penyulang,$p_gardu,$gardu,$nama_rayon);
+        $home = new HomeController;
+        $date = $home->MonthShifter(-1)->format(('F Y'));
 
 
+        Excel::create('laporan PCT', function($excel)use($date,$data){
 
-        Excel::create('laporan PCT', function($excel)use($data){
-
-                $excel->sheet('Laporan PCT', function($sheet) use($data) {
+                $excel->sheet('Laporan PCT', function($sheet) use($date,$data) {
                     $sheet->mergeCells('A9:A10');
                     $sheet->mergeCells('B9:B10');
                     $sheet->mergeCells('C9:C10');
@@ -2345,6 +2388,7 @@ class Laporan extends Controller
                     $sheet->setPageMargin(0.25);
                     $sheet->setOrientation('landscape');
                     $sheet->loadView('admin.nonmaster.excel.pct',[
+                        'date'      => $date,
                         'gardu'      => $data[0],
                         'p_gardu'   => $data[1],
                         'total_i'   => $data[2],
@@ -2355,7 +2399,7 @@ class Laporan extends Controller
 
                 });
 
-                $excel->sheet('Laporan PCT Terurai', function($sheet) use($data) {
+                $excel->sheet('Laporan PCT Terurai', function($sheet) use($date,$data) {
                     $sheet->mergeCells('F9:J9');
                     $sheet->mergeCells('K9:O9');
                     $sheet->mergeCells('A9:A10');
@@ -2366,6 +2410,7 @@ class Laporan extends Controller
                     $sheet->setPageMargin(0.25);
                     $sheet->setOrientation('landscape');
                     $sheet->loadView('admin.nonmaster.excel.pct_terurai',[
+                        'date'      => $date,
                         'gardu'      => $data[0],
                         'p_gardu'   => $data[1],
                         'total_i'   => $data[2],
@@ -2376,13 +2421,14 @@ class Laporan extends Controller
 
                 });
 
-                $excel->sheet('Laporan PCT Terurai Rayon', function($sheet) use($data) {
+                $excel->sheet('Laporan PCT Terurai Rayon', function($sheet) use($date,$data) {
                     $sheet->mergeCells('A9:A10');
                     $sheet->mergeCells('B9:F9');
                     $sheet->mergeCells('G9:K9');
                     $sheet->setPageMargin(0.25);
                     $sheet->setOrientation('landscape');
                     $sheet->loadView('admin.nonmaster.excel.pct_terurai_rayon',[
+                        'date'      => $date,
                         'gardu'      => $data[0],
                         'p_gardu'   => $data[1],
                         'total_i'   => $data[2],
@@ -2398,6 +2444,7 @@ class Laporan extends Controller
 
 
         return view('admin.nonmaster.excel.pct',[
+            'date'      => $date,
             'gardu'      => $data[0],
             'p_gardu'   => $data[1],
             'total_i'   => $data[2],
@@ -2519,10 +2566,13 @@ class Laporan extends Controller
     }
 
     public function distribusi(){
+        $home = new HomeController;
+        $date = $home->MonthShifter(-1)->format(('F Y'));
         $data = $this->data_dist();
 //        dd($data);
         return view('admin.nonmaster.laporan.distribusi',[
             'data'      => $data['data_RD'],
+            'date'      => $date,
             'jumlah'      => $data['jumlah']
         ]);
     }

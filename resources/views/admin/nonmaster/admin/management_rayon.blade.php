@@ -36,10 +36,10 @@
                                         <h5 class="title">Tambah Data Organisasi</h5>
                                         <hr>
 
-                                        <button class="btn btn-fill btn-primary"
-                                                onclick="add_org.showSwal()">Tambah Data Organisasi
-                                        </button>
-                                        <button type="button" class="btn btn-primary btn-fill" data-toggle="modal" data-target="#addOrgModal" title="Tambah Organisasi">
+                                        {{--<button class="btn btn-fill btn-primary"--}}
+                                                {{--onclick="add_org.showSwal()">--}}
+                                        {{--</button>--}}
+                                        <button type="button" class="btn btn-primary btn-fill" data-toggle="modal" data-target="#addOrgModal" title="Tambah Organisasi">Tambah Data Organisasi
                                             <i class="pe-7s-add-user"></i>
                                         </button>
                                         {{--<div class="row">--}}
