@@ -605,7 +605,7 @@
                                             @elseif($visual == 0)
                                             <td>{{number_format(json_decode($data_master[$tr]['data'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download'])}}</td>
                                             @endif
-                                            <td>{{$sum[$tr]}}</td>
+                                            <td>{{number_format($sum[$tr])}}</td>
                                             <td>-</td>
                                             @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
                                             <td>{{number_format(json_decode($dt_trafo[$tr][$j]['data'],true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual'])}}</td>

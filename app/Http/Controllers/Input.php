@@ -1567,7 +1567,10 @@ class Input extends Controller
         }
         $decoded = json_decode($jenis->data_master,true);
 //        dd($data);
+        $home = new HomeController;
+        $date = $home->MonthShifter(-2)->format(('M Y'));
         return view('admin.nonmaster.dashboard_user.input_data', [
+            'date'            => $date,
             'data'            => $data,
             'dt'              => $dt,
             'dt2'             => $dt2,

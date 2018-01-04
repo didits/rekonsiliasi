@@ -37,7 +37,7 @@
                                                 <li>
                                                     <a href="#lalu" role="tab" data-toggle="tab">
                                                         <i class="fa fa-database"></i><br>
-                                                        Input Bulan Lalu
+                                                        Input Bulan Lalu [{{$date}}]
                                                     </a>
                                                 </li>
                                             </ul>
@@ -581,7 +581,7 @@
 
                                                                                             <div class="card">
                                                                                                 <div class="header">
-                                                                                                    <h4 class="title">KWH Meter Utama Bulan Lalu</h4>
+                                                                                                    <h4 class="title">KWH Meter Utama Bulan Lalu [{{$date}}]</h4>
                                                                                                 </div>
                                                                                                 <div class="content">
                                                                                                 </div>
@@ -658,7 +658,7 @@
 
                                                                                             <div class="card">
                                                                                                 <div class="header">
-                                                                                                    <h4 class="title">KWH Meter Utama Bulan Lalu</h4>
+                                                                                                    <h4 class="title">KWH Meter Utama Bulan Lalu [{{$date}}]</h4>
                                                                                                 </div>
                                                                                                 <div class="content">
                                                                                                 </div>
@@ -761,7 +761,7 @@
 
                                                                                             <div class="card">
                                                                                                 <div class="header">
-                                                                                                    <h4 class="title">KWH Meter Pembanding Bulan Lalu</h4>
+                                                                                                    <h4 class="title">KWH Meter Pembanding Bulan Lalu [{{$date}}]</h4>
                                                                                                 </div>
                                                                                                 <div class="content">
                                                                                                 </div>
@@ -839,7 +839,7 @@
 
                                                                                             <div class="card">
                                                                                                 <div class="header">
-                                                                                                    <h4 class="title">KWH Meter Pembanding Bulan Lalu</h4>
+                                                                                                    <h4 class="title">KWH Meter Pembanding Bulan Lalu [{{$date}}]</h4>
                                                                                                 </div>
                                                                                                 <div class="content">
                                                                                                 </div>
@@ -943,7 +943,7 @@
 
                                                                                             <div class="card">
                                                                                                 <div class="header">
-                                                                                                    <h4 class="title">KWH Meter Pemakaian Sendiri Bulan Lalu</h4>
+                                                                                                    <h4 class="title">KWH Meter Pemakaian Sendiri Bulan Lalu [{{$date}}]</h4>
                                                                                                 </div>
                                                                                                 <div class="content">
                                                                                                 </div>
@@ -1021,7 +1021,7 @@
 
                                                                                             <div class="card">
                                                                                                 <div class="header">
-                                                                                                    <h4 class="title">KWH Meter Pemakaian Sendiri Bulan Lalu</h4>
+                                                                                                    <h4 class="title">KWH Meter Pemakaian Sendiri Bulan Lalu [{{$date}}]</h4>
                                                                                                 </div>
                                                                                                 <div class="content">
                                                                                                 </div>
@@ -1430,7 +1430,7 @@
                                                     <li>
                                                         <a href="#lalu" role="tab" data-toggle="tab">
                                                             <i class="fa fa-database"></i><br>
-                                                            Input Bulan Lalu
+                                                            Input Bulan Lalu [{{$date}}]
                                                         </a>
                                                     </li>
                                                 </ul>

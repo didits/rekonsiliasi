@@ -6,7 +6,7 @@
             </div>
             <div class="logo logo-mini">
                 <a href="{{url('/')}}" class="logo-text">
-                    SO
+                    SI-O
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -254,8 +254,7 @@
                     </li>
                     @endif
                     @if(Auth::user()->tipe_organisasi==1)
-
-                    <li @if(Request::is('area/dashboard'))class="active"@endif>
+                    <li @if(Request::is('distribusi/dashboard')) class="active" @endif>
                         <a href="{{route('distribusi.dashboard')}}">
                             <i class="pe-7s-display1"></i>
                             <p>Dashboard</p>

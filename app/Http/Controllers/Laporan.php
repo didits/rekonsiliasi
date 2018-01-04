@@ -1713,7 +1713,7 @@ class Laporan extends Controller
                 else  $tot_L = ($tot_K/$tot_F*100);
                 $G_E =$tot_G-$tot_E;
                 $tot_M = ($tot_G -$tot_H);
-                if($G_E)$tot_N = 0;
+                if($G_E==0)$tot_N = 0;
                 else $tot_N = ($tot_M / ($G_E)*100);
 
 

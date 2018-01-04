@@ -69,6 +69,9 @@ class CreateGardusTable extends Migration
         Schema::create('gardu', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_organisasi')->unsigned();
+            $table->Integer('asal');
+            $table->Integer('tujuan');
+            $table->text('rincian');
             $table->integer('id_penyulang')->unsigned();
             $table->integer('tipe_gardu');
             $table->string('nama_gardu');
