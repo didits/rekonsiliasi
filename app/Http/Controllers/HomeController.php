@@ -60,7 +60,7 @@ class HomeController extends Controller
             'content'       => 'Berhasil login!'
             ]);
         }else if(Auth::user()->tipe_organisasi==2){
-            return redirect('area')->with('status', [
+            return redirect('area/dashboard')->with('status', [
             'enabled'       => true,
             'type'          => 'success',
             'content'       => 'Berhasil login!'

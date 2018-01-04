@@ -175,7 +175,7 @@
                         @endif
                             <ul class="nav">
                                 <li @if(Request::is('area/entry_master/*', 'area'))class="active"@endif>
-                                    <a href="{{ url('/') }}">Entry Data Master</a>
+                                    <a href="{{ url('/area') }}">Entry Data Master</a>
                                 </li>
                                 {{--<li @if(Request::is('area/tabel_master'))class="active"@endif>--}}
                                     {{--<a href="{{route('area.tabel_master')}}">Laporan Data Master</a>--}}

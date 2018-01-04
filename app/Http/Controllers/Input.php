@@ -143,6 +143,8 @@ class Input extends Controller
             if ($request->tipe == "trafo_gi") {
 
                 $data_lalu = PenyimpananTrafoGI::where('periode', "L".$date_prev)->where('id_trafo_gi', $request->id)->first();
+                if(count($data_lalu )==0)
+                    $data_lalu = PenyimpananTrafoGI::where('periode', $date_prev)->where('id_trafo_gi', $request->id)->first();
                 if($data_lalu){
                     $decoded = json_decode($data_lalu->data,true);
                     $meter=$request->meter;
@@ -363,6 +365,8 @@ class Input extends Controller
             }
             elseif ($request->tipe == "penyulang"){
                 $data_lalu = PenyimpananPenyulang::where('periode', "L".$date_prev)->where('id_penyulang', $request->id)->first();
+                if(count($data_lalu)==0)
+                    $data_lalu = PenyimpananPenyulang::where('periode', $date_prev)->where('id_penyulang', $request->id)->first();
                 if($data_lalu){
                     $decoded = json_decode($data_lalu->data,true);
                     if($request->visual){
@@ -833,12 +837,16 @@ class Input extends Controller
         }
         elseif($tipe=="trafo_gi"){
             $lalu = PenyimpananTrafoGI::where('periode', "L".$date_prev)->where('id_trafo_gi', $id)->first();
+            if(count($lalu)==0)
+                $lalu = PenyimpananTrafoGI::where('periode', $date_prev)->where('id_trafo_gi', $id)->first();
             $awal = PenyimpananTrafoGI::where('periode', $date_prev)->where('id_trafo_gi', $id)->first();
             $data_master = TrafoGI::where('id', $id)->first();
             $akhir = PenyimpananTrafoGI::where('periode', $date_now)->where('id_trafo_gi', $id)->first();
         }
         elseif($tipe=="penyulang"){
             $lalu = PenyimpananPenyulang::where('periode', "L".$date_prev)->where('id_penyulang', $id)->first();
+            if(count($lalu)==0)
+                $lalu = PenyimpananPenyulang::where('periode', $date_prev)->where('id_penyulang', $id)->first();
             $awal = PenyimpananPenyulang::where('periode', $date_prev)->where('id_penyulang', $id)->first();
             $data_master = Penyulang::where('id', $id)->first();
             $akhir = PenyimpananPenyulang::where('periode', $date_now)->where('id_penyulang', $id)->first();
@@ -1272,7 +1280,7 @@ class Input extends Controller
         if($boolean){
             if($tipe=="trafo_gi"||$tipe=="pct"){
                 if($lalu){
-                    if($meter=="utama"){
+                    if($meter=="utama"||$meter=="ps"){
                         $lwbp1_download = ($download['lwbp1_download']);
                         $lwbp2_download = ($download['lwbp2_download']);
                         $wbp_download =  ($download['wbp_download']);
@@ -1287,7 +1295,7 @@ class Input extends Controller
                     }
                 }
                 else{
-                    if($meter=="utama"){
+                    if($meter=="utama"||$meter=="ps"){
                         $lwbp1_download = ($download['lwbp1_download']);
                         $lwbp2_download = ($download['lwbp2_download']);
                         $wbp_download =  ($download['wbp_download']);
@@ -1304,7 +1312,7 @@ class Input extends Controller
             }
             else{
                 if($lalu) {
-                    if($meter=="utama"){
+                    if($meter=="utama"||$meter=="ps"){
                         $lwbp1_download = ($download['lwbp1_download']);
                         $lwbp2_download = ($download['lwbp2_download']);
                         $wbp_download = ($download['wbp_download']);
@@ -1318,7 +1326,7 @@ class Input extends Controller
                     }
                 }
                 else{
-                    if($meter=="utama"){
+                    if($meter=="utama"||$meter=="ps"){
                         $lwbp1_download = ($download['lwbp1_download']);
                         $lwbp2_download = ($download['lwbp2_download']);
                         $wbp_download =  ($download['wbp_download']);
