@@ -83,7 +83,7 @@
         <td colspan="15" class="text-center">DEVIASI KWH INCOMING DAN OUT GOING GARDU INDUK</td>
     </tr>
     <tr>
-        <td colspan="15" class="text-center">BULAN : {{date('M Y')}}</td>
+        <td colspan="15" class="text-center">BULAN : {{$date}}</td>
     </tr>
 </table>
 <table width= 100%">

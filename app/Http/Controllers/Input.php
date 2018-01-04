@@ -114,8 +114,19 @@ class Input extends Controller
 
     public function store(Request $request)
     {
-        $date = date('Ym')- "1";
-        $date_lalu = "L".(date('Ym')-1);
+        if(date("m")<3){
+            if(date("m")==1){
+                $date_prev = (date("Y")-1)."11";
+                $date_now =  (date("Y")-1)."12";
+            }
+            else{
+                $date_prev = (date("Y") - 1) . "12";
+                $date_now = date("Ym") - 1;}
+        }else{
+            $date_prev = (date("Ym")-2);
+            $date_now = date("Ym")-1;
+        }
+
         if($request->lalu) {
             $input_visual = array(
                 'lwbp1_visual' => $request->lwbp1_visual_lalu,
@@ -131,7 +142,7 @@ class Input extends Controller
             );
             if ($request->tipe == "trafo_gi") {
 
-                $data_lalu = PenyimpananTrafoGI::where('periode', $date_lalu)->where('id_trafo_gi', $request->id)->first();
+                $data_lalu = PenyimpananTrafoGI::where('periode', "L".$date_prev)->where('id_trafo_gi', $request->id)->first();
                 if($data_lalu){
                     $decoded = json_decode($data_lalu->data,true);
                     $meter=$request->meter;
@@ -341,7 +352,7 @@ class Input extends Controller
 
                     $P = new PenyimpananTrafoGI();
                     $P->id_trafo_gi = $request->id;
-                    $P->periode = $date_lalu;
+                    $P->periode = "L".$date_prev;
                     $P->data = json_encode($data_akhir);
                     $P->data_keluar = "";
                     if($P->save());
@@ -351,7 +362,7 @@ class Input extends Controller
 
             }
             elseif ($request->tipe == "penyulang"){
-                $data_lalu = PenyimpananPenyulang::where('periode', $date_lalu)->where('id_penyulang', $request->id)->first();
+                $data_lalu = PenyimpananPenyulang::where('periode', "L".$date_prev)->where('id_penyulang', $request->id)->first();
                 if($data_lalu){
                     $decoded = json_decode($data_lalu->data,true);
                     if($request->visual){
@@ -400,7 +411,7 @@ class Input extends Controller
 
                     $P = new PenyimpananPenyulang();
                     $P->id_penyulang = $request->id;
-                    $P->periode = $date_lalu;
+                    $P->periode = "L".$date_prev;
                     $P->data = json_encode($data_akhir);
                     $P->data_keluar = "";
                     if($P->save());
@@ -466,19 +477,19 @@ class Input extends Controller
                 );
             }
             if($request->tipe=="gi"){
-                $data_listrik = PenyimpananGI::where('periode', date('Ym'))->where('id_gi', $request->id)->first();
+                $data_listrik = PenyimpananGI::where('periode', $date_now)->where('id_gi', $request->id)->first();
             }
             elseif($request->tipe=="trafo_gi"){
-                $data_listrik = PenyimpananTrafoGI::where('periode', date('Ym'))->where('id_trafo_gi', $request->id)->first();
+                $data_listrik = PenyimpananTrafoGI::where('periode',  $date_now)->where('id_trafo_gi', $request->id)->first();
             }
             elseif($request->tipe=="penyulang"){
-                $data_listrik = PenyimpananPenyulang::where('periode', date('Ym'))->where('id_penyulang', $request->id)->first();
+                $data_listrik = PenyimpananPenyulang::where('periode',  $date_now)->where('id_penyulang', $request->id)->first();
             }
             elseif($request->tipe=="pct"){
-                $data_listrik = PenyimpananGardu::where('periode', date('Ym'))->where('id_gardu', $request->id)->first();
+                $data_listrik = PenyimpananGardu::where('periode', $date_now)->where('id_gardu', $request->id)->first();
             }
             elseif($request->tipe=="gd"||  $request->tipe=="tm"){
-                $data_listrik = PenyimpananGardu::where('periode', date('Ym'))->where('id_gardu', $request->id)->first();
+                $data_listrik = PenyimpananGardu::where('periode', $date_now)->where('id_gardu', $request->id)->first();
             }
             if($data_listrik){
                 $decoded = json_decode($data_listrik->data,true);
@@ -729,7 +740,7 @@ class Input extends Controller
 //                    dd($data);
                     $P = new PenyimpananGardu();
                     $P->id_gardu = $request->id;
-                    $P->periode = date('Ym');
+                    $P->periode = $date_now;
                     $P->data = json_encode($data);
                     $P->data_keluar = "";
                     if ($P->save());
@@ -742,44 +753,44 @@ class Input extends Controller
                 if ($request->tipe == "gi") {
                     $P = new PenyimpananGI();
                     $P->id_gi = $request->id;
-                    $P->periode = date('Ym');
+                    $P->periode = $date_now;
                     $P->data = json_encode($dt);
                     $P->data_keluar = "";
-                    $data_awal = PenyimpananGI::where('periode', $date)->where('id_gi', $request->id)->first();
+                    $data_awal = PenyimpananGI::where('periode', $date_now)->where('id_gi', $request->id)->first();
                 }
                 elseif ($request->tipe == "trafo_gi") {
                     $P = new PenyimpananTrafoGI();
                     $P->id_trafo_gi = $request->id;
-                    $P->periode = date('Ym');
+                    $P->periode = $date_now;
                     $P->data = json_encode($dt);
                     $P->data_keluar = "";
-                    $data_awal = PenyimpananTrafoGI::where('periode', $date)->where('id_trafo_gi', $request->id)->first();
-                    $data_lalu = PenyimpananTrafoGI::where('periode', $date_lalu)->where('id_trafo_gi', $request->id)->first();
+                    $data_awal = PenyimpananTrafoGI::where('periode', $date_now)->where('id_trafo_gi', $request->id)->first();
+                    $data_lalu = PenyimpananTrafoGI::where('periode', "L".$date_prev)->where('id_trafo_gi', $request->id)->first();
                 }
                 elseif ($request->tipe == "penyulang") {
                     $P = new PenyimpananPenyulang();
                     $P->id_penyulang= $request->id;
-                    $P->periode = date('Ym');
+                    $P->periode = $date_now;
                     $P->data = json_encode($dt);
                     $P->data_keluar = "";
-                    $data_awal = PenyimpananPenyulang::where('periode', $date)->where('id_penyulang', $request->id)->first();
-                    $data_lalu = PenyimpananPenyulang::where('periode', $date_lalu)->where('id_penyulang', $request->id)->first();
+                    $data_awal = PenyimpananPenyulang::where('periode', $date_now)->where('id_penyulang', $request->id)->first();
+                    $data_lalu = PenyimpananPenyulang::where('periode', "L".$date_prev)->where('id_penyulang', $request->id)->first();
                 }
                 elseif ($request->tipe == "gd"|| $request->tipe=="pct" || $request->tipe=="tm") {
                     $P = new PenyimpananGardu();
                     $P->id_gardu = $request->id;
-                    $P->periode = date('Ym');
+                    $P->periode = $date_now;
                     $P->data = json_encode($dt);
                     $P->data_keluar = "";
-                    $data_awal = PenyimpananGardu::where('periode', $date)->where('id_gardu', $request->id)->first();
+                    $data_awal = PenyimpananGardu::where('periode', $date_now)->where('id_gardu', $request->id)->first();
                 }
                 elseif ($request->tipe == "gd"|| $request->tipe=="pct" || $request->tipe=="tm") {
                     $P = new PenyimpananGardu();
                     $P->id_gardu = $request->id;
-                    $P->periode = date('Ym');
+                    $P->periode = $date_now;
                     $P->data = json_encode($dt);
                     $P->data_keluar = "";
-                    $data_awal = PenyimpananGardu::where('periode', $date)->where('id_gardu', $request->id)->first();
+                    $data_awal = PenyimpananGardu::where('periode', $date_now)->where('id_gardu', $request->id)->first();
                 }
                 if($data_awal||$data_lalu){
                     $data = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter, $request->tpe_jual);
@@ -800,32 +811,42 @@ class Input extends Controller
     }
 
     public function olah_data($visual,$download,$id,$tipe,$meter,$jual){
-        $date_lalu = "L".(date('Ym')- 1);
-        $date = date('Ym')- 1;
-        $date_ = date('Ym');
+        if(date("m")<3){
+            if(date("m")==1){
+                $date_prev = (date("Y")-1)."11";
+                $date_now =  (date("Y")-1)."12";
+            }
+            else{
+                $date_prev = (date("Y") - 1) . "12";
+                $date_now = date("Ym") - 1;}
+        }else{
+            $date_prev = (date("Ym")-2);
+            $date_now = date("Ym")-1;
+        }
+
         $lalu = null;
         $boolean = true;
         if($tipe=="gi"){
-            $awal = PenyimpananGI::where('periode', $date)->where('id_gi', $id)->first();
+            $awal = PenyimpananGI::where('periode', $date_prev)->where('id_gi', $id)->first();
             $data_master = GI::where('id', $id)->first();
-            $akhir = PenyimpananGI::where('periode', $date_)->where('id_gi', $id)->first();
+            $akhir = PenyimpananGI::where('periode', $date_now)->where('id_gi', $id)->first();
         }
         elseif($tipe=="trafo_gi"){
-            $lalu = PenyimpananTrafoGI::where('periode', $date_lalu)->where('id_trafo_gi', $id)->first();
-            $awal = PenyimpananTrafoGI::where('periode', $date)->where('id_trafo_gi', $id)->first();
+            $lalu = PenyimpananTrafoGI::where('periode', "L".$date_prev)->where('id_trafo_gi', $id)->first();
+            $awal = PenyimpananTrafoGI::where('periode', $date_prev)->where('id_trafo_gi', $id)->first();
             $data_master = TrafoGI::where('id', $id)->first();
-            $akhir = PenyimpananTrafoGI::where('periode', $date_)->where('id_trafo_gi', $id)->first();
+            $akhir = PenyimpananTrafoGI::where('periode', $date_now)->where('id_trafo_gi', $id)->first();
         }
         elseif($tipe=="penyulang"){
-            $lalu = PenyimpananPenyulang::where('periode', $date_lalu)->where('id_penyulang', $id)->first();
-            $awal = PenyimpananPenyulang::where('periode', $date)->where('id_penyulang', $id)->first();
+            $lalu = PenyimpananPenyulang::where('periode', "L".$date_prev)->where('id_penyulang', $id)->first();
+            $awal = PenyimpananPenyulang::where('periode', $date_prev)->where('id_penyulang', $id)->first();
             $data_master = Penyulang::where('id', $id)->first();
-            $akhir = PenyimpananPenyulang::where('periode', $date_)->where('id_penyulang', $id)->first();
+            $akhir = PenyimpananPenyulang::where('periode', $date_now)->where('id_penyulang', $id)->first();
         }
         elseif($tipe=="gd"|| $tipe=="pct" || $tipe=="tm"){
-            $awal = PenyimpananGardu::where('periode', $date)->where('id_gardu', $id)->first();
+            $awal = PenyimpananGardu::where('periode', "L".$date_prev)->where('id_gardu', $id)->first();
             $data_master = Gardu::where('id', $id)->first();
-            $akhir = PenyimpananGardu::where('periode', $date_)->where('id_gardu', $id)->first();
+            $akhir = PenyimpananGardu::where('periode', $date_now)->where('id_gardu', $id)->first();
         }
 //        dd($date);
         if($data_master){
@@ -1413,31 +1434,42 @@ class Input extends Controller
 
     public function input_data($id,$tipe){
 
-        $date_lalu = "L".(date("Ym")-1);
+        if(date("m")<3){
+            if(date("m")==1){
+                $date_prev = (date("Y")-1)."11";
+                $date_now =  (date("Y")-1)."12";
+            }
+            else{
+                $date_prev = (date("Y") - 1) . "12";
+                $date_now = date("Ym") - 1;}
+        }else{
+            $date_prev = (date("Ym")-2);
+            $date_now = date("Ym")-1;
+        }
 
         if($tipe=="gi"){
-            $data = PenyimpananGI::where('periode',date('Ym'))->where('id_gi', $id)->first();
+            $data = PenyimpananGI::where('periode',$date_now)->where('id_gi', $id)->first();
             $jenis = GI::where('id',$id)->first();
         }
         elseif($tipe=="trafo_gi"){
-            $data = PenyimpananTrafoGI::where('periode',date('Ym'))->where('id_trafo_gi', $id)->first();
-            $data_lalu2 = PenyimpananTrafoGI::where('periode',$date_lalu)->where('id_trafo_gi', $id)->first();
-            $data_lalu = PenyimpananTrafoGI::where('periode',date('Ym')-1)->where('id_trafo_gi', $id)->first();
+            $data = PenyimpananTrafoGI::where('periode',$date_now)->where('id_trafo_gi', $id)->first();
+            $data_lalu = PenyimpananTrafoGI::where('periode',$date_prev)->where('id_trafo_gi', $id)->first();
+            $data_lalu2 = PenyimpananTrafoGI::where('periode',"L".$date_prev)->where('id_trafo_gi', $id)->first();
             $jenis = TrafoGI::where('id',$id)->first();
         }
         elseif($tipe=="penyulang"){
-            $data = PenyimpananPenyulang::where('periode',date('Ym'))->where('id_penyulang', $id)->first();
-            $data_lalu = PenyimpananPenyulang::where('periode',date('Ym'))->where('id_penyulang', $id)->first();
-            $data_lalu2 = PenyimpananPenyulang::where('periode',$date_lalu)->where('id_penyulang', $id)->first();
+            $data = PenyimpananPenyulang::where('periode',$date_now)->where('id_penyulang', $id)->first();
+            $data_lalu = PenyimpananPenyulang::where('periode',$date_prev)->where('id_penyulang', $id)->first();
+            $data_lalu2 = PenyimpananPenyulang::where('periode',"L".$date_prev)->where('id_penyulang', $id)->first();
             $jenis = Penyulang::where('id',$id)->first();
         }
         elseif($tipe=="pct"){
-            $data = PenyimpananGardu::where('periode',date('Ym'))->where('id_gardu', $id)->first();
+            $data = PenyimpananGardu::where('periode',$date_now)->where('id_gardu', $id)->first();
             $jenis = Gardu::where('id',$id)->first();
             $data_lalu = $data_lalu2 = null;
         }
         elseif($tipe=="gd" || $tipe=="tm"){
-            $data = PenyimpananGardu::where('periode',date('Ym'))->where('id_gardu', $id)->first();
+            $data = PenyimpananGardu::where('periode',$date_now)->where('id_gardu', $id)->first();
             $jenis = Gardu::where('id',$id)->first();
             $data_lalu = $data_lalu2 = null;
         }
@@ -1535,7 +1567,10 @@ class Input extends Controller
         }
         $decoded = json_decode($jenis->data_master,true);
 //        dd($data);
+        $home = new HomeController;
+        $date = $home->MonthShifter(-2)->format(('M Y'));
         return view('admin.nonmaster.dashboard_user.input_data', [
+            'date'            => $date,
             'data'            => $data,
             'dt'              => $dt,
             'dt2'             => $dt2,

@@ -45,7 +45,7 @@
                                                 <th class="text-center">TOTAL PEMAKAIAN KWH PCT/EXIM</th>
                                             </tr>
                                             <tr>
-                                                <th class="text-center">BULAN : {{date('M Y')}}</th>
+                                                <th class="text-center">BULAN : {{$date}}</th>
                                             </tr>
                                         </thead>
                                     </table>

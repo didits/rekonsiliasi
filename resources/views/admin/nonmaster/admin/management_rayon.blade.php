@@ -36,10 +36,10 @@
                                         <h5 class="title">Tambah Data Organisasi</h5>
                                         <hr>
 
-                                        <button class="btn btn-fill btn-primary"
-                                                onclick="add_org.showSwal()">Tambah Data Organisasi
-                                        </button>
-                                        <button type="button" class="btn btn-primary btn-fill" data-toggle="modal" data-target="#addOrgModal" title="Tambah Organisasi">
+                                        {{--<button class="btn btn-fill btn-primary"--}}
+                                                {{--onclick="add_org.showSwal()">--}}
+                                        {{--</button>--}}
+                                        <button type="button" class="btn btn-primary btn-fill" data-toggle="modal" data-target="#addOrgModal" title="Tambah Organisasi">Tambah Data Organisasi
                                             <i class="pe-7s-add-user"></i>
                                         </button>
                                         {{--<div class="row">--}}
@@ -60,7 +60,7 @@
                                 <table id="bootstrap-table" class="table table-hover table-striped">
                                     <thead>
                                         <th data-field="no" data-sortable="true" class="text-center">No</th>
-                                        <th data-field="idorg" data-sortable="true">ID ORGANISASI</th>
+                                        {{--<th data-field="idorg" data-sortable="true">ID ORGANISASI</th>--}}
                                         <th data-field="namaorg" data-sortable="true">NAMA ORGANISASI</th>
                                         <th data-field="tipeorg" data-sortable="true">TIPE ORGANISASI</th>
                                         <th data-field="alamat">ALAMAT</th>
@@ -70,7 +70,7 @@
                                     @foreach($data as $key => $list)
                                         <tr>
                                             <td>{{$key+1}}</td>
-                                            <td>{{$list->id_organisasi}}</td>
+                                            {{--<td>{{$list->id_organisasi}}</td>--}}
                                             <td>{{$list->nama_organisasi}}</td>
                                             <td>
                                             @if ( $list->tipe_organisasi == 0)

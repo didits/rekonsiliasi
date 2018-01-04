@@ -81,7 +81,7 @@
                 <td colspan="19" class="text-center">KWH SALUR PER AREA</td>
             </tr>
             <tr>
-                <td colspan="19" class="text-center">BULAN : {{date('M Y')}}</td>
+                <td colspan="19" class="text-center">BULAN : {{$date}}</td>
             </tr>
         </thead>
     </table>

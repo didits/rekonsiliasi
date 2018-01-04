@@ -444,6 +444,11 @@ Route::group(['prefix' => 'distribusi/laporan_transaksi', 'middleware' => ['auth
         'uses'      => 'Laporan@distribusi'
     ]);
 
+    Route::get('/excel', [
+        'as'        => 'distribusi.excel_distribusi',
+        'uses'      => 'Laporan@excel_distribusi'
+    ]);
+
     Route::get('/{id_org}', [
         'as'        => 'distribusi.laporan_beli',
         'uses'      => 'AreaController@laporan_belis'

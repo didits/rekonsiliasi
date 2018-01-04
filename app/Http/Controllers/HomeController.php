@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Organisasi;
+use DateTime;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\Hash;
@@ -28,7 +29,7 @@ class HomeController extends Controller
             'content'       => 'Berhasil login!'
             ]);
         }else if(Auth::user()->tipe_organisasi==2){
-            return redirect('area')->with('status', [
+            return redirect('area/dashboard')->with('status', [
             'enabled'       => true,
             'type'          => 'success',
             'content'       => 'Berhasil login!'
@@ -84,4 +85,21 @@ class HomeController extends Controller
         $dropdown_area = Organisasi::select('id_organisasi', 'nama_organisasi')->get();
         return $dropdown_area;
     }
+
+    public function MonthShifter ($months){
+        $aDate = new DateTime("now");
+        $dateA = clone($aDate);
+        $dateB = clone($aDate);
+        $plusMonths = clone($dateA->modify($months . ' Month'));
+        //check whether reversing the month addition gives us the original day back
+        if($dateB != $dateA->modify($months*-1 . ' Month')){
+            $result = $plusMonths->modify('last day of last month');
+        } elseif($aDate == $dateB->modify('last day of this month')){
+            $result =  $plusMonths->modify('last day of this month');
+        } else {
+            $result = $plusMonths;
+        }
+        return $result;
+    }
+
 }

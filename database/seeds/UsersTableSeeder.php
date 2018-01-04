@@ -78,7 +78,7 @@ class UsersTableSeeder extends Seeder
             'tipe_organisasi' => '0',
             'nama_organisasi' => 'ADMINISTRATOR',
 //            'nama_daerah' => 'JAWA TIMUR',
-            'alamat' => 'surabaya',
+            'alamat' => 'SURABAYA',
             'remember_token' => str_random(10),
         ]);
 
@@ -88,7 +88,7 @@ class UsersTableSeeder extends Seeder
             'tipe_organisasi' => '1',
             'nama_organisasi' => 'DISTRIBUSI',
 //            'nama_daerah' => 'JAWA TIMUR',
-            'alamat' => 'surabaya',
+            'alamat' => 'SURABAYA',
             'remember_token' => str_random(10),
         ]);
     }

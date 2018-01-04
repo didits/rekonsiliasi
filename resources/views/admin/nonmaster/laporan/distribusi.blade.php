@@ -42,7 +42,7 @@
                                         <th class="text-center">KE PT PLN (PERSERO) DISTRIBUSI JAWA TIMUR</th>
                                     </tr>
                                     <tr>
-                                        <th class="text-center">BULAN : {{date('M Y')}}</th>
+                                        <th class="text-center">BULAN : {{$date}}</th>
                                     </tr>
                                     </thead>
                                 </table>
@@ -55,7 +55,7 @@
                                 <h4 class="title">Download Laporan</h4>
                             </div>
                             <div class="content">
-                                <a href="" rel="tooltip" title="" data-original-title="">
+                                <a href="{{route('distribusi.excel_distribusi')}}" rel="tooltip" title="" data-original-title="">
                                     <button class="btn btn-info btn-fill btn-wd"><i class="pe-7s-diskette"></i><br/>Download Laporan</button>
                                 </a>
                             </div>
@@ -120,25 +120,11 @@
                                             <tbody>
                                             @for($i=0;$i<count($data);$i++)
                                                 @for($j=0;$j<count($data[$i]['gi']);$j++)
-                                                    {{--<div style="display: none;">{{$flag=true}}</div>--}}
-                                                    {{--@for($i=0;$i<count($data[$j]['gi'][$k]['data_gi']);$i++)--}}
                                                         <tr class="text-right">
-                                                            {{--{{dd($data[0]['gi'][0]['gi'])}}--}}
-
-                                                            {{--                                                {{dd(count($data[$j]['gi']))}}--}}
-                                                            {{--@if($data[$j]['gi'][$k]['data_gi'][$i]['id_trafo']==$data[$j]['gi'][$k]['id'])--}}
-                                                                {{--@if($flag==1)--}}
-                                                            <td class="text-center">{{$i+1}}</td>
-                                                                    {{--<td class="text-left">{{$data[$j]['gi']}}</td>--}}
-                                                                    {{--<td class="text-center">{{$data[$j]['gi'][$k]['nama_trafo_gi']}}</td>--}}
-                                                                    {{--<td class="text-center">40</td>--}}
-                                                                    {{--<div style="display: none;">{{$flag=false}}</div>--}}
-                                                                {{--@else--}}
-                                                                    {{--<td></td>--}}
-                                                                    {{--<td></td>--}}
-                                                                    {{--<td></td>--}}
-                                                                    {{--<td></td>--}}
-                                                                {{--@endif--}}
+                                                            @if($j>0)
+                                                            <td></td>
+                                                            @else<td class="text-center">{{$i+1}}</td>
+                                                            @endif
                                                             <td class="text-center">{{$data[$i]['gi'][$j]['gi']}}</td>
                                                             <td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['total_kwh'],0)}}</td>
                                                             <td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['wbp'],0)}}</td>
@@ -162,10 +148,7 @@
                                                         </tr>
                                                     @endfor
                                                 @endfor
-                                                <tr class="text-right">
-                                                    {{--<td class="text-center"></td>--}}
-                                                    {{--<td><b></b></td>--}}
-                                                </tr>
+                                                <tr class="text-right"></tr>
                                             </tbody>
                                             {{-----------}}
                                             {{--JUMLAH--}}
@@ -217,6 +200,7 @@
                                             <td class="text-center">NORMAL</td>
                                         @endif
                                     <tr>
+
                                 </table>
                             </div>
                         </div>

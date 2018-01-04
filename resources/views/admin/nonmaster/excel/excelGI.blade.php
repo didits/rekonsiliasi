@@ -77,7 +77,7 @@
         <td colspan="{{$colspan}}" class="header-center">{{$data_master[$tr]['nama']}} {{(json_decode($data_master[$tr]["data_master"],true)['kapasitas']['tegangan'])}} KV. {{(json_decode($data_master[$tr]["data_master"],true)['kapasitas']['kapasitas'])}} MVA</td>
     </tr>
     <tr>
-        <td colspan="{{$colspan}}" class="header-center">BULAN : {{date('M Y')}}</td>
+        <td colspan="{{$colspan}}" class="header-center">BULAN : {{$date}}</td>
     </tr>
     <tr>
         <td></td>

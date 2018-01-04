@@ -85,7 +85,7 @@
                 <td colspan="11" class="text-center">PEMAKAIAN RAYON</td>
             </tr>
             <tr>
-                <td colspan="11" class="text-center">BULAN : {{date('M Y')}}</td>
+                <td colspan="11" class="text-center">BULAN : {{$date}}</td>
             </tr>
         </tdead>
     </table>

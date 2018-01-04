@@ -94,27 +94,39 @@ class Laporan extends Controller
 
     public function data_penyulang($trafo){
         $penyulang_array = array();
+        if(date("m")<3){
+            if(date("m")==1){
+                $date_prev = (date("Y")-1)."11";
+                $date_now =  (date("Y")-1)."12";
+            }
+            else{
+                $date_prev = (date("Y") - 1) . "12";
+                $date_now = date("Ym") - 1;}
+        }else{
+            $date_prev = (date("Ym")-2);
+            $date_now = date("Ym")-1;
+        }
+
         for ($i=0; $i < count($trafo); $i++) {
             $py = Penyulang::select('nama_penyulang','id_organisasi as id_org' ,'data_master','id','id_trafo_gi')->where('id_trafo_gi',$trafo[$i]['id'])->get();
             for ($j=0; $j < count($py); $j++) {
                 $org = Organisasi::select('nama_organisasi')->where('id',$py[$j]['id_org'])->first();
-                $date = date("Ym")-1;
                 $penyulang = PenyimpananPenyulang::where([
                     ['id_penyulang', $py[$j]['id']],
-                    ['periode', "L".$date]
+                    ['periode', "L".$date_prev]
                 ])->first();
                 if($penyulang)
                     $dt = $penyulang['data'];
                 else{
                     $penyulang = PenyimpananPenyulang::where([
                         ['id_penyulang', $py[$j]['id']],
-                        ['periode', date("Ym")-1]
+                        ['periode', $date_prev]
                     ])->first();
                     $dt = $penyulang['data'];
                 }
                 $penyulang_ = PenyimpananPenyulang::where([
                     ['id_penyulang', $py[$j]['id']],
-                    ['periode', date("Ym")]
+                    ['periode', $date_now]
                 ])->get();
                 $transfer = Transfer::where([
                     ['id_penyulang', $py[$j]['id']],
@@ -216,23 +228,34 @@ class Laporan extends Controller
         $tr = TrafoGI::whereIn('id',$id)->get();
 
         for ($i=0; $i < count($id); $i++) {
-
+            if(date("m")<3){
+                if(date("m")==1){
+                    $date_prev = (date("Y")-1)."11";
+                    $date_now =  (date("Y")-1)."12";
+                }
+                else{
+                    $date_prev = (date("Y") - 1) . "12";
+                    $date_now = date("Ym") - 1;}
+            }else{
+                $date_prev = (date("Ym")-2);
+                $date_now = date("Ym")-1;
+            }
             $p_tr = PenyimpananTrafoGI::where([
                 ['id_trafo_gi', $tr[$i]['id']],
-                ['periode', "L".(date("Ym")-1)]
+                ['periode', "L".$date_prev]
             ])->first();
             if($p_tr)$L=json_decode($p_tr['data_keluar'],true)['Selisih_TPE'];
             else {
                 $L=0;
                 $p_tr = PenyimpananTrafoGI::where([
                     ['id_trafo_gi', $tr[$i]['id']],
-                    ['periode', date("Ym")-1]
+                    ['periode', $date_prev]
                 ])->first();
             }
 
             $p_tr_ = PenyimpananTrafoGI::where([
                 ['id_trafo_gi', $tr[$i]['id']],
-                ['periode', date("Ym")]
+                ['periode', $date_now]
             ])->first();
             if(count($p_tr) >0)
                 $dt = $p_tr['data'];
@@ -288,6 +311,19 @@ class Laporan extends Controller
     }
 
     public function view_beli($id_rayon,$tipe,$id){
+        if(date("m")<3){
+            if(date("m")==1){
+                $date_prev = (date("Y")-1)."11";
+                $date_now =  (date("Y")-1)."12";
+            }
+            else{
+                $date_prev = (date("Y") - 1) . "12";
+                $date_now = date("Ym") - 1;}
+        }else{
+            $date_prev = (date("Ym")-2);
+            $date_now = date("Ym")-1;
+        }
+
         $cmb = new MasterLaporan($id_rayon,"tsa",$id);
         $gi = GI::where('id',$id)->first();
         $areas = Organisasi::where('id',$gi->id_organisasi)->first();
@@ -347,7 +383,7 @@ class Laporan extends Controller
         }
         $visual_cek = 0;
         for($tr=0;$tr<count($trafo_GI);$tr++){
-            $p_trafo = PenyimpananTrafoGI::where('id_trafo_gi', $trafo_GI[$tr]['id_trafo'])->where('periode',date('Ym'))->first();
+            $p_trafo = PenyimpananTrafoGI::where('id_trafo_gi', $trafo_GI[$tr]['id_trafo'])->where('periode',$date_now)->first();
             if($p_trafo){
                 //        TPE Penyulang
                 $A = $list_array[$tr]['total_pemakaian_energi_'];
@@ -370,9 +406,12 @@ class Laporan extends Controller
                 if($p_trafo->save());
             }
         }
+        $home = new HomeController;
+        $date = $home->MonthShifter(-1)->format(('F Y'));
 
         return view('admin.nonmaster.laporan.gi',[
             'data'      => $cmb,
+            'date'      => $date,
             'penyulang' => $penyulang_array,
             'pemakaian' => $list_array,
             'dt_trafo' => $list_data_trafo,
@@ -390,6 +429,19 @@ class Laporan extends Controller
     }
 
     public function data_tsa($id_organisasi,$tipe,$data_gi){
+        if(date("m")<3){
+            if(date("m")==1){
+                $date_prev = (date("Y")-1)."11";
+                $date_now =  (date("Y")-1)."12";
+            }
+            else{
+                $date_prev = (date("Y") - 1) . "12";
+                $date_now = date("Ym") - 1;}
+        }else{
+            $date_prev = (date("Ym")-2);
+            $date_now = date("Ym")-1;
+        }
+
         $cmb = new MasterLaporan($id_organisasi,$tipe,$data_gi->id);
         if($cmb){
             $penyulang_array =$this->data_penyulang($cmb->trafo);
@@ -399,7 +451,7 @@ class Laporan extends Controller
             $trafo = TrafoGI::select('nama_trafo_gi','id','id_gi')->where('id_gi',$data_gi->id)->get()->toArray();
             $tot_lwbp1 = $tot_lwbp2 = $tot_wbp =$tot_t_kwh = $tot_Kvarh = $tot_KW = $tot_KWH = $tot_KWH_lalu=$tot_jual = null;
             for ($i=0;$i<count($cmb->trafo);$i++){
-                $p_trafo_ = PenyimpananTrafoGI::select('data','id_trafo_gi')->where('id_trafo_gi',$trafo[$i]['id'])->where('periode', date('Ym'))->first();
+                $p_trafo_ = PenyimpananTrafoGI::select('data','id_trafo_gi')->where('id_trafo_gi',$trafo[$i]['id'])->where('periode',$date_now)->first();
                 $trafo_lwbp1 = $trafo_lwbp2 = $trafo_wbp = $trafo_t_kwh = $trafo_Kvarh = $trafo_KW = $trafo_KWH = $trafo_KWH_lalu = $trafo_jual= null;
                 if(count($penyulang_array)==0){
                     $jumlah_pemakaian =array(
@@ -480,14 +532,14 @@ class Laporan extends Controller
                             $KW =   intval((($c*$D) + 0.5 )* 1);
                             $total_kwh = $KWH_salur_lwbp1+$KWH_salur_lwbp2+$KWH_salur_wbp;
 
-                            $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',"L".(date('Ym')-1))->first();
+                            $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',"L".$date_prev)->first();
                             if($KWH_bulan_lalu){
                                 $cek_bulan_lalu = json_decode($KWH_bulan_lalu->data,true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download'];
                                 if($cek_bulan_lalu) $KWH_bulan_lalu = $cek_bulan_lalu;
                                 else $KWH_bulan_lalu = json_decode($KWH_bulan_lalu->data,true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual'];
                             }
                             else {
-                                $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',date('Ym')-1)->first();
+                                $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',$date_prev)->first();
                                 if($KWH_bulan_lalu)
                                     $KWH_bulan_lalu= json_decode($KWH_bulan_lalu->data_keluar,true)['total_kwh'];
                                 else $KWH_bulan_lalu =0;
@@ -505,7 +557,7 @@ class Laporan extends Controller
                             }
 
                             //      KOLOM N, O
-                            $p_penyulang = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',date('Ym'))->first();
+                            $p_penyulang = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',$date_now)->first();
                             $data_keluar = array(
                                 'dev_lwbp1' =>$KWH_salur_lwbp1,
                                 'dev_lwbp2' =>$KWH_salur_lwbp2,
@@ -562,14 +614,14 @@ class Laporan extends Controller
                         else {
 
 //                      Query
-                            $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',"L".(date('Ym')-1))->first();
+                            $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',"L".$date_prev)->first();
                             if($KWH_bulan_lalu){
                                 $cek_bulan_lalu = json_decode($KWH_bulan_lalu->data,true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download'];
                                 if($cek_bulan_lalu) $KWH_bulan_lalu = $cek_bulan_lalu;
                                 else $KWH_bulan_lalu = json_decode($KWH_bulan_lalu->data,true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual'];
                             }
                             else {
-                                $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',date('Ym')-1)->first();
+                                $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$penyulang_array[$j]['id_penyulang'])->where('periode',$date_prev)->first();
                                 if($KWH_bulan_lalu)
                                     $KWH_bulan_lalu= json_decode($KWH_bulan_lalu->data_keluar,true)['total_kwh'];
                                 else $KWH_bulan_lalu =0;
@@ -814,7 +866,9 @@ class Laporan extends Controller
 
     public function view_beli_tsa($id_organisasi, $tsa, $tipe){
         $id_tsa = $tsa;
-//            dd($id_organisasi);
+        $home = new HomeController;
+        $date = $home->MonthShifter(-1)->format(('F Y'));
+
         if($tipe =="gi"||$tipe =="penyulang"){
 
             $data = $this->tsa_gi_peny($id_organisasi, $tsa, $tipe);
@@ -951,6 +1005,7 @@ class Laporan extends Controller
                 );
                 if($tsa=="area")
                     return view('admin.nonmaster.laporan.tsa_rayon',[
+                        'date'             => $date,
                         'rayon'             => $rayon,
                         'total_jumlah'      => $jumlah_tot,
                         'id_organisasi'     => $id_organisasi,
@@ -959,6 +1014,7 @@ class Laporan extends Controller
                     ]);
                 elseif($tsa=="tsa_area")
                     return view('admin.nonmaster.laporan.tsa_area',[
+                        'date'             => $date,
                         'rayon'             => $rayon,
                         'total_jumlah'      => $jumlah_tot,
                         'id_organisasi'     => $id_organisasi,
@@ -968,6 +1024,7 @@ class Laporan extends Controller
             }
             elseif($tipe =="area")
                 return view('admin.nonmaster.laporan.tsa_penyulang',[
+                    'date'             => $date,
                     'trafo'             => $data['trafo'],
                     'nama_gi'           => $data['nama_gi'],
                     'data_gi'           => $data['list_p'],
@@ -981,6 +1038,7 @@ class Laporan extends Controller
             elseif($tipe =="penyulang"){
 //                dd($data['nama_gi']);
                 return view('admin.nonmaster.laporan.tsa_penyulang',[
+                    'date'             => $date,
                     'trafo'             => $data['trafo'],
                     'nama_gi'           => $data['nama_gi'],
                     'data_gi'           => $data['list_p'],
@@ -1017,6 +1075,7 @@ class Laporan extends Controller
                 }
 //                dd($gi);
                 return view('admin.nonmaster.laporan.tsa_penyulang',[
+                    'date'             => $date,
                     'area'      => $org->nama_organisasi,
 //                    'gi'      => $data_gi->nama_gi,
 //                    'trafo'      => $trafo,
@@ -1031,6 +1090,7 @@ class Laporan extends Controller
             }
             else {
                 return view('admin.nonmaster.laporan.tsa_penyulang',[
+                    'date'             => $date,
                     'trafo'      => null,
                     'gi'      => null,
                     'area'      => $org->nama_organisasi,
@@ -1047,8 +1107,20 @@ class Laporan extends Controller
     }
 
     public function excel_beli_tsa($id_organisasi, $tsa, $tipe){
-//        echo $tsa. " ".$tipe;
-//        dd("sad");
+        $home = new HomeController;
+        $date = $home->MonthShifter(-1)->format(('F Y'));
+        if(date("m")<3){
+            if(date("m")==1){
+                $date_prev = (date("Y")-1)."11";
+                $date_now =  (date("Y")-1)."12";
+            }
+            else{
+                $date_prev = (date("Y") - 1) . "12";
+                $date_now = date("Ym") - 1;}
+        }else{
+            $date_prev = (date("Ym")-2);
+            $date_now = date("Ym")-1;
+        }
         $id_tsa = $tsa;
         if($tipe =="gi"||$tipe =="penyulang"){
             $data_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
@@ -1292,9 +1364,9 @@ class Laporan extends Controller
 //                dd($rayon);
                 if($tsa=="area"){
                     
-                    Excel::create('laporan TSA Rayon', function($excel)use($rayon,$jumlah_tot){
+                    Excel::create('laporan TSA Rayon', function($excel)use($date,$rayon,$jumlah_tot){
 
-                    $excel->sheet('Laporan TSA Rayon', function($sheet) use($rayon,$jumlah_tot) {
+                    $excel->sheet('Laporan TSA Rayon', function($sheet) use($date,$rayon,$jumlah_tot) {
                         $sheet->mergeCells('A9:A10');
                         $sheet->mergeCells('B9:B10');
                         $sheet->mergeCells('C9:C10');
@@ -1306,6 +1378,7 @@ class Laporan extends Controller
                         $sheet->setPageMargin(0.25);
                         $sheet->setOrientation('landscape');
                         $sheet->loadView('admin.nonmaster.excel.tsa_rayon',[
+                            'date'             => $date,
                             'rayon'      => $rayon,
                             'total_jumlah' => $jumlah_tot,
                         ]);
@@ -1314,9 +1387,9 @@ class Laporan extends Controller
                 ->download('xls');
                 }
                 elseif($tsa=="tsa_area"){
-                    Excel::create('laporan TSA Area', function($excel)use($rayon,$jumlah_tot){
+                    Excel::create('laporan TSA Area', function($excel)use($date,$rayon,$jumlah_tot){
 
-                    $excel->sheet('Laporan TSA Area', function($sheet) use($rayon,$jumlah_tot) {
+                    $excel->sheet('Laporan TSA Area', function($sheet) use($date,$rayon,$jumlah_tot) {
                         $sheet->mergeCells('A9:A10');
                         $sheet->mergeCells('B9:B10');
                         $sheet->mergeCells('C9:C10');
@@ -1328,6 +1401,7 @@ class Laporan extends Controller
                         $sheet->setPageMargin(0.25);
                         $sheet->setOrientation('landscape');
                         $sheet->loadView('admin.nonmaster.excel.tsa_area',[
+                            'date'             => $date,
                             'rayon'      => $rayon,
                             'total_jumlah' => $jumlah_tot,
                         ]);
@@ -1339,6 +1413,7 @@ class Laporan extends Controller
             }
             elseif($tipe =="area")
                 return view('admin.nonmaster.laporan.tsa_penyulang',[
+                    'date'             => $date,
                     'trafo'      => $trafo,
                     'nama_gi'      => $nama_gi,
                     'data_gi'      => $list_p,
@@ -1350,9 +1425,9 @@ class Laporan extends Controller
                     'tsa' => $id_tsa
                 ]);
             elseif($tipe =="penyulang")
-                Excel::create('laporan TSA Penyulang', function($excel)use($trafo,$nama_gi,$list_p,$jumlah_trafo,$jumlah_tot){
+                Excel::create('laporan TSA Penyulang', function($excel)use($date,$trafo,$nama_gi,$list_p,$jumlah_trafo,$jumlah_tot){
 
-                    $excel->sheet('Laporan TSA Penyulang', function($sheet) use($trafo,$nama_gi,$list_p,$jumlah_trafo,$jumlah_tot) {
+                    $excel->sheet('Laporan TSA Penyulang', function($sheet) use($date,$trafo,$nama_gi,$list_p,$jumlah_trafo,$jumlah_tot) {
                         $sheet->mergeCells('A9:A11');
                         $sheet->mergeCells('B9:D9');
                         $sheet->mergeCells('E9:E11');
@@ -1378,6 +1453,7 @@ class Laporan extends Controller
                         $sheet->setPageMargin(0.25);
                         $sheet->setOrientation('landscape');
                         $sheet->loadView('admin.nonmaster.excel.tsa_penyulang',[
+                            'date'             => $date,
                             'trafo'      => $trafo,
                             'nama_gi'      => $nama_gi,
                             'data_gi'      => $list_p,
@@ -1411,9 +1487,9 @@ class Laporan extends Controller
                     array_push($gi,$dt_GI);
                 }
 //                dd($gi);
-                Excel::create('laporan TSA Penyulang', function($excel)use($org,$gi,$id_organisasi,$id_tsa){
+                Excel::create('laporan TSA Penyulang', function($excel)use($date,$org,$gi,$id_organisasi,$id_tsa){
 
-                    $excel->sheet('Laporan TSA Penyulang', function($sheet) use($org,$gi,$id_organisasi,$id_tsa) {
+                    $excel->sheet('Laporan TSA Penyulang', function($sheet) use($date,$org,$gi,$id_organisasi,$id_tsa) {
                         $sheet->mergeCells('A9:A11');
                         $sheet->mergeCells('B9:D9');
                         $sheet->mergeCells('E9:E11');
@@ -1439,6 +1515,7 @@ class Laporan extends Controller
                         $sheet->setPageMargin(0.25);
                         $sheet->setOrientation('landscape');
                         $sheet->loadView('admin.nonmaster.excel.tsa_penyulang',[
+                            'date'             => $date,
                             'area'      => $org->nama_organisasi,
                             'data_gi'      => $gi,
                             'tipe'      => "rayon",
@@ -1451,6 +1528,7 @@ class Laporan extends Controller
                 ->download('xls');
 
                 return view('admin.nonmaster.excel.tsa_penyulang',[
+                    'date'             => $date,
                     'area'      => $org->nama_organisasi,
 //                    'gi'      => $data_gi->nama_gi,
 //                    'trafo'      => $trafo,
@@ -1465,6 +1543,7 @@ class Laporan extends Controller
             }
             else {
                 return view('admin.nonmaster.laporan.tsa_penyulang',[
+                    'date'             => $date,
                     'trafo'      => null,
                     'gi'      => null,
                     'area'      => $org->nama_organisasi,
@@ -1585,10 +1664,14 @@ class Laporan extends Controller
     }
 
     public function view_beli_deviasi($id_organisasi, $tipe, $id){
+        $home = new HomeController;
+        $date = $home->MonthShifter(-1)->format(('F Y'));
+
         if($tipe == "area"){
             $data = $this->deviasi_area($id_organisasi, $tipe, $id);
             return view('admin.nonmaster.laporan.deviasi',[
                 'area'      => 'area',
+                'date'      => $date,
                 'data_GI'   => $data['data_GI'],
                 'tipe'      => $data['tipe'],
                 'jumlah'      => $data['jumlah'],
@@ -1630,7 +1713,7 @@ class Laporan extends Controller
                 else  $tot_L = ($tot_K/$tot_F*100);
                 $G_E =$tot_G-$tot_E;
                 $tot_M = ($tot_G -$tot_H);
-                if($G_E)$tot_N = 0;
+                if($G_E==0)$tot_N = 0;
                 else $tot_N = ($tot_M / ($G_E)*100);
 
 
@@ -1641,6 +1724,7 @@ class Laporan extends Controller
 
                 return view('admin.nonmaster.laporan.deviasi',[
                     'area'      => 'data',
+                    'date'      => $date,
                     'data_GI'   => $data_GI,
                     'data2_GI'   => $dt_dev,
                     'tipe'      => $tipe,
@@ -1655,6 +1739,7 @@ class Laporan extends Controller
             else{
                 return view('admin.nonmaster.laporan.deviasi',[
                     'area'      => 'null',
+                    'date'      => $date,
                     'data_GI'   => null,
                     'tipe'      => $tipe,
                     'jumlah'      => null,
@@ -1667,6 +1752,9 @@ class Laporan extends Controller
     }
 
     public function excel_beli_deviasi($id_organisasi, $tipe, $id){
+        $home = new HomeController;
+        $date = $home->MonthShifter(-1)->format(('F Y'));
+
         if($tipe == "area"){
             $data_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
             $id_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
@@ -1688,9 +1776,9 @@ class Laporan extends Controller
                 'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'I' => $tot_I,
                 'J' => $tot_J, 'K' => $tot_K, 'L' => $tot_L, 'M' => $tot_M, 'N' => $tot_N
             );
-            Excel::create('laporan Deviasi', function($excel)use($data_GI,$tipe,$jumlah,$total){
+            Excel::create('laporan Deviasi', function($excel)use($data_GI,$tipe,$jumlah,$total,$date){
 
-                $excel->sheet('Laporan Deviasi', function($sheet) use($data_GI,$tipe,$jumlah,$total) {
+                $excel->sheet('Laporan Deviasi', function($sheet) use($data_GI,$tipe,$jumlah,$total,$date) {
                     $sheet->mergeCells('I9:N9');
                     $sheet->mergeCells('I10:J10');
                     $sheet->mergeCells('K10:L10');
@@ -1721,6 +1809,7 @@ class Laporan extends Controller
                     $sheet->setOrientation('landscape');
                     $sheet->loadView('admin.nonmaster.excel.deviasi',[
                         'area'      => 'area',
+                        'date'      => $date,
                         'data_GI'   => $data_GI,
                         'tipe'      => $tipe,
                         'jumlah'      => $jumlah,
@@ -1734,6 +1823,7 @@ class Laporan extends Controller
 
             return view('admin.nonmaster.excel.deviasi',[
                 'area'      => 'area',
+                'date'      => $date,
                 'data_GI'   => $data_GI,
                 'tipe'      => $tipe,
                 'jumlah'      => $jumlah,
@@ -1783,6 +1873,7 @@ class Laporan extends Controller
                     $sheet->setOrientation('landscape');
                     $sheet->loadView('admin.nonmaster.excel.deviasi',[
                         'area'      => 'data',
+                        'date'      => $date,
                         'data_GI'   => $data_GI,
                         'tipe'      => $tipe,
                         'jumlah'      => $jumlah,
@@ -1798,6 +1889,7 @@ class Laporan extends Controller
 
                 return view('admin.nonmaster.excel.deviasi',[
                     'area'      => 'data',
+                    'date'      => $date,
                     'data_GI'   => $data_GI,
                     'tipe'      => $tipe,
                     'jumlah'      => $jumlah,
@@ -1841,6 +1933,7 @@ class Laporan extends Controller
                     $sheet->setOrientation('landscape');
                     $sheet->loadView('admin.nonmaster.excel.deviasi',[
                         'area'      => 'area',
+                        'date'      => $date,
                         'data_GI'   => $data_GI,
                         'tipe'      => $tipe,
                         'jumlah'      => $jumlah,
@@ -1854,6 +1947,7 @@ class Laporan extends Controller
             
                 return view('admin.nonmaster.excel.deviasi',[
                     'area'      => 'null',
+                    'date'      => $date,
                     'data_GI'   => null,
                     'tipe'      => $tipe,
                     'jumlah'      => null,
@@ -1864,6 +1958,22 @@ class Laporan extends Controller
     }
 
     public function excel_beli($id_rayon,$tipe,$id,$tr){
+        $home = new HomeController;
+        $date = $home->MonthShifter(-1)->format(('F Y'));
+
+        if(date("m")<3){
+            if(date("m")==1){
+                $date_prev = (date("Y")-1)."11";
+                $date_now =  (date("Y")-1)."12";
+            }
+            else{
+                $date_prev = (date("Y") - 1) . "12";
+                $date_now = date("Ym") - 1;}
+        }else{
+            $date_prev = (date("Ym")-2);
+            $date_now = date("Ym")-1;
+        }
+
         $cmb = new MasterLaporan($id_rayon,"tsa",$id);
         $gi = GI::where('id',$id)->first();
         $areas = Organisasi::where('id',$gi->id_organisasi)->first();
@@ -1922,7 +2032,7 @@ class Laporan extends Controller
 
         $visual_cek = 0;
         for($p=0;$p<count($trafo_GI);$p++){
-            $p_trafo = PenyimpananTrafoGI::where('id_trafo_gi', $trafo_GI[$p]['id_trafo'])->where('periode',date('Ym'))->first();
+            $p_trafo = PenyimpananTrafoGI::where('id_trafo_gi', $trafo_GI[$p]['id_trafo'])->where('periode',$date_now)->first();
             if($p_trafo){
                 if(json_decode($trafo_GI[$p]['data_'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download']==0){
                     $visual_cek = 1;
@@ -1935,9 +2045,9 @@ class Laporan extends Controller
 
         $nama_organisasi = $area->nama_organisasi;
 
-        Excel::create('laporan GI', function($excel)use($cmb,$penyulang_array,$list_array,$list_data_trafo,$trafo_GI,$deviasi,$sum,$arr_sum_,$gi,$nama_organisasi,$visual_cek,$tr){
+        Excel::create('laporan GI', function($excel)use($date,$cmb,$penyulang_array,$list_array,$list_data_trafo,$trafo_GI,$deviasi,$sum,$arr_sum_,$gi,$nama_organisasi,$visual_cek,$tr){
 
-                $excel->sheet($trafo_GI[$tr]['nama'], function($sheet) use($cmb,$penyulang_array,$list_array,$list_data_trafo,$trafo_GI,$deviasi,$sum,$arr_sum_,$gi,$nama_organisasi,$visual_cek,$tr) {
+                $excel->sheet($trafo_GI[$tr]['nama'], function($sheet) use($date,$cmb,$penyulang_array,$list_array,$list_data_trafo,$trafo_GI,$deviasi,$sum,$arr_sum_,$gi,$nama_organisasi,$visual_cek,$tr) {
 
                     $sheet->mergeCells('A8:B10');
                     $sheet->mergeCells('C8:D9');
@@ -1951,6 +2061,7 @@ class Laporan extends Controller
                     $sheet->setOrientation('landscape');
                     $sheet->loadView('admin.nonmaster.excel.excelGI',[
                         'data'          => $cmb,
+                        'date'      => $date,
                         'penyulang'     => $penyulang_array,
                         'pemakaian'     => $list_array,
                         'dt_trafo'      => $list_data_trafo,
@@ -2235,7 +2346,10 @@ class Laporan extends Controller
         $cmb = new MasterLaporan($id_rayon,$tipe,$id);
         $gardu    = $cmb->gardu;$p_penyulang    = $cmb  ->p_penyulang;   $p_gardu  = $cmb->p_gardu;
         $data = $this->data_pct($id_rayon,$p_penyulang,$p_gardu,$gardu,$nama_rayon);
+        $home = new HomeController;
+        $date = $home->MonthShifter(-1)->format(('F Y'));
         return view('admin.nonmaster.laporan.pct',[
+            'date'      => $date,
             'gardu'      => $data[0],
             'p_gardu'   => $data[1],
             'total_i'   => $data[2],
@@ -2254,12 +2368,13 @@ class Laporan extends Controller
         $cmb = new MasterLaporan($id_rayon,$tipe,$id);
         $gardu    = $cmb->gardu;$p_penyulang    = $cmb  ->p_penyulang;   $p_gardu  = $cmb->p_gardu;
         $data = $this->data_pct($id_rayon,$p_penyulang,$p_gardu,$gardu,$nama_rayon);
+        $home = new HomeController;
+        $date = $home->MonthShifter(-1)->format(('F Y'));
 
 
+        Excel::create('laporan PCT', function($excel)use($date,$data){
 
-        Excel::create('laporan PCT', function($excel)use($data){
-
-                $excel->sheet('Laporan PCT', function($sheet) use($data) {
+                $excel->sheet('Laporan PCT', function($sheet) use($date,$data) {
                     $sheet->mergeCells('A9:A10');
                     $sheet->mergeCells('B9:B10');
                     $sheet->mergeCells('C9:C10');
@@ -2273,6 +2388,7 @@ class Laporan extends Controller
                     $sheet->setPageMargin(0.25);
                     $sheet->setOrientation('landscape');
                     $sheet->loadView('admin.nonmaster.excel.pct',[
+                        'date'      => $date,
                         'gardu'      => $data[0],
                         'p_gardu'   => $data[1],
                         'total_i'   => $data[2],
@@ -2283,7 +2399,7 @@ class Laporan extends Controller
 
                 });
 
-                $excel->sheet('Laporan PCT Terurai', function($sheet) use($data) {
+                $excel->sheet('Laporan PCT Terurai', function($sheet) use($date,$data) {
                     $sheet->mergeCells('F9:J9');
                     $sheet->mergeCells('K9:O9');
                     $sheet->mergeCells('A9:A10');
@@ -2294,6 +2410,7 @@ class Laporan extends Controller
                     $sheet->setPageMargin(0.25);
                     $sheet->setOrientation('landscape');
                     $sheet->loadView('admin.nonmaster.excel.pct_terurai',[
+                        'date'      => $date,
                         'gardu'      => $data[0],
                         'p_gardu'   => $data[1],
                         'total_i'   => $data[2],
@@ -2304,13 +2421,14 @@ class Laporan extends Controller
 
                 });
 
-                $excel->sheet('Laporan PCT Terurai Rayon', function($sheet) use($data) {
+                $excel->sheet('Laporan PCT Terurai Rayon', function($sheet) use($date,$data) {
                     $sheet->mergeCells('A9:A10');
                     $sheet->mergeCells('B9:F9');
                     $sheet->mergeCells('G9:K9');
                     $sheet->setPageMargin(0.25);
                     $sheet->setOrientation('landscape');
                     $sheet->loadView('admin.nonmaster.excel.pct_terurai_rayon',[
+                        'date'      => $date,
                         'gardu'      => $data[0],
                         'p_gardu'   => $data[1],
                         'total_i'   => $data[2],
@@ -2326,6 +2444,7 @@ class Laporan extends Controller
 
 
         return view('admin.nonmaster.excel.pct',[
+            'date'      => $date,
             'gardu'      => $data[0],
             'p_gardu'   => $data[1],
             'total_i'   => $data[2],
@@ -2447,10 +2566,61 @@ class Laporan extends Controller
     }
 
     public function distribusi(){
+        $home = new HomeController;
+        $date = $home->MonthShifter(-1)->format(('F Y'));
         $data = $this->data_dist();
 //        dd($data);
         return view('admin.nonmaster.laporan.distribusi',[
             'data'      => $data['data_RD'],
+            'date'      => $date,
+            'jumlah'      => $data['jumlah']
+        ]);
+    }
+
+    public function excel_distribusi(){
+        $home = new HomeController;
+        $date = $home->MonthShifter(-1)->format(('F Y'));
+        $data = $this->data_dist();
+//        dd("sdad");
+        Excel::create('laporan Distribusi', function($excel)use($date,$data){
+
+            $excel->sheet('Laporan Distribusi', function($sheet) use($date,$data) {
+                $sheet->mergeCells('A9:A11');
+                $sheet->mergeCells('B9:B11');
+                $sheet->mergeCells('C9:H9');
+                $sheet->mergeCells('C10:C11');
+                $sheet->mergeCells('D10:D11');
+                $sheet->mergeCells('E10:E11');
+                $sheet->mergeCells('F10:F11');
+                $sheet->mergeCells('G10:G11');
+                $sheet->mergeCells('H10:H11');
+                $sheet->mergeCells('I9:I11');
+                $sheet->mergeCells('J9:K9');
+                $sheet->mergeCells('J10:J11');
+                $sheet->mergeCells('K10:K11');
+                $sheet->mergeCells('L9:L11');
+                $sheet->mergeCells('M9:N9');
+                $sheet->mergeCells('M10:M11');
+                $sheet->mergeCells('N10:N11');
+                $sheet->mergeCells('O10:O11');
+                $sheet->mergeCells('P10:P11');
+                $sheet->mergeCells('Q10:Q11');
+                $sheet->mergeCells('O9:Q9');
+                $sheet->setPageMargin(0.25);
+                $sheet->setOrientation('landscape');
+                $sheet->loadView('admin.nonmaster.excel.distribusi',[
+                    'data'      => $data['data_RD'],
+                    'date'      => $date,
+                    'jumlah'      => $data['jumlah']
+                ]);
+
+            });
+        })
+            ->download('xls');
+
+        return view('admin.nonmaster.excel.distribusi',[
+            'data'      => $data['data_RD'],
+            'date'      => $date,
             'jumlah'      => $data['jumlah']
         ]);
     }

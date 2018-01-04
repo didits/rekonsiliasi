@@ -43,7 +43,7 @@
                                         <th class="text-center">KWH SALUR PER PENYULANG</th>
                                     </tr>
                                     <tr>
-                                        <th class="text-center">BULAN : {{date('M Y')}}</th>
+                                        <th class="text-center">BULAN : {{$date}}</th>
                                     </tr>
                                     </thead>
                                 </table>

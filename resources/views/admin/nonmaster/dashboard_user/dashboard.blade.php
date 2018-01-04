@@ -15,7 +15,7 @@
                             <div class="card">
                                 <div class="header">
                                     <h4 class="title">Dashboard</h4>
-                                    <p class="category">Dashboard Bulan {{date("F")}}</p>
+                                    <p class="category">Dashboard Bulan {{$date}}</p>
                                 </div>
                                 <div class="content">
                                     {{--<p>Update</p>--}}
@@ -32,12 +32,18 @@
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="header">
+<<<<<<< HEAD
                                     <h4 class="title" style="text-align: center;">Deviasi Meter Utama</h4><!-- 
                                     <p class="category" style="text-align: center;">Bulan {{date("F")}}</p> -->
+=======
+                                    <h4 class="title" style="text-align: center;">Deviasi Meter Utama</h4>
+                                    <p class="category" style="text-align: center;">Deviasi Bulan {{$date}}</p>
+>>>>>>> bde504d50cef442f8e6ebfd1c7144fdc17ecbc6b
                                 </div>
                                 <div class="content">
                                     <div id="lingkDev" class="ct-chart "></div>
                                 </div>
+<<<<<<< HEAD
                                 <!-- <div class="footer">
                                     <div class="legend">
                                         <i class="fa fa-circle text-info"></i> Normal
@@ -50,6 +56,42 @@
                                         <br/>
                                         <i class="fa fa-circle text-success"></i> Total GI: {{isset($deviasi)?$deviasi[2]:0}}
                                     </div>
+=======
+                                <div class="footer">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">GI Normal:</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" placeholder="{{isset($deviasi)?$deviasi[0][1]:0}}" disabled="" class="form-control">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <br/>
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">GI Tidak Normal:</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" placeholder="{{isset($deviasi)?$deviasi[1][1]:0}}" disabled="" class="form-control">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <br/>
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">Total GI:</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" placeholder="{{isset($deviasi)?$deviasi[2]:0}}" disabled="" class="form-control">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    {{--<div class="legend">--}}
+                                        {{--<i class="fa fa-circle text-info"></i> GI Normal: {{isset($deviasi)?$deviasi[0][1]:0}}--}}
+                                        {{--<br/>--}}
+                                        {{--<i class="fa fa-circle text-danger"></i> GI Tidak Normal: {{isset($deviasi)?$deviasi[1][1]:0}}--}}
+                                        {{--<br/>--}}
+                                        {{--<i class="fa fa-circle text-success"></i> Total GI: {{isset($deviasi)?$deviasi[2]:0}}--}}
+                                    {{--</div>--}}
+>>>>>>> bde504d50cef442f8e6ebfd1c7144fdc17ecbc6b
                                     <hr>
                                     {{--<div class="stats">--}}
                                         {{--<i class="fa fa-history"></i> Terupdate--}}
@@ -60,12 +102,18 @@
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="header">
+<<<<<<< HEAD
                                     <h4 class="title" style="text-align: center;">Susut GI</h4><!-- 
                                     <p class="category" style="text-align: center;">Bulan {{date("F")}}</p> -->
+=======
+                                    <h4 class="title" style="text-align: center;">Susut GI</h4>
+                                    <p class="category" style="text-align: center;">Deviasi Bulan {{$date}}</p>
+>>>>>>> bde504d50cef442f8e6ebfd1c7144fdc17ecbc6b
                                 </div>
                                 <div class="content">
                                     <div id="lingkSusut" class="ct-chart "></div>
                                 </div>
+<<<<<<< HEAD
                                 <!-- <div class="footer">
                                     <div class="legend">
                                         <i class="fa fa-circle text-info"></i> Susut < 6%
@@ -78,6 +126,42 @@
                                         <br/>
                                         <i class="fa fa-circle text-success"></i> Total GI: {{isset($susut)?$susut[2]:0}}
                                     </div>
+=======
+                                <div class="footer">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">GI dgn Susut < 6%:</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" placeholder="{{isset($susut)?$susut[0][1]:0}}" disabled="" class="form-control">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <br/>
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">GI dgn Susut > 6%:</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" placeholder="{{isset($susut)?$susut[1][1]:0}}" disabled="" class="form-control">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <br/>
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">Total GI:</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" placeholder="{{isset($susut)?$susut[2]:0}}" disabled="" class="form-control">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    {{--<div class="legend">--}}
+                                        {{--<i class="fa fa-circle text-info"></i> GI dgn Susut < 6%: {{isset($susut)?$susut[0][1]:0}}--}}
+                                        {{--<br/>--}}
+                                        {{--<i class="fa fa-circle text-danger"></i> GI dgn Susut > 6%: {{isset($susut)?$susut[1][1]:0}}--}}
+                                        {{--<br/>--}}
+                                        {{--<i class="fa fa-circle text-success"></i> Total GI: {{isset($susut)?$susut[2]:0}}--}}
+                                    {{--</div>--}}
+>>>>>>> bde504d50cef442f8e6ebfd1c7144fdc17ecbc6b
                                     <hr>
                                     {{--<div class="stats">--}}
                                         {{--<i class="fa fa-history"></i> Terupdate--}}
@@ -137,8 +221,14 @@
                 toolTipContent: "{name}: <strong>{y}%</strong>",
                 indexLabel: "{name} - {y}%",
                 dataPoints: [
+<<<<<<< HEAD
                     { y: {{isset($deviasi)?$deviasi[0][0]:0}}, name: "GI Normal: {{isset($deviasi)?$deviasi[0][1]:0}}"  },
                     { y: {{isset($deviasi)?$deviasi[1][0]:0}}, name: "GI Tidak Normal: {{isset($deviasi)?$deviasi[1][1]:0}}", exploded: true }
+=======
+                    { y: {{isset($deviasi)?$deviasi[0][0]:0}}, name: "GI Normal: {{isset($deviasi)?$deviasi[0][1]:0}}" },
+                    { y: {{isset($deviasi)?$deviasi[1][0]:0}}, name: "GI Tidak Normal: {{isset($deviasi)?$deviasi[1][1]:0}}", exploded: true },
+                    { y: 0, name: "Total GI: {{isset ($deviasi)?$deviasi[2]:0}}" }
+>>>>>>> bde504d50cef442f8e6ebfd1c7144fdc17ecbc6b
                 ]
             }]
         });
@@ -161,7 +251,12 @@
                 indexLabel: "{name} - {y}%",
                 dataPoints: [
                     { y: {{isset($susut)?$susut[0][0]:0}}, name: "Susut Normal: {{isset($susut)?$susut[0][1]:0}}" },
+<<<<<<< HEAD
                     { y: {{isset($susut)?$susut[1][0]:0}}, name: "Susut Tidak Normal: {{isset($susut)?$susut[1][1]:0}}", exploded: true }
+=======
+                    { y: {{isset($susut)?$susut[1][0]:0}}, name: "Susut Tidak Normal: {{isset($susut)?$susut[1][1]:0}}", exploded: true },
+                    { y: 0, name: "Total GI: {{isset($susut)?$susut[2]:0}}" }
+>>>>>>> bde504d50cef442f8e6ebfd1c7144fdc17ecbc6b
                 ]
             }]
         });

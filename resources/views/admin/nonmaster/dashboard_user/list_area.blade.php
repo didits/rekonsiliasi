@@ -43,16 +43,16 @@
                                 <div class="content table-responsive table-full-width">
                                     <table class="table table-hover table-striped">
                                         <thead>
-                                            <th>ID AREA</th>
                                             <th>AREA</th>
+                                            <th>ALAMAT AREA</th>
                                             <th></th>
                                         </thead>
                                         <tbody>
                                         @foreach($data as $list)
 
                                             <tr>
-                                                <td>{{$list->id_organisasi}}</td>
                                                 <td>{{$list->nama_organisasi}}</td>
+                                                <td>{{$list->alamat}}</td>
                                                 <td>
                                                     @if($master)
 
