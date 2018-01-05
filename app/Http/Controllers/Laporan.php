@@ -161,37 +161,48 @@ class Laporan extends Controller
             $total_lwbp1_ = $total_lwbp2_ = $total_wbp_ =$total_= null;
             $hasil_lwbp1 = null; $hasil_lwbp2=null; $hasil_wbp=null;
             $hasil_lwbp1_=null; $hasil_lwbp2_=null; $hasil_wbp_=null;
+            $total_lwbp1d = $total_lwbp2d = $total_wbpd =$totald= null;
+            $total_lwbp1d_ = $total_lwbp2d_ = $total_wbpd_ =$totald_= null;
+            $hasil_lwbp1d = null; $hasil_lwbp2d=null; $hasil_wbpd=null;
+            $hasil_lwbp1d_=null; $hasil_lwbp2d_=null; $hasil_wbpd_=null;
             for ($j = 0; $j < count($penyulang_array); $j++) {
                 if ($penyulang_array[$j]['id_trafo'] == $id[$i]) {
                     if($penyulang_array[$j]['data'] == ""){
                         $hasil_lwbp1 = null; $hasil_lwbp2=null; $hasil_wbp=null;
                     }
                     else{
-                        $hasil_lwbp1 = (json_decode($penyulang_array[$j]['data'], true)['hasil_pengolahan']['visual']['lwbp1_visual'])
-                            + (json_decode($penyulang_array[$j]['data'], true)['hasil_pengolahan']['download']['lwbp1_download']);
-                        $hasil_lwbp2 = (json_decode($penyulang_array[$j]['data'], true)['hasil_pengolahan']['visual']['lwbp2_visual'])
-                            + (json_decode($penyulang_array[$j]['data'], true)['hasil_pengolahan']['download']['lwbp2_download']);
-                        $hasil_wbp = (json_decode($penyulang_array[$j]['data'], true)['hasil_pengolahan']['visual']['wbp_visual'])
-                            + (json_decode($penyulang_array[$j]['data'], true)['hasil_pengolahan']['download']['wbp_download']);
+                        $hasil_lwbp1 = (json_decode($penyulang_array[$j]['data'], true)['hasil_pengolahan']['visual']['lwbp1_visual']);
+                        $hasil_lwbp1d=(json_decode($penyulang_array[$j]['data'], true)['hasil_pengolahan']['download']['lwbp1_download']);
+                        $hasil_lwbp2 = (json_decode($penyulang_array[$j]['data'], true)['hasil_pengolahan']['visual']['lwbp2_visual']);
+                        $hasil_lwbp2d = (json_decode($penyulang_array[$j]['data'], true)['hasil_pengolahan']['download']['lwbp2_download']);
+                        $hasil_wbp = (json_decode($penyulang_array[$j]['data'], true)['hasil_pengolahan']['visual']['wbp_visual']);
+                        $hasil_wbpd = (json_decode($penyulang_array[$j]['data'], true)['hasil_pengolahan']['download']['wbp_download']);
                         $total_lwbp1 += $hasil_lwbp1;
                         $total_lwbp2 += $hasil_lwbp2;
                         $total_wbp += $hasil_wbp;
+                        $total_lwbp1d += $hasil_lwbp1d;
+                        $total_lwbp2d += $hasil_lwbp2d;
+                        $total_wbpd += $hasil_wbpd;
 //                        echo $total_lwbp1+$total_lwbp2+$total_wbp."awal";
                     }
                     if($penyulang_array[$j]['data_']== ""){
                         $hasil_lwbp1_=null; $hasil_lwbp2_=null; $hasil_wbp_=null;
+                        $hasil_lwbp1d_=null; $hasil_lwbp2d_=null; $hasil_wbpd_=null;
                     }
                     else{
 //                        DOWNLOAD
-                        $hasil_lwbp1_ = (json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['visual']['lwbp1_visual'])
-                            + (json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['download']['lwbp1_download']);
-                        $hasil_lwbp2_ = (json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['visual']['lwbp2_visual'])
-                            + (json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['download']['lwbp2_download']);
-                        $hasil_wbp_ = (json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['visual']['wbp_visual'])
-                            + (json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['download']['wbp_download']);
+                        $hasil_lwbp1_  = (json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['visual']['lwbp1_visual']);
+                        $hasil_lwbp1d_ = (json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['download']['lwbp1_download']);
+                        $hasil_lwbp2_  = (json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['visual']['lwbp2_visual']);
+                        $hasil_lwbp2d_ = (json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['download']['lwbp2_download']);
+                        $hasil_wbp_    = (json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['visual']['wbp_visual']);
+                        $hasil_wbpd_   = (json_decode($penyulang_array[$j]['data_'], true)['hasil_pengolahan']['download']['wbp_download']);
                         $total_lwbp1_ += $hasil_lwbp1_;
                         $total_lwbp2_ += $hasil_lwbp2_;
                         $total_wbp_ += $hasil_wbp_;
+                        $total_lwbp1d_ += $hasil_lwbp1d_;
+                        $total_lwbp2d_ += $hasil_lwbp2d_;
+                        $total_wbpd_ += $hasil_wbpd_;
 //                        echo $total_lwbp1_+$total_lwbp2_+$total_wbp_."akhir";
                     }
                 }
@@ -200,21 +211,40 @@ class Laporan extends Controller
             if($total_lwbp2==0)$total_lwbp2=null;
             if($total_wbp==0)$total_wbp=null;
             $total =$total_lwbp1+$total_lwbp2+$total_wbp;
+            if($total_lwbp1d==0)$total_lwbp1d=null;
+            if($total_lwbp2d==0)$total_lwbp2d=null;
+            if($total_wbpd==0)$total_wbpd=null;
+            $totald =$total_lwbp1d+$total_lwbp2d+$total_wbpd;
             if($total==0)$total=null;
+            if($totald==0)$totald=null;
+
             if($total_lwbp1_==0)$total_lwbp1_=null;
             if($total_lwbp2_==0)$total_lwbp2_=null;
             if($total_wbp_==0)$total_wbp_=null;
             $total_ =$total_lwbp1_+$total_lwbp2_+$total_wbp_;
             if($total_==0)$total_=null;
+            if($total_lwbp1d_==0)$total_lwbp1d_=null;
+            if($total_lwbp2d_==0)$total_lwbp2d_=null;
+            if($total_wbpd_==0)$total_wbpd_=null;
+            $totald_ =$total_lwbp1d_+$total_lwbp2d_+$total_wbpd_;
+            if($totald_==0)$totald_=null;
             $pemakaian_penyulang = array(
                 'pemakaian_lwbp1' => $total_lwbp1,
                 'pemakaian_lwbp2' => $total_lwbp2,
                 'pemakaian_wbp' => $total_wbp,
                 'total_pemakaian_energi' => $total,
+                'pemakaian_lwbp1_download' => $total_lwbp1d,
+                'pemakaian_lwbp2_download' => $total_lwbp2d,
+                'pemakaian_wbp_download' => $total_wbpd,
+                'total_pemakaian_energi_download' => $totald,
                 'pemakaian_lwbp1_' => $total_lwbp1_,
                 'pemakaian_lwbp2_' => $total_lwbp2_,
                 'pemakaian_wbp_' => $total_wbp_,
                 'total_pemakaian_energi_' => $total_,
+                'pemakaian_lwbp1_download_' => $total_lwbp1d_,
+                'pemakaian_lwbp2_download_' => $total_lwbp2d_,
+                'pemakaian_wbp_download_' => $total_wbpd_,
+                'total_pemakaian_energi_download_' => $totald_,
             );
             array_push($list_array,$pemakaian_penyulang);
 
@@ -497,16 +527,18 @@ class Laporan extends Controller
                                 $A_lwbp1 = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['visual']['lwbp1_visual']-$lwbp1);
                                 $A_lwbp2 = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['visual']['lwbp2_visual']-$lwbp2);
                                 $A_wbp   = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['visual']['wbp_visual']-$wbp);
+                                //TOTAL PENYULANG = $B
                                 $B = (json_decode($p_trafo_['data'],true)['hasil_pengolahan']['utama']['visual']['total_pemakaian_kwh_visual']-$ps);
                             }
 //                            dd(json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']);
                             $var =($list_array[$i]['total_pemakaian_energi_']);
+//                            dd($var);
                             if($var==0)$var=1;
                             if($B==0)$B=1;
-
-                            if((json_decode($penyulang_array[$j]['data_'],true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download']>0))
-                                $C = $B/$var*(json_decode($penyulang_array[$j]['data_'],true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download']);
-                            else
+                              //DEVIASI PER PENYULANG
+//                            if((json_decode($penyulang_array[$j]['data_'],true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download']>0))
+//                                $C = $B/$var*(json_decode($penyulang_array[$j]['data_'],true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download']);
+//                            else
                                 $C = $B/$var*(json_decode($penyulang_array[$j]['data_'],true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']);
 //                            $kvar =json_decode($p_trafo_['data'],true)['beli']['utama']['visual']['kvarh_visual'];
 

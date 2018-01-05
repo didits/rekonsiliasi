@@ -285,7 +285,7 @@
             {{--<td>{{(json_decode($data_master[$tr]['data_'],true)['beli']['utama']['download']['lwbp1_download']-json_decode($data_master[$tr]['data'],true)['beli']['utama']['download']['lwbp1_download'])}}</td>--}}
             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['pembanding']['visual']['lwbp1_visual']-json_decode($data_master[$tr]['data'],true)['beli']['pembanding']['visual']['lwbp1_visual'],2)}}</td>
             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['pembanding']['download']['lwbp1_download']-json_decode($data_master[$tr]['data'],true)['beli']['pembanding']['download']['lwbp1_download'],2)}}</td>
-            <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['ps']['download']['lwbp1_download']-json_decode($data_master[$tr]['data'],true)['beli']['ps']['download']['lwbp1_download'],2)}}</td>
+            <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['ps']['visual']['lwbp1_visual']-json_decode($data_master[$tr]['data'],true)['beli']['ps']['visual']['lwbp1_visual'],2)}}</td>
             <td></td>
             <td></td>
             @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
@@ -324,7 +324,11 @@
             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['download']['lwbp1_download'])}}</td>
             @endif
             <td>{{number_format($pemakaian[$tr]['pemakaian_lwbp1_'])}}</td>
-            <td></td>
+            @if($pemakaian[$tr]['pemakaian_lwbp1_download_']>0)
+            <td>{{number_format($pemakaian[$tr]['pemakaian_lwbp1_download_'])}}</td>
+            @else
+            <td>-</td>
+            @endif
             @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
             <td>{{number_format(json_decode($dt_trafo[$tr][$j]['data_'],true)['hasil_pengolahan']['visual']['lwbp1_visual'])}}</td>
             <td>{{number_format(json_decode($dt_trafo[$tr][$j]['data_'],true)['hasil_pengolahan']['download']['lwbp1_download'])}}</td>
@@ -371,7 +375,7 @@
             {{--<td>{{(number_format(json_decode($data_master[$tr]['data_'],true)['beli']['utama']['download']['lwbp2_download']-json_decode($data_master[$tr]['data'],true)['beli']['utama']['download']['lwbp2_download'])}}</td>--}}
             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['pembanding']['visual']['lwbp2_visual']-json_decode($data_master[$tr]['data'],true)['beli']['pembanding']['visual']['lwbp2_visual'],2)}}</td>
             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['pembanding']['download']['lwbp2_download']-json_decode($data_master[$tr]['data'],true)['beli']['pembanding']['download']['lwbp2_download'],2)}}</td>
-            <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['ps']['download']['lwbp2_download']-json_decode($data_master[$tr]['data'],true)['beli']['ps']['download']['lwbp2_download'],2)}}</td>
+            <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['ps']['visual']['lwbp2_visual']-json_decode($data_master[$tr]['data'],true)['beli']['ps']['visual']['lwbp2_visual'],2)}}</td>
             <td></td>
             <td></td>
             @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
@@ -408,7 +412,11 @@
             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['download']['lwbp2_download'])}}</td>
             @endif
             <td>{{number_format($pemakaian[$tr]['pemakaian_lwbp2_'])}}</td>
-            <td></td>
+            @if($pemakaian[$tr]['pemakaian_lwbp2_download_']>0)
+            <td>{{number_format($pemakaian[$tr]['pemakaian_lwbp2_download_'])}}</td>
+            @else
+            <td>-</td>
+            @endif
             @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
                 <td>{{number_format(json_decode($dt_trafo[$tr][$j]['data_'],true)['hasil_pengolahan']['visual']['lwbp2_visual'])}}</td>
                 <td>{{number_format(json_decode($dt_trafo[$tr][$j]['data_'],true)['hasil_pengolahan']['download']['lwbp2_download'])}}</td>
@@ -454,7 +462,7 @@
             <td></td>
             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['pembanding']['visual']['wbp_visual']-json_decode($data_master[$tr]['data'],true)['beli']['pembanding']['visual']['wbp_visual'],2)}}</td>
             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['pembanding']['download']['wbp_download']-json_decode($data_master[$tr]['data'],true)['beli']['pembanding']['download']['wbp_download'],2)}}</td>
-            <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['ps']['download']['wbp_download']-json_decode($data_master[$tr]['data'],true)['beli']['ps']['download']['wbp_download'],2)}}</td>
+            <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['ps']['visual']['wbp_visual']-json_decode($data_master[$tr]['data'],true)['beli']['ps']['visual']['wbp_visual'],2)}}</td>
             <td></td>
             <td></td>
             @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
@@ -490,7 +498,11 @@
             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['download']['wbp_download'])}}</td>
             @endif
             <td>{{number_format($pemakaian[$tr]['pemakaian_wbp_'])}}</td>
-            <td></td>
+            @if($pemakaian[$tr]['pemakaian_wbp_download_']>0)
+            <td>{{number_format($pemakaian[$tr]['pemakaian_wbp_download_'])}}</td>
+            @else
+            <td>-</td>
+            @endif
             @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
                 <td>{{number_format(json_decode($dt_trafo[$tr][$j]['data_'],true)['hasil_pengolahan']['visual']['wbp_visual'])}}</td>
                 <td>{{number_format(json_decode($dt_trafo[$tr][$j]['data_'],true)['hasil_pengolahan']['download']['wbp_download'])}}</td>
