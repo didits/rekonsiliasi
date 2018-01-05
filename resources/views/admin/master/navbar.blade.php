@@ -88,26 +88,6 @@
                             </ul>
                         </div>
                     </li>
-
-                    <li>
-                        <a data-toggle="collapse" href="#dataTransaksiJual">
-                            <i class="pe-7s-download"></i>
-                            <p>Data Transaksi Jual
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <div class="collapse" id="dataTransaksiJual">
-                            <ul class="nav">
-                                <li>
-                                    <a href="#">GD</a>
-                                </li>
-                                <li>
-                                    <a href="#">TM</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-
                     {{--<li>--}}
                         {{--<a data-toggle="collapse" href="#histori">--}}
                             {{--<i class="pe-7s-timer"></i>--}}
@@ -349,6 +329,12 @@
                     {{--</li>--}}
                     @endif
 
+                    <li>
+                        <a href="{{asset('storage/SI-Oneng-User-Manual-2.doc')}}">
+                            <i class="pe-7s-file"></i>
+                            <p>User Manual</p>
+                        </a>
+                    </li>
                 </ul>
 
                 @if(isset($list_distribusi))
