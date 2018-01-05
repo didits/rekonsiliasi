@@ -321,12 +321,8 @@
                                             @elseif($visual == 0)
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['download']['lwbp1_download'])}}</td>
                                             @endif
-                                            <td>{{number_format($pemakaian[$tr]['pemakaian_lwbp1_'])}}</td>
-                                            @if($pemakaian[$tr]['pemakaian_lwbp1_download_']>0)
-                                            <td>{{number_format($pemakaian[$tr]['pemakaian_lwbp1_download_'])}}</td>
-                                            @else
-                                            <td>-</td>
-                                            @endif
+                                            <td></td>
+                                            <td></td>
                                             @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
                                             <td>{{number_format(json_decode($dt_trafo[$tr][$j]['data_'],true)['hasil_pengolahan']['visual']['lwbp1_visual'])}}</td>
                                             <td>{{number_format(json_decode($dt_trafo[$tr][$j]['data_'],true)['hasil_pengolahan']['download']['lwbp1_download'])}}</td>
@@ -409,12 +405,8 @@
                                             @elseif($visual == 0)
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['download']['lwbp2_download'])}}</td>
                                             @endif
-                                            <td>{{number_format($pemakaian[$tr]['pemakaian_lwbp2_'])}}</td>
-                                            @if($pemakaian[$tr]['pemakaian_lwbp2_download_']>0)
-                                            <td>{{number_format($pemakaian[$tr]['pemakaian_lwbp2_download_'])}}</td>
-                                            @else
-                                            <td>-</td>
-                                            @endif
+                                            <td></td>
+                                            <td></td>
                                             @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
                                             <td>{{number_format(json_decode($dt_trafo[$tr][$j]['data_'],true)['hasil_pengolahan']['visual']['lwbp2_visual'])}}</td>
                                             <td>{{number_format(json_decode($dt_trafo[$tr][$j]['data_'],true)['hasil_pengolahan']['download']['lwbp2_download'])}}</td>
@@ -496,12 +488,8 @@
                                             @elseif($visual == 0)
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['download']['wbp_download'])}}</td>
                                             @endif
-                                            <td>{{number_format($pemakaian[$tr]['pemakaian_wbp_'])}}</td>
-                                            @if($pemakaian[$tr]['pemakaian_wbp_download_']>0)
-                                            <td>{{number_format($pemakaian[$tr]['pemakaian_wbp_download_'])}}</td>
-                                            @else
-                                            <td>-</td>
-                                            @endif
+                                            <td></td>
+                                            <td></td>
                                             @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
                                             <td>{{number_format(json_decode($dt_trafo[$tr][$j]['data_'],true)['hasil_pengolahan']['visual']['wbp_visual'])}}</td>
                                             <td>{{number_format(json_decode($dt_trafo[$tr][$j]['data_'],true)['hasil_pengolahan']['download']['wbp_download'])}}</td>
