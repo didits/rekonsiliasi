@@ -186,12 +186,12 @@
                                                                                                     data-title="Isi APP sekarang"
                                                                                                     data-style="btn-default btn-block"
                                                                                                     data-menu-style="dropdown-blue">
-                                                                                                <option value="malang">
-                                                                                                    Malang
-                                                                                                </option>
-                                                                                                <option value="probolinggo">
-                                                                                                    Probolinggo
-                                                                                                </option>
+                                                                                                {{--<option value="malang">--}}
+                                                                                                    {{--Malang--}}
+                                                                                                {{--</option>--}}
+                                                                                                {{--<option value="probolinggo">--}}
+                                                                                                    {{--Probolinggo--}}
+                                                                                                {{--</option>--}}
                                                                                             </select>
                                                                                         </div>
                                                                                     </div>
