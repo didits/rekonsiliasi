@@ -42,21 +42,27 @@
                                     <div class="header text-center">Login</div>
                                     <div class="content">
                                         <div class="form-group">
-                                            <label for="username">Username </label>
-                                            <select name="id_organisasi" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">
-                                                <option class="bs-title-option" value="">AREA/RAYON</option>
-                                                @foreach ($dropdown_area as $areas)
-                                                    @if($areas->tipe_organisasi==2)
-                                                        <option value="{{ $areas->id_organisasi }}">{{ $areas->nama_organisasi." (AREA)" }}</option>
+
+                                            <label for="username">AREA/RAYON </label>
+                                            <br>
+                                            {{--<select name="id_organisasi" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">--}}
+                                                <input class="form-control" id="answerInput" list="somethingelse">
+                                                <datalist id="somethingelse">
+                                                    {{--<option class="bs-title-option" value="">AREA/RAYON</option>--}}
+                                                    @foreach ($dropdown_area as $areas)
+                                                      @if($areas->tipe_organisasi==2)
+                                                        <option data-value="{{ $areas->id_organisasi }}">{{ $areas->nama_organisasi." (AREA)" }}</option>
                                                     @elseif($areas->tipe_organisasi==3)
-                                                        <option value="{{ $areas->id_organisasi }}">{{ $areas->nama_organisasi." (RAYON)" }}</option>
+                                                        <option data-value="{{ $areas->id_organisasi }}">{{ $areas->nama_organisasi." (RAYON)" }}</option>
                                                     @else
-                                                        <option value="{{ $areas->id_organisasi }}">{{ $areas->nama_organisasi }}</option>
+                                                        <option data-value ="{{ $areas->id_organisasi }}">{{ $areas->nama_organisasi }}</option>
                                                     @endif
                                                 @endforeach
-                                            </select>
+                                                </datalist>
+                                            {{--</select>--}}
+                                            <input type="hidden" name="id_organisasi" id="answerInput-hidden">
 
-                                        <div class="form-group{{ $errors->has('id_organisasi') ? ' has-error' : '' }}">
+                                            <div class="form-group{{ $errors->has('id_organisasi') ? ' has-error' : '' }}">
                                             <label for="password">Password </label>
                                             <input id="password" type="password" class="form-control" name="password" required>
                                             @if ($errors->has('id_organisasi'))
@@ -81,5 +87,25 @@
         </div>
     </div>
     </body>
+    <script>
+        document.querySelector('input[list]').addEventListener('input', function(e) {
+            var input = e.target,
+                list = input.getAttribute('list'),
+                options = document.querySelectorAll('#' + list + ' option'),
+                hiddenInput = document.getElementById(input.id + '-hidden'),
+                inputValue = input.value;
+
+            hiddenInput.value = inputValue;
+
+            for(var i = 0; i < options.length; i++) {
+                var option = options[i];
+
+                if(option.innerText === inputValue) {
+                    hiddenInput.value = option.getAttribute('data-value');
+                    break;
+                }
+            }
+        });
+    </script>
 
 @endsection
