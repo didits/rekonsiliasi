@@ -36,42 +36,44 @@
                     <div class="row">
                         <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
                             <form method="post" action=""  >
-                                {{ csrf_field() }}
-                                <!--   if you want to have the card without animation please remove the ".card-hidden" class   -->
+                            {{ csrf_field() }}
+                            <!--   if you want to have the card without animation please remove the ".card-hidden" class   -->
                                 <div class="card card-hidden">
                                     <div class="header text-center">Login</div>
                                     <div class="content">
-                                        <div class="form-group">
-
-                                            <label for="username">AREA/RAYON </label>
-                                            <br>
-                                            {{--<select name="id_organisasi" class="selectpicker" data-title="Single Select" required="required" data-style="btn-default btn-block" data-menu-style="dropdown-blue" tabindex="-98">--}}
-                                                <input class="form-control" id="answerInput" list="somethingelse">
-                                                <datalist id="somethingelse">
-                                                    {{--<option class="bs-title-option" value="">AREA/RAYON</option>--}}
-                                                    @foreach ($dropdown_area as $areas)
-                                                      @if($areas->tipe_organisasi==2)
-                                                        <option data-value="{{ $areas->id_organisasi }}">{{ $areas->nama_organisasi." (AREA)" }}</option>
-                                                    @elseif($areas->tipe_organisasi==3)
-                                                        <option data-value="{{ $areas->id_organisasi }}">{{ $areas->nama_organisasi." (RAYON)" }}</option>
-                                                    @else
-                                                        <option data-value ="{{ $areas->id_organisasi }}">{{ $areas->nama_organisasi }}</option>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="username">Username </label>
+                                                    <select name="id_organisasi" id="username" class="form-control select2" style="width: 100%;" required>
+                                                        <option class="bs-title-option" value="">AREA/RAYON</option>
+                                                        @foreach ($dropdown_area as $areas)
+                                                            @if($areas->tipe_organisasi==2)
+                                                                <option value="{{ $areas->id_organisasi }}">{{ $areas->nama_organisasi." (AREA)" }}</option>
+                                                            @elseif($areas->tipe_organisasi==3)
+                                                                <option value="{{ $areas->id_organisasi }}">{{ $areas->nama_organisasi." (RAYON)" }}</option>
+                                                            @else
+                                                                <option value="{{ $areas->id_organisasi }}">{{ $areas->nama_organisasi }}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group{{ $errors->has('id_organisasi') ? ' has-error' : '' }}">
+                                                    <label for="password">Password </label>
+                                                    <input id="password" type="password" class="form-control" name="password" required>
+                                                    @if ($errors->has('id_organisasi'))
+                                                        <span class="help-block">
+                                                        <strong>{{ $errors->first('id_organisasi') }}</strong>
+                                                    </span>
                                                     @endif
-                                                @endforeach
-                                                </datalist>
-                                            {{--</select>--}}
-                                            <input type="hidden" name="id_organisasi" id="answerInput-hidden">
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                            <div class="form-group{{ $errors->has('id_organisasi') ? ' has-error' : '' }}">
-                                            <label for="password">Password </label>
-                                            <input id="password" type="password" class="form-control" name="password" required>
-                                            @if ($errors->has('id_organisasi'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('id_organisasi') }}</strong>
-                                                </span>
-                                            @endif
-                                        </div>
-                                        </div>
                                     </div>
                                     <div class="footer text-center">
                                         <button type="submit" class="btn btn-fill btn-info btn-wd">Login</button>
@@ -87,25 +89,5 @@
         </div>
     </div>
     </body>
-    <script>
-        document.querySelector('input[list]').addEventListener('input', function(e) {
-            var input = e.target,
-                list = input.getAttribute('list'),
-                options = document.querySelectorAll('#' + list + ' option'),
-                hiddenInput = document.getElementById(input.id + '-hidden'),
-                inputValue = input.value;
-
-            hiddenInput.value = inputValue;
-
-            for(var i = 0; i < options.length; i++) {
-                var option = options[i];
-
-                if(option.innerText === inputValue) {
-                    hiddenInput.value = option.getAttribute('data-value');
-                    break;
-                }
-            }
-        });
-    </script>
 
 @endsection
