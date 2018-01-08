@@ -95,6 +95,9 @@ class AdminController extends Controller
         }
         else{
             $user = Organisasi::where('id_organisasi', 'like', substr($request->selArea, 0, 3).'%')->where('tipe_organisasi', '3')->orderBy('id_organisasi','desc')->first();
+            if($user==null){
+                $user = Organisasi::where('tipe_organisasi', '2')->orderBy('id_organisasi','desc')->first();
+            }
             $id_org = intval($user->id_organisasi)+1;
         }
         $nama = $request->namaOrg;
@@ -102,8 +105,6 @@ class AdminController extends Controller
         $alamat = $request->alamatOrg;
         $pass = Hash::make($request->pass);
         $org = Organisasi::where('id_organisasi',$id_org)->first();
-        $data = Organisasi::all();
-        $dropdown_data = new AjaxController();
         if(!$org){
             $organisasi = New Organisasi();
             $organisasi->id_organisasi = $id_org;
@@ -113,20 +114,20 @@ class AdminController extends Controller
             $organisasi->alamat = $alamat;
             $organisasi->save();
             $status = ["success" ,"Data Organisasi Berhasil Ditambah"];
-            return view('admin.nonmaster.admin.management_rayon',[
-                'dropdown_area' => $dropdown_data->populateArea(),
-                'data'=> $data,
-                'status' => $status]);
         }
 
         else{
             $status = ["danger" ,"Data Organisasi Gagal Ditambah!"];
-            return view('admin.nonmaster.admin.management_rayon',[
-                'dropdown_area' => $dropdown_data->populateArea(),
-                'data'=> $data,
-                'status' => $status]);
 
         }
+        $data = Organisasi::all();
+        $dropdown_data = new AjaxController();
+
+        return view('admin.nonmaster.admin.management_rayon',[
+            'dropdown_area' => $dropdown_data->populateArea(),
+            'data'=> $data,
+            'status' => $status]);
+
     }
 
     public function edit_org(Request $request){
@@ -138,18 +139,14 @@ class AdminController extends Controller
             $org->alamat = $request->alamatOrg;
             $org->save();
             $status = ["success", "Berhasil diubah"];
-            return view('admin.nonmaster.admin.management_rayon',[
-                'dropdown_area' => $dropdown_data->populateArea(),
-                'data'=>$data,
-                'status' => $status]);
-        }
+          }
         else {
             $status = ["danger", "Gagal diubah"];
-            return view('admin.nonmaster.admin.management_rayon',[
-                'dropdown_area' => $dropdown_data->populateArea(),
-                'data'=>$data,
-                'status' => $status]);
         }
+        return view('admin.nonmaster.admin.management_rayon',[
+            'dropdown_area' => $dropdown_data->populateArea(),
+            'data'=>$data,
+            'status' => $status]);
 
     }
 
@@ -160,19 +157,14 @@ class AdminController extends Controller
         $data = Organisasi::all();
         if($org){
             $status = ["success", "Data berhasil dihapus"];
-            return view('admin.nonmaster.admin.management_rayon',[
-                'dropdown_area' => $dropdown_data->populateArea(),
-                'data'=>$data,
-                'status' => $status]);
         }
         else{
             $status = ["danger", "Data gagal dihapus"];
-            return view('admin.nonmaster.admin.management_rayon',[
-                'dropdown_area' => $dropdown_data->populateArea(),
-                'data'=>$data,
-                'status' => $status]);
         }
-
+        return view('admin.nonmaster.admin.management_rayon',[
+            'dropdown_area' => $dropdown_data->populateArea(),
+            'data'=>$data,
+            'status' => $status]);
 
 
         return $org;
@@ -188,17 +180,13 @@ class AdminController extends Controller
             $user->password = Hash::make($newPassword);
             $user->save();
             $status = ["success" ,"Password Berhasil Diubah"];
-            return view('admin.nonmaster.admin.management_rayon',[
-                'dropdown_area' => $dropdown_data->populateArea(),
-                'data'=>$data,
-                'status' => $status]);
         }
         else {
             $status = ["danger", "Password gagal diubah"];
-            return view('admin.nonmaster.admin.management_rayon',[
-                'dropdown_area' => $dropdown_data->populateArea(),
-                'data'=>$data,
-                'status' => $status]);
         }
+        return view('admin.nonmaster.admin.management_rayon',[
+            'dropdown_area' => $dropdown_data->populateArea(),
+            'data'=>$data,
+            'status' => $status]);
     }
 }
