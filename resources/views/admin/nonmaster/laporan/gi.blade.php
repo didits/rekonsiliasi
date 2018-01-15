@@ -316,9 +316,9 @@
                                             <td class="danger">{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['utama']['download']['lwbp1_download'])}}</td>
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['pembanding']['visual']['lwbp1_visual'])}}</td>
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['pembanding']['download']['lwbp1_download'])}}</td>
-                                            @if($visual == 1)
+                                            @if($data_master[$tr]['visual_cek'] == 1)
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['visual']['lwbp1_visual'])}}</td>
-                                            @elseif($visual == 0)
+                                            @elseif($data_master[$tr]['visual_cek'] == 0)
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['download']['lwbp1_download'])}}</td>
                                             @endif
                                             <td></td>
@@ -400,9 +400,10 @@
                                             <td class="danger">{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['utama']['download']['lwbp2_download'])}}</td>
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['pembanding']['visual']['lwbp2_visual'])}}</td>
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['pembanding']['download']['lwbp2_download'])}}</td>
-                                            @if($visual == 1)
+                                            @if($data_master[$tr]['visual_cek'] == 1)
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['visual']['lwbp2_visual'])}}</td>
-                                            @elseif($visual == 0)
+                                                {{--{{dd($data_master[$tr]['visual_cek'])}}--}}
+                                            @elseif($data_master[$tr]['visual_cek'] == 0)
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['download']['lwbp2_download'])}}</td>
                                             @endif
                                             <td></td>
@@ -483,9 +484,9 @@
                                             <td class="danger">{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['utama']['download']['wbp_download'])}}</td>
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['pembanding']['visual']['wbp_visual'])}}</td>
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['pembanding']['download']['wbp_download'])}}</td>
-                                            @if($visual == 1)
+                                            @if($data_master[$tr]['visual_cek'] == 1)
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['visual']['wbp_visual'])}}</td>
-                                            @elseif($visual == 0)
+                                            @elseif($data_master[$tr]['visual_cek'] == 0)
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['download']['wbp_download'])}}</td>
                                             @endif
                                             <td></td>
@@ -503,9 +504,9 @@
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download'])}}</td>
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual'])}}</td>
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['pembanding']['download']['total_pemakaian_kwh_download'])}}</td>
-                                            @if($visual == 1)
+                                            @if($data_master[$tr]['visual_cek'] == 1)
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual'], 0)}}</td>
-                                            @elseif($visual == 0)
+                                            @elseif($data_master[$tr]['visual_cek'] == 0)
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download'], 0)}}</td>
                                             @endif
                                             <td>{{number_format($pemakaian[$tr]['total_pemakaian_energi_'])}}</td>
@@ -526,9 +527,9 @@
                                             <td class="warning">{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['utama']['download']['kvarh_download'])}}</td>
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['pembanding']['visual']['kvarh_visual'])}}</td>
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['pembanding']['download']['kvarh_download'])}}</td>
-                                            @if($visual == 1)
+                                            @if($data_master[$tr]['visual_cek'] == 1)
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['ps']['visual']['kvarh_visual'])}}</td>
-                                            @elseif($visual == 0)
+                                            @elseif($data_master[$tr]['visual_cek'] == 0)
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['ps']['download']['kvarh_download'])}}</td>
                                             @endif
                                             <td></td>
@@ -546,9 +547,9 @@
                                             <td class="warning">{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['utama']['download']['konsiden_download'])}}</td>
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['pembanding']['visual']['konsiden_visual'])}}</td>
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['pembanding']['download']['konsiden_download'])}}</td>
-                                            @if($visual == 1)
+                                            @if($data_master[$tr]['visual_cek'] == 1)
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['ps']['visual']['konsiden_visual'])}}</td>
-                                            @elseif($visual == 0)
+                                            @elseif($data_master[$tr]['visual_cek'] == 0)
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['beli']['ps']['download']['konsiden_download'])}}</td>
                                             @endif
                                             <td></td>
@@ -603,9 +604,9 @@
                                             <td>{{number_format(json_decode($data_master[$tr]['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download'])}}</td>
                                             <td>{{number_format(json_decode($data_master[$tr]['data'],true)['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual'])}}</td>
                                             <td>{{number_format(json_decode($data_master[$tr]['data'],true)['hasil_pengolahan']['pembanding']['download']['total_pemakaian_kwh_download'])}}</td>
-                                            @if($visual == 1)
+                                            @if($data_master[$tr]['visual_cek'] == 1)
                                             <td>{{number_format(json_decode($data_master[$tr]['data'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual'])}}</td>
-                                            @elseif($visual == 0)
+                                            @elseif($data_master[$tr]['visual_cek'] == 0)
                                             <td>{{number_format(json_decode($data_master[$tr]['data'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download'])}}</td>
                                             @endif
                                             <td>{{number_format($sum[$tr])}}</td>
@@ -620,9 +621,9 @@
                                         <tr class="text-right">
                                             <td colspan="2"></td>
                                             <td></td>
-                                            @if($visual == 1)
+                                            @if($data_master[$tr]['visual_cek'] == 1)
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download'] -json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual'])}}</td>
-                                            @elseif($visual == 0)
+                                            @elseif($data_master[$tr]['visual_cek'] == 0)
                                             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download'] -json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download'])}}</td>
                                             @endif
                                             <td></td>

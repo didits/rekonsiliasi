@@ -295,9 +295,14 @@ class Laporan extends Controller
                 $dt_ = $p_tr_['data'];
             else $dt_ = "";
 
-            if(json_decode($p_tr_['data'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download']==0)
+            if(json_decode($p_tr_['data'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download']==0){
                 $ps =json_decode($p_tr_['data'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual'];
-            else $ps =json_decode($p_tr_['data'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download'];
+                $visual_cek =1;
+            }
+            else {
+                $ps =json_decode($p_tr_['data'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download'];
+                $visual_cek =0;
+            }
 
             $zero = json_decode($p_tr_['data'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download'];
             $zero_p =json_decode($p_tr_['data'],true)['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual'];
@@ -327,6 +332,7 @@ class Laporan extends Controller
                 'nama' => $tr[$i]['nama_trafo_gi'],
                 'data_master' => $tr[$i]['data_master'],
                 'L' => $L,
+                'visual_cek' => $visual_cek,
                 'data' => $dt,
                 'data_' => $dt_,
                 's_ps' => $selisih_ps,
@@ -365,8 +371,8 @@ class Laporan extends Controller
         $list_array = $this->total_pemakaian_energi($cmb->id, $penyulang_array);
         //        dd($list_array);
         $trafo_GI = $this->data_trafo($cmb->id,$list_array);
+//        dd($penyulang_array);
 
-//        dd(json_decode($trafo_GI[0]['data_'],true)['hasil_pengolahan']);
         $list_data_trafo = array();
         $trafo = array();
         for ($i=0; $i < count($cmb->trafo); $i++) {
@@ -390,6 +396,7 @@ class Laporan extends Controller
             $C = (json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']
                 - $visual)/$a;
             for ($j=0; $j < count($list_data_trafo[$i]); $j++) {
+//                TOTAL VISUAL PENYULANG
                 $dev = $C *(json_decode($list_data_trafo[$i][$j]['data_'],true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']);
                 $tot_penyulang+=$dev;
                 $ar =array(
@@ -412,7 +419,6 @@ class Laporan extends Controller
             }
             array_push($sum,$sum_);
         }
-        $visual_cek = 0;
         for($tr=0;$tr<count($trafo_GI);$tr++){
             $p_trafo = PenyimpananTrafoGI::where('id_trafo_gi', $trafo_GI[$tr]['id_trafo'])->where('periode',$date_now)->first();
             if($p_trafo){
@@ -421,11 +427,9 @@ class Laporan extends Controller
                 //        Selisih TPE Trafo (Utama -Utama PS)
                 if(json_decode($trafo_GI[$tr]['data_'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download']==0){
                     $visual = json_decode($trafo_GI[$tr]['data_'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual'];
-                    $visual_cek = 1;
                 }
                 else {
                     $visual = json_decode($trafo_GI[$tr]['data_'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download'];
-                    $visual_cek = 0;
                 }
                 $B = json_decode($trafo_GI[$tr]['data_'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']
                     -$visual;
@@ -439,7 +443,6 @@ class Laporan extends Controller
         }
         $home = new HomeController;
         $date = $home->MonthShifter(-1)->format(('F Y'));
-//        dd($trafo_GI);
 
         return view('admin.nonmaster.laporan.gi',[
             'data'      => $cmb,
@@ -456,7 +459,6 @@ class Laporan extends Controller
             'id_organisasi' =>$id_rayon,
             'tipe'      =>$tipe,
             'id'        =>$id,
-            'visual'        =>$visual_cek,
         ]);
     }
 
