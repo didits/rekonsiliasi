@@ -163,14 +163,19 @@ class AreaController extends Controller
                 if($request->form_editExim){
                     $area = Organisasi::where('id_organisasi', $request->selectareasingle)->first();
                     $rayon_tujuan = Organisasi::where('id_organisasi', $request->selectrayonsingle)->first();
-                    $id_asal = Transfer::select('id_organisasi as id_org','id')->where('id_penyulang',$request->gardu)->first();
+//                    dd($request->gardu);
+                    $id_asal = Transfer::select('id_organisasi as id_org','id_penyulang as id')->where('id_penyulang',$request->gardu)->first();
+//                    dd($id_asal);
+
                     if($id_asal);
                     else{
                         $id_asal = Penyulang::select('id_organisasi as id_org','id')->where('id',$request->gardu)->first();
                     }
+//                    dd($id_asal);
                     $asal_rayon = Organisasi::where('id',$id_asal->id_org)->first();
+//                    dd($asal_rayon);
                     $asal_area = Organisasi::where('id_organisasi', 'like', substr($asal_rayon->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '2')->first();
-                    $asal_area = $asal_area;
+//                    $asal_area = $asal_area;
 
                     $penyulang = Penyulang::where('id', $request->selectpenyulangsingle)->first();
                     $penyulang2 = Penyulang::where('id', $id_asal->id)->first();
@@ -191,6 +196,7 @@ class AreaController extends Controller
                         'impor' => $lok_d,
                         'ekspor' => $lok_t
                     );
+//                    dd($lok);
                     $rincian = array(
                         'gi' => $GI->nama_gi,
                         'penyulang' => $penyulang2->nama_penyulang,
