@@ -21,6 +21,51 @@
         <div class="main-panel">
             <div class="content">
                 <div class="container-fluid">
+                    @if(Auth::user()->tipe_organisasi == 3)
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="header">
+                                        <h4 class="title">Single Line</h4>
+                                        <p class="category">Rayon {{$nama_rayon}}</p>
+                                    </div>
+                                    <div class="content all-icons">
+                                        <div class="row">
+                                            <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                                                <a href="{{route('rayon.get_structure', $id_organisasi)}}" rel="tooltip" title="" data-original-title="">
+                                                    <button class="font-icon-detail btn btn-info btn-fill btn-wd">
+                                                        <br/><i class="pe-7s-network"></i><br/>Single line<br/><br/>
+                                                    </button>
+                                                </a>
+                                            </div>
+                                            <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                                                <a href="{{route('rayon.view_beli_tsa', [$id_organisasi, $id_org, 'rayon'])}}" rel="tooltip" title="" data-original-title="">
+                                                    <button class="font-icon-detail btn btn-info btn-fill btn-wd">
+                                                        <i class="pe-7s-folder"></i><br/>Laporan<br/>TSA<br/>Penyulang
+                                                    </button>
+                                                </a>
+                                            </div>
+                                            <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                                                <a href="{{route('rayon.view_beli_tsa', [$id_organisasi, 'area', 'penyulang'])}}" rel="tooltip" title="" data-original-title="">
+                                                    <button class="font-icon-detail btn btn-info btn-fill btn-wd">
+                                                        <i class="pe-7s-folder"></i><br/>Laporan<br/>TSA<br/>Penyulang
+                                                    </button>
+                                                </a>
+                                            </div>
+                                            <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                                                <a href="{{route('rayon.view_beli_pct',[$id_organisasi, 'pct', 0])}}" rel="tooltip" title="" data-original-title="">
+                                                    <button class="font-icon-detail btn btn-info btn-fill btn-wd">
+                                                        <i class="pe-7s-refresh-2"></i><br/>Laporan<br/>PCT<br/><br/>
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
 
                     @if($tipe=="gd")
 
@@ -604,30 +649,6 @@
                     {{--</div>--}}
                 {{--@endif--}}
 
-                    @if($laporan)
-                    @if(Auth::user()->tipe_organisasi == 3)
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="header">
-                                    <h4 class="title">Single Line</h4>
-                                    <p class="category">Rayon {{$nama_rayon}}</p>
-                                </div>
-                                <div class="content all-icons">
-                                    <div class="row">
-                                        <div class="font-icon-list col-md-2">
-                                            <a href="{{route('rayon.get_structure', $id_organisasi)}}" rel="tooltip" title="" data-original-title="">
-                                                <button class="font-icon-detail btn btn-info btn-fill btn-wd"><i class="pe-7s-network"></i><br/>Single line</button>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endif
-                    @endif
 
                 </div>
             </div>
