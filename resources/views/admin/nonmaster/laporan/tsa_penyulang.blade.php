@@ -118,7 +118,7 @@
                                             <td class="text-center">{{$j+1}}</td>
                                             <td class="text-left">{{$data_gi[$j]['gi']}}</td>
                                             <td class="text-center">{{$data_gi[$j]['trafo'][$k]['nama_trafo_gi']}}</td>
-                                            <td class="text-center">40</td>
+                                            <td class="text-center">{{json_decode($data_gi[$j]['trafo'][$k]['data_master'],true)['kapasitas']['kapasitas']}}</td>
                                             <div style="display: none;">{{$flag=false}}</div>
                                             @else
                                             <td></td>
@@ -193,7 +193,7 @@
                                                         <td class="text-center">{{$gi+1}}</td>
                                                         <td class="text-left">{{$nama_gi[$gi]['nama_gi']}}</td>
                                                         <td class="text-center">{{$trafo[$gi][$tr]['nama_trafo_gi']}}</td>
-                                                        <td class="text-center">40</td>
+                                                        <td class="text-center">{{json_decode($trafo[$gi][$tr]['data_master'],true)['kapasitas']['kapasitas']}}</td>
                                                         <div style="display: none;">{{$flag=false}}</div>
                                                     @else
                                                         <td></td>

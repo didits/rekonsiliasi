@@ -479,7 +479,7 @@ class Laporan extends Controller
             $list_array = $this->total_pemakaian_energi($cmb->id, $penyulang_array);
             $list_p = array();
             $jumlah_trafo = array();
-            $trafo = TrafoGI::select('nama_trafo_gi','id','id_gi')->where('id_gi',$data_gi->id)->get()->toArray();
+            $trafo = TrafoGI::select('nama_trafo_gi','data_master','id','id_gi')->where('id_gi',$data_gi->id)->get()->toArray();
             $tot_lwbp1 = $tot_lwbp2 = $tot_wbp =$tot_t_kwh = $tot_Kvarh = $tot_KW = $tot_KWH = $tot_KWH_lalu=$tot_jual = null;
             for ($i=0;$i<count($cmb->trafo);$i++){
                 $p_trafo_ = PenyimpananTrafoGI::select('data','id_trafo_gi')->where('id_trafo_gi',$trafo[$i]['id'])->where('periode',$date_now)->first();
