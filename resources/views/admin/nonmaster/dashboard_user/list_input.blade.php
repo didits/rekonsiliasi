@@ -11,84 +11,84 @@
     <div class="main-panel">
         <div class="content">
             <div class="container-fluid">
-                @if(!$gi)
+                {{--@if(!$gi)--}}
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="header">
-                            @if($gi)
+                {{--<div class="row">--}}
+                    {{--<div class="col-md-12">--}}
+                        {{--<div class="card">--}}
+                            {{--<div class="header">--}}
+                            {{--@if($gi)--}}
 
-                            <h4 class="title">Gardu Induk {{$gi->nama_gi}}</h4>
-                            @elseif($t_gi)
+                            {{--<h4 class="title">Gardu Induk {{$gi->nama_gi}}</h4>--}}
+                            {{--@elseif($t_gi)--}}
 
-                            <h4 class="title">Trafo GI {{$t_gi->nama_trafo_gi}}</h4>
-                            @elseif($penyulang)
+                            {{--<h4 class="title">Trafo GI {{$t_gi->nama_trafo_gi}}</h4>--}}
+                            {{--@elseif($penyulang)--}}
 
-                            <h4 class="title">Penyulang {{$penyulang->nama_penyulang}}</h4>
-                            @endif
+                            {{--<h4 class="title">Penyulang {{$penyulang->nama_penyulang}}</h4>--}}
+                            {{--@endif--}}
 
-                            </div>
-                            <div class="content table-responsive table-full-width">
-                                <table class="table table-hover table-striped">
-                                    <thead>
-                                    @if($gi)
+                            {{--</div>--}}
+                            {{--<div class="content table-responsive table-full-width">--}}
+                                {{--<table class="table table-hover table-striped">--}}
+                                    {{--<thead>--}}
+                                    {{--@if($gi)--}}
 
-                                        <th>Nama Gardu Induk</th>
-                                        <th>Alamat Gardu Induk</th>
-                                        <th class="td-actions text-right">Input Gardu Induk</th>
-                                    @elseif($t_gi)
+                                        {{--<th>Nama Gardu Induk</th>--}}
+                                        {{--<th>Alamat Gardu Induk</th>--}}
+                                        {{--<th class="td-actions text-right">Input Gardu Induk</th>--}}
+                                    {{--@elseif($t_gi)--}}
 
-                                        <th>Nama Trafo GI</th>
-                                        <th>Alamat Trafo GI</th>
-                                        <th class="td-actions text-right">Input Trafo GI</th>
-                                    @elseif($penyulang)
+                                        {{--<th>Nama Trafo GI</th>--}}
+                                        {{--<th>Alamat Trafo GI</th>--}}
+                                        {{--<th class="td-actions text-right">Input Trafo GI</th>--}}
+                                    {{--@elseif($penyulang)--}}
 
-                                        <th>Nama Penyulang</th>
-                                        <th class="td-actions text-right">Input Penyulang</th>
-                                    @endif
+                                        {{--<th>Nama Penyulang</th>--}}
+                                        {{--<th class="td-actions text-right">Input Penyulang</th>--}}
+                                    {{--@endif--}}
 
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                    @if($gi)
+                                    {{--</thead>--}}
+                                    {{--<tbody>--}}
+                                    {{--<tr>--}}
+                                    {{--@if($gi)--}}
 
-                                        <td>{{$gi->nama_gi}}</td>
-                                        <td>{{$gi->alamat_gi}}</td>
-                                        <td class="td-actions text-right">
-                                            <a href="{{route('input.input_data', [$gi->id, 'gi'])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Input Transaksi Beli Gardu Induk">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                        </td>
-                                    @elseif($t_gi)
+                                        {{--<td>{{$gi->nama_gi}}</td>--}}
+                                        {{--<td>{{$gi->alamat_gi}}</td>--}}
+                                        {{--<td class="td-actions text-right">--}}
+                                            {{--<a href="{{route('input.input_data', [$gi->id, 'gi'])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Input Transaksi Beli Gardu Induk">--}}
+                                                {{--<i class="fa fa-edit"></i>--}}
+                                            {{--</a>--}}
+                                        {{--</td>--}}
+                                    {{--@elseif($t_gi)--}}
 
-                                        <td>{{$t_gi->nama_trafo_gi}}</td>
-                                        <td>{{$t_gi->alamat_trafo_gi}}</td>
-                                        <td class="td-actions text-right">
-                                            <a href="{{route('input.input_data', [$t_gi->id, 'trafo_gi'])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Input Transaksi Beli Trafo GI">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                        </td>
-                                    @elseif($penyulang)
+                                        {{--<td>{{$t_gi->nama_trafo_gi}}</td>--}}
+                                        {{--<td>{{$t_gi->alamat_trafo_gi}}</td>--}}
+                                        {{--<td class="td-actions text-right">--}}
+                                            {{--<a href="{{route('input.input_data', [$t_gi->id, 'trafo_gi'])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Input Transaksi Beli Trafo GI">--}}
+                                                {{--<i class="fa fa-edit"></i>--}}
+                                            {{--</a>--}}
+                                        {{--</td>--}}
+                                    {{--@elseif($penyulang)--}}
 
-                                        <td>{{$penyulang->nama_penyulang}}</td>
-                                        <td>{{$penyulang->alamat_penyulang}}</td>
-                                        <td class="td-actions text-right">
-                                            <a href="{{route('input.input_data', [$penyulang->id, 'penyulang'])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Input Transaksi Beli Penyulang">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                        </td>
-                                    @endif
+                                        {{--<td>{{$penyulang->nama_penyulang}}</td>--}}
+                                        {{--<td>{{$penyulang->alamat_penyulang}}</td>--}}
+                                        {{--<td class="td-actions text-right">--}}
+                                            {{--<a href="{{route('input.input_data', [$penyulang->id, 'penyulang'])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Input Transaksi Beli Penyulang">--}}
+                                                {{--<i class="fa fa-edit"></i>--}}
+                                            {{--</a>--}}
+                                        {{--</td>--}}
+                                    {{--@endif--}}
 
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                    {{--</tr>--}}
+                                    {{--</tbody>--}}
+                                {{--</table>--}}
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endif
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--@endif--}}
 
                 @if($penyulang)
 
@@ -292,7 +292,15 @@
                                     @foreach($data as $list)
                                         <tr>
                                         @if($gi)
-
+                                            @if($transfer)
+                                            <td>{{$list->nama_trafo_gi}}</td>
+                                            <td>{{$list->alamat_trafo_gi}}</td>
+                                            <td class="td-actions text-right">
+                                                <a href="{{route('input.list_penyulang', $list->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="Lihat List Penyulang">
+                                                    <i class="fa fa-th-list"></i>
+                                                </a>
+                                            </td>
+                                            @else
                                             <td>{{$list->nama_trafo_gi}}</td>
                                             <td>{{$list->alamat_trafo_gi}}</td>
                                             <td class="td-actions text-right">
@@ -303,8 +311,8 @@
                                                     <i class="fa fa-th-list"></i>
                                                 </a>
                                             </td>
+                                            @endif
                                         @elseif($t_gi)
-
                                             <td>{{$list->nama_penyulang}}</td>
                                             <td>{{$list->alamat_penyulang}}</td>
                                             <td class="td-actions text-right">
@@ -315,8 +323,7 @@
                                                     <i class="fa fa-th-list"></i>
                                                 </a>
                                             </td>
-                                        @endif
-
+                                            @endif
                                         </tr>
                                     @endforeach
                                     @endif

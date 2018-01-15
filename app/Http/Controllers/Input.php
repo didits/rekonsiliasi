@@ -11,6 +11,7 @@ use App\PenyimpananPenyulang;
 use App\PenyimpananTrafoGI;
 use App\Penyulang;
 use App\TrafoGI;
+use App\Transfer;
 use Illuminate\Http\Request;
 //use App\Listrik;
 use Auth;
@@ -49,29 +50,67 @@ class Input extends Controller
 //            ] );
     }
 
+//    public function list_gardu_induk($id_rayon){
+//        $rayon = Organisasi::where('id_organisasi', $id_rayon)->get();
+//        $id_org = $rayon[0]->id;
+//        $data = GI::where('id_organisasi', $id_org)->get();
+//        return view('admin.nonmaster.dashboard_user.list_input_gardu_induk',[
+//            'data' =>$data
+//        ]);
+//    }
+
     public function list_gardu_induk($id_rayon){
-        $rayon = Organisasi::where('id_organisasi', $id_rayon)->get();
-        $id_org = $rayon[0]->id;
-        $data = GI::where('id_organisasi', $id_org)->get();
+        $rayon = Organisasi::where('id_organisasi', $id_rayon)->first();
+        $data = GI::where('id_organisasi', $rayon->id)->get();
+//        dd($rayon->id);
+        $id_ryn = Organisasi::where('id_organisasi', $id_rayon)->first();
+        $data2 = Transfer::select('transfer.id_organisasi','transfer.id_gi', 'gi.nama_gi', 'gi.alamat_gi')
+            ->join('GI','GI.id','=','transfer.id_gi')->distinct('transfer.id_gi')
+            ->where('transfer.id_organisasi', $id_ryn->id)->get();
+//        $data3 = Transfer::select('transfer.id_organisasi','transfer.id_gi', 'gi.nama_gi', 'gi.alamat_gi')
+//            ->join('GI','GI.id','=','transfer.id_gi')->distinct('transfer.id_gi')
+//            ->where('transfer.id_organisasi', $id_ryn->id)->get();
+//        dd($data2);
         return view('admin.nonmaster.dashboard_user.list_input_gardu_induk',[
-            'data' =>$data
+            'data' =>$data,
+            'data2' =>$data2,
         ]);
     }
-
     public function list_trafo_gi($id_gi){
+        $user = Auth::user()->id;
+        $org = GI::where('id',$id_gi)->where('id_organisasi',$user)->get();
+        if(count($org) >0) $transfer =false;
+        else $transfer =true;
         $gi = GI::where('id', $id_gi)->first();
         $data = TrafoGI::where('id_gi', $id_gi)->get();
+
+//        dd($transfer);
         return view('admin.nonmaster.dashboard_user.list_input',[
+            'transfer' => $transfer,
             'data' => $data,
             'gi' =>$gi, 't_gi' => null, 'penyulang' => null
         ]);
     }
 
+
     public function list_penyulang($id_trafo_gi){
-        $t_gi = TrafoGI::where('id', $id_trafo_gi)->first();
-        $data = Penyulang::where('id_trafo_gi', $id_trafo_gi)->get();
-//        dd($id_trafo_gi);
+        $user = Auth::user()->id;
+        $org = TrafoGI::where('id',$id_trafo_gi)->where('id_organisasi',$user)->get();
+//        dd($org);
+        if(count($org) >0){
+            $transfer =false;
+            $t_gi = TrafoGI::where('id', $id_trafo_gi)->first();
+            $data = Penyulang::where('id_trafo_gi', $id_trafo_gi)->get();
+        }
+        else {
+            $t_gi = TrafoGI::where('id', $id_trafo_gi)->first();
+            $data = Transfer::where('id_trafo_gi', $id_trafo_gi)->pluck('id_penyulang');
+            $data = Penyulang::whereIn('id', $data)->get();
+            $transfer =true;
+        }
+//        dd($data);
         return view('admin.nonmaster.dashboard_user.list_input',[
+            'transfer' => $transfer,
             'data' => $data,
             'gi' => null, 't_gi' => $t_gi, 'penyulang' => null
         ]);
