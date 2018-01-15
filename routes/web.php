@@ -182,6 +182,10 @@ Route::group(['prefix' => 'rayon/laporan_transaksi', 'middleware' => ['auth', 't
         'as'        => 'rayon.view_beli_deviasi',
         'uses'      => 'Laporan@view_beli_deviasi'
     ]);
+    Route::get('/view_laporan_pct/{id_organisasi}/{tipe}/{id_gi}', [
+        'as'        => 'rayon.view_beli_pct',
+        'uses'      => 'Laporan@view_beli_pct'
+    ]);
 });
 
 //area
