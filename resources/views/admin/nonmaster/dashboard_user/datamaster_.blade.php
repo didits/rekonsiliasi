@@ -3315,7 +3315,7 @@
                                                                                             <td>{{$key->nama_gardu}}</td>
                                                                                         @endif
 
-                                                                                        <td>{{$rayon->nama_organisasi}}</td>
+                                                                                        <td>{{$key->nama_organisasi}}</td>
                                                                                         <td class="td-actions text-right">
                                                                                             @if($id_gi)
                                                                                                 <a href="{{route('area.lihat_trafo_gi', [$id_org, $key->id])}}"

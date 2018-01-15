@@ -9,6 +9,7 @@ use App\Transfer;
 use Auth;
 use Illuminate\Http\Request;
 use App\Penyulang;
+use Illuminate\Support\Facades\DB;
 
 class AreaController extends Controller
 { 
@@ -797,14 +798,27 @@ class AreaController extends Controller
         $rayon = Organisasi::where('id_organisasi', $id_organisasi)->first();
         $trafo_gi = TrafoGI::where('id', $id_trafo_gi)->first();
         $transfer = Transfer::where('id_trafo_gi',$id_trafo_gi)->pluck('id_penyulang');
-        $data = Penyulang::select('id','nama_penyulang', 'alamat_penyulang','data_master')
-//            ->whereNotIn('id',$transfer)
-            ->where('id_trafo_gi',$id_trafo_gi)
+        $data = DB::table('penyulang')
+            ->whereNotIn('penyulang.id',$transfer)
+            ->join('organisasi', 'organisasi.id', '=', 'penyulang.id_organisasi')
+            ->select('penyulang.id','penyulang.nama_penyulang', 'penyulang.alamat_penyulang', 'organisasi.nama_organisasi')
+            ->where('id_trafo_gi',$id_trafo_gi);
+//            ->get();
+
+        $dataa = DB::table('penyulang')
+            ->join('transfer', 'penyulang.id', '=', 'transfer.id_penyulang')
+            ->join('organisasi', 'organisasi.id', '=', 'transfer.id_organisasi')
+            ->select('penyulang.id','penyulang.nama_penyulang', 'penyulang.alamat_penyulang', 'organisasi.nama_organisasi')
+            ->union($data)
+            ->where('penyulang.id_trafo_gi',$id_trafo_gi)
+            ->orderBy('id', 'asc')
             ->get();
+
+//        dd($dataa);
         $decoded = json_decode($trafo_gi->data_master, true);
 //        dd($decoded);
         return view('admin.nonmaster.dashboard_user.datamaster_',[
-            'data' =>$data,
+            'data' =>$dataa,
             'decoded' =>$decoded,
             'gi'=>null,'trafo_gi'=>$trafo_gi,'penyulang'=>null,'gardu'=>null,
             'id_gi'=>null,'id_trafo_gi'=>$id_trafo_gi,'id_penyulang'=>null,'id_gardu'=>null,
