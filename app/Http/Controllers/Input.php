@@ -125,6 +125,7 @@ class Input extends Controller
             $date_prev = (date("Ym")-2);
             $date_now = date("Ym")-1;
         }
+//        dd($data_awal);
 
         $data_beli =json_decode($data_awal->data,true)['beli'];
         if($request->tipe=="trafo_gi") {
@@ -144,19 +145,20 @@ class Input extends Controller
             );
         }
         elseif($request->tipe=="penyulang"){
+//           dd($request->meter);
             $input_visual = array(
-                'lwbp1_visual' => $data_beli[$request->meter]['visual']['lwbp1_visual'],
-                'lwbp2_visual' => $data_beli[$request->meter]['visual']['lwbp2_visual'],
-                'wbp_visual' => $data_beli[$request->meter]['visual']['wbp_visual'],
-                'kvarh_visual' => $data_beli[$request->meter]['visual']['kvarh_visual'],
-                'tu_visual' => $data_beli[$request->meter]['visual']['tu_visual']
+                'lwbp1_visual' => $data_beli['visual']['lwbp1_visual'],
+                'lwbp2_visual' => $data_beli['visual']['lwbp2_visual'],
+                'wbp_visual' => $data_beli['visual']['wbp_visual'],
+                'kvarh_visual' => $data_beli['visual']['kvarh_visual'],
+                'tu_visual' => $data_beli['visual']['tu_visual']
             );
             $input_download = array(
-                'lwbp1_download' => $data_beli[$request->meter]['download']['lwbp1_download'],
-                'lwbp2_download' => $data_beli[$request->meter]['download']['lwbp2_download'],
-                'wbp_download' => $data_beli[$request->meter]['download']['wbp_download'],
-                'kvarh_download' => $data_beli[$request->meter]['download']['kvarh_download'],
-                'tu_download' => $data_beli[$request->meter]['download']['tu_download']
+                'lwbp1_download' => $data_beli['download']['lwbp1_download'],
+                'lwbp2_download' => $data_beli['download']['lwbp2_download'],
+                'wbp_download' => $data_beli['download']['wbp_download'],
+                'kvarh_download' => $data_beli['download']['kvarh_download'],
+                'tu_download' => $data_beli['download']['tu_download']
             );
         }
         if($request->tipe=="gi"){
@@ -578,7 +580,7 @@ class Input extends Controller
 
                     if($data_lalu->save());
 
-                    $data_awal = PenyimpananTrafoGI::where('periode', $date_now)->where('id_trafo_gi', $request->id)->first();
+                    $data_awal = PenyimpananPenyulang::where('periode', $date_now)->where('id_penyulang', $request->id)->first();
                     $this->refresh_input($request,$data_awal);
 
                     return back();
@@ -601,7 +603,7 @@ class Input extends Controller
                     $P->data = json_encode($data_akhir);
                     $P->data_keluar = "";
                     if($P->save());
-                    $data_awal = PenyimpananTrafoGI::where('periode', $date_now)->where('id_trafo_gi', $request->id)->first();
+                    $data_awal = PenyimpananPenyulang::where('periode', $date_now)->where('id_penyulang', $request->id)->first();
                     $this->refresh_input($request,$data_awal);
 
                     return back();
