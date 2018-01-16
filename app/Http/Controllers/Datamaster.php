@@ -8,7 +8,9 @@ use App\GI;
 use App\Organisasi;
 use App\Penyulang;
 use App\TrafoGI;
+use App\Transfer;
 use Auth;
+use Illuminate\Support\Facades\DB;
 
 class Datamaster
 {
@@ -52,16 +54,40 @@ class Datamaster
 
     public function list_master($id_rayon, $tipe, $id)
     {
+
+        $rayon = Organisasi::where('id_organisasi', $id_rayon)->first();
+        $trafo_gi = TrafoGI::where('id', $id)->first();
+        $transfer = Transfer::where('id_trafo_gi',$id)->pluck('id_penyulang');
+        $data = DB::table('penyulang')
+            ->whereNotIn('penyulang.id',$transfer)
+            ->join('organisasi', 'organisasi.id', '=', 'penyulang.id_organisasi')
+            ->select('penyulang.id','penyulang.nama_penyulang', 'penyulang.alamat_penyulang', 'organisasi.nama_organisasi')
+            ->where('id_trafo_gi',$id);
+//            ->get();
+
+        $data2 = DB::table('penyulang')
+            ->join('transfer', 'penyulang.id', '=', 'transfer.id_penyulang')
+            ->join('organisasi', 'organisasi.id', '=', 'transfer.id_organisasi')
+            ->select('penyulang.id','penyulang.nama_penyulang', 'penyulang.alamat_penyulang', 'organisasi.nama_organisasi')
+            ->union($data)
+            ->where('penyulang.id_trafo_gi',$id)
+            ->orderBy('id', 'asc')
+            ->get();
+
+
         if ($tipe == 'gtt_pct')
             $tipe = 'gd';
+
         $master = new Master($id_rayon, $tipe, $id);
+
+        if($tipe == 'tgi')
+        $data2 = $master->data;
         if ($master->data->count() == 0)
             $master->data = null;
         if ($master->data2->count() == 0)
             $master->data2 = null;
         return view('admin.nonmaster.dashboard_user.list_datamaster2_', [
-            'data' => $master->data,
-            'data2' => $master->data2,
+            'data' => $data2,
             'tipe' => $master->tipe,
             'id_organisasi' => $master->id_rayon,
             'nama_rayon' => $master->nama_rayon,
