@@ -507,7 +507,7 @@ class Laporan extends Controller
                 for($j=0;$j< count($penyulang_array);$j++){
                     if($trafo[$i]['id'] == $penyulang_array[$j]['id_trafo']){
                         if($p_trafo_){
-
+//                            Hitung Uraian
                             if(json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download']==0){
                                 $lwbp1 = json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['lwbp1_visual'];
                                 $lwbp2 = json_decode($p_trafo_['data'],true)['hasil_pengolahan']['ps']['visual']['lwbp2_visual'];

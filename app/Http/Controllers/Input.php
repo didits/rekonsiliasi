@@ -98,16 +98,13 @@ class Input extends Controller
         $org = TrafoGI::where('id',$id_trafo_gi)->where('id_organisasi',$user)->get();
 //        dd($org);
         if(count($org) >0){
-            dd("SLAM");
             $transfer =false;
             $t_gi = TrafoGI::where('id', $id_trafo_gi)->first();
             $data = Penyulang::where('id_trafo_gi', $id_trafo_gi)->get();
         }
         else {
-//            dd("SLUM");
             $t_gi = TrafoGI::where('id', $id_trafo_gi)->first();
             $data = Transfer::where('id_trafo_gi', $id_trafo_gi)->where('id_organisasi',$user)->pluck('id_penyulang');
-//            dd($data);
             $data = Penyulang::whereIn('id', $data)->get();
             $transfer =true;
         }
