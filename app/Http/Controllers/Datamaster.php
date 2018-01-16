@@ -44,6 +44,7 @@ class Datamaster
             'data2' => $master_gi->data2,
             'tipe' => "gi",
             'id_organisasi' => $master_gi->id_rayon,
+            'id_org' => $master_gi->id_org,
             'nama_rayon' => $master_gi->nama_rayon,
             'laporan' => true, 'transaksi' => false
         ]);
