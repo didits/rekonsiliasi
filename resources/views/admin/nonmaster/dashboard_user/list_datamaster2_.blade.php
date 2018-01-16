@@ -40,19 +40,20 @@
                                                 </a>
                                             </div>
                                             <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6">
-                                                <a href="{{route('rayon.view_beli_tsa', [$id_organisasi, $id_org, 'rayon'])}}" rel="tooltip" title="" data-original-title="">
+                                                <a href="{{route('rayon.view_beli_tsa', [$id_organisasi, 'area', 'penyulang'])}}" rel="tooltip" title="" data-original-title="">
                                                     <button class="font-icon-detail btn btn-info btn-fill btn-wd">
-                                                        <i class="pe-7s-folder"></i><br/>Laporan<br/>TSA<br/>Penyulang
+                                                        <i class="pe-7s-folder"></i><br/>Laporan<br/>TSA Penyulang<br/>(Area)
                                                     </button>
                                                 </a>
                                             </div>
                                             <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6">
-                                                <a href="{{route('rayon.view_beli_tsa', [$id_organisasi, 'area', 'penyulang'])}}" rel="tooltip" title="" data-original-title="">
+                                                <a href="{{route('rayon.view_beli_tsa', [$id_organisasi, $id_org, 'rayon'])}}" rel="tooltip" title="" data-original-title="">
                                                     <button class="font-icon-detail btn btn-info btn-fill btn-wd">
-                                                        <i class="pe-7s-folder"></i><br/>Laporan<br/>TSA<br/>Penyulang
+                                                        <i class="pe-7s-folder"></i><br/>Laporan<br/>TSA Penyulang<br/>(Rayon)
                                                     </button>
                                                 </a>
                                             </div>
+                                        
                                             <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6">
                                                 <a href="{{route('rayon.view_beli_pct',[$id_organisasi, 'pct', 0])}}" rel="tooltip" title="" data-original-title="">
                                                     <button class="font-icon-detail btn btn-info btn-fill btn-wd">
