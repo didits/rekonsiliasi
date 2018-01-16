@@ -21,6 +21,7 @@
         <div class="main-panel">
             <div class="content">
                 <div class="container-fluid">
+                    @isset($id_org)
                     @if(Auth::user()->tipe_organisasi == 3)
 
                         <div class="row">
@@ -67,6 +68,7 @@
                             </div>
                         </div>
                     @endif
+                    @endisset
 
                     @if($tipe=="gd")
 
