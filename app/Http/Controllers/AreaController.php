@@ -835,7 +835,24 @@ class AreaController extends Controller
             $id_organisasi = explode('t', $id_organisasi);
             $rayon = Organisasi::where('id', $id_organisasi[1])->first();
         }
-        else $rayon = Organisasi::where('id_organisasi', $id_organisasi)->first();
+        else{
+            $rayon = Organisasi::select('id', 'id_organisasi', 'tipe_organisasi', 'nama_organisasi', 'alamat')
+                ->where('id_organisasi', $id_organisasi)
+                ->first();
+            $transfer = Transfer::select('transfer.id_organisasi')
+                ->where('transfer.id_penyulang', $id_penyulang)
+                ->join('organisasi', 'transfer.id_organisasi', '=', 'organisasi.id')
+                ->select('organisasi.id',
+                    'organisasi.id_organisasi',
+                    'organisasi.tipe_organisasi',
+                    'organisasi.nama_organisasi',
+                    'organisasi.alamat')
+                ->first();
+            if($transfer != null)
+                $rayon = $transfer;
+
+//            dd($transfer);
+        }
         $penyulang = Penyulang::where('id', $id_penyulang)->first();
         $data = Gardu::where('id_penyulang', $id_penyulang)->get();
         $decoded = json_decode($penyulang->data_master, true);
@@ -853,7 +870,24 @@ class AreaController extends Controller
 
     public function lihat_gardu($id_organisasi, $id_gardu){
 
-        $rayon = Organisasi::where('id', $id_organisasi)->first();
+        $id_penyulang = Gardu::select('id_penyulang')
+            ->where('id', $id_gardu)
+            ->pluck('id_penyulang');
+        $rayon = Organisasi::select('id', 'id_organisasi', 'tipe_organisasi', 'nama_organisasi', 'alamat')
+            ->where('id', $id_organisasi)
+            ->first();
+        $transfer = Transfer::select('transfer.id_organisasi')
+            ->where('transfer.id_penyulang', $id_penyulang)
+            ->join('organisasi', 'transfer.id_organisasi', '=', 'organisasi.id')
+            ->select('organisasi.id',
+                'organisasi.id_organisasi',
+                'organisasi.tipe_organisasi',
+                'organisasi.nama_organisasi',
+                'organisasi.alamat')
+            ->first();
+        if($transfer != null)
+            $rayon = $transfer;
+
         $gardu = Gardu::where('id', $id_gardu)->first();
         $data = Gardu::where('id', $id_gardu)->get();
         $idP = Penyulang::select('id', 'nama_penyulang')->where('id', $gardu->id_penyulang)->first();
