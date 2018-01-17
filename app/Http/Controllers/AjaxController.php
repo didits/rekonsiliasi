@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Gardu;
 use App\Organisasi;
 use App\Penyulang;
+use App\Transfer;
 
 class AjaxController extends Controller
 {
@@ -25,9 +26,35 @@ class AjaxController extends Controller
 
     public function populatePenyulang($id_rayon)
     {
-        $rayon = Organisasi::select('id')->where('id_organisasi', $id_rayon)->first();
-        $penyulang = Penyulang::select('id', 'nama_penyulang')->where('id_organisasi', $rayon->id)->pluck('nama_penyulang', 'id');
-        return json_encode($penyulang);
+        $rayon = Organisasi::select('id')
+            ->where('id_organisasi', $id_rayon)
+            ->first();
+
+        $queryPenyulang = Penyulang::select('id', 'nama_penyulang', 'id_trafo_gi')
+                            ->where('id_organisasi', $rayon->id);
+
+        $trafo = $queryPenyulang->select('id_trafo_gi')
+                                ->distinct()
+                                ->pluck('id_trafo_gi');
+
+        $transfers = Transfer::select('transfer.id_penyulang')
+            ->whereIn('transfer.id_trafo_gi', $trafo)
+            ->join('penyulang', 'transfer.id_penyulang', '=', 'penyulang.id')
+            ->select('penyulang.nama_penyulang', 'penyulang.id')
+            ->pluck('penyulang.id');
+
+        $transfer = Transfer::select('transfer.id_penyulang')
+            ->where('transfer.id_organisasi', $rayon->id)
+            ->join('penyulang', 'transfer.id_penyulang', '=', 'penyulang.id')
+            ->select('penyulang.nama_penyulang', 'transfer.id_penyulang');
+
+        $penyulangs = Penyulang::where('id_organisasi', $rayon->id)
+            ->whereNotIn('id', $transfers)
+            ->union($transfer)
+            ->select('nama_penyulang', 'id')
+            ->pluck('penyulang.nama_penyulang', 'penyulang.id');
+
+        return json_encode($penyulangs);
     }
 
     public function populateGD($id_penyulang)
