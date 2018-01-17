@@ -81,13 +81,13 @@ class Datamaster
         $master = new Master($id_rayon, $tipe, $id);
 
         if($tipe == 'tgi')
-        $data2 = $master->data;
         if ($master->data->count() == 0)
             $master->data = null;
         if ($master->data2->count() == 0)
             $master->data2 = null;
         return view('admin.nonmaster.dashboard_user.list_datamaster2_', [
-            'data' => $data2,
+            'data' => $master->data,
+            'data2' => $master->data2,
             'tipe' => $master->tipe,
             'id_organisasi' => $master->id_rayon,
             'nama_rayon' => $master->nama_rayon,
