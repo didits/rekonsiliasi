@@ -2194,7 +2194,13 @@ class Laporan extends Controller
                 }
             }
         }
+
+//        for($i=0;$i <count($dp_gardu);$i++){
+//            if($dp_gardu[$i]['asal']==$dp_gardu[$i]['tujuan'] && $dp_gardu[$i]['asal']=$dp_gardu[$i]['id_rayon'])
+//                echo $dp_gardu[$i]['nama_gardu'];
+//        }
 //        dd($dp_gardu);
+
         // Hitung total
         $total_ekspor = $total_impor = null;
         for($i=0;$i<count($dp_gardu);$i++){
@@ -2289,7 +2295,10 @@ class Laporan extends Controller
             $total_lwbp1_e =$total_lwbp2_e =$total_wbp_e =$total_lwbp1_i =$total_lwbp2_i =$total_wbp_i = $total_kvar_e =$total_kw_e =$total_kvar_i =$total_kw_i =null;
             for($j=0;$j<count($data_urai);$j++) {
                 if($data_urai[$j]['as']){
-                    if($data_urai[$j]['asal']==$id_rayon[$i]) {
+                    if($data_urai[$j]['asal']==$data_urai[$j]['tujuan']){
+                        echo $data_urai[$j]['pct'];
+                    }
+                    elseif($data_urai[$j]['asal']==$id_rayon[$i]) {
                         $total_lwbp1_i += $data_urai[$j]['lwbp1_i'];
                         $total_lwbp2_i += $data_urai[$j]['lwbp2_i'];
                         $total_wbp_i += $data_urai[$j]['wbp_i'];
@@ -2315,8 +2324,10 @@ class Laporan extends Controller
                     }
                 }
                 elseif($data_urai[$j]['asal']==$id_rayon[$i]||$data_urai[$j]['tujuan']==$id_rayon[$i]){
-
-                    if($data_urai[$j]['tipe']) {
+                    if($data_urai[$j]['asal']==$data_urai[$j]['tujuan']){
+                        echo $data_urai[$j]['pct'];
+                    }
+                    elseif($data_urai[$j]['tipe']) {
                         if($data_urai[$j]['asal']==$id_rayon[$i]) {
                             $total_lwbp1_i += $data_urai[$j]['lwbp1_i'];
                             $total_lwbp2_i += $data_urai[$j]['lwbp2_i'];
