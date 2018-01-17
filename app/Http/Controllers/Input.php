@@ -161,10 +161,8 @@ class Input extends Controller
                 $date_prev = (date("Y") - 1) . "12";
                 $date_now = date("Ym") - 1;}
         }else{
-            $date_prev = (date("Ym")-2);
             $date_now = date("Ym")-1;
         }
-//        dd($data_awal);
 
         $data_beli =json_decode($data_awal->data,true)['beli'];
         if($request->tipe=="trafo_gi") {
@@ -184,7 +182,6 @@ class Input extends Controller
             );
         }
         elseif($request->tipe=="penyulang"){
-//           dd($request->meter);
             $input_visual = array(
                 'lwbp1_visual' => $data_beli['visual']['lwbp1_visual'],
                 'lwbp2_visual' => $data_beli['visual']['lwbp2_visual'],
@@ -278,51 +275,6 @@ class Input extends Controller
             if($data_listrik->save());
             return back();
         }
-        else {
-            $data = array(
-                'visual' => $input_visual,
-                'download' => $input_download
-            );
-            $data_olah = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter, $request->tpe_jual);
-            $dt = $data_olah;
-            if ($request->tipe == "trafo_gi") {
-                $P = new PenyimpananTrafoGI();
-                $P->id_trafo_gi = $request->id;
-                $P->periode = $date_now;
-                $P->data = json_encode($dt);
-                $P->data_keluar = "";
-                $data_awal = PenyimpananTrafoGI::where('periode', $date_now)->where('id_trafo_gi', $request->id)->first();
-                $data_lalu = PenyimpananTrafoGI::where('periode', "L".$date_prev)->where('id_trafo_gi', $request->id)->first();
-            }
-            elseif ($request->tipe == "penyulang") {
-                $P = new PenyimpananPenyulang();
-                $P->id_penyulang= $request->id;
-                $P->periode = $date_now;
-                $P->data = json_encode($dt);
-                $P->data_keluar = "";
-                $data_awal = PenyimpananPenyulang::where('periode', $date_now)->where('id_penyulang', $request->id)->first();
-                $data_lalu = PenyimpananPenyulang::where('periode', "L".$date_prev)->where('id_penyulang', $request->id)->first();
-            }
-            elseif ($request->tipe == "gd"|| $request->tipe=="pct" || $request->tipe=="tm") {
-                $P = new PenyimpananGardu();
-                $P->id_gardu = $request->id;
-                $P->periode = $date_now;
-                $P->data = json_encode($dt);
-                $P->data_keluar = "";
-                $data_awal = PenyimpananGardu::where('periode', $date_now)->where('id_gardu', $request->id)->first();
-            }
-
-            if($data_awal||$data_lalu){
-                $data = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter, $request->tpe_jual);
-                $P->data = json_encode($data);
-                if ($P->save());
-            }
-            else {
-                $P->data = json_encode($dt);
-                if($P->save());
-            }
-            return back();
-        }
     }
 
     public function store(Request $request)
@@ -354,27 +306,47 @@ class Input extends Controller
                 'total_pemakaian_kwh_download' => $request->tpe_download_lalu,
             );
             if ($request->tipe == "trafo_gi") {
-
+                $cek_dataL =true;
                 $data_lalu = PenyimpananTrafoGI::where('periode', "L".$date_prev)->where('id_trafo_gi', $request->id)->first();
-                if(count($data_lalu )==0)
+                if(count($data_lalu )==0){
                     $data_lalu = PenyimpananTrafoGI::where('periode', $date_prev)->where('id_trafo_gi', $request->id)->first();
+                    $cek_dataL =false;
+                }
                 if($data_lalu){
                     $decoded = json_decode($data_lalu->data,true);
                     $meter=$request->meter;
                     if($request->visual){
+                        if($cek_dataL)
                         $input_download = array(
                             'lwbp1_download' => $decoded['beli'][$meter]['download']['lwbp1_download'],
                             'lwbp2_download' => $decoded['beli'][$meter]['download']['lwbp2_download'],
                             'wbp_download' => $decoded['beli'][$meter]['download']['wbp_download'],
                             'total_pemakaian_kwh_download' => $decoded['hasil_pengolahan'][$meter]['download']['total_pemakaian_kwh_download']
                         );
+                        else
+                        $input_download = array(
+                            'lwbp1_download' => $decoded['beli'][$meter]['download']['lwbp1_download'],
+                            'lwbp2_download' => $decoded['beli'][$meter]['download']['lwbp2_download'],
+                            'wbp_download' => $decoded['beli'][$meter]['download']['wbp_download'],
+                            'kvarh_download' => $decoded['beli'][$meter]['download']['kvarh_download'],
+                            'konsiden_download' => $decoded['beli'][$meter]['download']['konsiden_download'],
+                        );
                     }
                     elseif ($request->download){
+                        if($cek_dataL)
                         $input_visual = array(
                             'lwbp1_visual' => $decoded['beli'][$meter]['visual']['lwbp1_visual'],
                             'lwbp2_visual' => $decoded['beli'][$meter]['visual']['lwbp2_visual'],
                             'wbp_visual' => $decoded['beli'][$meter]['visual']['wbp_visual'],
                             'total_pemakaian_kwh_visual' => $decoded['hasil_pengolahan'][$meter]['visual']['total_pemakaian_kwh_visual']
+                        );
+                        else
+                        $input_visual = array(
+                            'lwbp1_visual' => $decoded['beli'][$meter]['visual']['lwbp1_visual'],
+                            'lwbp2_visual' => $decoded['beli'][$meter]['visual']['lwbp2_visual'],
+                            'wbp_visual' => $decoded['beli'][$meter]['visual']['wbp_visual'],
+                            'kvarh_visual' => $decoded['beli'][$meter]['visual']['kvarh_visual'],
+                            'konsiden_visual' => $decoded['beli'][$meter]['visual']['konsiden_visual'],
                         );
                     }
 
@@ -384,139 +356,114 @@ class Input extends Controller
                     );
 
                     if($request->meter == "utama"){
-                        $vs_pb = array(
-                            'lwbp1_visual' => $decoded['beli']["pembanding"]['visual']['lwbp1_visual'],
-                            'lwbp2_visual' => $decoded['beli']["pembanding"]['visual']['lwbp2_visual'],
-                            'wbp_visual' => $decoded['beli']["pembanding"]['visual']['wbp_visual'],
-                            'total_pemakaian_kwh_visual' => $decoded['hasil_pengolahan']["pembanding"]['visual']['total_pemakaian_kwh_visual']
-                        );
-                        $down_pb = array(
-                            'lwbp1_download' => $decoded['beli']["pembanding"]['download']['lwbp1_download'],
-                            'lwbp2_download' => $decoded['beli']["pembanding"]['download']['lwbp2_download'],
-                            'wbp_download' => $decoded['beli']["pembanding"]['download']['wbp_download'],
-                            'total_pemakaian_kwh_download' => $decoded['hasil_pengolahan']["pembanding"]['download']['total_pemakaian_kwh_download']
-                        );
-                        $dt_pb=array(
-                            'visual' => $vs_pb,
-                            'download' => $down_pb,
-                        );
-
-                        $vs_ps = array(
-                            'lwbp1_visual' => $decoded['beli']["ps"]['visual']['lwbp1_visual'],
-                            'lwbp2_visual' => $decoded['beli']["ps"]['visual']['lwbp2_visual'],
-                            'wbp_visual' => $decoded['beli']["ps"]['visual']['wbp_visual'],
-                            'total_pemakaian_kwh_visual' => $decoded['hasil_pengolahan']["ps"]['visual']['total_pemakaian_kwh_visual']
-                        );
-                        $down_ps = array(
-                            'lwbp1_download' => $decoded['beli']["ps"]['download']['lwbp1_download'],
-                            'lwbp2_download' => $decoded['beli']["ps"]['download']['lwbp2_download'],
-                            'wbp_download' => $decoded['beli']["ps"]['download']['wbp_download'],
-                            'total_pemakaian_kwh_download' => $decoded['hasil_pengolahan']["ps"]['download']['total_pemakaian_kwh_download']
-                        );
-                        $dt_ps=array(
-                            'visual' => $vs_ps,
-                            'download' => $down_ps,
-                        );
-
-                        $data = array(
-                            "utama" =>$dt,
-                            "pembanding" =>$dt_pb,
-                            "ps" =>$dt_ps,
-                        );
+                        if($cek_dataL) {
+                            if ($request->visual){
+                                $decoded['beli']["pembanding"]['visual']['lwbp1_visual'] = $request->lwbp1_visual_lalu;
+                                $decoded['beli']["utama"]['visual']['lwbp2_visual'] = $request->lwbp2_visual_lalu;
+                                $decoded['beli']["utama"]['visual']['wbp_visual'] = $request->wbp_visual_lalu;
+                                $decoded['hasil_pengolahan']["utama"]['visual']['total_pemakaian_kwh_visual'] = $request->tpe_visual_lalu;
+                            }
+                            elseif ($request->download){
+                                $decoded['beli']["utama"]['download']['lwbp1_download']=$request->lwbp1_download_lalu;
+                                $decoded['beli']["utama"]['download']['lwbp2_download']=$request->lwbp2_download_lalu;
+                                $decoded['beli']["utama"]['download']['wbp_download']=$request->wbp_download_lalu;
+                                $decoded['hasil_pengolahan']["utama"]['download']['total_pemakaian_kwh_download']=$request->tpe_download_lalu;
+                            }
+                        }
+                        else{
+                            if($request->visual){
+                                $decoded['beli']["utama"]['visual']['lwbp1_visual']=$request->lwbp1_visual_lalu;
+                                $decoded['beli']["utama"]['visual']['lwbp2_visual']=$request->lwbp2_visual_lalu;
+                                $decoded['beli']["utama"]['visual']['wbp_visual']=$request->wbp_visual_lalu;
+                                $decoded['beli']["utama"]['visual']['kvarh_visual']=$request->kvarh_visual_lalu;
+                                $decoded['beli']["utama"]['visual']['konsiden_visual']=$request->konsiden_visual_lalu;
+                                $decoded['hasil_pengolahan']["utama"]['visual']['total_pemakaian_kwh_visual']=$request->tpe_visual_lalu;
+                            }
+                            elseif ($request->download){
+                                $decoded['beli']["utama"]['download']['lwbp1_download']=$request->lwbp1_download_lalu;
+                                $decoded['beli']["utama"]['download']['lwbp2_download']=$request->lwbp2_download_lalu;
+                                $decoded['beli']["utama"]['download']['wbp_download']=$request->wbp_download_lalu;
+                                $decoded['beli']["utama"]['download']['kvarh_download']=$request->kvarh_download_lalu;
+                                $decoded['beli']["utama"]['download']['konsiden_download']=$request->konsiden_download_lalu;
+                                $decoded['hasil_pengolahan']["utama"]['download']['total_pemakaian_kwh_download']=$request->tpe_download_lalu;
+                            }
+                        }
                     }
                     elseif($request->meter == "pembanding"){
-                        $vs_ut = array(
-                            'lwbp1_visual' => $decoded['beli']["utama"]['visual']['lwbp1_visual'],
-                            'lwbp2_visual' => $decoded['beli']["utama"]['visual']['lwbp2_visual'],
-                            'wbp_visual' => $decoded['beli']["utama"]['visual']['wbp_visual'],
-                            'total_pemakaian_kwh_visual' => $decoded['hasil_pengolahan']["utama"]['visual']['total_pemakaian_kwh_visual']
-                        );
-                        $down_ut = array(
-                            'lwbp1_download' => $decoded['beli']["utama"]['download']['lwbp1_download'],
-                            'lwbp2_download' => $decoded['beli']["utama"]['download']['lwbp2_download'],
-                            'wbp_download' => $decoded['beli']["utama"]['download']['wbp_download'],
-                            'total_pemakaian_kwh_download' => $decoded['hasil_pengolahan']["utama"]['download']['total_pemakaian_kwh_download']
-                        );
-                        $dt_ut=array(
-                            'visual' => $vs_ut,
-                            'download' => $down_ut,
-                        );
-
-                        $vs_ps = array(
-                            'lwbp1_visual' => $decoded['beli']["ps"]['visual']['lwbp1_visual'],
-                            'lwbp2_visual' => $decoded['beli']["ps"]['visual']['lwbp2_visual'],
-                            'wbp_visual' => $decoded['beli']["ps"]['visual']['wbp_visual'],
-                            'total_pemakaian_kwh_visual' => $decoded['hasil_pengolahan']["ps"]['visual']['total_pemakaian_kwh_visual']
-                        );
-                        $down_ps = array(
-                            'lwbp1_download' => $decoded['beli']["ps"]['download']['lwbp1_download'],
-                            'lwbp2_download' => $decoded['beli']["ps"]['download']['lwbp2_download'],
-                            'wbp_download' => $decoded['beli']["ps"]['download']['wbp_download'],
-                            'total_pemakaian_kwh_download' => $decoded['hasil_pengolahan']["ps"]['download']['total_pemakaian_kwh_download']
-                        );
-                        $dt_ps=array(
-                            'visual' => $vs_ps,
-                            'download' => $down_ps,
-                        );
-
-                        $data = array(
-                            "utama" =>$dt_ut,
-                            "pembanding" =>$dt,
-                            "ps" =>$dt_ps,
-                        );
+                        if($cek_dataL) {
+                            if ($request->visual){
+                                $decoded['beli']["pembanding"]['visual']['lwbp1_visual'] = $request->lwbp1_visual_lalu;
+                                $decoded['beli']["pembanding"]['visual']['lwbp2_visual'] = $request->lwbp2_visual_lalu;
+                                $decoded['beli']["pembanding"]['visual']['wbp_visual'] = $request->wbp_visual_lalu;
+                                $decoded['hasil_pengolahan']["pembanding"]['visual']['total_pemakaian_kwh_visual'] = $request->tpe_visual_lalu;
+                            }
+                            elseif ($request->download){
+                                $decoded['beli']["pembanding"]['download']['lwbp1_download']=$request->lwbp1_download_lalu;
+                                $decoded['beli']["pembanding"]['download']['lwbp2_download']=$request->lwbp2_download_lalu;
+                                $decoded['beli']["pembanding"]['download']['wbp_download']=$request->wbp_download_lalu;
+                                $decoded['hasil_pengolahan']["pembanding"]['download']['total_pemakaian_kwh_download']=$request->tpe_download_lalu;
+                            }
+                        }
+                        else{
+                            if($request->visual){
+                                $decoded['beli']["pembanding"]['visual']['lwbp1_visual']=$request->lwbp1_visual_lalu;
+                                $decoded['beli']["pembanding"]['visual']['lwbp2_visual']=$request->lwbp2_visual_lalu;
+                                $decoded['beli']["pembanding"]['visual']['wbp_visual']=$request->wbp_visual_lalu;
+                                $decoded['beli']["pembanding"]['visual']['kvarh_visual']=$request->kvarh_visual_lalu;
+                                $decoded['beli']["pembanding"]['visual']['konsiden_visual']=$request->konsiden_visual_lalu;
+                                $decoded['hasil_pengolahan']["pembanding"]['visual']['total_pemakaian_kwh_visual']=$request->tpe_visual_lalu;
+                            }
+                            elseif ($request->download){
+                                $decoded['beli']["pembanding"]['download']['lwbp1_download']=$request->lwbp1_download_lalu;
+                                $decoded['beli']["pembanding"]['download']['lwbp2_download']=$request->lwbp2_download_lalu;
+                                $decoded['beli']["pembanding"]['download']['wbp_download']=$request->wbp_download_lalu;
+                                $decoded['beli']["pembanding"]['download']['kvarh_download']=$request->kvarh_download_lalu;
+                                $decoded['beli']["pembanding"]['download']['konsiden_download']=$request->konsiden_download_lalu;
+                                $decoded['hasil_pengolahan']["pembanding"]['download']['total_pemakaian_kwh_download']=$request->tpe_download_lalu;
+                            }
+                        }
                     }
                     elseif($request->meter == "ps"){
-                        $vs_ut = array(
-                            'lwbp1_visual' => $decoded['beli']["utama"]['visual']['lwbp1_visual'],
-                            'lwbp2_visual' => $decoded['beli']["utama"]['visual']['lwbp2_visual'],
-                            'wbp_visual' => $decoded['beli']["utama"]['visual']['wbp_visual'],
-                            'total_pemakaian_kwh_visual' => $decoded['hasil_pengolahan']["utama"]['visual']['total_pemakaian_kwh_visual']
-                        );
-                        $down_ut = array(
-                            'lwbp1_download' => $decoded['beli']["utama"]['download']['lwbp1_download'],
-                            'lwbp2_download' => $decoded['beli']["utama"]['download']['lwbp2_download'],
-                            'wbp_download' => $decoded['beli']["utama"]['download']['wbp_download'],
-                            'total_pemakaian_kwh_download' => $decoded['hasil_pengolahan']["utama"]['download']['total_pemakaian_kwh_download']
-                        );
-                        $dt_ut=array(
-                            'visual' => $vs_ut,
-                            'download' => $down_ut,
-                        );
-
-                        $vs_pb = array(
-                            'lwbp1_visual' => $decoded['beli']["pembanding"]['visual']['lwbp1_visual'],
-                            'lwbp2_visual' => $decoded['beli']["pembanding"]['visual']['lwbp2_visual'],
-                            'wbp_visual' => $decoded['beli']["pembanding"]['visual']['wbp_visual'],
-                            'total_pemakaian_kwh_visual' => $decoded['hasil_pengolahan']["pembanding"]['visual']['total_pemakaian_kwh_visual']
-                        );
-                        $down_pb = array(
-                            'lwbp1_download' => $decoded['beli']["pembanding"]['download']['lwbp1_download'],
-                            'lwbp2_download' => $decoded['beli']["pembanding"]['download']['lwbp2_download'],
-                            'wbp_download' => $decoded['beli']["pembanding"]['download']['wbp_download'],
-                            'total_pemakaian_kwh_download' => $decoded['hasil_pengolahan']["pembanding"]['download']['total_pemakaian_kwh_download']
-                        );
-                        $dt_pb=array(
-                            'visual' => $vs_pb,
-                            'download' => $down_pb,
-                        );
-
-                        $data = array(
-                            "utama" =>$dt_ut,
-                            "pembanding" =>$dt_pb,
-                            "ps" =>$dt,
-                        );
+                        if($cek_dataL) {
+                            if ($request->visual){
+                                $decoded['beli']["ps"]['visual']['lwbp1_visual'] = $request->lwbp1_visual_lalu;
+                                $decoded['beli']["ps"]['visual']['lwbp2_visual'] = $request->lwbp2_visual_lalu;
+                                $decoded['beli']["ps"]['visual']['wbp_visual'] = $request->wbp_visual_lalu;
+                                $decoded['hasil_pengolahan']["ps"]['visual']['total_pemakaian_kwh_visual'] = $request->tpe_visual_lalu;
+                            }
+                            elseif ($request->download){
+                                $decoded['beli']["ps"]['download']['lwbp1_download']=$request->lwbp1_download_lalu;
+                                $decoded['beli']["ps"]['download']['lwbp2_download']=$request->lwbp2_download_lalu;
+                                $decoded['beli']["ps"]['download']['wbp_download']=$request->wbp_download_lalu;
+                                $decoded['hasil_pengolahan']["ps"]['download']['total_pemakaian_kwh_download']=$request->tpe_download_lalu;
+                            }
+                        }
+                        else{
+                            if($request->visual){
+                                $decoded['beli']["ps"]['visual']['lwbp1_visual']=$request->lwbp1_visual_lalu;
+                                $decoded['beli']["ps"]['visual']['lwbp2_visual']=$request->lwbp2_visual_lalu;
+                                $decoded['beli']["ps"]['visual']['wbp_visual']=$request->wbp_visual_lalu;
+                                $decoded['beli']["ps"]['visual']['kvarh_visual']=$request->kvarh_visual_lalu;
+                                $decoded['beli']["ps"]['visual']['konsiden_visual']=$request->konsiden_visual_lalu;
+                                $decoded['hasil_pengolahan']["ps"]['visual']['total_pemakaian_kwh_visual']=$request->tpe_visual_lalu;
+                            }
+                            elseif ($request->download){
+                                $decoded['beli']["ps"]['download']['lwbp1_download']=$request->lwbp1_download_lalu;
+                                $decoded['beli']["ps"]['download']['lwbp2_download']=$request->lwbp2_download_lalu;
+                                $decoded['beli']["ps"]['download']['wbp_download']=$request->wbp_download_lalu;
+                                $decoded['beli']["ps"]['download']['kvarh_download']=$request->kvarh_download_lalu;
+                                $decoded['beli']["ps"]['download']['konsiden_download']=$request->konsiden_download_lalu;
+                                $decoded['hasil_pengolahan']["ps"]['download']['total_pemakaian_kwh_download']=$request->tpe_download_lalu;
+                            }
+                        }
                     }
-                    $data_akhir = array(
-                        'beli' => $data,
-                        'hasil_pengolahan' => $data,
-                    );
-//                    dd($data);
-                    $data_lalu->data = json_encode($data_akhir);
 
+                    $data_lalu->data=json_encode($decoded);
                     if($data_lalu->save());
                     //REFRESH LINK
                     $data_awal = PenyimpananTrafoGI::where('periode', $date_now)->where('id_trafo_gi', $request->id)->first();
-                    $this->refresh_input($request,$data_awal);
+                    if(count($data_awal)>0)
+                        $this->refresh_input($request,$data_awal);
 
                     return back();
                 }
@@ -576,51 +523,60 @@ class Input extends Controller
                     $P->data_keluar = "";
                     if($P->save());
                     $data_awal = PenyimpananTrafoGI::where('periode', $date_now)->where('id_trafo_gi', $request->id)->first();
-                    $this->refresh_input($request,$data_awal);
+                    if(count($data_awal)>0)
+                        $this->refresh_input($request,$data_awal);
                     return back();
 
                 }
 
             }
             elseif ($request->tipe == "penyulang"){
+                $cek_dataL =true;
                 $data_lalu = PenyimpananPenyulang::where('periode', "L".$date_prev)->where('id_penyulang', $request->id)->first();
-                if(count($data_lalu)==0)
+                if(count($data_lalu)==0){
                     $data_lalu = PenyimpananPenyulang::where('periode', $date_prev)->where('id_penyulang', $request->id)->first();
+                    $cek_dataL =false;
+                }
                 if($data_lalu){
                     $decoded = json_decode($data_lalu->data,true);
-                    if($request->visual){
-                        $input_download = array(
-                            'lwbp1_download' => $decoded['beli']['download']['lwbp1_download'],
-                            'lwbp2_download' => $decoded['beli']['download']['lwbp2_download'],
-                            'wbp_download' => $decoded['beli']['download']['wbp_download'],
-                            'total_pemakaian_kwh_download' => $decoded['hasil_pengolahan']['download']['total_pemakaian_kwh_download']
-                        );
+                    if($cek_dataL){
+                        if($request->visual){
+                            $decoded['beli']['visual']['lwbp1_visual']=$request->lwbp1_visual_lalu;
+                            $decoded['beli']['visual']['lwbp2_visual']=$request->lwbp2_visual_lalu;
+                            $decoded['beli']['visual']['wbp_visual']=$request->wbp_visual_lalu;
+                            $decoded['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']=$request->tpe_visual_lalu;
+                        }
+                        elseif ($request->download){
+                            $decoded['beli']['download']['lwbp1_download']=$request->lwbp1_download_lalu;
+                            $decoded['beli']['download']['lwbp2_download']=$request->lwbp2_download_lalu;
+                            $decoded['beli']['download']['wbp_download']=$request->wbp_download_lalu;
+                            $decoded['hasil_pengolahan']['download']['total_pemakaian_kwh_download']=$request->tpe_download_lalu;
+                        }
                     }
-                    elseif ($request->download){
-                        $input_visual = array(
-                            'lwbp1_visual' => $decoded['beli']['visual']['lwbp1_visual'],
-                            'lwbp2_visual' => $decoded['beli']['visual']['lwbp2_visual'],
-                            'wbp_visual' => $decoded['beli']['visual']['wbp_visual'],
-                            'total_pemakaian_kwh_visual' => $decoded['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']
-                        );
+                    else{
+                        if($request->visual){
+                            $decoded['beli']['visual']['lwbp1_visual']=$request->lwbp1_visual_lalu;
+                            $decoded['beli']['visual']['lwbp2_visual']=$request->lwbp2_visual_lalu;
+                            $decoded['beli']['visual']['wbp_visual']=$request->wbp_visual_lalu;
+                            $decoded['beli']['visual']['kvarh_visual']=$request->kvarh_visual_lalu;
+                            $decoded['beli']['visual']['tu_visual']=$request->konsiden_visual_lalu;
+                            $decoded['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']=$request->tpe_visual_lalu;
+                        }
+                        elseif ($request->download){
+                            $decoded['beli']['download']['lwbp1_download']=$request->lwbp1_download_lalu;
+                            $decoded['beli']['download']['lwbp2_download']=$request->lwbp2_download_lalu;
+                            $decoded['beli']['download']['wbp_download']=$request->wbp_download_lalu;
+                            $decoded['beli']['download']['kvarh_download']=$request->kvarh_download_lalu;
+                            $decoded['beli']['download']['tu_download']=$request->konsiden_download_lalu;
+                            $decoded['hasil_pengolahan']['download']['total_pemakaian_kwh_download']=$request->tpe_download_lalu;
+                        }
                     }
-
-                    $dt = array(
-                        'visual' => $input_visual,
-                        'download' => $input_download,
-                    );
-
-                    $data_akhir = array(
-                        'beli' => $dt,
-                        'hasil_pengolahan' => $dt,
-                    );
-
-                    $data_lalu->data = json_encode($data_akhir);
-
+                    $data_lalu->data=json_encode($decoded);
                     if($data_lalu->save());
 
                     $data_awal = PenyimpananPenyulang::where('periode', $date_now)->where('id_penyulang', $request->id)->first();
-                    $this->refresh_input($request,$data_awal);
+                    if(count($data_awal)>0)
+                        $this->refresh_input($request,$data_awal);
 
                     return back();
                 }
@@ -643,14 +599,14 @@ class Input extends Controller
                     $P->data_keluar = "";
                     if($P->save());
                     $data_awal = PenyimpananPenyulang::where('periode', $date_now)->where('id_penyulang', $request->id)->first();
-                    $this->refresh_input($request,$data_awal);
-
+                    if($data_awal)
+                        $this->refresh_input($request,$data_awal);
                     return back();
-
                 }
             }
         }
         else{
+//
             if($request->tipe=="trafo_gi") {
                 $input_visual = array(
                     'lwbp1_visual' => $request->lwbp1_visual,
