@@ -25,7 +25,7 @@
                                                 <li class="active">
                                                     <a href="#beli" role="tab" data-toggle="tab">
                                                         <i class="fa fa-download"></i><br>
-                                                        Transaksi Beli
+                                                        Transaksi Beli [{{$date2}}]
                                                     </a>
                                                 </li>
                                                 <li>
@@ -103,7 +103,7 @@
 
                                                                                             <div class="card">
                                                                                                 <div class="header">
-                                                                                                    <h4 class="title">KWH Meter Utama</h4>
+                                                                                                    <h4 class="title">KWH Meter Utama [{{$date2}}]</h4>
                                                                                                 </div>
                                                                                                 <div class="content">
                                                                                                 </div>
@@ -159,7 +159,7 @@
 
                                                                                             <div class="card">
                                                                                                 <div class="header">
-                                                                                                    <h4 class="title">KWH Meter Utama</h4>
+                                                                                                    <h4 class="title">KWH Meter Utama [{{$date2}}]</h4>
                                                                                                 </div>
                                                                                                 <div class="content">
                                                                                                 </div>
@@ -241,7 +241,7 @@
 
                                                                                             <div class="card">
                                                                                                 <div class="header">
-                                                                                                    <h4 class="title">KWH Meter Pembanding</h4>
+                                                                                                    <h4 class="title">KWH Meter Pembanding [{{$date2}}]</h4>
                                                                                                 </div>
                                                                                                 <div class="content">
                                                                                                 </div>
@@ -298,7 +298,7 @@
 
                                                                                             <div class="card">
                                                                                                 <div class="header">
-                                                                                                    <h4 class="title">KWH Meter Pembanding</h4>
+                                                                                                    <h4 class="title">KWH Meter Pembanding [{{$date2}}]</h4>
                                                                                                 </div>
                                                                                                 <div class="content">
                                                                                                 </div>
@@ -381,7 +381,7 @@
 
                                                                                             <div class="card">
                                                                                                 <div class="header">
-                                                                                                    <h4 class="title">KWH Meter Pemakaian Sendiri</h4>
+                                                                                                    <h4 class="title">KWH Meter Pemakaian Sendiri [{{$date2}}]</h4>
                                                                                                 </div>
                                                                                                 <div class="content">
                                                                                                 </div>
@@ -438,7 +438,7 @@
 
                                                                                             <div class="card">
                                                                                                 <div class="header">
-                                                                                                    <h4 class="title">KWH Meter Pemakaian Sendiri</h4>
+                                                                                                    <h4 class="title">KWH Meter Pemakaian Sendiri [{{$date2}}]</h4>
                                                                                                 </div>
                                                                                                 <div class="content">
                                                                                                 </div>
@@ -1418,7 +1418,7 @@
                                                     <li class="active">
                                                         <a href="#beli" role="tab" data-toggle="tab">
                                                             <i class="fa fa-download"></i><br>
-                                                            Transaksi Beli
+                                                            Transaksi Beli [{{$date2}}]
                                                         </a>
                                                     </li>
                                                     <li>

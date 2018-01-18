@@ -1746,8 +1746,10 @@ class Input extends Controller
 //        dd($data);
         $home = new HomeController;
         $date = $home->MonthShifter(-2)->format(('M Y'));
+        $date2 = $home->MonthShifter(-1)->format(('M Y'));
         return view('admin.nonmaster.dashboard_user.input_data', [
             'date'            => $date,
+            'date2'            => $date2,
             'data'            => $data,
             'dt'              => $dt,
             'dt2'             => $dt2,
