@@ -2296,7 +2296,7 @@ class Laporan extends Controller
             for($j=0;$j<count($data_urai);$j++) {
                 if($data_urai[$j]['as']){
                     if($data_urai[$j]['asal']==$data_urai[$j]['tujuan']){
-                        echo $data_urai[$j]['pct'];
+//                        echo $data_urai[$j]['pct'];
                     }
                     elseif($data_urai[$j]['asal']==$id_rayon[$i]) {
                         $total_lwbp1_i += $data_urai[$j]['lwbp1_i'];
