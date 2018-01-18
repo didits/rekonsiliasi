@@ -1494,7 +1494,7 @@
 
                                                                                                     <div class="form-group">
                                                                                                         <label>Tegangan Ujung</label>
-                                                                                                        <input type="number" step="any" name="tu_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['tu_visual']}}">
+                                                                                                        <input type="number" name="tu_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['tu_visual']}}">
                                                                                                         {{--<input type="number" name="tu_visual" class="form-control" placeholder="" value="">--}}
                                                                                                     </div>
                                                                                                     @endif
@@ -1545,7 +1545,7 @@
 
                                                                                                     <div class="form-group">
                                                                                                         <label>Tegangan Ujung</label>
-                                                                                                        <input type="number" step="any" name="tu_download" class="form-control" placeholder="" value="{{$data['beli']['download']['tu_download']}}">
+                                                                                                        <input type="number" name="tu_download" class="form-control" placeholder="" value="{{$data['beli']['download']['tu_download']}}">
                                                                                                     </div>
                                                                                                     @endif
 
