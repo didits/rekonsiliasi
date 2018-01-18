@@ -2325,7 +2325,6 @@ class Laporan extends Controller
                 }
                 elseif($data_urai[$j]['asal']==$id_rayon[$i]||$data_urai[$j]['tujuan']==$id_rayon[$i]){
                     if($data_urai[$j]['asal']==$data_urai[$j]['tujuan']){
-                        echo $data_urai[$j]['pct'];
                     }
                     elseif($data_urai[$j]['tipe']) {
                         if($data_urai[$j]['asal']==$id_rayon[$i]) {
