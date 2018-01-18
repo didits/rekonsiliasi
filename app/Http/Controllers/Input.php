@@ -358,7 +358,7 @@ class Input extends Controller
                     if($request->meter == "utama"){
                         if($cek_dataL) {
                             if ($request->visual){
-                                $decoded['beli']["pembanding"]['visual']['lwbp1_visual'] = $request->lwbp1_visual_lalu;
+                                $decoded['beli']["utama"]['visual']['lwbp1_visual'] = $request->lwbp1_visual_lalu;
                                 $decoded['beli']["utama"]['visual']['lwbp2_visual'] = $request->lwbp2_visual_lalu;
                                 $decoded['beli']["utama"]['visual']['wbp_visual'] = $request->wbp_visual_lalu;
                                 $decoded['hasil_pengolahan']["utama"]['visual']['total_pemakaian_kwh_visual'] = $request->tpe_visual_lalu;
