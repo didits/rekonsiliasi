@@ -779,7 +779,7 @@
                                                                                                                 <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['pembanding']['visual']['lwbp1_visual']}}">
                                                                                                                 @elseif($dt2)
                                                                                                                 <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['pembanding']['visual']['lwbp1_visual']}}">
-                                                                                                                @elseif($dt2)
+                                                                                                                @else
                                                                                                                 <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="lwbp1_visual_lalu" class="form-control" placeholder="" value="">
                                                                                                                 @endif
                                                                                                             </div>
@@ -1494,7 +1494,7 @@
 
                                                                                                     <div class="form-group">
                                                                                                         <label>Tegangan Ujung</label>
-                                                                                                        <input type="number" name="tu_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['tu_visual']}}">
+                                                                                                        <input type="number" step="any" name="tu_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['tu_visual']}}">
                                                                                                         {{--<input type="number" name="tu_visual" class="form-control" placeholder="" value="">--}}
                                                                                                     </div>
                                                                                                     @endif
@@ -1545,7 +1545,7 @@
 
                                                                                                     <div class="form-group">
                                                                                                         <label>Tegangan Ujung</label>
-                                                                                                        <input type="number" name="tu_download" class="form-control" placeholder="" value="{{$data['beli']['download']['tu_download']}}">
+                                                                                                        <input type="number" step="any" name="tu_download" class="form-control" placeholder="" value="{{$data['beli']['download']['tu_download']}}">
                                                                                                     </div>
                                                                                                     @endif
 
