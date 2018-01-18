@@ -1658,7 +1658,7 @@
                                                                                                     <div class="form-group">
                                                                                                         <label>Stand Akhir WBP</label>
                                                                                                         @if($dt2 == null)
-                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$data['beli']['visual']['wbp_visual']}}">
+                                                                                                        <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$dt['beli']['visual']['wbp_visual']}}">
                                                                                                         @elseif($dt == null)
                                                                                                         <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_visual_lalu" class="form-control" placeholder="" value="{{$dt2['beli']['visual']['wbp_visual']}}">
                                                                                                         @else
