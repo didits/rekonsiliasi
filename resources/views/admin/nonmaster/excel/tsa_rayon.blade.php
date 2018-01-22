@@ -178,6 +178,7 @@
             </tr>
         </div>
     </table>
+    @if(Auth::user()->tipe_organisasi<3)
     <tr>
         @for($i=0;$i<13;$i++)
             <td></td>
@@ -190,5 +191,6 @@
         @endfor
         <td colspan="3" style="text-align: center">ASMAN TRANSAKSI ENERGI, </td>
     </tr>
+    @endif
 </body>
 </html>

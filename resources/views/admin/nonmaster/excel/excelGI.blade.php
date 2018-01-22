@@ -624,6 +624,7 @@
         @endfor
         <td>{{number_format($sum_[$tr])}}</td>
     </tr>
+    @if(Auth::user()->tipe_organisasi<3)
     <tr> </tr>
     <tr>
         <td colspan="2"></td>
@@ -663,7 +664,7 @@
         <td></td>
         <td colspan="3" style="text-align: center">MANAJER, </td>
     </tr>
-
+    @endif
 </table>
 </body>
 </html>

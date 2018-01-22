@@ -139,6 +139,7 @@
 
     </div>
     </table>
+    @if(Auth::user()->tipe_organisasi<3)
     <tr>
         @for($i=0;$i<12;$i++)
             <td></td>
@@ -151,6 +152,6 @@
         @endfor
         <td colspan="3" style="text-align: center">MANAJER, </td>
     </tr>
-
+    @endif
 </body>
 </html>

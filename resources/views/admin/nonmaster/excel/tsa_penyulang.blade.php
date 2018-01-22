@@ -302,7 +302,7 @@
             @endif
         </div>
     </table>
-    @if($tipe=="area")
+    @if(Auth::user()->tipe_organisasi<3)
         <tr>
             @for($i=0;$i<16;$i++)
                 <td></td>
