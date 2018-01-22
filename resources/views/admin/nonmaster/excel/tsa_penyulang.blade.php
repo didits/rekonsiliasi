@@ -281,19 +281,19 @@
             <thead>
                 <tr>
                     <td colspan="5" class="text-center">JUMLAH</td>
-                    <th class="text-right"><b>{{number_format($total_jumlah['lwbp1'],0)}}</b></th>
-                    <th class="text-right"><b>{{number_format($total_jumlah['lwbp2'],0)}}</b></th>
-                    <th class="text-right"><b>{{number_format($total_jumlah['wbp'],0)}}</b></th>
-                    <th class="text-right"><b>{{number_format($total_jumlah['total_kwh'],0)}}</b></th>
-                    <th class="text-right"><b>{{number_format($total_jumlah['Kvarh'],0)}}</b></th>
-                    <th class="text-right"><b>{{number_format($total_jumlah['KW'],0)}}</b></th>
-                    <th class="text-center"><b></b></th>
-                    <th class="text-right"><b>{{number_format($total_jumlah['KWH_lalu'],0)}}</b></th>
-                    <th class="text-right"><b>{{number_format($total_jumlah['KWH'],0)}}</b></th>
-                    <th class="text-right"><b>{{number_format($total_jumlah['persen'],2)}}</b></th>
-                    <th class="text-right"><b>{{number_format($total_jumlah['jual'],0)}}</b></th>
-                    <th class="text-right"><b>{{number_format($total_jumlah['susut'],0)}}</b></th>
-                    <th class="text-right"><b>{{number_format($total_jumlah['losses'],2)}}</b></th>
+                    <td class="text-right"><b>{{number_format($total_jumlah['lwbp1'],0)}}</b></td>
+                    <td class="text-right"><b>{{number_format($total_jumlah['lwbp2'],0)}}</b></td>
+                    <td class="text-right"><b>{{number_format($total_jumlah['wbp'],0)}}</b></td>
+                    <td class="text-right"><b>{{number_format($total_jumlah['total_kwh'],0)}}</b></td>
+                    <td class="text-right"><b>{{number_format($total_jumlah['Kvarh'],0)}}</b></td>
+                    <td class="text-right"><b>{{number_format($total_jumlah['KW'],0)}}</b></td>
+                    <td class="text-center"><b></b></td>
+                    <td class="text-right"><b>{{number_format($total_jumlah['KWH_lalu'],0)}}</b></td>
+                    <td class="text-right"><b>{{number_format($total_jumlah['KWH'],0)}}</b></td>
+                    <td class="text-right"><b>{{number_format($total_jumlah['persen'],2)}}</b></td>
+                    <td class="text-right"><b>{{number_format($total_jumlah['jual'],0)}}</b></td>
+                    <td class="text-right"><b>{{number_format($total_jumlah['susut'],0)}}</b></td>
+                    <td class="text-right"><b>{{number_format($total_jumlah['losses'],2)}}</b></td>
                     <td>-</td>
                 </tr>
             </thead>
@@ -302,5 +302,20 @@
             @endif
         </div>
     </table>
+    @if($tipe=="area")
+        <tr>
+            @for($i=0;$i<16;$i++)
+                <td></td>
+            @endfor
+            <td colspan="3" style="text-align: center">{{Auth::user()->nama_organisasi}}, 4 {{date('F Y')}} </td>
+        </tr>
+        <tr>
+            @for($i=0;$i<16;$i++)
+                <td></td>
+            @endfor
+            <td colspan="3" style="text-align: center">ASMAN TRANSAKSI ENERGI, </td>
+        </tr>
+    @endif
+
 </body>
 </html>

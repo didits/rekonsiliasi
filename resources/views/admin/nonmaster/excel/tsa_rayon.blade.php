@@ -178,5 +178,17 @@
             </tr>
         </div>
     </table>
+    <tr>
+        @for($i=0;$i<13;$i++)
+            <td></td>
+        @endfor
+        <td colspan="3" style="text-align: center">{{Auth::user()->nama_organisasi}}, 4 {{date('F Y')}} </td>
+    </tr>
+    <tr>
+        @for($i=0;$i<13;$i++)
+            <td></td>
+        @endfor
+        <td colspan="3" style="text-align: center">ASMAN TRANSAKSI ENERGI, </td>
+    </tr>
 </body>
 </html>

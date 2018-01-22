@@ -176,7 +176,19 @@
                 <td class="text-right"><b>{{number_format($total_jumlah['susut'])}}</b></td>
                 <td class="text-right"><b>{{number_format($total_jumlah['losses'])}}</b></td>
             </tr>
+        </div>
     </table>
-</div>
+    <tr>
+        @for($i=0;$i<12;$i++)
+            <td></td>
+        @endfor
+        <td colspan="3" style="text-align: center">{{Auth::user()->nama_organisasi}}, 4 {{date('F Y')}} </td>
+    </tr>
+    <tr>
+        @for($i=0;$i<12;$i++)
+            <td></td>
+        @endfor
+        <td colspan="3" style="text-align: center">ASMAN TRANSAKSI ENERGI, </td>
+    </tr>
 </body>
 </html>

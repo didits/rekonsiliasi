@@ -984,7 +984,6 @@ class Laporan extends Controller
                     }
                     array_push($rayon,$dt);
                 }
-
                 $id_rayon = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id');
                 $nama_rayon = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('nama_organisasi');
                 $cmb = new MasterLaporan($id_rayon,"pct",1);
@@ -1039,6 +1038,7 @@ class Laporan extends Controller
                     'susut'   => $tot_susut,
                     'losses'   => $tot_losses
                 );
+//                dd($rayon);
                 if($tsa=="area")
                     return view('admin.nonmaster.laporan.tsa_rayon',[
                         'date'             => $date,
@@ -1348,11 +1348,11 @@ class Laporan extends Controller
                 $gardu    = $cmb->gardu; $p_penyulang    = $cmb  ->p_penyulang;   $p_gardu  = $cmb->p_gardu;
                 $data = $this->data_pct($id_rayon,$p_penyulang,$p_gardu,$gardu,$nama_rayon);
                 for($i=0;$i < count($rayon);$i++){
-                    $rayon[$i]['lwbp1'] -= $data[5][$i]['lwbp1_e'] + $data[5][$i]['lwbp1_i'];
-                    $rayon[$i]['lwbp2'] -= $data[5][$i]['lwbp2_e'] + $data[5][$i]['lwbp2_i'];
-                    $rayon[$i]['wbp'] -= $data[5][$i]['wbp_e'] + $data[5][$i]['wbp_i'];
-                    $rayon[$i]['Kvarh'] -= $data[5][$i]['kvar_e'] + $data[5][$i]['kvar_i'];
-                    $rayon[$i]['KW'] -= $data[5][$i]['kw_e'] + $data[5][$i]['kw_i'];
+                    $rayon[$i]['lwbp1'] = $rayon[$i]['lwbp1'] - $data[5][$i]['lwbp1_e'] + $data[5][$i]['lwbp1_i'];
+                    $rayon[$i]['lwbp2'] = $rayon[$i]['lwbp2']- $data[5][$i]['lwbp2_e'] + $data[5][$i]['lwbp2_i'];
+                    $rayon[$i]['wbp'] = $rayon[$i]['wbp'] - $data[5][$i]['wbp_e'] + $data[5][$i]['wbp_i'];
+                    $rayon[$i]['Kvarh'] =$rayon[$i]['Kvarh'] - $data[5][$i]['kvar_e'] + $data[5][$i]['kvar_i'];
+                    $rayon[$i]['KW'] = $rayon[$i]['KW'] - $data[5][$i]['kw_e'] + $data[5][$i]['kw_i'];
 
                     $rayon[$i]['total_kwh'] = $rayon[$i]['lwbp1'] + $rayon[$i]['lwbp2'] + $rayon[$i]['wbp'];
                     $rayon[$i]['KWH'] = $rayon[$i]['total_kwh'] - $rayon[$i]['KWH_lalu'];

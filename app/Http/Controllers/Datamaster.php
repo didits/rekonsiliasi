@@ -141,12 +141,17 @@ class Datamaster
                 $trafo_gi = TrafoGI::where('id_organisasi', $id_organisasi)->where('id_gi', $gi[$i]['id'])->get(array('nama_trafo_gi as name', 'alamat_trafo_gi as title', 'id as id'))->toArray();
                 $trafo_gi_array = array();
                 for ($j = 0; $j < count($trafo_gi); $j++) {
-                    $penyulang = Penyulang::where('id_organisasi', $id_organisasi)->where('id_trafo_gi', $trafo_gi[$j]['id'])->get(array('nama_penyulang as name', 'alamat_penyulang as title', 'id as id'))->toArray();
+                    $penyulang = Penyulang::where('id_organisasi', $id_organisasi)->where('id_trafo_gi', $trafo_gi[$j]['id'])->get(array('nama_penyulang as name', 'alamat_penyulang as title', 'id as id', 'id_organisasi as id_org'))->toArray();
                     $penyulang_array = array();
                     for ($k = 0; $k < count($penyulang); $k++) {
+                        $penyulang_rayon = Transfer::where('id_penyulang', $penyulang[$k]['id'])->first();
+                        if($penyulang_rayon)
+                            $org = Organisasi::where('id',$penyulang_rayon->id_organisasi)->first();
+                        else
+                            $org = Organisasi::where('id',$penyulang[$k]['id_org'])->first();
+                        $penyulang[$k]['title']= "RAYON ".$org['nama_organisasi'];
                         $gardu = Gardu::where('id_organisasi', $id_organisasi)->where('id_penyulang', $penyulang[$k]['id'])->get(array('nama_gardu as name', 'alamat_gardu as title', 'tipe_gardu as tipe_gardu'))->toArray();
                         $semua_gardu = array();
-
                         $gardu_array = array();
                         for ($l = 0; $l < count($gardu); $l++) {
                             if ($gardu[$l] && $gardu[$l]['tipe_gardu'] == 0)
@@ -176,7 +181,7 @@ class Datamaster
                             array_push($semua_gardu, $penyulang_array_tm);
 
 
-                        $penyulang_array_ = array('name' => $penyulang[$k]['name'], 'title' => $penyulang[$k]['name'], 'children' => $semua_gardu, 'office' => 'Penyulang');
+                        $penyulang_array_ = array('name' => $penyulang[$k]['name'], 'title' => $penyulang[$k]['title'], 'children' => $semua_gardu, 'office' => 'Penyulang');
                         if ($penyulang_array_)
                             array_push($penyulang_array, $penyulang_array_);
                     }

@@ -624,6 +624,46 @@
         @endfor
         <td>{{number_format($sum_[$tr])}}</td>
     </tr>
+    <tr> </tr>
+    <tr>
+        <td colspan="2"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        @for ($j=0; $j < count($deviasi); $j++)
+            @if($deviasi[$j]['id_trafo']== $data_master[$tr]['id_trafo'])
+                <td></td>
+            @endif
+        @endfor
+        <td></td>
+        <td></td>
+        <td></td>
+        <td colspan="3" style="text-align: center">{{$area}}, 4 {{date('F Y')}} </td>
+    </tr>
+    <tr>
+        <td colspan="2"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        @for ($j=0; $j < count($deviasi); $j++)
+            @if($deviasi[$j]['id_trafo']== $data_master[$tr]['id_trafo'])
+                <td></td>
+            @endif
+        @endfor
+        <td></td>
+        <td></td>
+        <td></td>
+        <td colspan="3" style="text-align: center">MANAJER, </td>
+    </tr>
+
 </table>
 </body>
 </html>

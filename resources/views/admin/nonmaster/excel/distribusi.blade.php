@@ -196,4 +196,18 @@
         </div>
     </table>
 </body>
+<tr></tr>
+<tr>
+    @for($i=0;$i<13;$i++)
+        <td></td>
+    @endfor
+    <td colspan="3" style="text-align: center">SURABAYA, 4 {{date('F Y')}} </td>
+</tr>
+<tr>
+    @for($i=0;$i<13;$i++)
+        <td></td>
+    @endfor
+    <td colspan="3" style="text-align: center">REVAS DISTRIBUSI JATIM,</td>
+</tr>
+
 </html>
