@@ -359,7 +359,7 @@
                                         @elseif($tipe=="penyulang")
 
                                             <th>Nama Penyulang</th>
-                                            <th>Alamat Penyulang</th>
+                                            <th>Rayon Penyulang</th>
                                         @endif
 
                                             <th></th>
@@ -386,7 +386,7 @@
                                                     @elseif($tipe=="tgi")
                                                         {{$list->alamat_trafo_gi}}
                                                     @elseif($tipe=="penyulang")
-                                                        {{$list->alamat_penyulang}}
+                                                        {{$list->nama_organisasi}}
                                                     @endif
                                                 </td>
                                                 @if($laporan)

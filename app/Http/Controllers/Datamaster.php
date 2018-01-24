@@ -54,27 +54,6 @@ class Datamaster
 
     public function list_master($id_rayon, $tipe, $id)
     {
-
-        $rayon = Organisasi::where('id_organisasi', $id_rayon)->first();
-        $trafo_gi = TrafoGI::where('id', $id)->first();
-        $transfer = Transfer::where('id_trafo_gi',$id)->pluck('id_penyulang');
-        $data = DB::table('penyulang')
-            ->whereNotIn('penyulang.id',$transfer)
-            ->join('organisasi', 'organisasi.id', '=', 'penyulang.id_organisasi')
-            ->select('penyulang.id','penyulang.nama_penyulang', 'penyulang.alamat_penyulang', 'organisasi.nama_organisasi')
-            ->where('id_trafo_gi',$id);
-//            ->get();
-
-        $data2 = DB::table('penyulang')
-            ->join('transfer', 'penyulang.id', '=', 'transfer.id_penyulang')
-            ->join('organisasi', 'organisasi.id', '=', 'transfer.id_organisasi')
-            ->select('penyulang.id','penyulang.nama_penyulang', 'penyulang.alamat_penyulang', 'organisasi.nama_organisasi')
-            ->union($data)
-            ->where('penyulang.id_trafo_gi',$id)
-            ->orderBy('id', 'asc')
-            ->get();
-
-
         if ($tipe == 'gtt_pct')
             $tipe = 'gd';
 

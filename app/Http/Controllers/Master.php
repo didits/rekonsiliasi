@@ -9,6 +9,7 @@ use App\Organisasi;
 use App\Penyulang;
 use App\TrafoGI;
 use App\Transfer;
+use Illuminate\Support\Facades\DB;
 
 class Master
 {
@@ -25,12 +26,24 @@ class Master
         }
         elseif($tipe=="penyulang"){
             $transfer = Transfer::where('id_trafo_gi',$id)->pluck('id_penyulang');
-            $data = Penyulang::select('id','nama_penyulang','alamat_penyulang','data_master')
-                ->whereNotIn('id',$transfer)
-                ->where('id_trafo_gi',$id)
+            $data = DB::table('penyulang')
+                ->whereNotIn('penyulang.id',$transfer)
+                ->join('organisasi', 'organisasi.id', '=', 'penyulang.id_organisasi')
+                ->select('penyulang.id','penyulang.nama_penyulang', 'penyulang.alamat_penyulang', 'organisasi.nama_organisasi')
+                ->where('id_trafo_gi',$id);
+//            ->get();
+
+            $data2 = DB::table('penyulang')
+                ->join('transfer', 'penyulang.id', '=', 'transfer.id_penyulang')
+                ->join('organisasi', 'organisasi.id', '=', 'transfer.id_organisasi')
+                ->select('penyulang.id','penyulang.nama_penyulang', 'penyulang.alamat_penyulang', 'organisasi.nama_organisasi')
+                ->union($data)
+                ->where('penyulang.id_trafo_gi',$id)
+                ->orderBy('id', 'asc')
                 ->get();
-            $this->data =$data;
+            $this->data =$data2;
             $nama = TrafoGI::select('nama_trafo_gi')->where('id', $id)->first();
+
         }
         elseif($tipe=="gd"){
             $this->data = Gardu::where('id_penyulang', $id)->get();
