@@ -104,12 +104,26 @@ class Input extends Controller
     public function list_trafo_gi($id_gi){
         $user = Auth::user()->id;
         $org = GI::where('id',$id_gi)->where('id_organisasi',$user)->get();
-        if(count($org) >0) $transfer =false;
-        else $transfer =true;
         $gi = GI::where('id', $id_gi)->first();
-        $data = TrafoGI::where('id_gi', $id_gi)->get();
+        if(count($org) >0) {
+            $data = TrafoGI::where('id_gi', $id_gi)->get();
+            $transfer =false;
+        }
+        else{
+            $transfer =true;
+            $t_gi = TrafoGI::where('id_gi', $gi->id)->pluck('id');
+            $dt_ =array();
+            foreach ($t_gi as $tgi){
+                $trans = Transfer::where('id_trafo_gi', $tgi)->where('id_organisasi',$user)->pluck('id_penyulang');
+                $dt = Penyulang::whereIn('id', $trans)->get();
+                if(count($dt)>0){
+                    $dt = TrafoGI::where('id', $tgi)->first();
+                    array_push($dt_,$dt);
+                }
+            }
+            $data = $dt_;
 
-//        dd($transfer);
+        }
         return view('admin.nonmaster.dashboard_user.list_input',[
             'transfer' => $transfer,
             'data' => $data,
