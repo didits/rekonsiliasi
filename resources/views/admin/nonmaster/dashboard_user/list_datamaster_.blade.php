@@ -12,6 +12,17 @@
         <div class="main-panel">
             <div class="content">
                 <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="content">
+                                    {!! Breadcrumbs::render('rayon', $breadcrumbs) !!}
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">

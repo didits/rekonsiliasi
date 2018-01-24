@@ -766,13 +766,17 @@ class AreaController extends Controller
 
     public function list_datamaster($id_rayon){
         $master_gi = new MasterGI($id_rayon);
+
 //        dd($master_gi->data);
         return view('admin.nonmaster.dashboard_user.list_datamaster_',[
             'data' =>$master_gi->data,
             'data2' =>$master_gi->data2,
             'id_organisasi'=>$master_gi->id_rayon,
             'nama_rayon' =>$master_gi->nama_rayon,
-            'laporan' => false, 'transaksi' => false
+            'laporan' => false, 'transaksi' => false,
+            'breadcrumbs' => [  'area'  => $this->crumbsArea()->nama_organisasi,
+                                'rayon' => $master_gi->nama_rayon,
+                                'params'=> $id_rayon]
         ]);
     }
 
@@ -781,6 +785,7 @@ class AreaController extends Controller
         $gardu = GI::where('id', $id_gardu_induk)->first();
         $data = TrafoGI::where('id_gi', $id_gardu_induk)->get();
         $decoded = json_decode($gardu->data_master, true);
+        $data_org = Organisasi::select('nama_organisasi')->where('id_organisasi', Auth::user()->id_organisasi)->first();
 //        dd($id_organisasi);
         return view('admin.nonmaster.dashboard_user.datamaster_',[
             'data' =>$data,
@@ -790,7 +795,10 @@ class AreaController extends Controller
             'rayon'=>$rayon,
             'meter'=>null,
             'id_org'=>$id_organisasi,
-            'dropdown_area'=>$this->populateArea()
+            'dropdown_area'=>$this->populateArea(),
+            'breadcrumbs' => [  'rayon' => $this->crumbsRayon($id_organisasi),
+                                'gi'    => $gardu->nama_gi,
+                                'params'=> [$id_organisasi, $id_gardu_induk]]
         ]);
     }
 
@@ -825,7 +833,10 @@ class AreaController extends Controller
             'rayon'=>$rayon,
             'meter'=>$rayon->id,
             'id_org'=>$id_organisasi,
-            'dropdown_area'=>$this->populateArea()
+            'dropdown_area'=>$this->populateArea(),
+            'breadcrumbs' => [  'gi'        => $this->crumbsGI($id_organisasi, $trafo_gi->id_gi),
+                                'trafo_gi'  => $trafo_gi->nama_trafo_gi,
+                                'params'    => [$id_organisasi, $id_trafo_gi]]
         ]);
     }
 
@@ -864,7 +875,10 @@ class AreaController extends Controller
             'rayon'=>$rayon,
             'meter'=>null,
             'id_org'=>$rayon->id,
-            'dropdown_area'=>$this->populateArea()
+            'dropdown_area'=>$this->populateArea(),
+            'breadcrumbs' => [  'trafo_gi'  => $this->crumbsTrafo($id_organisasi, $penyulang->id_trafo_gi),
+                                'penyulang' => $penyulang->nama_penyulang,
+                                'params'    => [$id_organisasi, $id_penyulang]]
         ]);
     }
 
@@ -894,6 +908,7 @@ class AreaController extends Controller
         $decoded = json_decode($gardu->data_master, true);
         if($gardu->tipe_gardu!=1) $meter = null;
         else $meter =1;
+
         return view('admin.nonmaster.dashboard_user.datamaster_',[
             'data' =>$data,
             'idP' =>$idP,
@@ -903,7 +918,10 @@ class AreaController extends Controller
             'rayon'=>$rayon,
             'meter'=>$meter,
             'id_org'=>$id_organisasi,
-            'dropdown_area'=>$this->populateArea()
+            'dropdown_area'=>$this->populateArea(),
+            'breadcrumbs' => [  'penyulang' => $this->crumbsPenyulang($rayon->id_organisasi, $gardu->id_penyulang),
+                                'gardu'     => $gardu->nama_gardu,
+                                'params'    => [$rayon->id_organisasi, $id_gardu]]
         ]);
     }
 
@@ -1138,5 +1156,46 @@ class AreaController extends Controller
             'deviasi'   => $deviasi,
             'susut'     => $susut
         ]);
+    }
+
+    public function crumbsArea(){
+        return Organisasi::select('nama_organisasi')->where('id_organisasi', Auth::user()->id_organisasi)->first();
+    }
+
+    public function crumbsRayon($id_rayon){
+        $master_gi = new MasterGI($id_rayon);
+        $breadcrumbs = array();
+        $breadcrumbs['area']    = $this->crumbsArea()->nama_organisasi;
+        $breadcrumbs['rayon']   = $master_gi->nama_rayon;
+        $breadcrumbs['params']  = $id_rayon;
+        return $breadcrumbs;
+    }
+
+    public function crumbsGI($id_organisasi, $id_gardu_induk){
+//        dd($id_organisasi);
+        $gardu = GI::where('id', $id_gardu_induk)->first();
+        $breadcrumbs = array();
+        $breadcrumbs['rayon']   = $this->crumbsRayon($id_organisasi);
+        $breadcrumbs['gi']      = $gardu->nama_gi;
+        $breadcrumbs['params']  = [$id_organisasi, $id_gardu_induk];
+        return $breadcrumbs;
+    }
+
+    public function crumbsTrafo($id_organisasi, $id_trafo_gi){
+        $trafo_gi = TrafoGI::where('id', $id_trafo_gi)->first();
+        $breadcrumbs = array();
+        $breadcrumbs['gi']          = $this->crumbsGI($id_organisasi, $trafo_gi->id_gi);
+        $breadcrumbs['trafo_gi']    = $trafo_gi->nama_trafo_gi;
+        $breadcrumbs['params']      = [$id_organisasi, $id_trafo_gi];
+        return $breadcrumbs;
+    }
+
+    public function crumbsPenyulang($id_organisasi, $id_gardu){
+        $penyulang = Penyulang::where('id', $id_gardu)->first();
+        $breadcrumbs = array();
+        $breadcrumbs['trafo_gi']    = $this->crumbsTrafo($id_organisasi, $penyulang->id_trafo_gi);
+        $breadcrumbs['penyulang']   = $penyulang->nama_penyulang;
+        $breadcrumbs['params']      = [$id_organisasi, $id_gardu];
+        return $breadcrumbs;
     }
 }

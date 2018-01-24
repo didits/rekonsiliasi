@@ -10,6 +10,19 @@
         <div class="main-panel">
             <div class="content">
                 <div class="container-fluid">
+                    @if(!$transaksi && !$laporan)
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="content">
+                                    {!! Breadcrumbs::render('area', $data_org->nama_organisasi) !!}
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    @endif
                     @if($transaksi)
                         <div class="row">
                             <div class="col-md-12">

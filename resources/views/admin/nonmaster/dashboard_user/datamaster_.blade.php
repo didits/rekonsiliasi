@@ -27,6 +27,36 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
+                                <div class="card">
+                                    <div class="content">
+                                        @if($id_gi)
+
+                                            {!! Breadcrumbs::render('gi', $breadcrumbs) !!}
+                                        @elseif($id_trafo_gi)
+
+                                            {!! Breadcrumbs::render('trafo_gi', $breadcrumbs) !!}
+                                        @elseif($id_penyulang)
+
+                                            {!! Breadcrumbs::render('penyulang', $breadcrumbs) !!}
+                                        @elseif($id_gardu)
+                                            @if($gardu->tipe_gardu == 0)
+
+{{--                                                {!! Breadcrumbs::render('rayon', $breadcrumbs) !!}--}}
+                                            @elseif($gardu->tipe_gardu == 1)
+
+                                                {!! Breadcrumbs::render('pct', $breadcrumbs) !!}
+                                            @elseif($gardu->tipe_gardu == 2)
+
+{{--                                                {!! Breadcrumbs::render('rayon', $breadcrumbs) !!}--}}
+                                            @endif
+                                        @endif
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
                                 <div class="nav-container">
                                     <ul class="nav nav-icons" role="tablist">
                                         @if($gi)
