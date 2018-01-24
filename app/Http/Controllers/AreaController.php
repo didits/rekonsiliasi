@@ -59,11 +59,11 @@ class AreaController extends Controller
             $inputPenyulang->alamat_penyulang = $request->tambahalamatpenyulang;
             $inputPenyulang->data_master="";
             if($inputPenyulang->save());
-            $penyulang = Penyulang::where('id_organisasi',$id_org->id)->orderBy('updated_at', 'desc')->first();
+            $penyulang = $inputPenyulang;
 
             if($id_org->id_organisasi == $request->selectrayonsingle);
             else{
-                $id_gi = TrafoGI::where('id_organisasi',$id_org->id)->first();
+                $id_gi = TrafoGI::where('id',$request->penyulang)->first();
                 $id_org_des = Organisasi::where('id_organisasi',$request->selectrayonsingle)->first();
 //                dd($id_org_des);
                 $transfer = new Transfer;
