@@ -15,7 +15,7 @@
             @include('admin.master.top_navbar',  ['navbartitle' => "DATAMASTER GD/PCT/TM: " . $nama['nama_penyulang']])
             {{--{{dd($data)}}--}}
         @endif
-
+ 
         @include('admin.master.navbar')
 
         <div class="main-panel">
@@ -127,14 +127,14 @@
                                                                         <td class="td-actions text-right">
                                                                         @if (Auth::user()->tipe_organisasi == 3)
 
-                                                                            <a href="{{route('rayon.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                            <a href="{{route('rayon.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="View Datamaster">
                                                                         @elseif (Auth::user()->tipe_organisasi == 2)
 
-                                                                            <a href="{{route('area.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                            <a href="{{route('area.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="View Datamaster">
 
                                                                         @elseif (Auth::user()->tipe_organisasi == 1)
 
-                                                                            <a href="{{route('distribusi.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                            <a href="{{route('distribusi.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="View Datamaster">
                                                                         @endif
 
                                                                                 <i class="fa fa-info"></i>
@@ -143,14 +143,14 @@
                                                                     @elseif($rayon)
 
                                                                         <td class="td-actions text-right">
-                                                                            <a href="{{route('rayon.view_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Laporan Beli">
+                                                                            <a href="{{route('rayon.view_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="View Laporan Beli">
                                                                                 <i class="fa fa-info"></i>
                                                                             </a>
                                                                         </td>
                                                                     @elseif($transaksi)
 
                                                                         <td class="td-actions text-right">
-                                                                            <a href="{{(Auth::user()->tipe_organisasi == 1)?route('distribusi.view_beli', [$id_organisasi, $tipe, $list->id]):route('area.view_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Laporan Beli">
+                                                                            <a href="{{(Auth::user()->tipe_organisasi == 1)?route('distribusi.view_beli', [$id_organisasi, $tipe, $list->id]):route('area.view_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="View Laporan Beli">
                                                                                 <i class="fa fa-info"></i>
                                                                             </a>
                                                                         </td>
@@ -203,14 +203,14 @@
                                                                         <td class="td-actions text-right">
                                                                         @if (Auth::user()->tipe_organisasi == 3)
 
-                                                                            <a href="{{route('rayon.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                            <a href="{{route('rayon.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="View Datamaster">
                                                                         @elseif (Auth::user()->tipe_organisasi == 2)
 
-                                                                            <a href="{{route('area.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                            <a href="{{route('area.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="View Datamaster">
 
                                                                         @elseif (Auth::user()->tipe_organisasi == 1)
 
-                                                                            <a href="{{route('distribusi.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                            <a href="{{route('distribusi.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="View Datamaster">
                                                                         @endif
 
                                                                                 <i class="fa fa-info"></i>
@@ -219,14 +219,14 @@
                                                                     @elseif($rayon)
 
                                                                         <td class="td-actions text-right">
-                                                                            <a href="{{route('rayon.view_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Laporan Beli">
+                                                                            <a href="{{route('rayon.view_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="View Laporan Beli">
                                                                                 <i class="fa fa-info"></i>
                                                                             </a>
                                                                         </td>
                                                                     @elseif($transaksi)
 
                                                                         <td class="td-actions text-right">
-                                                                            <a href="{{(Auth::user()->tipe_organisasi == 1)?route('distribusi.view_beli', [$id_organisasi, $tipe, $list->id]):route('area.view_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Laporan Beli">
+                                                                            <a href="{{(Auth::user()->tipe_organisasi == 1)?route('distribusi.view_beli', [$id_organisasi, $tipe, $list->id]):route('area.view_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="View Laporan Beli">
                                                                                 <i class="fa fa-info"></i>
                                                                             </a>
                                                                         </td>
@@ -279,14 +279,14 @@
                                                                         <td class="td-actions text-right">
                                                                         @if (Auth::user()->tipe_organisasi == 3)
 
-                                                                            <a href="{{route('rayon.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                            <a href="{{route('rayon.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="View Datamaster">
                                                                         @elseif (Auth::user()->tipe_organisasi == 2)
 
-                                                                            <a href="{{route('area.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                            <a href="{{route('area.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="View Datamaster">
 
                                                                         @elseif (Auth::user()->tipe_organisasi == 1)
 
-                                                                            <a href="{{route('distribusi.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                                            <a href="{{route('distribusi.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="View Datamaster">
                                                                         @endif
 
                                                                                 <i class="fa fa-info"></i>
@@ -295,14 +295,14 @@
                                                                     @elseif($rayon)
 
                                                                         <td class="td-actions text-right">
-                                                                            <a href="{{route('rayon.view_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Laporan Beli">
+                                                                            <a href="{{route('rayon.view_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="View Laporan Beli">
                                                                                 <i class="fa fa-info"></i>
                                                                             </a>
                                                                         </td>
                                                                     @elseif($transaksi)
 
                                                                         <td class="td-actions text-right">
-                                                                            <a href="{{(Auth::user()->tipe_organisasi == 1)?route('distribusi.view_beli', [$id_organisasi, $tipe, $list->id]):route('area.view_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Laporan Beli">
+                                                                            <a href="{{(Auth::user()->tipe_organisasi == 1)?route('distribusi.view_beli', [$id_organisasi, $tipe, $list->id]):route('area.view_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="View Laporan Beli">
                                                                                 <i class="fa fa-info"></i>
                                                                             </a>
                                                                         </td>
@@ -400,15 +400,15 @@
                                                         {{--{{dd($tipe)}}--}}
                                                         @if (Auth::user()->tipe_organisasi == 3)
 
-                                                        <a href="{{route('rayon.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                        <a href="{{route('rayon.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="View Datamaster">
 
                                                         @elseif (Auth::user()->tipe_organisasi == 2)
 
-                                                        <a href="{{route('area.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                        <a href="{{route('area.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="View Datamaster">
 
                                                         @elseif (Auth::user()->tipe_organisasi == 1)
 
-                                                        <a href="{{route('distribusi.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Datamaster">
+                                                        <a href="{{route('distribusi.view_datamaster', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="View Datamaster">
 
                                                         @endif
 
@@ -417,13 +417,13 @@
                                                         @if($tipe=="gi")
                                                             @if (Auth::user()->tipe_organisasi == 3)
 
-                                                            <a href="{{route('rayon.list_master', [$id_organisasi ,'tgi', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List Trafo GI">
+                                                            <a href="{{route('rayon.list_master', [$id_organisasi ,'tgi', $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="List Trafo GI">
                                                             @elseif (Auth::user()->tipe_organisasi == 2)
 
-                                                            <a href="{{route('area.list_master', [$id_organisasi ,'tgi', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List Trafo GI">
+                                                            <a href="{{route('area.list_master', [$id_organisasi ,'tgi', $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="List Trafo GI">
                                                             @elseif (Auth::user()->tipe_organisasi == 1)
 
-                                                            <a href="{{route('distribusi.list_master', [$id_organisasi ,'tgi', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List Trafo GI">
+                                                            <a href="{{route('distribusi.list_master', [$id_organisasi ,'tgi', $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="List Trafo GI">
                                                             @endif
 
                                                                 <i class="fa fa-th-list"></i>
@@ -431,13 +431,13 @@
                                                         @elseif($tipe=="tgi")
                                                             @if (Auth::user()->tipe_organisasi == 3)
 
-                                                            <a href="{{route('rayon.list_master', [$id_organisasi ,'penyulang', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List Penyulang">
+                                                            <a href="{{route('rayon.list_master', [$id_organisasi ,'penyulang', $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="List Penyulang">
                                                             @elseif (Auth::user()->tipe_organisasi == 2)
 
-                                                            <a href="{{route('area.list_master', [$id_organisasi ,'penyulang', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List Penyulang">
+                                                            <a href="{{route('area.list_master', [$id_organisasi ,'penyulang', $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="List Penyulang">
                                                             @elseif (Auth::user()->tipe_organisasi == 1)
 
-                                                            <a href="{{route('distribusi.list_master', [$id_organisasi ,'penyulang', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List Penyulang">
+                                                            <a href="{{route('distribusi.list_master', [$id_organisasi ,'penyulang', $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="List Penyulang">
                                                             @endif
 
                                                                 <i class="fa fa-th-list"></i>
@@ -445,13 +445,13 @@
                                                         @elseif($tipe=="penyulang")
                                                             @if (Auth::user()->tipe_organisasi == 3)
 
-                                                            <a href="{{route('rayon.list_master', [$id_organisasi ,'gtt_pct', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List GTT, PCT, TM">
+                                                            <a href="{{route('rayon.list_master', [$id_organisasi ,'gtt_pct', $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="List GTT, PCT, TM">
                                                             @elseif (Auth::user()->tipe_organisasi == 2)
 
-                                                            <a href="{{route('area.list_master', [$id_organisasi ,'gtt_pct', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List GTT, PCT, TM">
+                                                            <a href="{{route('area.list_master', [$id_organisasi ,'gtt_pct', $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="List GTT, PCT, TM">
                                                             @elseif (Auth::user()->tipe_organisasi == 1)
 
-                                                            <a href="{{route('distribusi.list_master', [$id_organisasi ,'gtt_pct', $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="List GTT, PCT, TM">
+                                                            <a href="{{route('distribusi.list_master', [$id_organisasi ,'gtt_pct', $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="List GTT, PCT, TM">
                                                             @endif
 
                                                                 <i class="fa fa-th-list"></i>
@@ -470,7 +470,7 @@
                                                     </td>
                                                 @elseif($rayon)
                                                     <td class="td-actions text-right">
-                                                        <a href="{{route('rayon.view_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Laporan Beli">
+                                                        <a href="{{route('rayon.view_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="View Laporan Beli">
                                                             <i class="fa fa-info"></i>
                                                         </a>
                                                         @if($tipe=="gi")
@@ -503,7 +503,7 @@
                                                 @elseif($transaksi)
 
                                                     <td class="td-actions text-right">
-                                                        <a href="{{(Auth::user()->tipe_organisasi == 1)?route('distribusi.view_beli', [$id_organisasi, $tipe, $list->id]):route('area.view_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="View Laporan Beli">
+                                                        <a href="{{(Auth::user()->tipe_organisasi == 1)?route('distribusi.view_beli', [$id_organisasi, $tipe, $list->id]):route('area.view_beli', [$id_organisasi, $tipe, $list->id])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="View Laporan Beli">
                                                             <i class="fa fa-info"></i>
                                                         </a>
                                                         @if($tipe=="gi")

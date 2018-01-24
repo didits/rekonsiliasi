@@ -15,7 +15,8 @@ class Gardu extends Model
         'nama_gardu',
         'tujuan',
         'alamat_gardu',
-        'data_master'
+        'data_master',
+        'rincian'
     ];
 
     public function organisasi() {
