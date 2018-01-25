@@ -323,7 +323,7 @@
             @elseif($data_master[$tr]['visual_cek'] == 0)
             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['download']['lwbp1_download'])}}</td>
             @endif
-            <td></td>
+            <td>{{number_format($pemakaian[$tr]['pemakaian_lwbp1_'])}}</td>
             <td></td>
             @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
             <td>{{number_format(json_decode($dt_trafo[$tr][$j]['data_'],true)['hasil_pengolahan']['visual']['lwbp1_visual'])}}</td>
@@ -407,7 +407,7 @@
             @elseif($data_master[$tr]['visual_cek'] == 0)
             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['download']['lwbp2_download'])}}</td>
             @endif
-            <td></td>
+            <td>{{number_format($pemakaian[$tr]['pemakaian_lwbp2_'])}}</td>
             <td></td>
             @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
                 <td>{{number_format(json_decode($dt_trafo[$tr][$j]['data_'],true)['hasil_pengolahan']['visual']['lwbp2_visual'])}}</td>
@@ -489,7 +489,7 @@
             @elseif($data_master[$tr]['visual_cek'] == 0)
             <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['download']['wbp_download'])}}</td>
             @endif
-            <td></td>
+            <td>{{number_format($pemakaian[$tr]['pemakaian_wbp_'])}}</td>
             <td></td>
             @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
                 <td>{{number_format(json_decode($dt_trafo[$tr][$j]['data_'],true)['hasil_pengolahan']['visual']['wbp_visual'])}}</td>
