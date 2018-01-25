@@ -624,7 +624,7 @@
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <div class="form-group">
-                                                                                                                <label>Total Pemakaian Energi</label>
+                                                                                                                <label>Stand Total Pemakaian Energi</label>
                                                                                                                 @if($dt)
                                                                                                                 <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['utama']['visual']['total_pemakaian_kwh_visual']}}">
                                                                                                                 @elseif($dt2)
@@ -804,7 +804,7 @@
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <div class="form-group">
-                                                                                                                <label>Total Pemakaian Energi</label>
+                                                                                                                <label>Stand Total Pemakaian Energi</label>
                                                                                                                 @if($dt)
                                                                                                                 <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['pembanding']['visual']['total_pemakaian_kwh_visual']}}">
                                                                                                                 @elseif($dt2)
@@ -986,7 +986,7 @@
                                                                                                                 @endif
                                                                                                             </div>
                                                                                                             <div class="form-group">
-                                                                                                                <label>Total Pemakaian Energi</label>
+                                                                                                                <label>Stand Total Pemakaian Energi</label>
                                                                                                                 @if($dt)
                                                                                                                 <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual']}}">
                                                                                                                 @elseif($dt2)
@@ -1666,7 +1666,7 @@
                                                                                                         @endif
                                                                                                     </div>
                                                                                                     <div class="form-group">
-                                                                                                        <label>Total Pemakaian Energi</label>
+                                                                                                        <label>Stand Total Pemakaian Energi</label>
                                                                                                         @if($dt2 == null)
                                                                                                         <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_visual_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']}}">
                                                                                                         @elseif($dt == null)
