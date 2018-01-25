@@ -111,7 +111,7 @@ class Laporan extends Controller
         for ($i=0; $i < count($trafo); $i++) {
             $py = Penyulang::select('nama_penyulang','id_organisasi as id_org' ,'data_master','id','id_trafo_gi')->where('id_trafo_gi',$trafo[$i]['id'])->get();
             for ($j=0; $j < count($py); $j++) {
-                $org = Organisasi::select('nama_organisasi')->where('id',$py[$j]['id_org'])->first();
+                $org = Organisasi::select('nama_organisasi','id')->where('id',$py[$j]['id_org'])->first();
                 $penyulang = PenyimpananPenyulang::where([
                     ['id_penyulang', $py[$j]['id']],
                     ['periode', "L".$date_prev]
@@ -132,9 +132,13 @@ class Laporan extends Controller
                 $transfer = Transfer::where([
                     ['id_penyulang', $py[$j]['id']],
                 ])->first();
-                if($transfer==null) $nama_rayon =$org->nama_organisasi;
+                if($transfer==null) {
+                    $id_rayon =$org->id;
+                    $nama_rayon =$org->nama_organisasi;
+                }
                 else {
-                    $nama_rayon = Organisasi::select('nama_organisasi')->where('id',$transfer['id_organisasi'])->first();
+                    $nama_rayon = Organisasi::select('nama_organisasi','id')->where('id',$transfer['id_organisasi'])->first();
+                    $id_rayon =$nama_rayon->id;
                     $nama_rayon=$nama_rayon->nama_organisasi;
                 }
                 if(count($penyulang_) >0)
@@ -146,6 +150,7 @@ class Laporan extends Controller
                     'data' => $dt,
                     'data_' => $dt_,
                     'id_penyulang' => $py[$j]['id'],
+                    'id_rayon' => $id_rayon,
                     'nama_org' => $nama_rayon,
                     'id_trafo' => $py[$j]['id_trafo_gi'],
                 );
@@ -634,6 +639,7 @@ class Laporan extends Controller
                                 'wbp'   => $KWH_salur_wbp,
                                 'total_kwh' => $total_kwh,
                                 'rayon' => $penyulang_array[$j]['nama_org'],
+                                'id_rayon' => $penyulang_array[$j]['id_rayon'],
                                 'Kvarh' => $kvar,
                                 'KW' => $KW,
                                 'KWH'   => $KWH,
@@ -675,6 +681,7 @@ class Laporan extends Controller
                                 'wbp'   => null,
                                 'total_kwh' => null,
                                 'rayon' => $penyulang_array[$j]['nama_org'],
+                                'id_rayon' => $penyulang_array[$j]['id_rayon'],
                                 'Kvarh' => null,
                                 'KW' => null,
                                 'KWH'   => null,
@@ -910,11 +917,9 @@ class Laporan extends Controller
             $data = $this->tsa_gi_peny($id_organisasi, $tsa, $tipe);
 
             if($tipe =="gi"){
-
                 $data_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
                 $id_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
                 $gi = GI::whereIn('id_organisasi',$id_org)->get()->toArray();
-
                 $arr_rayon = array();
                 for($i=0;$i<count($id_org);$i++){
                     $arr_gi = array();
@@ -925,65 +930,49 @@ class Laporan extends Controller
                     array_push($arr_rayon,$arr_gi);
                 }
                 $rayon = array();
-                for($i=0;$i<count($arr_rayon);$i++){
-                    $lwbp1 =$lwbp2 =$wbp =$total_kwh =$Kvarh =$KW =$KWH =$KWH_lalu =$jual = null;$stop = 0;
-                    if($arr_rayon[$i]==[]){
-                        $dt = array(
-                            'nama_rayon' => $data_org[$i]['nama_organisasi'],
-                            'lwbp1' => null,
-                            'lwbp2' => null,
-                            'wbp' => null,
-                            'total_kwh' => null,
-                            'Kvarh' => null,
-                            'KW' => null,
-                            'KWH'   => null,
-                            'KWH_lalu'   => null,
-                            'persen' => null,
-                            'jual'   => null,
-                            'susut'   => null,
-                            'losses'   => null,
-                        );
-                    }
-                    else{
-                        for($j=0;$j<count($data['jumlah_gi']);$j++){
-                            if($arr_rayon[$i][$stop]['id_organisasi']==$data['nama_gi'][$j]['id_organisasi']){
-                                $lwbp1 += $data['jumlah_gi'][$j]['lwbp1'];
-                                $lwbp2 += $data['jumlah_gi'][$j]['lwbp2'];
-                                $wbp += $data['jumlah_gi'][$j]['wbp'];
-                                $total_kwh += $data['jumlah_gi'][$j]['total_kwh'];
-                                $Kvarh += $data['jumlah_gi'][$j]['Kvarh'];
-                                $KW += $data['jumlah_gi'][$j]['KW'];
-                                $KWH += $data['jumlah_gi'][$j]['KWH'];
-                                $KWH_lalu += $data['jumlah_gi'][$j]['KWH_lalu'];
-                                $jual += $data['jumlah_gi'][$j]['jual'];
-                                $stop+=1;
-                                if($stop == count($arr_rayon[$i]))break;
+                for($i=0;$i<count($id_org);$i++){
+                    $lwbp1 =$lwbp2 =$wbp =$total_kwh =$Kvarh =$KW =$KWH =$KWH_lalu =$jual = null;
+                    for($j=0;$j<count($data['list_p']);$j++){
+                        for($k=0;$k<count($data['list_p'][$j]);$k++){
+                            if($id_org[$i]==$data['list_p'][$j][$k]['id_rayon']){
+                                $lwbp1 += $data['list_p'][$j][$k]['lwbp1'];
+                                $lwbp2 += $data['list_p'][$j][$k]['lwbp2'];
+                                $wbp += $data['list_p'][$j][$k]['wbp'];
+                                $total_kwh += $data['list_p'][$j][$k]['total_kwh'];
+                                $Kvarh += $data['list_p'][$j][$k]['Kvarh'];
+                                $KW += $data['list_p'][$j][$k]['KW'];
+                                $KWH += $data['list_p'][$j][$k]['KWH'];
+                                $KWH_lalu += $data['list_p'][$j][$k]['KWH_lalu'];
+                                $jual += $data['list_p'][$j][$k]['jual'];
                             }
                         }
-                        if($KWH_lalu == 0)$persen =0;
-                        else $persen = $KWH/$KWH_lalu*100;
-                        $susut = $total_kwh -$jual;
-                        if($total_kwh==0) $losses = 0;
-                        else $losses = $susut / $total_kwh *100;
-
-                        $dt = array(
-                            'nama_rayon' => $data_org[$i]['nama_organisasi'],
-                            'lwbp1' => $lwbp1,
-                            'lwbp2' => $lwbp2,
-                            'wbp' => $wbp,
-                            'total_kwh' => $total_kwh,
-                            'Kvarh' => $Kvarh,
-                            'KW' => $KW,
-                            'KWH'   => $KWH,
-                            'KWH_lalu'   => $KWH_lalu,
-                            'persen' => $persen,
-                            'jual'   => $jual,
-                            'susut'   => $susut,
-                            'losses'   => $losses,
-                        );
                     }
+
+                    if($KWH_lalu == 0)$persen =0;
+                    else $persen = $KWH/$KWH_lalu*100;
+                    $susut = $total_kwh -$jual;
+                    if($total_kwh==0) $losses = 0;
+                    else $losses = $susut / $total_kwh *100;
+
+                    $dt = array(
+                        'nama_rayon' => $data_org[$i]['nama_organisasi'],
+                        'lwbp1' => $lwbp1,
+                        'lwbp2' => $lwbp2,
+                        'wbp' => $wbp,
+                        'total_kwh' => $total_kwh,
+                        'Kvarh' => $Kvarh,
+                        'KW' => $KW,
+                        'KWH'   => $KWH,
+                        'KWH_lalu'   => $KWH_lalu,
+                        'persen' => $persen,
+                        'jual'   => $jual,
+                        'susut'   => $susut,
+                        'losses'   => $losses,
+                    );
+
                     array_push($rayon,$dt);
                 }
+
                 $id_rayon = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id');
                 $nama_rayon = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('nama_organisasi');
                 $cmb = new MasterLaporan($id_rayon,"pct",1);
