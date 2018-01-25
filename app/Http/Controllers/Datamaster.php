@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Gardu;
-use App\GI;
+use App\GI; 
 use App\Organisasi;
 use App\Penyulang;
 use App\TrafoGI;
@@ -129,7 +129,7 @@ class Datamaster
                         else
                             $org = Organisasi::where('id',$penyulang[$k]['id_org'])->first();
                         $penyulang[$k]['title']= "RAYON ".$org['nama_organisasi'];
-                        $gardu = Gardu::where('id_organisasi', $id_organisasi)->where('id_penyulang', $penyulang[$k]['id'])->get(array('nama_gardu as name', 'alamat_gardu as title', 'tipe_gardu as tipe_gardu'))->toArray();
+                        $gardu = Gardu::where('id_organisasi', $id_organisasi)->where('id_penyulang', $penyulang[$k]['id'])->get(array('nama_gardu as name', 'alamat_gardu as title', 'rincian as rincian', 'tipe_gardu as tipe_gardu'))->toArray();
                         $semua_gardu = array();
                         $gardu_array = array();
                         for ($l = 0; $l < count($gardu); $l++) {
@@ -143,7 +143,7 @@ class Datamaster
                         $gardu_array = array();
                         for ($l = 0; $l < count($gardu); $l++) {
                             if ($gardu[$l] && $gardu[$l]['tipe_gardu'] == 1)
-                                array_push($gardu_array, array('name' => $gardu[$l]['name'], 'title' => $gardu[$l]['title'], 'office' => ''));
+                                array_push($gardu_array, array('name' => $gardu[$l]['name'], 'title' => json_decode($gardu[$l]['rincian'], true)['antar_unit'], 'office' => ''));
                         }
                         $penyulang_array_pct = array('name' => 'PCT', 'title' => 'PCT', 'children' => $gardu_array, 'office' => 'PCT');
                         if ($gardu_array)

@@ -178,6 +178,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
 
 
     ],
@@ -230,7 +231,10 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
+<<<<<<< HEAD
 
+=======
+>>>>>>> 827d25564d7e987a5b33cac33116d11385d15bec
 
     ],
 

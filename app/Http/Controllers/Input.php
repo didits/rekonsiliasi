@@ -64,13 +64,38 @@ class Input extends Controller
         $data = GI::where('id_organisasi', $rayon->id)->get();
 //        dd($rayon->id);
         $id_ryn = Organisasi::where('id_organisasi', $id_rayon)->first();
-        $data2 = Transfer::select('transfer.id_organisasi','transfer.id_gi', 'gi.nama_gi', 'gi.alamat_gi')
-            ->join('GI','GI.id','=','transfer.id_gi')->distinct('transfer.id_gi')
-            ->where('transfer.id_organisasi', $id_ryn->id)->get();
+
 //        $data3 = Transfer::select('transfer.id_organisasi','transfer.id_gi', 'gi.nama_gi', 'gi.alamat_gi')
 //            ->join('GI','GI.id','=','transfer.id_gi')->distinct('transfer.id_gi')
 //            ->where('transfer.id_organisasi', $id_ryn->id)->get();
 //        dd($data2);
+
+        $transfer = Transfer::select('transfer.id', 'transfer.id_trafo_gi', 'transfer.id_penyulang')
+            ->where('transfer.id_organisasi', $rayon->id)
+            ->join('trafo_gi', 'transfer.id_trafo_gi', '=', 'trafo_gi.id')
+            ->select('transfer.id', 'trafo_gi.id_gi', 'trafo_gi.id', 'transfer.id_penyulang')
+            ->join('gi', 'trafo_gi.id_gi', '=', 'gi.id')
+            ->select('transfer.id as id_trans', 'gi.id', 'gi.nama_gi', 'transfer.id_penyulang', 'transfer.id_gi')
+            ->get()->toArray();
+
+        foreach ($transfer as $trans) {
+            $query = Transfer::where('id', $trans['id_trans'])->update(['id_gi' => $trans['id']]);
+        }
+
+        $data2 = Transfer::select('transfer.id_organisasi','transfer.id_gi', 'gi.nama_gi', 'gi.alamat_gi')
+            ->join('GI','GI.id','=','transfer.id_gi')->distinct('transfer.id_gi')
+            ->where('transfer.id_organisasi', $id_ryn->id)->get();
+
+
+//        $transfer = Transfer::select('transfer.id_gi')
+//            ->where('transfer.id_organisasi', $rayon->id)
+//            ->distinct('transfer.id_gi')
+//            ->join('gi', 'transfer.id_gi', '=', 'gi.id')
+//            ->select('gi.nama_gi')->pluck('gi.nama_gi');
+//            ->distinct()->get();
+
+//        dd($data2);
+
         return view('admin.nonmaster.dashboard_user.list_input_gardu_induk',[
             'data' =>$data,
             'data2' =>$data2,
@@ -79,12 +104,26 @@ class Input extends Controller
     public function list_trafo_gi($id_gi){
         $user = Auth::user()->id;
         $org = GI::where('id',$id_gi)->where('id_organisasi',$user)->get();
-        if(count($org) >0) $transfer =false;
-        else $transfer =true;
         $gi = GI::where('id', $id_gi)->first();
-        $data = TrafoGI::where('id_gi', $id_gi)->get();
+        if(count($org) >0) {
+            $data = TrafoGI::where('id_gi', $id_gi)->get();
+            $transfer =false;
+        }
+        else{
+            $transfer =true;
+            $t_gi = TrafoGI::where('id_gi', $gi->id)->pluck('id');
+            $dt_ =array();
+            foreach ($t_gi as $tgi){
+                $trans = Transfer::where('id_trafo_gi', $tgi)->where('id_organisasi',$user)->pluck('id_penyulang');
+                $dt = Penyulang::whereIn('id', $trans)->get();
+                if(count($dt)>0){
+                    $dt = TrafoGI::where('id', $tgi)->first();
+                    array_push($dt_,$dt);
+                }
+            }
+            $data = $dt_;
 
-//        dd($transfer);
+        }
         return view('admin.nonmaster.dashboard_user.list_input',[
             'transfer' => $transfer,
             'data' => $data,
