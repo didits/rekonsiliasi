@@ -40,7 +40,7 @@
                                                             <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_visual" class="form-control" placeholder="" value="">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label>Stand Akhir KVARH</label>
+                                                            <label>Pemakaian KVARH</label>
                                                             <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="kvarh_visual" class="form-control" placeholder="" value="">
                                                         </div>
                                                     </div>
@@ -68,7 +68,7 @@
                                                             <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_download" class="form-control" placeholder="" value="">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label>Stand Akhir KVARH</label>
+                                                            <label>Pemakaian KVARH</label>
                                                             <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="kvarh_download" class="form-control" placeholder="" value="">
                                                         </div>
                                                         <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>

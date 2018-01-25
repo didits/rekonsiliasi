@@ -128,7 +128,7 @@
                                                                                                                 <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_visual" class="form-control" placeholder="" value="{{$data['beli']['utama']['visual']['wbp_visual']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
-                                                                                                                <label>Stand Akhir KVARH</label>
+                                                                                                                <label>Pemakaian KVARH</label>
                                                                                                                 <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="kvarh_visual" class="form-control" placeholder="" value="{{$data['beli']['utama']['visual']['kvarh_visual']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
@@ -266,7 +266,7 @@
                                                                                                                 <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_visual" class="form-control" placeholder="" value="{{$data['beli']['pembanding']['visual']['wbp_visual']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
-                                                                                                                <label>Stand Akhir KVARH</label>
+                                                                                                                <label>Pemakaian KVARH</label>
                                                                                                                 <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="kvarh_visual" class="form-control" placeholder="" value="{{$data['beli']['pembanding']['visual']['kvarh_visual']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
@@ -406,7 +406,7 @@
                                                                                                                 <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_visual" class="form-control" placeholder="" value="{{$data['beli']['ps']['visual']['wbp_visual']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
-                                                                                                                <label>Stand Akhir KVARH</label>
+                                                                                                                <label>Pemakaian KVARH</label>
                                                                                                                 <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="kvarh_visual" class="form-control" placeholder="" value="{{$data['beli']['ps']['visual']['kvarh_visual']}}">
                                                                                                             </div>
                                                                                                             <div class="form-group">
@@ -1487,7 +1487,7 @@
                                                                                                         <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['wbp_visual']}}">
                                                                                                     </div>
                                                                                                     <div class="form-group">
-                                                                                                        <label>Stand Akhir KVARH</label>
+                                                                                                        <label>Pemakaian KVARH</label>
                                                                                                         <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="kvarh_visual" class="form-control" placeholder="" value="{{$data['beli']['visual']['kvarh_visual']}}">
                                                                                                     </div>
                                                                                                     @if($tipe=="penyulang")
