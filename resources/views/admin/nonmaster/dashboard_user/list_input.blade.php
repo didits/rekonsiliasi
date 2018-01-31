@@ -4,8 +4,11 @@
 @section('content')
 
 <div class="wrapper">
-    @include('admin.master.top_navbar', ['navbartitle' => "RAYON " .    Auth::user()->nama_organisasi])
-
+    @if($tipe=="rayon")
+        @include('admin.master.top_navbar', ['navbartitle' => "RAYON " .    Auth::user()->nama_organisasi])
+    @elseif($tipe=="area")
+        @include('admin.master.top_navbar', ['navbartitle' => "RAYON " .    $org->nama_organisasi])
+    @endif
     @include('admin.master.navbar')
 
     <div class="main-panel">
@@ -296,7 +299,8 @@
                                             <td>{{$list->nama_trafo_gi}}</td>
                                             <td>{{$list->alamat_trafo_gi}}</td>
                                             <td class="td-actions text-right">
-                                                <a href="{{route('input.list_penyulang', $list->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="Lihat List Penyulang">
+
+                                                <a href=@if($tipe=="rayon")"{{route('input.list_penyulang', $list->id)}}" @else"{{route('area.list_penyulang',[ $org->id, $list->id])}}" @endif rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="Lihat List Penyulang">
                                                     <i class="fa fa-th-list"></i>
                                                 </a>
                                             </td>
@@ -316,12 +320,18 @@
                                             <td>{{$list->nama_penyulang}}</td>
                                             <td>{{$list->alamat_penyulang}}</td>
                                             <td class="td-actions text-right">
+                                                @if($tipe=="rayon")
                                                 <a href="{{route('input.input_data', [$list->id, 'penyulang'])}}" rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Input Transaksi">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                                 <a href="{{route('input.list_gd', $list->id)}}" rel="tooltip" title="" class="btn btn-info btn-fill" data-original-title="Lihat List GTT, PCT, TM">
                                                     <i class="fa fa-th-list"></i>
                                                 </a>
+                                                @elseif($tipe=="area")
+                                                <a href="{{route('area.lihat_penyulang', [ "t".$org->id , $list->id])}}"rel="tooltip" title="" class="btn btn-success btn-fill" data-original-title="Entry Data Master">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                @endif
                                             </td>
                                             @endif
                                         </tr>

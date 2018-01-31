@@ -765,9 +765,9 @@ class AreaController extends Controller
     }
 
     public function list_datamaster($id_rayon){
+
         $master_gi = new MasterGI($id_rayon);
 
-//        dd($master_gi->data);
         return view('admin.nonmaster.dashboard_user.list_datamaster_',[
             'data' =>$master_gi->data,
             'data2' =>$master_gi->data2,
@@ -841,12 +841,14 @@ class AreaController extends Controller
     }
 
     public function lihat_penyulang($id_organisasi, $id_penyulang){
-//        dd($id_organisasi);
         if($id_organisasi[0]=="t"){
             $id_organisasi = explode('t', $id_organisasi);
             $rayon = Organisasi::where('id', $id_organisasi[1])->first();
+            $id_organisasi = $rayon->id_organisasi;
+            $tipe ="transfer";
         }
         else{
+            $tipe ="asli";
             $rayon = Organisasi::select('id', 'id_organisasi', 'tipe_organisasi', 'nama_organisasi', 'alamat')
                 ->where('id_organisasi', $id_organisasi)
                 ->first();
@@ -861,8 +863,6 @@ class AreaController extends Controller
                 ->first();
             if($transfer != null)
                 $rayon = $transfer;
-
-//            dd($transfer);
         }
         $penyulang = Penyulang::where('id', $id_penyulang)->first();
         $data = Gardu::where('id_penyulang', $id_penyulang)->get();
@@ -875,6 +875,7 @@ class AreaController extends Controller
             'rayon'=>$rayon,
             'meter'=>null,
             'id_org'=>$rayon->id,
+            'tipe'=>$tipe,
             'dropdown_area'=>$this->populateArea(),
             'breadcrumbs' => [  'trafo_gi'  => $this->crumbsTrafo($id_organisasi, $penyulang->id_trafo_gi),
                                 'penyulang' => $penyulang->nama_penyulang,
@@ -883,7 +884,12 @@ class AreaController extends Controller
     }
 
     public function lihat_gardu($id_organisasi, $id_gardu){
-
+        if($id_organisasi[0]=="t"){
+            $id_organisasi = explode('t', $id_organisasi);
+            $tipe ="transfer";
+        }
+        else
+            $tipe ="asli";
         $id_penyulang = Gardu::select('id_penyulang')
             ->where('id', $id_gardu)
             ->pluck('id_penyulang');
@@ -902,6 +908,7 @@ class AreaController extends Controller
         if($transfer != null)
             $rayon = $transfer;
 
+
         $gardu = Gardu::where('id', $id_gardu)->first();
         $data = Gardu::where('id', $id_gardu)->get();
         $idP = Penyulang::select('id', 'nama_penyulang')->where('id', $gardu->id_penyulang)->first();
@@ -917,11 +924,52 @@ class AreaController extends Controller
             'id_gi'=>null,'id_trafo_gi'=>null,'id_gardu'=>$id_gardu,'id_penyulang'=>null,
             'rayon'=>$rayon,
             'meter'=>$meter,
+            'tipe'=>$tipe,
             'id_org'=>$id_organisasi,
             'dropdown_area'=>$this->populateArea(),
             'breadcrumbs' => [  'penyulang' => $this->crumbsPenyulang($rayon->id_organisasi, $gardu->id_penyulang),
                                 'gardu'     => $gardu->nama_gardu,
                                 'params'    => [$rayon->id_organisasi, $id_gardu]]
+        ]);
+    }
+
+    public function list_trafo_gi($id_organisasi, $id_gi){
+        $org = Organisasi::select('id','nama_organisasi')->where('id_organisasi',$id_organisasi)->first();
+        $gi = GI::where('id', $id_gi)->first();
+        $transfer =true;
+        $t_gi = TrafoGI::where('id_gi', $gi->id)->pluck('id');
+        $dt_ =array();
+        foreach ($t_gi as $tgi){
+            $trans = Transfer::where('id_trafo_gi', $tgi)->where('id_organisasi',$org->id)->pluck('id_penyulang');
+            $dt = Penyulang::whereIn('id', $trans)->get();
+            if(count($dt)>0){
+                $dt = TrafoGI::where('id', $tgi)->first();
+                array_push($dt_,$dt);
+            }
+        }
+
+        $data = $dt_;
+        return view('admin.nonmaster.dashboard_user.list_input',[
+            'transfer' => $transfer,
+            'data' => $data,
+            'org' => $org,
+            'gi' =>$gi, 't_gi' => null, 'penyulang' => null,'tipe'=> "area"
+        ]);
+    }
+
+    public function list_penyulang($id_organisasi, $id_trafo_gi){
+
+        $org = Organisasi::select('id','nama_organisasi')->where('id',$id_organisasi)->first();
+        $t_gi = TrafoGI::where('id', $id_trafo_gi)->first();
+        $data = Transfer::where('id_trafo_gi', $id_trafo_gi)->where('id_organisasi',$id_organisasi)->pluck('id_penyulang');
+        $data = Penyulang::whereIn('id', $data)->get();
+        $transfer =true;
+//        dd($data);
+        return view('admin.nonmaster.dashboard_user.list_input',[
+            'transfer' => $transfer,
+            'data' => $data,
+            'org' => $org,
+            'gi' => null, 't_gi' => $t_gi, 'penyulang' => null,'tipe'=> "area"
         ]);
     }
 

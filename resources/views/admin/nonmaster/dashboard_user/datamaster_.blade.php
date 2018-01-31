@@ -36,15 +36,17 @@
 
                                             {!! Breadcrumbs::render('trafo_gi', $breadcrumbs) !!}
                                         @elseif($id_penyulang)
-
-                                            {!! Breadcrumbs::render('penyulang', $breadcrumbs) !!}
+                                            @if($tipe=="asli")
+                                                {!! Breadcrumbs::render('penyulang', $breadcrumbs) !!}
+                                            @endif
                                         @elseif($id_gardu)
                                             @if($gardu->tipe_gardu == 0)
 
 {{--                                                {!! Breadcrumbs::render('rayon', $breadcrumbs) !!}--}}
                                             @elseif($gardu->tipe_gardu == 1)
-
+                                                @if($tipe=="asli")
                                                 {!! Breadcrumbs::render('pct', $breadcrumbs) !!}
+                                                @endif
                                             @elseif($gardu->tipe_gardu == 2)
 
 {{--                                                {!! Breadcrumbs::render('rayon', $breadcrumbs) !!}--}}
@@ -1946,6 +1948,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    @if($tipe=="asli")
                                                     <div class="content" id="tambahpenyulang-">
                                                         <div class="row">
                                                             <div class="col-md-12">
@@ -2021,6 +2024,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    @endif
                                                 </div>
 
                                                 <div class="tab-pane" id="code-fork-logo">
@@ -2128,7 +2132,7 @@
                                                                                         <td>{{$key->nama_gardu}}</td>
                                                                                         <td>{{$rayon->nama_organisasi}}</td>
                                                                                         <td class="td-actions text-right">
-                                                                                            <a href="{{route('area.lihat_pct', [$id_org, $key->id])}}"
+                                                                                            <a href=@if($tipe=="asli")"{{route('area.lihat_pct', [$id_org, $key->id])}}"@else"{{route('area.lihat_pct', ["t".$id_org, $key->id])}}"@endif
                                                                                                rel="tooltip" title=""
                                                                                                class="btn btn-info btn-fill"
                                                                                                data-original-title="View Datamaster">
@@ -2160,6 +2164,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    @if($tipe=="asli")
                                                     <div class="content" id="tambahpenyulang-">
                                                         <div class="row">
                                                             <div class="col-md-12">
@@ -2219,6 +2224,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    @endif
                                                 </div>
 
                                                 <div class="tab-pane" id="industry-logo">
@@ -2358,6 +2364,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    @if($tipe=="asli")
                                                     <div class="content" id="tambahpenyulang-">
                                                         <div class="row">
                                                             <div class="col-md-12">
@@ -2432,6 +2439,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    @endif
                                                 </div>
 
                                             @elseif($gi)
@@ -2896,7 +2904,6 @@
                                             @else
                                                 @if($gardu)
                                                     @if($gardu->tipe_gardu == 1)
-
                                                         <div class="tab-pane" id="legal-logo">
                                                             <div class="content" id="trafoheader">
                                                                 <div class="row">

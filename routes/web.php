@@ -230,6 +230,16 @@ Route::group(['prefix' => 'area', 'middleware' => ['auth', 'tipe:2'||'tipe:1']],
 //area-entry_master
 Route::group(['prefix' => 'area/entry_master', 'middleware' => ['auth', 'tipe:2']], function () {
 
+    Route::get('/list_trafo_gi/{id_organisasi}/{id}', [
+        'as'        => 'area.list_trafo_gi',
+        'uses'      => 'AreaController@list_trafo_gi'
+    ]);
+
+    Route::get('/list_penyulang/{id_organisasi}/{id}', [
+        'as'        => 'area.list_penyulang',
+        'uses'      => 'AreaController@list_penyulang'
+    ]);
+
     Route::get('/list_datamaster_gi/{id_organisasi}/{id_gardu_induk}', [
         'as'        => 'area.lihat_gi',
         'uses'      => 'AreaController@lihat_gi'
@@ -261,8 +271,6 @@ Route::group(['prefix' => 'area/entry_master', 'middleware' => ['auth', 'tipe:2'
     ]);
 
     Route::get('/list_datamaster_rayon/{id_organisasi}', [
-//        'as'        => 'area.list_gardu_induk',
-//        'uses'      => 'AreaController@list_gardu_induk'
         'as'        => 'area.list_datamaster',
         'uses'      => 'AreaController@list_datamaster'
     ]);

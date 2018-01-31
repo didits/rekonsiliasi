@@ -62,13 +62,7 @@ class Input extends Controller
     public function list_gardu_induk($id_rayon){
         $rayon = Organisasi::where('id_organisasi', $id_rayon)->first();
         $data = GI::where('id_organisasi', $rayon->id)->get();
-//        dd($rayon->id);
         $id_ryn = Organisasi::where('id_organisasi', $id_rayon)->first();
-
-//        $data3 = Transfer::select('transfer.id_organisasi','transfer.id_gi', 'gi.nama_gi', 'gi.alamat_gi')
-//            ->join('GI','GI.id','=','transfer.id_gi')->distinct('transfer.id_gi')
-//            ->where('transfer.id_organisasi', $id_ryn->id)->get();
-//        dd($data2);
 
         $transfer = Transfer::select('transfer.id', 'transfer.id_trafo_gi', 'transfer.id_penyulang')
             ->where('transfer.id_organisasi', $rayon->id)
@@ -85,16 +79,6 @@ class Input extends Controller
         $data2 = Transfer::select('transfer.id_organisasi','transfer.id_gi', 'gi.nama_gi', 'gi.alamat_gi')
             ->join('GI','GI.id','=','transfer.id_gi')->distinct('transfer.id_gi')
             ->where('transfer.id_organisasi', $id_ryn->id)->get();
-
-
-//        $transfer = Transfer::select('transfer.id_gi')
-//            ->where('transfer.id_organisasi', $rayon->id)
-//            ->distinct('transfer.id_gi')
-//            ->join('gi', 'transfer.id_gi', '=', 'gi.id')
-//            ->select('gi.nama_gi')->pluck('gi.nama_gi');
-//            ->distinct()->get();
-
-//        dd($data2);
 
         return view('admin.nonmaster.dashboard_user.list_input_gardu_induk',[
             'data' =>$data,
@@ -127,7 +111,7 @@ class Input extends Controller
         return view('admin.nonmaster.dashboard_user.list_input',[
             'transfer' => $transfer,
             'data' => $data,
-            'gi' =>$gi, 't_gi' => null, 'penyulang' => null
+            'gi' =>$gi, 't_gi' => null, 'penyulang' => null,'tipe' => "rayon"
         ]);
     }
 
@@ -151,7 +135,7 @@ class Input extends Controller
         return view('admin.nonmaster.dashboard_user.list_input',[
             'transfer' => $transfer,
             'data' => $data,
-            'gi' => null, 't_gi' => $t_gi, 'penyulang' => null
+            'gi' => null, 't_gi' => $t_gi, 'penyulang' => null, 'tipe' => "rayon"
         ]);
     }
 
@@ -161,7 +145,7 @@ class Input extends Controller
         $data = Gardu::where('id_penyulang', $id_penyulang)->get();
         return view('admin.nonmaster.dashboard_user.list_input',[
             'data' => $data,
-            'gi' => null, 't_gi' => null, 'penyulang' => $penyulang
+            'gi' => null, 't_gi' => null, 'penyulang' => $penyulang,'tipe' => "rayon"
         ]);
     }
 
