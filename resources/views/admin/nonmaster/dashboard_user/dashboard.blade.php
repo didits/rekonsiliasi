@@ -210,8 +210,10 @@
                 toolTipContent: "{name}: <strong>{y}%</strong>",
                 indexLabel: "{name} - {y}%",
                 dataPoints: [
-                    { y: {{isset($deviasi)?$deviasi[0][0]:0}}, name: "GI Normal: {{isset($deviasi)?$deviasi[0][1]:0}}" },
-                    { y: {{isset($deviasi)?$deviasi[1][0]:0}}, name: "GI Tidak Normal: {{isset($deviasi)?$deviasi[1][1]:0}}", exploded: true },
+                    { y:  {{($deviasi/$jumlah_gi)*100}}, name: "GI Normal:{{($deviasi)}}" },
+                    { y: {{(($jumlah_gi-$deviasi)/$jumlah_gi)*100}}, name: "GI Tidak Normal: {{($jumlah_gi-$deviasi)}}", exploded: true },
+                    {{--{ y: {{isset($deviasi)?$deviasi[0][0]:0}}, name: "GI Normal: {{isset($deviasi)?$deviasi[0][1]:0}}" },--}}
+                    {{--{ y: {{isset($deviasi)?$deviasi[1][0]:0}}, name: "GI Tidak Normal: {{isset($deviasi)?$deviasi[1][1]:0}}", exploded: true },--}}
                     {{--{ y: 0, name: "Total GI: {{isset ($deviasi)?$deviasi[2]:0}}" }--}}
                 ]
             }]
@@ -234,8 +236,10 @@
                 toolTipContent: "{name}: <strong>{y}%</strong>",
                 indexLabel: "{name} - {y}%",
                 dataPoints: [
-                    { y: {{isset($susut)?$susut[0][0]:0}}, name: "Susut Normal: {{isset($susut)?$susut[0][1]:0}}" },
-                    { y: {{isset($susut)?$susut[1][0]:0}}, name: "Susut Tidak Normal: {{isset($susut)?$susut[1][1]:0}}", exploded: true },
+                    { y: {{$susut/$jumlah_gi*100}}, name: "Susut Normal: {{$susut}}" },
+                    { y: {{($jumlah_gi-$susut)/$jumlah_gi*100}}, name: "Susut Tidak Normal: {{($jumlah_gi-$susut)}}", exploded: true },
+                    {{--{ y: {{isset($susut)?$susut[0][0]:0}}, name: "Susut Normal: {{isset($susut)?$susut[0][1]:0}}" },--}}
+                    {{--{ y: {{isset($susut)?$susut[1][0]:0}}, name: "Susut Tidak Normal: {{isset($susut)?$susut[1][1]:0}}", exploded: true },--}}
 {{--                    { y: 0, name: "Total GI: {{isset($susut)?$susut[2]:0}}" }--}}
                 ]
             }]

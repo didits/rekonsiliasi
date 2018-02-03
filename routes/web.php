@@ -403,7 +403,7 @@ Route::group(['prefix' => 'distribusi', 'middleware' => ['auth', 'tipe:1']], fun
 
     Route::get('/dashboard', [
         'as'        => 'distribusi.dashboard',
-        'uses'      => 'DistribusiController@dashboard'
+        'uses'      => 'DistribusiController@dashboard2'
     ]);
 
 });

@@ -95,18 +95,10 @@ class Laporan extends Controller
 
     public function data_penyulang($trafo){
         $penyulang_array = array();
-        if(date("m")<3){
-            if(date("m")==1){
-                $date_prev = (date("Y")-1)."11";
-                $date_now =  (date("Y")-1)."12";
-            }
-            else{
-                $date_prev = (date("Y") - 1) . "12";
-                $date_now = date("Ym") - 1;}
-        }else{
-            $date_prev = (date("Ym")-2);
-            $date_now = date("Ym")-1;
-        }
+
+        $home = new HomeController;
+        $date_prev = $home->MonthShifter(-2)->format(('Ym'));
+        $date_now = $home->MonthShifter(-1)->format(('Ym'));
 
         for ($i=0; $i < count($trafo); $i++) {
             $py = Penyulang::select('nama_penyulang','id_organisasi as id_org' ,'data_master','id','id_trafo_gi')->where('id_trafo_gi',$trafo[$i]['id'])->get();
@@ -264,18 +256,11 @@ class Laporan extends Controller
         $tr = TrafoGI::whereIn('id',$id)->get();
 
         for ($i=0; $i < count($id); $i++) {
-            if(date("m")<3){
-                if(date("m")==1){
-                    $date_prev = (date("Y")-1)."11";
-                    $date_now =  (date("Y")-1)."12";
-                }
-                else{
-                    $date_prev = (date("Y") - 1) . "12";
-                    $date_now = date("Ym") - 1;}
-            }else{
-                $date_prev = (date("Ym")-2);
-                $date_now = date("Ym")-1;
-            }
+
+            $home = new HomeController;
+            $date_prev = $home->MonthShifter(-2)->format(('Ym'));
+            $date_now = $home->MonthShifter(-1)->format(('Ym'));
+
             $p_tr = PenyimpananTrafoGI::where([
                 ['id_trafo_gi', $tr[$i]['id']],
                 ['periode', "L".$date_prev]
@@ -353,18 +338,9 @@ class Laporan extends Controller
     }
 
     public function view_beli($id_rayon,$tipe,$id){
-        if(date("m")<3){
-            if(date("m")==1){
-                $date_prev = (date("Y")-1)."11";
-                $date_now =  (date("Y")-1)."12";
-            }
-            else{
-                $date_prev = (date("Y") - 1) . "12";
-                $date_now = date("Ym") - 1;}
-        }else{
-            $date_prev = (date("Ym")-2);
-            $date_now = date("Ym")-1;
-        }
+
+        $home = new HomeController;
+        $date_now = $home->MonthShifter(-1)->format(('Ym'));
 
         $cmb = new MasterLaporan($id_rayon,"tsa",$id);
         $gi = GI::where('id',$id)->first();
@@ -468,18 +444,10 @@ class Laporan extends Controller
     }
 
     public function data_tsa($id_organisasi,$tipe,$data_gi){
-        if(date("m")<3){
-            if(date("m")==1){
-                $date_prev = (date("Y")-1)."11";
-                $date_now =  (date("Y")-1)."12";
-            }
-            else{
-                $date_prev = (date("Y") - 1) . "12";
-                $date_now = date("Ym") - 1;}
-        }else{
-            $date_prev = (date("Ym")-2);
-            $date_now = date("Ym")-1;
-        }
+
+        $home = new HomeController;
+        $date_prev = $home->MonthShifter(-2)->format(('Ym'));
+        $date_now = $home->MonthShifter(-1)->format(('Ym'));
 
         $cmb = new MasterLaporan($id_organisasi,$tipe,$data_gi->id);
         if($cmb){
@@ -764,19 +732,47 @@ class Laporan extends Controller
         }
         return array($trafo,$list_p,$jumlah_trafo,$jumlah_tot);
     }
+
     public function data_rayon($data_gi,$id_organisasi){
         $gi = array();
+        $home = new HomeController;
+        $date_now = $home->MonthShifter(-1)->format(('Ym'));
+
         for($i =0 ;$i <count($data_gi);$i++) {
             $data = $this->data_tsa($id_organisasi, "tsa", $data_gi[$i]);
             $trafo = $data[0];
-            $list_p = $data[1];
-            $jumlah_trafo = $data[2];
+//            $list_p = $data[1];
+//            $jumlah_trafo = $data[2];
             $jumlah_tot = $data[3];
+            $array = array(
+                'deviasi' => 1,
+                'susut' => 1
+            );
+
+            if($jumlah_tot['losses']>6)
+                $array['susut']= 0;
+            if($trafo){
+                $P_gi = PenyimpananGI::where('id_gi',$trafo[0]['id_gi'])->where('periode',$date_now)->first();
+                if($P_gi){
+                    $array['deviasi']= json_decode($P_gi->data,true)['deviasi'];
+                    $P_gi->data = json_encode($array);
+                    if($P_gi->save());
+                }
+                else{
+                    $P = new PenyimpananGI();
+                    $P->id_gi = $trafo[0]['id_gi'];
+                    $P->periode = $date_now;
+                    $P->data = json_encode($array);
+                    $P->data_keluar = "";
+                    if($P->save());
+                }
+            }
+
             $dt_GI = array(
                 'gi' => $data_gi[$i]['nama_gi'],
                 'trafo' => $trafo,
-                'data_gi' => $list_p,
-                'data_jumlah' => $jumlah_trafo,
+//                'data_gi' => $list_p,
+//                'data_jumlah' => $jumlah_trafo,
                 'total_jumlah' => $jumlah_tot,
             );
             array_push($gi,$dt_GI);
@@ -1134,21 +1130,10 @@ class Laporan extends Controller
     public function excel_beli_tsa($id_organisasi, $tsa, $tipe){
         $home = new HomeController;
         $date = $home->MonthShifter(-1)->format(('F Y'));
-        if(date("m")<3){
-            if(date("m")==1){
-                $date_prev = (date("Y")-1)."11";
-                $date_now =  (date("Y")-1)."12";
-            }
-            else{
-                $date_prev = (date("Y") - 1) . "12";
-                $date_now = date("Ym") - 1;}
-        }else{
-            $date_prev = (date("Ym")-2);
-            $date_now = date("Ym")-1;
-        }
+
         $id_tsa = $tsa;
         if($tipe =="gi"||$tipe =="penyulang"){
-            $data_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
+//            $data_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
 //            dd($tipe);
             $id_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
             $tsa_ = array();$trafo = array();$list_p = array();$nama_gi = array();$jumlah_trafo = array();$jumlah_tot = array();
@@ -1610,6 +1595,8 @@ class Laporan extends Controller
             if($G-$E==0)$N = 0;
             else $N = ($M / ($G_E)*100);
             $data = array(
+                'id_org' =>$data_gi->id_organisasi,
+                'id_gi' =>$data_gi->id,
                 'gi' =>$data_gi->nama_gi,
                 'trafo' =>$trafo_GI[$i]['nama'],
                 'id_trafo' =>$trafo_GI[$i]['id_trafo'],
@@ -1637,6 +1624,9 @@ class Laporan extends Controller
     }
 
     public function deviasi_area($id_organisasi, $tipe, $id){
+//        $home = new HomeController;
+//        $date_now = $home->MonthShifter(-1)->format(('Ym'));
+
         if($id_organisasi == '10000')
             $query = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 2).'%')->where('tipe_organisasi', '3');
         else
@@ -1646,6 +1636,11 @@ class Laporan extends Controller
         $data_GI = array();
         $jumlah = array();
         $tot_D =$tot_E =$tot_F =$tot_G =$tot_H =$tot_I =$tot_J =$tot_K=$tot_L =$tot_M= $tot_N =null;
+
+//        $array = array(
+//            'deviasi' => null,
+//            'susut' => null
+//        );
         for($i =0 ;$i <count($id_org);$i++){
             $dt = GI::where('id_organisasi',$id_org[$i])->select('id','id_organisasi','nama_gi')->get();
             if(!$dt==null){
@@ -1654,6 +1649,23 @@ class Laporan extends Controller
                     if($data[0]){
                         array_push($data_GI,$data[0]);
                         array_push($jumlah,$data[1]);
+//                        if($data[1]["L"]>2){
+//                            $array['deviasi']= 1;
+//                            $P_gi = PenyimpananGI::where('id_gi',$data[0][0]['id_gi'])->where('periode',$date_now)->first();
+//                            if($P_gi){
+//                                $array['susut']= json_decode($P_gi->data,true)['susut'];
+//                                $P_gi->data = json_encode($array);
+//                                if($P_gi->save());
+//                            }
+//                            else{
+//                                $P = new PenyimpananGI();
+//                                $P->id_gi = $data[0][0]['id_gi'];
+//                                $P->periode = $date_now;
+//                                $P->data = json_encode($array);
+//                                $P->data_keluar = "";
+//                                if($P->save());
+//                            }
+//                        }
                         $tot_D +=$data[1]['D']; $tot_E +=$data[1]['E'];$tot_G +=$data[1]['G'];$tot_H +=$data[1]['H'];
                     }
                 }
@@ -1675,7 +1687,6 @@ class Laporan extends Controller
             'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'I' => $tot_I,
             'J' => $tot_J, 'K' => $tot_K, 'L' => $tot_L, 'M' => $tot_M, 'N' => $tot_N
         );
-//            dd(($data_GI));
 
         $data = array();
         $data['data_GI'] = $data_GI;
@@ -1985,19 +1996,7 @@ class Laporan extends Controller
     public function excel_beli($id_rayon,$tipe,$id,$tr){
         $home = new HomeController;
         $date = $home->MonthShifter(-1)->format(('F Y'));
-
-        if(date("m")<3){
-            if(date("m")==1){
-                $date_prev = (date("Y")-1)."11";
-                $date_now =  (date("Y")-1)."12";
-            }
-            else{
-                $date_prev = (date("Y") - 1) . "12";
-                $date_now = date("Ym") - 1;}
-        }else{
-            $date_prev = (date("Ym")-2);
-            $date_now = date("Ym")-1;
-        }
+        $date_now = $home->MonthShifter(-1)->format(('Ym'));
 
         $cmb = new MasterLaporan($id_rayon,"tsa",$id);
         $gi = GI::where('id',$id)->first();
@@ -2494,64 +2493,81 @@ class Laporan extends Controller
         $org_area = Organisasi::where('tipe_organisasi', '2')->get()->toArray();
         $array_ryn = array();
         $data_RD = array();
+        $home = new HomeController;
+        $date_now = $home->MonthShifter(-1)->format(('Ym'));
         for($i =0 ;$i <count($org_area);$i++) {
             $org_rayon = Organisasi::where('id_organisasi', 'like', substr($org_area[$i]['id_organisasi'], 0, 3) . '%')->where('tipe_organisasi', '3')->get()->toArray();
             $id_ryn = Organisasi::where('id_organisasi', 'like', substr($org_area[$i]['id_organisasi'], 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
-            $data_GI = array();
-            $jumlah = array();
+//            $data_GI = array();
+//            $jumlah = array();
             $tot_D =$tot_E =$tot_F =$tot_G =$tot_H =$tot_I =$tot_J =$tot_K=$tot_L =$tot_M= $tot_N =null;
             for($j =0 ;$j <count($org_rayon);$j++) {
                 $data_gi_rayon = GI::where('id_organisasi', $id_ryn[$j])->select('id', 'nama_gi', 'id_organisasi')->get();
                 if(count($data_gi_rayon) > 0) {
                     $dt_GI = array();
                     for($k=0;$k<count($data_gi_rayon);$k++){
+                        $array = array(
+                            'deviasi' => 1,
+                            'susut' => 1
+                        );
                         $gi = $this->data_rayon($data_gi_rayon, $org_rayon[$j]['id_organisasi']);
                         $data = $this->data_deviasi($data_gi_rayon[$k],$org_rayon[$j]['id_organisasi']);
                         if(count($gi)>0 && count($data[0])>0){
-//                                if(count($gi)>0)
                             array_push($array_ryn, $gi);
-
-//                                    if(count($data[0])>0){
-//                                    if($)>0){
-//                                        dd($data);
-//                                    }
-                            array_push($data_GI,$data[0]);
-                            array_push($jumlah,$data[1]);
+//                            array_push($data_GI,$data[0]);
+//                            array_push($jumlah,$data[1]);
                             array_push($dt_GI,$data[1]);
                             $tot_D +=$data[1]['D']; $tot_E +=$data[1]['E'];$tot_G +=$data[1]['G'];$tot_H +=$data[1]['H'];
+                            if($data[1]["L"]>2){
+                                $array['deviasi']= 0;
+                            }
+                            $P_gi = PenyimpananGI::where('id_gi',$data[0][0]['id_gi'])->where('periode',$date_now)->first();
+                            if($P_gi){
+                                $array['susut']= json_decode($P_gi->data,true)['susut'];
+                                $P_gi->data = json_encode($array);
+                                if($P_gi->save());
+                            }
+                            else{
+                                $P = new PenyimpananGI();
+                                $P->id_gi = $data[0][0]['id_gi'];
+                                $P->periode = $date_now;
+                                $P->data = json_encode($array);
+                                $P->data_keluar = "";
+                                if($P->save());
+                            }
                             if(count($gi)==count($dt_GI)){
                                 $array_data = array(
                                     'gi' => $gi,
                                     'dev' => $dt_GI,
                                 );
-                                array_push($data_RD,$array_data);
 
+                                array_push($data_RD,$array_data);
                             }
                         }
                     }
 
-                    $tot_F = ($tot_D-$tot_E);
-                    $tot_I = ($tot_D-$tot_G);
-                    if($tot_D== 0)$tot_J=0;
-                    else $tot_J = ($tot_I/$tot_D)*100;
-                    $tot_K = ($tot_D-$tot_E-$tot_H);
-                    if($tot_F==0)$tot_L = 0;
-                    else  $tot_L = ($tot_K/$tot_F*100);
-                    $G_E =$tot_G-$tot_E;
-                    $tot_M = ($tot_G -$tot_H);
-                    if($G_E==0)
-                        $tot_N = 0;
-                    else
-                        $tot_N = ($tot_M / ($G_E)*100);
 
-                    $total = array(
-                        'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'I' => $tot_I,
-                        'J' => $tot_J, 'K' => $tot_K, 'L' => $tot_L, 'M' => $tot_M, 'N' => $tot_N
-                    );
+//                    $tot_F = ($tot_D-$tot_E);
+//                    $tot_I = ($tot_D-$tot_G);
+//                    if($tot_D== 0)$tot_J=0;
+//                    else $tot_J = ($tot_I/$tot_D)*100;
+//                    $tot_K = ($tot_D-$tot_E-$tot_H);
+//                    if($tot_F==0)$tot_L = 0;
+//                    else  $tot_L = ($tot_K/$tot_F*100);
+//                    $G_E =$tot_G-$tot_E;
+//                    $tot_M = ($tot_G -$tot_H);
+//                    if($G_E==0)
+//                        $tot_N = 0;
+//                    else
+//                        $tot_N = ($tot_M / ($G_E)*100);
+
+//                    $total = array(
+//                        'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'I' => $tot_I,
+//                        'J' => $tot_J, 'K' => $tot_K, 'L' => $tot_L, 'M' => $tot_M, 'N' => $tot_N
+//                    );
                 }
             }
         }
-//        dd($data_RD);
         $tot_lwbp1 =$tot_lwbp2 =$tot_wbp =$tot_kwh =$tot_Kvarh =$tot_KW =$tot_KWH =$tot_KWH_lalu  =$tot_jual =$tot_susut =null;
         $tot_D =$tot_E =$tot_G =$tot_H =$tot_K =null;
 

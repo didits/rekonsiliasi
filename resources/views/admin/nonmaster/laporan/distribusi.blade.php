@@ -75,7 +75,7 @@
                                         <th rowspan="3" class="text-center">TSA BULAN LALU</th>
                                         <th colspan="2" rowspan="2" class="text-center">NAIK/TURUN</th>
                                         <th rowspan="3" class="text-center">KWH JUAL</th>
-                                        <th colspan="2" rowspan="2" class="text-center">SUSUT</th>
+                                        <th colspan="3" rowspan="2" class="text-center">SUSUT</th>
                                         {{--<th colspan="2" rowspan="2" class="text-center">DEVIASI</th>--}}
                                         <th colspan="3" rowspan="2"class="text-center">UTAMA VS ∑PENYULANG</th>    {{--<th rowspan="3" class="text-center">AREA</th>--}}
                                     </tr>
@@ -92,6 +92,7 @@
                                         <th class="text-center">%</th>
                                         <th class="text-center">KWH SUSUT</th>
                                         <th class="text-center">LOSSES(%)</th>
+                                        <th class="text-center">KETERANGAN</th>
                                         <th class="text-center">KWH</th>
                                         <th class="text-center">%</th>
                                         <th class="text-center">KETERANGAN</th>
@@ -138,8 +139,22 @@
                                                             <td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['jual'],0)}}</td>
                                                             <td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['susut'],0)}}</td>
                                                             <td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['losses'],2)}}</td>
-                                                            <td>{{number_format($data[$i]['dev'][$j]['K'],2)}}</td>
-                                                            <td>{{number_format($data[$i]['dev'][$j]['L'],2)}}</td>
+                                                            @if($data[$i]['gi'][$j]['total_jumlah']['losses'] > 6)
+                                                                <td class="text-center">TIDAK NORMAL</td>
+                                                            @elseif($data[$i]['gi'][$j]['total_jumlah']['losses'] < 6)
+                                                                <td class="text-center">NORMAL</td>
+                                                            @endif
+                                                                @if(($data[$i]['dev'][$j]['K'])>= 0)
+                                                                    <td>{{number_format($data[$i]['dev'][$j]['K'],2)}}</td>
+                                                                @else
+                                                                    <td>({{number_format(($data[$i]['dev'][$j]['K'])*-1)}})</td>
+                                                                @endif
+                                                                @if(($data[$i]['dev'][$j]['L'])>= 0)
+                                                                    <td><b>{{number_format($data[$i]['dev'][$j]['L'],2)}}<b></td>
+                                                                @else
+                                                                    <td><b>({{number_format(($data[$i]['dev'][$j]['L'])*-1)}}</b>)</td>
+                                                                @endif
+
                                                             @if($data[$i]['dev'][$j]['L'] > 2)
                                                                 <td class="text-center">TIDAK NORMAL</td>
                                                             @elseif($data[$i]['dev'][$j]['L'] < 2)
@@ -189,7 +204,12 @@
                                         <td><b>{{number_format($jumlah['jual'],0)}}</b></td>
                                         <td><b>{{number_format($jumlah['susut'],0)}}</b></td>
                                         <td><b>{{number_format($jumlah['losses'],2)}}</b></td>
-                                        @if(number_format($jumlah['K'])> 0)
+                                        @if($jumlah['losses'] > 6)
+                                            <td class="text-center">TIDAK NORMAL</td>
+                                        @elseif($jumlah['losses'] < 6)
+                                            <td class="text-center">NORMAL</td>
+                                        @endif
+                                        @if(($jumlah['K'])>= 0)
                                             <td><b>{{number_format($jumlah['K'])}}</b></td>
                                         @else <td><b>({{number_format(abs($jumlah['K']))}}</b>)</td>
                                         @endif

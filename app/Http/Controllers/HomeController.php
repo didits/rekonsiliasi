@@ -36,6 +36,7 @@ class HomeController extends Controller
             ]);
         }else if(Auth::user()->tipe_organisasi==1){
             return redirect('distribusi/dashboard')->with('status', [
+//            return redirect('distribusi')->with('status', [
             'enabled'       => true,
             'type'          => 'success',
             'content'       => 'Berhasil login!'
@@ -67,6 +68,7 @@ class HomeController extends Controller
             ]);
         }else if(Auth::user()->tipe_organisasi==1){
             return redirect('distribusi/dashboard')->with('status', [
+//            return redirect('distribusi')->with('status', [
             'enabled'       => true,
             'type'          => 'success',
             'content'       => 'Berhasil login!'

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\PenyimpananGI;
 use DateTime;
 use Illuminate\Http\Request;
 use Auth;
@@ -59,6 +60,33 @@ class DistribusiController extends Controller
 //            'id' => $data->id_organisasi]);
     }
 
+
+    public function dashboard2()
+    {
+        $Laporan = new Laporan;
+        $Laporan->data_dist();
+        $home = new HomeController;
+        $date = $home->MonthShifter(-1)->format(('F Y'));
+        $date_now = $home->MonthShifter(-1)->format(('Ym'));
+        $Sumdev =0;
+        $Sumsusut =0;
+        $GI = PenyimpananGI::where("periode", $date_now)->get();
+        foreach ($GI as $data){
+            if(json_decode($data->data,true)['deviasi']==0){
+                $Sumdev +=1;
+            }
+            if(json_decode($data->data,true)['susut']==0){
+                $Sumsusut +=1;
+            }
+
+        }
+        return view('admin.nonmaster.dashboard_user.dashboard', [
+            'date' => $date,
+            'deviasi' => $Sumdev,
+            'jumlah_gi' => count($GI),
+            'susut' => $Sumsusut
+        ]);
+    }
     public function dashboard(){
         $Laporan = new Laporan;
 //        $data = $Laporan->deviasi_area(Auth::user()->id_organisasi, 'area', 0);

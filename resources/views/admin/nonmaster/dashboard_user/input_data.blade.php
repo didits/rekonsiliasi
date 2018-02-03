@@ -883,7 +883,8 @@
                                                                                                             </div>
                                                                                                             <div class="form-group">
                                                                                                                 <label>Total Pemakaian Energi</label>
-                                                                                                                @if($dt)
+{{--                                                                                                                {{dd($dt['hasil_pengolahan']['pembanding'])}}--}}
+                                                                                                            @if($dt)
                                                                                                                 <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt['hasil_pengolahan']['pembanding']['download']['total_pemakaian_kwh_download']}}">
                                                                                                                 @elseif($dt2)
                                                                                                                 <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="tpe_download_lalu" class="form-control" placeholder="" value="{{$dt2['hasil_pengolahan']['pembanding']['download']['total_pemakaian_kwh_download']}}">
