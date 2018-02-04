@@ -2488,6 +2488,132 @@ class Laporan extends Controller
         ]);
     }
 
+    public function data_dist_area($org_area){
+        //LAPORAN AREA SUSUT DEVIASI
+        $array_ryn = array();
+        $data_RD = array();
+        $home = new HomeController;
+        $date_now = $home->MonthShifter(-1)->format(('Ym'));
+        $org_rayon = Organisasi::where('id_organisasi', 'like', substr($org_area, 0, 3) . '%')->where('tipe_organisasi', '3')->get()->toArray();
+        $id_ryn = Organisasi::where('id_organisasi', 'like', substr($org_area, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
+//            $data_GI = array();
+//            $jumlah = array();
+        $tot_D =$tot_E =$tot_F =$tot_G =$tot_H =$tot_I =$tot_J =$tot_K=$tot_L =$tot_M= $tot_N =null;
+        for($j =0 ;$j <count($org_rayon);$j++) {
+            $data_gi_rayon = GI::where('id_organisasi', $id_ryn[$j])->select('id', 'nama_gi', 'id_organisasi')->get();
+            if(count($data_gi_rayon) > 0) {
+                $dt_GI = array();
+                for($k=0;$k<count($data_gi_rayon);$k++){
+                    $array = array(
+                        'deviasi' => 1,
+                        'susut' => 1
+                    );
+                    $gi = $this->data_rayon($data_gi_rayon, $org_rayon[$j]['id_organisasi']);
+                    $data = $this->data_deviasi($data_gi_rayon[$k],$org_rayon[$j]['id_organisasi']);
+                    if(count($gi)>0 && count($data[0])>0){
+                        array_push($array_ryn, $gi);
+//                            array_push($data_GI,$data[0]);
+//                            array_push($jumlah,$data[1]);
+                        array_push($dt_GI,$data[1]);
+                        $tot_D +=$data[1]['D']; $tot_E +=$data[1]['E'];$tot_G +=$data[1]['G'];$tot_H +=$data[1]['H'];
+                        if($data[1]["L"]>2){
+                            $array['deviasi']= 0;
+                        }
+                        $P_gi = PenyimpananGI::where('id_gi',$data[0][0]['id_gi'])->where('periode',$date_now)->first();
+                        if($P_gi){
+                            $array['susut']= json_decode($P_gi->data,true)['susut'];
+                            $P_gi->data = json_encode($array);
+                            if($P_gi->save());
+                        }
+                        else{
+                            $P = new PenyimpananGI();
+                            $P->id_gi = $data[0][0]['id_gi'];
+                            $P->periode = $date_now;
+                            $P->data = json_encode($array);
+                            $P->data_keluar = "";
+                            if($P->save());
+                        }
+                        if(count($gi)==count($dt_GI)){
+                            $array_data = array(
+                                'gi' => $gi,
+                                'dev' => $dt_GI,
+                            );
+
+                            array_push($data_RD,$array_data);
+                        }
+                    }
+                }
+
+
+//                    $tot_F = ($tot_D-$tot_E);
+//                    $tot_I = ($tot_D-$tot_G);
+//                    if($tot_D== 0)$tot_J=0;
+//                    else $tot_J = ($tot_I/$tot_D)*100;
+//                    $tot_K = ($tot_D-$tot_E-$tot_H);
+//                    if($tot_F==0)$tot_L = 0;
+//                    else  $tot_L = ($tot_K/$tot_F*100);
+//                    $G_E =$tot_G-$tot_E;
+//                    $tot_M = ($tot_G -$tot_H);
+//                    if($G_E==0)
+//                        $tot_N = 0;
+//                    else
+//                        $tot_N = ($tot_M / ($G_E)*100);
+
+//                    $total = array(
+//                        'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'I' => $tot_I,
+//                        'J' => $tot_J, 'K' => $tot_K, 'L' => $tot_L, 'M' => $tot_M, 'N' => $tot_N
+//                    );
+            }
+        }
+
+        $tot_lwbp1 =$tot_lwbp2 =$tot_wbp =$tot_kwh =$tot_Kvarh =$tot_KW =$tot_KWH =$tot_KWH_lalu  =$tot_jual =$tot_susut =null;
+        $tot_D =$tot_E =$tot_G =$tot_H =$tot_K =null;
+
+        for($i=0;$i<count($data_RD);$i++){
+            for($j=0;$j<count($data_RD[$i]['gi']);$j++){
+                $tot_lwbp1 +=$data_RD[$i]['gi'][$j]['total_jumlah']['lwbp1'];
+                $tot_lwbp2 +=$data_RD[$i]['gi'][$j]['total_jumlah']['lwbp2'];
+                $tot_wbp +=$data_RD[$i]['gi'][$j]['total_jumlah']['wbp'];
+                $tot_kwh +=$data_RD[$i]['gi'][$j]['total_jumlah']['total_kwh'];
+                $tot_Kvarh +=$data_RD[$i]['gi'][$j]['total_jumlah']['Kvarh'];
+                $tot_KW +=$data_RD[$i]['gi'][$j]['total_jumlah']['KW'];
+                $tot_KWH_lalu +=$data_RD[$i]['gi'][$j]['total_jumlah']['KWH_lalu'];
+                $tot_jual +=$data_RD[$i]['gi'][$j]['total_jumlah']['jual'];
+                $tot_D+=$data_RD[$i]['dev'][$j]['D'];
+                $tot_E+=$data_RD[$i]['dev'][$j]['E'];
+                $tot_H+=$data_RD[$i]['dev'][$j]['H'];
+            }
+        }
+        $tot_F = $tot_D-$tot_E;
+        $tot_K = ($tot_D-$tot_E-$tot_H);
+        if($tot_F==0)$tot_L = 0;
+        else  $tot_L = ($tot_K/$tot_F*100);
+        $tot_susut =   $tot_kwh-$tot_jual;
+        if($tot_KWH_lalu){
+            $tot_KWH = $tot_kwh - $tot_KWH_lalu;
+            $tot_persen = $tot_KWH/$tot_KWH_lalu*100;
+        }
+        else{
+            $tot_KWH = $tot_kwh - $tot_KWH_lalu;
+            $tot_persen = null;
+        }
+        if($tot_kwh==0) $tot_losses=0;
+        else $tot_losses =  $tot_susut/$tot_kwh*100;
+
+        $jumlah = array(
+            "lwbp1" => $tot_lwbp1, "lwbp2" => $tot_lwbp2, "wbp" => $tot_wbp,
+            "total_kwh" => $tot_kwh, "Kvarh" => $tot_Kvarh,
+            "KW" => $tot_KW,"KWH" => $tot_KWH,
+            "KWH_lalu" => $tot_KWH_lalu, "persen" => $tot_persen,
+            "jual" => $tot_jual,"susut" => $tot_susut,
+            "losses" => $tot_losses, 'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'K' => $tot_K, 'L' => $tot_L,
+        );
+        $data = array();
+        $data['data_RD'] = $data_RD;
+        $data['jumlah'] = $jumlah;
+        return $data;
+    }
+
     public function data_dist(){
         //LAPORAN AREA SUSUT DEVIASI
         $org_area = Organisasi::where('tipe_organisasi', '2')->get()->toArray();

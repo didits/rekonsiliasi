@@ -61,8 +61,7 @@ class DistribusiController extends Controller
     }
 
 
-    public function dashboard2()
-    {
+    public function dashboard2(){
         $Laporan = new Laporan;
         $Laporan->data_dist();
         $home = new HomeController;
@@ -87,6 +86,7 @@ class DistribusiController extends Controller
             'susut' => $Sumsusut
         ]);
     }
+
     public function dashboard(){
         $Laporan = new Laporan;
 //        $data = $Laporan->deviasi_area(Auth::user()->id_organisasi, 'area', 0);

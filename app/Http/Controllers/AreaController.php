@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Gardu;
 use App\GI;
 use App\Organisasi;
+use App\PenyimpananGI;
 use App\TrafoGI;
 use App\Transfer;
 use Auth;
@@ -1150,6 +1151,37 @@ class AreaController extends Controller
             $table = Gardu::where('id', $id)->delete();
 
         return $table;
+    }
+
+    public function dashboard2(){
+        $Laporan = new Laporan;
+        $gi = Organisasi::where('id', Auth::user()->id)->first();
+        $list_rayon = Organisasi::where('id_organisasi', 'like', substr($gi->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id');
+        $gi = GI::whereIn('id_organisasi', $list_rayon)->pluck('id');
+        $Laporan->data_dist_area(Auth::user()->id_oraganisasi);
+        $Sumdev =0;
+        $Sumsusut =0;
+        $home = new HomeController;
+        $date_now = $home->MonthShifter(-1)->format(('Ym'));
+        $date = $home->MonthShifter(-1)->format(('F Y'));
+        $GI = PenyimpananGI::where("periode", $date_now)->whereIn("id_gi", $gi)->get();
+
+
+        foreach ($GI as $data){
+            if(json_decode($data->data,true)['deviasi']==0){
+                $Sumdev +=1;
+            }
+            if(json_decode($data->data,true)['susut']==0){
+                $Sumsusut +=1;
+            }
+
+        }
+        return view('admin.nonmaster.dashboard_user.dashboard', [
+            'date' => $date,
+            'deviasi' => $Sumdev,
+            'jumlah_gi' => count($GI),
+            'susut' => $Sumsusut
+        ]);
     }
 
     public function dashboard(){

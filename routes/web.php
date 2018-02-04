@@ -223,7 +223,7 @@ Route::group(['prefix' => 'area', 'middleware' => ['auth', 'tipe:2'||'tipe:1']],
 
     Route::get('/dashboard', [
         'as'        => 'area.dashboard',
-        'uses'      => 'AreaController@dashboard'
+        'uses'      => 'AreaController@dashboard2'
     ]);
 });
 
