@@ -120,50 +120,91 @@
                                         @if($data)
                                             <tbody>
                                             @for($i=0;$i<count($data);$i++)
-                                                @for($j=0;$j<count($data[$i]['gi']);$j++)
-                                                        <tr class="text-right">
-                                                            @if($j>0)
-                                                            <td></td>
-                                                            @else<td class="text-center">{{$i+1}}</td>
-                                                            @endif
-                                                            <td class="text-center">{{$data[$i]['gi'][$j]['gi']}}</td>
-                                                            <td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['total_kwh'],0)}}</td>
-                                                            <td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['wbp'],0)}}</td>
-                                                            <td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['lwbp1'],0)}}</td>
-                                                            <td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['lwbp2'],0)}}</td>
-                                                            <td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['Kvarh'],0)}}</td>
-                                                            <td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['KW'],0)}}</td>
-                                                            <td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['KWH_lalu'],0)}}</td>
-                                                            <td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['KWH'],0)}}</td>
-                                                            <td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['persen'],2)}}</td>
-                                                            <td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['jual'],0)}}</td>
-                                                            <td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['susut'],0)}}</td>
-                                                            <td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['losses'],2)}}</td>
-                                                            @if($data[$i]['gi'][$j]['total_jumlah']['losses'] > 6)
+                                                <tr class="text-right">
+                                                    <td class="text-center">{{$i+1}}</td>
+                                                            <td class="text-center">{{$nama_data[$i]}}</td>
+                                                            {{--{{dd(json_decode($data[$i]->data,true))}}--}}
+                                                            <td>{{number_format(json_decode($data[$i]->data,true)['total_kwh'],0)}}</td>
+                                                            <td>{{number_format(json_decode($data[$i]->data,true)['wbp'],0)}}</td>
+                                                            <td>{{number_format(json_decode($data[$i]->data,true)['lwbp1'],0)}}</td>
+                                                            <td>{{number_format(json_decode($data[$i]->data,true)['lwbp2'],0)}}</td>
+                                                            <td>{{number_format(json_decode($data[$i]->data,true)['Kvarh'],0)}}</td>
+                                                            <td>{{number_format(json_decode($data[$i]->data,true)['KW'],0)}}</td>
+                                                            <td>{{number_format(json_decode($data[$i]->data,true)['KWH_lalu'],0)}}</td>
+                                                            <td>{{number_format(json_decode($data[$i]->data,true)['KWH'],0)}}</td>
+                                                            <td>{{number_format(json_decode($data[$i]->data,true)['persen'],2)}}</td>
+                                                            <td>{{number_format(json_decode($data[$i]->data,true)['jual'],0)}}</td>
+                                                            <td>{{number_format(json_decode($data[$i]->data,true)['susut'],0)}}</td>
+                                                            <td>{{number_format(json_decode($data[$i]->data,true)['losses'],2)}}</td>
+                                                            @if(json_decode($data[$i]->data,true)['losses'] > 6)
                                                                 <td class="text-center">TIDAK NORMAL</td>
-                                                            @elseif($data[$i]['gi'][$j]['total_jumlah']['losses'] < 6)
+                                                            @elseif(json_decode($data[$i]->data,true)['losses'] < 6)
                                                                 <td class="text-center">NORMAL</td>
                                                             @endif
-                                                                @if(($data[$i]['dev'][$j]['K'])>= 0)
-                                                                    <td>{{number_format($data[$i]['dev'][$j]['K'],2)}}</td>
+                                                                @if((json_decode($data[$i]->data,true)['KWH_dev'])>= 0)
+                                                                    <td>{{number_format(json_decode($data[$i]->data,true)['KWH_dev'],2)}}</td>
                                                                 @else
-                                                                    <td>({{number_format(($data[$i]['dev'][$j]['K'])*-1)}})</td>
+                                                                    <td>({{number_format((json_decode($data[$i]->data,true)['KWH_dev'])*-1)}})</td>
                                                                 @endif
-                                                                @if(($data[$i]['dev'][$j]['L'])>= 0)
-                                                                    <td><b>{{number_format($data[$i]['dev'][$j]['L'],2)}}<b></td>
+                                                                @if((json_decode($data[$i]->data,true)['persen_dev'])>= 0)
+                                                                    <td><b>{{number_format(json_decode($data[$i]->data,true)['persen_dev'],2)}}<b></td>
                                                                 @else
-                                                                    <td><b>({{number_format(($data[$i]['dev'][$j]['L'])*-1)}}</b>)</td>
+                                                                    <td><b>({{number_format((json_decode($data[$i]->data,true)['persen_dev'])*-1)}}</b>)</td>
                                                                 @endif
 
-                                                            @if($data[$i]['dev'][$j]['L'] > 2)
+                                                            @if(json_decode($data[$i]->data,true)['persen_dev'] > 2)
                                                                 <td class="text-center">TIDAK NORMAL</td>
-                                                            @elseif($data[$i]['dev'][$j]['L'] < 2)
+                                                            @elseif(json_decode($data[$i]->data,true)['persen_dev'] < 2)
                                                                 <td class="text-center">NORMAL</td>
                                                             @endif
                                                         </tr>
                                                     @endfor
-                                                @endfor
-                                                <tr class="text-right"></tr>
+                                            {{--@for($i=0;$i<count($data);$i++)--}}
+                                                {{--@for($j=0;$j<count($data[$i]['gi']);$j++)--}}
+                                                    {{--<tr class="text-right">--}}
+                                                        {{--@if($j>0)--}}
+                                                            {{--<td></td>--}}
+                                                        {{--@else<td class="text-center">{{$i+1}}</td>--}}
+                                                        {{--@endif--}}
+                                                        {{--<td class="text-center">{{$data[$i]['gi'][$j]['gi']}}</td>--}}
+                                                        {{--<td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['total_kwh'],0)}}</td>--}}
+                                                        {{--<td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['wbp'],0)}}</td>--}}
+                                                        {{--<td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['lwbp1'],0)}}</td>--}}
+                                                        {{--<td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['lwbp2'],0)}}</td>--}}
+                                                        {{--<td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['Kvarh'],0)}}</td>--}}
+                                                        {{--<td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['KW'],0)}}</td>--}}
+                                                        {{--<td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['KWH_lalu'],0)}}</td>--}}
+                                                        {{--<td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['KWH'],0)}}</td>--}}
+                                                        {{--<td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['persen'],2)}}</td>--}}
+                                                        {{--<td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['jual'],0)}}</td>--}}
+                                                        {{--<td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['susut'],0)}}</td>--}}
+                                                        {{--<td>{{number_format($data[$i]['gi'][$j]['total_jumlah']['losses'],2)}}</td>--}}
+                                                        {{--@if($data[$i]['gi'][$j]['total_jumlah']['losses'] > 6)--}}
+                                                            {{--<td class="text-center">TIDAK NORMAL</td>--}}
+                                                        {{--@elseif($data[$i]['gi'][$j]['total_jumlah']['losses'] < 6)--}}
+                                                            {{--<td class="text-center">NORMAL</td>--}}
+                                                        {{--@endif--}}
+                                                        {{--@if(($data[$i]['dev'][$j]['K'])>= 0)--}}
+                                                            {{--<td>{{number_format($data[$i]['K'],2)}}</td>--}}
+                                                        {{--@else--}}
+                                                            {{--<td>({{number_format(($data[$i]['dev'][$j]['K'])*-1)}})</td>--}}
+                                                        {{--@endif--}}
+                                                        {{--@if(($data[$i]['dev'][$j]['L'])>= 0)--}}
+                                                            {{--<td><b>{{number_format($data[$i]['dev'][$j]['L'],2)}}<b></td>--}}
+                                                        {{--@else--}}
+                                                            {{--<td><b>({{number_format(($data[$i]['dev'][$j]['L'])*-1)}}</b>)</td>--}}
+                                                        {{--@endif--}}
+
+                                                        {{--@if($data[$i]['dev'][$j]['L'] > 2)--}}
+                                                            {{--<td class="text-center">TIDAK NORMAL</td>--}}
+                                                        {{--@elseif($data[$i]['dev'][$j]['L'] < 2)--}}
+                                                            {{--<td class="text-center">NORMAL</td>--}}
+                                                        {{--@endif--}}
+                                                    {{--</tr>--}}
+                                                {{--@endfor--}}
+                                            {{--@endfor--}}
+
+                                            <tr class="text-right"></tr>
                                             </tbody>
                                             {{-----------}}
                                             {{--JUMLAH--}}

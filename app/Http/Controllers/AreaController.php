@@ -1154,11 +1154,10 @@ class AreaController extends Controller
     }
 
     public function dashboard2(){
-        $Laporan = new Laporan;
         $gi = Organisasi::where('id', Auth::user()->id)->first();
         $list_rayon = Organisasi::where('id_organisasi', 'like', substr($gi->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id');
         $gi = GI::whereIn('id_organisasi', $list_rayon)->pluck('id');
-        $Laporan->data_dist_area(Auth::user()->id_oraganisasi);
+
         $Sumdev =0;
         $Sumsusut =0;
         $home = new HomeController;
@@ -1176,9 +1175,18 @@ class AreaController extends Controller
             }
 
         }
+        if(count($GI)<1){
+            $persen_susut = 0;
+            $persen_dev = 0;
+        }else{
+            $persen_susut = $Sumsusut/count($GI);
+            $persen_dev = $Sumdev/count($GI);
+        }
         return view('admin.nonmaster.dashboard_user.dashboard', [
             'date' => $date,
             'deviasi' => $Sumdev,
+            'persen_susut' => $persen_susut,
+            'persen_dev' => $persen_dev,
             'jumlah_gi' => count($GI),
             'susut' => $Sumsusut
         ]);

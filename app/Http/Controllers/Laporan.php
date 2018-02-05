@@ -818,7 +818,6 @@ class Laporan extends Controller
                 }
             }
         }
-//            dd($jumlah_trafo);
 
 
         $jumlah_gi = array();
@@ -837,11 +836,12 @@ class Laporan extends Controller
             }
 
             if($KWH_lalu_gi == 0)$persen_gi =0;
-            else $persen_gi = $KWH_gi/$KWH_lalu_gi*100;
+            else $persen_gi = ($KWH_gi-$KWH_lalu_gi)/$KWH_lalu_gi*100;
             $susut_gi = $tpe_kwh_gi -$jual_gi;
             if($tpe_kwh_gi==0) $losses_gi = 0;
             else $losses_gi = $susut_gi / $tpe_kwh_gi *100;
             $dt_gi =array(
+                'id' => $nama_gi[$i]['id'],
                 'lwbp1' => $lwbp1_gi,
                 'lwbp2' => $lwbp2_gi,
                 'wbp' => $wbp_gi,
@@ -907,11 +907,33 @@ class Laporan extends Controller
         $id_tsa = $tsa;
         $home = new HomeController;
         $date = $home->MonthShifter(-1)->format(('F Y'));
+        $date_now = $home->MonthShifter(-1)->format(('Ym'));
 
         if($tipe =="gi"||$tipe =="penyulang"){
 
             $data = $this->tsa_gi_peny($id_organisasi, $tsa, $tipe);
+            if($tipe =="penyulang"){
+                foreach ( $data['jumlah_gi']as $gi) {
+                    $arr_dgi = array(
+                        'id_organisasi' =>$gi['id'],
+                        'id' =>$gi['id'],
+                        'nama_gi' =>$gi['id'],
+                    );
+                    $this ->data_deviasi($arr_dgi,$id_organisasi);
+                    $p_gi= PenyimpananGI::where("id_gi",$gi['id'])->where("periode",$date_now)->first();
+                    $gi['KWH_salur'] = json_decode($p_gi['data'],true)['KWH_salur'];
+                    $gi['KWH_dev'] = json_decode($p_gi['data'],true)['KWH_dev'];
+                    $gi['persen_dev'] = json_decode($p_gi['data'],true)['persen_dev'];
+                    $gi['deviasi'] = json_decode($p_gi['data'],true)['deviasi'];
+                    if($gi['losses']>2)$susut=0;
+                    else $susut =1;
+                    $gi['susut_'] = $susut;
+                    $p_gi->data = json_encode($gi);
+                    if($p_gi->save());
+                }
+            }
 
+            //       TSA RAYON
             if($tipe =="gi"){
                 $data_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
                 $id_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
@@ -1043,6 +1065,7 @@ class Laporan extends Controller
                         'tipe_organisasi'   => "gi",
                     ]);
             }
+            //       TSA AREA
             elseif($tipe =="area")
                 return view('admin.nonmaster.laporan.tsa_penyulang',[
                     'date'             => $date,
@@ -1056,8 +1079,8 @@ class Laporan extends Controller
                     'id_organisasi'     => $id_organisasi,
                     'tsa'               => $id_tsa
                 ]);
+            //       TSA PENYULANG
             elseif($tipe =="penyulang"){
-//                dd($data['nama_gi']);
                 return view('admin.nonmaster.laporan.tsa_penyulang',[
                     'date'             => $date,
                     'trafo'             => $data['trafo'],
@@ -1570,7 +1593,9 @@ class Laporan extends Controller
     }
 
     public function data_deviasi($data_gi,$id_organisasi){
-        $cmb = new MasterLaporan($id_organisasi,"deviasi",$data_gi->id);
+        $home = new HomeController;
+        $date_now = $home->MonthShifter(-1)->format(('Ym'));
+        $cmb = new MasterLaporan($id_organisasi,"deviasi",$data_gi['id']);
         $penyulang_array =$this->data_penyulang($cmb->trafo);
         $total_pemakaian_penyulang = $this->total_pemakaian_energi($cmb->id, $penyulang_array);
         $trafo_GI = $this->data_trafo($cmb->id,$total_pemakaian_penyulang);
@@ -1595,9 +1620,9 @@ class Laporan extends Controller
             if($G-$E==0)$N = 0;
             else $N = ($M / ($G_E)*100);
             $data = array(
-                'id_org' =>$data_gi->id_organisasi,
-                'id_gi' =>$data_gi->id,
-                'gi' =>$data_gi->nama_gi,
+                'id_org' =>$data_gi['id_organisasi'],
+                'id_gi' =>$data_gi['id'],
+                'gi' =>$data_gi['nama_gi'],
                 'trafo' =>$trafo_GI[$i]['nama'],
                 'id_trafo' =>$trafo_GI[$i]['id_trafo'],
                 'D' => $D, 'E' => $E, 'F' => $F, 'G' => $G, 'H' => $H, 'I' => $I,
@@ -1615,10 +1640,46 @@ class Laporan extends Controller
         else $tot_N = ($tot_M / ($tot_G_E)*100);
 
         $jumlah = array(
-            'gi' =>$data_gi->nama_gi,
+            'gi' =>$data_gi['nama_gi'],
             'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'I' => $tot_I,
             'J' => $tot_J, 'K' => $tot_K, 'L' => $tot_L, 'M' => $tot_M, 'N' => $tot_N
         );
+
+        $p_gi = PenyimpananGI::where('id_gi',$data_gi['id'])->where("periode",$date_now)->first();
+        if($jumlah["K"]>6) $dev =0;
+        else $dev =1;
+        $dt_gi =array(
+            'id' => $data_gi['id'],
+            'lwbp1' => null,
+            'lwbp2' => null,
+            'wbp' => null,
+            'total_kwh' => null,
+            'KW' => null,
+            'Kvarh'   => null,
+            'KWH'   => null,
+            'KWH_lalu'   => null,
+            'persen' => null,
+            'jual'   => null,
+            'susut'   => null,
+            'losses'   => null,
+            'KWH_salur' =>  $jumlah['F'],
+            'KWH_dev' =>  $jumlah['K'],
+            'persen_dev' => $jumlah['L'],
+            'susut_' =>  null,
+            'deviasi' => $dev,
+        );
+        if($p_gi){
+            $p_gi->data = json_encode($dt_gi);
+            if($p_gi->save());
+        }
+        else {
+            $P = new PenyimpananGI();
+            $P->id_gi = $data_gi['id'];
+            $P->periode = $date_now;
+            $P->data = json_encode($dt_gi);
+            $P->data_keluar = "";
+            if($P->save());
+        }
 
         return array ($data_GI, $jumlah);
     }
@@ -2614,6 +2675,60 @@ class Laporan extends Controller
         return $data;
     }
 
+    public function data_GI(){
+        $home = new HomeController;
+        $date = $home->MonthShifter(-1)->format(('F Y'));
+        $org_rayon = Organisasi::where('tipe_organisasi', '3')->pluck('id');
+        $nama_gi = GI::whereIn('id_organisasi',$org_rayon)->pluck('nama_gi');
+        $id_gi = GI::whereIn('id_organisasi',$org_rayon)->pluck('id');
+        $data_gi = PenyimpananGI::whereIn('id_gi',$id_gi)->get();
+        $tot_lwbp1 =$tot_lwbp2 =$tot_wbp =$tot_kwh =$tot_Kvarh =$tot_KW =$tot_KWH =$tot_KWH_lalu  =$tot_jual =$tot_susut =null;
+        $tot_F =$tot_L =$tot_K =null;
+        foreach ($data_gi as $gi){
+            $gi=json_decode($gi->data,true);
+            $tot_lwbp1 +=$gi['lwbp1'];
+            $tot_lwbp2 +=$gi['lwbp2'];
+            $tot_wbp +=$gi['wbp'];
+            $tot_kwh +=$gi['total_kwh'];
+            $tot_Kvarh +=$gi['Kvarh'];
+            $tot_KW +=$gi['KW'];
+            $tot_KWH_lalu +=$gi['KWH_lalu'];
+            $tot_jual +=$gi['jual'];
+            $tot_F+=$gi['KWH_salur'];
+            $tot_K+=$gi['KWH_dev'];
+        }
+
+        if($tot_F==0)$tot_L = 0;
+        else  $tot_L = ($tot_K/$tot_F*100);
+        $tot_susut =   $tot_kwh-$tot_jual;
+        if($tot_KWH_lalu){
+            $tot_KWH = $tot_kwh - $tot_KWH_lalu;
+            $tot_persen = $tot_KWH/$tot_KWH_lalu*100;
+        }
+        else{
+            $tot_KWH = $tot_kwh - $tot_KWH_lalu;
+            $tot_persen = null;
+        }
+        if($tot_kwh==0) $tot_losses=0;
+        else $tot_losses =  $tot_susut/$tot_kwh*100;
+
+        $jumlah = array(
+            "lwbp1" => $tot_lwbp1, "lwbp2" => $tot_lwbp2, "wbp" => $tot_wbp,
+            "total_kwh" => $tot_kwh, "Kvarh" => $tot_Kvarh,
+            "KW" => $tot_KW,"KWH" => $tot_KWH,
+            "KWH_lalu" => $tot_KWH_lalu, "persen" => $tot_persen,
+            "jual" => $tot_jual,"susut" => $tot_susut,
+            "losses" => $tot_losses,'K' => $tot_K, 'L' => $tot_L,
+        );
+
+        $data = array();
+        $data['nama_gi'] = $nama_gi;
+        $data['data_gi'] = $data_gi;
+        $data['jumlah'] = $jumlah;
+        return $data;
+
+    }
+
     public function data_dist(){
         //LAPORAN AREA SUSUT DEVIASI
         $org_area = Organisasi::where('tipe_organisasi', '2')->get()->toArray();
@@ -2745,10 +2860,11 @@ class Laporan extends Controller
     public function distribusi(){
         $home = new HomeController;
         $date = $home->MonthShifter(-1)->format(('F Y'));
-        $data = $this->data_dist();
-//        dd($data);
+        $data = $this->data_GI();
+
         return view('admin.nonmaster.laporan.distribusi',[
-            'data'      => $data['data_RD'],
+            'nama_data'      => $data['nama_gi'],
+            'data'      => $data['data_gi'],
             'date'      => $date,
             'jumlah'      => $data['jumlah']
         ]);

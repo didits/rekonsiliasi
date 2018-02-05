@@ -62,8 +62,6 @@ class DistribusiController extends Controller
 
 
     public function dashboard2(){
-        $Laporan = new Laporan;
-        $Laporan->data_dist();
         $home = new HomeController;
         $date = $home->MonthShifter(-1)->format(('F Y'));
         $date_now = $home->MonthShifter(-1)->format(('Ym'));
@@ -79,9 +77,18 @@ class DistribusiController extends Controller
             }
 
         }
+        if(count($GI)<1){
+            $persen_susut = 0;
+            $persen_dev = 0;
+        }else{
+            $persen_susut = $Sumsusut/count($GI);
+            $persen_dev = $Sumdev/count($GI);
+        }
         return view('admin.nonmaster.dashboard_user.dashboard', [
             'date' => $date,
             'deviasi' => $Sumdev,
+            'persen_susut' => $persen_susut,
+            'persen_dev' => $persen_dev,
             'jumlah_gi' => count($GI),
             'susut' => $Sumsusut
         ]);
