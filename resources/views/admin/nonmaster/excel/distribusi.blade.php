@@ -99,6 +99,7 @@
                 <td class="text-center">KWH JUAL</td>
                 <td class="text-center">SUSUT</td>
                 <td></td>
+                <td></td>
                 <td class="text-center">UTAMA VS ∑PENYULANG</td>    {{--<td rowspan="3" class="text-center">AREA</td>--}}
                 <td></td>
                 <td></td>
@@ -118,11 +119,13 @@
                 <td></td>
                 <td class="text-center">KWH SUSUT</td>
                 <td class="text-center">LOSSES(%)</td>
+                <td class="text-center">KETERANGAN</td>
                 <td class="text-center">KWH</td>
                 <td class="text-center">%</td>
                 <td class="text-center">KETERANGAN</td>
             </tr>
             <tr>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>

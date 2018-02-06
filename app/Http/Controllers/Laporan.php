@@ -2892,13 +2892,14 @@ class Laporan extends Controller
                 $sheet->mergeCells('J10:J11');
                 $sheet->mergeCells('K10:K11');
                 $sheet->mergeCells('L9:L11');
-                $sheet->mergeCells('M9:N9');
+                $sheet->mergeCells('M9:O9');
                 $sheet->mergeCells('M10:M11');
                 $sheet->mergeCells('N10:N11');
                 $sheet->mergeCells('O10:O11');
                 $sheet->mergeCells('P10:P11');
                 $sheet->mergeCells('Q10:Q11');
-                $sheet->mergeCells('O9:Q9');
+                $sheet->mergeCells('R10:R11');
+                $sheet->mergeCells('P9:R9');
                 $sheet->setPageMargin(0.25);
                 $sheet->setOrientation('landscape');
                 $sheet->loadView('admin.nonmaster.excel.distribusi',[
