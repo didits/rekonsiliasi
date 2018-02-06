@@ -115,7 +115,7 @@ class DistribusiController extends Controller
             if(json_decode($data->data,true)['deviasi']==0){
                 $Sumdev +=1;
             }
-            if(json_decode($data->data,true)['susut']==0){
+            if(json_decode($data->data,true)['susut_']==0){
                 $Sumsusut +=1;
             }
 
