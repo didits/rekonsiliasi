@@ -354,6 +354,8 @@ class Input extends Controller
                             'kvarh_download' => $decoded['beli'][$meter]['download']['kvarh_download'],
                             'konsiden_download' => $decoded['beli'][$meter]['download']['konsiden_download'],
                         );
+//                        if($decoded['beli']['ps']['download']==null)
+//                        dd($decoded);
                     }
                     elseif ($request->download){
                         if($cek_dataL)
@@ -373,11 +375,6 @@ class Input extends Controller
                         );
                     }
 
-                    $dt = array(
-                        'visual' => $input_visual,
-                        'download' => $input_download,
-                    );
-
                     if($request->meter == "utama"){
                         if($cek_dataL) {
                             if ($request->visual){
@@ -394,6 +391,13 @@ class Input extends Controller
                             }
                         }
                         else{
+                            if($decoded['hasil_pengolahan']["utama"]);
+                            else {
+                                if($request->visual)
+                                    $decoded['hasil_pengolahan']["utama"]['download']['total_pemakaian_kwh_download']=null;
+                                elseif ($request->download)
+                                    $decoded['hasil_pengolahan']["utama"]['visual']['total_pemakaian_kwh_visual']=null;
+                            }
                             if($request->visual){
                                 $decoded['beli']["utama"]['visual']['lwbp1_visual']=$request->lwbp1_visual_lalu;
                                 $decoded['beli']["utama"]['visual']['lwbp2_visual']=$request->lwbp2_visual_lalu;
@@ -428,6 +432,14 @@ class Input extends Controller
                             }
                         }
                         else{
+                            if($decoded['hasil_pengolahan']["pembanding"]);
+                            else {
+                                if($request->visual)
+                                    $decoded['hasil_pengolahan']["pembanding"]['download']['total_pemakaian_kwh_download']=null;
+                                elseif ($request->download)
+                                    $decoded['hasil_pengolahan']["pembanding"]['visual']['total_pemakaian_kwh_visual']=null;
+                            }
+
                             if($request->visual){
                                 $decoded['beli']["pembanding"]['visual']['lwbp1_visual']=$request->lwbp1_visual_lalu;
                                 $decoded['beli']["pembanding"]['visual']['lwbp2_visual']=$request->lwbp2_visual_lalu;
@@ -462,6 +474,13 @@ class Input extends Controller
                             }
                         }
                         else{
+                            if($decoded['hasil_pengolahan']["ps"]);
+                            else {
+                                if($request->visual)
+                                    $decoded['hasil_pengolahan']["ps"]['download']['total_pemakaian_kwh_download']=null;
+                                elseif ($request->download)
+                                    $decoded['hasil_pengolahan']["ps"]['visual']['total_pemakaian_kwh_visual']=null;
+                            }
                             if($request->visual){
                                 $decoded['beli']["ps"]['visual']['lwbp1_visual']=$request->lwbp1_visual_lalu;
                                 $decoded['beli']["ps"]['visual']['lwbp2_visual']=$request->lwbp2_visual_lalu;

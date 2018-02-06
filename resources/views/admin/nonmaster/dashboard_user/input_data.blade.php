@@ -1064,6 +1064,7 @@
                                                                                                                 <input type="text" pattern="(\d+\.?\d{0,})?(\d+)" name="wbp_download_lalu" class="form-control" placeholder="" value="">
                                                                                                                 @endif
                                                                                                             </div>
+{{--                                                                                                            {{dd($dt)}}--}}
                                                                                                             <div class="form-group">
                                                                                                                 <label>Total Pemakaian Energi</label>
                                                                                                                 @if($dt)
