@@ -225,6 +225,11 @@ Route::group(['prefix' => 'area', 'middleware' => ['auth', 'tipe:2'||'tipe:1']],
         'as'        => 'area.dashboard',
         'uses'      => 'AreaController@dashboard2'
     ]);
+
+    Route::get('/dashboard/{id}', [
+        'as'        => 'area.reload',
+        'uses'      => 'AreaController@reload'
+    ]);
 });
 
 //area-entry_master
@@ -404,6 +409,11 @@ Route::group(['prefix' => 'distribusi', 'middleware' => ['auth', 'tipe:1']], fun
     Route::get('/dashboard', [
         'as'        => 'distribusi.dashboard',
         'uses'      => 'DistribusiController@dashboard2'
+    ]);
+
+    Route::get('/dashboard/{id_org}', [
+        'as'        => 'distribusi.reload',
+        'uses'      => 'DistribusiController@reload'
     ]);
 
 });

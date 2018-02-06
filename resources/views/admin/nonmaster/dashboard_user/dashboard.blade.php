@@ -160,11 +160,67 @@
                         </div>
                     </div>
                 </div>
+
             </div>
+            <div>
+                <div class="container-fluid">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                @if($distribusi)
+                                <h4 class="title">Daftar Area</h4>
+                                <p class="category">{{Auth::user()->nama_organisasi}}</p>
+                                @else
+                                <h4 class="title">Area {{Auth::user()->nama_organisasi}}</h4>
+                                {{--<p class="category"></p>--}}
+                                @endif
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                    <th>AREA</th>
+                                    <th class="text-right">LAST UPDATE</th>
+                                    <th class="text-right">UPDATE DATA GI</th>
+                                    </thead>
+                                    <tbody>
+                                    @for($i=0;$i<count($data) ;$i++)
+                                        <tr>
+{{--                                            {{dd($distribusi)}}--}}
+                                            @if($distribusi)
+                                            <td>{{$data[$i]['nama_organisasi']}}</td>
+                                            {{--                                            {{dd($time[0][0])}}--}}
+                                            <td class="text-right">{{$time[$i][0]}}</td>
+                                            <td>
+                                                <a href="{{route('distribusi.reload', $data[$i]['id_organisasi'])}}" rel="tooltip" title="" data-original-title="List Rayon" class="btn btn-info btn-fill pull-right" >
+                                                    <i class="fa fa-rotate-right"></i>
+                                                </a>
+                                            </td>
+                                            @else
+                                            <td>{{$data}}</td>
+                                            {{--                                            {{dd($time[0][0])}}--}}
+                                            <td class="text-right">{{$time[0]}}</td>
+                                            <td>
+                                                <a href="{{route('area.reload', Auth::user()->id_organisasi)}}" rel="tooltip" title="" data-original-title="List Rayon" class="btn btn-info btn-fill pull-right" >
+                                                    <i class="fa fa-rotate-right"></i>
+                                                </a>
+                                            </td>
+                                            @endif
+                                        </tr>
+                                    @endfor
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             @include('admin.master.footer')
 
         </div>
+
     </div>
 @endsection
 
@@ -236,8 +292,8 @@
                 toolTipContent: "{name}: <strong>{y}%</strong>",
                 indexLabel: "{name} - {y}%",
                 dataPoints: [
-                    { y: {{number_format($persen_susut*100,2)}}, name: "Susut Normal: {{$susut}}" },
-                    { y: {{number_format((1-$persen_susut)*100,2)}}, name: "Susut Tidak Normal: {{($jumlah_gi-$susut)}}", exploded: true },
+                    { y: {{number_format($persen_susut*100,2)}}, name: "GI Normal: {{$susut}}" },
+                    { y: {{number_format((1-$persen_susut)*100,2)}}, name: "GI Tidak Normal: {{($jumlah_gi-$susut)}}", exploded: true },
                     {{--{ y: {{isset($susut)?$susut[0][0]:0}}, name: "Susut Normal: {{isset($susut)?$susut[0][1]:0}}" },--}}
                     {{--{ y: {{isset($susut)?$susut[1][0]:0}}, name: "Susut Tidak Normal: {{isset($susut)?$susut[1][1]:0}}", exploded: true },--}}
 {{--                    { y: 0, name: "Total GI: {{isset($susut)?$susut[2]:0}}" }--}}

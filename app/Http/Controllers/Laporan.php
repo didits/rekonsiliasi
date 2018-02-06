@@ -908,7 +908,7 @@ class Laporan extends Controller
         $home = new HomeController;
         $date = $home->MonthShifter(-1)->format(('F Y'));
         $date_now = $home->MonthShifter(-1)->format(('Ym'));
-
+//        dd($id_organisasi);
         if($tipe =="gi"||$tipe =="penyulang"){
 
             $data = $this->tsa_gi_peny($id_organisasi, $tsa, $tipe);
@@ -2677,11 +2677,11 @@ class Laporan extends Controller
 
     public function data_GI(){
         $home = new HomeController;
-        $date = $home->MonthShifter(-1)->format(('F Y'));
+        $date_now = $home->MonthShifter(-1)->format(('Ym'));
         $org_rayon = Organisasi::where('tipe_organisasi', '3')->pluck('id');
         $nama_gi = GI::whereIn('id_organisasi',$org_rayon)->pluck('nama_gi');
         $id_gi = GI::whereIn('id_organisasi',$org_rayon)->pluck('id');
-        $data_gi = PenyimpananGI::whereIn('id_gi',$id_gi)->get();
+        $data_gi = PenyimpananGI::whereIn('id_gi',$id_gi)->where("periode",$date_now)->get();
         $tot_lwbp1 =$tot_lwbp2 =$tot_wbp =$tot_kwh =$tot_Kvarh =$tot_KW =$tot_KWH =$tot_KWH_lalu  =$tot_jual =$tot_susut =null;
         $tot_F =$tot_L =$tot_K =null;
         foreach ($data_gi as $gi){
@@ -2873,7 +2873,7 @@ class Laporan extends Controller
     public function excel_distribusi(){
         $home = new HomeController;
         $date = $home->MonthShifter(-1)->format(('F Y'));
-        $data = $this->data_dist();
+        $data = $this->data_GI();
 //        dd("sdad");
         Excel::create('laporan Distribusi', function($excel)use($date,$data){
 
@@ -2902,7 +2902,8 @@ class Laporan extends Controller
                 $sheet->setPageMargin(0.25);
                 $sheet->setOrientation('landscape');
                 $sheet->loadView('admin.nonmaster.excel.distribusi',[
-                    'data'      => $data['data_RD'],
+                    'nama_data'      => $data['nama_gi'],
+                    'data'      => $data['data_gi'],
                     'date'      => $date,
                     'jumlah'      => $data['jumlah']
                 ]);
@@ -2912,7 +2913,8 @@ class Laporan extends Controller
             ->download('xls');
 
         return view('admin.nonmaster.excel.distribusi',[
-            'data'      => $data['data_RD'],
+            'nama_data'      => $data['nama_gi'],
+            'data'      => $data['data_gi'],
             'date'      => $date,
             'jumlah'      => $data['jumlah']
         ]);

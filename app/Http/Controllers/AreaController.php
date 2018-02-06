@@ -1153,6 +1153,12 @@ class AreaController extends Controller
         return $table;
     }
 
+    public function reload($id_organisasi){
+        $Laporan = new Laporan;
+        $Laporan->view_beli_tsa($id_organisasi, "area", "penyulang");
+        return back();
+    }
+
     public function dashboard2(){
         $gi = Organisasi::where('id', Auth::user()->id)->first();
         $list_rayon = Organisasi::where('id_organisasi', 'like', substr($gi->id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id');
@@ -1165,6 +1171,22 @@ class AreaController extends Controller
         $date = $home->MonthShifter(-1)->format(('F Y'));
         $GI = PenyimpananGI::where("periode", $date_now)->whereIn("id_gi", $gi)->get();
 
+        $subarea = substr(Auth::user()->id_organisasi, 0, 3) . "%%";
+        $rayon = Organisasi::select('id', 'id_organisasi')
+            ->where([
+                ['id_organisasi', 'like', $subarea],
+                ['tipe_organisasi', '!=', 2]])
+            ->pluck('id');
+        foreach ($rayon as $idr) {
+            $data_gi= GI::select('gi.id', 'organisasi.nama_organisasi', 'gi.nama_gi', 'gi.alamat_gi', 'gi.data_master')
+                ->where('gi.id_organisasi', $idr)
+                ->join('organisasi', 'organisasi.id', '=', 'gi.id_organisasi')
+                ->first();
+            $pgi = PenyimpananGI::where('id_gi',$data_gi['id'])->where('periode',$date_now)->pluck('updated_at')->toArray();
+            if($pgi) {
+                break;
+            }
+        }
 
         foreach ($GI as $data){
             if(json_decode($data->data,true)['deviasi']==0){
@@ -1182,13 +1204,18 @@ class AreaController extends Controller
             $persen_susut = $Sumsusut/count($GI);
             $persen_dev = $Sumdev/count($GI);
         }
+        if($pgi);
+        else $pgi = array(0 =>"tidak ada data transaksi");
         return view('admin.nonmaster.dashboard_user.dashboard', [
             'date' => $date,
+            'data' =>  Auth::user()->nama_organisasi,
+            'time' => $pgi,
             'deviasi' => $Sumdev,
             'persen_susut' => $persen_susut,
             'persen_dev' => $persen_dev,
             'jumlah_gi' => count($GI),
-            'susut' => $Sumsusut
+            'susut' => $Sumsusut,
+            'distribusi' => false,
         ]);
     }
 

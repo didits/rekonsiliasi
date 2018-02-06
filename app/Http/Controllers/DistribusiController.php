@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\GI;
 use App\PenyimpananGI;
+use App\TrafoGI;
 use DateTime;
 use Illuminate\Http\Request;
 use Auth;
@@ -60,11 +62,52 @@ class DistribusiController extends Controller
 //            'id' => $data->id_organisasi]);
     }
 
+    public function reload($id_organisasi){
+        $Laporan = new Laporan;
+        $Laporan->view_beli_tsa($id_organisasi, "area", "penyulang");
+        return back();
+    }
+
+    public function list_distribusi($id_area){
+
+        $home = new HomeController;
+        $date_now = $home->MonthShifter(-1)->format(('Ym'));
+        $gi = array();
+        $null = array(
+            0=>"(tidak ada data transaksi)"
+        );
+        $i=1;
+        foreach ($id_area as $area) {
+            $subarea = substr($area, 0, 3) . "%%";
+            $rayon = Organisasi::select('id', 'id_organisasi')
+                ->where([
+                    ['id_organisasi', 'like', $subarea],
+                    ['tipe_organisasi', '!=', 2]])
+                ->pluck('id');
+            foreach ($rayon as $idr) {
+                $data_gi= GI::select('gi.id', 'organisasi.nama_organisasi', 'gi.nama_gi', 'gi.alamat_gi', 'gi.data_master')
+                    ->where('gi.id_organisasi', $idr)
+                    ->join('organisasi', 'organisasi.id', '=', 'gi.id_organisasi')
+                    ->first();
+                $pgi = PenyimpananGI::where('id_gi',$data_gi['id'])->where('periode',$date_now)->pluck('updated_at')->toArray();
+                if($pgi) {
+                    array_push($gi,$pgi);
+                    break;
+                }
+            }
+            if(count($gi)<$i){
+                array_push($gi,$null);
+            }
+            $i+=1;
+        }
+        return $gi;
+    }
 
     public function dashboard2(){
         $home = new HomeController;
         $date = $home->MonthShifter(-1)->format(('F Y'));
         $date_now = $home->MonthShifter(-1)->format(('Ym'));
+        $id_area = Organisasi::where('tipe_organisasi',2)->pluck("id_organisasi");
         $Sumdev =0;
         $Sumsusut =0;
         $GI = PenyimpananGI::where("periode", $date_now)->get();
@@ -85,12 +128,15 @@ class DistribusiController extends Controller
             $persen_dev = $Sumdev/count($GI);
         }
         return view('admin.nonmaster.dashboard_user.dashboard', [
+            'data' => $this->list_area(),
             'date' => $date,
             'deviasi' => $Sumdev,
             'persen_susut' => $persen_susut,
             'persen_dev' => $persen_dev,
             'jumlah_gi' => count($GI),
-            'susut' => $Sumsusut
+            'susut' => $Sumsusut,
+            'time' => $this->list_distribusi($id_area),
+             'distribusi' => true
         ]);
     }
 
