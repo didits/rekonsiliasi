@@ -31,9 +31,9 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Tipe Tingkatan</label>
+                                                <label>Tingkatan</label>
                                                 <input name="tipe" type="text" disabled class="form-control" value="@if (Auth::guest())tipe
-                                                @else{{ Auth::user()->tipe_organisasi }}@endif">
+                                                @else @if(Auth::user()->tipe_organisasi==2) AREA @elseif(Auth::user()->tipe_organisasi==3) RAYON @endif @endif">
                                             </div>
                                         </div>
                                     </div> 

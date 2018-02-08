@@ -1785,11 +1785,27 @@ class Input extends Controller
 //            $data = json_decode($hasil, true);
         }
         $decoded = json_decode($jenis->data_master,true);
-//        dd($data);
+        $data_GI = array();
+        if($tipe=="trafo_gi"){
+            $id = TrafoGI::select('id_organisasi','id_gi')->where("id",$id)->first();
+        }
+        elseif($tipe=="penyulang"){
+            $id = Penyulang::where("id",$id)->first();
+            $id = TrafoGI::select('id_organisasi','id_gi')->where("id",$id->id_trafo_gi)->first();
+        }
+        elseif($tipe=="pct"){
+            $id = Penyulang::where("id",$id)->first();
+            $id = Organisasi::select('id_organisasi','id')->where("id",Auth::user()->id)->first();
+        }
+        $data_GI['id_gi'] =$id-> id_gi;
+        $data_GI['id_rayon'] = $id['id_organisasi'];
+        $data_GI['tipe'] ="rayon";
+//        dd($data_GI);
         $home = new HomeController;
         $date = $home->MonthShifter(-2)->format(('M Y'));
         $date2 = $home->MonthShifter(-1)->format(('M Y'));
         return view('admin.nonmaster.dashboard_user.input_data', [
+            'data_GI'            => $data_GI,
             'date'            => $date,
             'date2'            => $date2,
             'data'            => $data,

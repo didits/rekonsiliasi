@@ -35,11 +35,11 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <p class="category" style="text-align: right"><b>Tipe Tingkatan : </b></p>
+                                            <p class="category" style="text-align: right"><b>Tingkatan : </b></p>
                                         </div>
                                         <div class="col-md-8">
                                             <p class="category">@if (Auth::guest())tipe
-                                                @else{{ Auth::user()->tipe_organisasi }}@endif</p>
+                                                @else @if(Auth::user()->tipe_organisasi==2) AREA @elseif(Auth::user()->tipe_organisasi==3) RAYON @endif @endif</p>
                                         </div>
                                     </div>
                                     <div class="row">

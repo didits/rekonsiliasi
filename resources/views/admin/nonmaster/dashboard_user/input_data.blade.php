@@ -1830,6 +1830,14 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        {{--<div class="text-center font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6">--}}
+                                        <div class="footer text-center">
+                                            @if($tipe=="pct")
+                                                <a href="{{route('rayon.view_beli_pct',[$data_GI['id_rayon'], 'pct', 0])}}" class="btn btn-fill btn-info btn-wd"><i class="pe-7s-folder"></i><br/>Lihat Laporan PCT</a>
+                                            @else
+                                                <a href="{{route('rayon.view_beli', [$data_GI['id_rayon'], $data_GI['tipe'], $data_GI['id_gi']])}}" class="btn btn-fill btn-info btn-wd"><i class="pe-7s-folder"></i><br/>Lihat Laporan Beli</a>
+                                            @endif
+                                        </div>
                                     </div>
                                     <hr>
 
