@@ -292,7 +292,7 @@ class Input extends Controller
                 }
             }
             $jual= $request->tpe_jual;
-            $data = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter, $jual);
+            $data = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter,$request->jual, $jual);
             if(!$request->tpe_jual)  $data['jual']['total_kwh_jual']=$decoded['jual']['total_kwh_jual'];
             $data_listrik->data = json_encode($data);
             if($data_listrik->save());
@@ -879,8 +879,8 @@ class Input extends Controller
                     }
                 }
                 $jual= $request->tpe_jual;
-                $data = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter, $jual);
-                if(!$request->tpe_jual)  $data['jual']['total_kwh_jual']=$decoded['jual']['total_kwh_jual'];
+                $data = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter,$request->jual, $jual);
+                if(!$request->jual)  $data['jual']['total_kwh_jual']=$decoded['jual']['total_kwh_jual'];
                 $data_listrik->data = json_encode($data);
                 if($data_listrik->save());
                 return back();
@@ -892,7 +892,7 @@ class Input extends Controller
                 );
                 if($request->tipe == "pct");
                 else{
-                    $data_olah = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter, $request->tpe_jual);
+                    $data_olah = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter,$request->jual, $request->tpe_jual);
                 }
                 if($request->tipe=="trafo_gi"){
                     $dt = $data_olah;
@@ -1012,7 +1012,7 @@ class Input extends Controller
                 }
 
                 if($data_awal||$data_lalu){
-                    $data = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter, $request->tpe_jual);
+                    $data = $this->olah_data($input_visual, $input_download, $request->id, $request->tipe, $request->meter,$request->jual, $request->tpe_jual);
 //                dd($data);
                     $P->data = json_encode($data);
                     if ($P->save());
@@ -1029,7 +1029,7 @@ class Input extends Controller
 
     }
 
-    public function olah_data($visual,$download,$id,$tipe,$meter,$jual){
+    public function olah_data($visual,$download,$id,$tipe,$meter,$jual,$kwh_jual){
         if(date("m")<3){
             if(date("m")==1){
                 $date_prev = (date("Y")-1)."11";
@@ -1097,7 +1097,7 @@ class Input extends Controller
                     'ps'=>$akhir['hasil_pengolahan']['ps']
                 );
                 $dt_jual = array(
-                    'total_kwh_jual'=> $jual
+                    'total_kwh_jual'=> $kwh_jual
                 );
                 $dt = array(
                     'beli'=> $dt,
@@ -1330,7 +1330,7 @@ class Input extends Controller
                     $akhir = json_decode($akhir->data,true);
                 else $akhir = $this->json_dt($awal,$visual,$download,$tipe,$meter,$faktor_kali,0);
                 $dt_jual = array(
-                    'total_kwh_jual'=> $jual
+                    'total_kwh_jual'=> $kwh_jual
                 );
                 $dt = array(
                     'beli'=> $akhir['beli'],
