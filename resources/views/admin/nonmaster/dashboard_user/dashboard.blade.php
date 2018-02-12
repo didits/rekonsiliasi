@@ -191,7 +191,7 @@
                                             {{--                                            {{dd($time[0][0])}}--}}
                                             <td class="text-right">{{$time[$i][0]}}</td>
                                             <td>
-                                                <a href="{{route('distribusi.reload', $data[$i]['id_organisasi'])}}" rel="tooltip" title="" data-original-title="List Rayon" class="btn btn-info btn-fill pull-right" >
+                                                <a href="{{route('distribusi.reload', $data[$i]['id_organisasi'])}}" rel="tooltip" title="" data-original-title="Update" class="btn btn-info btn-fill pull-right" >
                                                     <i class="fa fa-rotate-right"></i>
                                                 </a>
                                             </td>
@@ -200,7 +200,7 @@
                                             {{--                                            {{dd($time[0][0])}}--}}
                                             <td class="text-right">{{$time[0]}}</td>
                                             <td>
-                                                <a href="{{route('area.reload', Auth::user()->id_organisasi)}}" rel="tooltip" title="" data-original-title="List Rayon" class="btn btn-info btn-fill pull-right" >
+                                                <a href="{{route('area.reload', Auth::user()->id_organisasi)}}" rel="tooltip" title="" data-original-title="Update" class="btn btn-info btn-fill pull-right" >
                                                     <i class="fa fa-rotate-right"></i>
                                                 </a>
                                             </td>
