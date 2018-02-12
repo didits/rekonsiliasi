@@ -122,8 +122,7 @@
                                             @for($i=0;$i<count($data);$i++)
                                                 <tr class="text-right">
                                                     <td class="text-center">{{$i+1}}</td>
-                                                            <td class="text-center">{{$nama_data[$i]}}</td>
-                                                            {{--{{dd(json_decode($data[$i]->data,true))}}--}}
+                                                            <td class="text-center">{{($nama_gi[$i])}}</td>
                                                             <td>{{number_format(json_decode($data[$i]->data,true)['total_kwh'],0)}}</td>
                                                             <td>{{number_format(json_decode($data[$i]->data,true)['wbp'],0)}}</td>
                                                             <td>{{number_format(json_decode($data[$i]->data,true)['lwbp1'],0)}}</td>

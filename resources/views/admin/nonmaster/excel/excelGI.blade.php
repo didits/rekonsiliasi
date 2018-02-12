@@ -250,7 +250,7 @@
             <td class="text-left">STAND AWAL</td>
             <td class="text-left">LWBP 1</td>
             <td>{{number_format(json_decode($data_master[$tr]['data'],true)['beli']['utama']['visual']['lwbp1_visual'],2)}}</td>
-            <td>{{number_format(json_decode($data_master[$tr]['data'],true)['beli']['utama']['download']['lwbp1_download'],2)}}</td>
+            <td></td>
             <td>{{number_format(json_decode($data_master[$tr]['data'],true)['beli']['pembanding']['visual']['lwbp1_visual'],2)}}</td>
             <td>{{number_format(json_decode($data_master[$tr]['data'],true)['beli']['pembanding']['download']['lwbp1_download'],2)}}</td>
             <td>{{number_format(json_decode($data_master[$tr]['data'],true)['beli']['ps']['visual']['lwbp1_visual'],2)}}</td>
@@ -607,9 +607,9 @@
         <td colspan="2"></td>
         <td></td>
         @if($data_master[$tr]['visual_cek'] == 1)
-            <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download'] -json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual'])}}</td>
+            <td>{{number_format($utama[$tr] -json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual'])}}</td>
         @elseif($data_master[$tr]['visual_cek'] == 0)
-            <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download'] -json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download'])}}</td>
+            <td>{{number_format($utama[$tr] -json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download'])}}</td>
         @endif
         <td></td>
         <td></td>

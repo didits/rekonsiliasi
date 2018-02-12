@@ -511,7 +511,7 @@
                                             @endif
                                             <td>{{number_format($pemakaian[$tr]['total_pemakaian_energi_'])}}</td>
                                             @if($pemakaian[$tr]['total_pemakaian_energi_download_']>0)
-                                            <td>{{number_format($pemakaian[$tr]['total_pemakaian_energi_'])}}</td>
+                                            <td>{{number_format($pemakaian[$tr]['total_pemakaian_energi_download_'])}}</td>
                                             @else<td>-</td>
                                             @endif
                                             @for ($j=0; $j < count($dt_trafo[$tr]); $j++)
@@ -622,9 +622,9 @@
                                             <td colspan="2"></td>
                                             <td></td>
                                             @if($data_master[$tr]['visual_cek'] == 1)
-                                            <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download'] -json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual'])}}</td>
+                                            <td>{{number_format($utama[$tr] -json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual'])}}</td>
                                             @elseif($data_master[$tr]['visual_cek'] == 0)
-                                            <td>{{number_format(json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download'] -json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download'])}}</td>
+                                            <td>{{number_format($utama[$tr] -json_decode($data_master[$tr]['data_'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download'])}}</td>
                                             @endif
                                             <td></td>
                                             <td></td>
