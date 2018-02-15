@@ -928,11 +928,13 @@ class Laporan extends Controller
         $home = new HomeController;
         $date = $home->MonthShifter(-1)->format(('F Y'));
         $date_now = $home->MonthShifter(-1)->format(('Ym'));
+        $date_prev = $home->MonthShifter(-2)->format(('Ym'));
 //        dd($tipe);
         if($tipe =="gi"||$tipe =="penyulang"){
 
             $data = $this->tsa_gi_peny($id_organisasi, $tsa, $tipe);
-//            dd($data['jumlah_gi']);
+//            dd($data);
+
             if($tipe =="penyulang"){
                 foreach ( $data['jumlah_gi']as $gi) {
                     $arr_dgi = array(
@@ -978,6 +980,49 @@ class Laporan extends Controller
                 $data_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
                 $id_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
                 $gi = GI::whereIn('id_organisasi',$id_org)->get()->toArray();
+
+//                PENYULANG TANPA PCT BEDA AREA
+                $peny = Transfer::whereIn('id_organisasi',$id_org)->pluck('id_penyulang');
+                $peny_pct =array();
+                foreach ($peny as $penyulang){
+                    $pct = Gardu::where("id_penyulang",$penyulang)->where("tipe_gardu",1)->first();
+                    if(count($pct)>0)
+                        array_push($peny_pct,$pct->id_penyulang);
+                }
+                $peny_no_pct = Penyulang::whereNotIn('id_organisasi',$id_org)->whereIn('id',$peny)->whereNotIn('id',$peny_pct)->pluck('id');
+                $data_no_pct = PenyimpananPenyulang::whereIn('id_penyulang',$peny_no_pct)->where('periode',$date_now)->get();
+                $peny_npct = array();
+                foreach ($data_no_pct as $dt_pct){
+                    $transfer =Transfer::where('id_penyulang',$dt_pct->id_penyulang)->pluck('id_organisasi');
+                    $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$dt_pct['id_penyulang'])->where('periode',"L".$date_prev)->first();
+                    if($KWH_bulan_lalu){
+                        $cek_bulan_lalu = json_decode($KWH_bulan_lalu->data,true)['hasil_pengolahan']['download']['total_pemakaian_kwh_download'];
+                        if($cek_bulan_lalu) $KWH_bulan_lalu = $cek_bulan_lalu;
+                        else $KWH_bulan_lalu = json_decode($KWH_bulan_lalu->data,true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual'];
+                    }
+                    else {
+                        $KWH_bulan_lalu = PenyimpananPenyulang::where('id_penyulang',$dt_pct['id_penyulang'])->where('periode',$date_prev)->first();
+                        if($KWH_bulan_lalu)
+                            $KWH_bulan_lalu= json_decode($KWH_bulan_lalu->data_keluar,true)['total_kwh'];
+                        else $KWH_bulan_lalu =0;
+
+                    }
+                    $dt = array(
+                        'id_org' =>$transfer[0],
+                        'lwbp1' =>json_decode($dt_pct['data_keluar'],true)['dev_lwbp1'],
+                        'lwbp2' =>json_decode($dt_pct['data_keluar'],true)['dev_lwbp2'],
+                        'wbp' =>json_decode($dt_pct['data_keluar'],true)['dev_wbp'],
+                        'total_kwh' =>json_decode($dt_pct['data_keluar'],true)['total_kwh'],
+                        'Kvarh' =>json_decode($dt_pct['data_keluar'],true)['dev_kvar'],
+                        'KW' =>json_decode($dt_pct['data_keluar'],true)['dev_kw'],
+                        'KWH' =>json_decode($dt_pct['data_keluar'],true)['total_kwh']-$KWH_bulan_lalu,
+                        'KWH_lalu' =>$KWH_bulan_lalu,
+                        'jual' =>json_decode($dt_pct['data'],true)['jual']['total_kwh_jual'],
+                    );
+                    array_push($peny_npct,$dt);
+                }
+//                dd($peny_npct);
+
                 $arr_rayon = array();
                 for($i=0;$i<count($id_org);$i++){
                     $arr_gi = array();
@@ -1005,6 +1050,19 @@ class Laporan extends Controller
                             }
                         }
                     }
+                    foreach ($peny_npct as $dt_){
+                        if($dt_['id_org']==$id_org[$i]){
+                            $lwbp1 += $dt_['lwbp1'];
+                            $lwbp2 += $dt_['lwbp2'];
+                            $wbp += $dt_['wbp'];
+                            $total_kwh += $dt_['total_kwh'];
+                            $Kvarh += $dt_['Kvarh'];
+                            $KW += $dt_['KW'];
+                            $KWH += $dt_['KWH'];
+                            $KWH_lalu += $dt_['KWH_lalu'];
+                            $jual += $dt_['jual'];
+                        }
+                    }
 
                     if($KWH_lalu == 0)$persen =0;
                     else $persen = $KWH/$KWH_lalu*100;
@@ -1030,6 +1088,7 @@ class Laporan extends Controller
 
                     array_push($rayon,$dt);
                 }
+//                dd($rayon);
 
                 $id_rayon = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id');
                 $nama_rayon = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('nama_organisasi');
