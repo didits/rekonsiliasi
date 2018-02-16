@@ -1062,7 +1062,7 @@ class Laporan extends Controller
                 $tot_KW += json_decode($dt_pct['data_keluar'],true)['dev_kw'];
                 $tot_KWH+=json_decode($dt_pct['data_keluar'],true)['total_kwh']-$KWH_bulan_lalu;
                 $tot_KWH_lalu +=$KWH_bulan_lalu;
-                $tot_jual += json_decode($dt_pct['data_keluar'],true)['jual']['total_kwh_jual'];
+                $tot_jual += json_decode($dt_pct['data'],true)['jual']['total_kwh_jual'];
             }
 
             if($tot_KWH_lalu == 0)$tot_persen =0;
@@ -1425,7 +1425,7 @@ class Laporan extends Controller
                 $tot_KW += json_decode($dt_pct['data_keluar'],true)['dev_kw'];
                 $tot_KWH+=json_decode($dt_pct['data_keluar'],true)['total_kwh']-$KWH_bulan_lalu;
                 $tot_KWH_lalu +=$KWH_bulan_lalu;
-                $tot_jual += json_decode($dt_pct['data_keluar'],true)['jual']['total_kwh_jual'];
+                $tot_jual += json_decode($dt_pct['data'],true)['jual']['total_kwh_jual'];
             }
 
             if($tot_KWH_lalu == 0)$tot_persen =0;
