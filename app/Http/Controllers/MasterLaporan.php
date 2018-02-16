@@ -17,18 +17,10 @@ class MasterLaporan
 {
     public function __construct($id_rayon,$tipe,$id)
     {
-        if(date("m")<3){
-            if(date("m")==1){
-                $date_prev = (date("Y")-1)."11";
-                $date_now =  (date("Y")-1)."12";
-            }
-            else{
-                $date_prev = (date("Y") - 1) . "12";
-                $date_now = date("Ym") - 1;}
-        }else{
-            $date_prev = (date("Ym")-2);
-            $date_now = date("Ym")-1;
-        }
+        $home = new HomeController;
+        $date_prev = $home->MonthShifter(-2)->format(('Ym'));
+        $date_now = $home->MonthShifter(-1)->format(('Ym'));
+//        dd($id_rayon);
 
         $MasterTrafo = TrafoGI::where('id_gi',$id)->get();
         $id_trafo = TrafoGI::where('id_gi',$id)->pluck('id');

@@ -255,22 +255,21 @@
                 </tr>
                 @endif
                 @endfor
-                <tr class="text-right">
-                    <td class="text-center"></td>
-                    <td colspan="4" class="text-center"><b>JUMLAH</b></td>
-                    <td><b>{{number_format($data_jumlah[$gi][$tr]['lwbp1'],0)}}</b></td>
-                    <td><b>{{number_format($data_jumlah[$gi][$tr]['lwbp2'],0)}}</b></td>
-                    <td><b>{{number_format($data_jumlah[$gi][$tr]['wbp'],0)}}</b></td>
-                    <td><b>{{number_format($data_jumlah[$gi][$tr]['total_kwh'],0)}}</b></td>
-                    <td><b>{{number_format($data_jumlah[$gi][$tr]['Kvarh'],0)}}</b></td>
-                    <td><b>{{number_format($data_jumlah[$gi][$tr]['KW'],0)}}</b></td>
+                <tr>
+                    <td colspan="5" class="text-center"><b>JUMLAH</b></td>
+                    <td class="text-right"><b>{{number_format($data_jumlah[$gi][$tr]['lwbp1'],0)}}</b></td>
+                    <td class="text-right"><b>{{number_format($data_jumlah[$gi][$tr]['lwbp2'],0)}}</b></td>
+                    <td class="text-right"><b>{{number_format($data_jumlah[$gi][$tr]['wbp'],0)}}</b></td>
+                    <td class="text-right"><b>{{number_format($data_jumlah[$gi][$tr]['total_kwh'],0)}}</b></td>
+                    <td class="text-right"><b>{{number_format($data_jumlah[$gi][$tr]['Kvarh'],0)}}</b></td>
+                    <td class="text-right"><b>{{number_format($data_jumlah[$gi][$tr]['KW'],0)}}</b></td>
                     <td class="text-left"><b></b></td>
-                    <td><b>{{number_format($data_jumlah[$gi][$tr]['KWH_lalu'],0)}}</b></td>
-                    <td><b>{{number_format($data_jumlah[$gi][$tr]['KWH'],0)}}</b></td>
-                    <td><b>{{number_format($data_jumlah[$gi][$tr]['persen'],2)}}</b></td>
-                    <td><b>{{number_format($data_jumlah[$gi][$tr]['jual'],0)}}</b></td>
-                    <td><b>{{number_format($data_jumlah[$gi][$tr]['susut'],0)}}</b></td>
-                    <td><b>{{number_format($data_jumlah[$gi][$tr]['losses'],2)}}</b></td>
+                    <td class="text-right"><b>{{number_format($data_jumlah[$gi][$tr]['KWH_lalu'],0)}}</b></td>
+                    <td class="text-right"><b>{{number_format($data_jumlah[$gi][$tr]['KWH'],0)}}</b></td>
+                    <td class="text-right"><b>{{number_format($data_jumlah[$gi][$tr]['persen'],2)}}</b></td>
+                    <td class="text-right"><b>{{number_format($data_jumlah[$gi][$tr]['jual'],0)}}</b></td>
+                    <td class="text-right"><b>{{number_format($data_jumlah[$gi][$tr]['susut'],0)}}</b></td>
+                    <td class="text-right"><b>{{number_format($data_jumlah[$gi][$tr]['losses'],2)}}</b></td>
                     <td>-</td>
                 </tr>
                 @endfor
@@ -280,7 +279,7 @@
             {{-----------}}
             <thead>
                 <tr>
-                    <td colspan="5" class="text-center">JUMLAH</td>
+                    <td colspan="5" class="text-center"><b>JUMLAH TOTAL</b></td>
                     <td class="text-right"><b>{{number_format($total_jumlah['lwbp1'],0)}}</b></td>
                     <td class="text-right"><b>{{number_format($total_jumlah['lwbp2'],0)}}</b></td>
                     <td class="text-right"><b>{{number_format($total_jumlah['wbp'],0)}}</b></td>
@@ -297,6 +296,68 @@
                     <td>-</td>
                 </tr>
             </thead>
+                <tr>
+                    <td colspan="19" class="text-center"><b>PENYULANG DI AREA LAIN</b></td>
+                </tr>
+                    @for($i = 0;$i< count($id_gi);  $i++)
+                        <div style="display: none;">{{$flag=true}}</div>
+                        @foreach($id_trafo as $trafo)
+                            <div style="display: none;">{{$flag=true}}</div>
+                            @foreach($peny_npct as $n_pct)
+                                {{--{{dd($n_pct)}}--}}
+                                @if($id_gi[$i]==$n_pct['id_gi'] && $trafo==$n_pct['id_trafo'])
+                                    <tr class="text-right">
+                                        @if($flag==1)
+                                            <td class="text-center">{{$gi+$i+1}}</td>
+                                            <td class="text-left">{{$n_pct['gi']}}</td>
+                                            <td class="text-center">{{$n_pct['trafo']}}</td>
+                                            <td class="text-center">{{$n_pct['daya']}}</td>
+                                            <div style="display: none;">{{$flag=false}}</div>
+                                        @else
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        @endif
+                                        <td class="text-center">{{$n_pct['nama_p']}}</td>
+                                        <td>{{number_format($n_pct['lwbp1'],0)}}</td>
+                                        <td>{{number_format($n_pct['lwbp2'],0)}}</td>
+                                        <td>{{number_format($n_pct['wbp'],0)}}</td>
+                                        <td>{{number_format($n_pct['total_kwh'],0)}}</td>
+                                        <td>{{number_format($n_pct['Kvarh'],0)}}</td>
+                                        <td>{{number_format($n_pct['KW'],0)}}</td>
+                                        <td>{{number_format($n_pct['ujung'],0)}}</td>
+                                        <td>{{number_format($n_pct['KWH_lalu'],0)}}</td>
+                                        <td>{{number_format($n_pct['KWH'],0)}}</td>
+                                        <td>{{number_format($n_pct['persen'],2)}}</td>
+                                        <td>{{number_format($n_pct['jual'],0)}}</td>
+                                        <td>{{number_format($n_pct['susut'],0)}}</td>
+                                        <td>{{number_format($n_pct['losses'],2)}}</td>
+                                        <td class="text-left">{{$n_pct['rayon']}}</td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                        @endforeach
+                    @endfor
+                    <thead>
+                    <tr>
+                        <td colspan="5" class="text-center"><b>JUMLAH TOTAL</b></td>
+                        <td class="text-right"><b>{{number_format($jumlah['lwbp1'],0)}}</b></td>
+                        <td class="text-right"><b>{{number_format($jumlah['lwbp2'],0)}}</b></td>
+                        <td class="text-right"><b>{{number_format($jumlah['wbp'],0)}}</b></td>
+                        <td class="text-right"><b>{{number_format($jumlah['total_kwh'],0)}}</b></td>
+                        <td class="text-right"><b>{{number_format($jumlah['Kvarh'],0)}}</b></td>
+                        <td class="text-right"><b>{{number_format($jumlah['KW'],0)}}</b></td>
+                        <td class="text-center"><b></b></td>
+                        <td class="text-right"><b>{{number_format($jumlah['KWH_lalu'],0)}}</b></td>
+                        <td class="text-right"><b>{{number_format($jumlah['KWH'],0)}}</b></td>
+                        <td class="text-right"><b>{{number_format($jumlah['persen'],2)}}</b></td>
+                        <td class="text-right"><b>{{number_format($jumlah['jual'],0)}}</b></td>
+                        <td class="text-right"><b>{{number_format($jumlah['susut'],0)}}</b></td>
+                        <td class="text-right"><b>{{number_format($jumlah['losses'],2)}}</b></td>
+                        <td>-</td>
+                    </tr>
+                    </thead>
             @endif
 
             @endif
