@@ -123,7 +123,6 @@ class Datamaster
                         $trafo_gi = DB::select(DB::raw("select nama_trafo_gi as name, alamat_trafo_gi as title, trafo_gi.id as id, periode as periode from trafo_gi, penyimpanan_trafo_gi where trafo_gi.id = penyimpanan_trafo_gi.id_trafo_gi and id_organisasi = ".$id_organisasi." and trafo_gi.id_gi = ".$gi[$i]->id." and penyimpanan_trafo_gi.id in (select max(penyimpanan_trafo_gi.id) from penyimpanan_trafo_gi group by penyimpanan_trafo_gi.id_trafo_gi)"));
                         $trafo_gi_array = array();
                         for ($j = 0; $j < count($trafo_gi); $j++) {
-
                             $penyulang = DB::select(DB::raw("select nama_penyulang as name, alamat_penyulang as title, penyulang.id as id, periode as periode, penyulang.id_organisasi as id_org from penyulang, penyimpanan_penyulang where penyulang.id = penyimpanan_penyulang.id_penyulang and id_organisasi = ".$id_organisasi." and penyulang.id_trafo_gi = ".$trafo_gi[$j]->id." and penyimpanan_penyulang.id in (select max(penyimpanan_penyulang.id) from penyimpanan_penyulang group by penyimpanan_penyulang.id_penyulang)"));
 
                             $penyulang_array = array();
@@ -135,9 +134,7 @@ class Datamaster
                                     $org = Organisasi::where('id',$penyulang[$k]->id_org)->first();
                                 $penyulang[$k]->title= "RAYON ".$org['nama_organisasi'];
 
-                                $gardu = Gardu::where('id_organisasi', $id_organisasi)->where('id_penyulang', $penyulang[$k]->id)->get(array('nama_gardu as name', 'alamat_gardu as title', 'rincian as rincian', 'tipe_gardu as tipe_gardu'))->toArray();
-
-                                $gardu = DB::select(DB::raw("select nama_gardu as name, alamat_gardu as title, gardu.id as id, periode as periode, gardu.tipe_gardu as tipe_gardu, gardu.rincian as rincian from gardu, penyimpanan_gardu where gardu.id = penyimpanan_gardu.id_gardu and id_organisasi = ".$id_organisasi." and gardu.id_penyulang = ".$penyulang[$k]->id." and penyimpanan_gardu.id in (select max(penyimpanan_gardu.id) from penyimpanan_gardu group by penyimpanan_gardu.id_gardu)"));
+                                $gardu = DB::select(DB::raw("select nama_gardu as name, alamat_gardu as title, gardu.id as id, periode as periode, gardu.tipe_gardu as tipe_gardu, gardu.rincian as rincian from gardu, penyimpanan_gardu where gardu.id = penyimpanan_gardu.id_gardu and gardu.id_penyulang = ".$penyulang[$k]->id." and penyimpanan_gardu.id in (select max(penyimpanan_gardu.id) from penyimpanan_gardu group by penyimpanan_gardu.id_gardu)"));
                                 $semua_gardu = array();
                                 $gardu_array = array();
                                 for ($l = 0; $l < count($gardu); $l++) {
@@ -148,11 +145,6 @@ class Datamaster
                                             array_push($semua_gardu, array('name' => $gardu[$l]->name, 'title' => $gardu[$l]->title, 'office' => ''));
                                     }
 
-                                    //$penyulang_array_gd = array('name' => 'GD', 'title' => 'GD', 'children' => $gardu_array, 'office' => 'GD','className' => 'middle-level');
-
-                                    //if ($gardu_array)
-                                    //    array_push($semua_gardu, $penyulang_array_gd);
-
                                     $gardu_array = array();
 
                                     for ($l = 0; $l < count($gardu); $l++) {
@@ -162,9 +154,6 @@ class Datamaster
                                             else
                                                 array_push($semua_gardu, array('name' => $gardu[$l]->name, 'title' => explode("-", json_decode($gardu[$l]->rincian, true)['antar_unit'])[1], 'office' => 'PCT'));
                                     }
-                                    //$penyulang_array_pct = array('name' => 'PCT', 'title' => 'PCT', 'children' => $gardu_array, 'office' => 'PCT','className' => 'middle-level');
-                                    //if ($gardu_array)
-                                    //    array_push($semua_gardu, $penyulang_array_pct);
 
                                     $gardu_array = array();
                                     for ($l = 0; $l < count($gardu); $l++) {
@@ -175,9 +164,6 @@ class Datamaster
                                                 array_push($semua_gardu, array('name' => $gardu[$l]->name, 'title' => $gardu[$l]->title, 'office' => 'TM'));
 
                                     }
-                                    //$penyulang_array_tm = array('name' => 'TM', 'title' => 'TM', 'children' => $gardu_array, 'office' => 'TM', 'className' => 'middle-level');
-                                    //if ($gardu_array)
-                                    //    array_push($semua_gardu, $penyulang_array_tm);
 
                                     if($penyulang[$k]->periode == $tanggal)
                                         $penyulang_array_ = array('name' => $penyulang[$k]->name, 'title' => $penyulang[$k]->title, 'children' => $semua_gardu, 'office' => 'Penyulang','className' => 'product-dept');
