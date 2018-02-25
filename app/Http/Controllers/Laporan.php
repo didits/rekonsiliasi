@@ -431,9 +431,14 @@ class Laporan extends Controller
                 $p_trafo->data_keluar = json_encode($data_trafo);
                 if($p_trafo->save());
             }
+            else{
+                $utama = null; $visual=null;
+                array_push($utama_,$utama);
+            }
         }
         $home = new HomeController;
         $date = $home->MonthShifter(-1)->format(('F Y'));
+//        dd($trafo_GI);
 
         return view('admin.nonmaster.laporan.gi',[
             'data'      => $cmb,
@@ -2328,6 +2333,10 @@ class Laporan extends Controller
                     $utama=json_decode($trafo_GI[$tr]['data_'],true)['hasil_pengolahan']['utama']['visual']['total_pemakaian_kwh_visual'];
                 else $utama=json_decode($trafo_GI[$tr]['data_'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download'];
 
+                array_push($utama_,$utama);
+            }
+            else{
+                $utama = null; $visual=null;
                 array_push($utama_,$utama);
             }
         }
