@@ -150,9 +150,9 @@ class Datamaster
                                     for ($l = 0; $l < count($gardu); $l++) {
                                         if ($gardu[$l] && $gardu[$l]->tipe_gardu == 1)
                                             if($gardu[$l]->periode == $tanggal)
-                                                array_push($semua_gardu, array('name' => $gardu[$l]->name, 'title' => explode("-", json_decode($gardu[$l]->rincian, true)['antar_unit'])[1], 'office' => 'PCT', 'className' => 'product-dept'));
+                                                array_push($semua_gardu, array('name' => $gardu[$l]->name, 'title' =>  json_decode($gardu[$l]->rincian, true)['antar_unit'], 'office' => 'PCT', 'className' => 'product-dept'));
                                             else
-                                                array_push($semua_gardu, array('name' => $gardu[$l]->name, 'title' => explode("-", json_decode($gardu[$l]->rincian, true)['antar_unit'])[1], 'office' => 'PCT'));
+                                                array_push($semua_gardu, array('name' => $gardu[$l]->name, 'title' =>  json_decode($gardu[$l]->rincian, true)['antar_unit'], 'office' => 'PCT'));
                                     }
 
                                     $gardu_array = array();
