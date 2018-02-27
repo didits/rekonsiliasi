@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Gardu;
 use App\GI; 
 use App\Organisasi;
+use App\PenyimpananGardu;
 use App\Penyulang;
 use App\TrafoGI;
 use App\Transfer;
@@ -134,32 +135,24 @@ class Datamaster
                                     $org = Organisasi::where('id',$penyulang[$k]->id_org)->first();
                                 $penyulang[$k]->title= "RAYON ".$org['nama_organisasi'];
 
-                                $gardu = DB::select(DB::raw("select nama_gardu as name, alamat_gardu as title, gardu.id as id, periode as periode, gardu.tipe_gardu as tipe_gardu, gardu.rincian as rincian from gardu, penyimpanan_gardu where gardu.id = penyimpanan_gardu.id_gardu and gardu.id_penyulang = ".$penyulang[$k]->id." and penyimpanan_gardu.id in (select max(penyimpanan_gardu.id) from penyimpanan_gardu group by penyimpanan_gardu.id_gardu)"));
+//                                $gardu = DB::select(DB::raw("select nama_gardu as name, alamat_gardu as title, gardu.id as id, periode as periode, gardu.tipe_gardu as tipe_gardu, gardu.rincian as rincian from gardu, penyimpanan_gardu where gardu.id = penyimpanan_gardu.id_gardu and gardu.id_penyulang = ".$penyulang[$k]->id." and penyimpanan_gardu.id in (select max(penyimpanan_gardu.id) from penyimpanan_gardu group by penyimpanan_gardu.id_gardu)"));
+                                $gardu = Gardu::select("nama_gardu as name", "alamat_gardu as title", "gardu.id as id","tipe_gardu","rincian")->where('id_penyulang',$penyulang[$k]->id)->get();
                                 $semua_gardu = array();
-                                $gardu_array = array();
-                                for ($l = 0; $l < count($gardu); $l++) {
-                                    if ($gardu[$l] && $gardu[$l]->tipe_gardu == 0)
-                                        if($gardu[$l]->periode == $tanggal)
-                                            array_push($semua_gardu, array('name' => $gardu[$l]->name, 'title' => $gardu[$l]->title, 'office' => '', 'className' => 'product-dept'));
-                                        else
-                                            array_push($semua_gardu, array('name' => $gardu[$l]->name, 'title' => $gardu[$l]->title, 'office' => ''));
-                                    }
-
-                                    $gardu_array = array();
-
                                     for ($l = 0; $l < count($gardu); $l++) {
-                                        if ($gardu[$l] && $gardu[$l]->tipe_gardu == 1)
-                                            if($gardu[$l]->periode == $tanggal)
+                                        $p_gardu = PenyimpananGardu::where('id_gardu',$gardu[$l]->id)->where('periode',$tanggal)->first();
+                                        if ($gardu[$l]->tipe_gardu == 0)
+                                            if($p_gardu['periode'] == $tanggal)
+                                                array_push($semua_gardu, array('name' => $gardu[$l]->name, 'title' => $gardu[$l]->title, 'office' => 'GD', 'className' => 'product-dept'));
+                                            else
+                                                array_push($semua_gardu, array('name' => $gardu[$l]->name, 'title' => $gardu[$l]->title, 'office' => 'GD'));
+                                        elseif ($gardu[$l]->tipe_gardu == 1)
+                                            if($p_gardu['periode'] == $tanggal)
                                                 array_push($semua_gardu, array('name' => $gardu[$l]->name, 'title' =>  json_decode($gardu[$l]->rincian, true)['antar_unit'], 'office' => 'PCT', 'className' => 'product-dept'));
                                             else
-                                                array_push($semua_gardu, array('name' => $gardu[$l]->name, 'title' =>  json_decode($gardu[$l]->rincian, true)['antar_unit'], 'office' => 'PCT'));
-                                    }
-
-                                    $gardu_array = array();
-                                    for ($l = 0; $l < count($gardu); $l++) {
-                                        if ($gardu[$l] && $gardu[$l]->tipe_gardu == 2)
+                                                array_push($semua_gardu, array('name' => $gardu[$l]->name, 'title' =>   json_decode($gardu[$l]->rincian, true)['antar_unit'], 'office' => 'PCT'));
+                                        elseif ($gardu[$l]->tipe_gardu == 2)
                                             if($gardu[$l]->periode == $tanggal)
-                                                array_push($semua_gardu, array('name' => $gardu[$l]->name, 'title' => $gardu[$l]->title, 'office' => 'TM', 'className' => 'product-dept'));
+                                                array_push($semua_gardu, array('name' => $gardu[$l]->nama, 'title' => $gardu[$l]->title, 'office' => 'TM', 'className' => 'product-dept'));
                                             else
                                                 array_push($semua_gardu, array('name' => $gardu[$l]->name, 'title' => $gardu[$l]->title, 'office' => 'TM'));
 
@@ -172,7 +165,8 @@ class Datamaster
 
                                     if ($penyulang_array_)
                                         array_push($penyulang_array, $penyulang_array_);
-                                }
+
+                            }
 
 
                                 if ($penyulang_array)
@@ -206,7 +200,6 @@ class Datamaster
                                 }
                                 $area['children'] = $gi_array;
                             }
-
                             return view('admin.nonmaster.dashboard_user.structure_organization', [
                                 'data' => json_encode($area)]);
                         }
