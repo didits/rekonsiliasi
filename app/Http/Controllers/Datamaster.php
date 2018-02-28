@@ -138,26 +138,30 @@ class Datamaster
 //                                $gardu = DB::select(DB::raw("select nama_gardu as name, alamat_gardu as title, gardu.id as id, periode as periode, gardu.tipe_gardu as tipe_gardu, gardu.rincian as rincian from gardu, penyimpanan_gardu where gardu.id = penyimpanan_gardu.id_gardu and gardu.id_penyulang = ".$penyulang[$k]->id." and penyimpanan_gardu.id in (select max(penyimpanan_gardu.id) from penyimpanan_gardu group by penyimpanan_gardu.id_gardu)"));
                                 $gardu = Gardu::select("nama_gardu as name", "alamat_gardu as title", "gardu.id as id","tipe_gardu","rincian")->where('id_penyulang',$penyulang[$k]->id)->get();
                                 $semua_gardu = array();
-                                    for ($l = 0; $l < count($gardu); $l++) {
-                                        $p_gardu = PenyimpananGardu::where('id_gardu',$gardu[$l]->id)->where('periode',$tanggal)->first();
-                                        if ($gardu[$l]->tipe_gardu == 0)
-                                            if($p_gardu['periode'] == $tanggal)
-                                                array_push($semua_gardu, array('name' => $gardu[$l]->name, 'title' => $gardu[$l]->title, 'office' => 'GD', 'className' => 'product-dept'));
-                                            else
-                                                array_push($semua_gardu, array('name' => $gardu[$l]->name, 'title' => $gardu[$l]->title, 'office' => 'GD'));
-                                        elseif ($gardu[$l]->tipe_gardu == 1)
-                                            if($p_gardu['periode'] == $tanggal)
-                                                array_push($semua_gardu, array('name' => $gardu[$l]->name, 'title' =>  json_decode($gardu[$l]->rincian, true)['antar_unit'], 'office' => 'PCT', 'className' => 'product-dept'));
-                                            else
-                                                array_push($semua_gardu, array('name' => $gardu[$l]->name, 'title' =>   json_decode($gardu[$l]->rincian, true)['antar_unit'], 'office' => 'PCT'));
-                                        elseif ($gardu[$l]->tipe_gardu == 2)
-                                            if($gardu[$l]->periode == $tanggal)
-                                                array_push($semua_gardu, array('name' => $gardu[$l]->nama, 'title' => $gardu[$l]->title, 'office' => 'TM', 'className' => 'product-dept'));
-                                            else
-                                                array_push($semua_gardu, array('name' => $gardu[$l]->name, 'title' => $gardu[$l]->title, 'office' => 'TM'));
-
-                                    }
-
+                                for ($l = 0; $l < count($gardu); $l++) {
+                                    $p_gardu = PenyimpananGardu::where('id_gardu',$gardu[$l]->id)->where('periode',$tanggal)->first();
+                                    if ($gardu[$l]->tipe_gardu == 0)
+                                        if($p_gardu)
+                                            array_push($semua_gardu, array('name' => $gardu[$l]->name, 'title' => $gardu[$l]->title, 'office' => 'GD', 'className' => 'product-dept'));
+                                        else
+                                            array_push($semua_gardu, array('name' => $gardu[$l]->name, 'title' => $gardu[$l]->title, 'office' => 'GD'));
+                                }
+                                for ($l = 0; $l < count($gardu); $l++) {
+                                    $p_gardu = PenyimpananGardu::where('id_gardu',$gardu[$l]->id)->where('periode',$tanggal)->first();
+                                    if ($gardu[$l]->tipe_gardu == 1)
+                                        if($p_gardu)
+                                           array_push($semua_gardu, array('name' => $gardu[$l]->name, 'title' =>  json_decode($gardu[$l]->rincian, true)['antar_unit'], 'office' => 'PCT', 'className' => 'product-dept'));
+                                        else
+                                            array_push($semua_gardu, array('name' => $gardu[$l]->name, 'title' =>   json_decode($gardu[$l]->rincian, true)['antar_unit'], 'office' => 'PCT'));
+                                   }
+                                for ($l = 0; $l < count($gardu); $l++) {
+                                    $p_gardu = PenyimpananGardu::where('id_gardu',$gardu[$l]->id)->where('periode',$tanggal)->first();
+                                    if ($gardu[$l]->tipe_gardu == 2)
+                                        if($p_gardu)
+                                            array_push($semua_gardu, array('name' => $gardu[$l]->nama, 'title' => $gardu[$l]->title, 'office' => 'TM', 'className' => 'product-dept'));
+                                        else
+                                            array_push($semua_gardu, array('name' => $gardu[$l]->name, 'title' => $gardu[$l]->title, 'office' => 'TM'));
+                                }
                                     if($penyulang[$k]->periode == $tanggal)
                                         $penyulang_array_ = array('name' => $penyulang[$k]->name, 'title' => $penyulang[$k]->title, 'children' => $semua_gardu, 'office' => 'Penyulang','className' => 'product-dept');
                                     else
