@@ -1786,21 +1786,29 @@ class Input extends Controller
         }
         $decoded = json_decode($jenis->data_master,true);
         $data_GI = array();
+        $fk =array();
         if($tipe=="trafo_gi"){
-            $id = TrafoGI::select('id_organisasi','id_gi')->where("id",$id)->first();
+            $id = TrafoGI::select('id_organisasi','id_gi','data_master')->where("id",$id)->first();
+            $fk['utama'] = (json_decode($id->data_master,true)['utama']['FK']['faktorkali']);
+            $fk['pembanding'] = (json_decode($id->data_master,true)['pembanding']['FK']['faktorkali']);
+            $fk['ps'] = (json_decode($id->data_master,true)['ps']['FK']['faktorkali']);
+
         }
         elseif($tipe=="penyulang"){
             $id = Penyulang::where("id",$id)->first();
+            $fk['utama'] = (json_decode($id->data_master,true)['FK']['faktorkali']);
             $id = TrafoGI::select('id_organisasi','id_gi')->where("id",$id->id_trafo_gi)->first();
         }
         elseif($tipe=="pct"){
+            $fk_ = Gardu::select('data_master')->where('id',$id)->first();
+            $fk['utama'] = json_decode($fk_->data_master,true)['meter']['FK']['faktorkali'];
             $id = Penyulang::where("id",$id)->first();
             $id = Organisasi::select('id_organisasi','id')->where("id",Auth::user()->id)->first();
         }
         $data_GI['id_gi'] =$id-> id_gi;
         $data_GI['id_rayon'] = $id['id_organisasi'];
         $data_GI['tipe'] ="rayon";
-//        dd($data_GI);
+//        dd($fk);
         $home = new HomeController;
         $date = $home->MonthShifter(-2)->format(('M Y'));
         $date2 = $home->MonthShifter(-1)->format(('M Y'));
@@ -1810,6 +1818,7 @@ class Input extends Controller
             'date2'            => $date2,
             'data'            => $data,
             'dt'              => $dt,
+            'fk'              => $fk,
             'dt2'             => $dt2,
             'decoded'         => $decoded,
             'jenis'           => $jenis,

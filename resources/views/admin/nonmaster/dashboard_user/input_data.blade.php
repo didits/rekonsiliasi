@@ -1830,6 +1830,29 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                @if($tipe=="trafo_gi")
+                                                <div class="form-group">
+                                                    <label>Faktor kali meter utama</label>
+                                                    <input type="text" class="form-control" disabled placeholder="Rayon" value="{{$fk['utama']}}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Faktor kali pembanding</label>
+                                                    <input type="text" class="form-control" disabled placeholder="Rayon" value="{{$fk['pembanding']}}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Faktor kali ps</label>
+                                                    <input type="text" class="form-control" disabled placeholder="Rayon" value="{{$fk['ps']}}">
+                                                </div>
+                                                    @elseif($tipe=="penyulang" || $tipe=="pct")
+                                                    <div class="form-group">
+                                                        <label>Faktor kali</label>
+                                                        <input type="text" class="form-control" disabled placeholder="Rayon" value="{{$fk['utama']}}">
+                                                    </div>
+                                                    @endif
+                                            </div>
+                                        </div>
                                         {{--<div class="text-center font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6">--}}
                                         <div class="footer text-center">
                                             @if($tipe=="pct")
