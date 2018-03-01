@@ -437,7 +437,6 @@ class Laporan extends Controller
         }
         $home = new HomeController;
         $date = $home->MonthShifter(-1)->format(('F Y'));
-        dd($deviasi);
 
         return view('admin.nonmaster.laporan.gi',[
             'data'      => $cmb,
