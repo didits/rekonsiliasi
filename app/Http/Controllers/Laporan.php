@@ -2291,7 +2291,7 @@ class Laporan extends Controller
                 $utama=json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['utama']['visual']['total_pemakaian_kwh_visual'];
             else $utama=json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download'];
 
-            $C = ($utama - $visual)/$a;
+            $C = intval(($utama - $visual))/intval($a) ;
             for ($j=0; $j < count($list_data_trafo[$i]); $j++) {
                 $dev = $C *(json_decode($list_data_trafo[$i][$j]['data_'],true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']);
                 $tot_penyulang+=$dev;
