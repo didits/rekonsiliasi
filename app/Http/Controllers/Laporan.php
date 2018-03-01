@@ -372,16 +372,15 @@ class Laporan extends Controller
             if(json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download']==0)
                 $visual = json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['ps']['visual']['total_pemakaian_kwh_visual'];
             else $visual = json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['ps']['download']['total_pemakaian_kwh_download'];
-//            dd($visual);
             if(json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download']==0)
                 $utama=json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['utama']['visual']['total_pemakaian_kwh_visual'];
             else $utama=json_decode($trafo_GI[$i]['data_'],true)['hasil_pengolahan']['utama']['download']['total_pemakaian_kwh_download'];
 
-            $C = ($utama - $visual)/$a;
+            $C = intval(($utama - $visual))/intva/($a) ;
 
             for ($j=0; $j < count($list_data_trafo[$i]); $j++) {
-//                TOTAL VISUAL PENYULANG
-                $dev = $C *(json_decode($list_data_trafo[$i][$j]['data_'],true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']);
+                //                TOTAL VISUAL PENYULANG
+                $dev = $C*(json_decode($list_data_trafo[$i][$j]['data_'],true)['hasil_pengolahan']['visual']['total_pemakaian_kwh_visual']);
                 $tot_penyulang+=$dev;
                 $ar =array(
                     'deviasi' => $dev,
@@ -438,7 +437,7 @@ class Laporan extends Controller
         }
         $home = new HomeController;
         $date = $home->MonthShifter(-1)->format(('F Y'));
-//        dd($trafo_GI);
+        dd($deviasi);
 
         return view('admin.nonmaster.laporan.gi',[
             'data'      => $cmb,
