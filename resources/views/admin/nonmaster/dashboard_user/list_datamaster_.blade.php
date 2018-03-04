@@ -54,10 +54,10 @@
                                                        onclick="edit_datamaster.showSwal('gi', {{$list->id}},'{{$list->nama_gi}}','{{$list->alamat_gi}}')">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
-                                                    <a href="#" rel="tooltip" title="" class="btn btn-danger btn-fill " data-original-title="Remove"
-                                                       onclick="hapus_datamaster.showSwal('gi', {{$id_organisasi}}, {{$list->id}},'{{$list->nama_gi}}')">
-                                                        <i class="fa fa-times"></i>
-                                                    </a>
+                                                    {{--<a href="#" rel="tooltip" title="" class="btn btn-danger btn-fill " data-original-title="Remove"--}}
+                                                       {{--onclick="hapus_datamaster.showSwal('gi', {{$id_organisasi}}, {{$list->id}},'{{$list->nama_gi}}')">--}}
+                                                        {{--<i class="fa fa-times"></i>--}}
+                                                    {{--</a>--}}
                                                 </td>
                                                 {{--<td>--}}
                                                 {{--<a class="btn btn-info btn-fill pull-right" href="{{url('/area/list_datamaster_list_trafo_gi/'.$id_organisasi.'/'.$list->id)}}">Lihat Datamaster</a></td>--}}
