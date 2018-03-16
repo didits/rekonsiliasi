@@ -2049,29 +2049,31 @@ class Laporan extends Controller
         $date = $home->MonthShifter(-1)->format(('F Y'));
 
         if($tipe == "area"){
-            $data_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
-            $id_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
-            $data_GI = array();
-            $jumlah = array();
-            $tot_D =$tot_E =$tot_F =$tot_G =$tot_H =$tot_I =$tot_J =$tot_K=$tot_L =$tot_M= $tot_N =null;
-            for($i =0 ;$i <count($id_org);$i++){
-                $dt = GI::where('id_organisasi',$id_org[$i])->select('id','id_organisasi','nama_gi')->first();
-                if(!$dt==null){
-                    $data = $this->data_deviasi($dt,$data_org[$i]['id_organisasi']);
-                    if($data[0]){
-                        array_push($data_GI,$data[0]);
-                        array_push($jumlah,$data[1]);
-                        $tot_D +=$data[1]['D']; $tot_E +=$data[1]['E'];$tot_F +=$data[1]['F'];$tot_G +=$data[1]['G'];$tot_H +=$data[1]['H'];$tot_I +=$data[1]['I'];$tot_J +=$data[1]['J'];$tot_K +=$data[1]['K'];$tot_L +=$data[1]['L'];$tot_M +=$data[1]['M'];$tot_N +=$data[1]['N'];
-                    }
-                }
-            }
-            $total = array(
-                'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'I' => $tot_I,
-                'J' => $tot_J, 'K' => $tot_K, 'L' => $tot_L, 'M' => $tot_M, 'N' => $tot_N
-            );
-            Excel::create('laporan Deviasi', function($excel)use($data_GI,$tipe,$jumlah,$total,$date){
+            $data = $this->deviasi_area($id_organisasi, $tipe, $id);
+//            $data_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->get()->toArray();
+//            $id_org = Organisasi::where('id_organisasi', 'like', substr($id_organisasi, 0, 3).'%')->where('tipe_organisasi', '3')->pluck('id')->toArray();
+//            $data_GI = array();
+//            $jumlah = array();
+//            $tot_D =$tot_E =$tot_F =$tot_G =$tot_H =$tot_I =$tot_J =$tot_K=$tot_L =$tot_M= $tot_N =null;
+//            for($i =0 ;$i <count($id_org);$i++){
+//                $dt = GI::where('id_organisasi',$id_org[$i])->select('id','id_organisasi','nama_gi')->first();
+//                if(!$dt==null){
+//                    $data = $this->data_deviasi($dt,$data_org[$i]['id_organisasi']);
+//                    if($data[0]){
+//                        array_push($data_GI,$data[0]);
+//                        array_push($jumlah,$data[1]);
+//                        $tot_D +=$data[1]['D']; $tot_E +=$data[1]['E'];$tot_F +=$data[1]['F'];$tot_G +=$data[1]['G'];$tot_H +=$data[1]['H'];$tot_I +=$data[1]['I'];$tot_J +=$data[1]['J'];$tot_K +=$data[1]['K'];$tot_L +=$data[1]['L'];$tot_M +=$data[1]['M'];$tot_N +=$data[1]['N'];
+//                    }
+//                }
+//            }
+//            $total = array(
+//                'D' => $tot_D, 'E' => $tot_E, 'F' => $tot_F, 'G' => $tot_G, 'H' => $tot_H, 'I' => $tot_I,
+//                'J' => $tot_J, 'K' => $tot_K, 'L' => $tot_L, 'M' => $tot_M, 'N' => $tot_N
+//            );
 
-                $excel->sheet('Laporan Deviasi', function($sheet) use($data_GI,$tipe,$jumlah,$total,$date) {
+            Excel::create('laporan Deviasi', function($excel)use($data,$tipe,$date){
+
+                $excel->sheet('Laporan Deviasi', function($sheet) use($data,$tipe,$date) {
                     $sheet->mergeCells('I9:N9');
                     $sheet->mergeCells('I10:J10');
                     $sheet->mergeCells('K10:L10');
@@ -2103,10 +2105,12 @@ class Laporan extends Controller
                     $sheet->loadView('admin.nonmaster.excel.deviasi',[
                         'area'      => 'area',
                         'date'      => $date,
-                        'data_GI'   => $data_GI,
-                        'tipe'      => $tipe,
-                        'jumlah'      => $jumlah,
-                        'total'      => $total,
+                        'data_GI'   => $data['data_GI'],
+                        'tipe'      => $data['tipe'],
+                        'jumlah'      => $data['jumlah'],
+                        'total'      => $data['total'],
+                        'id_organisasi' => $data['id_organisasi'],
+                        'id'        => $data['id']
                     ]);
 
                 });
@@ -2117,10 +2121,12 @@ class Laporan extends Controller
             return view('admin.nonmaster.excel.deviasi',[
                 'area'      => 'area',
                 'date'      => $date,
-                'data_GI'   => $data_GI,
-                'tipe'      => $tipe,
-                'jumlah'      => $jumlah,
-                'total'      => $total,
+                'data_GI'   => $data['data_GI'],
+                'tipe'      => $data['tipe'],
+                'jumlah'      => $data['jumlah'],
+                'total'      => $data['total'],
+                'id_organisasi' => $data['id_organisasi'],
+                'id'        => $data['id']
             ]);
         }
         elseif($tipe == "rayon"){
